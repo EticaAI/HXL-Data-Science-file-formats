@@ -1,1 +1,5 @@
 temp/
+data-mining-projects/
+*.~lock*
+!tests/files/output/*
+!tests/files/output/.gitkeep

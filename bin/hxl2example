@@ -28,7 +28,43 @@
 #      REVISION:  ---
 #===============================================================================
 
-import sys
+# TODO: hxl2example needs to accept commands as parameters instead of hardcoded
+#       values (fititnt, 2021-01-25 01:26 UTC)
+# TODO: hxl2example needs not just accept command line arguments, but minimally
+#       useful ones (fititnt, 2021-01-25 01:28 UTC)
+
+import sys, argparse
 import hxl
 
-print('Ola Mundo!')
+
+class HXL2Example:
+    """
+    HXL2Example is a classe to export already HXLated data in the format
+    example.
+    """
+
+    def __init__(self):
+        """
+        Constructs all the necessary attributes for the HXL2Example object.
+        """
+        # self.source = None
+
+dataset = hxl.data('./tests/files/iris_hxlated-csv.csv', allow_local=True)
+
+for line in dataset.cache().gen_csv():
+    print(line)
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description="hxl2example is an example script to create other scripts with some bare minimum command line interface that could work.")
+    
+    # parser.add_argument("source",  help="File/directory to use as source")
+    parser.add_argument('--source-formater-basic', action='store_const', const='basic', dest='format', default='basic', help='Format Basic')
+    parser.add_argument('--source-formater-full', action='store_const', const='full', dest='format', help='Format Full (may fail)')
+    parser.add_argument('--source-formater-ip', action='store_const', const='ip', dest='format', help='Format IP (fallback, simple)')
+    args = parser.parse_args()
+    # print('args.source', args.source)
+    print('args.format', args.format)
+
+    # exec = HXL2Example()
+    # exec.init_cli(args.source, args.format)
