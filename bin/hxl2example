@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+#===============================================================================
+#
+#          FILE:  hxl2example
+#
+#         USAGE:  hxl2example hxlated-data.hxl my-exported-file.example
+#                 cat hxlated-data.hxl | hxl2example > my-exported-file.example
+#
+#   DESCRIPTION:  hxl2example is an example script to create other scripts with
+#                 some bare minimum command line interface that could work.
+#                 With exception of external libraries, the hxl2example is meant
+#                 to be somewhat self-contained one-file executable ready to
+#                 just be added to the path
+#
+#       OPTIONS:  ---
+#
+#  REQUIREMENTS:  - python3
+#                     - libhxl (@see https://pypi.org/project/libhxl/)
+#                     - your-extra-python-lib-here
+#                 - your-non-python-dependency-here
+#          BUGS:  ---
+#         NOTES:  ---
+#        AUTHOR:  Your Name <you[at]example.org>
+#       COMPANY:  Your Company
+#       LICENSE:  Your License here
+#       VERSION:  v1.0
+#       CREATED:  YYYY-MM-DD hh:mm UTC
+#      REVISION:  ---
+#===============================================================================
+
+import sys
+import hxl
+
+print('Ola Mundo!')
