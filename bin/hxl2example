@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ===============================================================================
+# ==============================================================================
 #
 #          FILE:  hxl2example
 #
@@ -8,9 +8,9 @@
 #
 #   DESCRIPTION:  hxl2example is an example script to create other scripts with
 #                 some bare minimum command line interface that could work.
-#                 With exception of external libraries, the hxl2example is meant
-#                 to be somewhat self-contained one-file executable ready to
-#                 just be added to the path
+#                 With exception of external libraries, the hxl2example is
+#                 meant to be somewhat self-contained one-file executable ready
+#                 to just be added to the path
 #
 #       OPTIONS:  ---
 #
@@ -26,16 +26,17 @@
 #       VERSION:  v1.0
 #       CREATED:  YYYY-MM-DD hh:mm UTC
 #      REVISION:  ---
-# ===============================================================================
+# ==============================================================================
 
-# TODO: hxl2example needs to accept commands as parameters instead of hardcoded
-#       values (fititnt, 2021-01-25 01:26 UTC)
-# TODO: hxl2example needs not just accept command line arguments, but minimally
-#       useful ones (fititnt, 2021-01-25 01:28 UTC)
-
-import sys, os, logging
+import sys
+import os
+import logging
 import argparse
-import hxl
+
+# Do not import hxl, to avoid circular imports
+import hxl.converters
+import hxl.filters
+import hxl.io
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -51,19 +52,41 @@ class HXL2Example:
         """
         Constructs all the necessary attributes for the HXL2Example object.
         """
-
-        self.logger = logging.getLogger(__name__)
-
-
-        # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
-        # self.STDIN = sys.stdin.buffer
+        self.hxlhelper = None
+        self.args = None
 
         # Posix exit codes
         self.EXIT_OK = 0
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-        # self.source = None
+    def make_args_hxl2example(self):
+
+        self.hxlhelper = HXLUtils()
+        parser = self.hxlhelper.make_args(
+            description=("hxl2example is an example script to create other "
+                         "scripts with some bare minimum command line "
+                         "interfaces that could work to export HXL files to "
+                         "other formats."))
+
+        self.args = parser.parse_args()
+        return self.args
+
+    def do_example_output(self, args,
+                          stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+        """
+        The do_example_output is the main entrypoint of HXL2Example. When
+        called will convert the HXL source to example format.
+        """
+
+        # NOTE: the next lines, in fact, only generate an csv outut. So you
+        #       can use as starting point.
+        with self.hxlhelper.make_source(args, stdin) as source, \
+                self.hxlhelper.make_output(args, stdout) as output:
+            hxl.io.write_hxl(output.output, source,
+                             show_tags=not args.strip_tags)
+
+        return self.EXIT_OK
 
 
 class HXLUtils:
@@ -78,7 +101,13 @@ class HXLUtils:
     """
 
     def __init__(self):
-        self.source = None
+
+        self.logger = logging.getLogger(__name__)
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
 
     def make_args(self, description, hxl_output=True):
         """Set up parser with default arguments.
@@ -148,8 +177,11 @@ class HXLUtils:
         )
         return parser
 
-
-    def add_queries_arg(self, parser, help='Apply only to rows matching at least one query.'):
+    def add_queries_arg(
+        self,
+        parser,
+        help='Apply only to rows matching at least one query.'
+    ):
         parser.add_argument(
             '-q',
             '--query',
@@ -159,11 +191,11 @@ class HXLUtils:
         )
         return parser
 
-
     def do_common_args(self, args):
         """Process standard args"""
-        logging.basicConfig(format='%(levelname)s (%(name)s): %(message)s', level=args.log.upper())
-
+        logging.basicConfig(
+            format='%(levelname)s (%(name)s): %(message)s',
+            level=args.log.upper())
 
     def make_source(self, args, stdin=STDIN):
         """Create a HXL input source."""
@@ -171,7 +203,6 @@ class HXLUtils:
         # construct the input object
         input = self.make_input(args, stdin)
         return hxl.io.data(input)
-
 
     def make_input(self, args, stdin=sys.stdin, url_or_filename=None):
         """Create an input object"""
@@ -198,7 +229,6 @@ class HXLUtils:
             verify_ssl=(not args.ignore_certs)
         )
 
-
     def make_output(self, args, stdout=sys.stdout):
         """Create an output stream."""
         if args.outfile:
@@ -206,8 +236,7 @@ class HXLUtils:
         else:
             return StreamOutput(stdout)
 
-
-    def make_headers (self, args):
+    def make_headers(self, args):
         # get custom headers
         header_strings = []
         header = os.environ.get("HXL_HTTP_HEADER")
@@ -222,8 +251,6 @@ class HXLUtils:
         return http_headers
 
 
-
-
 class FileOutput(object):
     """
     FileOutput contains is based on libhxl-python with no changes..
@@ -232,7 +259,6 @@ class FileOutput(object):
     Author: David Megginson
     License: Public Domain
     """
-
 
     def __init__(self, filename):
         self.output = open(filename, 'w')
@@ -266,22 +292,9 @@ class StreamOutput(object):
         self.output.write(s)
 
 
-# dataset = hxl.data('./tests/files/iris_hxlated-csv.csv', allow_local=True)
-
-# for line in dataset.cache().gen_csv():
-#     print(line)
-
 if __name__ == "__main__":
 
-    hxlhelper = HXLUtils()
-    parser = hxlhelper.make_args(
-        description=("hxl2example is an example script to create other "
-                     "scripts with some bare minimum command line interfaces "
-                     "that could work to export HXL files to other formats."))
+    hxl2example = HXL2Example()
+    args = hxl2example.make_args_hxl2example()
 
-    args = parser.parse_args()
-    # print('args.source', args.source)
-    print('args.format', args.format)
-
-    # exec = HXL2Example()
-    # exec.init_cli(args.source, args.format)
+    hxl2example.do_example_output(args)
