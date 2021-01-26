@@ -17,7 +17,7 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.0
+#       VERSION:  v1.0-draft
 #       CREATED:  2021-01-25 23:34 UTC v1.0 imported from hxl2example
 #      REVISION:  ---
 #===============================================================================
@@ -39,7 +39,7 @@ STDIN = sys.stdin.buffer
 class HXL2Arff:
     """
     HXL2Arff is a classe to export already HXLated data in the format
-    example.
+    .arff
     """
 
     def __init__(self):

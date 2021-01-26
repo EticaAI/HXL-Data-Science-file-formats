@@ -1,11 +1,22 @@
 #!/usr/bin/env python3
 #===============================================================================
 #
-#          FILE:  hxl2tab
+#          FILE:  hxl2pandas
 #
-#         USAGE:  cat hxlated-file.csv | hxl2tab
+#         USAGE:  cat hxlated-file.csv | hxl2pandas
 #
-#   DESCRIPTION:  ---
+#   DESCRIPTION:  Important point: both the `hxl2pandas` and the
+#                 EticaAI-Data_HXL-Data-Science-file-formats_Pandas reference
+#                 table are mostly as reference of how pandas (more specifically
+#                 DataFrame) could be used as an intermediate format to export
+#                 HXL to other formats already supported by Pandas.
+#                 
+#                 While the reference table may still be useful for those who
+#                 are doing manual conversionor to help understand how different
+#                 tools used for data mining / machine learningwould use HXL
+#                 attributes, the `hxl2pandas` may not be implemented at all.
+#                 Also some of the intermediate formats may be converted using
+#                 other libraries.
 #
 #       OPTIONS:  ---
 #
@@ -17,12 +28,9 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.2-draft
-#       CREATED:  2021-01-24 01:25 UTC
-#      REVISION:  2021-01-24 02:52 UTC changed from POSIX shell script to python3
-#                 2021-01-24 23:54 UTC nginxlogs2csv (from Alligo) used as base
-#                                      for hxl2tab (Etica.AI)
-#                 2021-01-25 23:34 UTC v1.2 imported from hxl2example
+#       VERSION:  v1.0-draft
+#       CREATED:  2021-01-36 03:43 UTC v1.0 imported from hxl2example
+#      REVISION:  ---
 #===============================================================================
 
 import sys
@@ -39,15 +47,15 @@ import hxl.io
 STDIN = sys.stdin.buffer
 
 
-class HXL2Tab:
+class HXL2Pandas:
     """
-    HXL2Tab is a classe to export already HXLated data in the format
-    .tab
+    HXL2Pandas is a classe to export already HXLated data in the format
+    example.
     """
 
     def __init__(self):
         """
-        Constructs all the necessary attributes for the HXL2Tab object.
+        Constructs all the necessary attributes for the HXL2Pandas object.
         """
         self.hxlhelper = None
         self.args = None
@@ -57,11 +65,11 @@ class HXL2Tab:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-    def make_args_HXL2Tab(self):
+    def make_args_HXL2Pandas(self):
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("HXL2Tab is an example script to create other "
+            description=("HXL2Pandas is an example script to create other "
                          "scripts with some bare minimum command line "
                          "interfaces that could work to export HXL files to "
                          "other formats."))
@@ -72,7 +80,7 @@ class HXL2Tab:
     def do_example_output(self, args,
                           stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
-        The do_example_output is the main entrypoint of HXL2Tab. When
+        The do_example_output is the main entrypoint of HXL2Pandas. When
         called will convert the HXL source to example format.
         """
 
@@ -291,7 +299,7 @@ class StreamOutput(object):
 
 if __name__ == "__main__":
 
-    HXL2Tab = HXL2Tab()
-    args = HXL2Tab.make_args_HXL2Tab()
+    HXL2Pandas = HXL2Pandas()
+    args = HXL2Pandas.make_args_HXL2Pandas()
 
-    HXL2Tab.do_example_output(args)
+    HXL2Pandas.do_example_output(args)
