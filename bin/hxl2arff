@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 #===============================================================================
 #
-#          FILE:  hxl2tab
+#          FILE:  hxl2arff
 #
-#         USAGE:  cat hxlated-file.csv | hxl2tab
+#         USAGE:  cat hxlated-file.csv | hxl2arff
 #
 #   DESCRIPTION:  ---
 #
@@ -17,12 +17,9 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.2
-#       CREATED:  2021-01-24 01:25 UTC
-#      REVISION:  2021-01-24 02:52 UTC changed from POSIX shell script to python3
-#                 2021-01-24 23:54 UTC nginxlogs2csv (from Alligo) used as base
-#                                      for hxl2tab (Etica.AI)
-#                 2021-01-25 23:34 UTC v1.2 imported from hxl2example
+#       VERSION:  v1.0
+#       CREATED:  2021-01-25 23:34 UTC v1.0 imported from hxl2example
+#      REVISION:  ---
 #===============================================================================
 
 import sys
@@ -39,15 +36,15 @@ import hxl.io
 STDIN = sys.stdin.buffer
 
 
-class HXL2Tab:
+class HXL2Arff:
     """
-    HXL2Tab is a classe to export already HXLated data in the format
+    HXL2Arff is a classe to export already HXLated data in the format
     example.
     """
 
     def __init__(self):
         """
-        Constructs all the necessary attributes for the HXL2Tab object.
+        Constructs all the necessary attributes for the HXL2Arff object.
         """
         self.hxlhelper = None
         self.args = None
@@ -57,11 +54,11 @@ class HXL2Tab:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-    def make_args_HXL2Tab(self):
+    def make_args_HXL2Arff(self):
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("HXL2Tab is an example script to create other "
+            description=("HXL2Arff is an example script to create other "
                          "scripts with some bare minimum command line "
                          "interfaces that could work to export HXL files to "
                          "other formats."))
@@ -72,7 +69,7 @@ class HXL2Tab:
     def do_example_output(self, args,
                           stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
-        The do_example_output is the main entrypoint of HXL2Tab. When
+        The do_example_output is the main entrypoint of HXL2Arff. When
         called will convert the HXL source to example format.
         """
 
@@ -291,7 +288,7 @@ class StreamOutput(object):
 
 if __name__ == "__main__":
 
-    HXL2Tab = HXL2Tab()
-    args = HXL2Tab.make_args_HXL2Tab()
+    HXL2Arff = HXL2Arff()
+    args = HXL2Arff.make_args_HXL2Arff()
 
-    HXL2Tab.do_example_output(args)
+    HXL2Arff.do_example_output(args)
