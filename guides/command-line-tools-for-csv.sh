@@ -1,11 +1,11 @@
 #!/usr/sh
 #===============================================================================
 #
-#          FILE:  command-line-tools-overview.sh
+#          FILE:  command-line-tools-for-csv.sh
 #
-#         USAGE:  cat command-line-tools-overview.sh
+#         USAGE:  cat command-line-tools-for-csv.sh
 #
-#   DESCRIPTION:  EticaAI/HXL-Data-Science-file-formats/guides/command-line-tools-overview.sh
+#   DESCRIPTION:  EticaAI/HXL-Data-Science-file-formats/guides/command-line-tools-for-csv.sh
 #                 is an quick overview of different command line tools that
 #                 worth at least mention, in special if are dealing with raw
 #                 formats already not HXLated.
@@ -13,13 +13,15 @@
 #
 #       OPTIONS:  ---
 #
-#  REQUIREMENTS:  1. This guide is tested on Ubuntu 20.04.
+#  REQUIREMENTS:  1. python3
+#                 2. pip
+#
+#          BUGS:  ---
+#         NOTES:  This guide is tested on Ubuntu 20.04.
 #                   - Most tools here are availible on Linux/Mac/Windows+WSL,
 #                     but you may need to change package names when installing.
 #                   - Consider read the source documentation for how to install
 #                     on other systems.
-#          BUGS:  ---
-#         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
@@ -28,11 +30,11 @@
 #       CREATED:  2021-01-27 05:08 UTC
 #      REVISION:  ---
 #===============================================================================
-echo "cat command-line-tools-overview.sh"
+echo "cat command-line-tools-for-csv.sh"
 exit 1
 
 #### 1. About __________________________________________________________________
-# On EticaAI/HXL-Data-Science-file-formats/guides/command-line-tools-overview.sh
+# On EticaAI/HXL-Data-Science-file-formats/guides/command-line-tools-for-csv.sh
 # we share both 1) command line tools that use the libhxl-python that export
 # HXlated datasets for other formats and 2) document how different formats
 # compare to each other. The role of this guide is a very quick overview of
