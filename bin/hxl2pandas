@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#===============================================================================
+# ===============================================================================
 #
 #          FILE:  hxl2pandas
 #
@@ -10,7 +10,7 @@
 #                 table are mostly as reference of how pandas (more specifically
 #                 DataFrame) could be used as an intermediate format to export
 #                 HXL to other formats already supported by Pandas.
-#                 
+#
 #                 While the reference table may still be useful for those who
 #                 are doing manual conversionor to help understand how different
 #                 tools used for data mining / machine learningwould use HXL
@@ -31,7 +31,7 @@
 #       VERSION:  v1.0-draft
 #       CREATED:  2021-01-36 03:43 UTC v1.0 imported from hxl2example
 #      REVISION:  ---
-#===============================================================================
+# ===============================================================================
 
 import sys
 import os
@@ -42,6 +42,9 @@ import argparse
 import hxl.converters
 import hxl.filters
 import hxl.io
+
+import tempfile
+import time
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -65,6 +68,8 @@ class HXL2Pandas:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
+        self.original_outfile = None
+
     def make_args_HXL2Pandas(self):
 
         self.hxlhelper = HXLUtils()
@@ -84,12 +89,29 @@ class HXL2Pandas:
         called will convert the HXL source to example format.
         """
 
-        # NOTE: the next lines, in fact, only generate an csv outut. So you
-        #       can use as starting point.
-        with self.hxlhelper.make_source(args, stdin) as source, \
-                self.hxlhelper.make_output(args, stdout) as output:
-            hxl.io.write_hxl(output.output, source,
-                             show_tags=not args.strip_tags)
+        # If the user specified an output file, we will save on
+        # self.original_outfile. The args.outfile will be used for temporary
+        # output
+        if args.outfile:
+            self.original_outfile = args.outfile
+
+        try:
+            temp = tempfile.NamedTemporaryFile()
+            args.outfile = temp.name
+
+            # NOTE: the next lines, in fact, only generate an csv outut. So you
+            #       can use as starting point.
+            with self.hxlhelper.make_source(args, stdin) as source, \
+                    self.hxlhelper.make_output(args, stdout) as output:
+                hxl.io.write_hxl(output.output, source,
+                                 show_tags=not args.strip_tags)
+
+            print('Temporary HXLated csv at ', args.outfile)
+            print('TODO: implement the conversion')
+            time.sleep(20)
+
+        finally:
+            temp.close()
 
         return self.EXIT_OK
 
