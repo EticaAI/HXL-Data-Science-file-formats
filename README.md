@@ -51,28 +51,42 @@ to disturb end users as other alternatives. One notable implementation
 (data visualization) powered by HXL is [HXLDash](https://hxldash.com/) (see 
 [this HXLDash example video](https://www.youtube.com/watch?v=5ZmRjLfoS3k)).
 
-The idea of this project is to try ways to convert HXLated datasets to be used
+The idea of this project strategies to turn already HXLated datasets to be used
 directly on open source **desktop** tools like the
 [Orange Data Mining](https://orangedatamining.com/) and
 [WEKA "The workbench for machine learning"](https://www.cs.waikato.ac.nz/ml/weka/)
 **with the the minimum extra explanation on how to convert already existing HXL
-datasets AND do exist tools that solve know issues that are likely to be
-found**.
+datasets AND do exist tools that solve know issues that are likely to be found**.
 
 #### How?
 
-> **NOTE: already is possible to use HXL on these tools!** For either who is
-  leaning HXL or who is using in production for humanitarian intent, the
+> **NOTE: already is possible to use HXLated CSVs on these tools!** For either
+  who is leaning HXL or who is using in production for humanitarian intent, the
   HXL-proxy (https://proxy.hxlstandard.org/) with "Strip text headers" can
   serve live-updated CSV-like files. Other usages can still use the
   [HXL CLI tools](https://github.com/HXLStandard/libhxl-python/wiki/Command-line-tools])
   or run the [unocha/hxl-proxy with Docker](https://hub.docker.com/r/unocha/hxl-proxy)
   on your machine or an private public server.
 
-One way to potentially be able to do this is do the bare minimum to convert some
-proof of concetp datasets already HXLated to files know to work on these tools.
+One way to implement this is to create minimum usable conversion tools that
+are able to export already HXLated datasets with additional _hints_ to file
+formats used by default by their applications.
 
-> TODO: add more context to _How?_.
+In practice this is beyond just file conversion (like XLSX to CSV), since it
+includes both "variable type" **AND "intent to use (on data mining)"**. This is
+why this project also has the taxonomy/vocabulary reference table (and this 
+ctually is more important than the implementation itself!). Without some extra
+step HXLated datasets work as averange CSV (good, but is just not great).
+
+But yes, some of these converted files, in special Weka (at least if compared
+to Orange) are more strict on the tabular format it accepts, and this can be
+infuriating EVEN for who actually would know how to debug these issues! But
+this issue, at least, is more automatable.
+
+> Note: one practical reason to use HXLated files as base instead of plain CSV
+  or XLSX (beyond obviously being available in humanitarian context) is because
+  the grammar of HXL +attributes are flexible to export to several different
+  formats with freetom to choose other aspects of the tagging.
 
 #### Non-goals
 
