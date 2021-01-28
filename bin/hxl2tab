@@ -4,6 +4,8 @@
 #          FILE:  hxl2tab
 #
 #         USAGE:  cat hxlated-file.csv | hxl2tab
+#                 hxl2tab hxlated-file.csv
+#                 hxl2tab hxlated-file.csv orange-data-mining-file.tab
 #
 #   DESCRIPTION:  Convert an already HXLated file (local, remote like Google
 #                 Docs...) to an Orange Data Mining .tag file format.
@@ -12,14 +14,13 @@
 #
 #  REQUIREMENTS:  - python3
 #                     - libhxl (https://pypi.org/project/libhxl/)
-#          BUGS:  1. The v1.3, as Minimal Viable Product, somewhat works, but
-#                    still missing the conversion table to add extra parameters.
+#          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.3
+#       VERSION:  v1.4
 #       CREATED:  2021-01-24 01:25 UTC
 #      REVISION:  2021-01-24 02:52 UTC changed from POSIX shell to python3
 #                 2021-01-24 23:54 UTC nginxlogs2csv (from Alligo) used as base
@@ -27,6 +28,9 @@
 #                 2021-01-25 23:34 UTC v1.2 imported from hxl2example
 #                 2021-01-28 08:00 UTC v1.3 MVP of .tab (both file and stdout);
 #                                      still need to add Orange extra hints
+#                 2021-01-28 09:07 UTC v1.4 implement Orange Data Mining hints,
+#                       uses EticaAI-Data_HXL-Data-Science-file-formats_hxl2tab,
+#                       but for non-obvious cases, requires prefix +vt_orange_
 # ==============================================================================
 
 import sys
@@ -123,13 +127,12 @@ class HXL2Tab:
             # Hotfix: skip first non-HXL header. Ideally I think the already
             # exported HXlated file should already save without headers.
             next(csv_reader)
-
-            # TODO: implement change the first line from already tsv-like file
-            #       to the easyier ones from orange data mining to implement
-            #       the tab 'compact' (fititnt, 2021-01-27 01:52 UTC)
+            header_original = next(csv_reader)
+            header_new = self.hxl2tab_header(header_original)
 
             if is_stdout:
                 txt_writer = csv.writer(sys.stdout, delimiter='\t')
+                txt_writer.writerow(header_new)
                 for line in csv_reader:
                     txt_writer.writerow(line)
             else:
@@ -138,13 +141,61 @@ class HXL2Tab:
                 tab_output_cleanup.truncate()
                 tab_output_cleanup.close()
 
-                for line in csv_reader:
-                    with open(tab_output, 'a') as new_txt:
-                        txt_writer = csv.writer(new_txt, delimiter='\t')
+                with open(tab_output, 'a') as new_txt:
+                    txt_writer = csv.writer(new_txt, delimiter='\t')
+                    txt_writer.writerow(header_new)
+                    for line in csv_reader:
                         txt_writer.writerow(line)
 
     def hxl2tab_header(self, hxlated_header):
-        print('TODO')
+        """
+        Add prefixes to an hxlated_header to work as typehints for Orange Data
+        Mining
+
+        From orange.biolab.si/docs/latest/reference/rst/Orange.data.formats.html
+            c for class feature            -> +vt_orange_flag_class|+vt_class
+            i for feature to be ignored    -> +vt_orange_flag_ignore
+            m for the meta attribute       -> +vt_orange_flag_meta|#meta
+            C for continuous-typed feature -> +vt_orange_type_continuous|+number
+            D for discrete feature         -> +vt_orange_type_discrete
+            S for string                   -> +vt_orange_type_string|+text|+name
+
+        An example data file in this format is shown below:
+
+            C#sepal length	iC#sepal width	mC#petal length	mC#petal width	cD#iris
+            5.1	3.5	1.4	0.2	Iris-setosa
+            4.9	3.0	1.4	0.2	Iris-setosa
+            4.7	3.2	1.3	0.2	Iris-setosa
+        """
+
+        # TODO: improve this block. I'm very sure there is some cleaner way to
+        #       do it in a more cleaner way (fititnt, 2021-01-28 08:56 UTC)
+
+        for idx, a in enumerate(hxlated_header):
+            
+            # feature types
+            if hxlated_header[idx].find('+vt_orange_type_discrete') > -1:
+                hxlated_header[idx] = 'D' + hxlated_header[idx]
+            elif hxlated_header[idx].find('+vt_orange_type_continuous') > -1 \
+                or hxlated_header[idx].find('+number') > -1:
+                hxlated_header[idx] = 'C' + hxlated_header[idx]
+            elif hxlated_header[idx].find('+vt_orange_type_string') > -1 or \
+                hxlated_header[idx].find('+text') > -1  or \
+                hxlated_header[idx].find('+name') > -1:
+                hxlated_header[idx] = 'S' + hxlated_header[idx]
+
+            # optional flags
+            if hxlated_header[idx].find('+vt_class') > -1 or \
+                    hxlated_header[idx].find('+vt_orange_flag_class') > -1:
+                hxlated_header[idx] = 'c' + hxlated_header[idx]
+            elif hxlated_header[idx].find('+vt_orange_flag_meta') > -1 or \
+                hxlated_header[idx].find('#meta') > -1 :
+                hxlated_header[idx] = 'm' + hxlated_header[idx]
+            elif hxlated_header[idx].find('+vt_orange_flag_ignore') > -1:
+                hxlated_header[idx] = 'i' + hxlated_header[idx]
+
+        # print('hxl2tab_header', hxlated_header)
+        return hxlated_header
 
 
 class HXLUtils:
