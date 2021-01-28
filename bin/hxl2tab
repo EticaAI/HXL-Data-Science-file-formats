@@ -35,6 +35,7 @@ import hxl.converters
 import hxl.filters
 import hxl.io
 
+import csv
 import tempfile
 import time
 
@@ -73,6 +74,7 @@ class HXL2Tab:
         self.args = parser.parse_args()
         return self.args
 
+
     def do_example_output(self, args,
                           stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
@@ -97,14 +99,41 @@ class HXL2Tab:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
-            print('Temporary HXLated csv at ', args.outfile)
-            print('TODO: implement the conversion')
-            time.sleep(20)
+            # print('Temporary HXLated csv at ', args.outfile)
+
+            self.hxl2tab(args.outfile)
+            # print('TODO: implement the conversion')
+            # time.sleep(20)
 
         finally:
             temp.close()
 
         return self.EXIT_OK
+
+
+    def hxl2tab(self, hxlated_input, tab_output='/tmp/output.tab'):
+        """
+        hxl2tab is an working-draft. It still not work with stdout
+        """
+
+        with open(hxlated_input,'r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+
+            # Hotfix: skip first non-HXL header. Ideally I think the already
+            # exported HXlated file should already save without headers.
+            next(csv_reader)
+
+            for line in csv_reader:
+                with open(tab_output, 'a') as new_txt:    #new file has .txt extn
+                    txt_writer = csv.writer(new_txt, delimiter = '\t') #writefile
+                    txt_writer.writerow(line)   #write the lines to file`
+
+            # TODO: implement change the first line from already tsv-like file
+            #       to the easyier ones from orange data mining to implement
+            #       the tab 'compact' (fititnt, 2021-01-27 01:52 UTC)
+
+    def hxl2tab_header(self, hxlated_header):
+        print('TODO')
 
 
 class HXLUtils:
