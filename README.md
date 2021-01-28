@@ -7,13 +7,13 @@ exported from HXL (The Humanitarian Exchange Language)**
 <!-- TOC depthFrom:2 -->
 
 - [HXL-Data-Science-file-formats](#hxl-data-science-file-formats)
-    - [The main focus](#the-main-focus)
-        - [Vocabulary/Taxonomies](#vocabularytaxonomies)
-        - [`HXL2` Command line tools](#hxl2-command-line-tools)
-    - [Reasons behind](#reasons-behind)
-        - [Why?](#why)
-        - [How?](#how)
-        - [Non-goals](#non-goals)
+    - [1. The main focus](#1-the-main-focus)
+        - [1.1 Vocabulary/Taxonomies](#11-vocabularytaxonomies)
+        - [1.2 `HXL2` Command line tools](#12-hxl2-command-line-tools)
+    - [2. Reasons behind](#2-reasons-behind)
+        - [2.1 Why?](#21-why)
+        - [2.2 How?](#22-how)
+        - [2.3 Non-goals](#23-non-goals)
 - [Additional Guides](#additional-guides)
     - [Command line tools for CSV](#command-line-tools-for-csv)
     - [Alternatives to preview spreadsheets with over 1.000.000 rows](#alternatives-to-preview-spreadsheets-with-over-1000000-rows)
@@ -24,14 +24,17 @@ exported from HXL (The Humanitarian Exchange Language)**
 
 ## HXL-Data-Science-file-formats
 
-### The main focus
+### 1. The main focus
 
-#### Vocabulary/Taxonomies
+#### 1.1 Vocabulary/Taxonomies
 - <https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1297379331>
 
-This HXL Spreadsheet have live information about this proof of concept.
+This project either use explicit HXL +attributes (easy to implement, but more
+verbose) or do inferences on well know HXLated datasets used on humanitaria
+areas. To make this work, the main reference is not software implementation, but
+reference tables.
 
-#### `HXL2` Command line tools
+#### 1.2 `HXL2` Command line tools
 - See folder [bin/](bin/)
 - See discussions at
   - <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues>
@@ -40,9 +43,9 @@ This HXL Spreadsheet have live information about this proof of concept.
 At the moment, beyond the [`hxl2example`](bin/hxl2example), this project does
 not have usable command line tools to automate work.
 
-### Reasons behind
+### 2. Reasons behind
 
-#### Why?
+#### 2.1 Why?
 The HXL already is used in production in special humanitarian areas (see
 [The Humanitarian Data Exchange](https://data.humdata.org/)). With
 [one line change](https://hxlstandard.org/how-it-works/) is possible to convert
@@ -58,7 +61,7 @@ directly on open source **desktop** tools like the
 **with the the minimum extra explanation on how to convert already existing HXL
 datasets AND do exist tools that solve know issues that are likely to be found**.
 
-#### How?
+#### 2.2 How?
 
 > **NOTE: already is possible to use HXLated CSVs on these tools!** For either
   who is leaning HXL or who is using in production for humanitarian intent, the
@@ -88,9 +91,27 @@ this issue, at least, is more automatable.
   the grammar of HXL +attributes are flexible to export to several different
   formats with freetom to choose other aspects of the tagging.
 
-#### Non-goals
+#### 2.3 Non-goals
 
-> TODO: add Non-goals.
+- The software implementation for file formats not typically used by easy to use
+  desktop applications is a non-goal
+    - Yet, since as part of the HXL +attributes conversion tables, some of these
+      proposed implementations may already be drafted. These reference tables
+      are released under public domain licenses.
+    - Note that often humans who already use these formats already are likely
+      to have skill to manually concert from CSVs (so could convert from HXL)
+- The software implementation (at least at the start) will not optimize for
+  speed or low local disk usage
+    - **but should work to convert large datasets with reasonable low memory
+      usage**
+- The software implementations assume an already HXLated input dataset to keep
+  it simple
+    - Note that it is possible to quickly convert already well formatted CSVs
+      to HXL by changing the header line (first line of the CSV).
+- While is technically possible to import back (reconstruct the original
+  HXLated file) from exported files, this is an non-goal to be 100% compatible
+    - This applicable in special cases for .arff exports: the default export
+      may need to clean known issues with exported strings.
 
 ## Additional Guides
 
