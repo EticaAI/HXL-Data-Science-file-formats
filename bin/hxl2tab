@@ -99,11 +99,17 @@ class HXL2Tab:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
+            # > This will output to stdout <
             # print('Temporary HXLated csv at ', args.outfile)
-
             self.hxl2tab(args.outfile)
             # print('TODO: implement the conversion')
             # time.sleep(20)
+
+            # if self.original_outfile:
+            #     args.outfile = self.original_outfile
+
+            # with self.hxlhelper.make_output(args, stdout) as output2:
+            #     self.hxl2tab(temp.name, output2)
 
         finally:
             temp.close()
@@ -112,6 +118,7 @@ class HXL2Tab:
 
 
     def hxl2tab(self, hxlated_input, tab_output='/tmp/output.tab'):
+    # def hxl2tab(self, hxlated_input, stdout=sys.stdout):
         """
         hxl2tab is an working-draft. It still not work with stdout
         """
@@ -123,10 +130,19 @@ class HXL2Tab:
             # exported HXlated file should already save without headers.
             next(csv_reader)
 
+            # This works, but only when saving to file on disk
+            tab_output='/tmp/output.tab'
             for line in csv_reader:
                 with open(tab_output, 'a') as new_txt:    #new file has .txt extn
                     txt_writer = csv.writer(new_txt, delimiter = '\t') #writefile
                     txt_writer.writerow(line)   #write the lines to file`
+
+            # tab_writter = csv.writer(stdout, delimiter = '\t')
+            # for line in csv_reader:
+            #     tab_writter.writerow(line)   #write the lines to file`
+            #     # with open(tab_output, 'a') as new_txt:    #new file has .txt extn
+            #     #     txt_writer = csv.writer(new_txt, delimiter = '\t') #writefile
+            #     #     txt_writer.writerow(line)   #write the lines to file`
 
             # TODO: implement change the first line from already tsv-like file
             #       to the easyier ones from orange data mining to implement
@@ -134,6 +150,46 @@ class HXL2Tab:
 
     def hxl2tab_header(self, hxlated_header):
         print('TODO')
+
+    # TODO: refactor the write_tab
+    # NOTE: based on libhxl-python/hxl/io.py gen_csv
+    def write_tab(self, output, source, show_headers=True, show_tags=True):
+        """Serialize a HXL dataset to an output stream in CSV format.
+
+        The output will be comma-separated CSV, in UTF-8 character encoding.
+
+        Args:
+            output (io.IOBase): an output byte stream
+            source (hxl.model.Dataset): a HXL data-access object
+            show_headers (bool): if True (default), include text header row.
+            show_tags (bool): if True (default), include the HXL hashtag row.
+
+        Raises:
+            IOError: if there's a problem writing the output
+        
+        """
+        for line in source.gen_csv(show_headers, show_tags):
+            output.write(line)
+
+    # TODO: refactor the gen_tab
+    # NOTE: based on libhxl-python/hxl/model.py gen_csv
+    def gen_tab(self, show_headers=True, show_tags=True):
+        """Generate a CSV representation of a HXL dataset, one row at a time."""
+        class TextOut:
+            """Simple string output source to capture CSV"""
+            def __init__(self):
+                self.data = ''
+            def write(self, s):
+                self.data += s
+            def get(self):
+                data = self.data
+                self.data = ''
+                return data
+        output = TextOut()
+        writer = csv.writer(output)
+        for raw in self.gen_raw(show_headers, show_tags):
+            writer.writerow(raw)
+            yield output.get()
 
 
 class HXLUtils:
