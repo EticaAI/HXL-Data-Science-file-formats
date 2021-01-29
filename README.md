@@ -40,8 +40,10 @@ reference tables.
   - <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues>
   - <https://github.com/HXL-CPLP/forum/issues/52>
 
-At the moment, beyond the [`hxl2example`](bin/hxl2example), this project does
-not have usable command line tools to automate work.
+At the moment, beyond the [`hxl2example`](bin/hxl2example), <s>this project does
+not have usable command line tools to automate work</s> the
+[bin/hxl2tab](bin/hxl2tab) v1.4+ already is usable (but may require prefix
+`+vt_orange_` as hint).
 
 ### 2. Reasons behind
 
