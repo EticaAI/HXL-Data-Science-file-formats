@@ -2,6 +2,10 @@
 **[public draft][Proof of concept] Common file formats used for Data Science
 exported from HXL (The Humanitarian Exchange Language)**
 
+[![Standard HXL](https://img.shields.io/badge/Standard-HXL-%23F26459)](https://hxlstandard.org/)
+![License](https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats)
+[![Google Drive](https://img.shields.io/badge/Google%20Drive-Folder-yellowgreen)](https://drive.google.com/drive/u/1/folders/1qyTPaDgm7Ca-62blkdQjUox47WWKRwD3)
+
 ---
 
 <!-- TOC depthFrom:2 -->
@@ -23,6 +27,9 @@ exported from HXL (The Humanitarian Exchange Language)**
 ---
 
 ## HXL-Data-Science-file-formats
+
+> In addition to this GitHub repository, check also the
+  [EticaAI-Data_HXL-Data-Science-file-formats Google Drive folder](https://drive.google.com/drive/u/1/folders/1qyTPaDgm7Ca-62blkdQjUox47WWKRwD3).
 
 ### 1. The main focus
 

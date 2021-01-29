@@ -27,6 +27,10 @@
 #      REVISION:  ---
 # ==============================================================================
 
+# TODO: get updated data from 
+#       - https://datos.gob.mx/busca/dataset/informacion-referente-a-casos-covid-19-en-mexico
+#         - http://datosabiertos.salud.gob.mx/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip
+
 import sys
 import os
 import logging
