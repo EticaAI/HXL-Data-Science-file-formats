@@ -36,9 +36,9 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.2-draft
+#       VERSION:  v1.0
 #       CREATED: 2021-01-29 07:48 UTC
-#      REVISION:  ---
+#      REVISION: 2021-01-29 17:34 UTC v1.0
 # ==============================================================================
 
 import sys
@@ -52,7 +52,7 @@ import hxl.filters
 import hxl.io
 
 import csv
-from itertools import takewhile
+from slugify import slugify
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -123,24 +123,24 @@ Read the documentation on https://hxlstandard.org/.
                            (__)    )
                            (..)   /|\\
                           (o_o)  / | \\
-                          ___) \/,-|,-\|
-                        //,-/_\ )  '  '
-                           (//,-'\|
-                           (  ( . \_
-                        gnv `._\(___`.
+                          ___) \\/,-|,-\\|
+                        //,-/_\\ )  '  '
+                           (//,-'\\|
+                           (  ( . \\_
+                        gnv `._\\(___`.
                              '---' _)/
                                   `-'
         """
 
         header_original = hxlated_input._get_row()
 
-        header_new = self.hhxlquickimport_header(header_original)
+        header_new = self.hxlquickimport_header(header_original)
 
         if not args.outfile:
             # txt_writer = csv.writer(sys.stdout, delimiter='\t')
             txt_writer = csv.writer(sys.stdout)
             txt_writer.writerow(header_new)
-            #for line in hxlated_input:
+            # for line in hxlated_input:
             line = hxlated_input._get_row()
 
             while line:
@@ -170,55 +170,28 @@ Read the documentation on https://hxlstandard.org/.
                     except:
                         line = False
 
-
-    def hhxlquickimport_header(self, hxlated_header):
+    def hxlquickimport_header(self, hxlated_header, basehashtag="#item"):
         """
-        Add prefixes to an hxlated_header to work as typehints for Orange Data
-        Mining
+        hhxlquickimport_header is a hackish to HXLate an CSV-like dataset
+        without human intervention.
 
-        From orange.biolab.si/docs/latest/reference/rst/Orange.data.formats.html
-            c for class feature            -> +vt_orange_flag_class|+vt_class
-            i for feature to be ignored    -> +vt_orange_flag_ignore
-            m for the meta attribute       -> +vt_orange_flag_meta|#meta
-            C for continuous-typed feature -> +vt_orange_type_continuous|+number
-            D for discrete feature         -> +vt_orange_type_discrete
-            S for string                   -> +vt_orange_type_string|+text|+name
+        How it works? It replaces the original header with the base
+        hashtag and then slugify the original header as attribute, so
 
-        An example data file in this format is shown below:
+        ID_REGISTRO        -> #item+id_registro
+        NACIONALIDAD       -> #item+nacionalidad
 
-            C#sepal length	iC#sepal width	mC#petal length	mC#petal width	cD#iris
-            5.1	3.5	1.4	0.2	Iris-setosa
-            4.9	3.0	1.4	0.2	Iris-setosa
-            4.7	3.2	1.3	0.2	Iris-setosa
+        The current version will not avoid 'conflicts' with HXL data types like
+
+        BOOL               -> #item+bool
+        number             -> #item+number
+        phone              -> #item+phone
         """
-
-        # TODO: improve this block. I'm very sure there is some cleaner way to
-        #       do it in a more cleaner way (fititnt, 2021-01-28 08:56 UTC)
 
         for idx, a in enumerate(hxlated_header):
-            
-            # feature types
-            if hxlated_header[idx].find('+vt_orange_type_discrete') > -1:
-                hxlated_header[idx] = 'D' + hxlated_header[idx]
-            elif hxlated_header[idx].find('+vt_orange_type_continuous') > -1 \
-                or hxlated_header[idx].find('+number') > -1:
-                hxlated_header[idx] = 'C' + hxlated_header[idx]
-            elif hxlated_header[idx].find('+vt_orange_type_string') > -1 or \
-                hxlated_header[idx].find('+text') > -1  or \
-                hxlated_header[idx].find('+name') > -1:
-                hxlated_header[idx] = 'S' + hxlated_header[idx]
+            hxlated_header[idx] = basehashtag + '+' \
+                + slugify(hxlated_header[idx], separator="_")
 
-            # optional flags
-            if hxlated_header[idx].find('+vt_class') > -1 or \
-                    hxlated_header[idx].find('+vt_orange_flag_class') > -1:
-                hxlated_header[idx] = 'c' + hxlated_header[idx]
-            elif hxlated_header[idx].find('+vt_orange_flag_meta') > -1 or \
-                hxlated_header[idx].find('#meta') > -1 :
-                hxlated_header[idx] = 'm' + hxlated_header[idx]
-            elif hxlated_header[idx].find('+vt_orange_flag_ignore') > -1:
-                hxlated_header[idx] = 'i' + hxlated_header[idx]
-
-        # print('hxl2tab_header', hxlated_header)
         return hxlated_header
 
 
