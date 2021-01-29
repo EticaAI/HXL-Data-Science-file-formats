@@ -1,6 +1,6 @@
 temp/
 data-mining-projects/
-hxl-quick-import_samples/
+hxlquickimport_samples/
 *.~lock*
 !tests/files/output/*
 !tests/files/output/.gitkeep

@@ -1,35 +1,45 @@
 #!/usr/bin/env python3
 # ==============================================================================
 #
-#          FILE:  hxl-quick-import
+#          FILE:  hxlquickimport
 #
-#         USAGE:  hxl-quick-import hxlated-data.csv my-exported-file.hxl
-#                 cat hxlated-data.csv | hxl-quick-import > my-exported-file.hxl
+#         USAGE:  hxlquickimport hxlated-data.csv my-exported-file.hxl
+#                 cat hxlated-data.csv | hxlquickimport > my-exported-file.hxl
 #
-#   DESCRIPTION:  hxl-quick-import is an example script to create other scripts with
-#                 some bare minimum command line interface that could work.
-#                 With exception of external libraries, the hxl-quick-import is
-#                 meant to be somewhat self-contained one-file executable ready
-#                 to just be added to the path
+#   DESCRIPTION:  hxlquickimport is a quick (and wrong) way to import
+#                 non-HXL dataset (like an .csv or .xlsx, but requires headers
+#                 already on the first row) without human intervention.
+#                 It will try to slugify the original header and add as
+#                 +attributefor a base hashtag like #meta.
+#                 The result may be an HXL with valid syntax (that can be used
+#                 for automated esting) but most HXL powered tools would still
+#                 be human review.
+#                 How does it work?
+#                 "[Max Power] Kids: there's three ways to do things; the right
+#                 way, the wrong way and the Max Power way!
+#                 [Bart Simpson] Isn't that the wrong way?
+#                 [Max Power] Yeah, but faster!
+#                 (via https://www.youtube.com/watch?v=7P0JM3h7IQk)"
+#                 How to do it the right way?
+#                 Read the documentation on https://hxlstandard.org/.
+#                 (Tip: both HXL Postcards and the hxl-hashtag-chooser are very
+#                 helpful!)
 #
 #       OPTIONS:  ---
 #
 #  REQUIREMENTS:  - python3
 #                     - libhxl (@see https://pypi.org/project/libhxl/)
-#          BUGS:  ---
+#          BUGS:  - The v0.2-draft is just an draft. It's not implemented even
+#                   minimal functionality.
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.1
+#       VERSION:  v0.2-draft
 #       CREATED: 2021-01-29 07:48 UTC
 #      REVISION:  ---
 # ==============================================================================
-
-# TODO: get updated data from 
-#       - https://datos.gob.mx/busca/dataset/informacion-referente-a-casos-covid-19-en-mexico
-#         - http://datosabiertos.salud.gob.mx/gobmx/salud/datos_abiertos/datos_abiertos_covid19.zip
 
 import sys
 import os
@@ -63,14 +73,29 @@ class HXLQuickImport:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-    def make_args_hxl_quick_import(self):
+    def make_args_hxlquickimport(self):
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("hxl-quick-import is an example script to create other "
-                         "scripts with some bare minimum command line "
-                         "interfaces that could work to export HXL files to "
-                         "other formats."))
+            description=("""
+hxlquickimport is a quick (and wrong) way to import
+non-HXL dataset (like an .csv or .xlsx, but requires headers already on the
+first row) without human intervention. It will try to slugify the original
+header and add as +attributefor a base hashtag like #meta.
+The result may be an HXL with valid syntax (that can be used for automated
+testing) but most HXL powered tools would still be human review.
+
+How does it work?
+"[Max Power] Kids: there's three ways to do things; the right way,
+the wrong way and the Max Power way!
+[Bart Simpson] Isn't that the wrong way?
+[Max Power] Yeah, but faster!"
+(via https://www.youtube.com/watch?v=7P0JM3h7IQk)
+
+How to do it the right way?
+Read the documentation on https://hxlstandard.org/.
+(Tip: both HXL Postcards and the hxl-hashtag-chooser are very helpful!)
+            """))
 
         self.args = parser.parse_args()
         return self.args
@@ -297,7 +322,7 @@ class StreamOutput(object):
 
 if __name__ == "__main__":
 
-    hxl_quick_import = HXLQuickImport()
-    args = hxl_quick_import.make_args_hxl_quick_import()
+    hxlquickimport = HXLQuickImport()
+    args = hxlquickimport.make_args_hxlquickimport()
 
-    hxl_quick_import.do_example_output(args)
+    hxlquickimport.do_example_output(args)
