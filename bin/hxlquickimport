@@ -52,6 +52,7 @@ import hxl.filters
 import hxl.io
 
 import csv
+from itertools import takewhile
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -112,56 +113,63 @@ Read the documentation on https://hxlstandard.org/.
         # NOTE: the next lines, in fact, only generate an csv outut. So you
         #       can use as starting point.
         with self.hxlhelper.make_source(args, stdin) as source:
-            # with self.hxlhelper.make_source(args, stdin) as source, \
-            #         self.hxlhelper.make_output(args, stdout) as output:
-
-            print(source.count())
-            print(source.gen_raw())
-            # print(source.values())
-            # hxl.io.write_hxl(output.output, source,
-            #                  show_tags=not args.strip_tags)
-
-            # self.hxlquickimport(args.outfile, self.original_outfile,
-            #              self.original_outfile_is_stdout)
-            # self.hxlquickimport(source, args.outfile, True)
             self.hxlquickimport(source, args, True)
 
         return self.EXIT_OK
 
-    # def hxlquickimport(self, hxlated_input, tab_output, is_stdout):
     def hxlquickimport(self, hxlated_input, tab_output, is_stdout):
         """
-        hxlquickimport is an working-draft. It still not work with stdout
+        hic sunt dracones
+                           (__)    )
+                           (..)   /|\\
+                          (o_o)  / | \\
+                          ___) \/,-|,-\|
+                        //,-/_\ )  '  '
+                           (//,-'\|
+                           (  ( . \_
+                        gnv `._\(___`.
+                             '---' _)/
+                                  `-'
         """
 
-        print(hxlated_input)
-        print(tab_output)
+        header_original = hxlated_input._get_row()
 
-        with open(hxlated_input, 'r') as csv_file:
-            csv_reader = csv.reader(csv_file)
+        header_new = self.hhxlquickimport_header(header_original)
 
-            # Hotfix: skip first non-HXL header. Ideally I think the already
-            # exported HXlated file should already save without headers.
-            next(csv_reader)
-            header_original = next(csv_reader)
-            header_new = self.hhxlquickimport_header(header_original)
+        if not args.outfile:
+            # txt_writer = csv.writer(sys.stdout, delimiter='\t')
+            txt_writer = csv.writer(sys.stdout)
+            txt_writer.writerow(header_new)
+            #for line in hxlated_input:
+            line = hxlated_input._get_row()
 
-            if not args.outfile:
-                txt_writer = csv.writer(sys.stdout, delimiter='\t')
+            while line:
+                txt_writer.writerow(line)
+                try:
+                    line = hxlated_input._get_row()
+                except:
+                    line = False
+
+        else:
+
+            tab_output_cleanup = open(args.outfile, 'w')
+            tab_output_cleanup.truncate()
+            tab_output_cleanup.close()
+
+            with open(args.outfile, 'a') as new_txt:
+                # txt_writer = csv.writer(new_txt, delimiter='\t')
+                txt_writer = csv.writer(new_txt)
                 txt_writer.writerow(header_new)
-                for line in csv_reader:
+
+                line = hxlated_input._get_row()
+
+                while line:
                     txt_writer.writerow(line)
-            else:
+                    try:
+                        line = hxlated_input._get_row()
+                    except:
+                        line = False
 
-                tab_output_cleanup = open(tab_output, 'w')
-                tab_output_cleanup.truncate()
-                tab_output_cleanup.close()
-
-                with open(tab_output, 'a') as new_txt:
-                    txt_writer = csv.writer(new_txt, delimiter='\t')
-                    txt_writer.writerow(header_new)
-                    for line in csv_reader:
-                        txt_writer.writerow(line)
 
     def hhxlquickimport_header(self, hxlated_header):
         """
