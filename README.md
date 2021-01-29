@@ -147,6 +147,11 @@ enterprise solutions.
 This guide if when you need to go over these limits without change too much your
 tools.
 
+<!--
+- ## See Also
+An Introduction to Data Science  http://www.saedsayad.com/
+-->
+
 # License
 
 [![Public Domain Dedication](img/public-domain.png)](UNLICENSE)

@@ -118,7 +118,7 @@ class HXL2Tab:
 
     def hxl2tab(self, hxlated_input, tab_output, is_stdout):
         """
-        hxl2tab is an working-draft. It still not work with stdout
+        hxl2tab is (TODO: document)
         """
 
         with open(hxlated_input, 'r') as csv_file:
