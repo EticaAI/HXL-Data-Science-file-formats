@@ -1,29 +1,12 @@
 #!/usr/bin/env python3
 # ==============================================================================
 #
-#          FILE:  hxlquickimport
+#          FILE:  hxlquickimporttab
 #
-#         USAGE:  hxlquickimport hxlated-data.csv my-exported-file.hxl
-#                 cat hxlated-data.csv | hxlquickimport > my-exported-file.hxl
+#         USAGE:  hxlquickimporttab orange-file.tab hxlated-file.hxl.csv
+#                 cat orange-file.tab | hxlquickimporttab > hxlated-file.hxl.csv
 #
-#   DESCRIPTION:  hxlquickimport is a quick (and wrong) way to import
-#                 non-HXL dataset (like an .csv or .xlsx, but requires headers
-#                 already on the first row) without human intervention.
-#                 It will try to slugify the original header and add as
-#                 +attributefor a base hashtag like #meta.
-#                 The result may be an HXL with valid syntax (that can be used
-#                 for automated esting) but most HXL powered tools would still
-#                 be human review.
-#                 How does it work?
-#                 "[Max Power] Kids: there's three ways to do things; the right
-#                 way, the wrong way and the Max Power way!
-#                 [Bart Simpson] Isn't that the wrong way?
-#                 [Max Power] Yeah, but faster!
-#                 (via https://www.youtube.com/watch?v=7P0JM3h7IQk)"
-#                 How to do it the right way?
-#                 Read the documentation on https://hxlstandard.org/.
-#                 (Tip: both HXL Postcards and the hxl-hashtag-chooser are very
-#                 helpful!)
+#   DESCRIPTION:  ---
 #
 #       OPTIONS:  ---
 #
@@ -35,9 +18,9 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.0
-#       CREATED: 2021-01-29 07:48 UTC
-#      REVISION: 2021-01-29 17:34 UTC v1.0
+#       VERSION:  v0.1
+#       CREATED: 2021-02-06 21:21 UTC v0.1 started (based on hxlquickimport)
+#      REVISION: ---
 # ==============================================================================
 
 import sys
@@ -57,15 +40,15 @@ from slugify import slugify
 STDIN = sys.stdin.buffer
 
 
-class HXLQuickImport:
+class HXLQuickImportTab:
     """
-    HXLQuickImport is a classe to export already HXLated data in the format
+    HXLQuickImportTab is a classe to export already HXLated data in the format
     example.
     """
 
     def __init__(self):
         """
-        Constructs all the necessary attributes for the HXLQuickImport object.
+        Constructs all the necessary attributes for the HXLQuickImportTab object.
         """
         self.hxlhelper = None
         self.args = None
@@ -75,12 +58,12 @@ class HXLQuickImport:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-    def make_args_hxlquickimport(self):
+    def make_args_hxlquickimporttab(self):
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
             description=("""
-hxlquickimport is a quick (and wrong) way to import
+hxlquickimporttab is a quick (and wrong) way to import
 non-HXL dataset (like an .csv or .xlsx, but requires headers already on the
 first row) without human intervention. It will try to slugify the original
 header and add as +attributefor a base hashtag like #meta.
@@ -105,18 +88,18 @@ Read the documentation on https://hxlstandard.org/.
     def execute(self, args,
                 stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
-        The do_example_output is the main entrypoint of HXLQuickImport. When
+        The do_example_output is the main entrypoint of HXLQuickImportTab. When
         called will convert the HXL source to example format.
         """
 
         # NOTE: the next lines, in fact, only generate an csv outut. So you
         #       can use as starting point.
         with self.hxlhelper.make_source(args, stdin) as source:
-            self.hxlquickimport(source, args, True)
+            self.hxlquickimporttab(source, args, True)
 
         return self.EXIT_OK
 
-    def hxlquickimport(self, hxlated_input, tab_output, is_stdout):
+    def hxlquickimporttab(self, hxlated_input, tab_output, is_stdout):
         """
         hic sunt dracones
                            (__)    )
@@ -133,7 +116,7 @@ Read the documentation on https://hxlstandard.org/.
 
         header_original = hxlated_input._get_row()
 
-        header_new = self.hxlquickimport_header(header_original)
+        header_new = self.hxlquickimporttab_header(header_original)
 
         if not args.outfile:
             # txt_writer = csv.writer(sys.stdout, delimiter='\t')
@@ -169,9 +152,9 @@ Read the documentation on https://hxlstandard.org/.
                     except:
                         line = False
 
-    def hxlquickimport_header(self, hxlated_header, basehashtag="#item"):
+    def hxlquickimporttab_header(self, hxlated_header, basehashtag="#item"):
         """
-        hhxlquickimport_header is a hackish to HXLate an CSV-like dataset
+        hhxlquickimporttab_header is a hackish to HXLate an CSV-like dataset
         without human intervention.
 
         How it works? It replaces the original header with the base
@@ -399,7 +382,7 @@ class StreamOutput(object):
 
 if __name__ == "__main__":
 
-    hxlquickimport = HXLQuickImport()
-    args = hxlquickimport.make_args_hxlquickimport()
+    hxlquickimporttab = HXLQuickImportTab()
+    args = hxlquickimporttab.make_args_hxlquickimporttab()
 
-    hxlquickimport.execute(args)
+    hxlquickimporttab.execute(args)
