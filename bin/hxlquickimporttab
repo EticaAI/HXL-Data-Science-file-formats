@@ -12,15 +12,18 @@
 #
 #  REQUIREMENTS:  - python3
 #                     - libhxl (@see https://pypi.org/project/libhxl/)
-#          BUGS:  ---
+#          BUGS:  1. hxlquickimporttab_header (v0.1) still very hackish; still
+#                    to much based on the generic hxlquickimport.
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.1
+#       VERSION:  v0.2
 #       CREATED: 2021-02-06 21:21 UTC v0.1 started (based on hxlquickimport)
-#      REVISION: ---
+#      REVISION: 2021-02-06 23:11 UTC v0.2 hackish way to import back
+#                                   +vt_orange_flag_class, +vt_class, +vt_class
+#                                   and +vt_categorical
 # ==============================================================================
 
 import sys
@@ -154,8 +157,11 @@ Read the documentation on https://hxlstandard.org/.
 
     def hxlquickimporttab_header(self, hxlated_header, basehashtag="#item"):
         """
-        hhxlquickimporttab_header is a hackish to HXLate an CSV-like dataset
-        without human intervention.
+        hxlquickimporttab_header is a hackish way to convert to HXLated csv
+        one .tab file used for orange.
+
+        (NOTICE: at this version, v0.1, it still very similar to hxlquickimport
+        equilvalent; this documentation still not updated
 
         How it works? It replaces the original header with the base
         hashtag and then slugify the original header as attribute, so
@@ -173,6 +179,29 @@ Read the documentation on https://hxlstandard.org/.
         for idx, a in enumerate(hxlated_header):
             hxlated_header[idx] = basehashtag + '+' \
                 + slugify(hxlated_header[idx], separator="_")
+
+            # Here be (more) dragons
+            if hxlated_header[idx].find('_vt_orange_flag_class') > -1:
+                hxlated_header[idx] = hxlated_header[idx].replace(
+                    '_vt_orange_flag_class', '')
+                hxlated_header[idx] = hxlated_header[idx] + \
+                    '+vt_orange_flag_class'
+            elif hxlated_header[idx].find('_vt_class') > -1:
+                hxlated_header[idx] = hxlated_header[idx].replace(
+                    '_vt_class', '')
+                hxlated_header[idx] = hxlated_header[idx] + '+vt_class'
+
+            if hxlated_header[idx].find('_vt_meta') > -1:
+                hxlated_header[idx] = hxlated_header[idx].replace(
+                    '_vt_meta', '')
+                hxlated_header[idx] = hxlated_header[idx] + '+vt_class'
+
+            if hxlated_header[idx].find('_vt_categorical') > -1:
+                hxlated_header[idx] = hxlated_header[idx].replace(
+                    '_vt_categorical', '')
+                hxlated_header[idx] = hxlated_header[idx] + '+vt_categorical'
+
+        print(hxlated_header)
 
         return hxlated_header
 
