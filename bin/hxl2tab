@@ -101,8 +101,6 @@ class HXL2Tab:
             temp = tempfile.NamedTemporaryFile()
             args.outfile = temp.name
 
-            # NOTE: the next lines, in fact, only generate an csv outut. So you
-            #       can use as starting point.
             with self.hxlhelper.make_source(args, stdin) as source, \
                     self.hxlhelper.make_output(args, stdout) as output:
                 hxl.io.write_hxl(output.output, source,
