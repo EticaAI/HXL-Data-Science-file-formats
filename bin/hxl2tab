@@ -20,7 +20,7 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.4
+#       VERSION:  v1.5
 #       CREATED:  2021-01-24 01:25 UTC
 #      REVISION:  2021-01-24 02:52 UTC changed from POSIX shell to python3
 #                 2021-01-24 23:54 UTC nginxlogs2csv (from Alligo) used as base
@@ -31,6 +31,7 @@
 #                 2021-01-28 09:07 UTC v1.4 implement Orange Data Mining hints,
 #                       uses EticaAI-Data_HXL-Data-Science-file-formats_hxl2tab,
 #                       but for non-obvious cases, requires prefix +vt_orange_
+#                 2021-02-28 22:26 UTC v1.5 added +vt_categorical
 # ==============================================================================
 
 import sys
@@ -155,7 +156,7 @@ class HXL2Tab:
             i for feature to be ignored    -> +vt_orange_flag_ignore
             m for the meta attribute       -> +vt_orange_flag_meta|#meta
             C for continuous-typed feature -> +vt_orange_type_continuous|+number
-            D for discrete feature         -> +vt_orange_type_discrete
+            D for discrete feature         -> +vt_orange_type_discrete|+vt_categorical
             S for string                   -> +vt_orange_type_string|+text|+name
 
         An example data file in this format is shown below:
@@ -172,7 +173,8 @@ class HXL2Tab:
         for idx, a in enumerate(hxlated_header):
             
             # feature types
-            if hxlated_header[idx].find('+vt_orange_type_discrete') > -1:
+            if hxlated_header[idx].find('+vt_orange_type_discrete') > -1 \
+                or hxlated_header[idx].find('+vt_categorical') > -1 :
                 hxlated_header[idx] = 'D' + hxlated_header[idx]
             elif hxlated_header[idx].find('+vt_orange_type_continuous') > -1 \
                 or hxlated_header[idx].find('+number') > -1:
