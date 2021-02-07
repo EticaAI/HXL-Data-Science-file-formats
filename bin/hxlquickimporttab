@@ -370,9 +370,117 @@ class HXLTabConverter:
 
     }
 
-    HXL_REFERENCE = [
-        ''
-    ]
+    # Uses HXL v1.1-final
+    # @see https://hxlstandard.org/standard/1-1final/dictionary/
+    # @see https://docs.google.com/spreadsheets/d/
+    #      1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406
+    # @see https://en.wikipedia.org/wiki/Statistical_data_type
+    HXL_REFERENCE = {
+        'hashtag': {
+            # access
+            # activity
+            # adm1
+            # adm2
+            # adm3
+            # adm4
+            # adm5
+            # affected | Number of people or households affected by an
+            #            emergency
+            'affected': {
+                'datatype_hxl': "number",
+                'datatype_statistical': "count",
+            },
+            # beneficiary
+            # capacity
+            # cause
+            # channel
+            # contact
+            # country
+            # crisis
+            # currency
+            # date | Date related to the data in the record applies.
+            #        Preferred format is ISO 8610 (e.g. "2015-06-01",
+            #        "2015-Q1", etc.)
+            #        Since HXL 1.0.
+            #        Note to self: date be viewed both as discrete and as
+            #        continuous
+            #        @see https://stats.stackexchange.com/questions/220812/
+            #           time-is-a-continuous-or-discrete-variables
+            'date': {
+                'datatype_hxl': "date"
+            },
+            # delivery
+            # description
+            # event
+            # frequency | The frequency with which something occurs.
+            #             Since HXL 1.1.
+            #             Note to self: need to check better if 95% of the time
+            #             this is right
+            #             @see https://en.wikipedia.org/wiki/Ordinal_data
+            'frequency': {
+                'datatype_statistical': "ordinal"
+            },
+            # geo
+            # group
+            # impact
+            # indicator
+            # inneed | Number of people or households in need of humanitarian
+            #         assistance.
+            'inneed': {
+                'datatype_hxl': "number",
+                'datatype_statistical': "count",
+            },
+            # item
+            # loc
+            # meta
+            'meta': {
+                'datafeature_hxl': "meta",
+                'datafeature_orange': "meta",
+            },
+            # modality
+            # need
+            # operations
+            # org
+            # output
+            # population | General population number for an area or location,
+            #             regardless of their specific humanitarian needs.
+            #             Since HXL 1.0.
+            'population': {
+                'datatype_hxl': "number",
+                'datatype_statistical': "count",
+            },
+            # reached | Number of people or households reached with
+            #           humanitarian assistance. Subset of #targeted.
+            #           Since HXL 1.0.
+            'reached': {
+                'datatype_hxl': "number",
+                'datatype_statistical': "count",
+            },
+            # region
+            # respondee
+            # sector
+            # service
+            # severity
+            # status
+            # subsector
+            # targeted | Number of people or households targeted for
+            #            humanitarian assistance. Subset of #inneed; superset
+            #            of #reached.
+            #            Since HXL 1.0.
+            'targeted': {
+                'datatype_hxl': "number",
+                'datatype_statistical': "count",
+            },
+            # value | A monetary value, such as the price of goods in a market,
+            #         a project budget, or the amount of cash transferred to
+            #         beneficiaries. May be used together with #currency in
+            #         financial or cash data.
+            #         Since HXL 1.1.
+            'value': {
+                'datatype_hxl': "number"
+            },
+        }
+    }
     
 
     def __init__(self):
