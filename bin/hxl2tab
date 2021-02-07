@@ -10,11 +10,14 @@
 #
 #   DESCRIPTION:  Convert an already HXLated file (local, remote like Google
 #                 Docs...) to an Orange Data Mining .tag file format.
+#                 Works both via cli and, with hug, allow export the usability
+#                 via HTTP.
 #
 #       OPTIONS:  hxl2tab --help
 #
 #  REQUIREMENTS:  - python3
 #                     - libhxl (https://pypi.org/project/libhxl/)
+#                     - hug (https://github.com/hugapi/hug/)
 #          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
@@ -36,6 +39,7 @@
 #                 2021-02-07 00:06 UTC v1.6 recognized +vt_* (like +vt_meta)
 #                    are ommited from the output .tab, but infered attributes
 #                    and base hashtags, not.
+#                 2021-02-07 18:34 UTC v2.0 build in HTTP interface with hug!
 # ==============================================================================
 
 import sys
@@ -98,7 +102,8 @@ class HXL2Tab:
         self.args = parser.parse_args()
         return self.args
 
-    def execute_cli(self, args, stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+    def execute_cli(self, args, stdin=STDIN, stdout=sys.stdout,
+                    stderr=sys.stderr):
         """
         The execute_cli is the main entrypoint of HXL2Tab when used via command
         line interface.
@@ -128,32 +133,22 @@ class HXL2Tab:
 
         return self.EXIT_OK
 
-    def execute_web(self, source_url, stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+    def execute_web(self, source_url, stdin=STDIN, stdout=sys.stdout,
+                    stderr=sys.stderr):
         """
         The execute_web is the main entrypoint of HXL2Tab when this class is
         called outside command line interface.
         """
-
-        # TODO: the execute_web needs to output the tabfile
-        #       (fititnt, 2021-02-07 15:58 UTC)
 
         # TODO: the execute_web needs to output the tabfile with correct
         #       mimetype, compression, etc
         #       (fititnt, 2021-02-07 15:59 UTC)
 
         self.hxlhelper = HXLUtils()
-        # args = self.make_args_HXL2Tab()
 
         try:
-            temp = tempfile.NamedTemporaryFile('w')
-            # print('temp.name', temp.name)
-
-            #temp2 = open('temp/hxltab-temp.csv', 'w')
-            temp2 = open('hxltab-temp.csv', 'w')
-            temp22 = open('hxltab-temp.csv.tab', 'w')
-            #temp2.write('oi123')
-            print('temp2.name', temp2.name)
-            print('temp22.name', temp22.name)
+            temp_input = tempfile.NamedTemporaryFile('w')
+            temp_output = tempfile.NamedTemporaryFile('w')
 
             webargs = type('obj', (object,), {
                 "infile": source_url,
@@ -163,54 +158,20 @@ class HXL2Tab:
                 'http_header': None,
                 'ignore_certs': False
             })
-            # print('obj', obj)
-            # print('self.hxlhelper', self.hxlhelper)
-
-            #print('webargs1', webargs)
-            #print('webargs infile', webargs.infile)
 
             with self.hxlhelper.make_source(webargs, stdin) as source:
                 for line in source.gen_csv(True, True):
-                    # print('oi')
-                    temp2.write(line)
-                    # print(line)
-                temp2.seek(0)
-                self.hxl2tab(temp2.name, temp22.name, False)
+                    temp_input.write(line)
 
-                result_file = open(temp22.name, 'r')
+                temp_input.seek(0)
+                self.hxl2tab(temp_input.name, temp_output.name, False)
+
+                result_file = open(temp_output.name, 'r')
                 return result_file.read()
 
-
-                print('temp22', temp22)
-
-                return temp22.read()
-
-                #f = open(temp2.name, "r")
-                #print('fread', f.read())
-
-                #hxl.io.write_hxl(output.output, source)
-
-                #time.sleep(30)
-
-                #source_local_file = output.output.name
-
-                # TODO: self.hxl2tab(source_local_file, output, True)
-                # return {'msg': "TODO: HXL2Tab.execute_web still an draft."}
-
-            # with self.hxlhelper.make_source(webargs, stdin) as source, \
-            #         FileOutput(temp.name) as output:
-            #
-            #     hxl.io.write_hxl(output.output, source)
-            #
-            #     # time.sleep(30)
-            #
-            #     source_local_file = output.output.name
-            #
-            #     # TODO: self.hxl2tab(source_local_file, output, True)
-            #     return {'msg': "TODO: HXL2Tab.execute_web still an draft."}
-
         finally:
-            temp.close()
+            temp_input.close()
+            temp_output.close()
 
         return self.EXIT_OK
 
@@ -512,9 +473,6 @@ class HXLUtils:
     def make_input(self, args, stdin=sys.stdin, url_or_filename=None):
         """Create an input object"""
 
-        print('make_input args', args)
-        print('make_input args.infile', args.infile)
-
         if url_or_filename is None:
             url_or_filename = args.infile
 
@@ -532,7 +490,7 @@ class HXLUtils:
             url_or_filename or stdin,
             sheet_index=sheet_index,
             selector=selector,
-            allow_local=True, # TODO: consider change this for execute_web
+            allow_local=True,  # TODO: consider change this for execute_web
             http_headers=http_headers,
             verify_ssl=(not args.ignore_certs)
         )
@@ -608,7 +566,19 @@ if __name__ == "__main__":
     hxl2tab.execute_cli(args)
 
 
-@hug.get('/hxl2tab', output=hug.output_format.text)
+@hug.format.content_type('text/tab-separated-value')
+def output_tab(data, response):
+    if isinstance(data, dict) and 'errors' in data:
+        response.content_type = 'application/json'
+        return hug.output_format.json(data)
+    response.content_type = 'text/tab-separated-values'
+    if hasattr(data, "read"):
+        return data
+
+    return str(data).encode("utf8")
+
+
+@hug.get('/hxl2tab.tab', output=output_tab)
 def api_hxl2tab(source_url):
     """hxl2tab (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
 
@@ -618,14 +588,5 @@ def api_hxl2tab(source_url):
     """
 
     hxl2tab = HXL2Tab()
-    # args = hxl2tab.make_args_HXL2Tab()
 
     return hxl2tab.execute_web(source_url)
-    # return "source {source}".format(**locals())
-    # return "Happy {age} Birthday {name}!".format(**locals())
-
-
-# @hug.get('/happy_birthday')
-# def happy_birthday(name, age: hug.types.number = 1):
-#     """Says happy birthday to a user"""
-#     return "Happy {age} Birthday {name}!".format(**locals())

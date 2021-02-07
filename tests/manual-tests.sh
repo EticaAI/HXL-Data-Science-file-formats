@@ -12,6 +12,17 @@ hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrp
 hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrpft3tiGQ1RH0/edit#gid=0 temp/example-ebola-dataset-1_HXLated+tab_hxltabv15_b.tab
 hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrpft3tiGQ1RH0/edit#gid=0 temp/example-ebola-dataset-1_HXLated+tab_hxltabv16.tab
 
+### hug -f bin/hxl2tab ---------------------------------------------------------
+#@see https://hugapi.github.io/hug/
+#@see https://github.com/hugapi/hug/
+hug -f bin/hxl2tab
+
+# See something like
+#    - http://localhost:8000/hxl2tab.tab?source_url=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
+
+# This will allow use hxl2tab via http. With ngrok could be used to quick allow
+# others to use your computer as quick interface
+
 
 ### hxlquickimport -------------------------------------------------------------
 
