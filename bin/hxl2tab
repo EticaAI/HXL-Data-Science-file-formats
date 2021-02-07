@@ -128,19 +128,22 @@ class HXL2Tab:
 
         return self.EXIT_OK
 
-    # def execute_web(self, args, stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
     def execute_web(self, source_url, stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
         The execute_web is the main entrypoint of HXL2Tab when this class is
         called outside command line interface.
         """
 
-        # If the user specified an output file, we will save on
-        # self.original_outfile. The args.outfile will be used for temporary
-        # output
-        # if args.outfile:
-        #     self.original_outfile = args.outfile
-        #     self.original_outfile_is_stdout = False
+        # TODO: the execute_web still an draft. The source file should at least
+        #       be saved on the disk and printed out
+        #       (fititnt, 2021-02-07 15:58 UTC)
+
+        # TODO: the execute_web needs to output the tabfile
+        #       (fititnt, 2021-02-07 15:58 UTC)
+
+        # TODO: the execute_web needs to output the tabfile with correct
+        #       mimetype, compression, etc
+        #       (fititnt, 2021-02-07 15:59 UTC)
 
         try:
             temp = tempfile.NamedTemporaryFile()
@@ -154,26 +157,26 @@ class HXL2Tab:
                     FileOutput(temp.name) as output:
                 # self.hxlhelper.make_output(args, stdout) as output:
             
-                # print(source_url, source, output)
+                print('source_url', source_url)
+                print('source', source)
+                print('output', output)
 
-                source_local_file = output.output
+                source_local_file = output.output.name
             
-                hxl.io.write_hxl(source_local_file, source)
+                #hxl.io.write_hxl(output.output, source)
                 # hxl.io.write_hxl(output.output, source, show_tags=not args.strip_tags)
-            #print(source_url, source, output)
+                #print(source_url, source, output)
 
-                output.output.write('teste123')
-                output.output.write('teste123')
+                #output.output.write('teste123')
+                #output.output.write('teste123')
 
-                print('output.output', output.output)
-                print('source_local_file', source_local_file)
+                #print('output.output', output.output)
+                #print('source_local_file', source_local_file)
 
-                time.sleep(30)
+                # time.sleep(30)
 
-                # self.hxl2tab(source, self.original_outfile,
-                #          True)
-                self.hxl2tab(source_local_file, output, True)
-            #  self.original_outfile_is_stdout)
+                # self.hxl2tab(source_local_file, output, True)
+                return {'msg': "TODO: HXL2Tab.execute_web still an draft."}
 
         finally:
             temp.close()
@@ -572,7 +575,7 @@ if __name__ == "__main__":
 
 
 @hug.get('/hxl2tab')
-def api_hxl2tab(source, age: hug.types.number = 1):
+def api_hxl2tab(source):
     """Says happy birthday to a user
 
     Example:
@@ -583,9 +586,8 @@ def api_hxl2tab(source, age: hug.types.number = 1):
     hxl2tab = HXL2Tab()
     # args = hxl2tab.make_args_HXL2Tab()
 
-    hxl2tab.execute_web(source)
-
-    return "source {source}".format(**locals())
+    return hxl2tab.execute_web(source)
+    # return "source {source}".format(**locals())
     # return "Happy {age} Birthday {name}!".format(**locals())
 
 
