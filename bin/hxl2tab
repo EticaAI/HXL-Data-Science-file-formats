@@ -236,6 +236,32 @@ C#sepal length	iC#sepal width	mC#petal length	mC#petal width	cD#iris
         # print('hxl2tab_header', hxlated_header)
         return hxlated_header
 
+class HXLTabConverter:
+    """
+    HXLTabConverter is an class to export implement minimum functionality to
+    export/import at least the most common cases of HXLated datasets to .tab
+    format using the specification of the open source tool Orange Data Mining.
+    The current version has some hardcoded values instead of using an external
+    schema.
+
+    @see https://orange-data-mining-library.readthedocs.io/en/latest/reference/
+    data.io.html.
+
+    Author: Emerson Rocha
+    License: Public Domain
+    Version: v0.1
+    """
+
+    def __init__(self):
+        """
+        Constructs all the necessary attributes for the HXLTabConverter
+        object.
+        """
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
 
 class HXLUtils:
     """

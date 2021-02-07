@@ -51,8 +51,8 @@ STDIN = sys.stdin.buffer
 
 class HXLQuickImportTab:
     """
-    HXLQuickImportTab is a classe to export already HXLated data in the format
-    example.
+    HXLQuickImportTab is a class to export already HXLated data in the format
+    .tab.
     """
 
     def __init__(self):
@@ -190,35 +190,6 @@ Read the documentation on https://hxlstandard.org/.
             return self.hxlquickimporttab_header_unknow(hxlated_header,
                                                         basehashtag)
 
-        # for idx, _ in enumerate(hxlated_header):
-        #     hxlated_header[idx] = basehashtag + '+' \
-        #         + slugify(hxlated_header[idx], separator="_")
-
-        #     # Here be (more) dragons
-        #     if hxlated_header[idx].find('_vt_orange_flag_class') > -1:
-        #         hxlated_header[idx] = hxlated_header[idx].replace(
-        #             '_vt_orange_flag_class', '')
-        #         hxlated_header[idx] = hxlated_header[idx] + \
-        #             '+vt_orange_flag_class'
-        #     elif hxlated_header[idx].find('_vt_class') > -1:
-        #         hxlated_header[idx] = hxlated_header[idx].replace(
-        #             '_vt_class', '')
-        #         hxlated_header[idx] = hxlated_header[idx] + '+vt_class'
-
-        #     if hxlated_header[idx].find('_vt_meta') > -1:
-        #         hxlated_header[idx] = hxlated_header[idx].replace(
-        #             '_vt_meta', '')
-        #         hxlated_header[idx] = hxlated_header[idx] + '+vt_class'
-
-        #     if hxlated_header[idx].find('_vt_categorical') > -1:
-        #         hxlated_header[idx] = hxlated_header[idx].replace(
-        #             '_vt_categorical', '')
-        #         hxlated_header[idx] = hxlated_header[idx] + '+vt_categorical'
-
-        # # print(hxlated_header)
-
-        # return hxlated_header
-
     def hxlquickimporttab_header_unknow(self, hxlated_header,
                                         basehashtag="#item"):
 
@@ -251,14 +222,20 @@ Read the documentation on https://hxlstandard.org/.
         1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406
 
         Check points:
+          - MUST have # (files created directly by orange don't have # if not
+            are not HXLated, or are HXLated, but not on compact specification)
           - #description and #beneficiary are the longests base hashtags, but
             tolerate #x_
           - Base hashtags don't have '-', ' ' and (if not #x_) also not '_'
         """
 
         for idx, _ in enumerate(hxlated_header):
-            hashplusattrs = hxlated_header[idx][hxlated_header[idx].find(
-                '#'): len(hxlated_header[idx])]
+            pos = hxlated_header[idx].find('#')
+
+            if pos == -1:
+                return False
+
+            hashplusattrs = hxlated_header[idx][pos: len(hxlated_header[idx])]
             hashtag = hashplusattrs.split('+')
 
             if hashtag[0].find(' ') > -1 or hashtag[0].find('-') > -1 or \
@@ -269,7 +246,7 @@ Read the documentation on https://hxlstandard.org/.
             if len(hashtag[0]) > 12 and hashtag[0].find('#x_') == -1:
                 return False
 
-            # print(hxlated_header[idx], hashplusattrs, hashtag, hashtag[0])
+            print(hxlated_header[idx], hashplusattrs, hashtag, hashtag[0])
 
         return True
 
@@ -307,6 +284,33 @@ S for string                   -> +vt_orange_type_string (for now, just ignore)
             hxlattrs = hxlattrs + ''
 
         return hxlattrs
+
+class HXLTabConverter:
+    """
+    HXLTabConverter is an class to export implement minimum functionality to
+    export/import at least the most common cases of HXLated datasets to .tab
+    format using the specification of the open source tool Orange Data Mining.
+    The current version has some hardcoded values instead of using an external
+    schema.
+
+    @see https://orange-data-mining-library.readthedocs.io/en/latest/reference/
+    data.io.html.
+
+    Author: Emerson Rocha
+    License: Public Domain
+    Version: v0.1
+    """
+
+    def __init__(self):
+        """
+        Constructs all the necessary attributes for the HXLTabConverter
+        object.
+        """
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
 
 class HXLUtils:
     """
