@@ -6,6 +6,7 @@
 #         USAGE:  cat hxlated-file.csv | hxl2tab
 #                 hxl2tab hxlated-file.csv
 #                 hxl2tab hxlated-file.csv orange-data-mining-file.tab
+#                 hug -f bin/hxl2tab
 #
 #   DESCRIPTION:  Convert an already HXLated file (local, remote like Google
 #                 Docs...) to an Orange Data Mining .tag file format.
@@ -42,6 +43,8 @@ import os
 import logging
 import argparse
 
+# @see https://github.com/HXLStandard/libhxl-python
+#    pip3 install libhxl --upgrade
 # Do not import hxl, to avoid circular imports
 import hxl.converters
 import hxl.filters
@@ -50,6 +53,10 @@ import hxl.model
 
 import csv
 import tempfile
+
+# @see https://github.com/hugapi/hug
+#     pip3 install hug --upgrade
+import hug
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -506,3 +513,8 @@ if __name__ == "__main__":
     args = HXL2Tab.make_args_HXL2Tab()
 
     HXL2Tab.execute(args)
+
+@hug.get('/happy_birthday')
+def happy_birthday(name, age:hug.types.number=1):
+    """Says happy birthday to a user"""
+    return "Happy {age} Birthday {name}!".format(**locals())

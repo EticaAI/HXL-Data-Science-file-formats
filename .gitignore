@@ -2,5 +2,6 @@ temp/
 data-mining-projects/
 hxlquickimport_samples/
 *.~lock*
+*__pycache__*
 !tests/files/output/*
 !tests/files/output/.gitkeep
