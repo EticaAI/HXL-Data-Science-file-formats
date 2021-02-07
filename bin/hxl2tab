@@ -382,12 +382,70 @@ class HXLTabConverter:
         }
 
     }
+
+    def __init__(self):
+        """
+        Constructs all the necessary attributes for the HXLTabConverter
+        object.
+        """
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
+
+    def is_tab_file(self):
+        print("""Please just check if the file use tab as separator outside
+              this class. For sake of simplicity, the HXLTabConverter assumes
+              both exported HXL files and imported created outside would be
+              saved in tab, so no extra checks would be need for Excel or
+              CSVs""")
+
+    def is_tablike_heading(self, header_group):
+        """
+        is_tab_heading can either receive a single list of headings or an group
+        of 3 lines of headings.
+        """
+        print("TODO")
+
+    def is_tablike_heading_single(self, header_line):
+        """
+        is_tablike_heading_single ...
+        """
+        print("TODO")
+
+    def is_tablike_heading_three(self, header_group):
+        """
+        is_tablike_heading_three ...
+        """
+        print("TODO")
+
+    def is_tab_hxlated_heading(self, header_group):
+        """
+        is_tab_heading can either receive a single list of headings or an group
+        of 3 lines of headings.
+        """
+        print("TODO")
+
+
+class HXLMeta:
+    """
+    HXLMeta is (...)
+
+    Author: Multiple Authors
+    License: Public Domain
+    Version: v0.2
+    """
+
     # Uses HXL v1.1-final
     # @see https://hxlstandard.org/standard/1-1final/dictionary/
     # @see https://docs.google.com/spreadsheets/d/
     #      1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406
     # @see https://en.wikipedia.org/wiki/Statistical_data_type
     HXL_REFERENCE = {
+        # 'hxl_core_datatypes': [
+        #     'text', 'number', 'url', 'email', 'phone', 'date'
+        # ]
         'hashtag': {
             # access
             # activity
@@ -406,7 +464,9 @@ class HXLTabConverter:
             # capacity
             # cause
             # channel
-            # contact
+            # contact | Contact information for the subject of a data record
+            #           (e.g. an activity).
+            #           Since HXL 1.0.
             # country
             # crisis
             # currency
@@ -491,52 +551,68 @@ class HXLTabConverter:
             'value': {
                 'datatype_hxl': "number"
             },
+        },
+        'attributes': {
+            # ### HXL official Core attributes ________________________________
+            # @see https://docs.google.com/spreadsheets/d/
+            # 1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=1810309357
+            # +code
+            'code': {
+                'datatype_hxl': "text"
+            },
+            # +coord
+            # +dest
+            # +displaced
+            # +elevation
+            # +email (also an HXL Core Data Type)
+            # +id
+            # +label
+            'label': {
+                'datatype_hxl': "text"
+            },
+            # +lat
+            # +lon
+            # +name
+            # +num
+            'num': {
+                'datatype_hxl': "number"
+            },
+            # +pct
+            # +phone (also an HXL Core Data Type)
+            # +start
+            # +text  (also an HXL Core Data Type)
+            # +type
+            # +url  (also an HXL Core Data Type)
+            # ### HXL Data Types ______________________________________________
+            # text
+            'text': {
+                'datatype_hxl': "text"
+            },
+            # number
+            'number': {
+                'datatype_hxl': "number"
+            },
+            # url
+            'url': {
+                'datatype_hxl': "url",
+                'dataflag_orange': "meta",
+            },
+            # email
+            'email': {
+                'datatype_hxl': "email",
+                'dataflag_orange': "meta",
+            },
+            # phone
+            'phone': {
+                'datatype_hxl': "phone",
+                'dataflag_orange': "meta",
+            },
+            # date
+            'date': {
+                'datatype_hxl': "date"
+            },
         }
     }
-
-    def __init__(self):
-        """
-        Constructs all the necessary attributes for the HXLTabConverter
-        object.
-        """
-
-        # Posix exit codes
-        self.EXIT_OK = 0
-        self.EXIT_ERROR = 1
-        self.EXIT_SYNTAX = 2
-
-    def is_tab_file(self):
-        print("""Please just check if the file use tab as separator outside
-              this class. For sake of simplicity, the HXLTabConverter assumes
-              both exported HXL files and imported created outside would be
-              saved in tab, so no extra checks would be need for Excel or
-              CSVs""")
-
-    def is_tablike_heading(self, header_group):
-        """
-        is_tab_heading can either receive a single list of headings or an group
-        of 3 lines of headings.
-        """
-        print("TODO")
-
-    def is_tablike_heading_single(self, header_line):
-        """
-        is_tablike_heading_single ...
-        """
-        print("TODO")
-
-    def is_tablike_heading_three(self, header_group):
-        """
-        is_tablike_heading_three ...
-        """
-        print("TODO")
-
-    def is_tab_hxlated_heading(self, header_group):
-        """
-        is_tab_heading can either receive a single list of headings or an group
-        of 3 lines of headings.
-        """
-        print("TODO")
 
 
 class HXLUtils:
