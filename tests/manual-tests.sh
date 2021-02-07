@@ -34,6 +34,8 @@ hxlquickimporttab tests/files/iris_hxlated-tab.tab temp/iris_hxlated-csv-from-ta
 hxlquickimporttab tests/files/iris_hxlated-tab.tab temp/iris_hxlated-csv-from-tab.csv | head
 hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrpft3tiGQ1RH0/edit#gid=0 | head
 
+hxlquickimporttab temp/titanic.tab | head
+
 
 #### Ignore after this part ___________________________________________________
 # fititnt@bravo:/workspace/data/brasil_inep_microdados-enem-2019/DADOS$ head -n 1000 MICRODADOS_ENEM_2019.csv > MICRODADOS_ENEM_2019_head-n-1000.csv

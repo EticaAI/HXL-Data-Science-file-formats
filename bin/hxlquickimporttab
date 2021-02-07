@@ -3,30 +3,33 @@
 #
 #          FILE:  hxlquickimporttab
 #
-#         USAGE:  hxlquickimporttab orange-file.tab hxlated-file.hxl.csv
-#                 cat orange-file.tab | hxlquickimporttab > hxlated-file.hxl.csv
+#         USAGE:  hxlquickimporttab orange-file.tab hxlated-file.csv
+#                 cat orange-file.tab | hxlquickimporttab > hxlated-file.csv
 #
-#   DESCRIPTION:  ---
+#   DESCRIPTION:  hxlquickimporttab is an tool able to import back to CSV files
+#                 created with hxl2tab.
 #
 #       OPTIONS:  ---
 #
 #  REQUIREMENTS:  - python3
 #                     - libhxl (@see https://pypi.org/project/libhxl/)
-#          BUGS:  1. hxlquickimporttab_header (v0.1) still very hackish; still
-#                    to much based on the generic hxlquickimport.
-#                 2. While the Orange .tab specification allow to save also the
+#          BUGS:  1. While the Orange .tab specification allow to save also the
 #                    original text heading, this script still not save the
 #                    original CSV with this (but is possible)
+#                 2. The v1.0 works with compact .tab heading, but not the
+#                    multiline version.
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.2
+#       VERSION:  v1.0
 #       CREATED: 2021-02-06 21:21 UTC v0.1 started (based on hxlquickimport)
 #      REVISION: 2021-02-06 23:11 UTC v0.2 hackish way to import back
 #                                   +vt_orange_flag_class, +vt_class, +vt_class
 #                                   and +vt_categorical
+#                2021-02-07 01:36 UTC v1.0 works with compact .tab heading, but
+#                                   not the multiline version.
 # ==============================================================================
 
 import sys
@@ -54,7 +57,8 @@ class HXLQuickImportTab:
 
     def __init__(self):
         """
-        Constructs all the necessary attributes for the HXLQuickImportTab object.
+        Constructs all the necessary attributes for the HXLQuickImportTab
+        object.
         """
         self.hxlhelper = None
         self.args = None
@@ -179,34 +183,62 @@ Read the documentation on https://hxlstandard.org/.
         phone              -> #item+phone
         """
 
-        self.hxlquickimporttab_header_is_already_hxlated(hxlated_header)
+        if self.hxlquickimporttab_header_is_already_hxlated(hxlated_header):
+            return self.hxlquickimporttab_header_already_hxlated(
+                hxlated_header)
+        else:
+            return self.hxlquickimporttab_header_unknow(hxlated_header,
+                                                        basehashtag)
+
+        # for idx, _ in enumerate(hxlated_header):
+        #     hxlated_header[idx] = basehashtag + '+' \
+        #         + slugify(hxlated_header[idx], separator="_")
+
+        #     # Here be (more) dragons
+        #     if hxlated_header[idx].find('_vt_orange_flag_class') > -1:
+        #         hxlated_header[idx] = hxlated_header[idx].replace(
+        #             '_vt_orange_flag_class', '')
+        #         hxlated_header[idx] = hxlated_header[idx] + \
+        #             '+vt_orange_flag_class'
+        #     elif hxlated_header[idx].find('_vt_class') > -1:
+        #         hxlated_header[idx] = hxlated_header[idx].replace(
+        #             '_vt_class', '')
+        #         hxlated_header[idx] = hxlated_header[idx] + '+vt_class'
+
+        #     if hxlated_header[idx].find('_vt_meta') > -1:
+        #         hxlated_header[idx] = hxlated_header[idx].replace(
+        #             '_vt_meta', '')
+        #         hxlated_header[idx] = hxlated_header[idx] + '+vt_class'
+
+        #     if hxlated_header[idx].find('_vt_categorical') > -1:
+        #         hxlated_header[idx] = hxlated_header[idx].replace(
+        #             '_vt_categorical', '')
+        #         hxlated_header[idx] = hxlated_header[idx] + '+vt_categorical'
+
+        # # print(hxlated_header)
+
+        # return hxlated_header
+
+    def hxlquickimporttab_header_unknow(self, hxlated_header,
+                                        basehashtag="#item"):
 
         for idx, _ in enumerate(hxlated_header):
             hxlated_header[idx] = basehashtag + '+' \
                 + slugify(hxlated_header[idx], separator="_")
 
-            # Here be (more) dragons
-            if hxlated_header[idx].find('_vt_orange_flag_class') > -1:
-                hxlated_header[idx] = hxlated_header[idx].replace(
-                    '_vt_orange_flag_class', '')
-                hxlated_header[idx] = hxlated_header[idx] + \
-                    '+vt_orange_flag_class'
-            elif hxlated_header[idx].find('_vt_class') > -1:
-                hxlated_header[idx] = hxlated_header[idx].replace(
-                    '_vt_class', '')
-                hxlated_header[idx] = hxlated_header[idx] + '+vt_class'
+        return hxlated_header
 
-            if hxlated_header[idx].find('_vt_meta') > -1:
-                hxlated_header[idx] = hxlated_header[idx].replace(
-                    '_vt_meta', '')
-                hxlated_header[idx] = hxlated_header[idx] + '+vt_class'
+    def hxlquickimporttab_header_already_hxlated(self, hxlated_header):
 
-            if hxlated_header[idx].find('_vt_categorical') > -1:
-                hxlated_header[idx] = hxlated_header[idx].replace(
-                    '_vt_categorical', '')
-                hxlated_header[idx] = hxlated_header[idx] + '+vt_categorical'
+        for idx, _ in enumerate(hxlated_header):
+            pos = hxlated_header[idx].find('#')
+            hashplusattrs = hxlated_header[idx][pos:len(hxlated_header[idx])]
+            tabattrs = hxlated_header[idx][0:pos]
+            # print(pos, tabattrs, hashplusattrs)
 
-        # print(hxlated_header)
+            hxlated_header[idx] = hashplusattrs + self.hxlquickimporttab_tabflags2hxlattrs(tabattrs)
+            # hxlated_header[idx] = basehashtag + '+' \
+            #     + slugify(hxlated_header[idx], separator="_")
 
         return hxlated_header
 
@@ -230,7 +262,8 @@ Read the documentation on https://hxlstandard.org/.
             hashtag = hashplusattrs.split('+')
 
             if hashtag[0].find(' ') > -1 or hashtag[0].find('-') > -1 or \
-                    (hashtag[0].find('-') > -1 and hashtag[0].find('#x_') == -1):
+                    (hashtag[0].find('-') > -1 and
+                        hashtag[0].find('#x_') == -1):
                 return False
 
             if len(hashtag[0]) > 12 and hashtag[0].find('#x_') == -1:
@@ -240,6 +273,40 @@ Read the documentation on https://hxlstandard.org/.
 
         return True
 
+    def hxlquickimporttab_tabflags2hxlattrs(self, tab_one_letter_flags):
+        """
+        Add prefixes to an hxlated_header to work as typehints for Orange Data
+        Mining
+
+        TODO: do some simply check to not enforce obvious redundancy (like
+              dont add +vt_meta if the base hashtag already is #meta)
+
+        orange.biolab.si/docs/latest/reference/rst/Orange.data.formats.html:
+
+c for class feature            -> +vt_class
+i for feature to be ignored    -> +vt_orange_flag_ignore
+m for the meta attribute       -> +vt_meta
+C for continuous-typed feature -> +vt_orange_type_continuous
+D for discrete feature         -> +vt_categorical
+S for string                   -> +vt_orange_type_string (for now, just ignore)
+        """
+        hxlattrs = ''
+        if tab_one_letter_flags.find('c') > -1:
+            hxlattrs = '+vt_class'
+        elif tab_one_letter_flags.find('i') > -1:
+            hxlattrs = '+vt_orange_flag_ignore'
+        elif tab_one_letter_flags.find('m') > -1:
+            hxlattrs = '+vt_meta'
+
+        if tab_one_letter_flags.find('C') > -1:
+            hxlattrs = hxlattrs + '+vt_orange_type_continuous'
+        elif tab_one_letter_flags.find('D') > -1:
+            hxlattrs = hxlattrs + '+vt_categorical'
+        elif tab_one_letter_flags.find('S') > -1:
+            # hxlattrs = hxlattrs + '+vt_orange_type_string'
+            hxlattrs = hxlattrs + ''
+
+        return hxlattrs
 
 class HXLUtils:
     """
