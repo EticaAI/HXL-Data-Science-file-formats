@@ -236,6 +236,7 @@ C#sepal length	iC#sepal width	mC#petal length	mC#petal width	cD#iris
         # print('hxl2tab_header', hxlated_header)
         return hxlated_header
 
+
 class HXLTabConverter:
     """
     HXLTabConverter is an class to export implement minimum functionality to
@@ -262,6 +263,39 @@ class HXLTabConverter:
         self.EXIT_OK = 0
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
+
+    def is_tab_file(self):
+        print("""Please just check if the file use tab as separator outside
+              this class. For sake of simplicity, the HXLTabConverter assumes
+              both exported HXL files and imported created outside would be
+              saved in tab, so no extra checks would be need for Excel or
+              CSVs""")
+
+    def is_tablike_heading(self, header_group):
+        """
+        is_tab_heading can either receive a single list of headings or an group
+        of 3 lines of headings.
+        """
+        print("TODO")
+
+    def is_tablike_heading_single(self, header_line):
+        """
+        is_tablike_heading_single ...
+        """
+        print("TODO")
+
+    def is_tablike_heading_three(self, header_group):
+        """
+        is_tablike_heading_three ...
+        """
+        print("TODO")
+
+    def is_tab_hxlated_heading(self, header_group):
+        """
+        is_tab_heading can either receive a single list of headings or an group
+        of 3 lines of headings.
+        """
+        print("TODO")
 
 class HXLUtils:
     """

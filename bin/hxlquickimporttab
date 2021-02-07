@@ -246,7 +246,7 @@ Read the documentation on https://hxlstandard.org/.
             if len(hashtag[0]) > 12 and hashtag[0].find('#x_') == -1:
                 return False
 
-            print(hxlated_header[idx], hashplusattrs, hashtag, hashtag[0])
+            # print(hxlated_header[idx], hashplusattrs, hashtag, hashtag[0])
 
         return True
 
@@ -311,6 +311,39 @@ class HXLTabConverter:
         self.EXIT_OK = 0
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
+
+    def is_tab_file(self):
+        print("""Please just check if the file use tab as separator outside
+              this class. For sake of simplicity, the HXLTabConverter assumes
+              both exported HXL files and imported created outside would be
+              saved in tab, so no extra checks would be need for Excel or
+              CSVs""")
+
+    def is_tablike_heading(self, header_group):
+        """
+        is_tab_heading can either receive a single list of headings or an group
+        of 3 lines of headings.
+        """
+        print("TODO")
+
+    def is_tablike_heading_single(self, header_line):
+        """
+        is_tablike_heading_single ...
+        """
+        print("TODO")
+
+    def is_tablike_heading_three(self, header_group):
+        """
+        is_tablike_heading_three ...
+        """
+        print("TODO")
+
+    def is_tab_hxlated_heading(self, header_group):
+        """
+        is_tab_heading can either receive a single list of headings or an group
+        of 3 lines of headings.
+        """
+        print("TODO")
 
 class HXLUtils:
     """
