@@ -14,6 +14,9 @@
 #                     - libhxl (@see https://pypi.org/project/libhxl/)
 #          BUGS:  1. hxlquickimporttab_header (v0.1) still very hackish; still
 #                    to much based on the generic hxlquickimport.
+#                 2. While the Orange .tab specification allow to save also the
+#                    original text heading, this script still not save the
+#                    original CSV with this (but is possible)
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
@@ -176,7 +179,9 @@ Read the documentation on https://hxlstandard.org/.
         phone              -> #item+phone
         """
 
-        for idx, a in enumerate(hxlated_header):
+        self.hxlquickimporttab_header_is_already_hxlated(hxlated_header)
+
+        for idx, _ in enumerate(hxlated_header):
             hxlated_header[idx] = basehashtag + '+' \
                 + slugify(hxlated_header[idx], separator="_")
 
@@ -204,6 +209,36 @@ Read the documentation on https://hxlstandard.org/.
         # print(hxlated_header)
 
         return hxlated_header
+
+    def hxlquickimporttab_header_is_already_hxlated(self, hxlated_header):
+        """
+        Quick (but not accurate) way to do a quick check if the .tab header
+        is very likely to be an valid HXL file if converted back csv.
+
+        See https://docs.google.com/spreadsheets/d/
+        1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406
+
+        Check points:
+          - #description and #beneficiary are the longests base hashtags, but
+            tolerate #x_
+          - Base hashtags don't have '-', ' ' and (if not #x_) also not '_'
+        """
+
+        for idx, _ in enumerate(hxlated_header):
+            hashplusattrs = hxlated_header[idx][hxlated_header[idx].find(
+                '#'): len(hxlated_header[idx])]
+            hashtag = hashplusattrs.split('+')
+
+            if hashtag[0].find(' ') > -1 or hashtag[0].find('-') > -1 or \
+                    (hashtag[0].find('-') > -1 and hashtag[0].find('#x_') == -1):
+                return False
+
+            if len(hashtag[0]) > 12 and hashtag[0].find('#x_') == -1:
+                return False
+
+            # print(hxlated_header[idx], hashplusattrs, hashtag, hashtag[0])
+
+        return True
 
 
 class HXLUtils:
