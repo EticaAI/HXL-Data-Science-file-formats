@@ -1,5 +1,5 @@
 # Data Science files exported from HXL (The Humanitarian Exchange Language)
-**[public draft][Proof of concept] Common file formats used for Data Science
+**[Proof of concept] Common file formats used for Data Science
 exported from HXL (The Humanitarian Exchange Language)**
 
 [![Standard HXL](https://img.shields.io/badge/Standard-HXL-%23F26459)](https://hxlstandard.org/)
@@ -14,6 +14,9 @@ exported from HXL (The Humanitarian Exchange Language)**
     - [1. The main focus](#1-the-main-focus)
         - [1.1 Vocabulary/Taxonomies](#11-vocabularytaxonomies)
         - [1.2 `HXL2` Command line tools](#12-hxl2-command-line-tools)
+            - [1.2.1 `hxl2example`: create your own exporter/importer](#121-hxl2example-create-your-own-exporterimporter)
+            - [1.2.2 `hxl2tab`: tab format, focused for compatibility with Orange Data Mining](#122-hxl2tab-tab-format-focused-for-compatibility-with-orange-data-mining)
+            - [1.2.3 `hxlquickimport`: (like the `hxltag`, but with extra features)](#123-hxlquickimport-like-the-hxltag-but-with-extra-features)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -46,11 +49,43 @@ reference tables.
 - See discussions at
   - <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues>
   - <https://github.com/HXL-CPLP/forum/issues/52>
+- See (not so docummented tests): [tests/manual-tests.sh](tests/manual-tests.sh)
 
-At the moment, beyond the [`hxl2example`](bin/hxl2example), <s>this project does
-not have usable command line tools to automate work</s> the
-[bin/hxl2tab](bin/hxl2tab) v1.4+ already is usable (but may require prefix
-`+vt_orange_` as hint) and the [`hxlquickimport`](bin/hxlquickimport).
+##### 1.2.1 `hxl2example`: create your own exporter/importer
+- Source code: [bin/hxl2example](bin/hxl2example)
+
+The `hxl2example` is an example python script with generic functionality that
+allow you to create your custom functions. Feel free to add your name, edit
+license etc.
+
+What it does: `hxl2example` accepts one HXLated dataset and save as .CSV.
+
+##### 1.2.2 `hxl2tab`: tab format, focused for compatibility with Orange Data Mining 
+- Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/2>
+- Source code: [bin/hxl2tab](bin/hxl2tab)
+
+What it does: `hxl2tab` uses an already HXLated dataset and then, based on
+`#hashtag+attributes`, generate an Orange Data Mining .tab format with extra
+hints.
+
+> What it does: `hxl2tab` uses an already HXLated dataset and then, based on
+`#hashtag+attributes`, generates an Orange Data Mining .tab format with extra
+hints.
+
+> The `hxl2tab` v2.0 has some usable functionality to use a web interface
+instead of cli to generate the file. Uses [hug 🐨 🤗](https://github.com/hugapi/hug).
+
+> If you want quick expose outside localhost, try [ngrok](https://ngrok.com/).
+
+##### 1.2.3 `hxlquickimport`: (like the `hxltag`, but with extra features)
+- Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/6>
+- Source code: [bin/hxlquickimport](bin/hxlquickimport)
+
+What it does: `hxlquickimport` is similar to the `hxltag` (cli tools that are
+installed with `libhxl`) mostly only try to by default slugfy whatever was
+before on the old headers and add it as HXL attribute. **Please consider using
+the HXL-Proxy for serious usage. This quick script is more for internal
+testing**
 
 ### 2. Reasons behind
 

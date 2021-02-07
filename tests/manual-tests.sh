@@ -1,5 +1,15 @@
 #!/bin/sh
 
+
+#### Requisites ________________________________________________________________
+pip3 install libhxl
+pip3 install hug
+
+# If you plan to use ngrok to proxy for external world, use something like
+sudo snap install ngrok
+
+#### The tests _________________________________________________________________
+
 ### hxl2tab --------------------------------------------------------------------
 
 hxl2tab tests/files/iris_hxlated-csv.csv temp/iris.tab

@@ -5,6 +5,7 @@
 #
 #         USAGE:  hxlquickimport hxlated-data.csv my-exported-file.hxl
 #                 cat hxlated-data.csv | hxlquickimport > my-exported-file.hxl
+#                 hug -p 9001 -f bin/hxlquickimport
 #
 #   DESCRIPTION:  hxlquickimport is a quick (and wrong) way to import
 #                 non-HXL dataset (like an .csv or .xlsx, but requires headers
@@ -29,15 +30,17 @@
 #
 #  REQUIREMENTS:  - python3
 #                     - libhxl (@see https://pypi.org/project/libhxl/)
+#                     - hug (https://github.com/hugapi/hug/)
 #          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.0
+#       VERSION:  v1.1
 #       CREATED: 2021-01-29 07:48 UTC
 #      REVISION: 2021-01-29 17:34 UTC v1.0
+#                2021-02-07 19:32 UTC v1.1 drafted HTTP interface with hug
 # ==============================================================================
 
 import sys
@@ -45,12 +48,19 @@ import os
 import logging
 import argparse
 
+# @see https://github.com/HXLStandard/libhxl-python
+#    pip3 install libhxl --upgrade
 # Do not import hxl, to avoid circular imports
 import hxl.converters
 import hxl.filters
 import hxl.io
 
+# @see https://github.com/hugapi/hug
+#     pip3 install hug --upgrade
+import hug
+
 import csv
+import tempfile
 from slugify import slugify
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
@@ -102,17 +112,63 @@ Read the documentation on https://hxlstandard.org/.
         self.args = parser.parse_args()
         return self.args
 
-    def execute(self, args,
-                stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+    def execute_cli(self, args,
+                    stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
-        The do_example_output is the main entrypoint of HXLQuickImport. When
-        called will convert the HXL source to example format.
+        The execute_cli is the main entrypoint of HXLQuickImport when executed
+        via cli.
         """
 
-        # NOTE: the next lines, in fact, only generate an csv outut. So you
-        #       can use as starting point.
         with self.hxlhelper.make_source(args, stdin) as source:
             self.hxlquickimport(source, args, True)
+
+        return self.EXIT_OK
+
+    def execute_web(self, source_url, stdin=STDIN, stdout=sys.stdout,
+                    stderr=sys.stderr):
+        """
+        The execute_web is the main entrypoint of HXL2Tab when this class is
+        called outside command line interface, like the build in HTTP use with
+        hug.
+
+        NOTE: execute_web (at least on hxlquickimport v1.0) is just an
+        placeholder, Still not implemented
+        """
+
+        # TODO: at bare minimum should at least output the content as the cli
+        #       version, but sill not. (fititnt, 2021-02-07 19:32 UTC)
+        # TODO: the execute_web needs to output the tabfile with correct
+        #       mimetype, compression, etc
+        #       (fititnt, 2021-02-07 15:59 UTC)
+
+        self.hxlhelper = HXLUtils()
+
+        try:
+            temp_input = tempfile.NamedTemporaryFile('w')
+            temp_output = tempfile.NamedTemporaryFile('w')
+
+            webargs = type('obj', (object,), {
+                "infile": source_url,
+                "sheet_index": None,
+                "selector": None,
+                'sheet': None,
+                'http_header': None,
+                'ignore_certs': False
+            })
+
+            with self.hxlhelper.make_source(webargs, stdin) as source:
+                for line in source.gen_raw(True, True):
+                    temp_input.write(line)
+
+                temp_input.seek(0)
+                self.hxlquickimport(temp_input.name, temp_output.name, False)
+
+                result_file = open(temp_output.name, 'r')
+                return result_file.read()
+
+        finally:
+            temp_input.close()
+            temp_output.close()
 
         return self.EXIT_OK
 
@@ -187,7 +243,7 @@ Read the documentation on https://hxlstandard.org/.
         phone              -> #item+phone
         """
 
-        for idx, a in enumerate(hxlated_header):
+        for idx, _ in enumerate(hxlated_header):
             hxlated_header[idx] = basehashtag + '+' \
                 + slugify(hxlated_header[idx], separator="_")
 
@@ -402,4 +458,31 @@ if __name__ == "__main__":
     hxlquickimport = HXLQuickImport()
     args = hxlquickimport.make_args_hxlquickimport()
 
-    hxlquickimport.execute(args)
+    hxlquickimport.execute_cli(args)
+
+
+@hug.format.content_type('text/csv')
+def output_csv(data, response):
+    if isinstance(data, dict) and 'errors' in data:
+        response.content_type = 'application/json'
+        return hug.output_format.json(data)
+    response.content_type = 'text/csv'
+    if hasattr(data, "read"):
+        return data
+
+    return str(data).encode("utf8")
+
+
+@hug.get('/hxlquickimport.csv', output=output_csv)
+def api_hxl2tab(source_url):
+    """hxlquickimport (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
+
+    Example:
+    http://localhost:8000/hxlquickimport.csv?source_url=https://docs.google.com
+    /spreadsheets/d/1GQVrCQGEetx7RmKaZJ8eD5dgsr5i1zNy_UJpX3_AgrE
+    /edit#gid=1715408033
+    """
+
+    hxl2tab = HXLQuickImport()
+
+    return hxl2tab.execute_web(source_url)

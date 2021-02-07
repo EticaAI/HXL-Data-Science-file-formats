@@ -6,7 +6,9 @@
 #         USAGE:  cat hxlated-file.csv | hxl2tab
 #                 hxl2tab hxlated-file.csv
 #                 hxl2tab hxlated-file.csv orange-data-mining-file.tab
-#                 hug -f bin/hxl2tab
+#                 # Via web, in two different terminals, do it
+#                     hug -f bin/hxl2tab
+#                     ngrok http 8000
 #
 #   DESCRIPTION:  Convert an already HXLated file (local, remote like Google
 #                 Docs...) to an Orange Data Mining .tag file format.
@@ -61,9 +63,6 @@ import tempfile
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
 import hug
-
-
-import time
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -137,7 +136,8 @@ class HXL2Tab:
                     stderr=sys.stderr):
         """
         The execute_web is the main entrypoint of HXL2Tab when this class is
-        called outside command line interface.
+        called outside command line interface, like the build in HTTP use with
+        hug
         """
 
         # TODO: the execute_web needs to output the tabfile with correct
@@ -177,7 +177,7 @@ class HXL2Tab:
 
     def hxl2tab(self, hxlated_input, tab_output, is_stdout):
         """
-        hxl2tab is (TODO: document)
+        hxl2tab is  is the main method to de facto make the conversion.
         """
 
         with open(hxlated_input, 'r') as csv_file:
@@ -583,7 +583,7 @@ def api_hxl2tab(source_url):
     """hxl2tab (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
 
     Example:
-    http://localhost:8000/hxl2tab=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
+    http://localhost:8000/hxl2tab.tab?source_url=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
 
     """
 
