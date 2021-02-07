@@ -201,7 +201,7 @@ Read the documentation on https://hxlstandard.org/.
                     '_vt_categorical', '')
                 hxlated_header[idx] = hxlated_header[idx] + '+vt_categorical'
 
-        print(hxlated_header)
+        # print(hxlated_header)
 
         return hxlated_header
 
