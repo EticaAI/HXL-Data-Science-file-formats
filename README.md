@@ -16,7 +16,7 @@ exported from HXL (The Humanitarian Exchange Language)**
         - [1.2 `HXL2` Command line tools](#12-hxl2-command-line-tools)
             - [1.2.1 `hxl2example`: create your own exporter/importer](#121-hxl2example-create-your-own-exporterimporter)
             - [1.2.2 `hxl2tab`: tab format, focused for compatibility with Orange Data Mining](#122-hxl2tab-tab-format-focused-for-compatibility-with-orange-data-mining)
-            - [1.2.3 `hxlquickimport`: (like the `hxltag`, but with extra features)](#123-hxlquickimport-like-the-hxltag-but-with-extra-features)
+            - [1.2.3 `hxlquickimport`: (like the `hxltag`)](#123-hxlquickimport-like-the-hxltag)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -62,13 +62,10 @@ What it does: `hxl2example` accepts one HXLated dataset and save as .CSV.
 
 ##### 1.2.2 `hxl2tab`: tab format, focused for compatibility with Orange Data Mining 
 - Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/2>
+- Orange File Specification: <https://orange-data-mining-library.readthedocs.io/en/latest/reference/data.io.html>
 - Source code: [bin/hxl2tab](bin/hxl2tab)
 
 What it does: `hxl2tab` uses an already HXLated dataset and then, based on
-`#hashtag+attributes`, generate an Orange Data Mining .tab format with extra
-hints.
-
-> What it does: `hxl2tab` uses an already HXLated dataset and then, based on
 `#hashtag+attributes`, generates an Orange Data Mining .tab format with extra
 hints.
 
@@ -77,7 +74,7 @@ instead of cli to generate the file. Uses [hug 🐨 🤗](https://github.com/hug
 
 > If you want quick expose outside localhost, try [ngrok](https://ngrok.com/).
 
-##### 1.2.3 `hxlquickimport`: (like the `hxltag`, but with extra features)
+##### 1.2.3 `hxlquickimport`: (like the `hxltag`)
 - Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/6>
 - Source code: [bin/hxlquickimport](bin/hxlquickimport)
 

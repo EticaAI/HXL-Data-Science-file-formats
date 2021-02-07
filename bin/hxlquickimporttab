@@ -301,6 +301,80 @@ class HXLTabConverter:
     Version: v0.1
     """
 
+    # @see https://orange-data-mining-library.readthedocs.io/en/latest
+    # /reference/data.io.html
+    ORANGE_REFERENCE = {
+        'orange_feature_type': {
+            'discrete': {
+                'key': "discrete",
+                'keys': ["discrete", "d"],
+                'short': "d",
+            },
+            'discrete_list': {
+                'key': "discrete_list",
+                'keys': [],
+                'short': "d",
+                'internal-comment': "not implemented"
+            },
+            'continuous': {
+                'key': "continuous",
+                'keys': ["continuous", "C"],
+                'short': "C",
+            },
+            'string': {
+                'key': "string",
+                'keys': ["string", "text", "s"],
+                'short': "s",
+            },
+            'time': {
+                'key': "time",
+                'keys': ["time", "t"],
+                'short': "t",
+            },
+            'basket': {
+                'key': "basket",
+                'keys': ["basket"],
+                'short': None,
+                'internal-comment': "not implemented"
+            }
+        },
+        'orange_flags': {
+            'class': {
+                'key': "class",
+                'keys': ["class", "c"],
+                'short': "c",
+            },
+            'meta': {
+                'key': "meta",
+                'keys': ["meta", "m"],
+                'short': "m",
+            },
+            'weight': {
+                'key': "weight",
+                'keys': ["weight", "w"],
+                'short': "w",
+                'internal-comment': "not implemented"
+            },
+            'ignore': {
+                'key': "ignore",
+                'keys': ["ignore", "i"],
+                'short': "i",
+            },
+            'custom-attributes': {
+                'key': "custom-attributes",
+                'keys': [],
+                'short': None,
+                'internal-comment': "not implemented"
+            },
+        }
+
+    }
+
+    HXL_REFERENCE = [
+        ''
+    ]
+    
+
     def __init__(self):
         """
         Constructs all the necessary attributes for the HXLTabConverter
