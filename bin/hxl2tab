@@ -58,6 +58,9 @@ import tempfile
 #     pip3 install hug --upgrade
 import hug
 
+
+import time
+
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
 
@@ -95,10 +98,10 @@ class HXL2Tab:
         self.args = parser.parse_args()
         return self.args
 
-    def execute(self, args, stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+    def execute_cli(self, args, stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
-        The do_example_output is the main entrypoint of HXL2Tab. When
-        called will convert the HXL source to example format.
+        The execute_cli is the main entrypoint of HXL2Tab when used via command
+        line interface.
         """
 
         # If the user specified an output file, we will save on
@@ -119,6 +122,58 @@ class HXL2Tab:
 
             self.hxl2tab(args.outfile, self.original_outfile,
                          self.original_outfile_is_stdout)
+
+        finally:
+            temp.close()
+
+        return self.EXIT_OK
+
+    # def execute_web(self, args, stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+    def execute_web(self, source_url, stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+        """
+        The execute_web is the main entrypoint of HXL2Tab when this class is
+        called outside command line interface.
+        """
+
+        # If the user specified an output file, we will save on
+        # self.original_outfile. The args.outfile will be used for temporary
+        # output
+        # if args.outfile:
+        #     self.original_outfile = args.outfile
+        #     self.original_outfile_is_stdout = False
+
+        try:
+            temp = tempfile.NamedTemporaryFile()
+            #args.outfile = temp.name
+
+            # print(temp)
+            # print(temp.name)
+
+            # with self.hxlhelper.make_source(args, stdin) as source, \
+            with hxl.io.data(source_url) as source, \
+                    FileOutput(temp.name) as output:
+                # self.hxlhelper.make_output(args, stdout) as output:
+            
+                # print(source_url, source, output)
+
+                source_local_file = output.output
+            
+                hxl.io.write_hxl(source_local_file, source)
+                # hxl.io.write_hxl(output.output, source, show_tags=not args.strip_tags)
+            #print(source_url, source, output)
+
+                output.output.write('teste123')
+                output.output.write('teste123')
+
+                print('output.output', output.output)
+                print('source_local_file', source_local_file)
+
+                time.sleep(30)
+
+                # self.hxl2tab(source, self.original_outfile,
+                #          True)
+                self.hxl2tab(source_local_file, output, True)
+            #  self.original_outfile_is_stdout)
 
         finally:
             temp.close()
@@ -188,7 +243,7 @@ C#sepal length	iC#sepal width	mC#petal length	mC#petal width	cD#iris
         #       added to the end result, but we keep generic ones to avoid
         #       potentially break other tools.
 
-        for idx, a in enumerate(hxlated_header):
+        for idx, _ in enumerate(hxlated_header):
 
             # feature types
             if hxlated_header[idx].find('+vt_orange_type_discrete') > -1 \
@@ -303,6 +358,7 @@ class HXLTabConverter:
         of 3 lines of headings.
         """
         print("TODO")
+
 
 class HXLUtils:
     """
@@ -509,12 +565,31 @@ class StreamOutput(object):
 
 if __name__ == "__main__":
 
-    HXL2Tab = HXL2Tab()
-    args = HXL2Tab.make_args_HXL2Tab()
+    hxl2tab = HXL2Tab()
+    args = hxl2tab.make_args_HXL2Tab()
 
-    HXL2Tab.execute(args)
+    hxl2tab.execute_cli(args)
+
+
+@hug.get('/hxl2tab')
+def api_hxl2tab(source, age: hug.types.number = 1):
+    """Says happy birthday to a user
+
+    Example:
+    http://localhost:8000/hxl2tab=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
+
+    """
+
+    hxl2tab = HXL2Tab()
+    # args = hxl2tab.make_args_HXL2Tab()
+
+    hxl2tab.execute_web(source)
+
+    return "source {source}".format(**locals())
+    # return "Happy {age} Birthday {name}!".format(**locals())
+
 
 @hug.get('/happy_birthday')
-def happy_birthday(name, age:hug.types.number=1):
+def happy_birthday(name, age: hug.types.number = 1):
     """Says happy birthday to a user"""
     return "Happy {age} Birthday {name}!".format(**locals())
