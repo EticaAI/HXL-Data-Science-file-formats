@@ -21,6 +21,9 @@ exported from HXL (The Humanitarian Exchange Language)**
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
         - [2.3 Non-goals](#23-non-goals)
+- [HXLated datasets to test](#hxlated-datasets-to-test)
+    - [Production data on The Humanitarian Data Exchange ("HDX")](#production-data-on-the-humanitarian-data-exchange-hdx)
+    - [Files from EticaAI-Data_HXL-Data-Science-file-formats](#files-from-eticaai-data_hxl-data-science-file-formats)
 - [Additional Guides](#additional-guides)
     - [Command line tools for CSV](#command-line-tools-for-csv)
     - [Alternatives to preview spreadsheets with over 1.000.000 rows](#alternatives-to-preview-spreadsheets-with-over-1000000-rows)
@@ -153,6 +156,30 @@ this issue, at least, is more automatable.
   HXLated file) from exported files, this is an non-goal to be 100% compatible
     - This applicable in special cases for .arff exports: the default export
       may need to clean known issues with exported strings.
+
+## HXLated datasets to test
+
+### Production data on The Humanitarian Data Exchange ("HDX")
+- Generic search query: https://data.humdata.org/search?vocab_Topics=hxl
+- HXL data on HDX
+  - Spreadsheet: <https://docs.google.com/spreadsheets/d/1nLahxXVhnSuhCOi1yxAJCS7jFp8sMJ7IFXs1JRbpyjE/edit#gid=0>
+  - Crawler: <https://github.com/OCHA-DAP/hxl-hdx-stats>
+
+The Humanitarian Data Exchange ("HDX") contains public datasets and part of
+them already is HXLated and ready to test.
+
+> PROTIP: on the <https://proxy.hxlstandard.org/data/source>, the
+  _Option 2: choose from the cloud_ also have an icon "HDX" also can be used.
+  This can be helpful if you are just looking around several datasets.
+
+### Files from EticaAI-Data_HXL-Data-Science-file-formats
+
+- [tests/files](tests/files)
+- [tests/manual-tests.sh](tests/manual-tests.sh)
+- Google Drive Folder: <https://drhttps://drive.google.com/drive/u/1/folders/1qyTPaDgm7Ca-62blkdQjUox47WWKRwD3ive.google.com/drive/u/1/folders/1qyTPaDgm7Ca-62blkdQjUox47WWKRwD3>
+
+Both Google Drive Folder and this repository has some test files.
+The not-so-documented manual tests may also give a quick idea on how it works.
 
 ## Additional Guides
 
