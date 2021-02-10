@@ -181,7 +181,24 @@ tools.
 
 <!--
 - ## See Also
-An Introduction to Data Science  http://www.saedsayad.com/
+  - An Introduction to Data Science  http://www.saedsayad.com/
+
+- ## File formats (comercial programs, SPSS/PSPP Stata, SAS, ...)
+  - SPSS .sav 
+    - There is no official documentation on fhe file format, but PSPP can be used
+    - https://www.gnu.org/software/pspp/pspp-dev/html_node/System-File-Format.html
+    - https://www.loc.gov/preservation/digital/formats/fdd/fdd000469.shtml
+  - sas7bdat
+    - https://cran.r-project.org/web/packages/sas7bdat/vignettes/sas7bdat.pdf
+  - Stata .dta
+    - Oficial file specification: https://www.stata.com/help.cgi?dta
+  - Openclinica vs
+    - SPSS https://docs.openclinica.com/3.1/openclinica-user-guide/spss-file-specifications
+    - Stata https://docs.openclinica.com/3.1/openclinica-user-guide/importing-openclinica-data-stata
+    - https://github.com/OpenClinica/OpenClinica
+  - Comparações entre diferentes formatos
+    - https://www.inwt-statistics.com/read-blog/comparison-of-r-python-sas-spss-and-stata.html
+    - https://redebrasileirademea.ning.com/m/group/discussion?id=3549601%3ATopic%3A80523
 -->
 
 # License

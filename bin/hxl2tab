@@ -98,11 +98,21 @@ class HXL2Tab:
                          "interfaces that could work to export HXL files to "
                          "other formats."))
 
+        parser.add_argument(
+            "--hxlmeta",
+            help="Don't print output, just the hxlmeta of the input",
+            action='store_const',
+            const=True,
+            metavar='hxlmeta',
+            default=False
+        )
+
         self.args = parser.parse_args()
+
         return self.args
 
     def execute_cli(self, args, stdin=STDIN, stdout=sys.stdout,
-                    stderr=sys.stderr):
+                    stderr=sys.stderr, hxlmeta=False):
         """
         The execute_cli is the main entrypoint of HXL2Tab when used via command
         line interface.
@@ -128,8 +138,16 @@ class HXL2Tab:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
-            self.hxl2tab(args.outfile, self.original_outfile,
-                         self.original_outfile_is_stdout)
+            if args.hxlmeta:
+                print('TODO: hxlmeta')
+                print('output.output', output.output)
+                print('source', source)
+                # print('source.columns', source.headers())
+                hxlmeta = HXLMeta(local_hxl_file=output.output.name)
+                hxlmeta.debuginfo()
+            else:
+                self.hxl2tab(args.outfile, self.original_outfile,
+                             self.original_outfile_is_stdout)
 
         finally:
             temp.close()
@@ -137,7 +155,7 @@ class HXL2Tab:
         return self.EXIT_OK
 
     def execute_web(self, source_url, stdin=STDIN, stdout=sys.stdout,
-                    stderr=sys.stderr):
+                    stderr=sys.stderr, hxlmeta=False):
         """
         The execute_web is the main entrypoint of HXL2Tab when this class is
         called outside command line interface, like the build in HTTP use with
@@ -614,6 +632,52 @@ class HXLMeta:
         }
     }
 
+    def __init__(self, local_hxl_file=None):
+        """
+        Constructs all the necessary attributes for the HXLMeta
+        object.
+        """
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
+
+        # TODO: Use some abstraction instead of access directly the file
+        self.local_hxl_file = local_hxl_file
+        self.text_headers = None
+        self.hxl_headers = None
+        self.data_columns = None
+        
+    def debuginfo(self):
+        print('debuginfo')
+        with open(self.local_hxl_file, 'r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            line_1st = next(csv_reader)
+            line_2nd = next(csv_reader)
+            # line_start = -1
+
+            if line_1st[0].find('#') == -1 and line_2nd[0].find('#') == 0:
+                self.text_headers = line_1st
+                self.hxl_headers = line_2nd
+                # line_start = 1
+            elif line_1st[0].find('#') == 0:
+                self.text_headers = None
+                self.hxl_headers = line_1st
+                # line_start = 0
+            else:
+                raise Exception("HXLMetaUnknownSourceException")
+
+            # for line in csv_reader:
+            #    txt_writer.writerow(line)
+
+            # Hotfix: skip first non-HXL header. Ideally I think the already
+            # exported HXlated file should already save without headers.
+            print('self.text_headers', self.text_headers)
+            print('self.hxl_headers', self.hxl_headers)
+            # header_original = next(csv_reader)
+            # print('header_original', header_original)
+
 
 class HXLUtils:
     """
@@ -850,3 +914,17 @@ def api_hxl2tab(source_url):
     hxl2tab = HXL2Tab()
 
     return hxl2tab.execute_web(source_url)
+
+
+@hug.get('/hxlmeta')
+def api_hxlmeta(source_url):
+    """hxl2tab (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
+
+    Example:
+    http://localhost:8000/api_hxlmeta?source_url=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
+
+    """
+
+    hxl2tab = HXL2Tab()
+
+    return hxl2tab.execute_web(source_url=source_url, hxlmeta=True)
