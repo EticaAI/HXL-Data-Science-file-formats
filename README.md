@@ -226,6 +226,11 @@ tools.
   - Comparações entre diferentes formatos
     - https://www.inwt-statistics.com/read-blog/comparison-of-r-python-sas-spss-and-stata.html
     - https://redebrasileirademea.ning.com/m/group/discussion?id=3549601%3ATopic%3A80523
+  - RData
+    - https://stackoverflow.com/questions/51722253/how-to-load-rs-rdata-files-into-python
+    - https://github.com/ofajardo/pyreadr
+  - Python for read SPSS, SAS and Stata
+    - https://github.com/Roche/pyreadstat
 -->
 
 # License

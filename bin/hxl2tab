@@ -455,6 +455,36 @@ class HXLMeta:
     Version: v0.2
     """
 
+    GLOSSARY = {
+      # @see EticaAI-Data_HXL-Data-Science-file-formats_HXLMeta_Glossary
+      #      https://docs.google.com/spreadsheets/d/
+      #      1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1066910203
+      'DataType': {
+          'description': "TODO: write here"
+      },
+      'StorageType': {
+          'description': "TODO: write here"
+      },
+      'StatisticalType': {
+          'description': "TODO: write here"
+      },
+      'RoleType': {
+          'description': "TODO: write here"
+      },
+      'LevelMeasurement': {
+          'description': "TODO: write here"
+      },
+      'VariableLabel': {
+          'description': "TODO: write here"
+      },
+      'VariableDescription': {
+          'description': "TODO: write here"
+      },
+      'OriginaHashtag': {
+          'description': "TODO: write here"
+      }
+    }
+
     # Uses HXL v1.1-final
     # @see https://hxlstandard.org/standard/1-1final/dictionary/
     # @see https://docs.google.com/spreadsheets/d/
