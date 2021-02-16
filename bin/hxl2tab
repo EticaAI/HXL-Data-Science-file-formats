@@ -460,7 +460,7 @@ class HXLMeta:
         #      https://docs.google.com/spreadsheets/d/
         #      1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1066910203
         'DataType': {
-            'name': "Official HXL Standard Data Types",
+            'name': "Variable Official HXL Standard Data Types",
             'description': "Since the HXL standard is meant to be easy to " +
                            "write also by information managers in the field," +
                            "most Data Types are implicit and some base " +
@@ -479,8 +479,14 @@ class HXLMeta:
             "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=211012023"
         },
         'StatisticalType': {
-            'description': "TODO: write here",
-            'table': "TODO"
+            'name': "Variable Statistical Data Type",
+            'description': "In statistics, groups of individual data points " +
+                           "may be classified as belonging to any of various "
+                           "statistical data types, e.g. categorical (red, "
+                           "blue, green), real number (1.68, -5, 1.7e+6), "
+                           "odd number(1,3,5) etc. -- Wikipedia",
+            'table': "https://docs.google.com/spreadsheets/d/" +
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1566300457"
         },
         'RoleType': {
             'description': "TODO: write here"
