@@ -488,10 +488,25 @@ class HXLMeta:
             'table': "https://docs.google.com/spreadsheets/d/" +
             "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1566300457"
         },
-        'RoleType': {
-            'description': "TODO: write here"
+        'LevelType': {
+            'name': "Variable Level of measurement Type",
+            'description': "Level of measurement or scale of measure is a " +
+                           "classification that describes " +
+                           "the nature of information within the values " +
+                           " assigned to variables. Psychologist Stanley " +
+                           " Smith Stevens developed the best-known " +
+                           "classification with four levels, or scales, of " +
+                           "measurement: nominal, ordinal, interval, "
+                           "and ratio. -- Wikipedia. "
+                           "Note: while the current tables document only " +
+                           "Stanley Smith Stevens classification, the " +
+                           "LevelType actually could be used to represent " +
+                           " other typologies if enough users could test " +
+                           " them.",
+            'table': "https://docs.google.com/spreadsheets/d/" +
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1053765950"
         },
-        'LevelMeasurement': {
+        'RoleType': {
             'description': "TODO: write here"
         },
         'VariableLabel': {
