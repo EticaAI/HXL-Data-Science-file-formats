@@ -456,33 +456,47 @@ class HXLMeta:
     """
 
     GLOSSARY = {
-      # @see EticaAI-Data_HXL-Data-Science-file-formats_HXLMeta_Glossary
-      #      https://docs.google.com/spreadsheets/d/
-      #      1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1066910203
-      'DataType': {
-          'description': "TODO: write here"
-      },
-      'StorageType': {
-          'description': "TODO: write here"
-      },
-      'StatisticalType': {
-          'description': "TODO: write here"
-      },
-      'RoleType': {
-          'description': "TODO: write here"
-      },
-      'LevelMeasurement': {
-          'description': "TODO: write here"
-      },
-      'VariableLabel': {
-          'description': "TODO: write here"
-      },
-      'VariableDescription': {
-          'description': "TODO: write here"
-      },
-      'OriginaHashtag': {
-          'description': "TODO: write here"
-      }
+        # @see EticaAI-Data_HXL-Data-Science-file-formats_HXLMeta_Glossary
+        #      https://docs.google.com/spreadsheets/d/
+        #      1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1066910203
+        'DataType': {
+            'name': "Official HXL Standard Data Types",
+            'description': "Since the HXL standard is meant to be easy to " +
+                           "write also by information managers in the field," +
+                           "most Data Types are implicit and some base " +
+                           "hashtags enforce beyond the generic ‘text’. " +
+                           "(#date assumes +date, affected assumes " +
+                           "+num/number).",
+            'table': "https://docs.google.com/spreadsheets/d/" +
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=717813523"
+        },
+        'StorageType': {
+            'name': "Variable Storage Type",
+            'description': "Storage Type is one way to document low level" +
+                           "storage type more specific to official HXL Data" +
+                           "Types",
+            'table': "https://docs.google.com/spreadsheets/d/" +
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=211012023"
+        },
+        'StatisticalType': {
+            'description': "TODO: write here",
+            'table': "TODO"
+        },
+        'RoleType': {
+            'description': "TODO: write here"
+        },
+        'LevelMeasurement': {
+            'description': "TODO: write here"
+        },
+        'VariableLabel': {
+            'description': "TODO: write here"
+        },
+        'VariableDescription': {
+            'description': "TODO: write here"
+        },
+        'OriginaHashtag': {
+            'description': "TODO: write here"
+        }
     }
 
     # Uses HXL v1.1-final
@@ -678,7 +692,7 @@ class HXLMeta:
         self.text_headers = None
         self.hxl_headers = None
         self.data_columns = None
-        
+
     def debuginfo(self):
         print('debuginfo')
         with open(self.local_hxl_file, 'r') as csv_file:
