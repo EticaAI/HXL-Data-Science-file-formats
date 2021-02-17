@@ -460,7 +460,7 @@ class HXLMeta:
         #      https://docs.google.com/spreadsheets/d/
         #      1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1066910203
         'DataType': {
-            'name': "Variable Official HXL Standard Data Types",
+            'name': "HXL Data Type (Official HXL Standard Data Type)",
             'description': "Since the HXL standard is meant to be easy to " +
                            "write also by information managers in the field," +
                            "most Data Types are implicit and some base " +
@@ -506,8 +506,18 @@ class HXLMeta:
             'table': "https://docs.google.com/spreadsheets/d/" +
             "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1053765950"
         },
-        'RoleType': {
-            'description': "TODO: write here"
+        'UsageType': {
+            'description': "Variable Usage Type",
+            'description': "HXLMeta Usage Types can be used to define how " +
+                           "external tools should use the variable (data on " +
+                           "the column). The most common type that cannot " +
+                           "be automatically safely detected is canonically " +
+                           "called 'focus'/'focusN' (some softwares like " +
+                           "PSPP/SPSS/SAS/WPA Analytics uses 'target', and " +
+                           " Weka/Orange use 'class'; that's why these are " +
+                           " considered direct aliases). ",
+            'table': "https://docs.google.com/spreadsheets/d/" +
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=617579056"
         },
         'VariableLabel': {
             'description': "TODO: write here"
