@@ -231,6 +231,9 @@ tools.
     - https://github.com/ofajardo/pyreadr
   - Python for read SPSS, SAS and Stata
     - https://github.com/Roche/pyreadstat
+
+- Etc
+  - Line break online https://www.joydeepdeb.com/tools/line-break.html
 -->
 
 # License

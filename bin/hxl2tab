@@ -452,7 +452,7 @@ class HXLMeta:
 
     Author: Multiple Authors
     License: Public Domain
-    Version: v0.2
+    Version: v0.6.4
     """
 
     GLOSSARY = {
@@ -507,7 +507,7 @@ class HXLMeta:
             "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1053765950"
         },
         'UsageType': {
-            'description': "Variable Usage Type",
+            'name': "Variable Usage Type",
             'description': "HXLMeta Usage Types can be used to define how " +
                            "external tools should use the variable (data on " +
                            "the column). The most common type that cannot " +
@@ -518,6 +518,20 @@ class HXLMeta:
                            " considered direct aliases). ",
             'table': "https://docs.google.com/spreadsheets/d/" +
             "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=617579056"
+        },
+        'WeightLevel': {
+            'name': "Variable Weight",
+            'description': "WeightLevel defines for both HXL-Aware tools " +
+                           "or for exported files based on HXLated datasets" +
+                           "the weight of one observation (a data row). " +
+                           "This is intended mostly for statistical" +
+                           "analysis, but most tools would treat this as " +
+                           "meta information. The default weight is 1. " +
+                           "Weight 0 means ignore. Negative weight (while " +
+                           "allowed on HXL) are likely to raise errors on " +
+                           "external tools.",
+            'table': "https://docs.google.com/spreadsheets/d/" +
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1507056660"
         },
         'VariableLabel': {
             'description': "TODO: write here"
