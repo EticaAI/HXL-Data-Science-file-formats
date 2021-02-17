@@ -373,7 +373,7 @@ def output_csv(data, response):
 
 
 @hug.get('/hxl2example.csv', output=output_csv)
-def api_hxl2tab(source_url):
+def api_hxl2example(source_url):
     """hxl2example (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
 
     Example:
