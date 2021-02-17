@@ -172,6 +172,7 @@ class HXL2Tab:
             temp_input = tempfile.NamedTemporaryFile('w')
             temp_output = tempfile.NamedTemporaryFile('w')
 
+            # TODO: implement other options beyond source_url
             webargs = type('obj', (object,), {
                 "infile": source_url,
                 "sheet_index": None,

@@ -63,6 +63,34 @@ license etc.
 
 What it does: `hxl2example` accepts one HXLated dataset and save as .CSV.
 
+**Quick examples**
+
+```bash
+### Basic examples
+
+# This will output a local file to stdout (tip: you can disable local files)
+hxl2example tests/files/iris_hxlated-csv.csv
+
+# This will save to a local file
+hxl2example tests/files/iris_hxlated-csv.csv my-local-file.example
+
+# Since we use the libhxl-python, remote HXLated remote urls works too!
+hxl2example https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406
+
+### Advanced usage (if you need to share work with others)
+
+## Quick ad-hoc web proxy, local usage
+# @see https://github.com/hugapi/hug
+
+hug -f bin/hxl2example
+# http://localhost:8000/ will how an JSON documentation of hug endpoints. TL;DR:
+# http://localhost:8000/hxl2example.csv?source_url=http://example.com/remote-file.csv
+
+## Expose local web proxy to others
+# @see https://ngrok.com/
+ngrok http 8000
+```
+
 ##### 1.2.2 `hxl2tab`: tab format, focused for compatibility with Orange Data Mining 
 - Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/2>
 - Orange File Specification: <https://orange-data-mining-library.readthedocs.io/en/latest/reference/data.io.html>

@@ -10,6 +10,22 @@ sudo snap install ngrok
 
 #### The tests _________________________________________________________________
 
+### hxl2example ----------------------------------------------------------------
+
+hxl2example tests/files/iris_hxlated-csv.csv | head
+hxl2example tests/files/iris_hxlated-csv.csv temp/iris.tab
+hxl2example https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833 | head
+hxl2example https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833 data-mining-projects/output/HXL-CPLP-Exemplar_iris.tab
+
+## hug -f bin/hxl2example ......................................................
+#@see https://hugapi.github.io/hug/
+#@see https://github.com/hugapi/hug/
+hug -f bin/hxl2example
+
+curl --silent http://localhost:8000/hxl2example.csv?source_url=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833 | head
+# HXLStandard_HXLCoreSchema_CoreHashtags
+curl --silent http://localhost:8000/hxl2example.csv?source_url=https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406 | head
+
 ### hxl2tab --------------------------------------------------------------------
 
 hxl2tab tests/files/iris_hxlated-csv.csv temp/iris.tab
@@ -22,7 +38,7 @@ hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrp
 hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrpft3tiGQ1RH0/edit#gid=0 temp/example-ebola-dataset-1_HXLated+tab_hxltabv15_b.tab
 hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrpft3tiGQ1RH0/edit#gid=0 temp/example-ebola-dataset-1_HXLated+tab_hxltabv16.tab
 
-### hug -f bin/hxl2tab ---------------------------------------------------------
+## hug -f bin/hxl2tab ..........................................................
 #@see https://hugapi.github.io/hug/
 #@see https://github.com/hugapi/hug/
 hug -f bin/hxl2tab
