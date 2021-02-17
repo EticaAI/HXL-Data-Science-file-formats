@@ -49,6 +49,22 @@ hug -f bin/hxl2tab
 # This will allow use hxl2tab via http. With ngrok could be used to quick allow
 # others to use your computer as quick interface
 
+### hxlquickmeta ---------------------------------------------------------------
+
+hxlquickmeta tests/files/iris_hxlated-csv.csv | head
+hxlquickmeta tests/files/iris_hxlated-csv.csv temp/iris.tab
+hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833 | head
+hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833 data-mining-projects/output/HXL-CPLP-Exemplar_iris.tab
+
+## hug -f bin/hxlquickmeta ......................................................
+#@see https://hugapi.github.io/hug/
+#@see https://github.com/hugapi/hug/
+hug -f bin/hxlquickmeta
+
+curl --silent http://localhost:8000/hxlquickmeta.csv?source_url=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833 | head
+# HXLStandard_HXLCoreSchema_CoreHashtags
+curl --silent http://localhost:8000/hxlquickmeta.csv?source_url=https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406 | head
+
 
 ### hxlquickimport -------------------------------------------------------------
 
