@@ -469,19 +469,40 @@ class HXLMeta:
             # contact | Contact information for the subject of a data record
             #           (e.g. an activity).
             #           Since HXL 1.0.
-            # country
-            # crisis
+            # country | Country (often left implied in a dataset). Also
+            #           sometimes known as admin level 0. Since HXL 1.0.
+            # @see https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+            'country': {
+                'default_if__code': {
+                    'HashtagVocab': "v_iso3",
+                },
+                'default_if__v_iso3': {
+                    'StorageType': "char3"  # BRA/076 (BR?) ...
+                }
+            },
+            # crisis | A humanitarian emergency. Since HXL 1.0.
+            #          Defaults to +v_glide with the +code attribute if you do
+            #          not specify a vocabulary.
+            'crisis': {
+                'default_if__code': {
+                    'HashtagVocab': "v_glide",
+                },
+                'default_if__v_glide': {
+                    # TODO: what storage do GLIDE use?
+                    'StorageType': "char18"  # EQ-2021-000015-JPN ...
+                }
+            },
             # currency | Name or ISO 4217 currency code for all financial
             #            #value cells in the row (e.g. “EUR”). Typically used
             #            together with #value in financial or cash data.
             #            Since HXL 1.1.
             'currency': {
                 # @see https://en.wikipedia.org/wiki/ISO_4217
-                'if__code': {
+                'default_if__code': {
                     'HashtagVocab': 'v_iso4217',
                     'UsageType': 'input',
                 },
-                'if__v_iso4217': {
+                'default_if__v_iso4217': {
                     'StorageType': 'char3',  # USD/840, VES/928, BRL/986, ...
                 }
             },
@@ -497,7 +518,20 @@ class HXLMeta:
                 'DataType': "date"
             },
             # delivery
-            # description
+            # description | Long description for a data record. Since HXL 1.0.
+            #
+            # Implementers notes (Without extra context) we decide to:
+            #   - varcharu: enforce any size, but must accept Unicode
+            #   - meta: While do exist cases (like text mining, sentiment
+            #     analysis, etc) that #description could be input, we default
+            #     to meta.
+            'description': {
+                'DataType': "text",
+                'StorageType': "varcharu",
+                'StatisticalType': "meta",
+                'LevelType': "meta",
+                'UsageType': "meta",
+            },
             # event
             # frequency | The frequency with which something occurs.
             #             Since HXL 1.1.
@@ -545,7 +579,19 @@ class HXLMeta:
             },
             # region
             # respondee
-            # sector
+            # sector | A humanitarian cluster or sector. Since HXL 1.0.
+            #          Defaults to +v_ocha_clusters with the +code attribute
+            #          if you do not specify a vocabulary.
+            'sector': {
+                'default_if__code': {
+                    'HashtagVocab': 'v_ocha_clusters',
+                    'UsageType': 'input',
+                },
+                'default_if__v_ocha_clusters': {
+                   # 'StorageType': '???',  # TODO: check v_ocha_clusters
+                   #                                maximum storage usage
+                }
+            },
             # service
             # severity
             # status
@@ -576,21 +622,50 @@ class HXLMeta:
             # 1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=1810309357
             # +code
             'code': {
-                'DataType': "text"
+                # 'DataType': "text" # Codes may not be text (but most are)
             },
             # +coord
             # +dest
             # +displaced
             # +elevation
             # +email (also an HXL Core Data Type)
-            # +id
-            # +label
+            # +id | Unique identifier for a data record
+            #       Use with #meta to provide internal identifiers for data
+            #       records.
+            # Notes to implementers (without extra explicitl context):
+            #   - meta: for data mining, most of the time +id are so unique
+            #     that are very likely to be meta.
+            'id': {
+                'StatisticalType': "meta",
+                'LevelType': "meta",
+                'UsageType': "meta",
+            },
+            # +label | Is a narrative label
+            #          Text labels (for a table or chart).
+            # Notes to implementers (without extra explicitl context):
+            #   - meta: for data mining, most of the time +name/+label, in
+            #     specia if already exist a column with +code/+type, to
+            #     consider as meta.
             'label': {
-                'DataType': "text"
+                'DataType': "text",
+                'StatisticalType': "meta",
+                'LevelType': "meta",
+                'UsageType': "meta",
             },
             # +lat
             # +lon
-            # +name
+            # +name | Is a name or title
+            #         Human-readable name, title, or label.
+            # Notes to implementers (without extra explicitl context):
+            #   - meta: for data mining, most of the time +name/+label, in
+            #     specia if already exist a column with +code/+type, to
+            #     consider as meta.
+            'name': {
+                'DataType': "text",
+                'StatisticalType': "meta",
+                'LevelType': "meta",
+                'UsageType': "meta",
+            },
             # +num
             'num': {
                 'DataType': "number"
@@ -610,22 +685,47 @@ class HXLMeta:
             'number': {
                 'DataType': "number"
             },
-            # url
+            # url | Is a web link (URL)
+            #       The data consists of web links related to the main hashtag
+            #       (e.g. for an #org, #service, #activity, #loc, etc).
+            # Notes to implementers (without extra explicitl context):
+            #   - meta: url/email/phone are very likely to be meta
+            #   - varcharu: url/email MAY contain unicode characters
             'url': {
                 'DataType': "url",
-                'dataflag_orange': "meta",
+                'StorageType': "varcharu",
+                'StatisticalType': "meta",
+                'LevelType': "meta",
+                'UsageType': "meta",
             },
-            # email
+            # email | Is an e-mail address
+            #         Email address.
+            # Notes to implementers (without extra explicitl context):
+            #   - meta: url/email/phone are very likely to be meta
+            #   - varcharu: url/email MAY contain unicode characters
             'email': {
                 'DataType': "email",
-                'dataflag_orange': "meta",
+                'StorageType': "varcharu",  # TODO: maybe varcharu128?
+                'StatisticalType': "meta",
+                'LevelType': "meta",
+                'UsageType': "meta",
             },
-            # phone
+            # phone | Is a phone number
+            #         The data consists of #contact phone numbers.
+            #   - meta: url/email/phone are very likely to be meta
+            #   - varchar: phone is unlikely to unicode characters (but can
+            #     " ", "(", ")", "-", ".", as example)
             'phone': {
                 'DataType': "phone",
-                'dataflag_orange': "meta",
+                'StorageType': "varchar",  # TODO: maybe varchar24?
+                'StatisticalType': "meta",
+                'LevelType': "meta",
+                'UsageType': "meta",
             },
-            # date
+            # date | see #data (HXL Core attributes do not have an +date)
+            # Notes to implementers (without extra explicitl context):
+            #   - date/number/pct are likely to be input (sometimes focus)
+            #     even when they may be considered as meta by the standard.
             'date': {
                 'DataType': "date"
             },
