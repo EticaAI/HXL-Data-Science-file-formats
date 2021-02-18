@@ -212,6 +212,11 @@ class HXLMeta:
                            "+num/number).",
             'table': "https://docs.google.com/spreadsheets/d/" +
             "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=717813523",
+            # HXLStandard use no prefix for DataType and, as 2021-02-17,
+            # some tools actually use hints like +num for change options for
+            # users. The '+td_' is mere for when have to differenciate
+            'attribute_prefix': 'td_',
+            'attribute_prefix_optional': True,
             'values': [
                 'text',  # (+text)
                 'number',  # (+num)
@@ -219,7 +224,12 @@ class HXLMeta:
                 'email',  # (+emal)
                 'phone',  # (+phone)
                 'date',  # (+date)
+                'bool',  # (+bool); Note: bool is an convention, but not
+                         # part of the HXLStandard 1.1
             ],
+            'value_aliases': {
+                'num': "number"
+            },
             # Since DataType are part of the HXLStandard, they're expliclity
             # not extensible without changes on this code. This helps to
             # optimize for speed
@@ -232,6 +242,9 @@ class HXLMeta:
                            "Types",
             'table': "https://docs.google.com/spreadsheets/d/" +
             "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=211012023",
+            # ts_ (NEEDS REVISION, conflict with StatisticalType)
+            'attribute_prefix': 'tsx_',
+            'attribute_prefix_optional': False,
             'values': [
                 'TODO'  # See EticaAI-Data_HXL-Data-Science-file-formats_
                         #     HXLMeta_StorageType
@@ -281,7 +294,19 @@ class HXLMeta:
                            " other typologies if enough users could test " +
                            " them.",
             'table': "https://docs.google.com/spreadsheets/d/" +
-            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1053765950"
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1053765950",
+            'values': [
+                'nominal',
+                'ordinal',
+                'interval',
+                'ratio'
+            ],
+            'value_aliases': {
+                'target': "focus",  # PSPP/SPSS/SAS/WPA ...
+                'class': "focus",  # Weka/Orange3/...
+            },
+            # LevelType are explicitly extensible
+            'values_extensible': True
         },
         'UsageType': {
             'name': "Variable Usage Type",
@@ -294,7 +319,18 @@ class HXLMeta:
                            " Weka/Orange use 'class'; that's why these are " +
                            " considered direct aliases). ",
             'table': "https://docs.google.com/spreadsheets/d/" +
-            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=617579056"
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=617579056",
+            'values': [
+                'focus',
+                'focusN',
+                'meta'
+            ],
+            'value_aliases': {
+                'target': "focus",  # PSPP/SPSS/SAS/WPA ...
+                'class': "focus"  # Weka/Orange3/...
+            },
+            # UsageType are explicitly extensible
+            'values_extensible': True
         },
         'WeightLevel': {
             'name': "Variable Weight",
@@ -334,16 +370,17 @@ class HXLMeta:
             # x_example | This is just an example hashtag with all options.
             #             and better documentation.
             'x_example': {
-                'DataType': None,  # text, number, url, email, phone, date
-                'StatisticalType': None,  # binary, categorical, ordinal, (...)
-                'defaults': {
-                    'rule_v_pcode': {
-                        'rule': {'HashtagAttribute': 'code'},
-                        'apply': {
-                            'HashtagVocab': "v_pcode"
-                        }
-                    }
-                }
+                'DataType': "text",  # text, number, url, email, phone, date
+                'StorageType': "varchar",  # int32, int64, float32, ...
+                'StatisticalType': "meta",  # binary, categorical, ordinal...
+                'LevelType': "meta",  # nominal, ordinal, interval, ratio,...
+                'UsageType': "meta",  # meta, focus/target/class, input
+                # HXLStandard only attribute an default vocabulary when tag
+                # also have an +code attribute. On this case an
+                # '#x_example +code' would use the HashtagVocab v_example, but
+                # '#x_example +code +v_acme' would use +v_acme
+                'HashtagVocab': None,
+                'HashtagVocab_if_code': "v_example"
             },
             # access
             # activity
@@ -352,70 +389,35 @@ class HXLMeta:
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm1': {
-                'defaults': {
-                    'rule_v_pcode': {
-                        'rule': {'HashtagAttribute': 'code'},
-                        'apply': {
-                            'HashtagVocab': "v_pcode"
-                        }
-                    }
-                }
+                'HashtagVocab_if_code': "v_pcode"
             },
             # adm2 | Second-level subnational administrative area (e.g. a
             #        subdivision in Bangladesh). Since HXL 1.0.
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm2': {
-                'defaults': {
-                    'rule_v_pcode': {
-                        'rule': {'HashtagAttribute': 'code'},
-                        'apply': {
-                            'HashtagVocab': "v_pcode"
-                        }
-                    }
-                }
+                'HashtagVocab_if_code': "v_pcode"
             },
             # adm3 | Third-level subnational administrative area (e.g. a
             #        subdistrict in Afghanistan). Since HXL 1.0.
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm3': {
-                'defaults': {
-                    'rule_v_pcode': {
-                        'rule': {'HashtagAttribute': 'code'},
-                        'apply': {
-                            'HashtagVocab': "v_pcode"
-                        }
-                    }
-                }
+                'HashtagVocab_if_code': "v_pcode"
             },
             # adm4 | Fourth-level subnational administrative area (e.g. a
             #        barangay in the Philippines). Since HXL 1.0.
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm4': {
-                'defaults': {
-                    'rule_v_pcode': {
-                        'rule': {'HashtagAttribute': 'code'},
-                        'apply': {
-                            'HashtagVocab': "v_pcode"
-                        }
-                    }
-                }
+                'HashtagVocab_if_code': "v_pcode"
             },
             # adm5 | Fifth-level subnational administrative area (e.g. a
             #        ward of a city). Since HXL 1.0.
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm5': {
-                'defaults': {
-                    'rule_v_pcode': {
-                        'rule': {'HashtagAttribute': 'code'},
-                        'apply': {
-                            'HashtagVocab': "v_pcode"
-                        }
-                    }
-                }
+                'HashtagVocab_if_code': "v_pcode"
             },
             # affected | Number of people or households affected by an
             #            emergency
