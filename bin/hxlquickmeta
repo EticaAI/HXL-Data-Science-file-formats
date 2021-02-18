@@ -36,6 +36,7 @@ import sys
 import os
 import logging
 import argparse
+import re
 
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
@@ -222,6 +223,19 @@ class HXLMeta:
       - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/datatypes.py
       - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/model.py
       - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/validation.py
+    """
+
+    # From hxl.datatypes.TOKEN_PATTERN) # TODO: remove if not used
+    TOKEN_PATTERN = r'[A-Za-z][_0-9A-Za-z]*'
+    """A regular expression matching a single string token.
+    """
+
+    # From hxl.datatypes._WHITESPACE_PATTERN
+    _WHITESPACE_PATTERN = re.compile(r'\s+', re.MULTILINE)
+
+    # From hxl.TagPattern.PATTERN  # TODO: remove if not used
+    PATTERN = r'^\s*#?({token}|\*)((?:\s*[+-]{token})*)\s*(!)?\s*$'.format(token=hxl.datatypes.TOKEN_PATTERN)
+    """Constant: regular expression to match a HXL tag pattern.
     """
 
     GLOSSARY = {
@@ -775,6 +789,12 @@ class HXLMeta:
         self.hxl_headers = None
         self.data_columns = None
 
+    def _parse_heading(self, heading):
+        # @see https://stackoverflow.com/questions/8270092/remove-all-whitespace-in-a-string
+        # pattern = re.compile(r'\s+')
+        heading1 = re.sub(self._WHITESPACE_PATTERN, '', heading)
+        return heading1
+
     def debuginfo(self):
         print('debuginfo')
         with open(self.local_hxl_file, 'r') as csv_file:
@@ -807,6 +827,7 @@ class HXLMeta:
     # hxlquickmeta --hxlquickmeta-hashtag="#adm2+code" --hxlquickmeta-value="BR3106200"
     def get_hashtag_info(self, hashtag, value):
         print('hashtag', hashtag)
+        print('hashtag._parse_heading', self._parse_heading(hashtag))
         print('value', value)
 
 
