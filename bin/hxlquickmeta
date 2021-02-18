@@ -211,7 +211,19 @@ class HXLMeta:
                            "(#date assumes +date, affected assumes " +
                            "+num/number).",
             'table': "https://docs.google.com/spreadsheets/d/" +
-            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=717813523"
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=717813523",
+            'values': [
+                'text',  # (+text)
+                'number',  # (+num)
+                'url',  # (+url)
+                'email',  # (+emal)
+                'phone',  # (+phone)
+                'date',  # (+date)
+            ],
+            # Since DataType are part of the HXLStandard, they're expliclity
+            # not extensible without changes on this code. This helps to
+            # optimize for speed
+            'values_extensible': False
         },
         'StorageType': {
             'name': "Variable Storage Type",
@@ -219,7 +231,17 @@ class HXLMeta:
                            "storage type more specific to official HXL Data" +
                            "Types",
             'table': "https://docs.google.com/spreadsheets/d/" +
-            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=211012023"
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=211012023",
+            'values': [
+                'TODO'  # See EticaAI-Data_HXL-Data-Science-file-formats_
+                        #     HXLMeta_StorageType
+                        # Not implemented yet as usable code
+            ],
+            # StorageType are not part of the HXLStandard, but since
+            # they are are expected to at least depend on one or more
+            # implementations in code, we will define they as None (Null).
+            # Implementers may choose to consider None as False or True.
+            'values_extensible': None
         },
         'StatisticalType': {
             'name': "Variable Statistical Data Type",
@@ -229,7 +251,19 @@ class HXLMeta:
                            "blue, green), real number (1.68, -5, 1.7e+6), "
                            "odd number(1,3,5) etc. -- Wikipedia",
             'table': "https://docs.google.com/spreadsheets/d/" +
-            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1566300457"
+            "1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1566300457",
+            'values': [
+                'binary',
+                'categorical',
+                'ordinal',
+                'realvaluedadditive',
+                'realvaluedmultiplicative',
+            ],
+            # StatisticalType are not part of the HXLStandard, but since
+            # they are are expected to at least depend on one or more
+            # implementations in code, we will define they as None (Null).
+            # Implementers may choose to consider None as False or True.
+            'values_extensible': None
         },
         'LevelType': {
             'name': "Variable Level of measurement Type",
@@ -297,13 +331,92 @@ class HXLMeta:
         #     'text', 'number', 'url', 'email', 'phone', 'date'
         # ]
         'hashtag': {
+            # x_example | This is just an example hashtag with all options.
+            #             and better documentation.
+            'x_example': {
+                'DataType': None,  # text, number, url, email, phone, date
+                'StatisticalType': None,  # binary, categorical, ordinal, (...)
+                'defaults': {
+                    'rule_v_pcode': {
+                        'rule': {'HashtagAttribute': 'code'},
+                        'apply': {
+                            'HashtagVocab': "v_pcode"
+                        }
+                    }
+                }
+            },
             # access
             # activity
-            # adm1
-            # adm2
-            # adm3
-            # adm4
-            # adm5
+            # adm1 | Top-level subnational administrative area (e.g. a
+            #        governorate in Syria). Since HXL 1.0.
+            #        Defaults to +v_pcode with the +code attribute if you do
+            #        not specify a vocabulary.
+            'adm1': {
+                'defaults': {
+                    'rule_v_pcode': {
+                        'rule': {'HashtagAttribute': 'code'},
+                        'apply': {
+                            'HashtagVocab': "v_pcode"
+                        }
+                    }
+                }
+            },
+            # adm2 | Second-level subnational administrative area (e.g. a
+            #        subdivision in Bangladesh). Since HXL 1.0.
+            #        Defaults to +v_pcode with the +code attribute if you do
+            #        not specify a vocabulary.
+            'adm2': {
+                'defaults': {
+                    'rule_v_pcode': {
+                        'rule': {'HashtagAttribute': 'code'},
+                        'apply': {
+                            'HashtagVocab': "v_pcode"
+                        }
+                    }
+                }
+            },
+            # adm3 | Third-level subnational administrative area (e.g. a
+            #        subdistrict in Afghanistan). Since HXL 1.0.
+            #        Defaults to +v_pcode with the +code attribute if you do
+            #        not specify a vocabulary.
+            'adm3': {
+                'defaults': {
+                    'rule_v_pcode': {
+                        'rule': {'HashtagAttribute': 'code'},
+                        'apply': {
+                            'HashtagVocab': "v_pcode"
+                        }
+                    }
+                }
+            },
+            # adm4 | Fourth-level subnational administrative area (e.g. a
+            #        barangay in the Philippines). Since HXL 1.0.
+            #        Defaults to +v_pcode with the +code attribute if you do
+            #        not specify a vocabulary.
+            'adm4': {
+                'defaults': {
+                    'rule_v_pcode': {
+                        'rule': {'HashtagAttribute': 'code'},
+                        'apply': {
+                            'HashtagVocab': "v_pcode"
+                        }
+                    }
+                }
+            },
+            # adm5 | Fifth-level subnational administrative area (e.g. a
+            #        ward of a city). Since HXL 1.0.
+            #        Defaults to +v_pcode with the +code attribute if you do
+            #        not specify a vocabulary.
+            'adm5': {
+                'defaults': {
+                    'rule_v_pcode': {
+                        'rule': {'HashtagAttribute': 'code'},
+                        'apply': {
+                            'HashtagVocab': "v_pcode"
+                        }
+                    }
+                }
+            },
             # affected | Number of people or households affected by an
             #            emergency
             'affected': {
@@ -509,8 +622,6 @@ class HXLMeta:
             print('self.hxl_headers', self.hxl_headers)
             # header_original = next(csv_reader)
             # print('header_original', header_original)
-
-    def 
 
 
 class HXLUtils:
