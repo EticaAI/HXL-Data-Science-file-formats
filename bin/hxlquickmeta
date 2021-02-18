@@ -67,6 +67,7 @@ class HXLQuickMeta:
         """
         self.hxlhelper = None
         self.args = None
+        self.hxlmeta = HXLMeta()
 
         # Posix exit codes
         self.EXIT_OK = 0
@@ -81,6 +82,22 @@ class HXLQuickMeta:
                          "scripts with some bare minimum command line "
                          "interfaces that could work to export HXL files to "
                          "other formats."))
+
+        parser.add_argument(
+            '--hxlquickmeta-hashtag',
+            help='Output debug information for just one hashtag (without use files)',
+            # metavar='quickhashtag',
+            default=None,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--hxlquickmeta-value',
+            help='Output debug information for just one value (without use files)',
+            # metavar='quickhashtag',
+            default=None,
+            nargs='?'
+        )
 
         self.args = parser.parse_args()
         return self.args
@@ -107,10 +124,13 @@ class HXLQuickMeta:
         The execute_cli is the main entrypoint of HXL2Tab when used via command
         line interface.
         """
-        # hxltabconverter = HXLTabConverter()
 
-        # print(hxltabconverter.ORANGE_REFERENCE)
-        # print(hxltabconverter.HXL_REFERENCE)
+        if args.hxlquickmeta_hashtag:
+            # print(args.hxlquickmeta_hashtag)
+            # print(self.hxlmeta.HXL_REFERENCE)
+            self.hxlmeta.get_hashtag_info(
+                args.hxlquickmeta_hashtag, args.hxlquickmeta_value)
+            return self.EXIT_OK
 
         # If the user specified an output file, we will save on
         # self.original_outfile. The args.outfile will be used for temporary
@@ -196,6 +216,12 @@ class HXLMeta:
     Author: Multiple Authors
     License: Public Domain
     Version: v0.6.5
+
+
+    See also:
+      - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/datatypes.py
+      - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/model.py
+      - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/validation.py
     """
 
     GLOSSARY = {
@@ -588,8 +614,8 @@ class HXLMeta:
                     'UsageType': 'input',
                 },
                 'default_if__v_ocha_clusters': {
-                   # 'StorageType': '???',  # TODO: check v_ocha_clusters
-                   #                                maximum storage usage
+                    # 'StorageType': '???',  # TODO: check v_ocha_clusters
+                    #                                maximum storage usage
                 }
             },
             # service
@@ -777,6 +803,11 @@ class HXLMeta:
             print('self.hxl_headers', self.hxl_headers)
             # header_original = next(csv_reader)
             # print('header_original', header_original)
+
+    # hxlquickmeta --hxlquickmeta-hashtag="#adm2+code" --hxlquickmeta-value="BR3106200"
+    def get_hashtag_info(self, hashtag, value):
+        print('hashtag', hashtag)
+        print('value', value)
 
 
 class HXLUtils:
