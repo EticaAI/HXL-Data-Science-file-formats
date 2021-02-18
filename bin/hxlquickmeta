@@ -380,7 +380,14 @@ class HXLMeta:
                 # '#x_example +code' would use the HashtagVocab v_example, but
                 # '#x_example +code +v_acme' would use +v_acme
                 'HashtagVocab': None,
-                'HashtagVocab_if_code': "v_example"
+                'default_if__code': {
+                    'HashtagVocab': "v_example",
+                },
+                'default_if__v_acme': {
+                    'StorageType': 'char8',
+                    'LevelType': "nominal",
+                    'UsageType': "focus",
+                },
             },
             # access
             # activity
@@ -389,35 +396,65 @@ class HXLMeta:
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm1': {
-                'HashtagVocab_if_code': "v_pcode"
+                'default_if__code': {
+                    'HashtagVocab': "v_pcode",
+                },
+                'default_if__v_pcode': {
+                    # BR310620005 (12 chars) would be 'Código de Subdistrito
+                    # Completo for Belo Horizonte' if added as P-Code, but
+                    # on a quick look, most PCodes seesm to be 10 or less
+                    # characters (exact bytes)
+                    # Lets just put 16 to be safe
+                    'StorageType': "varchar16"  # TODO: Maybe varchar12?
+                }
             },
             # adm2 | Second-level subnational administrative area (e.g. a
             #        subdivision in Bangladesh). Since HXL 1.0.
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm2': {
-                'HashtagVocab_if_code': "v_pcode"
+                'default_if__code': {
+                    'HashtagVocab': "v_pcode",
+                },
+                'default_if__v_pcode': {
+                    'StorageType': "varchar16"  # TODO: Maybe varchar12?
+                }
             },
             # adm3 | Third-level subnational administrative area (e.g. a
             #        subdistrict in Afghanistan). Since HXL 1.0.
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm3': {
-                'HashtagVocab_if_code': "v_pcode"
+                'default_if__code': {
+                    'HashtagVocab': "v_pcode",
+                },
+                'default_if__v_pcode': {
+                    'StorageType': "varchar16"  # TODO: Maybe varchar12?
+                }
             },
             # adm4 | Fourth-level subnational administrative area (e.g. a
             #        barangay in the Philippines). Since HXL 1.0.
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm4': {
-                'HashtagVocab_if_code': "v_pcode"
+                'default_if__code': {
+                    'HashtagVocab': "v_pcode",
+                },
+                'default_if__v_pcode': {
+                    'StorageType': "varchar16"  # TODO: Maybe varchar12?
+                }
             },
             # adm5 | Fifth-level subnational administrative area (e.g. a
             #        ward of a city). Since HXL 1.0.
             #        Defaults to +v_pcode with the +code attribute if you do
             #        not specify a vocabulary.
             'adm5': {
-                'HashtagVocab_if_code': "v_pcode"
+                'default_if__code': {
+                    'HashtagVocab': "v_pcode",
+                },
+                'default_if__v_pcode': {
+                    'StorageType': "varchar16"  # TODO: Maybe varchar12?
+                }
             },
             # affected | Number of people or households affected by an
             #            emergency
@@ -434,7 +471,20 @@ class HXLMeta:
             #           Since HXL 1.0.
             # country
             # crisis
-            # currency
+            # currency | Name or ISO 4217 currency code for all financial
+            #            #value cells in the row (e.g. “EUR”). Typically used
+            #            together with #value in financial or cash data.
+            #            Since HXL 1.1.
+            'currency': {
+                # @see https://en.wikipedia.org/wiki/ISO_4217
+                'if__code': {
+                    'HashtagVocab': 'v_iso4217',
+                    'UsageType': 'input',
+                },
+                'if__v_iso4217': {
+                    'StorageType': 'char3',  # USD/840, VES/928, BRL/986, ...
+                }
+            },
             # date | Date related to the data in the record applies.
             #        Preferred format is ISO 8610 (e.g. "2015-06-01",
             #        "2015-Q1", etc.)
@@ -515,6 +565,9 @@ class HXLMeta:
             #         Since HXL 1.1.
             'value': {
                 'DataType': "number"
+                # TODO: see currency. We could consider do some advanced
+                #       Check here to more specific StorageType if the user
+                #       does not choose to do full dataset column analysis
             },
         },
         'attributes': {
