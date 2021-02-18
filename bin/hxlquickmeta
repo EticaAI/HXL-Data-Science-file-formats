@@ -195,7 +195,7 @@ class HXLMeta:
 
     Author: Multiple Authors
     License: Public Domain
-    Version: v0.6.4
+    Version: v0.6.5
     """
 
     GLOSSARY = {
@@ -307,8 +307,8 @@ class HXLMeta:
             # affected | Number of people or households affected by an
             #            emergency
             'affected': {
-                'datatype_hxl': "number",
-                'datatype_statistical': "count",
+                'DataType': "number",
+                'StatisticalType': "count",
             },
             # beneficiary
             # capacity
@@ -329,7 +329,7 @@ class HXLMeta:
             #        @see https://stats.stackexchange.com/questions/220812/
             #           time-is-a-continuous-or-discrete-variables
             'date': {
-                'datatype_hxl': "date"
+                'DataType': "date"
             },
             # delivery
             # description
@@ -340,7 +340,7 @@ class HXLMeta:
             #             this is right
             #             @see https://en.wikipedia.org/wiki/Ordinal_data
             'frequency': {
-                'datatype_statistical': "ordinal"
+                'StatisticalType': "ordinal"
             },
             # geo
             # group
@@ -349,14 +349,14 @@ class HXLMeta:
             # inneed | Number of people or households in need of humanitarian
             #         assistance.
             'inneed': {
-                'datatype_hxl': "number",
-                'datatype_statistical': "count",
+                'DataType': "number",
+                'StatisticalType': "count",
             },
             # item
             # loc
             # meta
             'meta': {
-                'datafeature_hxl': "meta",
+                'UsageType': "meta",
                 'datafeature_orange': "meta",
             },
             # modality
@@ -368,15 +368,15 @@ class HXLMeta:
             #             regardless of their specific humanitarian needs.
             #             Since HXL 1.0.
             'population': {
-                'datatype_hxl': "number",
-                'datatype_statistical': "count",
+                'DataType': "number",
+                'StatisticalType': "count",
             },
             # reached | Number of people or households reached with
             #           humanitarian assistance. Subset of #targeted.
             #           Since HXL 1.0.
             'reached': {
-                'datatype_hxl': "number",
-                'datatype_statistical': "count",
+                'DataType': "number",
+                'StatisticalType': "count",
             },
             # region
             # respondee
@@ -390,8 +390,8 @@ class HXLMeta:
             #            of #reached.
             #            Since HXL 1.0.
             'targeted': {
-                'datatype_hxl': "number",
-                'datatype_statistical': "count",
+                'DataType': "number",
+                'StatisticalType': "count",
             },
             # value | A monetary value, such as the price of goods in a market,
             #         a project budget, or the amount of cash transferred to
@@ -399,7 +399,7 @@ class HXLMeta:
             #         financial or cash data.
             #         Since HXL 1.1.
             'value': {
-                'datatype_hxl': "number"
+                'DataType': "number"
             },
         },
         'attributes': {
@@ -408,7 +408,7 @@ class HXLMeta:
             # 1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=1810309357
             # +code
             'code': {
-                'datatype_hxl': "text"
+                'DataType': "text"
             },
             # +coord
             # +dest
@@ -418,14 +418,14 @@ class HXLMeta:
             # +id
             # +label
             'label': {
-                'datatype_hxl': "text"
+                'DataType': "text"
             },
             # +lat
             # +lon
             # +name
             # +num
             'num': {
-                'datatype_hxl': "number"
+                'DataType': "number"
             },
             # +pct
             # +phone (also an HXL Core Data Type)
@@ -436,30 +436,30 @@ class HXLMeta:
             # ### HXL Data Types ______________________________________________
             # text
             'text': {
-                'datatype_hxl': "text"
+                'DataType': "text"
             },
             # number
             'number': {
-                'datatype_hxl': "number"
+                'DataType': "number"
             },
             # url
             'url': {
-                'datatype_hxl': "url",
+                'DataType': "url",
                 'dataflag_orange': "meta",
             },
             # email
             'email': {
-                'datatype_hxl': "email",
+                'DataType': "email",
                 'dataflag_orange': "meta",
             },
             # phone
             'phone': {
-                'datatype_hxl': "phone",
+                'DataType': "phone",
                 'dataflag_orange': "meta",
             },
             # date
             'date': {
-                'datatype_hxl': "date"
+                'DataType': "date"
             },
         }
     }
@@ -509,6 +509,8 @@ class HXLMeta:
             print('self.hxl_headers', self.hxl_headers)
             # header_original = next(csv_reader)
             # print('header_original', header_original)
+
+    def 
 
 
 class HXLUtils:

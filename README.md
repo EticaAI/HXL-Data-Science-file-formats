@@ -43,7 +43,7 @@ exported from HXL (The Humanitarian Exchange Language)**
 - <https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1297379331>
 
 This project either use explicit HXL +attributes (easy to implement, but more
-verbose) or do inferences on well know HXLated datasets used on humanitaria
+verbose) or do inferences on well know HXLated datasets used on humanitarian
 areas. To make this work, the main reference is not software implementation, but
 reference tables.
 
