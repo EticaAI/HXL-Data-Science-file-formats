@@ -6,3 +6,9 @@ hxlquickimport_samples/
 .Rhistory
 !tests/files/output/*
 !tests/files/output/.gitkeep
+
+# hxlmeta souce storages
+*.sqlite3
+hxlmeta-data/*
+# ~/.config/hxl/hxlmeta-data.sqlite # SQLite database file
+# ~/.config/hxl/hxlmeta-data/ # Directory containing HXLated CSV files

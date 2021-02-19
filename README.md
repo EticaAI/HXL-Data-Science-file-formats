@@ -259,6 +259,11 @@ tools.
     - https://github.com/ofajardo/pyreadr
   - Python for read SPSS, SAS and Stata
     - https://github.com/Roche/pyreadstat
+- [meta issue] HXL and data directly from and to SQL databases #10
+  - https://sqlite.org/inmemorydb.html
+  - https://github.com/wireservice/csvkit/blob/master/csvkit/utilities/csvsql.py
+  - https://stackoverflow.com/questions/32833145/advantages-of-an-in-memory-database-in-sqlite/32833770
+
 
 - Etc
   - Line break online https://www.joydeepdeb.com/tools/line-break.html

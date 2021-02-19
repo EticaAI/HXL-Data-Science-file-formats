@@ -94,6 +94,10 @@ hxlquickimporttab temp/titanic.tab | head
 # @see https://docs.sqlalchemy.org/en/13/dialects/
 # @see https://github.com/wireservice/csvkit/blob/master/csvkit/utilities/csvsql.py
 
+# TODO: Create an local PostgreSQL database
+# @see https://csvkit.readthedocs.io/en/latest/scripts/csvsql.html
+# createdb hxltest
+
 # Generate create schema
 csvsql tests/files/iris_hxlated-csv.csv --dialect postgresql --skip-lines 1
 csvsql tests/files/iris_hxlated-csv.csv --dialect mysql --skip-lines 1
@@ -131,6 +135,42 @@ csvsql tests/files/iris_hxlated-csv.csv --dialect mssql --skip-lines 1
 
 # Insert data directly on the server
 csvsql tests/files/iris_hxlated-csv.csv --db 'postgresql://postgres:password@localhost/hxltest' --skip-lines 1
+
+#### Build hxlmeta local storage _______________________________________________
+# @see https://github.com/EticaAI/HXL-Data-Science-file-formats/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc
+# Note: these hxlmeta examples may not actually be used by the HXLMeta Class
+#       but could at least be used to test importing/exporting from databases
+
+# @see https://github.com/harelba/q/blob/master/test/BENCHMARK.md
+
+# TODO hxl2example --remove-headers example.com/dataset hxlmeta-data/HXLMeta_DataType.hxl.csv
+
+### HXLMeta_DataType, HXLMeta_StorageType, HXLMeta_StatisticalType
+hxl2example https://docs.google.com/spreadsheets/d/1hGUxMN2ywWNv8ONQ59Pp9Q4nG-eTRnAs0SyWunFZUDg/edit#gid=214068544 hxlmeta-data/HXLMeta_DataType.hxl.csv
+hxl2example https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=211012023 hxlmeta-data/HXLMeta_StorageType.hxl.csv
+hxl2example https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1566300457 hxlmeta-data/HXLMeta_StatisticalType.hxl.csv
+hxl2example https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1053765950 hxlmeta-data/HXLMeta_LevelType.hxl.csv
+hxl2example https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=617579056 hxlmeta-data/HXLMeta_UsageType.hxl.csv
+
+### HXL-CPLP-Vocab_Bool --------------------------------------------------------
+# @see https://github.com/HXL-CPLP/forum/issues/49
+hxl2example https://docs.google.com/spreadsheets/d/1hGUxMN2ywWNv8ONQ59Pp9Q4nG-eTRnAs0SyWunFZUDg/edit#gid=214068544 hxlmeta-data/HXL-CPLP-Vocab_Bool.hxl.csv
+
+### UNOCHA-countries-territories -----------------------------------------------
+# https://vocabulary.unocha.org/
+hxl2example https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596 hxlmeta-data/UNOCHA_countries-territories.hxl.csv
+
+### HXL-CPLP-FOD_languages -----------------------------------------------------
+hxl2example https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0 hxlmeta-data/HXL-CPLP-FOD_languages.hxl.csv
+
+### HXLStandard_Data-types --------------------------------------------------
+hxl2example https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=1881622062 hxlmeta-data/HXLStandard_Data-types.hxl.csv
+
+### HXLStandard_Core-hashtags --------------------------------------------------
+hxl2example https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406 hxlmeta-data/HXLStandard_Core-hashtags.hxl.csv
+
+### HXLStandard_Core-attributes ------------------------------------------------
+hxl2example https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=1810309357 hxlmeta-data/HXLStandard_Core-attributes.hxl.csv
 
 #### Ignore after this part ___________________________________________________
 # fititnt@bravo:/workspace/data/brasil_inep_microdados-enem-2019/DADOS$ head -n 1000 MICRODADOS_ENEM_2019.csv > MICRODADOS_ENEM_2019_head-n-1000.csv
