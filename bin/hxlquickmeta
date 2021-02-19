@@ -86,7 +86,7 @@ class HXLQuickMeta:
 
         parser.add_argument(
             '--hxlquickmeta-hashtag',
-            help='Output debug information for just one hashtag (without use files)',
+            help='Output debug information for just one hashtag (inline)',
             # metavar='quickhashtag',
             default=None,
             nargs='?'
@@ -94,7 +94,7 @@ class HXLQuickMeta:
 
         parser.add_argument(
             '--hxlquickmeta-value',
-            help='Output debug information for just one value (without use files)',
+            help='Output debug information for just one value (inline)',
             # metavar='quickhashtag',
             default=None,
             nargs='?'
@@ -220,21 +220,22 @@ class HXLMeta:
 
 
     See also:
-      - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/datatypes.py
-      - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/model.py
-      - https://github.com/HXLStandard/libhxl-python/blob/master/hxl/validation.py
+      - github.com/HXLStandard/libhxl-python/blob/master/hxl/datatypes.py
+      - github.com/HXLStandard/libhxl-python/blob/master/hxl/model.py
+      - github.com/HXLStandard/libhxl-python/blob/master/hxl/validation.py
     """
 
-    # From hxl.datatypes.TOKEN_PATTERN) # TODO: remove if not used
+    # From libhxl v4.22, hxl.datatypes.TOKEN_PATTERN) # TODO: remove if unused
     TOKEN_PATTERN = r'[A-Za-z][_0-9A-Za-z]*'
     """A regular expression matching a single string token.
     """
 
-    # From hxl.datatypes._WHITESPACE_PATTERN
+    # From libhxl v4.22, hxl.datatypes._WHITESPACE_PATTERN
     _WHITESPACE_PATTERN = re.compile(r'\s+', re.MULTILINE)
 
-    # From hxl.TagPattern.PATTERN  # TODO: remove if not used
-    PATTERN = r'^\s*#?({token}|\*)((?:\s*[+-]{token})*)\s*(!)?\s*$'.format(token=hxl.datatypes.TOKEN_PATTERN)
+    # From libhxl v4.22, hxl.TagPattern.PATTERN  # TODO: remove if not used
+    PATTERN = r'^\s*#?({token}|\*)((?:\s*[+-]{token})*)\s*(!)?\s*$'.format(
+        token=hxl.datatypes.TOKEN_PATTERN)
     """Constant: regular expression to match a HXL tag pattern.
     """
 
@@ -790,7 +791,8 @@ class HXLMeta:
         self.data_columns = None
 
     def _parse_heading(self, heading):
-        # @see https://stackoverflow.com/questions/8270092/remove-all-whitespace-in-a-string
+        # @see https://stackoverflow.com/questions/8270092/
+        #      remove-all-whitespace-in-a-string
         # pattern = re.compile(r'\s+')
         heading1 = re.sub(self._WHITESPACE_PATTERN, '', heading)
         return heading1
@@ -824,11 +826,68 @@ class HXLMeta:
             # header_original = next(csv_reader)
             # print('header_original', header_original)
 
-    # hxlquickmeta --hxlquickmeta-hashtag="#adm2+code" --hxlquickmeta-value="BR3106200"
+    # hxlquickmeta --hxlquickmeta-hashtag="#adm2+code"
+    #              --hxlquickmeta-value="BR3106200"
     def get_hashtag_info(self, hashtag, value):
         print('hashtag', hashtag)
         print('hashtag._parse_heading', self._parse_heading(hashtag))
+        print('hashtag.is_hashtag_base_valid',
+              self.is_hashtag_base_valid(hashtag))
         print('value', value)
+
+    def is_hashtag_base_valid(self, term, strict=True):
+        if strict:
+            return hxl.datatypes.is_token(term)
+        # @see docs.python.org/3/library/exceptions.html#exception-hierarchy
+        raise NotImplementedError('Less strict validation not implemented')
+
+
+class HXLMetaType:
+    """
+    HXLMetaType is a wrapper both to libhxl-python datatype-like functions and
+    the new experimental ones used on HXLMeta
+
+    Author: Multiple Authors
+    License: Public Domain
+    Version: v0.6.6
+
+    See also:
+      - github.com/HXLStandard/libhxl-python/blob/master/hxl/datatypes.py
+      - github.com/HXLStandard/libhxl-python/blob/master/hxl/model.py
+      - github.com/HXLStandard/libhxl-python/blob/master/hxl/validation.py
+    """
+
+    @staticmethod
+    def libhxl_is_empty(value):
+        return hxl.datatypes.is_empty(value)
+
+    @staticmethod
+    def libhxl_is_date(value):
+        return hxl.datatypes.is_date(value)
+
+    # @staticmethod
+    # def libhxl_is_dict(value):
+    #     return hxl.datatypes.is_dict(value)
+
+    @staticmethod
+    def libhxl_is_number(value):
+        return hxl.datatypes.is_number(value)
+
+    @staticmethod
+    def libhxl_is_string(value):
+        return hxl.datatypes.is_string(value)
+
+    @staticmethod
+    def libhxl_is_token(value):
+        return hxl.datatypes.is_token(value)
+
+    @staticmethod
+    def libhxl_is_truthy(value):
+        return hxl.datatypes.is_truthy(value)
+
+    @staticmethod
+    def libhxl_typeof(value):
+        return hxl.datatypes.typeof(value)
 
 
 class HXLUtils:
