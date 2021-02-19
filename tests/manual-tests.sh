@@ -90,6 +90,48 @@ hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrp
 hxlquickimporttab temp/titanic.tab | head
 
 
+#### [meta issue] HXL and data directly from and to SQL databases #10 __________
+# @see https://docs.sqlalchemy.org/en/13/dialects/
+# @see https://github.com/wireservice/csvkit/blob/master/csvkit/utilities/csvsql.py
+
+# Generate create schema
+csvsql tests/files/iris_hxlated-csv.csv --dialect postgresql --skip-lines 1
+csvsql tests/files/iris_hxlated-csv.csv --dialect mysql --skip-lines 1
+# CREATE TABLE "iris_hxlated-csv" (
+# 	"#item+eng_sepal+eng_length+number" DECIMAL NOT NULL, 
+# 	"#item+eng_sepal+eng_width+number" DECIMAL NOT NULL, 
+# 	"#item+eng_petal+eng_length+number" DECIMAL NOT NULL, 
+# 	"#item+eng_petal+eng_width+number" DECIMAL NOT NULL, 
+# 	"#item+class+vt_class" VARCHAR NOT NULL
+# );
+csvsql tests/files/iris_hxlated-csv.csv --dialect mysql --skip-lines 1
+# CREATE TABLE `iris_hxlated-csv` (
+# 	`#item+eng_sepal+eng_length+number` DECIMAL(38, 1) NOT NULL, 
+# 	`#item+eng_sepal+eng_width+number` DECIMAL(38, 1) NOT NULL, 
+# 	`#item+eng_petal+eng_length+number` DECIMAL(38, 1) NOT NULL, 
+# 	`#item+eng_petal+eng_width+number` DECIMAL(38, 1) NOT NULL, 
+# 	`#item+class+vt_class` VARCHAR(15) NOT NULL
+# );
+csvsql tests/files/iris_hxlated-csv.csv --dialect sqlite --skip-lines 1
+# CREATE TABLE "iris_hxlated-csv" (
+# 	"#item+eng_sepal+eng_length+number" FLOAT NOT NULL, 
+# 	"#item+eng_sepal+eng_width+number" FLOAT NOT NULL, 
+# 	"#item+eng_petal+eng_length+number" FLOAT NOT NULL, 
+# 	"#item+eng_petal+eng_width+number" FLOAT NOT NULL, 
+# 	"#item+class+vt_class" VARCHAR NOT NULL
+# );
+csvsql tests/files/iris_hxlated-csv.csv --dialect mssql --skip-lines 1
+# CREATE TABLE [iris_hxlated-csv] (
+# 	[#item+eng_sepal+eng_length+number] DECIMAL(38, 1) NOT NULL, 
+# 	[#item+eng_sepal+eng_width+number] DECIMAL(38, 1) NOT NULL, 
+# 	[#item+eng_petal+eng_length+number] DECIMAL(38, 1) NOT NULL, 
+# 	[#item+eng_petal+eng_width+number] DECIMAL(38, 1) NOT NULL, 
+# 	[#item+class+vt_class] VARCHAR(max) NOT NULL
+# );
+
+# Insert data directly on the server
+csvsql tests/files/iris_hxlated-csv.csv --db 'postgresql://postgres:password@localhost/hxltest' --skip-lines 1
+
 #### Ignore after this part ___________________________________________________
 # fititnt@bravo:/workspace/data/brasil_inep_microdados-enem-2019/DADOS$ head -n 1000 MICRODADOS_ENEM_2019.csv > MICRODADOS_ENEM_2019_head-n-1000.csv
 hxlquickimport hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000.csv | hxl2tab
