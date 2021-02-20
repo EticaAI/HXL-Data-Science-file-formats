@@ -54,6 +54,10 @@ import tempfile
 #     pip3 install hug --upgrade
 import hug
 
+# Required by HXLMetaExtras
+import pandas as pd
+import numpy as np
+
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
 
@@ -120,27 +124,11 @@ class HXLQuickMeta:
         self.args = parser.parse_args()
         return self.args
 
-    # def execute_cli(self, args,
-    #                 stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
-    #     """
-    #     The execute_cli is the main entrypoint of HXLQuickMeta. When
-    #     called will convert the HXL source to example format.
-    #     """
-
-    #     # NOTE: the next lines, in fact, only generate an csv outut. So you
-    #     #       can use as starting point.
-    #     with self.hxlhelper.make_source(args, stdin) as source, \
-    #             self.hxlhelper.make_output(args, stdout) as output:
-    #         hxl.io.write_hxl(output.output, source,
-    #                          show_tags=not args.strip_tags)
-
-    #     return self.EXIT_OK
-
     def execute_cli(self, args, stdin=STDIN, stdout=sys.stdout,
                     stderr=sys.stderr, hxlmeta=False):
         """
-        The execute_cli is the main entrypoint of HXL2Tab when used via command
-        line interface.
+        The execute_cli is the main entrypoint of hxlquickmeta when used via
+        command line interface.
         """
 
         if args.hxlquickmeta_hashtag:
@@ -172,12 +160,15 @@ class HXLQuickMeta:
                                  show_tags=not args.strip_tags)
 
             if True:  # if args.hxlmeta:
+                print(' ')
                 print('> lihxl-python overview')
                 print(' >> output.output', output.output)
                 print(' >> source', source)
                 # print('source.columns', source.headers())
                 hxlmeta = HXLMeta(local_hxl_file=output.output.name)
                 hxlmeta.debuginfo()
+                hxlmetaextras = HXLMetaExtras(local_hxl_file=output.output.name)
+                hxlmetaextras.debuginfo()
             else:
                 print('noop')
                 # self.hxl2tab(args.outfile, self.original_outfile,
@@ -821,6 +812,7 @@ class HXLMeta:
         return heading1
 
     def debuginfo(self):
+        print(' ')
         print('> HXLMeta debuginfo')
         with open(self.local_hxl_file, 'r') as csv_file:
             csv_reader = csv.reader(csv_file)
@@ -909,6 +901,48 @@ class HXLMeta:
         raise NotImplementedError('Less strict validation not implemented')
 
 
+class HXLMetaExtras:
+    """
+    HXLMetaExtras adds extra functionality to HXLMeta that requires more
+    complex dependencies to be installed than ones already required by
+    libhxl-python.
+
+    Author: Emerson Rocha
+    License: Public Domain
+    Version: v0.6.7
+
+    Requires
+    --------
+    pandas
+    """
+
+    def __init__(self, local_hxl_file = None):
+
+        self.logger = logging.getLogger(__name__)
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
+
+        # self.path_file_csv = path_file_csv
+        self.local_hxl_file = local_hxl_file
+        self.df = None
+
+    def debuginfo(self, path_file_csv = None):
+        print(' ')
+        print('TODO: HXLMetaExtras')
+        # raise NotImplementedError('TODO')
+
+    @staticmethod
+    def get_pandas_dataframe(path_file_csv):
+        raise NotImplementedError('TODO')
+
+    @staticmethod
+    def get_pandas_dataframe_overview(df):
+        raise NotImplementedError('TODO')
+
+
 class HXLMetaType:
     """
     HXLMetaType is a wrapper both to libhxl-python datatype-like functions and
@@ -917,7 +951,7 @@ class HXLMetaType:
     While HXLMeta may return *Types based on already HXLated columns, the
     HXLMeta can be used directly on a values themselves.
 
-    Author: Multiple Authors
+    Author: Emerson Rocha
     License: Public Domain
     Version: v0.6.6
 
