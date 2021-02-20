@@ -57,6 +57,9 @@ hxlquickmeta tests/files/iris_hxlated-csv.csv
 hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
 hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
 
+hxlquickmeta https://data.humdata.org/dataset/2d058968-9d7e-49a9-b28f-2895d7f6536f/resource/a12bad12-f5ea-493c-9faa-66cb3f3e9ca7/download/fts_incoming_funding_bra.csv
+
+
 ## hug -f bin/hxlquickmeta ......................................................
 #@see https://hugapi.github.io/hug/
 #@see https://github.com/hugapi/hug/

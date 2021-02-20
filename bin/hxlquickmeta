@@ -929,9 +929,19 @@ class HXLMetaExtras:
         self.local_hxl_file = local_hxl_file
         self.df = None
 
-    def debuginfo(self, path_file_csv = None):
+    def debuginfo(self):
         print(' ')
-        print('TODO: HXLMetaExtras')
+        print(' >> HXLMetaExtras: Pandas DataFrame ')
+
+        # self.df = pd.read_csv(self.local_hxl_file)
+        self.df = pd.read_csv(self.local_hxl_file, header=1)
+        print('   >>> DataFrame')
+        print(self.df)
+        print('   >>> DataFrame.T')
+        print(self.df.T)
+        print('   >>> DataFrame.describe')
+        print(self.df.describe())
+
         # raise NotImplementedError('TODO')
 
     @staticmethod
