@@ -29,9 +29,9 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.6.5
+#       VERSION:  v1.0.0
 #       CREATED:  2021-02-17 03:55 UTC
-#      REVISION:  ---
+#      REVISION:  2021-02-20 04:59 UTC v1.0.0 MVP, basic (HTTP still with bugs)
 # ==============================================================================
 
 import sys
@@ -80,9 +80,9 @@ class HXLQuickMeta:
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("hxlquickmeta  output information about a local or "
-                         + "remote dataset. If the file already is HXLated, "
-                         + "it will print even more information."))
+            description=("hxlquickmeta  output information about a local or " +
+                         "remote dataset. If the file already is HXLated, " +
+                         "it will print even more information."))
 
         # TODO: implement draft of --hxlmeta-rebuild/--hxlmeta-path
         # parser.add_argument(
