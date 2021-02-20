@@ -301,10 +301,13 @@ tools.
   - https://sqlite.org/inmemorydb.html
   - https://github.com/wireservice/csvkit/blob/master/csvkit/utilities/csvsql.py
   - https://stackoverflow.com/questions/32833145/advantages-of-an-in-memory-database-in-sqlite/32833770
+- Encryption/security
+  - https://www.solarwindsmsp.com/blog/types-database-encryption-methods
 
 
 - Etc
   - Line break online https://www.joydeepdeb.com/tools/line-break.html
+  - https://dba.stackexchange.com/questions/243172/is-individual-column-and-row-level-encryption-possible-in-sql-server
 -->
 
 # License

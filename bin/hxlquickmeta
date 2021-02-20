@@ -853,6 +853,9 @@ class HXLMeta:
             # header_original = next(csv_reader)
             # print('header_original', header_original)
 
+    def get_data_type(self, values, hashtag = None):
+        raise NotImplementedError('TODO')
+
     # hxlquickmeta --hxlquickmeta-hashtag="#adm2+code"
     #              --hxlquickmeta-value="BR3106200"
 
@@ -884,6 +887,21 @@ class HXLMeta:
             print('>>> libhxl_typeof',
                   self.HXLMetaType.libhxl_typeof(value))
 
+    def get_level_type(self, values, hashtag = None):
+        raise NotImplementedError('TODO')
+
+    def get_statistical_type(self, values, hashtag = None):
+        raise NotImplementedError('TODO')
+
+    def get_storage_type(self, values, hashtag = None):
+        raise NotImplementedError('TODO')
+
+    def get_usage_type(self, values, hashtag = None):
+        raise NotImplementedError('TODO')
+
+    def get_weight_level(self, values, hashtag = None):
+        raise NotImplementedError('TODO')
+
     def is_hashtag_base_valid(self, term, strict=True):
         if strict:
             return hxl.datatypes.is_token(term)
@@ -894,7 +912,10 @@ class HXLMeta:
 class HXLMetaType:
     """
     HXLMetaType is a wrapper both to libhxl-python datatype-like functions and
-    the new experimental ones used on HXLMeta
+    the new experimental ones used on HXLMeta.
+
+    While HXLMeta may return *Types based on already HXLated columns, the
+    HXLMeta can be used directly on a values themselves.
 
     Author: Multiple Authors
     License: Public Domain
@@ -905,6 +926,20 @@ class HXLMetaType:
       - github.com/HXLStandard/libhxl-python/blob/master/hxl/model.py
       - github.com/HXLStandard/libhxl-python/blob/master/hxl/validation.py
     """
+
+    @staticmethod
+    def get_boolean_value(value):
+        raise NotImplementedError('TODO')
+
+    @staticmethod
+    def get_storage_type_int_size(value):
+        # https://stackoverflow.com/questions/14329794/
+        # get-size-of-integer-in-python
+        raise NotImplementedError('TODO')
+
+    @staticmethod
+    def is_boolean(value):
+        raise NotImplementedError('TODO')
 
     @staticmethod
     def libhxl_is_empty(value):
