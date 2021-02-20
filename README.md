@@ -16,7 +16,8 @@ exported from HXL (The Humanitarian Exchange Language)**
         - [1.2 `HXL2` Command line tools](#12-hxl2-command-line-tools)
             - [1.2.1 `hxl2example`: create your own exporter/importer](#121-hxl2example-create-your-own-exporterimporter)
             - [1.2.2 `hxl2tab`: tab format, focused for compatibility with Orange Data Mining](#122-hxl2tab-tab-format-focused-for-compatibility-with-orange-data-mining)
-            - [1.2.3 `hxlquickimport`: (like the `hxltag`)](#123-hxlquickimport-like-the-hxltag)
+            - [1.2.3 `hxlquickmeta`:](#123-hxlquickmeta)
+            - [1.2.4 `hxlquickimport`: (like the `hxltag`)](#124-hxlquickimport-like-the-hxltag)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -105,7 +106,44 @@ instead of cli to generate the file. Uses [hug 🐨 🤗](https://github.com/hug
 
 > If you want quick expose outside localhost, try [ngrok](https://ngrok.com/).
 
-##### 1.2.3 `hxlquickimport`: (like the `hxltag`)
+##### 1.2.3 `hxlquickmeta`:
+- Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/6>
+- Source code: [bin/hxlquickmeta](bin/hxlquickmeta)
+
+What it does: `hxlquickmeta` output information about a local or remote
+dataset. If the file already is HXLated, it will print even more information.
+
+**Quick examples**
+
+```bash
+#### inline result for and hashtag and (optional) value ________________________
+
+hxlquickmeta --hxlquickmeta-hashtag="#adm2+code" --hxlquickmeta-value="BR3106200"
+# > get_hashtag_info
+# >> hashtag: #adm2+code
+# >>> HXLMeta._parse_heading: #adm2+code
+# >>> HXLMeta.is_hashtag_base_valid: None
+# >>> libhxl_is_token None
+# >> value: BR3106200
+# >>> libhxl_is_empty False
+# >>> libhxl_is_date False
+# >>> libhxl_is_number False
+# >>> libhxl_is_string True
+# >>> libhxl_is_token None
+# >>> libhxl_is_truthy False
+# >>> libhxl_typeof string
+
+#### Output information for an file, and (if any) HXLated information __________
+# Local file
+hxlquickmeta tests/files/iris_hxlated-csv.csv
+
+# Remove file
+hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
+
+
+```
+
+##### 1.2.4 `hxlquickimport`: (like the `hxltag`)
 - Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/6>
 - Source code: [bin/hxlquickimport](bin/hxlquickimport)
 

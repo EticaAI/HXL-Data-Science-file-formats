@@ -50,11 +50,12 @@ hug -f bin/hxl2tab
 # others to use your computer as quick interface
 
 ### hxlquickmeta ---------------------------------------------------------------
+hxlquickmeta --hxlquickmeta-hashtag="#adm2+code" --hxlquickmeta-value="BR3106200"
 
-hxlquickmeta tests/files/iris_hxlated-csv.csv | head
-hxlquickmeta tests/files/iris_hxlated-csv.csv temp/iris.tab
-hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833 | head
-hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833 data-mining-projects/output/HXL-CPLP-Exemplar_iris.tab
+hxlquickmeta tests/files/iris_hxlated-csv.csv
+hxlquickmeta tests/files/iris_hxlated-csv.csv
+hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
+hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
 
 ## hug -f bin/hxlquickmeta ......................................................
 #@see https://hugapi.github.io/hug/

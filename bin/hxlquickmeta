@@ -9,7 +9,9 @@
 #                     hug -f bin/hxlquickmeta
 #                     ngrok http 8000
 #
-#   DESCRIPTION:  hxlquickmeta is ...
+#   DESCRIPTION:  hxlquickmeta output information about a local or remote
+#                 dataset. If the file already is HXLated, it will print
+#                 even more information.
 #
 #                 Hug API can be used to create an ad-hoc web interface to your
 #                 script. This can be both useful if you are using an software
@@ -58,8 +60,7 @@ STDIN = sys.stdin.buffer
 
 class HXLQuickMeta:
     """
-    HXLQuickMeta is a classe to export already HXLated data in the format
-    example.
+    HXLQuickMeta is the main class used on hxlquickmeta. (...)
     """
 
     def __init__(self):
@@ -79,10 +80,9 @@ class HXLQuickMeta:
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("hxlquickmeta is an example script to create other "
-                         "scripts with some bare minimum command line "
-                         "interfaces that could work to export HXL files to "
-                         "other formats."))
+            description=("hxlquickmeta  output information about a local or "
+                         + "remote dataset. If the file already is HXLated, "
+                         + "it will print even more information."))
 
         # TODO: implement draft of --hxlmeta-rebuild/--hxlmeta-path
         # parser.add_argument(
@@ -161,15 +161,20 @@ class HXLQuickMeta:
             temp = tempfile.NamedTemporaryFile()
             args.outfile = temp.name
 
+            print('> Connection overview')
+            print(' >> TODO: implement raw connection, HTTP headers, etc')
+            print(' >>       (this should output debug information even')
+            print(' >>       for inputs that would break libhxl)')
+
             with self.hxlhelper.make_source(args, stdin) as source, \
                     self.hxlhelper.make_output(args, stdout) as output:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
             if True:  # if args.hxlmeta:
-                print('TODO: hxlmeta')
-                print('output.output', output.output)
-                print('source', source)
+                print('> lihxl-python overview')
+                print(' >> output.output', output.output)
+                print(' >> source', source)
                 # print('source.columns', source.headers())
                 hxlmeta = HXLMeta(local_hxl_file=output.output.name)
                 hxlmeta.debuginfo()
@@ -816,7 +821,7 @@ class HXLMeta:
         return heading1
 
     def debuginfo(self):
-        print('debuginfo')
+        print('> HXLMeta debuginfo')
         with open(self.local_hxl_file, 'r') as csv_file:
             csv_reader = csv.reader(csv_file)
             line_1st = next(csv_reader)
@@ -839,27 +844,45 @@ class HXLMeta:
 
             # Hotfix: skip first non-HXL header. Ideally I think the already
             # exported HXlated file should already save without headers.
-            print('self.text_headers', self.text_headers)
-            print('self.hxl_headers', self.hxl_headers)
+            print(' >> HXLMeta.text_headers', self.text_headers)
+            print(' >> HXLMeta.hxl_headers', self.hxl_headers)
+
+            for header in self.hxl_headers:
+                self.get_hashtag_info(header)
+
             # header_original = next(csv_reader)
             # print('header_original', header_original)
 
     # hxlquickmeta --hxlquickmeta-hashtag="#adm2+code"
     #              --hxlquickmeta-value="BR3106200"
-    def get_hashtag_info(self, hashtag, value = None):
-        print('> get_hashtag_info')
+
+    # TODO: implement some type of external webservice checking to print
+    #       more information when an value is an PCode. Maybe
+    #       https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External
+    #       have this?
+    def get_hashtag_info(self, hashtag, value=None):
+        print('> get_hashtag_info [', hashtag, ']', '[', value, ']')
         print('>> hashtag:', hashtag)
         print('>>> HXLMeta._parse_heading:', self._parse_heading(hashtag))
         print('>>> HXLMeta.is_hashtag_base_valid:',
               self.is_hashtag_base_valid(hashtag))
+        print('>>> libhxl_is_token', self.HXLMetaType.libhxl_is_token(hashtag))
 
-        print('>> value:', value)
-        print('>>> libhxl_is_empty', self.HXLMetaType.libhxl_is_empty(value))
-        print('>>> libhxl_is_date', self.HXLMetaType.libhxl_is_date(value))
-        print('>>> libhxl_is_number', self.HXLMetaType.libhxl_is_number(value))
-        print('>>> libhxl_is_string', self.HXLMetaType.libhxl_is_string(value))
-        print('>>> libhxl_is_truthy', self.HXLMetaType.libhxl_is_truthy(value))
-        print('>>> libhxl_typeof', self.HXLMetaType.libhxl_typeof(value))
+        if value is not None:
+            print('>> value:', value)
+            print('>>> libhxl_is_empty',
+                  self.HXLMetaType.libhxl_is_empty(value))
+            print('>>> libhxl_is_date', self.HXLMetaType.libhxl_is_date(value))
+            print('>>> libhxl_is_number',
+                  self.HXLMetaType.libhxl_is_number(value))
+            print('>>> libhxl_is_string',
+                  self.HXLMetaType.libhxl_is_string(value))
+            print('>>> libhxl_is_token',
+                  self.HXLMetaType.libhxl_is_token(hashtag))
+            print('>>> libhxl_is_truthy',
+                  self.HXLMetaType.libhxl_is_truthy(value))
+            print('>>> libhxl_typeof',
+                  self.HXLMetaType.libhxl_typeof(value))
 
     def is_hashtag_base_valid(self, term, strict=True):
         if strict:
