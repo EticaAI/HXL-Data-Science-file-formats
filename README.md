@@ -113,6 +113,9 @@ instead of cli to generate the file. Uses [hug 🐨 🤗](https://github.com/hug
 What it does: `hxlquickmeta` output information about a local or remote
 dataset. If the file already is HXLated, it will print even more information.
 
+v1.1.0 added support to give an overview by default, equivalent to users of
+[Python Pandas](https://github.com/pandas-dev/pandas).
+
 **Quick examples**
 
 ```bash

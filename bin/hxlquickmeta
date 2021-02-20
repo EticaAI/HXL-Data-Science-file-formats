@@ -23,15 +23,17 @@
 #  REQUIREMENTS:  - python3
 #                     - libhxl (https://pypi.org/project/libhxl/)
 #                     - hug (https://github.com/hugapi/hug/)
+#                     - pandas (https://github.com/pandas-dev/pandas)
 #          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.0.0
+#       VERSION:  v1.1.0
 #       CREATED:  2021-02-17 03:55 UTC
 #      REVISION:  2021-02-20 04:59 UTC v1.0.0 MVP, basic (HTTP still with bugs)
+#                 2021-02-20 23:46 UTC v1.1.0 added overview with Pandas
 # ==============================================================================
 
 import sys
