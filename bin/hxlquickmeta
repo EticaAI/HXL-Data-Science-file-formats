@@ -84,6 +84,23 @@ class HXLQuickMeta:
                          "interfaces that could work to export HXL files to "
                          "other formats."))
 
+        # TODO: implement draft of --hxlmeta-rebuild/--hxlmeta-path
+        # parser.add_argument(
+        #     '--hxlmeta-rebuild',
+        #     help='Re-build local database of Vocabularies/Taxonomies/(...)',
+        #     # metavar='quickhashtag',
+        #     default=None,
+        #     nargs='?'
+        # )
+
+        # parser.add_argument(
+        #     '--hxlmeta-path',
+        #     help='Explicitly define the path for HXLMeta local database',
+        #     # metavar='quickhashtag',
+        #     default=None,
+        #     nargs='?'
+        # )
+
         parser.add_argument(
             '--hxlquickmeta-hashtag',
             help='Output debug information for just one hashtag (inline)',
@@ -788,7 +805,8 @@ class HXLMeta:
         self.local_hxl_file = local_hxl_file
         self.text_headers = None
         self.hxl_headers = None
-        self.data_columns = None
+        self.HXLMetaType = HXLMetaType()
+        # self.hxlmeta
 
     def _parse_heading(self, heading):
         # @see https://stackoverflow.com/questions/8270092/
@@ -828,12 +846,20 @@ class HXLMeta:
 
     # hxlquickmeta --hxlquickmeta-hashtag="#adm2+code"
     #              --hxlquickmeta-value="BR3106200"
-    def get_hashtag_info(self, hashtag, value):
-        print('hashtag', hashtag)
-        print('hashtag._parse_heading', self._parse_heading(hashtag))
-        print('hashtag.is_hashtag_base_valid',
+    def get_hashtag_info(self, hashtag, value = None):
+        print('> get_hashtag_info')
+        print('>> hashtag:', hashtag)
+        print('>>> HXLMeta._parse_heading:', self._parse_heading(hashtag))
+        print('>>> HXLMeta.is_hashtag_base_valid:',
               self.is_hashtag_base_valid(hashtag))
-        print('value', value)
+
+        print('>> value:', value)
+        print('>>> libhxl_is_empty', self.HXLMetaType.libhxl_is_empty(value))
+        print('>>> libhxl_is_date', self.HXLMetaType.libhxl_is_date(value))
+        print('>>> libhxl_is_number', self.HXLMetaType.libhxl_is_number(value))
+        print('>>> libhxl_is_string', self.HXLMetaType.libhxl_is_string(value))
+        print('>>> libhxl_is_truthy', self.HXLMetaType.libhxl_is_truthy(value))
+        print('>>> libhxl_typeof', self.HXLMetaType.libhxl_typeof(value))
 
     def is_hashtag_base_valid(self, term, strict=True):
         if strict:
