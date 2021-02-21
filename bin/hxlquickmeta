@@ -24,6 +24,7 @@
 #                     - libhxl (https://pypi.org/project/libhxl/)
 #                     - hug (https://github.com/hugapi/hug/)
 #                     - pandas (https://github.com/pandas-dev/pandas)
+#                     - orange3 (https://github.com/biolab/orange3)
 #          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
@@ -59,6 +60,7 @@ import hug
 # Required by HXLMetaExtras
 import pandas as pd
 import numpy as np
+import Orange
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -156,12 +158,20 @@ class HXLQuickMeta:
             print(' >>       (this should output debug information even')
             print(' >>       for inputs that would break libhxl)')
 
-            with self.hxlhelper.make_source(args, stdin) as source, \
-                    self.hxlhelper.make_output(args, stdout) as output:
-                hxl.io.write_hxl(output.output, source,
-                                 show_tags=not args.strip_tags)
+            try:
 
-            if True:  # if args.hxlmeta:
+                # TODO: as hotfix, we're simply ignoring any original Non
+                #       HXLated heading from the local file as quick hack to
+                #       not break Orange checks with show_headers=False.
+                #       This should be improved
+                with self.hxlhelper.make_source(args, stdin) as source, \
+                        self.hxlhelper.make_output(args, stdout) as output:
+                    # hxl.io.write_hxl(output.output, source,
+                    #                  show_tags=not args.strip_tags)
+                    hxl.io.write_hxl(output.output, source,
+                                     show_tags=not args.strip_tags,
+                                     show_headers=False)
+
                 print(' ')
                 print('> lihxl-python overview')
                 print(' >> output.output', output.output)
@@ -169,12 +179,19 @@ class HXLQuickMeta:
                 # print('source.columns', source.headers())
                 hxlmeta = HXLMeta(local_hxl_file=output.output.name)
                 hxlmeta.debuginfo()
-                hxlmetaextras = HXLMetaExtras(local_hxl_file=output.output.name)
+                hxlmetaextras = HXLMetaExtras(
+                    local_hxl_file=output.output.name)
                 hxlmetaextras.debuginfo()
-            else:
-                print('noop')
-                # self.hxl2tab(args.outfile, self.original_outfile,
-                #              self.original_outfile_is_stdout)
+            except Exception as error:
+                print("ERROR! libhxl and/or HXLmeta/HXLMetaExtras failed",
+                      error)
+                print("Ok. Trying harder now with HXLMetaExtras...")
+                hxlmetaextras = HXLMetaExtras(
+                    local_hxl_file=args.infile)
+
+                hxlmetaextras.debuginfo()
+
+                print(args.infile)
 
         finally:
             temp.close()
@@ -847,7 +864,7 @@ class HXLMeta:
             # header_original = next(csv_reader)
             # print('header_original', header_original)
 
-    def get_data_type(self, values, hashtag = None):
+    def get_data_type(self, values, hashtag=None):
         raise NotImplementedError('TODO')
 
     # hxlquickmeta --hxlquickmeta-hashtag="#adm2+code"
@@ -881,19 +898,19 @@ class HXLMeta:
             print('>>> libhxl_typeof',
                   self.HXLMetaType.libhxl_typeof(value))
 
-    def get_level_type(self, values, hashtag = None):
+    def get_level_type(self, values, hashtag=None):
         raise NotImplementedError('TODO')
 
-    def get_statistical_type(self, values, hashtag = None):
+    def get_statistical_type(self, values, hashtag=None):
         raise NotImplementedError('TODO')
 
-    def get_storage_type(self, values, hashtag = None):
+    def get_storage_type(self, values, hashtag=None):
         raise NotImplementedError('TODO')
 
-    def get_usage_type(self, values, hashtag = None):
+    def get_usage_type(self, values, hashtag=None):
         raise NotImplementedError('TODO')
 
-    def get_weight_level(self, values, hashtag = None):
+    def get_weight_level(self, values, hashtag=None):
         raise NotImplementedError('TODO')
 
     def is_hashtag_base_valid(self, term, strict=True):
@@ -916,9 +933,10 @@ class HXLMetaExtras:
     Requires
     --------
     pandas
+    orange
     """
 
-    def __init__(self, local_hxl_file = None):
+    def __init__(self, local_hxl_file=None):
 
         self.logger = logging.getLogger(__name__)
 
@@ -935,14 +953,32 @@ class HXLMetaExtras:
         print(' ')
         print(' >> HXLMetaExtras: Pandas DataFrame ')
 
-        # self.df = pd.read_csv(self.local_hxl_file)
-        self.df = pd.read_csv(self.local_hxl_file, header=1)
-        print('   >>> DataFrame')
-        print(self.df)
-        print('   >>> DataFrame.T')
-        print(self.df.T)
-        print('   >>> DataFrame.describe')
-        print(self.df.describe())
+        try:
+
+            self.df = pd.read_csv(self.local_hxl_file)
+            # self.df = pd.read_csv(self.local_hxl_file, sep="\t")
+            # self.df = pd.read_csv(self.local_hxl_file, header=1)
+            print('   >>> DataFrame')
+            print(self.df)
+            print('   >>> DataFrame.T')
+            print(self.df.T)
+            print('   >>> DataFrame.describe')
+            print(self.df.describe())
+        except:
+            print('   >>> DataFrame failed; Ignoring...')
+
+        print(' ')
+        print(' >> HXLMetaExtras: Orange Data Mining')
+        # data = Orange.data.Table(self.local_hxl_file)
+        # data = Orange.data.Table('tests/files/iris_hxlated-tab.tab')
+        # print(data)
+        # print('data.domain', data.domain)
+        # print('data.columns', data.columns)
+
+        data = Orange.data.Table.from_file(self.local_hxl_file)
+        print('data.domain', data.domain)
+        print('data.columns', data.columns)
+        # print(data)
 
         # raise NotImplementedError('TODO')
 
