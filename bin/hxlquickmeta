@@ -155,11 +155,18 @@ class HXLQuickMeta:
         # args.outfile = temp2.name
         # with self.hxlhelper.make_source(args, stdin) as source, \
         #         self.hxlhelper.make_output(args, stdout) as output:
-        #     hxlmetadataset = HXLMetaDataset(output.output)
-        #     print('hxlmetadataset', hxlmetadataset)
-        #     print('hxlmetadataset._input', hxlmetadataset._input)
-        #     return 1
-        # # TODO: remove this block after MVP of HXLMetaDataset -----------------
+        #     hxl.io.write_hxl(output.output, source,
+        #                      show_tags=not args.strip_tags,
+        #                      show_headers=False)
+
+        # # print('source', source)
+        # # print('output.output', output.output)
+        # hxlmetadataset = HXLMetaDataset(output.output.name)
+        # hxlmetadataset.parse_input()
+        # print('hxlmetadataset', hxlmetadataset)
+        # print('hxlmetadataset._input', hxlmetadataset._input)
+        # return 1
+        # TODO: remove this block after MVP of HXLMetaDataset -----------------
 
         try:
             temp = tempfile.NamedTemporaryFile()
@@ -947,7 +954,8 @@ class HXLMeta:
 # class HXLDataset(hxl.io.HXLReader):
 class HXLMetaDataset(object):
     """
-    HXLMetaDataset is (...)
+    HXLMetaDataset parse one already well HXLated file on local disk and
+    then extra information. It cannot work with stream data.
 
     Note to self: Learn more Python (fititnt, 2021-02-20 22:34 BRT)
     TODO: ideally this shoud extend the hxl.model.Dataset or something
@@ -967,17 +975,49 @@ class HXLMetaDataset(object):
     # TODO: do the draft
 
     def __init__(self, input):
-        """
-        Args:
-            input (hxl.io.AbstractInput): an input source for raw data rows
+        # """
+        # Args:
+        #     input (hxl.io.AbstractInput): an input source for raw data rows
 
-        """
+        # """
         self._input = input
-        # TODO - for repeatable raw input, start a new iterator each time
-        # TODO - need to figure out how to handle columns in a repeatable situation
-        self._iter = iter(self._input)
-        self._columns = None
-        self._source_row_number = -1 # TODO this belongs in the iterator
+        # # TODO - for repeatable raw input, start a new iterator each time
+        # # TODO - need to figure out how to handle columns in a repeatable situation
+        # self._iter = iter(self._input)
+        # self._columns = None
+        # self._source_row_number = -1 # TODO this belongs in the iterator
+
+    def parse_input(self):
+        print('parse_input self._input', self._input)
+
+        with open(self._input) as csvfile:
+            print('parse_input open csvfile', csvfile)
+            # csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            csv_reader = csv.reader(csvfile)
+            for row in csv_reader:
+                print('row', row)
+
+            # import time
+            # time.sleep(30)
+            print('parse_input end')
+
+        # with open(self._input, 'a') as hxlated_file:
+        #     # csv_reader = csv.reader(hxlated_file, delimiter=',')
+        #     print('parse_input hxlated_file', hxlated_file)
+        #     print('parse_input hxlated_file.name', hxlated_file.name)
+        #     csv_reader = csv.reader(hxlated_file.name)
+        #     print('parse_input csv_reader', csv_reader)
+        #     line_count = 0
+        #     # print('parse_input', new_txt)
+        #     for row in csv_reader:
+        #         print('row', row)
+        #         if line_count == 0:
+        #             print(f'Column names are {", ".join(row)}')
+        #             line_count += 1
+        #         else:
+        #             print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
+        #             line_count += 1
+        #     print(f'Processed {line_count} lines.')
 
 
 class BooleanHXLtype:
