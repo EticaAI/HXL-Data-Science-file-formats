@@ -49,6 +49,7 @@ import re
 import hxl.converters
 import hxl.filters
 import hxl.io
+from hxl.model import Dataset
 
 import csv
 import tempfile
@@ -186,12 +187,15 @@ class HXLQuickMeta:
                 print("ERROR! libhxl and/or HXLmeta/HXLMetaExtras failed",
                       error)
                 print("Ok. Trying harder now with HXLMetaExtras...")
-                hxlmetaextras = HXLMetaExtras(
-                    local_hxl_file=args.infile)
 
-                hxlmetaextras.debuginfo()
+                try:
+                    hxlmetaextras = HXLMetaExtras(
+                        local_hxl_file=args.infile)
 
-                print(args.infile)
+                    hxlmetaextras.debuginfo()
+                except Exception as error:
+                    print("ERROR! Even HXLMetaExtras failed miserably.",
+                          error)
 
         finally:
             temp.close()
@@ -918,6 +922,35 @@ class HXLMeta:
             return hxl.datatypes.is_token(term)
         # @see docs.python.org/3/library/exceptions.html#exception-hierarchy
         raise NotImplementedError('Less strict validation not implemented')
+
+
+class HXLDataset(hxl.model.Dataset):
+    """
+    HXLDataset is (...)
+
+    Note to self: Learn more Python (fititnt, 2021-02-20 22:34 BRT)
+
+    See
+      - github.com/HXLStandard/libhxl-python/blob/master/hxl/model.py
+      - github.com/HXLStandard/libhxl-python/blob/master/hxl/io.py
+    """
+    # TODO: do the draft
+
+
+class BooleanHXLtype:
+    """
+    BooleanHXLtype at this moment is just an meta example of a class in python
+    to deal with more details on single booleans with even more valid values
+    than libraries like Pandas. This is not optimized for performance.
+
+    THIS IS NOT A REAL HXL DATATYPE!
+
+    See https://github.com/HXL-CPLP/forum/issues/49
+    See https://docs.google.com/spreadsheets/d/
+        1hGUxMN2ywWNv8ONQ59Pp9Q4nG-eTRnAs0SyWunFZUDg/edit#gid=214068544
+
+    """
+    # TODO: do the draft
 
 
 class HXLMetaExtras:

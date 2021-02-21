@@ -59,6 +59,8 @@ hxlquickmeta https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86ak
 
 hxlquickmeta https://data.humdata.org/dataset/2d058968-9d7e-49a9-b28f-2895d7f6536f/resource/a12bad12-f5ea-493c-9faa-66cb3f3e9ca7/download/fts_incoming_funding_bra.csv
 
+# HXL-CPLP-Vocab_Bool; @see https://github.com/HXL-CPLP/forum/issues/49
+hxlquickmeta https://docs.google.com/spreadsheets/d/1hGUxMN2ywWNv8ONQ59Pp9Q4nG-eTRnAs0SyWunFZUDg/edit#gid=214068544
 
 ## hug -f bin/hxlquickmeta ......................................................
 #@see https://hugapi.github.io/hug/
