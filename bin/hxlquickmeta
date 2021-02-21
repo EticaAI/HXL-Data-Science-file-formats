@@ -150,6 +150,17 @@ class HXLQuickMeta:
             self.original_outfile = args.outfile
             self.original_outfile_is_stdout = False
 
+        # # TODO: remove this block after MVP of HXLMetaDataset -----------------
+        # temp2 = tempfile.NamedTemporaryFile()
+        # args.outfile = temp2.name
+        # with self.hxlhelper.make_source(args, stdin) as source, \
+        #         self.hxlhelper.make_output(args, stdout) as output:
+        #     hxlmetadataset = HXLMetaDataset(output.output)
+        #     print('hxlmetadataset', hxlmetadataset)
+        #     print('hxlmetadataset._input', hxlmetadataset._input)
+        #     return 1
+        # # TODO: remove this block after MVP of HXLMetaDataset -----------------
+
         try:
             temp = tempfile.NamedTemporaryFile()
             args.outfile = temp.name
@@ -158,25 +169,6 @@ class HXLQuickMeta:
             print(' >> TODO: implement raw connection, HTTP headers, etc')
             print(' >>       (this should output debug information even')
             print(' >>       for inputs that would break libhxl)')
-
-            # with self.hxlhelper.make_source(args, stdin) as source, \
-            #         self.hxlhelper.make_output(args, stdout) as output:
-            #     # hxl.io.write_hxl(output.output, source,
-            #     #                  show_tags=not args.strip_tags)
-            #     hxl.io.write_hxl(output.output, source,
-            #                         show_tags=not args.strip_tags,
-            #                         show_headers=False)
-
-            #     # self.hxlhelper.make_source return hxl.io.data
-            #     # hxl.io.data returns HXLReader
-            #     hxldataset = HXLDataset(source)
-            #     print('source', source.count())
-            #     print('hxldataset', hxldataset)
-            #     print('hxldataset', hxldataset.is_cached)
-            #     print('hxldataset', hxldataset.columns)
-            #     print('hxldataset', hxldataset._input)
-            #     print('hxldataset', hxldataset.tags)
-            #     return 1
 
             try:
 
@@ -952,17 +944,40 @@ class HXLMeta:
 
 
 # class HXLDataset(hxl.model.Dataset):
-class HXLDataset(hxl.io.HXLReader):
+# class HXLDataset(hxl.io.HXLReader):
+class HXLMetaDataset(object):
     """
-    HXLDataset is (...)
+    HXLMetaDataset is (...)
 
     Note to self: Learn more Python (fititnt, 2021-02-20 22:34 BRT)
+    TODO: ideally this shoud extend the hxl.model.Dataset or something
+          but for now I think will just bootstrap and assume an perfect
+          HXLated dataset on the disk and focus more on the first rows
+          (fititnt, 2021-02-21 01:27 BRT)
+    NOTE: Wow. hxl.model.Dataset / hxl.io.HXLReader are optimized to work with
+          data streaming. That's why is memory efficient while very
+          complicated to extend for do full analysis. HXLDataset was
+          renamed to HXLMetaDataset and may never extend
+          hxl.model.Dataset (fititnt, 2021-02-21 01:54 BRT)
 
     See
       - github.com/HXLStandard/libhxl-python/blob/master/hxl/model.py
       - github.com/HXLStandard/libhxl-python/blob/master/hxl/io.py
     """
     # TODO: do the draft
+
+    def __init__(self, input):
+        """
+        Args:
+            input (hxl.io.AbstractInput): an input source for raw data rows
+
+        """
+        self._input = input
+        # TODO - for repeatable raw input, start a new iterator each time
+        # TODO - need to figure out how to handle columns in a repeatable situation
+        self._iter = iter(self._input)
+        self._columns = None
+        self._source_row_number = -1 # TODO this belongs in the iterator
 
 
 class BooleanHXLtype:
