@@ -159,6 +159,25 @@ class HXLQuickMeta:
             print(' >>       (this should output debug information even')
             print(' >>       for inputs that would break libhxl)')
 
+            # with self.hxlhelper.make_source(args, stdin) as source, \
+            #         self.hxlhelper.make_output(args, stdout) as output:
+            #     # hxl.io.write_hxl(output.output, source,
+            #     #                  show_tags=not args.strip_tags)
+            #     hxl.io.write_hxl(output.output, source,
+            #                         show_tags=not args.strip_tags,
+            #                         show_headers=False)
+
+            #     # self.hxlhelper.make_source return hxl.io.data
+            #     # hxl.io.data returns HXLReader
+            #     hxldataset = HXLDataset(source)
+            #     print('source', source.count())
+            #     print('hxldataset', hxldataset)
+            #     print('hxldataset', hxldataset.is_cached)
+            #     print('hxldataset', hxldataset.columns)
+            #     print('hxldataset', hxldataset._input)
+            #     print('hxldataset', hxldataset.tags)
+            #     return 1
+
             try:
 
                 # TODO: as hotfix, we're simply ignoring any original Non
@@ -172,6 +191,14 @@ class HXLQuickMeta:
                     hxl.io.write_hxl(output.output, source,
                                      show_tags=not args.strip_tags,
                                      show_headers=False)
+
+                    # # self.hxlhelper.make_source return hxl.io.data
+                    # # hxl.io.data returns HXLReader
+                    # hxldataset = HXLDataset(source)
+                    # print('source', source.count())
+                    # # print('hxldataset', hxldataset)
+                    # print('hxldataset', hxldataset.tags)
+                    # return 1
 
                 print(' ')
                 print('> lihxl-python overview')
@@ -924,7 +951,8 @@ class HXLMeta:
         raise NotImplementedError('Less strict validation not implemented')
 
 
-class HXLDataset(hxl.model.Dataset):
+# class HXLDataset(hxl.model.Dataset):
+class HXLDataset(hxl.io.HXLReader):
     """
     HXLDataset is (...)
 
