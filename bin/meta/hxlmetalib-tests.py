@@ -29,7 +29,6 @@ print('sys.getsizeof', sys.getsizeof(example_email))
 example_phone = hxltype.data.phoneDataHtype(value="+55 51 99999-9999")
 print('example_phone', example_phone.value)
 print('sys.getsizeof', sys.getsizeof(example_phone))
-print('sys.getsizeof', sys.getsizeof(example_email))
 
 example_date = hxltype.data.dateDataHtype(value="25/01/1986")
 print('example_date', example_date.value)

@@ -29,54 +29,58 @@
 
 from dataclasses import dataclass
 
+from hxltype.encryption import EncryptionHtype
+from hxltype.level import LevelHtype
+from hxltype.sensitive import SensitiveHXLtype
+from hxltype.storage import StorageHtype
+from hxltype.usage import UsageHtype
+from hxltype.weight import WeightHtype
+
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/dtypes/dtypes.py
+from typing import (
+    Any,
+    Type
+)
+
+HXL_HTYPE_DATA_TEXT_UID="textDataHtype"
+HXL_HTYPE_DATA_NUMBER_UID="numberDataHtype"
+HXL_HTYPE_DATA_URL_UID="urlDataHtype"
+HXL_HTYPE_DATA_EMAIL_UID="emailDataHtype"
+HXL_HTYPE_DATA_PHONE_UID="phoneDataHtype"
+HXL_HTYPE_DATA_DATE_UID="dateDataHtype"
 
 @dataclass(init=True, repr=True, eq=True)
 class DataHtype:
     name: str = None
-    dataType: str = None
-    storageType: str = None
-    levelType: str = None
-    usageType: str = None
-    weightType: str = None
-    value: str = None
-
-# @dataclass(init=True)
-# class DataHXLt2:
-#     __slots__ = ['name', 'lon', 'lat']
-#     name: str
-#     lon: float
-#     lat: float
-
-# @dataclass(init=True)
-# class DataHXLt22:
-#     __slots__ = ['name', 'lon', 'lat']
-#     name: str
-#     lon: float
-#     lat: float
-
-# HXL Standard / HXL core schema / Data types
-# @see https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=1881622062
+    # dataType: str = None
+    encryptionType: Type[EncryptionHtype] = None
+    levelType: Type[LevelHtype] = None
+    sensitiveType: Type[SensitiveHXLtype] = None
+    storageType: Type[StorageHtype] = None
+    usageType: Type[UsageHtype] = None
+    weightType: Type[WeightHtype] = None
+    value: Any = None
 
 class textDataHtype(DataHtype):
     def __post_init__(self):
-        self.dataType = "text"
+        self.dataType = HXL_HTYPE_DATA_TEXT_UID
 
 class numberDataHtype(DataHtype):
     def __post_init__(self):
-        self.dataType = "number"
+        self.dataType = HXL_HTYPE_DATA_NUMBER_UID
 
 class urlDataHtype(DataHtype):
     def __post_init__(self):
-        self.dataType = "url"
+        self.dataType = HXL_HTYPE_DATA_URL_UID
 
 class emailDataHtype(DataHtype):
     def __post_init__(self):
-        self.dataType = "email"
+        self.dataType = HXL_HTYPE_DATA_EMAIL_UID
 
 class phoneDataHtype(DataHtype):
     def __post_init__(self):
-        self.dataType = "phone"
+        self.dataType = HXL_HTYPE_DATA_PHONE_UID
 
 class dateDataHtype(DataHtype):
     def __post_init__(self):
-        self.dataType = "date"
+        self.dataType = HXL_HTYPE_DATA_DATE_UID
