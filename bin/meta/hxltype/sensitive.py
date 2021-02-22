@@ -17,5 +17,5 @@ from typing import (
 )
 
 @dataclass(init=True, repr=True, eq=True)
-class SensitiveHXLtype:
+class SensitiveHtype:
     code: str = None
