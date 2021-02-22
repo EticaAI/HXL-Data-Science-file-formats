@@ -7,7 +7,7 @@ numpy
 
 # Both pandas and orange3 are used on some tests
 # TODO: make both pandas and orange3 optional
-pandas
-orange3
+# pandas
+# orange3
 
 # TODO: consider implement xarray (sadly, requires pandas)
