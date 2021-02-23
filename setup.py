@@ -1,9 +1,28 @@
+# TODO: see https://stackoverflow.com/questions/5062793/is-it-possible-to-use-two-python-packages-with-the-same-name  #noqa
+# TODO: see https://packaging.python.org/guides/packaging-namespace-packages/  #noqa
+# TODO: see https://www.python.org/dev/peps/pep-0420/
+# TODO: see https://pawamoy.github.io/posts/plugins-as-python-native-namespace-packages/
+# TODO: see https://github.com/napari/napari/issues/139
+
 import setuptools
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-# python -m pip install -e
+# python3 -m pip install https://github.com/EticaAI/HXL-Data-Science-file-formats/archive/main.zip
+
+# pip3 show hxlm-eticaai
+# Name: hxlm-eticaai
+# Version: 0.7.0
+# Summary: Internal usage. Not production ready. Ignore it.
+# Home-page: https://github.com/EticaAI/HXL-Data-Science-file-formats
+# Author: Emerson Rocha
+# Author-email: rocha@ieee.org
+# License: UNKNOWN
+# Location: /home/fititnt/.local/lib/python3.8/site-packages
+# Requires: 
+# Required-by: 
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Da
 
 setuptools.setup(
     # using username 'eticaai' to provide some namespace

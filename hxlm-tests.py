@@ -3,38 +3,44 @@
 
 import sys
 
-import hxltype.base
-import hxltype.data
-import hxltype.level
-import hxltype.storage
-import hxltype.usage
-import hxltype.weight
+import hxlm.core.base
+from hxlm.core.htype.data import (
+    emailDataHtype,
+    numberDataHtype,
+    urlDataHtype,
+    phoneDataHtype,
+    dateDataHtype
+)
+# from hxlm.core.htype.level import *
+# from hxlm.core.htype.storage import *
+# from hxlm.core.htype.usage import *
+# from hxlm.core.htype.weight import *
 
-example_text = hxltype.data.emailDataHtype(value="Lorem ipsum")
+example_text = emailDataHtype(value="Lorem ipsum")
 print('example_text', example_text.value)
 print('sys.getsizeof', sys.getsizeof(example_text))
 
-example_number = hxltype.data.numberDataHtype(value=3.14)
+example_number = numberDataHtype(value=3.14)
 print('example_number', example_number.value)
 print('sys.getsizeof', sys.getsizeof(example_number))
 
-example_url = hxltype.data.urlDataHtype(value="https://example.org")
+example_url = urlDataHtype(value="https://example.org")
 print('example_url', example_url.value)
 print('sys.getsizeof', sys.getsizeof(example_url))
 
-example_email = hxltype.data.emailDataHtype(value="https://example.org")
+example_email = emailDataHtype(value="https://example.org")
 print('example_email', example_email.value)
 print('sys.getsizeof', sys.getsizeof(example_email))
 
-example_phone = hxltype.data.phoneDataHtype(value="+55 51 99999-9999")
+example_phone = phoneDataHtype(value="+55 51 99999-9999")
 print('example_phone', example_phone.value)
 print('sys.getsizeof', sys.getsizeof(example_phone))
 
-example_date = hxltype.data.dateDataHtype(value="25/01/1986")
+example_date = dateDataHtype(value="25/01/1986")
 print('example_date', example_date.value)
 print('sys.getsizeof', sys.getsizeof(example_date))
 
-#hxltype.base.test()
+# hxltype.base.test()
 
 # v1 = hxltype.data.DataHXLt(1, 1, 1)
 # v2 = hxltype.data.DataHXLt2(1, 1, 1)

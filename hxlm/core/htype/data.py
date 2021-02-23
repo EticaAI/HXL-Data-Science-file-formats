@@ -29,7 +29,7 @@
 
 from dataclasses import dataclass
 
-from hxltype.base import HXLBaseInformation
+from hxlm.core.base import HXLBaseInformation
 from hxltype.encryption import EncryptionHtype
 from hxltype.level import LevelHtype
 from hxltype.sensitive import SensitiveHtype
