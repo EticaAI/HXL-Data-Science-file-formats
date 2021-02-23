@@ -57,11 +57,11 @@ class DataHtype(HXLBaseInformation):
     name: str = None
     # dataType: str = None
     # encryptionType: Type[EncryptionHtype] = None  # HXLBaseInformation
-    levelType: Type[LevelHtype] = None
+    level: Type[LevelHtype] = None
     # sensitiveType: Type[SensitiveHtype] = None  # HXLBaseInformation
-    storageType: Type[StorageHtype] = None
-    usageType: Type[UsageHtype] = None
-    weightType: Type[WeightHtype] = None
+    storage: Type[StorageHtype] = None
+    usage: Type[UsageHtype] = None
+    weight: Type[WeightHtype] = None
     value: Any = None
 
 class textDataHtype(DataHtype):

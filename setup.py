@@ -8,6 +8,8 @@
 # TODO: see https://github.com/napari/napari/issues/139
 # @see https://setuptools.readthedocs.io/en/latest/userguide/package_discovery.html
 
+# ln -s /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm /home/fititnt/.local/lib/python3.8/site-packages/hxlm
+
 import setuptools
 
 with open("README.md", "r", encoding="utf-8") as fh:

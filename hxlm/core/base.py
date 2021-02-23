@@ -1,6 +1,14 @@
+"""
+hxl.core.base is (...)
+"""
+
+# TODO: use Numpy conventions about documentation
+#       https://numpydoc.readthedocs.io/en/latest/format.html
+
 # *HXLtype
 # @see https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/9
-# @see https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1066910203    # noqa
+# @see https://docs.google.com/spreadsheets/d
+#      /1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=1066910203
 
 from dataclasses import dataclass
 
@@ -58,8 +66,8 @@ class HXLBaseInformation:
 
     TODO: HXLBaseInformation is both temporary name and file. Solve this.
     """
-    encryptionType: Type[EncryptionHtype] = None
-    sensitiveType: Type[SensitiveHtype] = None
+    encryption: Type[EncryptionHtype] = None
+    sensitive: Type[SensitiveHtype] = None
 
 
 @dataclass(init=True, repr=True, eq=True)
@@ -107,7 +115,8 @@ class HXLRow(HXLBaseInformation):
 #  - http://xarray.pydata.org/en/stable/data-structures.html
 #  - http://xarray.pydata.org/en/stable/generated/xarray.DataArray.astype.html
 #  - https://docs.python.org/3/library/dataclasses.html
-#  - https://github.com/astropenguin/xarray-dataclasses/blob/master/xarray_dataclasses/methods.py    # noqa
+#  - https://github.com/astropenguin/xarray-dataclasses/blob/master
+#    /xarray_dataclasses/methods.py
 #  - http://xarray.pydata.org/en/stable/io.html#io
 #  - https://xarray-extras.readthedocs.io/en/latest/api/csv.html
 #  - https://distributed.dask.org/en/latest/

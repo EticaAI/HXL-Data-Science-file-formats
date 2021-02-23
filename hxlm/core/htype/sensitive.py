@@ -1,6 +1,11 @@
-# SensitiveHXLtype
-# @see https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/9
-# TODO: create an entry on the spreadsheet
+"""hxlm.core.htype.sensitive
+
+See Also
+--------
+GitHub Issue :https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/9
+
+TODO: create an entry on the spreadsheet
+"""
 
 #### HXL Standard & other discussions related to sensitiveHType
 # - About the '+sensitive'
