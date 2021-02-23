@@ -1,3 +1,6 @@
+
+# python3 -m pip install https://github.com/EticaAI/HXL-Data-Science-file-formats/archive/main.zip
+
 # TODO: see https://stackoverflow.com/questions/5062793/is-it-possible-to-use-two-python-packages-with-the-same-name  #noqa
 # TODO: see https://packaging.python.org/guides/packaging-namespace-packages/  #noqa
 # TODO: see https://www.python.org/dev/peps/pep-0420/
@@ -10,28 +13,18 @@ import setuptools
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-# python3 -m pip install https://github.com/EticaAI/HXL-Data-Science-file-formats/archive/main.zip
-
-# pip3 show hxlm-eticaai
-# Name: hxlm-eticaai
-# Version: 0.7.0
-# Summary: Internal usage. Not production ready. Ignore it.
-# Home-page: https://github.com/EticaAI/HXL-Data-Science-file-formats
-# Author: Emerson Rocha
-# Author-email: rocha@ieee.org
-# License: UNKNOWN
-# Location: /home/fititnt/.local/lib/python3.8/site-packages
-# Requires: 
-# Required-by: 
-# fititnt@bravo:/workspace/git/EticaAI/HXL-Da
-
+# TODO: this configuration, while somewhat eventually would allow plugins with
+#       higher priority, still save o disk on {path}/hxlm and not
+#       {path}/hxlm_eticaai (so it could allow several extensions). This
+#       eventually will be fixed when I manage to learn more about python
+#       internals (fititnt, 2021-02-23 02:56 UTC)
 setuptools.setup(
     # using username 'eticaai' to provide some namespace
     # we're not planning to release this on pip (at least not soon)
     # So users would need to install via github.
     # Anyway, tend to be a good idea allow user import different packages
     name="hxlm_eticaai",
-    namespace_packages="hxlm",
+    namespace_packages=["hxlm"],
     version="0.7.0",
     author="Emerson Rocha",
     author_email="rocha@ieee.org",
