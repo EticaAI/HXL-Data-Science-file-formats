@@ -30,12 +30,13 @@
 from dataclasses import dataclass
 
 from hxlm.core.base import HXLBaseInformation
-from hxltype.encryption import EncryptionHtype
-from hxltype.level import LevelHtype
-from hxltype.sensitive import SensitiveHtype
-from hxltype.storage import StorageHtype
-from hxltype.usage import UsageHtype
-from hxltype.weight import WeightHtype
+from hxlm.core.base import HXLBaseInformation
+from hxlm.core.htype.encryption import EncryptionHtype
+from hxlm.core.htype.level import LevelHtype
+from hxlm.core.htype.sensitive import SensitiveHtype
+from hxlm.core.htype.storage import StorageHtype
+from hxlm.core.htype.usage import UsageHtype
+from hxlm.core.htype.weight import WeightHtype
 
 # https://github.com/pandas-dev/pandas/blob/master/pandas/core/dtypes/dtypes.py
 from typing import (

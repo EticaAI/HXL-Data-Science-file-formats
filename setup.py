@@ -3,6 +3,7 @@
 # TODO: see https://www.python.org/dev/peps/pep-0420/
 # TODO: see https://pawamoy.github.io/posts/plugins-as-python-native-namespace-packages/
 # TODO: see https://github.com/napari/napari/issues/139
+# @see https://setuptools.readthedocs.io/en/latest/userguide/package_discovery.html
 
 import setuptools
 
@@ -30,6 +31,7 @@ setuptools.setup(
     # So users would need to install via github.
     # Anyway, tend to be a good idea allow user import different packages
     name="hxlm_eticaai",
+    namespace_packages="hxlm",
     version="0.7.0",
     author="Emerson Rocha",
     author_email="rocha@ieee.org",
@@ -45,6 +47,7 @@ setuptools.setup(
         "Typing :: Typed",
         "Topic :: Utilities"
     ],
-    packages=setuptools.find_packages(),
+    # packages=setuptools.find_packages(),
+    packages=setuptools.find_namespace_packages(),
     python_requires='>=3.7',
 )

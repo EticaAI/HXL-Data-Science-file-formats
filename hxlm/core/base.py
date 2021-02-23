@@ -10,8 +10,8 @@ from typing import (
     Type
 )
 
-from hxlm.core.htype.encryption import EncryptionHtype
-from hxlm.core.htype.sensitive import SensitiveHtype
+from .htype.encryption import EncryptionHtype
+from .htype.sensitive import SensitiveHtype
 
 # ### True, False, Missing, Unknow, Encrypted, START _________________________
 # Even without controlled vocabularies (like +v_un_bool with 6 official UN
