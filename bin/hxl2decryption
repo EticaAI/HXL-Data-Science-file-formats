@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 # ==============================================================================
 #
-#          FILE:  hxl2example
+#          FILE:  hxl2decryption
 #
-#         USAGE:  hxl2example hxlated-data.hxl my-exported-file.example
-#                 cat hxlated-data.hxl | hxl2example > my-exported-file.example
+#         USAGE:  hxl2decryption hxlated-data.hxl my-exported-file.example
+#                 cat hxlated-data.hxl | hxl2decryption > my-exported-file.example
 #                 # Via web, in two different terminals, do it
-#                     hug -f bin/hxl2example
+#                     hug -f bin/hxl2decryption
 #                     ngrok http 8000
 #
-#   DESCRIPTION:  hxl2example is an example script to create other scripts with
-#                 some bare minimum command line interface that could work.
-#                 With exception of external libraries, the hxl2example is
-#                 meant to be somewhat self-contained one-file executable ready
-#                 to just be added to the path.
+#   DESCRIPTION:  hxl2decryption is an draft. Not production ready. Do not use.
 #
 #                 Hug API can be used to create an ad-hoc web interface to your
 #                 script. This can be both useful if you are using an software
@@ -25,15 +21,16 @@
 #  REQUIREMENTS:  - python3
 #                     - libhxl (@see https://pypi.org/project/libhxl/)
 #                     - hug (https://github.com/hugapi/hug/)
-#                     - your-extra-python-lib-here
-#                 - your-non-python-dependency-here
+#                     - pynacl (https://github.com/pyca/pynacl)
+#                 - libsodium (https://github.com/jedisct1/libsodium)
 #          BUGS:  ---
 #         NOTES:  ---
-#        AUTHOR:  Your Name <you[at]example.org>
-#       COMPANY:  Your Company
-#       LICENSE:  Your License here
-#       VERSION:  v1.0
-#       CREATED:  YYYY-MM-DD hh:mm UTC
+#        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
+#       COMPANY:  EticaAI
+#       LICENSE:  Public Domain dedication
+#                 SPDX-License-Identifier: Unlicense
+#       VERSION:  v0.1-draft
+#       CREATED:  2021-02-23 22:45 UTC v0.1-draft
 #      REVISION:  ---
 # ==============================================================================
 
@@ -59,15 +56,15 @@ import hug
 STDIN = sys.stdin.buffer
 
 
-class HXL2Example:
+class HXL2Decryption:
     """
-    HXL2Example is a classe to export already HXLated data in the format
+    HXL2Decryption is a classe to export already HXLated data in the format
     example.
     """
 
     def __init__(self):
         """
-        Constructs all the necessary attributes for the HXL2Example object.
+        Constructs all the necessary attributes for the HXL2Decryption object.
         """
         self.hxlhelper = None
         self.args = None
@@ -77,14 +74,12 @@ class HXL2Example:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-    def make_args_hxl2example(self):
+    def make_args_hxl2decryption(self):
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("hxl2example is an example script to create other "
-                         "scripts with some bare minimum command line "
-                         "interfaces that could work to export HXL files to "
-                         "other formats."))
+            description=("hxl2encryption is an draft. Not production ready. " +
+                         "Do not use."))
 
         self.args = parser.parse_args()
         return self.args
@@ -92,7 +87,7 @@ class HXL2Example:
     def execute_cli(self, args,
                     stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
-        The execute_cli is the main entrypoint of HXL2Example. When
+        The execute_cli is the main entrypoint of HXL2Decryption. When
         called will convert the HXL source to example format.
         """
 
@@ -354,10 +349,10 @@ class StreamOutput(object):
 
 if __name__ == "__main__":
 
-    hxl2example = HXL2Example()
-    args = hxl2example.make_args_hxl2example()
+    hxl2decryption = HXL2Decryption()
+    args = hxl2decryption.make_args_hxl2decryption()
 
-    hxl2example.execute_cli(args)
+    hxl2decryption.execute_cli(args)
 
 
 @hug.format.content_type('text/csv')
@@ -372,15 +367,15 @@ def output_csv(data, response):
     return str(data).encode("utf8")
 
 
-@hug.get('/hxl2example.csv', output=output_csv)
-def api_hxl2example(source_url):
-    """hxl2example (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
+@hug.get('/hxl2decryption.csv', output=output_csv)
+def api_hxl2decryption(source_url):
+    """hxl2decryption (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
 
     Example:
-    http://localhost:8000/hxl2example.csv?source_url=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
+    http://localhost:8000/hxl2decryption.csv?source_url=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
 
     """
 
-    hxl2example = HXL2Example()
+    hxl2decryption = HXL2Decryption()
 
-    return hxl2example.execute_web(source_url)
+    return hxl2decryption.execute_web(source_url)
