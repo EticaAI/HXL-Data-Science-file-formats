@@ -44,6 +44,11 @@ hxlm-eticaai is an working draft. Some internal notes:
     over any other except core.
   - The `ZZ` also is likely to have lower priority.
 
+
+## Usage
+
+Not well documented yet. See `hxlm-tests.py`.
+
 ---
 <!--
 

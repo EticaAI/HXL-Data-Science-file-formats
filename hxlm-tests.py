@@ -45,10 +45,19 @@ print('>> hxlm.core.util.debug')
 hxlm.core.util.debug()
 
 import hxlm.taxonomy.util
+import hxlm.core.util
+# import pprint
 print('')
+# print('>> hxlm.taxonomy.util')
+# print(hxlm.taxonomy.util.get_country())
+# print(hxlm.taxonomy.util.get_adm0())
 print('>> hxlm.taxonomy.util')
 # print(hxlm.taxonomy.util.get_country())
-print(hxlm.taxonomy.util.get_adm0())
+# print(hxlm.taxonomy.util.get_lang())  # hxl.io.HXLReader
+# hxlm.core.util.hxl_info(hxlm.taxonomy.util.get_lang())  # print to stdout
+print(hxlm.core.util.hxl_info(hxlm.taxonomy.util.get_lang()))  # print to stdout
+#print(list(hxlm.taxonomy.util.get_lang()))  # print to stdout
+
 
 print('')
 print('>> examples')
