@@ -20,7 +20,6 @@ from hxlm.core.util import (
 # from hxlm.core.htype.usage import *
 # from hxlm.core.htype.weight import *
 
-
 # print(hxlm.xa_lgpd.meta.HXLM_PLUGIN_META)
 # print(hxlm.core)
 # print(hxlm.xa_eticaai)
@@ -41,8 +40,6 @@ from hxlm.core.util import (
 # import hxlm.core.internal.util
 # hxlm.core.internal.util._get_plugins()
 
-
-
 print('')
 print('>> hxlm.core.util.debug')
 hxlm.core.util.debug()
@@ -50,6 +47,7 @@ hxlm.core.util.debug()
 import hxlm.taxonomy.util
 print('')
 print('>> hxlm.taxonomy.util')
+print(hxlm.taxonomy.util.get_country())
 print(hxlm.taxonomy.util.get_adm0())
 
 print('')
