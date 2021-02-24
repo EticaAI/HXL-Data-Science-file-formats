@@ -2,6 +2,10 @@
 """
 
 from hxlm.core.constant import HTYPE_TRUE, HTYPE_FALSE, HTYPE_UNKNOW
+from hxlm.core.internal.util import _get_plugins
+
+def debug():
+    _get_plugins()
 
 
 def is_secure():

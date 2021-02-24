@@ -11,11 +11,49 @@ from hxlm.core.htype.data import (
     phoneDataHtype,
     dateDataHtype
 )
+from hxlm.core.util import (
+    debug
+)
+
 # from hxlm.core.htype.level import *
 # from hxlm.core.htype.storage import *
 # from hxlm.core.htype.usage import *
 # from hxlm.core.htype.weight import *
 
+
+# print(hxlm.xa_lgpd.meta.HXLM_PLUGIN_META)
+# print(hxlm.core)
+# print(hxlm.xa_eticaai)
+# import hxlm.xa_amnesty
+# print(hxlm.xa_amnesty)
+# import hxlm.xz_eticaai
+# import hxlm.xz_eticaai.meta
+# print(hxlm.xz_eticaai)
+# print(hxlm.xz_eticaai.meta)
+
+# from pkgutil import iter_modules
+
+# def list_submodules(module):
+#     for submodule in iter_modules(module.__path__):
+#         print(submodule.name)
+
+# list_submodules(hxlm)
+# import hxlm.core.internal.util
+# hxlm.core.internal.util._get_plugins()
+
+
+
+print('')
+print('>> hxlm.core.util.debug')
+hxlm.core.util.debug()
+
+import hxlm.taxonomy.util
+print('')
+print('>> hxlm.taxonomy.util')
+print(hxlm.taxonomy.util.get_adm0())
+
+print('')
+print('>> examples')
 example_text = emailDataHtype(value="Lorem ipsum")
 print('example_text', example_text.value)
 print('sys.getsizeof', sys.getsizeof(example_text))
@@ -61,6 +99,9 @@ print('sys.getsizeof', sys.getsizeof(example_date))
 # SODIUM_INSTALL=system pip3 install pynacl
 ## This would be the option without system libsodium
 #  pip3 install pynacl
+
+print('')
+print('>>> libsodium tests (delete later)')
 
 import nacl.utils
 from nacl.public import PrivateKey, Box
