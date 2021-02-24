@@ -1,4 +1,49 @@
-# About /bin/meta/*
+# About hxlm-eticaai
+
+hxlm-eticaai is an working draft. Some internal notes:
+
+- `hxlm.core`: on a ideal scenario, would be a place with both functions that
+  are either useful for basic functionality for other data classes and
+  functions.
+    - if have to be take political decisions (think anything like use `yes`
+      for boolean truthy and `no` for boolean false; good example are
+      country/territory names)
+- `hxlm.??_` (where "??" is an ISO_3166-1 alpha-2):
+    - What is "??"? See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+    - "??_" works as an prefix. Users are encoraged to use user-assigned codes
+      like AA, QM to QZ, XA to XZ, and ZZ.
+- `hxml.xz_eticaai`: is an namespace by Etica.AI.
+
+## About prefixes
+### Etica.AI guidelines (optional)
+
+- Published code, both on places like GitHub or Python Package Index (PyPI)
+  should not automatically be trusted.
+    - This often actually does not means developers acting in bad faith, but
+      human error.
+    - Depending of your
+      [threat model](https://en.wikipedia.org/wiki/Threat_model) please ask
+      someone to review code and maybe even copy an paste an private copy.
+- Etica.AI is likely to publish early drafts (or working drafts) prefixed with
+  `XA` when the code is based on public documentation on how the organization
+  would behave.
+  - `XA` prefixes should not be considered "official". If you work with such
+    organization please ask if you can use EticaAI code or if they already
+    have private forks
+  - Individuals with valid credentials can ask Etica.AI to remove code, even
+    `XA` prefixed.
+- If you work within the namespace-related organization:
+  - Use the country prefix, not an user asigned-prefix (if you organization
+    is not transnational). If you are not yet authorized to make decisions,
+    just make comments in the source code.
+  - If the organization is transnational, consider atleast `XA`
+- Do not publish prefix with `AA` (but you can use for internal use)
+  - Eventually prefixes with `AA` may be coded to have even higher priority
+    over any other except core.
+  - The `ZZ` also is likely to have lower priority.
+
+---
+<!--
 
 This folder have an very early draft used by
 [/bin/hxlquickmeta](../hxlquickmeta).
@@ -9,9 +54,6 @@ EticaAI-Data_HXL-Data-Science-file-formats
 simmilar to what libraries like Pandas and Numpy do it.
 
 - TODO: Look at other abstractions beyond numpy
-
-
-<!--
 
 > https://numpy.org/doc/stable/user/basics.rec.html
 > Users looking to manipulate tabular data, such as stored in csv files, may
