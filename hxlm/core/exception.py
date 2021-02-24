@@ -1,3 +1,8 @@
+"""hxlm.core.exception is (...)
+TODO: document like
+        - google.github.io/styleguide/pyguide.html
+        - sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
+"""
 
 import sys
 

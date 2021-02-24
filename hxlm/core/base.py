@@ -1,5 +1,8 @@
 """
 hxl.core.base is (...)
+TODO: document like
+        - google.github.io/styleguide/pyguide.html
+        - sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
 """
 
 # TODO: use Numpy conventions about documentation

@@ -31,3 +31,34 @@ HXL_COREHTYPE_TRUE_STRING_LIST = []
 HXL_COREHTYPE_FALSE_STRING = ""
 HXL_COREHTYPE_FALSE_STRING_LIST = []
 # ### True, False, Missing, Unknow, Encrypted, START _________________________
+
+# ### Information sensitivity levels _________________________________________
+# @see https://en.wikipedia.org/wiki/Information_sensitivity
+# @see https://centre.humdata.org/introducing-the-working-draft-of-the-ocha-data-responsibility-guidelines/  #noqa
+# @see https://centre.humdata.org/wp-content/uploads/2019/03/OCHA-DR-Guidelines-working-draft-032019.pdf  #noqa
+# @see https://safecomputing.umich.edu/protect-the-u/safely-use-sensitive-data/examples-by-level  #noqa
+
+#: Unknow level of data sensivity
+HSLVU="HSLVU"
+
+#: No Sensitivity (for data point)
+HSLV0="HSLV0"
+
+#: Low Sensitivity (for data point)
+HSLV1="HSLV1"
+
+#: Moderate Sensitivity (for data point)
+HSLV2="HSLV2"
+
+#: High Sensitivity (for data point)
+HSLV3="HSLV3"
+
+#: Severe Sensitivity (for data point)
+HSLV4="HSLV4"
+
+#: Severe Sensitivity (for data point)
+# HSLVX="HSLVX"
+
+#: Sensitivity is defined as constant here, but later needs to be allowed
+#  override with plugins (even without process data)
+HSLV_DEFAULT=HSLV1
