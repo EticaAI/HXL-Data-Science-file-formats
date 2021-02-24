@@ -55,9 +55,20 @@ print('>> hxlm.taxonomy.util')
 # print(hxlm.taxonomy.util.get_country())
 # print(hxlm.taxonomy.util.get_lang())  # hxl.io.HXLReader
 # hxlm.core.util.hxl_info(hxlm.taxonomy.util.get_lang())  # print to stdout
-print(hxlm.core.util.hxl_info(hxlm.taxonomy.util.get_lang()))  # print to stdout
+# print(hxlm.core.util.hxl_info(hxlm.taxonomy.util.get_lang()))  # print to stdout
 #print(list(hxlm.taxonomy.util.get_lang()))  # print to stdout
 
+print('cmp_sensitive_level')
+print(hxlm.core.util.cmp_sensitive_level('HSLV1'))
+print('cmp_sensitive_level HSLV1 HSLVU')
+print(hxlm.core.util.cmp_sensitive_level('HSLV1', 'HSLVU'))
+print('cmp_sensitive_level HSLV1 HSLV1')
+print(hxlm.core.util.cmp_sensitive_level('HSLV1', 'HSLV1'))
+print('cmp_sensitive_level HSLV4 HSLV1')
+print(hxlm.core.util.cmp_sensitive_level('HSLV4', 'HSLV1'))
+print(hxlm.core.util.cmp_sensitive_level('HSLV1', 'HSLV1'))
+print('cmp_sensitive_level HSLV1 HSLV4')
+print(hxlm.core.util.cmp_sensitive_level('HSLV1', 'HSLV4'))
 
 print('')
 print('>> examples')

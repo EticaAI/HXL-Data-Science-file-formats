@@ -62,3 +62,7 @@ HSLV4="HSLV4"
 #: Sensitivity is defined as constant here, but later needs to be allowed
 #  override with plugins (even without process data)
 HSLV_DEFAULT=HSLV1
+
+def comp_sensitive_level(level, reference_level=None):
+    if level == HSLVU or HTYPE_UNKNOW:
+        return HTYPE_UNKNOW
