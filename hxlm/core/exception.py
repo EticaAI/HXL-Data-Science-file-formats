@@ -23,30 +23,15 @@ import sys
 #     def __str__(self):
 #         return "<HXLException: " + str(self.message) + ">"
 
-# https://stackoverflow.com/questions/1319615/proper-way-to-declare-custom-exceptions-in-modern-python/53469898#53469898  #noqa
+# https://stackoverflow.com/questions/1319615
+# /proper-way-to-declare-custom-exceptions-in-modern-python/53469898#53469898 
 
 class HXLmException(Exception):
     """Generic HXLmException"""
 
     def __init__(self, message, payload=None):
         self.message = message
-        self.payload = payload  # you could add more args
-
-    def __str__(self):
-        # __str__() obviously expects a string to be returned, so make sure not to send any other data types
-        return str(self.message)
-
-
-class HXLmPoliticException(Exception):
-    """Non-generic Exception for issues related to politcs
-
-    Implementers may decide to explicitly catch this type of exception by own
-    implementations or raised by other libraries.
-    """
-
-    def __init__(self, message, payload=None):
-        self.message = message
-        self.payload = payload  # you could add more args
+        self.payload = payload
 
     def __str__(self):
         return str(self.message)
@@ -55,9 +40,31 @@ class HXLmPoliticException(Exception):
 class HXLmCrimeException(Exception):
     """Exception about local/international crime
 
-    Implementers may decide to explicitly catch this type of exception by own
-    implementations or raised by other libraries instead of stop imediatelly
-    the tools that implement it.
+    The implementer may decide to explicitly catch this type of exception by
+    own implementations or raised by other libraries instead of stop
+    immediately the tools that implement it. A potential example is
+    when two different organizations (think a police investigator receiving
+    sensitive healthcare data) using default open source code with extensions
+    via vocabularies.
+
+
+    TODO: create some type of exception focused on internal code of conduct of
+          organization, so users don't need to implement custom exceptions.
+    """
+
+    def __init__(self, message, payload=None):
+        self.message = message
+        self.payload = payload
+
+    def __str__(self):
+        return str(self.message)
+
+
+class HXLmPoliticException(Exception):
+    """Non-generic Exception for issues related to politcs
+
+    The Implementer may decide to explicitly catch this type of exception by
+    own implementations or raised by other libraries.
     """
 
     def __init__(self, message, payload=None):

@@ -47,7 +47,7 @@ hxlm.core.util.debug()
 import hxlm.taxonomy.util
 print('')
 print('>> hxlm.taxonomy.util')
-print(hxlm.taxonomy.util.get_country())
+# print(hxlm.taxonomy.util.get_country())
 print(hxlm.taxonomy.util.get_adm0())
 
 print('')

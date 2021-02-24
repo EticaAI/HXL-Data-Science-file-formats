@@ -34,5 +34,10 @@ def get_country():
 
 
 def get_adm0():
+    """Administrative Boundaries 0
+
+    Returns:
+        hxl.io.HXLReader: An HXLReader object
+    """
     dataset = hxl.data(HXLM_TAXONOMY_ADM0_URL)
     return dataset

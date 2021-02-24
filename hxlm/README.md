@@ -12,7 +12,9 @@ hxlm-eticaai is an working draft. Some internal notes:
     - What is "??"? See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     - "??_" works as an prefix. Users are encoraged to use user-assigned codes
       like AA, QM to QZ, XA to XZ, and ZZ.
-- `hxml.xz_eticaai`: is an namespace by Etica.AI.
+- `hxlm.xz_eticaai`: is an namespace by Etica.AI.
+- `hxlm.xl_por`: xl_por (preffix XL) is an example of drafted plugins for
+  portuguese language. Local customizations could fork `xl_por` to `xk_por`
 
 ## About prefixes
 ### Etica.AI guidelines (optional)
