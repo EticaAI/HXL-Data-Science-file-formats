@@ -191,3 +191,14 @@ hxlquickimport hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000.csv | hxl
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8-bom.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
+
+
+#### Rocha's local development notes _________________________________________
+# VSCode python code suggestion is wonderful, but have some issues with
+# namespaced packages when doing local development. So this trick is how Rocha
+# do: a bunch of symlinks
+
+mv /home/fititnt/.local/lib/python3.8/site-packages/hxlm /home/fititnt/.local/lib/python3.8/site-packages/hxlm-old
+ln -s /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm  /home/fititnt/.local/lib/python3.8/site-packages/hxlm
+ln -s /workspace/git/EticaAI/hxlm-crypto-eticaai/hxlm/crypto /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/crypto
+ln -s /workspace/git/EticaAI/hxlm-crypto-eticaai/hxlm/plugin/xe_cryptoexample /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/plugin/xe_cryptoexample

@@ -17,6 +17,10 @@ hxlmeta-data/*
 # ~/.config/hxl/hxlmeta-data.sqlite # SQLite database file
 # ~/.config/hxl/hxlmeta-data/ # Directory containing HXLated CSV files
 
+### From other projects (if users are testing with symlinks)
+hxlm/crypto
+hxlm/plugin/xe_cryptoexample
+
 ### GitHub .gitignore for python
 # Byte-compiled / optimized / DLL files
 __pycache__/
