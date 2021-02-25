@@ -3,8 +3,8 @@
 
 from hxlm.core.constant import HTYPE_TRUE, HTYPE_FALSE, HTYPE_UNKNOW
 from hxlm.core.constant import (
-    HSLVU,
-    HSLV_DEFAULT
+    HDSLU,
+    HDSL_DEFAULT
 )
 from hxlm.core.internal.util import _get_plugins
 
@@ -12,16 +12,20 @@ import hxl
 
 
 def cmp_sensitive_level(level, reference_level=None):
-    """Compare a sensitive level with an reference.
+    """Compare a Information sensitivity level with an reference level.
+
+    HXLm + plugins infer the level based on the data itself (not the
+    infrastrucure or the human agent.)
+
     less or equal to zero: Good
     greater than zero: this is more sensitive, Bad
     ?: your level or the reference_level is HTYPE_UNKNOW
 
     Examples:
-        cmp_sensitive_level('HSLV1', 'HSLVU') -> ?
-        cmp_sensitive_level('HSLV1', 'HSLV1') -> 0
-        cmp_sensitive_level('HSLV4', 'HSLV1') -> 3
-        cmp_sensitive_level('HSLV1', 'HSLV4')) -> -3
+        cmp_sensitive_level('HDSL1', 'HDSLU') -> ?
+        cmp_sensitive_level('HDSL1', 'HDSL1') -> 0
+        cmp_sensitive_level('HDSL4', 'HDSL1') -> 3
+        cmp_sensitive_level('HDSL1', 'HDSL4')) -> -3
 
     Args:
         level ([type]): Current sensitive level to compare
@@ -30,10 +34,13 @@ def cmp_sensitive_level(level, reference_level=None):
     Returns:
         Union[int, float]: Numeric result
     """
-    if level == HSLVU or reference_level == HSLVU:
+
+    # We tolerate both HDSLU (exact string) or generic HTYPE_UNKNOW (?)
+    if (level == HDSLU or reference_level == HDSLU) or \
+            (level == HTYPE_UNKNOW or reference_level == HTYPE_UNKNOW):
         return HTYPE_UNKNOW
     if reference_level is None:
-        reference_level = HSLV_DEFAULT
+        reference_level = HDSL_DEFAULT
 
     return int(level[-1]) - int(reference_level[-1])
 
