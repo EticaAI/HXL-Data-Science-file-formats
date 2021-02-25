@@ -162,3 +162,6 @@ alice_box = Box(skalice, pkbob)
 #   tampered with or there was otherwise an error.
 plaintext = alice_box.decrypt(encrypted)
 print(plaintext.decode('utf-8'))
+
+from hxlm.plugin.xz_eticaai.meta import HXLM_PLUGIN_META
+print(hxlm.plugin.xz_eticaai.meta.HXLM_PLUGIN_META)
