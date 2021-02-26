@@ -1,8 +1,12 @@
 """Core facade to policy, standard or law compliance-like methods
 
 TL;DR: check if user is authorized to do something based on context and then
-       take an decision (from just remove the sensitive content to raise
-       warnings)
+       take an decision (from just remove/anonymize the sensitive content for
+       the human who is processing the data now or maybe who is defined to
+       receive the data to raise warnings)
+
+Typical usage
+-------------
 
 While most automated tools that do compliance checks tend to be about
 technical standards or conventions on files ("does this file have this
@@ -24,6 +28,13 @@ Notes:
   serve as hint for implementers.
 - Also note that, if eventually HXLm becomes used, part of the rules would not
   be public outside your organization.
+
+
+Advanced usage (requires coordination)
+--------------------------------------
+TODO: explain ways based on the Data processor (the natural person) that
+      can receive additional (preferable also some fake ones, just to always
+      have noise) list of hashes that are not authorized to see.
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
@@ -83,6 +94,91 @@ def check_compliance_on_before_decrypt_column(
     Also, the implementers use the Tolerance as a hint to not trow Exception
     if you are doing a quick check on all the table the user just opened, but
     be less tolerant if the user explicitly ask to decrypt.
+
+    Parameters
+    ----------
+    Tolerance: int
+        Description of parameter `x`.
+    Verbose: int, default=0
+        Verbose is recommended to be used as an way to help debug errors.
+        But some implementers of the compliance extension to literaly
+        return True while doing other checks without warn the user.
+
+    Returns
+    -------
+    bool
+        True means 100% compliant on the context. False may return instead of
+        exception based on Tolerance.
+    """
+
+    # TODO: implement plugin-like feature, while use this as facade
+    # TODO: consider strerr for verbose; but this depends on how we would
+    #       test https://docs.pytest.org/en/stable/capture.html
+    return True
+
+
+def check_compliance_on_after_decrypt_row(
+        Tolerance: int, Verbose: int = 0, **kwargs):
+    """Check compliance with policy/law/standard after a HXLRow decryption
+
+    If for some reason before decryption the program was allowed to decrypt,
+    this check can be used to, based on new evidence, take some action.
+    This could be used to validate if the user (or the destinatary, if is
+    preparing data) should see the end result.
+
+    The averange usage for this routine is validate the end result before
+    show to contents for the current user. While this could be the chance to
+    apply simpler rules (like 'if the program now is aware that the data
+    represent people and generic rules don't allow this type of user see
+    people from specific region were it works'), advanced usage could be
+    allow to re-encrypt for others.
+
+    TODO: improve/correct this text. I
+
+    See
+    ---
+        hxlm.core.HXLRow
+
+    Advanced usage
+    --------------
+    One advanced usage of this method is to allow the program to re-encrypt
+    (think like the current user is very skilled
+
+
+    data to
+    send to a new data consumer while the current person
+
+    Parameters
+    ----------
+    Tolerance: int
+        Description of parameter `x`.
+    Verbose: int, default=0
+        Verbose is recommended to be used as an way to help debug errors.
+        But some implementers of the compliance extension to literaly
+        return True while doing other checks without warn the user.
+
+    Returns
+    -------
+    bool
+        True means 100% compliant on the context. False may return instead of
+        exception based on Tolerance.
+    """
+
+    # TODO: implement plugin-like feature, while use this as facade
+    # TODO: consider strerr for verbose; but this depends on how we would
+    #       test https://docs.pytest.org/en/stable/capture.html
+    return True
+
+
+def check_compliance_on_before_decrypt_row(
+        Tolerance: int, Verbose: int = 0, **kwargs):
+    """Check compliance with policy/law/standard before try decrypt a HXLRow
+
+    TODO: explain more.
+
+    See
+    ---
+        hxlm.core.HXLRow
 
     Parameters
     ----------
@@ -168,3 +264,7 @@ def check_compliance_on_termination(
     # TODO: consider strerr for verbose; but this depends on how we would
     #       test https://docs.pytest.org/en/stable/capture.html
     return True
+
+
+def get_compliance_extra_rules():
+    print('TODO: this is an draft. Improve-me')

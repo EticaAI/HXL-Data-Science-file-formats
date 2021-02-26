@@ -27,8 +27,23 @@ class SensitiveHtype:
 
 
 #### Concepts __________________________________________________________________
-# TODO: community identifiable information (CII)
-# TODO: community identifiable information (CII)
+# TODO: Community Identifiable Information: Data points that enable the
+#       identification, classification, and tracking of individuals, groups,
+#       or multiple groups of individuals by demographically defining factors.
+#       These may include ethnicity, gender, age, occupation, and religion.
+#       May also be referred to as Demographically Identifiable Information
+#       “DII.”
+# TODO: Personal Data: Any information relating to an identified or
+#       identifiable natural person (‘data subject’); an identifiable natural
+#       person is one who can be identified, directly or indirectly, in
+#       particular by reference to an identifier such as a name, an
+#       identification number, location data, an online identifier or
+#       to one or more factors specific to the physical, physiological,
+#       genetic, mental, economic, cultural or social identity of that
+#       natural person.
+# TODO: Sensitive Data: Data with a high sensitivity level based on the
+#       magnitude and severity of potential harms and the likelihood of such
+#       harm materialising.
 
 #### TEMP, remove later ________________________________________________________
 # Quick links
