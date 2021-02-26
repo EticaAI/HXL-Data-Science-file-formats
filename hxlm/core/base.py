@@ -24,6 +24,7 @@ from typing import (
 from .htype.encryption import EncryptionHtype
 from .htype.sensitive import SensitiveHtype
 
+
 @dataclass(init=True)
 class HXLBaseInformation:
     """
@@ -72,6 +73,59 @@ class HXLRow(HXLBaseInformation):
 
     """
     kind: str = "HXLRow"
+
+
+class MDataset:
+    """MDataset is an draft
+
+    Note: we will not use Python dataclass for this.
+
+    @see NDFrame https://github.com/pandas-dev/pandas/blob/master/pandas/core/generic.py#L191
+
+    TODO: both Excel, CKan and formats like HDF5 work with MULDIPLE datasets.
+          so, which structure use for this? (E.Rocha, 2021-02-26 08:10 UTC)
+    """
+
+    def __init__(self, encryption: Type[EncryptionHtype] = None,
+                 sensitive: Type[SensitiveHtype] = None):
+        self._encryption = encryption
+        self._sensitive = sensitive
+
+
+    def describe(self):
+        mdataset_description = {
+            'kind': "MDataset",
+            'encryption': self._encryption,
+            'sensitive': self._sensitive,
+        }
+        return mdataset_description
+
+    @property
+    def encryption(self):
+        return self._encryption
+
+    @encryption.setter
+    def encryption(self, value):
+        if isinstance(value, EncryptionHtype):
+            self._encryption = value
+        else:
+            self._encryption = EncryptionHtype(code=value)
+
+    # @encryption.deleter
+    # def encryption(self):
+    #     del self._encryption
+
+    @property
+    def sensitive(self):
+        return self._sensitive
+
+    @sensitive.setter
+    def sensitive(self, value):
+        if isinstance(value, SensitiveHtype):
+            self._sensitive = value
+        else:
+            self._sensitive = SensitiveHtype(code=value)
+
 
 # ### Ignore after here ______________________________________________________
 

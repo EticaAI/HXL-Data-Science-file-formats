@@ -8,7 +8,7 @@
 # HXL_COREHTYPE_TRUE_PYTHON = True      # 'HT1' ?
 HTYPE_TRUE=True
 # HXL_COREHTYPE_FALSE_PYTHON = False    # 'HT0' ?
-HTYPE_FALSE=True
+HTYPE_FALSE=False
 # NOTE: while most database systems treat missing and unknow as Null, it's
 # actually very important the distinction for data mining and data analysis
 # HXL_COREHTYPE_MISSING_PYTHON = ""     # 'HT ' ?

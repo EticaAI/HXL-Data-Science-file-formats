@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# TODO: move to some other place. Or maybe just delete it.
+
 # fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ ./tests/hxlated-xarray-pandas-test.py
 
 import numpy as np
