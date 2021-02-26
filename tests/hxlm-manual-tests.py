@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
-import hxlm.core.base
-from hxlm.core.htype.encryption import EncryptionHtype
-from hxlm.core.htype.sensitive import SensitiveHtype
+import hxlm.core
+# from hxlm.core.htype.encryption import EncryptionHtype
+# from hxlm.core.htype.sensitive import SensitiveHtype
 
-mdataset = hxlm.core.base.MDataset()
+hdata = hxlm.core.base.HDataset()
 
-
-
-print(mdataset)
+print(hdata)
 # mdataset.encryption = "abc"
-mdataset.sensitive = "erf"
-print(mdataset.describe())
+hdata.sensitive = "erf"
+print(hdata.describe())
