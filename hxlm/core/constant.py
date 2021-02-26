@@ -116,6 +116,7 @@ HPTL4="HPTL4"
 #   upfront, (think something like elections) were groups that do not trust
 #   each other but the infrasctuture is homologated
 HITLU="HITLU"
+HITL0="HITL0"
 HITL1="HITL1"  # Default ?
 HITL2="HITL2"
 HITL3="HITL3"

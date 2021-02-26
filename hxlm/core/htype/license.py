@@ -1,12 +1,6 @@
-# LicenseHtype & CopyrightLicenseHtype
-# @see https://spdx.org/licenses/
-# @see https://en.wikipedia.org/wiki/Humanitarian_use_licenses
+# LicenseHtype & CopyrightHtype
 
 from dataclasses import dataclass
-
-from typing import (
-    Any
-)
 
 # TODO: implement some functionality around SPDX,
 #       see https://spdx.org/licenses/ (fititnt, 2031-02-26 10:48 UTC)

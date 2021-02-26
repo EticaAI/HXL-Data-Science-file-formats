@@ -22,9 +22,13 @@ from typing import (
     List
 )
 
+from hxlm.core.htype.compliance import ComplianceHtype, BaseComplianceHtype
 from hxlm.core.htype.encryption import EncryptionHtype
 from hxlm.core.htype.sensitive import SensitiveHtype
+from hxlm.core.htype.sensitive import SensitiveHtype
 from hxlm.core.htype.license import LicenseHtype, CopyrightHtype
+from hxlm.core.htype.license import LicenseHtype, CopyrightHtype
+from hxlm.core.compliance import verbose_event
 
 
 # TODO: implement concept of recipe https://github.com/OCHA-DAP/hxl-recipes.
@@ -41,13 +45,14 @@ class HConteiner:
     HConteiner can play a hole when have to load group of datasets or save
     then in same file format.
 
-    TODO: is 'HConteiner' an resonable naming? The idea was something that
-          could
     """
 
-    def __init__(self, encryption: List[EncryptionHtype] = None,
-                 sensitive: List[SensitiveHtype] = None,
+    def __init__(self,
+                 compliance: Type[BaseComplianceHtype] = ComplianceHtype,
+                 encryption: List[EncryptionHtype] = None,
+                 sensitive: SensitiveHtype = None,
                  license: Type[LicenseHtype] = None):
+        self._compliance = compliance
         self._encryption = encryption
         self._sensitive = sensitive
         self._license = license
@@ -58,13 +63,20 @@ class HConteiner:
             self.has_encryption = False
 
     def describe(self):
+        """Give an general description of an HConteiner
+
+        Returns:
+            [Object]: Quick description of an HConteiner
+        """
         mdataset_description = {
             'kind': "HConteiner",
+            'compliance': self._compliance,
             'has_encryption': self.has_encryption,
             'encryption': self._encryption,
             'sensitive': self._sensitive,
             'license': self._license,
         }
+        verbose_event()
         return mdataset_description
 
     @property

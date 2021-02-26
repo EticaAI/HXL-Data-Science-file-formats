@@ -41,6 +41,8 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
+import sys
+
 # TODO: add check_compliance_on_after_decrypt_row and
 #       check_compliance_on_before_decrypt_row and document how to optimize
 #       the loops. This may need some real testing
@@ -283,3 +285,18 @@ def check_compliance_on_termination(
 
 def get_compliance_extra_rules():
     print('TODO: this is an draft. Improve-me')
+
+
+def verbose_event(context = None):
+    """Method to call when an human enable verbose mode (potential data leak)
+
+    Routines like HConteiner()->describe() provide an interface do debug
+    an dataset, but while this is useful when developing and or/debugging, in
+    production, with real data, means someone can use to leak data.
+
+    TODO: add more context (both sides)
+
+    Args:
+        context (Any, optional): Extra information. Defaults to None.
+    """
+    print("verbose_event", file=sys.stderr)
