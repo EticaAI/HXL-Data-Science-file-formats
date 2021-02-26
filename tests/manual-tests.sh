@@ -192,6 +192,13 @@ head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8-bom
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 
+#### dask tests ______________________________________________________________
+# @see https://docs.dask.org/en/latest/install.html
+# python -m pip install "dask[complete]"    # Install everything
+pip3 install dask                # Install only core parts of dask
+# pip3 install dask[dataframe]     # we need dataframe even for simple tests
+pip3 install "dask[complete]"    # Install everything
+
 #### xarray tests ____________________________________________________________
 pip3 install xarray
 # fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ pip3 install xarray
