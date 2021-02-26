@@ -98,7 +98,10 @@ def check_compliance_on_before_decrypt_column(
     Parameters
     ----------
     Tolerance: int
-        Description of parameter `x`.
+        Give a numeric hint about tolerance if the computed result is not 100%
+        compliant. While compilance extensions may use this value for
+        customized implementations, implementators should assume that 0 may
+        break the program imediatelly (like raise an exception)
     Verbose: int, default=0
         Verbose is recommended to be used as an way to help debug errors.
         But some implementers of the compliance extension to literaly
@@ -151,7 +154,10 @@ def check_compliance_on_after_decrypt_row(
     Parameters
     ----------
     Tolerance: int
-        Description of parameter `x`.
+        Give a numeric hint about tolerance if the computed result is not 100%
+        compliant. While compilance extensions may use this value for
+        customized implementations, implementators should assume that 0 may
+        break the program imediatelly (like raise an exception)
     Verbose: int, default=0
         Verbose is recommended to be used as an way to help debug errors.
         But some implementers of the compliance extension to literaly
@@ -183,7 +189,10 @@ def check_compliance_on_before_decrypt_row(
     Parameters
     ----------
     Tolerance: int
-        Description of parameter `x`.
+        Give a numeric hint about tolerance if the computed result is not 100%
+        compliant. While compilance extensions may use this value for
+        customized implementations, implementators should assume that 0 may
+        break the program imediatelly (like raise an exception)
     Verbose: int, default=0
         Verbose is recommended to be used as an way to help debug errors.
         But some implementers of the compliance extension to literaly
@@ -212,7 +221,10 @@ def check_compliance_on_initialization(
     Parameters
     ----------
     Tolerance: int
-        Description of parameter `x`.
+        Give a numeric hint about tolerance if the computed result is not 100%
+        compliant. While compilance extensions may use this value for
+        customized implementations, implementators should assume that 0 may
+        break the program imediatelly (like raise an exception)
     Verbose: int, default=0
         Verbose is recommended to be used as an way to help debug errors.
         But some implementers of the compliance extension to literaly
@@ -247,7 +259,10 @@ def check_compliance_on_termination(
     Parameters
     ----------
     Tolerance: int
-        Description of parameter `x`.
+        Give a numeric hint about tolerance if the computed result is not 100%
+        compliant. While compilance extensions may use this value for
+        customized implementations, implementators should assume that 0 may
+        break the program imediatelly (like raise an exception)
     Verbose: int, default=0
         Verbose is recommended to be used as an way to help debug errors.
         But some implementers of the compliance extension to literaly

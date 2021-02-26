@@ -5,14 +5,14 @@
 # some way that would allow have both internal representations and exchange
 # data with de facto industry tools (like ISOs, database systems terms for
 # true/false, etc)
-HXL_COREHTYPE_TRUE_PYTHON = True      # 'HT1' ?
+# HXL_COREHTYPE_TRUE_PYTHON = True      # 'HT1' ?
 HTYPE_TRUE=True
-HXL_COREHTYPE_FALSE_PYTHON = False    # 'HT0' ?
+# HXL_COREHTYPE_FALSE_PYTHON = False    # 'HT0' ?
 HTYPE_FALSE=True
 # NOTE: while most database systems treat missing and unknow as Null, it's
 # actually very important the distinction for data mining and data analysis
-HXL_COREHTYPE_MISSING_PYTHON = ""     # 'HT ' ?
-HXL_COREHTYPE_UNKNOW_PYTHON = "?"     # 'HT?' ?
+# HXL_COREHTYPE_MISSING_PYTHON = ""     # 'HT ' ?
+# HXL_COREHTYPE_UNKNOW_PYTHON = "?"     # 'HT?' ?
 HTYPE_UNKNOW="?"
 
 # NOTE: Encryption is likely to be a very, VERY common case on HXLated datasets
@@ -23,7 +23,15 @@ HTYPE_UNKNOW="?"
 # NOTE: One original data point that is decrypted by the user is converted
 #       to whatever was the original value instead of this. This can be used
 #       on much more than just boolean.
-HXL_COREHTYPE_ENCRYPTED_PYTHON = "E"  # 'HTE' ?
+# HXL_COREHTYPE_ENCRYPTED_PYTHON = "E"  # 'HTE' ?
+HTYPE_ENCRYPTED="!"  # Note: the "!" different from HTYPE_UNKNOW="?" that
+                     # actually can be stored explicitly as ?, is an
+                     # pseudo representation. Encryption-aware tools could
+                     # choose to print "!" while internally have the real
+                     # value. Also, if exported tables do have "!" as value
+                     # Encryption-aware tools could still label the data as
+                     # encrypted while don't offer how to decrypt (since they
+                     # technically could not do it)
 
 # TODO: this is draft
 HXL_COREHTYPE_TRUE_STRING = ""
@@ -70,3 +78,45 @@ HDSL_DEFAULT=HDSL1
 # ### Security Clearance level ________________________________________________
 # @see https://www.ors.od.nih.gov/ser/dpsac/services/other-services/security-clearance/Pages/default.aspx
 # @see https://en.wikipedia.org/wiki/Level_of_measurement
+
+# ### Data Trust Level ________________________________________________________
+# >> This is a draft to see good naming conventions. May not be implemented <<
+# >> This draft may be moved to compliance example extension <<
+# The concept of 'Data Trust Level' (if implemeted) is not meant to be exposed
+# to end user. (TODO: explain or remove)
+# HDTLU="HDTLU"
+# HDTL0="HDTL0"
+# HDTL1="HDTL1"
+# HDTL2="HDTL2"
+# HDTL3="HDTL3"
+# HDTL4="HDTL4"
+
+# ### Data Processor (human, organization) Trust Level ________________________
+# >> This is a draft to see good naming conventions. May not be implemented <<
+# Reasoning to consider add:
+#   some type of scale to measure infered trust on
+#   the current natural person and organization makes sense
+#   Note that this type of check could be ignored if the data is managed by
+#   infrastruture without release sensitive information to the human.
+HPTLU="HPTLU"
+HPTL1="HPTL1"  # Default ?
+HPTL2="HPTL2"
+HPTL3="HPTL3"
+HPTL4="HPTL4"
+
+# ### Data Infrastruture Trust Level _________________________________________
+# >> This is a draft to see good naming conventions. May not be implemented <<
+# Note: maybe is necessary break this note in more than one group.
+# Reasoning to consider add:
+#   Do exist cases were an combination of underlining hardware infrastruture
+#   plus the way the software is used have an higher trust level than the
+#   current Data Processor (the human or organization).
+#   While on averange cases, is very likely that users implement rules that
+#   require both HITL_ and HPTL_ have a minimum, special rules could be made
+#   upfront, (think something like elections) were groups that do not trust
+#   each other but the infrasctuture is homologated
+HITLU="HITLU"
+HITL1="HITL1"  # Default ?
+HITL2="HITL2"
+HITL3="HITL3"
+HITL4="HITL4"
