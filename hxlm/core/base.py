@@ -18,12 +18,18 @@ from dataclasses import dataclass
 # https://github.com/pandas-dev/pandas/blob/master/pandas/core/dtypes/dtypes.py
 from typing import (
     Any,
-    Type
+    Type,
+    List
 )
 
 from hxlm.core.htype.encryption import EncryptionHtype
 from hxlm.core.htype.sensitive import SensitiveHtype
+from hxlm.core.htype.license import LicenseHtype, CopyrightHtype
 
+
+# TODO: implement concept of recipe https://github.com/OCHA-DAP/hxl-recipes.
+#       Maybe HConteiner could also have one or mroe recipes?
+#       (E.Rocha, 2021-02-26 08:05 UTC)
 
 class HConteiner:
     """HConteiner is, informally speaking, a conteiner of one or more HDatasets
@@ -39,10 +45,49 @@ class HConteiner:
           could
     """
 
-    def __init__(self, encryption: Type[EncryptionHtype] = None,
-                 sensitive: Type[SensitiveHtype] = None):
+    def __init__(self, encryption: List[EncryptionHtype] = None,
+                 sensitive: List[SensitiveHtype] = None,
+                 license: Type[LicenseHtype] = None):
         self._encryption = encryption
         self._sensitive = sensitive
+        self._license = license
+
+        if encryption:
+            self.has_encryption = True
+        else:
+            self.has_encryption = False
+
+    def describe(self):
+        mdataset_description = {
+            'kind': "HConteiner",
+            'has_encryption': self.has_encryption,
+            'encryption': self._encryption,
+            'sensitive': self._sensitive,
+            'license': self._license,
+        }
+        return mdataset_description
+
+    @property
+    def encryption(self):
+        return self._encryption
+
+    @encryption.setter
+    def encryption(self, value):
+        if isinstance(value, EncryptionHtype):
+            self._encryption = value
+        else:
+            self._encryption = EncryptionHtype(code=value)
+
+    @property
+    def sensitive(self):
+        return self._sensitive
+
+    @sensitive.setter
+    def sensitive(self, value):
+        if isinstance(value, SensitiveHtype):
+            self._sensitive = value
+        else:
+            self._sensitive = SensitiveHtype(code=value)
 
 
 class HDataset:
@@ -65,7 +110,7 @@ class HDataset:
 
     def describe(self):
         mdataset_description = {
-            'kind': "MDataset",
+            'kind': "HDataset",
             'encryption': self._encryption,
             'sensitive': self._sensitive,
         }
@@ -81,10 +126,6 @@ class HDataset:
             self._encryption = value
         else:
             self._encryption = EncryptionHtype(code=value)
-
-    # @encryption.deleter
-    # def encryption(self):
-    #     del self._encryption
 
     @property
     def sensitive(self):
