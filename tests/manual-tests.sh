@@ -192,6 +192,20 @@ head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8-bom
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 
+#### xarray tests ____________________________________________________________
+pip3 install xarray
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ pip3 install xarray
+# Collecting xarray
+#   Downloading xarray-0.16.2-py3-none-any.whl (736 kB)
+#      |████████████████████████████████| 736 kB 4.1 MB/s 
+# Requirement already satisfied: setuptools>=38.4 in /usr/lib/python3/dist-packages (from xarray) (45.2.0)
+# Requirement already satisfied: pandas>=0.25 in /home/fititnt/.local/lib/python3.8/site-packages (from xarray) (1.2.1)
+# Requirement already satisfied: numpy>=1.15 in /usr/lib/python3/dist-packages (from xarray) (1.17.4)
+# Requirement already satisfied: pytz>=2017.3 in /usr/lib/python3/dist-packages (from pandas>=0.25->xarray) (2019.3)
+# Requirement already satisfied: python-dateutil>=2.7.3 in /usr/lib/python3/dist-packages (from pandas>=0.25->xarray) (2.7.3)
+# Installing collected packages: xarray
+# Successfully installed xarray-0.16.2
+
 
 #### Rocha's local development notes _________________________________________
 # VSCode python code suggestion is wonderful, but have some issues with
