@@ -4,15 +4,34 @@
 The main objective is abstract non-core subpackage of hxlm to be used as
 reference to Routing resources.
 
+To implementers:
+- While hxlm.core.htype.routing (and hxlm.routing) are early-drafts/
+  working-drafts, the idea behind RoutingHtype (that professionals who work
+  with internet routing) can help to protect sites who serve public HXLated
+  content.
+    - For "just" cache, you actually do not need at all to implement  this
+      code or automate with other tools. In the middle of urgencies, do you
+      think and make it work.
+- The concept of a ideal of an HRouting work to proxy/filter data between
+  different private networks require both knowledge of HXL and how to exchange
+  data with very sensitive content. This means that even if implementations do
+  become more than proof of concept, this may not become public.
+    - At least not until do exist huge demand to a point of divide
+      responsability of computers 'who route' from the ones 'who undestand'
+      the HXL.
+
+TODO: maybe rewrite from *RoutingHtype to HRouting (Emerson Rocha, 2021-02-27 04:53)
+
 TODO: https://www.manrs.org/wp-content/uploads/2018/03/MANRS-BCOP-20170125.pdf
 TODO: https://www.peeringdb.com/
+
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 from typing import (
     List,
@@ -79,11 +98,16 @@ class ResourceRoutingHtype:
 class PleaseRoutingHtype:
     """Abstraction of an request from one HRouting to other HRouting peers
     """
-
+    #: me, an HRouting
     requester: Type[RoutingHtype] = None
+    # resquested_by: ...
+    trusted_by: Union[Type[RoutingHtype], ResourceRoutingHtype] = None
     requested: Type[RoutingHtype] = None
     resources: List[Type[ResourceRoutingHtype]] = None
     please: str = 'HRQOSME'
+
+    def as_object(self):
+        return asdict(self)
 
 
 # @see https://www.peeringdb.com/advanced_search?country__in=BR&reftag=ix

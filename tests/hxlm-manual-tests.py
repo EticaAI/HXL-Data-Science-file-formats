@@ -11,6 +11,8 @@ print(hxlm.routing.get_external_ip())
 
 print(hxlm.routing.request_cache_resource(
     url='https://example.org/dataset/data.csv', hpeer='192.0.2.0'))
+print(hxlm.routing.request_priority_access(
+    url='https://example.org/dataset/data.csv', requester='192.0.2.0'))
 
 # from hxlm.core.htype.encryption import EncryptionHtype
 # from hxlm.core.htype.sensitive import SensitiveHtype
