@@ -1,0 +1,6 @@
+https://www.schemastore.org/json/
+http://json-schema.org/implementations.html#from-code
+
+https://code.visualstudio.com/docs/languages/json
+
+https://json-schema.org/draft/2020-12/json-schema-core.html

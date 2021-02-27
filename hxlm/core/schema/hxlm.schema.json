@@ -1,0 +1,41 @@
+{
+  "name": "hxlm.json",
+  "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.1",
+  "fileMatch": [
+    "hxlm.json",
+    "hconteiner.json"
+  ],
+  "url": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/hxlm.schema.json",
+  "hdatasets": {
+    "type": "array",
+    "description": "hdatasets is ...",
+    "items": {
+      "type": "string"
+    }
+  },
+  "compliance": {
+    "type": "object",
+    "description": "compliance is ...",
+    "patternProperties": {
+      "^(?:@[a-zA-Z0-9_-]+\/)?[a-zA-Z0-9_-]+$": {
+        "$ref": "#/definitions/project"
+      }
+    },
+    "additionalProperties": false
+  },
+  "encryption": {
+    "type": "object",
+    "description": "encryption is ...",
+    "patternProperties": {
+      "^(?:@[a-zA-Z0-9_-]+\/)?[a-zA-Z0-9_-]+$": {
+        "$ref": "#/definitions/project"
+      }
+    },
+    "additionalProperties": false
+  },
+  "has_encryption": {
+    "type": "boolean",
+    "description": "If at least one hdataset explicitly have encryption.",
+    "default": false
+  }
+}
