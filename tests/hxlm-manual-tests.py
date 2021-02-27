@@ -2,6 +2,10 @@
 
 # ./tests/hxlm-manual-tests.py
 
+import hxlm.routing
+
+hxlm.routing.routing_info()
+
 import hxlm.core
 import hxlm.core.util
 # from hxlm.core.htype.encryption import EncryptionHtype
