@@ -1,6 +1,9 @@
 """hxlm.core.htype.routing
 - @see https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/9
 
+The main objective is abstract non-core subpackage of hxlm to be used as
+reference to Routing resources.
+
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
@@ -9,12 +12,17 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 from dataclasses import dataclass
 
 from typing import (
-    Union
+    Union,
+    Type
 )
 
 from ipaddress import (
     IPv4Address,
     IPv6Address
+)
+
+from hxlm.core.constant import (
+    HDSL3
 )
 
 
@@ -34,11 +42,27 @@ class RoutingHtype:
     @see https://www.youtube.com/watch?v=IuY6wqTm35U
     """
 
+    #: Most Htype (when have) have more than one attribute.
+    #  But RoutingHtype is simpler, so one is enough. Subclasses can override
     hxl_attribute: str = 'routinghtype'
-    # @see https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
 
     #: Union[str, IPv4Address]: external ipv4 (if any)
     ipv4: Union[str, IPv4Address] = None
 
     #: Union[str, IPv6Address]: external ipv6 (if any)
     ipv6: Union[str, IPv6Address] = None
+
+    #: By default, since this class could be used in any X-Forward-By or
+    #  proxy, so we default to False
+    is_hrouting_aware: bool = False
+
+
+@dataclass(init=True, repr=True, eq=True)
+class PleaseRoutingHtype:
+    """Abstraction of an request from one HRouting to other HRouting peers
+    """
+
+    requester: Type[RoutingHtype] = None
+    requested: Type[RoutingHtype] = None
+
+# @see https://www.peeringdb.com/advanced_search?country__in=BR&reftag=ix
