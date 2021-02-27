@@ -41,6 +41,11 @@ class HConteiner:
     It is an analogy for a compressed folder of CSVs, Excel Workbook, HDF5
     file, NetCDF file or an CKan Dataset.
 
+        Yet, there is one difference from these file formats: HConteiner
+        actually _is not_ designed to be a file format, but an abstraction
+        to manipulate file formats. (But if you are offline, HConteiner would
+        be an json file with metadata plus a folder on disk.)
+
     While most of the time data manipulation is done using HDataset the
     HConteiner can play a hole when have to load group of datasets or save
     then in same file format.
@@ -126,6 +131,7 @@ class HDataset:
             'encryption': self._encryption,
             'sensitive': self._sensitive,
         }
+        verbose_event()
         return mdataset_description
 
     @property
@@ -149,6 +155,42 @@ class HDataset:
             self._sensitive = value
         else:
             self._sensitive = SensitiveHtype(code=value)
+
+
+class HFile:
+    """HFile is an reference for an file on an HConteiner
+
+    Differentes from HFile to HDataset
+        - HFile is more generic than HDataset
+        - HFile does not have attribute sensitive (but can have encryption)
+
+    TODO: both Excel, CKan and formats like HDF5 work with MULDIPLE datasets.
+          so, which structure use for this? (E.Rocha, 2021-02-26 08:10 UTC)
+    """
+
+    def __init__(self, encryption: Type[EncryptionHtype] = None,
+                 sensitive: Type[SensitiveHtype] = None):
+        self._encryption = encryption
+        self._sensitive = sensitive
+
+    def describe(self):
+        mdataset_description = {
+            'kind': "HFile",
+            'encryption': self._encryption
+        }
+        verbose_event()
+        return mdataset_description
+
+    @property
+    def encryption(self):
+        return self._encryption
+
+    @encryption.setter
+    def encryption(self, value):
+        if isinstance(value, EncryptionHtype):
+            self._encryption = value
+        else:
+            self._encryption = EncryptionHtype(code=value)
 
 
 @dataclass(init=True)
