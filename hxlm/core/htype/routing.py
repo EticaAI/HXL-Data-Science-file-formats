@@ -4,6 +4,9 @@
 The main objective is abstract non-core subpackage of hxlm to be used as
 reference to Routing resources.
 
+TODO: https://www.manrs.org/wp-content/uploads/2018/03/MANRS-BCOP-20170125.pdf
+TODO: https://www.peeringdb.com/
+
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
@@ -12,8 +15,9 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 from dataclasses import dataclass
 
 from typing import (
-    Union,
-    Type
+    List,
+    Type,
+    Union
 )
 
 from ipaddress import (
@@ -25,6 +29,9 @@ from hxlm.core.constant import (
     HDSL3
 )
 
+HRCACHE="HRCACHE"  # Please cache this resource (default? Maybe 1H? Max 24h?)
+HRPURGE="HRPURGE"  # Please purge this resource (if still have it)
+HRQOSME="HRQOSME"  # If you're under HEAVY LOAD, priorize-me to cache you
 
 @dataclass(init=True, repr=True, eq=True)
 class RoutingHtype:
@@ -57,6 +64,17 @@ class RoutingHtype:
     is_hrouting_aware: bool = False
 
 
+@dataclass(init=True, eq=True)
+class ResourceRoutingHtype:
+    """Abstraction to an resource (often _just_ an URL)
+
+    TODO: this is an draft. But is here as reference on how to abstract
+          (Emerson Rocha, 2021-02-27 03:57 UTC)
+    """
+
+    url: str = None
+
+
 @dataclass(init=True, repr=True, eq=True)
 class PleaseRoutingHtype:
     """Abstraction of an request from one HRouting to other HRouting peers
@@ -64,5 +82,8 @@ class PleaseRoutingHtype:
 
     requester: Type[RoutingHtype] = None
     requested: Type[RoutingHtype] = None
+    resources: List[Type[ResourceRoutingHtype]] = None
+    please: str = 'HRQOSME'
+
 
 # @see https://www.peeringdb.com/advanced_search?country__in=BR&reftag=ix

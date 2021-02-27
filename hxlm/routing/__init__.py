@@ -17,5 +17,6 @@ to reduce the most common routing threats.)
 
 from hxlm.routing.main import (
     routing_info,
-    get_external_ip
+    get_external_ip,
+    request_cache_resource
 )
