@@ -5,6 +5,7 @@
 import hxlm.routing
 
 hxlm.routing.routing_info()
+print(hxlm.routing.get_external_ip())
 
 import hxlm.core
 import hxlm.core.util
