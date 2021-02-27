@@ -287,16 +287,47 @@ def get_compliance_extra_rules():
     print('TODO: this is an draft. Improve-me')
 
 
-def verbose_event(context = None):
-    """Method to call when an human enable verbose mode (potential data leak)
+def verbose_event(context=None):
+    """Method to call when a human enable verbose (MAY EXPOSE DATA INTERNALS)
 
     Routines like HConteiner()->describe() provide an interface do debug
-    an dataset, but while this is useful when developing and or/debugging, in
-    production, with real data, means someone can use to leak data.
+    not just the program, but data itself. While this is useful when
+    developing and or/debugging with example data, in production, with real
+    data that are not even from your organization, someone may need to debug
+    and see what is breaking.
 
-    TODO: add more context (both sides)
+    verbose_event() (or compliance extension) is one way do to it
+    _less wrong_.
+
+    Problem One: what generate this event could leaked some data:
+
+        While an verbose_event is unlikely to allow who is debugging to
+        save/export data (if need, other compliance functions could be made),
+        it could expose computed results from compliance rules
+        (like the reason to deny an action to the user on a more
+        sophisticated interface).
+
+        verbose_event() is likely to
+
+    Problem Two: how you extend this function could also leak data:
+
+        Since more often than not verbose_event() is likely to not only be
+        used in good faith (or people just testing plugins for your
+        compliance extension; and not just this, but on their local machines!)
+        and that do exist more recommended ways to catch intentional behavior,
+        if compliance extensions BY DEFAULT just log even data not just
+        metadata to ask the data contributor what was the in the dataset, your
+        solution to protect potential data leak will leak even more sensitive
+        data.
+
+    Strong suggestion [Emerson Rocha's opinion]:
+
+        An good approach is (TODO: document better)
 
     Args:
         context (Any, optional): Extra information. Defaults to None.
     """
+
+    # TODO: implement logger, maybe syslog (Emerson Rocha, 2021-02-26 23:25)
+
     print("verbose_event", file=sys.stderr)

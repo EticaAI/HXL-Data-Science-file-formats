@@ -6,7 +6,8 @@ from hxlm.core.constant import (
     HDSLU,
     HDSL_DEFAULT
 )
-from hxlm.core.internal.util import _get_plugins
+from hxlm.core.internal.util import _get_submodules
+from hxlm.core.compliance import verbose_event
 
 import hxl
 
@@ -46,13 +47,16 @@ def cmp_sensitive_level(level, reference_level=None):
 
 
 def debug():
-    _get_plugins()
+    verbose_event()
+    _get_submodules()
 
 
 def hxl_info(data):
     """The df.info, but for HXLated object
 
     TODO: maybe remove this and just document
+    TODO: implement compliance.verbose_event() or move logic to
+          HContainer/HDataset (Emerson Rocha, 2021-02-02 23:48 UTC)
 
     @see pandas.pydata.org/pandas-docs/stable/reference/api
          /pandas.DataFrame.info.html

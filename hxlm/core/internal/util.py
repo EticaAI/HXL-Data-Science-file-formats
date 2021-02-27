@@ -1,7 +1,7 @@
 from pkgutil import iter_modules
 
 
-def _get_plugins():
+def _get_submodules():
     """List plugins.
     TODO: not sure if is efficient or may have bugs. But is for debug so ok.
           (fititnt, 2021-02-24 02:25 UTC)
@@ -14,5 +14,16 @@ def _get_plugins():
 
     """
     import hxlm
-    for submodule in iter_modules(hxlm.__path__):
-        print(submodule.name)
+    # print('hxlm modules (root)')
+    # for submodule in iter_modules(hxlm.__path__):
+    #     print(submodule.name)
+    #     print(submodule)
+    #     # print(submodule.__path__)
+
+    # @see https://stackoverflow.com/questions/1707709/list-all-the-modules-that-are-part-of-a-python-package  #noqa
+    import pkgutil
+    package=hxlm
+    for importer, modname, ispkg in pkgutil.walk_packages(path=package.__path__,
+                                                      prefix=package.__name__+'.',
+                                                      onerror=lambda x: None):
+        print(modname)

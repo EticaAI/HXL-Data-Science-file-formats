@@ -18,6 +18,7 @@ hxlmeta-data/*
 # ~/.config/hxl/hxlmeta-data/ # Directory containing HXLated CSV files
 
 ### From other projects (if users are testing with symlinks)
+hxlm/compliance
 hxlm/crypto
 hxlm/plugin/xe_cryptoexample
 
