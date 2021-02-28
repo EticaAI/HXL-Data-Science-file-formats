@@ -1,6 +1,6 @@
 {
   "name": "hxlm.json",
-  "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.1",
+  "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.2",
   "fileMatch": [
     "hxlm.json",
     "hconteiner.json"
