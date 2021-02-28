@@ -1,0 +1,19 @@
+"مخطط $": https://raw.githubusercontent.com/EticaAI/HXLporate-Science-file-formats/main/hxlm/core/schema/hxlm.schema.json
+العنوان: hxml.core.data.baseline
+hdatasets:
+- مفتاح: مكان
+   التعليقات: HXL-CPLP-FOD_countries-plans.csv
+   المصدر: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+   العلامات:
+   - ايزو 3166
+   - ISO 3166-2
+   - ايزو 3166-3
+- مفتاح: لانج
+   التعليقات: HXL-CPLP-FOD_languages
+   المصدر: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+   العلامات:
+   - ISO 639-3
+   - ISO 3692-2
+   - ISO 3692-3
+hfiles:
+- مفتاح: TODO.txt
