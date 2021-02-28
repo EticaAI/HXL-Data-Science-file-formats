@@ -1,9 +1,10 @@
 {
-  "name": "hxlm.json",
+  "name": "hmeta.schema.json",
   "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.2",
   "fileMatch": [
     "hxlm.json",
     "hconteiner.json",
+    "hmeta.json",
     "hmeta.yml",
     "*.hmeta.*.yml"
   ],
