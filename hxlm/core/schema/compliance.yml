@@ -1,0 +1,5 @@
+id: hxlm.core.schema.compliance
+---
+
+hmt:
+  compliance: "TODO: define-me with yml or csv"

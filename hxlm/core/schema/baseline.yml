@@ -1,0 +1,36 @@
+id: hxlm.core.schema.baseline
+---
+
+HTYPE_TRUE: "TRUE"
+HTYPE_FALSE: "FALSE"
+HTYPE_UNKNOW: "?"
+HTYPE_ENCRYPTED: "!"
+HTYPE_MISSING: "(TODO MISSING)"
+
+# https://github.com/HXLStandard/libhxl-python/blob/master/hxl/datatypes.py#L140
+# uses  ['y', 'yes', 't', 'true', '1']
+# Its simmilar to old PostgreSQL
+# https://www.postgresql.org/docs/9.1/datatype-boolean.html
+# PostgreSQL and other databases accept a few more values
+# https://www.postgresql.org/docs/13/datatype-boolean.html
+
+HTYPE_TRUE_LIST:
+  - "TRUE"
+  - "true"
+  # - "on" # https://noyaml.com/  ?
+  - "1"
+
+HTYPE_FALSE_LIST:
+  - "FALSE"
+  - "false"
+  # - "off" # https://noyaml.com/ ?
+  - "0"
+
+HTYPE_FROM_EMPTYSTRING:
+  - "HTYPE_FALSE"
+  - "HTYPE_UNKNOW"
+  - "HTYPE_MISSING"
+
+HTYPE_FROM_NULL:
+  - "HTYPE_UNKNOW"
+  - "HTYPE_MISSING"
