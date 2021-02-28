@@ -6,9 +6,9 @@
 # data with de facto industry tools (like ISOs, database systems terms for
 # true/false, etc)
 # HXL_COREHTYPE_TRUE_PYTHON = True      # 'HT1' ?
-HTYPE_TRUE=True
+HTYPE_TRUE="TRUE"
 # HXL_COREHTYPE_FALSE_PYTHON = False    # 'HT0' ?
-HTYPE_FALSE=False
+HTYPE_FALSE="FALSE"
 # NOTE: while most database systems treat missing and unknow as Null, it's
 # actually very important the distinction for data mining and data analysis
 # HXL_COREHTYPE_MISSING_PYTHON = ""     # 'HT ' ?
@@ -23,7 +23,6 @@ HTYPE_UNKNOW="?"
 # NOTE: One original data point that is decrypted by the user is converted
 #       to whatever was the original value instead of this. This can be used
 #       on much more than just boolean.
-# HXL_COREHTYPE_ENCRYPTED_PYTHON = "E"  # 'HTE' ?
 HTYPE_ENCRYPTED="!"  # Note: the "!" different from HTYPE_UNKNOW="?" that
                      # actually can be stored explicitly as ?, is an
                      # pseudo representation. Encryption-aware tools could
@@ -33,11 +32,9 @@ HTYPE_ENCRYPTED="!"  # Note: the "!" different from HTYPE_UNKNOW="?" that
                      # encrypted while don't offer how to decrypt (since they
                      # technically could not do it)
 
-# TODO: this is draft
-HXL_COREHTYPE_TRUE_STRING = ""
-HXL_COREHTYPE_TRUE_STRING_LIST = []
-HXL_COREHTYPE_FALSE_STRING = ""
-HXL_COREHTYPE_FALSE_STRING_LIST = []
+HTYPE_TRUE_LIST = ["TRUE", "true", "1"]
+HTYPE_FALSE_LIST = ["FALSE", "false", "0"]
+
 # ### True, False, Missing, Unknow, Encrypted, START _________________________
 
 # ### Information sensitivity levels _________________________________________
