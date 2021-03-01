@@ -6,6 +6,16 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
+import os.path
+
+from typing import (
+    Type
+)
+
+# TODO: this obvously should not be hardcoded. Update (Emerson Rocha, 2021-03-01 10:47 UTC)
+HMETA_LOCAL_BASE="/workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline"
+HMETA_LOCAL_HFILE_BASE=HMETA_LOCAL_BASE+"/hfile"
+
 class HFile:
     """HMeta is the main entry point to glue collections of HConteiner and etc
     In practice, is mostly used to, with help with external utils, abstract
@@ -19,9 +29,28 @@ class HFile:
     def export_schema(self):
         # TODO: improve this. Still just outputing the input
 
+        # print('HFile export_schema', self._file_raw)
+
         return self._file_raw
 
-    def load_schema_file(self, file_raw):
+    def is_available_locally(self):
+        """Returns file path if available locally, and False if not
+
+        Returns:
+            [Union[str, False]]: Path to local file or false
+        """
+
+        # TODO: parse to not need use _file_raw
+        expected_path = HMETA_LOCAL_HFILE_BASE + '/' + self._file_raw['id']
+
+        #return expected_path
+
+        if os.path.isfile(expected_path):
+            return expected_path
+        else:
+            return False
+
+    def load_schema(self, file_raw):
         """load_schema_file load object and convert to HFile
 
         How the object is saved on disk (or received from external sources)
@@ -35,6 +64,10 @@ class HFile:
         return self
         # self._parse_schemas_raw()
         # print(schemas)
+
+
+def action_cache_hfile(hfile: Type[HFile]):
+    print('todo')
 
 
 # class HFile:

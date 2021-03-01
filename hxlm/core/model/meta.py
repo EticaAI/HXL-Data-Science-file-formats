@@ -46,7 +46,7 @@ class HMeta:
                     # print('oooooi', item['hdatasets'])
                     self._parse_schemas_raw_hdatasets(item['hdatasets'])
                 if 'hfiles' in item:
-                    self._parse_schemas_raw_hfile(item['hfiles'])
+                    self._parse_schemas_raw_hfiles(item['hfiles'])
                 if 'hrecipes' in item:
                     self._parse_schemas_raw_hrecipe(item['hrecipes'])
                 if 'htasks' in item:
@@ -61,9 +61,13 @@ class HMeta:
             dataset_ = HDataset().load_schema_dataset(dataset)
         self._hdatasets.append(dataset_)
 
-    def _parse_schemas_raw_hfile(self, hfile):
-        hfile = HFile().load_schema_file(hfile)
-        self._hfiles.append(hfile)
+    def _parse_schemas_raw_hfiles(self, hfiles):
+        # hfile_ = []
+        for hfile in hfiles:
+            hfile_ = HFile().load_schema(hfile)
+
+            print('is_available_locally', hfile_.is_available_locally())
+            self._hfiles.append(hfile_)
 
     def _parse_schemas_raw_hrecipe(self, hrecipes):
         hrecipe_ = []
@@ -71,7 +75,7 @@ class HMeta:
 
             # print('oioioi', recipe)
             hrecipe_ = HRecipe().load_schema(recipe)
-            self._hrecipes.append(hrecipe_)
+        self._hrecipes.append(hrecipe_)
 
         # hrecipe = HRecipe().load_schema(hrecipe)
         # self._hrecipes.append(hrecipe)
@@ -97,15 +101,6 @@ class HMeta:
         """
         schemas = []
 
-        # # pip3 install ppretty
-        # import pprint
-        # # pp = pprint.PrettyPrinter(width=41, compact=True)
-        # pp = pprint.PrettyPrinter(depth=6)
-        # print('testtest _hdatasets', self._hdatasets[0])
-        # print('testtest _hdatasets', vars(self._hdatasets[0]))
-        # pp.pformat(self._hdatasets)
-        # pp.pformat(self._hdatasets)
-
         if len(self._hdatasets) > 0:
             hdatasets_ = []
             for dataset in self._hdatasets:
@@ -121,7 +116,7 @@ class HMeta:
         if len(self._hrecipes) > 0:
             recipes_ = []
             for recipe in self._hrecipes:
-                # print('recipe.get_hxlproxy_url', recipe.get_hxlproxy_url())
+                print('recipe.get_hxlproxy_url', recipe.get_hxlproxy_url())
                 # print(vars(recipe))
                 recipes_.append(recipe.export_schema())
             schemas.append({'hrecipe': recipes_})

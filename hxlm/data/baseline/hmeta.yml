@@ -20,6 +20,8 @@
         - ISO 3692-3
   hfiles:
     - id: TODO.txt
+    - id: UNLICENSE
+      source: https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/UNLICENSE
 
   htasks:
     - todo: draft?
