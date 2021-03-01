@@ -43,13 +43,14 @@ class HMeta:
             if 'hmeta' in item:
                 # print('_parse_schemas_raw item item.hmeta yes')
                 if 'hdatasets' in item:
-                    self._parse_schemas_raw_hdatasets(item)
+                    # print('oooooi', item['hdatasets'])
+                    self._parse_schemas_raw_hdatasets(item['hdatasets'])
                 if 'hfiles' in item:
-                    self._parse_schemas_raw_hfile(item)
+                    self._parse_schemas_raw_hfile(item['hfiles'])
                 if 'hrecipes' in item:
-                    self._parse_schemas_raw_hrecipe(item)
+                    self._parse_schemas_raw_hrecipe(item['hrecipes'])
                 if 'htasks' in item:
-                    self._parse_schemas_raw_htask(item)
+                    self._parse_schemas_raw_htask(item['htasks'])
             else:
                 raise HXLmException(
                     'No hmeta found on this item of this file. Error?')
@@ -76,19 +77,48 @@ class HMeta:
         # self._hrecipes.append(htask)
 
     def export_schemas(self):
-        # as input would be this:
-        #return self._schemas_raw
+        """Export HMeta schema (not data) after being processed by each class
+
+        Note that the result may not expose raw results. like compliance
+        computed rules or (if any) encryption keys.
+
+        Compared to debug methods, this class is the recommended way to tell
+        users to inspect implementations
+
+        Returns:
+            [Array]: Array of schemas
+        """
         schemas = []
 
-        print('testtest _hdatasets', self._hdatasets)
+        # # pip3 install ppretty
+        # import pprint
+        # # pp = pprint.PrettyPrinter(width=41, compact=True)
+        # pp = pprint.PrettyPrinter(depth=6)
+        # print('testtest _hdatasets', self._hdatasets[0])
+        # print('testtest _hdatasets', vars(self._hdatasets[0]))
+        # pp.pformat(self._hdatasets)
+        # pp.pformat(self._hdatasets)
 
         if len(self._hdatasets) > 0:
             hdatasets_ = []
             for dataset in self._hdatasets:
-                hdatasets_.append(dataset.export_schema_dataset())
-
+                hdatasets_.append(dataset.export_schema())
             schemas.append({'hdatasets': hdatasets_})
-        
+
+        if len(self._hfiles) > 0:
+            hfiles_ = []
+            for file in self._hfiles:
+                hfiles_.append(file.export_schema())
+            schemas.append({'hfiles': hfiles_})
+
+        if len(self._hrecipes) > 0:
+            recipes_ = []
+            for recipe in self._hrecipes:
+                recipes_.append(recipe.export_schema())
+            schemas.append({'hrecipe': hfiles_})
+
+        # TODO: implement htasks
+
         return schemas
 
     def export_schemas_raw(self):

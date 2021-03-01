@@ -1,4 +1,4 @@
-"""hxlm.core.model.meta contains HMeta
+"""hxlm.core.model.meta contains HFile (...)
 
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
@@ -16,6 +16,10 @@ class HFile:
         self.kind: str = 'HFile'
         self._file_raw = file_raw
 
+    def export_schema(self):
+        # TODO: improve this. Still just outputing the input
+
+        return self._file_raw
 
     def load_schema_file(self, file_raw):
         """load_schema_file load object and convert to HFile

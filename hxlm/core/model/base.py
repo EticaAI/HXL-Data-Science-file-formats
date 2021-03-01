@@ -144,7 +144,7 @@ class HDataset:
         else:
             self._encryption = EncryptionHtype(code=value)
 
-    def export_schema_dataset(self):
+    def export_schema(self):
         # TODO: improve this. Still just outputing the input
 
         return self._dataset_raw

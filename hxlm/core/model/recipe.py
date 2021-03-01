@@ -14,7 +14,14 @@ class HRecipe:
 
     def __init__(self, recipe_raw=None):
         self.kind: str = 'HRecipe'
-        self._file_raw = recipe_raw
+        self._recipe_raw = recipe_raw
+        # if self._recipe_raw: 
+        #     self._recipe = recipe_raw
+
+    def export_schema(self):
+        # TODO: improve this. Still just outputing the input
+
+        return self._recipe_raw
 
 
     def load_schema_recipe(self, recipe_raw):
