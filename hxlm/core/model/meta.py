@@ -65,9 +65,16 @@ class HMeta:
         hfile = HFile().load_schema_file(hfile)
         self._hfiles.append(hfile)
 
-    def _parse_schemas_raw_hrecipe(self, hrecipe):
-        hrecipe = HRecipe().load_schema_recipe(hrecipe)
-        self._hrecipes.append(hrecipe)
+    def _parse_schemas_raw_hrecipe(self, hrecipes):
+        hrecipe_ = []
+        for recipe in hrecipes:
+
+            # print('oioioi', recipe)
+            hrecipe_ = HRecipe().load_schema(recipe)
+            self._hrecipes.append(hrecipe_)
+
+        # hrecipe = HRecipe().load_schema(hrecipe)
+        # self._hrecipes.append(hrecipe)
 
     def _parse_schemas_raw_htask(self, htask):
         """HTask is an draft
@@ -114,8 +121,10 @@ class HMeta:
         if len(self._hrecipes) > 0:
             recipes_ = []
             for recipe in self._hrecipes:
+                # print('recipe.get_hxlproxy_url', recipe.get_hxlproxy_url())
+                # print(vars(recipe))
                 recipes_.append(recipe.export_schema())
-            schemas.append({'hrecipe': hfiles_})
+            schemas.append({'hrecipe': recipes_})
 
         # TODO: implement htasks
 

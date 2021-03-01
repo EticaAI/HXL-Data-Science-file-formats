@@ -2,6 +2,8 @@
 # DESCRIPTION: while hxlm.core have these values mostly hardcoded you can use
 #              this file as reference for implementations outside python
 
+# TODO: allow user change the proxy URL (e.g. if using Docker or other service)
+HXLPROXY_URL: "https://proxy.hxlstandard.org"
 
 HTYPE_PRIMITIVES:
   HTYPE_TRUE: "TRUE"

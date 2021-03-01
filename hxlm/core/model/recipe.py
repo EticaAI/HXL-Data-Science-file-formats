@@ -6,32 +6,115 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
+import json
+import urllib
+
+from dataclasses import dataclass
+
+
+# TODO: allow user change the proxy URL (e.g. if using Docker or other service)
+HXLPROXY_URL = "https://proxy.hxlstandard.org"
+
+
 class HRecipe:
     """HMeta is the main entry point to glue collections of HConteiner and etc
     In practice, is mostly used to, with help with external utils, abstract
     hmeta.yml from disk
     """
 
+    _valid_options = ['add_columns', 'aggregators', 'append_source',
+                      'before', 'blacklist', 'date', 'date_format',
+                      'is_regex', 'latlon', 'lower', 'map_source',
+                      'number', 'number_format', 'original', 'pattern',
+                      'patterns', 'purge', 'queries', 'replacement',
+                      'reverse', 'skip_untagged', 'source_list_url',
+                      'specs', 'upper', 'whitelist', 'whitespace']
+
+    # Both are required
+    input: str = None
+    filter: str = None
+    """The filter: add_columns, append, append_external_list, cache, ..."""
+
+    add_columns: str = None
+    aggregators: str = None
+    append_source: str = None
+    before: str = None
+    # TODO: maybe propose an alias for blacklist/whitelist, see
+    # - https://www.adexchanger.com/data-driven-thinking
+    #   /no-more-inflammatory-jargon-change-blacklist-to-blocklist/
+    # - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6148600/
+    # - https://insights.dice.com/2020/07/17
+    #   /whitelist-blacklist-the-new-debate-over-security-terminology/
+    # - https://english.stackexchange.com/questions/51088
+    #   /alternative-terms-to-blacklist-and-whitelist
+    # Maybe allowlist / blocklist ? (Emerson Rocha, 2021-03-01 02:52 UTC)
+    blacklist: str = None
+    date: str = None
+    date_format: str = None
+    is_regex: str = None
+    latlon: str = None
+    lower: str = None
+    map_source: str = None
+    number: str = None
+    number_format: str = None
+    original: str = None
+    pattern: str = None
+    patterns: str = None
+    purge: str = None
+    queries: str = None
+    replacement: str = None
+    reverse: str = None
+    skip_untagged: str = None
+    source_list_url: str = None
+    specs: str = None
+    upper: str = None
+    whitelist: str = None
+    whitespace: str = None
+
     def __init__(self, recipe_raw=None):
         self.kind: str = 'HRecipe'
         self._recipe_raw = recipe_raw
-        # if self._recipe_raw: 
+        # if self._recipe_raw:
         #     self._recipe = recipe_raw
 
     def export_schema(self):
         # TODO: improve this. Still just outputing the input
-
         return self._recipe_raw
+        # return vars(self)
 
+    def get_hxlproxy_url(self):
+        # @see https://github.com/HXLStandard/hxl-proxy/wiki/JSON-processing-specs  #noqa
 
-    def load_schema_recipe(self, recipe_raw):
-        """load_schema_recipe load object and convert to HRecipe
+        hxlspec = {}
+        source = ''
+        if self._recipe_raw['src']:
+            # hxlspec['input'] = self._recipe_raw['src']
+            source = self._recipe_raw['src']
+        elif self._recipe_raw['srcs'] and self._recipe_raw['srcs'][0]:
+            # hxlspec['input'] = self._recipe_raw['src'][0]
+            source = self._recipe_raw['src'][0]
+
+        for validkey in self._valid_options:
+            if validkey in self._recipe_raw['filters']:
+                hxlspec[validkey] = self._recipe_raw['filters'][validkey]
+
+        print('hxlspec', hxlspec)
+        print('_recipe_raw filters', self._recipe_raw['filters'])
+        print('json.dumps(hxlspec) 1', json.dumps(hxlspec))
+        print('json.dumps(hxlspec) 2', urllib.parse.quote(json.dumps(hxlspec)))
+        # urllib.parse.urlencode(hxlspec)
+        # urllib.parse.urlencode(json.dumps(hxlspec))
+        # print('todo')
+        return HXLPROXY_URL + '/data.csv?url=' + source + '&recipe=' + urllib.parse.quote(json.dumps(hxlspec))
+
+    def load_schema(self, recipe_raw):
+        """load_schema load object and convert to HRecipe
 
         How the object is saved on disk (or received from external sources)
         is out of scope of this class.
 
         Args:
-            load_schema_recipe (Object): Load generic object to HRecipe
+            recipe_raw (Object): Load generic object to HRecipe
         """
 
         self._recipe_raw = recipe_raw
@@ -39,9 +122,6 @@ class HRecipe:
         # self._parse_schemas_raw()
         # print(schemas)
 
-
-
-from dataclasses import dataclass
 
 # from typing import (
 #     Any
