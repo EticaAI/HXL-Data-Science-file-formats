@@ -4,6 +4,9 @@
 
 import yaml
 import json
+from hxlm.core.model import (
+    HMeta
+)
 
 
 def export_schema_yaml(schema):
@@ -18,6 +21,14 @@ def export_schema_json(schema):
 
 
 def get_schema(file):
+    """Get an HMeta schema from file (raw object, without Model)
+
+    Args:
+        file (String): Object containing the schema on local disk
+
+    Returns:
+        Object: Raw object from YAML file
+    """
     # Funciona Ok, exceto com a Noruega https://noyaml.com/
 
     with open(file) as f:
@@ -26,6 +37,29 @@ def get_schema(file):
         # data = yaml.safe_load_all(f)
         # print(data)
         return data
+
+
+def get_schema_as_hmeta(file):
+    """Get an HMeta schema from file (raw object, without Model)
+
+    Args:
+        file (String): Object containing the schema on local disk
+
+    Returns:
+        Object: Raw object from YAML file
+    """
+    # Funciona Ok, exceto com a Noruega https://noyaml.com/
+
+    with open(file) as f:
+
+        data = yaml.safe_load(f)
+        hmeta = HMeta()
+        hmeta.load_schemas(schemas=data)
+        # hmeta.export_schemas(schemas=data)
+        # data = yaml.safe_load_all(f)
+        # print(data)
+        # return data
+        return hmeta.export_schemas()
 
 
 class Dumper(yaml.Dumper):

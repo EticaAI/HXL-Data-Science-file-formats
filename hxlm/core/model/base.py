@@ -30,7 +30,6 @@ from hxlm.core.htype.license import LicenseHtype, CopyrightHtype
 from hxlm.core.htype.license import LicenseHtype, CopyrightHtype
 from hxlm.core.compliance import verbose_event
 
-
 # TODO: implement concept of recipe https://github.com/OCHA-DAP/hxl-recipes.
 #       Maybe HConteiner could also have one or mroe recipes?
 #       (E.Rocha, 2021-02-26 08:05 UTC)
