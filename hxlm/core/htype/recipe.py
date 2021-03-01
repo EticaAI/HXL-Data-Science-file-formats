@@ -17,9 +17,9 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 from dataclasses import dataclass
 
-from typing import (
-    Any
-)
+# from typing import (
+#     Any
+# )
 
 
 @dataclass(init=True, eq=True)
@@ -33,7 +33,7 @@ class HXLProxyRecipeHtype(RecipeHtype):
     See https://github.com/HXLStandard/hxl-proxy/wiki/JSON-recipes
 
     Args:
-        RecipeHtype ([type]): [description]
+        RecipeHtype ([type]): Base Class for data processing recipes
     """
     kind: str = 'HXLProxyRecipeHtype'
 

@@ -24,5 +24,14 @@
 
   htasks:
     - todo: draft?
+
+  # Note: this is an early draft, so some extra abstractions may be done later (Emerson Rocha, 2021-03-01 03:45 UTC)
+  hrecipes:
+    - hrecipe: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+      filters:
+        - filter: with_columns
+          with_columns: "#vocab+id+v_iso6393_3letter,#vocab+code+v_6391,#vocab+name"
+        - filter: with_columns
+          without_rows: "#vocab+code+v_6391="
 # https://github.com/HXLStandard/hxl-proxy/wiki/Process-JSON-spec
 # https://github.com/HXLStandard/hxl-proxy/wiki/JSON-processing-specs
