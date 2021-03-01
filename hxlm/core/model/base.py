@@ -148,6 +148,21 @@ class HDataset:
     def sensitive(self):
         return self._sensitive
 
+    def load_schema_dataset(self, dataset_raw):
+        """load_schema_dataset load object and convert to HDataset
+
+        How the object is saved on disk (or received from external sources)
+        is out of scope of this class.
+
+        Args:
+            dataset_raw (Object): Load generic object to HDataset
+        """
+
+        self._dataset_raw = dataset_raw
+        return self
+        # self._parse_schemas_raw()
+        # print(schemas)
+
     @sensitive.setter
     def sensitive(self, value):
         if isinstance(value, SensitiveHtype):

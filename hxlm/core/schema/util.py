@@ -54,7 +54,7 @@ def get_schema_as_hmeta(file):
 
         data = yaml.safe_load(f)
         hmeta = HMeta()
-        hmeta.load_schemas(schemas=data)
+        hmeta.load_schemas(schemas_raw=data)
         # hmeta.export_schemas(schemas=data)
         # data = yaml.safe_load_all(f)
         # print(data)

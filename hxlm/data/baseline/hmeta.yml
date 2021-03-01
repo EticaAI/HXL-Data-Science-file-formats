@@ -33,5 +33,14 @@
           with_columns: "#vocab+id+v_iso6393_3letter,#vocab+code+v_6391,#vocab+name"
         - filter: with_columns
           without_rows: "#vocab+code+v_6391="
+
+- hmeta: hxml.core.data.baseline2
+  __comment__: testing if HMeta work with several definitions
+
+- hmeta: hxml.core.data.baseline3
+  __comment__: testing if HMeta work with several definitions
+
+# - test_error_here: 'this should raise error error'
+
 # https://github.com/HXLStandard/hxl-proxy/wiki/Process-JSON-spec
 # https://github.com/HXLStandard/hxl-proxy/wiki/JSON-processing-specs

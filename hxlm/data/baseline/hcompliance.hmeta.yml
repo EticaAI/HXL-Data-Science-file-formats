@@ -1,0 +1,16 @@
+# hmeta
+# hxml.core.data.baseline
+# File hcompliance.hmeta.yml
+---
+
+# NOTE: Compliance files, compared to any other hmeta representation, SHOULD
+#       allow end users native language including the key terms like
+#       'hcompliance', 'source', 'tags', etc. The reasoning behind this is
+#       the idea behind compliance rules is be able to be validated by
+#       local judges, administrators, etc. Right-to-left languages may
+#       need extra work (Emerson Rocha, 2021-03-01 05:08 UTC)
+
+- hmeta: hxml.core.data.baseline.hcompliance
+  __comment__: "This is an draft"
+  hcompliances:
+    - hcompliance: "hcompliance.example"

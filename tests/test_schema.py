@@ -54,3 +54,4 @@ example = schema.get_schema_as_hmeta('/workspace/git/EticaAI/HXL-Data-Science-fi
 
 print('export_schema_yaml (string to export)')
 print(schema.export_schema_yaml(example))
+# print(schema.__dict__)
