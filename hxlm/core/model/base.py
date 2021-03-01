@@ -144,6 +144,11 @@ class HDataset:
         else:
             self._encryption = EncryptionHtype(code=value)
 
+    def export_schema_dataset(self):
+        # TODO: improve this. Still just outputing the input
+
+        return self._dataset_raw
+
     @property
     def sensitive(self):
         return self._sensitive
@@ -171,40 +176,40 @@ class HDataset:
             self._sensitive = SensitiveHtype(code=value)
 
 
-class HFile:
-    """HFile is an reference for an file on an HConteiner
+# class HFile:
+#     """HFile is an reference for an file on an HConteiner
 
-    Differentes from HFile to HDataset
-        - HFile is more generic than HDataset
-        - HFile does not have attribute sensitive (but can have encryption)
+#     Differentes from HFile to HDataset
+#         - HFile is more generic than HDataset
+#         - HFile does not have attribute sensitive (but can have encryption)
 
-    TODO: both Excel, CKan and formats like HDF5 work with MULDIPLE datasets.
-          so, which structure use for this? (E.Rocha, 2021-02-26 08:10 UTC)
-    """
+#     TODO: both Excel, CKan and formats like HDF5 work with MULDIPLE datasets.
+#           so, which structure use for this? (E.Rocha, 2021-02-26 08:10 UTC)
+#     """
 
-    def __init__(self, encryption: Type[EncryptionHtype] = None,
-                 sensitive: Type[SensitiveHtype] = None):
-        self._encryption = encryption
-        self._sensitive = sensitive
+#     def __init__(self, encryption: Type[EncryptionHtype] = None,
+#                  sensitive: Type[SensitiveHtype] = None):
+#         self._encryption = encryption
+#         self._sensitive = sensitive
 
-    def describe(self):
-        mdataset_description = {
-            'kind': "HFile",
-            'encryption': self._encryption
-        }
-        verbose_event()
-        return mdataset_description
+#     def describe(self):
+#         mdataset_description = {
+#             'kind': "HFile",
+#             'encryption': self._encryption
+#         }
+#         verbose_event()
+#         return mdataset_description
 
-    @property
-    def encryption(self):
-        return self._encryption
+#     @property
+#     def encryption(self):
+#         return self._encryption
 
-    @encryption.setter
-    def encryption(self, value):
-        if isinstance(value, EncryptionHtype):
-            self._encryption = value
-        else:
-            self._encryption = EncryptionHtype(code=value)
+#     @encryption.setter
+#     def encryption(self, value):
+#         if isinstance(value, EncryptionHtype):
+#             self._encryption = value
+#         else:
+#             self._encryption = EncryptionHtype(code=value)
 
 
 @dataclass(init=True)

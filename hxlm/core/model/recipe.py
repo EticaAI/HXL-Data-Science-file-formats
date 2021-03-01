@@ -1,18 +1,37 @@
-"""hxlm.core.htype.recipe
-
-TODO: this actually is more complicated than averagen HType, and is not just
-      an dataclass. We should rework on something else
-      (Emerson Rocha, 2021-03-01 02:20 UTC)
-
-See 
-- https://github.com/HXLStandard/hxl-proxy/wiki/JSON-recipes
-- https://github.com/OCHA-DAP/hxl-recipes
+"""hxlm.core.model.recipe contains HRecipe
 
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
+
+class HRecipe:
+    """HMeta is the main entry point to glue collections of HConteiner and etc
+    In practice, is mostly used to, with help with external utils, abstract
+    hmeta.yml from disk
+    """
+
+    def __init__(self, recipe_raw=None):
+        self.kind: str = 'HRecipe'
+        self._file_raw = recipe_raw
+
+
+    def load_schema_recipe(self, recipe_raw):
+        """load_schema_recipe load object and convert to HRecipe
+
+        How the object is saved on disk (or received from external sources)
+        is out of scope of this class.
+
+        Args:
+            load_schema_recipe (Object): Load generic object to HRecipe
+        """
+
+        self._recipe_raw = recipe_raw
+        return self
+        # self._parse_schemas_raw()
+        # print(schemas)
+
 
 
 from dataclasses import dataclass

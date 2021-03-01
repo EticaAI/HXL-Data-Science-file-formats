@@ -59,7 +59,10 @@ def get_schema_as_hmeta(file):
         # data = yaml.safe_load_all(f)
         # print(data)
         # return data
-        return hmeta.export_schemas()
+        # return hmeta.export_schemas()
+
+        # For debug, use this (will just export the input)
+        return {'as_meta': hmeta.export_schemas(), 'raw': hmeta.export_schemas_raw()}
 
 
 class Dumper(yaml.Dumper):
