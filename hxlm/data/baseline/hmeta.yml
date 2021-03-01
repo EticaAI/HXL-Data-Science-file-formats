@@ -21,7 +21,9 @@
   hfiles:
     - id: TODO.txt
     - id: UNLICENSE
-      source: https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/UNLICENSE
+      sources:
+        - url: https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/UNLICENSE
+        - url: https://raw.githubusercontent.com/HXLStandard/hxl-proxy/master/LICENSE.md
 
   htasks:
     - todo: draft?

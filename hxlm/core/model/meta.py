@@ -66,7 +66,9 @@ class HMeta:
         for hfile in hfiles:
             hfile_ = HFile().load_schema(hfile)
 
-            print('is_available_locally', hfile_.is_available_locally())
+            # print('is_available_locally', hfile_.is_available_locally())
+            # print('is_available_sources', hfile_.is_available_sources())
+            # print('reload_from_souces', hfile_.reload_from_souces())
             self._hfiles.append(hfile_)
 
     def _parse_schemas_raw_hrecipe(self, hrecipes):
@@ -116,7 +118,7 @@ class HMeta:
         if len(self._hrecipes) > 0:
             recipes_ = []
             for recipe in self._hrecipes:
-                print('recipe.get_hxlproxy_url', recipe.get_hxlproxy_url())
+                # print('recipe.get_hxlproxy_url', recipe.get_hxlproxy_url())
                 # print(vars(recipe))
                 recipes_.append(recipe.export_schema())
             schemas.append({'hrecipe': recipes_})

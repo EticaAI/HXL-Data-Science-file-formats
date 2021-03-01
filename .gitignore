@@ -11,6 +11,8 @@ build/
 !tests/files/output/*
 !tests/files/output/.gitkeep
 
+hxlm/data/baseline/hfile/UNLICENSE
+
 # hxlmeta souce storages
 *.sqlite3
 hxlmeta-data/*
