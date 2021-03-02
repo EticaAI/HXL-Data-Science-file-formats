@@ -1,6 +1,61 @@
 # hxlm.core.schema.vocab.yml
 
 root:
+  # "In general, compliance means conforming to a rule, such as a
+  #  specification, policy, standard or law. " -- Wikipedia
+  # @see https://www.wikidata.org/wiki/Q441901 Compliance disambiguation page
+  # @see https://www.wikidata.org/wiki/Q626741 Regulatory compliance (Q626741)
+  # @see https://www.wikidata.org/wiki/Q7214489 terms of service (Q7214489)
+  # @see https://en.wikipedia.org/wiki/Regulatory_compliance
+  #
+  # Maybe the best root term would be Acceptable use policy?
+  #  "An acceptable use policy (AUP), acceptable usage policy or fair use
+  #   policy, is a set of rules applied by the owner, creator or
+  #   administrator of a network, website, or service, that restrict the
+  #   ways in which the network, website or system may be used and sets
+  #   guidelines as to how it should be used. AUP documents are written
+  #   for corporations,[1] businesses, universities,[2] schools,[3]
+  #   internet service providers (ISPs),[4] and website owners,[5] often
+  #   to reduce the potential for legal action that may be taken by a
+  #   user, and often with little prospect of enforcement." -- Wikipedia
+  #  "Acceptable use policies are an integral part of the framework of
+  #   information security policies; it is often common practice to ask
+  #   new members of an organization to sign an AUP before they are given
+  #   access to its information systems. For this reason, an AUP must be
+  #   concise and clear, while at the same time covering the most important
+  #   points about what users are, and are not, allowed to do with the IT
+  #   systems of an organization. It should refer users to the more
+  #   comprehensive security policy where relevant. It should also, and very
+  #   notably, define what sanctions will be applied if a user breaks the
+  #   AUP. Compliance with this policy should, as usual, be measured by
+  #   regular audits." -- Wikipedia
+  #
+  # @see https://en.wikipedia.org/wiki/Acceptable_use_policy
+  #
+  hcompliance:
+    ara:
+      id: 'hcompliance'
+    eng:
+      # https://en.wikipedia.org/wiki/Acceptable_use_policy
+      id: 'acceptable-use-policy'
+    fra:
+      id: 'politique-dutilisation-acceptable'  # TODO: review
+    spa:
+      id: 'politica-de-uso-aceptable'  # TODO: review
+    lat:
+      id: 'hcompliance'  # TODO
+    por:
+      id: 'politica-de-utilizacao-aceitavel' # 'politica-de-uso' # or 'termos-e-condicoes-de-uso'
+    qaa:
+      id: 'q4672374'  # Acceptable use policy (Q4672374)
+    rus:
+      # https://ru.wikipedia.org/wiki/%D0%A3%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F_%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F
+      id: 'условия-использования' # 'Terms of service'; Still not perfect
+    zho:
+      # https://zh.wikipedia.org/wiki/%E6%9C%8D%E5%8B%99%E6%A2%9D%E6%AC%BE
+      id: '可接受使用策略' # Acceptable use policy (可接受使用策略)
+    zxx:
+      id: 'hcompliance'
 
   # https://www.wikidata.org/wiki/Q1172284
   hdataset:
