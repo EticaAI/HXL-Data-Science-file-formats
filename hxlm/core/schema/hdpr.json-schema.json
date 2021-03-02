@@ -1,17 +1,10 @@
 {
-  "name": "hmeta.schema.json",
-  "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.2",
+  "name": "hdpr.json-schema.json",
+  "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.3",
   "fileMatch": [
-    "hxlm.json",
-    "hconteiner.json",
-    "hmeta.json",
-    "hmeta.yml",
-    "*.hmeta.*.yml",
-    "*.hdpl.yml",
-    "*.hdpd.yml",
     "*.hdpr.yml"
   ],
-  "url": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/schema/hmeta.schema.json",
+  "url": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdpr.json-schema.json",
   "hconteiner": {
     "compliance": {
       "type": "string",

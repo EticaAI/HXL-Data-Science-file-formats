@@ -1,0 +1,30 @@
+id:
+  # https://www.wikidata.org/wiki/Q1172284
+  hdataset:
+    # ara: Needs revision about the _
+    #      https://ar.wikipedia.org/wiki/%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A9_%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA
+    ara:
+      id: "مجموعة_بيانات"
+    eng:
+      id: dataset
+    fra:
+      id: jeudedonnees
+    # spa: https://es.wikipedia.org/wiki/Conjunto_de_datos
+    spa:
+      id: conjuntodedatos
+    por:
+      id: conjuntodedados
+    # qaa: TODO: we should consider which reserved code use for Wikidata
+    qaa:
+      id: q1172284
+    # rus: Needs revision about if is a good term or not
+    #      https://ru.wikipedia.org/wiki/%D0%98%D1%80%D0%B8%D1%81%D1%8B_%D0%A4%D0%B8%D1%88%D0%B5%D1%80%D0%B0
+    rus:
+      id: "наборданных"
+    # zho: Its a macrolanguage, needs revision. Using internal key
+    #    https://iso639-3.sil.org/code/zha
+    #    https://iso639-3.sil.org/code/zho
+    zho:
+      id: hdataset
+    zxx:
+      id: hdataset

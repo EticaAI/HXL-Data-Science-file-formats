@@ -1,0 +1,9 @@
+# Note: Rocha is just testing how to evel allow code editors give hints on
+#       invalid definition files, and this is one of these tests
+#       (Emerson Rocha, 2021-03-02 07:09 UTC)
+
+# @see https://www.schemastore.org/json/
+# @see https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/v1.174.2/service-schema.json
+# @see https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema%2Cparameter-schema
+# @see https://docs.microsoft.com/en-us/azure/devops/pipelines/create-first-pipeline?view=azure-devops&tabs=python%2Ctfs-2018-2%2Cbrowser
+- 
