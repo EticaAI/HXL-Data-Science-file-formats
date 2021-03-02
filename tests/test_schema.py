@@ -40,12 +40,12 @@ import hxlm.core.schema as schema
 # export_schema_json (string to export)
 # {"$schema": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hxlm.schema.json", "title": "hxml.core.data.baseline", "hdatasets": [{"key": "place", "comments": "HXL-CPLP-FOD_countries-territories.csv", "source": "https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0", "tags": ["ISO 3166", "ISO 3166-2", "ISO 3166-3"]}, {"key": "lang", "comments": "HXL-CPLP-FOD_languages", "source": "https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0", "tags": ["ISO 639-3", "ISO 3692-2", "ISO 3692-3"]}], "hfiles": [{"key": "TODO.txt"}]}
 
-schema_baseline = schema.get_schema('/workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/schema/baseline.yml')
+schema_baseline = schema.get_schema('/workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline/baseline.hdpd.yml')
 print('export_schema_yaml schema_baseline')
 print(schema.export_schema_yaml(schema_baseline))
 
 # example = schema.get_schema('/workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline/hmeta.yml')
-example = schema.get_schema_as_hmeta('/workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline/hmeta.yml')
+example = schema.get_schema_as_hmeta('/workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline/baseline.hdpd.yml')
 
 # print('get_schema (source file)')
 # print(example)

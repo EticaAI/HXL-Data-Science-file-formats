@@ -40,7 +40,8 @@ class HMeta:
             # print('_parse_schemas_raw item', item)
             # print('_parse_schemas_raw item type', type(item))
             # print('_parse_schemas_raw item type hmeta', type(item['hmeta']))
-            if 'hmeta' in item:
+            # if 'hmeta' in item:
+            if 'urn' in item:
                 # print('_parse_schemas_raw item item.hmeta yes')
                 if 'hdatasets' in item:
                     # print('oooooi', item['hdatasets'])
@@ -49,8 +50,9 @@ class HMeta:
                     self._parse_schemas_raw_hfiles(item['hfiles'])
                 if 'hrecipes' in item:
                     self._parse_schemas_raw_hrecipe(item['hrecipes'])
-                if 'htasks' in item:
-                    self._parse_schemas_raw_htask(item['htasks'])
+                # htasks is deprecated
+                # if 'htasks' in item:
+                #     self._parse_schemas_raw_htask(item['htasks'])
             else:
                 raise HXLmException(
                     'No hmeta found on this item of this file. Error?')
@@ -82,12 +84,13 @@ class HMeta:
         # hrecipe = HRecipe().load_schema(hrecipe)
         # self._hrecipes.append(hrecipe)
 
-    def _parse_schemas_raw_htask(self, htask):
-        """HTask is an draft
-        """
-        self._htasks.append(htask)
-        # htask = HTask().load_schema_recipe(htask)
-        # self._hrecipes.append(htask)
+    # htasks is deprecated
+    # def _parse_schemas_raw_htask(self, htask):
+    #     """HTask is an draft
+    #     """
+    #     self._htasks.append(htask)
+    #     # htask = HTask().load_schema_recipe(htask)
+    #     # self._hrecipes.append(htask)
 
     def export_schemas(self):
         """Export HMeta schema (not data) after being processed by each class

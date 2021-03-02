@@ -1,7 +1,8 @@
 # This file contains an HXLM.core internal vocabulary for the most important
-# key terms for the 6 official UN languages plus Portuguese (the initial
-# author speaks Portuguese and is also from the local group HXL-CPLP).
-
+# key terms for the 6 official UN languages plus Portuguese (*).
+#
+# * Initial author speaks Portuguese and is also from the usergroup HXL-CPLP.
+#
 ### Additional context ........................................................
 # Beyond the features of help to document how to process data, the hxlm has
 # drafts on how a source of data could document what can and what not with
@@ -30,7 +31,40 @@
 # and even a workflow to acceptable anonymization) the lack of a format
 # about how data could be used makrs harder exchange data without
 # centralization (that already is likely to be overwhelmed).
-
+#
+###  Words not mentioned in this vocabulary?
+# While the current proof of concept doesn't implement this yet, an potential
+# strategy of allowing words that are not strictly the ones previously defined
+# is the same strategy to use as if it would be a totally new language: an
+# additional file that maps terms used to the internal ones.
+#
+# When working with HXL datasets directly, do already exist documentation
+# about how to replace terms or obvious misspellings. So it seems intuitive to
+# softwares that implement hmeta with YAML would allow similar features using
+# also YAML in special because we would allow by design additional language.
+#
+# Also, if more documents are exchanged from the same sources, this
+# intermediate conversion/translation document is likely to be reusable
+# without need to wait for the software used by others to implement your
+# customization.
+##
+# Note that, as a rule of thumb, even if the source trust who makes eventual
+# translation/conversion additional files, they should receive one copy of
+# this.
+#
+#### Right-to-left (RTL) scripts ______________________________________________
+# @see https://www.w3.org/International/questions/qa-scripts.en
+# @see https://en.wikipedia.org/wiki/Right-to-left
+# @see https://ckeditor.com/docs/ckeditor4/latest/guide/skin_sdk_rtl.html
+# @see https://forum.sublimetext.com/t/arabic-and-unicode-typing/41561/20
+# Note: Right-to-left scripts like Arabic, Persian, Urdu, Hebrew, Yiddish and
+#       others, when mixing both latin alphabet and their own seems to get
+#       visually very strange (like part of the text in one side of the code
+#       editor and the rest the opposite). I imagine that if it is technically
+#       possible it is worthwhile to allow all key terms to be in the
+#       respective language. At least that's what I would like if one of
+#       these scripts were my mother tongue.
+#       (Emerson Rocha, 2021-03-02 17:45 UTC)
 
 root:
   # "In general, compliance means conforming to a rule, such as a
@@ -66,7 +100,7 @@ root:
   #
   hcompliance:
     ara:
-      id: 'hcompliance'
+      id: 'hcompliance'  # TODO: still need an term
     eng:
       # https://en.wikipedia.org/wiki/Acceptable_use_policy
       id: 'acceptable-use-policy'
