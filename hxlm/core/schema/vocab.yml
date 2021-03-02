@@ -113,6 +113,35 @@ root:
       id: hfile
 
 attr:
+  id:
+    # attr.id
+    # @see https://en.wikipedia.org/wiki/Identifier
+    # @see https://www.wikidata.org/wiki/Q853614
+    ara:
+      id: 'المعرف'  # The Identifier; needs some review
+    eng:
+      # https://en.wikipedia.org/wiki/Identifier
+      id: 'identifier'
+    fra:
+      # https://fr.wikipedia.org/wiki/Identifiant
+      id: 'identifiant'
+    spa:
+      # https://es.wikipedia.org/wiki/Identificador
+      id: 'identificador'
+    lat:
+      id: 'id'  # TODO
+    por:
+      id: 'identificador'
+    qaa:
+      id: 'q853614'  # identifier (Q853614)
+    rus:
+      # https://ru.wikipedia.org/wiki/%D0%98%D0%B4%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D1%80
+      id: 'идентификатор'
+    zho:
+      # https://zh.wikipedia.org/wiki/%E6%A8%99%E8%AD%98%E7%AC%A6
+      id: '標識符'
+    zxx:
+      id: 'id'
   iri:
     # attr.iri
     # "The Internationalized Resource Identifier (IRI) is an internet protocol
@@ -149,6 +178,69 @@ attr:
       id: 'iri'
     zxx:
       id: 'iri'  # 100% OK
+
+  tag:
+    # attr.tag is ...
+    # @see https://en.wikipedia.org/wiki/Tag_(metadata)
+    # @see https://www.wikidata.org/wiki/Q658349
+    ara:
+      # https://ar.wikipedia.org/wiki/%D9%88%D8%B3%D9%85_(%D8%AA%D8%B5%D9%86%D9%8A%D9%81)
+      id: 'وسم'
+    eng:
+      id: 'tag'
+    fra:
+      # https://fr.wikipedia.org/wiki/Tag_(m%C3%A9tadonn%C3%A9e)
+      id: 'tag'
+    spa:
+      # https://es.wikipedia.org/wiki/Etiqueta_(metadato)
+      id: 'etiqueta'
+    lat:
+      id: 'tag'  # TODO, using default value
+    por:
+      # https://pt.wikipedia.org/wiki/Etiqueta_(metadados)
+      id: 'etiqueta'
+    qaa:
+      id: 'q658349'  # tag (Q658349) metadata used for classifications or adding of informations
+    rus:
+      # https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%B3_(%D0%BC%D0%B5%D1%82%D0%B0%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5)
+      id: 'тег'
+    zho:
+      # https://zh.wikipedia.org/wiki/%E6%A8%99%E7%B1%A4_(%E5%85%83%E6%95%B8%E6%93%9A)
+      id: '标签' # '标签' ? '標籤' ?
+    zxx:
+      id: 'tag'
+
+  source:
+    # attr.source
+    # https://en.wikipedia.org/wiki/Source
+    # https://en.wikipedia.org/wiki/Source_document
+    ara:
+      # https://ar.wikipedia.org/wiki/%D9%85%D8%B5%D8%AF%D8%B1
+      id: 'مصدر'
+    eng:
+      id: 'source'
+    fra:
+      # https://fr.wikipedia.org/wiki/Source
+      id: 'source'
+    spa:
+      # https://es.wikipedia.org/wiki/Source_(desambiguaci%C3%B3n)
+      id: 'fuente'
+    lat:
+      id: 'fons'
+    por:
+      id: 'fonte'
+    qaa:
+      # https://www.wikidata.org/wiki/Q224772
+      id: 'q224772'  # Source (Q224772), Wikimedia disambiguation page
+    rus:
+      id: 'источник' # Source
+    zho:
+      # https://en.wiktionary.org/wiki/%E4%BE%86%E6%BA%90
+      # (This term, 来源, is the simplified form of 來源.)
+      id: '來源'  # source; origin 
+    zxx:
+      id: 'source'
+
   urn:
     # attr.urn:
     #  "A Uniform Resource Name (URN) is a Uniform Resource Identifier (URI)
@@ -179,6 +271,28 @@ attr:
       id: 'urn'
     zxx:
       id: 'urn'  # 100% OK
+  # newterm:
+  #   # attr.newterm is ...
+  #   ara:
+  #     id: ''
+  #   eng:
+  #     id: ''
+  #   fra:
+  #     id: ''
+  #   spa:
+  #     id: ''
+  #   lat:
+  #     id: ''
+  #   por:
+  #     id: ''
+  #   qaa:
+  #     id: ''
+  #   rus:
+  #     id: ''
+  #   zho:
+  #     id: ''
+  #   zxx:
+  #     id: ''
   # uri:
   #   # @see https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
   #   # @see https://www.wikidata.org/wiki/Q61694
