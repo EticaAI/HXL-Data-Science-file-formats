@@ -6,7 +6,10 @@
     "hconteiner.json",
     "hmeta.json",
     "hmeta.yml",
-    "*.hmeta.*.yml"
+    "*.hmeta.*.yml",
+    "*.hdpl.yml",
+    "*.hdpd.yml",
+    "*.hdpr.yml"
   ],
   "url": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/schema/hmeta.schema.json",
   "hconteiner": {
