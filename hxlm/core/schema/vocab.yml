@@ -113,6 +113,37 @@ root:
       id: hfile
 
 attr:
+
+  adm0:
+    # attr.adm0 is a country/territory
+    # https://en.wikipedia.org/wiki/Administrative_division
+    # https://en.wikipedia.org/wiki/Country
+    # https://en.wikipedia.org/wiki/GADM
+    ara:
+      # https://ar.wikipedia.org/wiki/%D8%A8%D9%84%D8%AF
+      id: 'بلد'
+    eng:
+      id: 'country'
+    fra:
+      id: 'pays'
+    spa:
+      id: 'pais'
+    lat:
+      id: 'patriam'
+    por:
+      id: 'pais'
+    qaa:
+      # https://www.wikidata.org/wiki/Q6256
+      id: 'q6256'  # country (Q6256)
+    rus:
+      # https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%B0
+      id: 'страна'
+    zho:
+      # https://zh.wikipedia.org/wiki/%E5%9B%BD%E5%AE%B6
+      id: '国家'
+    zxx:
+      id: 'adm0'
+
   id:
     # attr.id
     # @see https://en.wikipedia.org/wiki/Identifier
@@ -178,6 +209,108 @@ attr:
       id: 'iri'
     zxx:
       id: 'iri'  # 100% OK
+
+  lang:
+    # attr.lang is ...
+    # https://en.wikipedia.org/wiki/Language
+    # https://www.wikidata.org/wiki/Q315
+    ara:
+      # https://ar.wikipedia.org/wiki/%D9%84%D8%BA%D8%A9
+      id: 'لغة'
+    eng:
+      # https://en.wikipedia.org/wiki/Language
+      id: 'language'
+    fra:
+      # https://fr.wikipedia.org/wiki/Idiome
+      id: 'idiome'
+    spa:
+      # https://es.wikipedia.org/wiki/Idioma
+      # idiom (Q337968): "language or language variety; specifically, a
+      # restricted dialect used in a given historicalperiod, context etc;
+      #  neutral term between ‘language’ and ‘dialect’"
+      id: 'idioma'
+    lat:
+      # https://la.wikipedia.org/wiki/Lingua
+      id: 'lingua'
+    por:
+      # https://pt.wikipedia.org/wiki/idioma
+      id: 'idioma'
+    qaa:
+      id: 'q315'  # language (Q315)
+    rus:
+      # https://ru.wikipedia.org/wiki/%D0%AF%D0%B7%D1%8B%D0%BA
+      id: 'язык'
+    zho:
+      # https://zh.wikipedia.org/wiki/%E8%AA%9E%E8%A8%80
+      id: '语言'
+    zxx:
+      id: 'lang'
+
+  meta:
+    # attr.meta is ...
+    # "Metadata is "data that provides information about other data".
+    #  In other words, it is "data about data". Many distinct types of
+    #  metadata exist, including descriptive metadata, structural metadata,
+    #  administrative metadata, reference metadata and statistical
+    #  metadata." -- Wikipedia
+    # https://en.wikipedia.org/wiki/Metadata
+    # https://www.wikidata.org/wiki/Q180160
+    ara:
+      # https://ar.wikipedia.org/wiki/%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA_%D9%88%D8%B5%D9%81%D9%8A%D8%A9
+      id: 'بيانات-وصفية'
+    eng:
+      id: 'metadata'
+    fra:
+      # https://fr.wikipedia.org/wiki/M%C3%A9tadonn%C3%A9e
+      id: 'metadonnee'
+    spa:
+      id: 'metadato'
+    lat:
+      # https://en.wiktionary.org/wiki/metadatum
+      id: 'meta'  # TODO: check
+    por:
+      id: 'metadado'
+    qaa:
+      id: 'q180160'  # metadata (Q180160), data about data
+    rus:
+      # https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%B0%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5
+      id: 'метаданные'
+    zho:
+      # https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE
+      id: '元数据'
+    zxx:
+      id: 'meta'
+
+  # meta:
+  #   # attr.meta is ...
+  #   # "Meta (from the Greek μετα-, meta-, meaning "after" or "beyond") is a
+  #   #  prefix meaning more comprehensive or transcending." -- Wikipedia
+  #   # https://en.wikipedia.org/wiki/Meta
+  #   # https://en.wiktionary.org/wiki/meta
+  #   ara:
+  #     # https://ar.wikipedia.org/wiki/%D9%85%D9%8A%D8%AA%D8%A7
+  #     id: 'ميتا'  # meta translated to arab tend to be 'dead'
+  #   eng:
+  #     id: 'meta'
+  #   fra:
+  #     id: 'meta'
+  #   spa:
+  #     id: 'meta'
+  #   lat:
+  #     id: 'meta'
+  #   por:
+  #     id: 'meta'
+  #   qaa:
+  #     # https://www.wikidata.org/wiki/Q1045105
+  #     id: 'q1045105'  # meta- (Q1045105), Greek prefix: prefix of abstraction
+  #   rus:
+  #     # https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%B0-
+  #     id: 'мета'
+  #   zho:
+  #     # https://zh.wikipedia.org/wiki/%E5%BE%8C%E8%A8%AD
+  #     id: '後設'
+  #   zxx:
+  #     id: 'meta'
 
   tag:
     # attr.tag is ...
