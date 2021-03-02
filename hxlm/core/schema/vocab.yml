@@ -1,30 +1,61 @@
-id:
+# hxlm.core.schema.vocab.yml
+
+root:
   # https://www.wikidata.org/wiki/Q1172284
   hdataset:
     # ara: Needs revision about the _
     #      https://ar.wikipedia.org/wiki/%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A9_%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA
     ara:
-      id: "مجموعة_بيانات"
+      id: 'مجموعة-بيانات'
     eng:
-      id: dataset
+      id: 'data-set'
     fra:
-      id: jeudedonnees
+      id: 'jeux-de-donnees'
     # spa: https://es.wikipedia.org/wiki/Conjunto_de_datos
     spa:
-      id: conjuntodedatos
+      id: 'conjunto-de-datos'
+    lat:
+      id: 'notitia-paro'
     por:
-      id: conjuntodedados
+      id: 'conjunto-de-dados'
     # qaa: TODO: we should consider which reserved code use for Wikidata
     qaa:
-      id: q1172284
+      id: 'q1172284'
     # rus: Needs revision about if is a good term or not
     #      https://ru.wikipedia.org/wiki/%D0%98%D1%80%D0%B8%D1%81%D1%8B_%D0%A4%D0%B8%D1%88%D0%B5%D1%80%D0%B0
     rus:
-      id: "наборданных"
+      id: 'Ирисы-Фишера'
     # zho: Its a macrolanguage, needs revision. Using internal key
     #    https://iso639-3.sil.org/code/zha
     #    https://iso639-3.sil.org/code/zho
     zho:
-      id: hdataset
+      id: '数据集' # Needs revision. No wikidata term
     zxx:
-      id: hdataset
+      id: 'hdataset'
+
+  # hfile: https://www.wikidata.org/wiki/Q82753
+  #        computer file | file
+  hfile:
+    ara:
+      id: 'ملف-حاسوب'
+    eng:
+      id: 'computer-file'
+    fra:
+      id: 'fichier-informatique'
+    spa:
+      id: 'archivo'
+    # TODO: find latim term for hfile
+    lat:
+      id: 'hfile'
+    por:
+      id: 'arquivo-de-computador'
+    qaa:
+      id: 'q82753'
+    rus:
+      id: 'Файл'
+    # zho : https://zh.wikipedia.org/wiki/%E9%9B%BB%E8%85%A6%E6%AA%94%E6%A1%88
+    #       https://zh.wikipedia.org/wiki/%E6%AA%94%E6%A1%88
+    zho:
+      id: "電腦檔案" # Computer file
+    zxx:
+      id: hfile
