@@ -12,14 +12,15 @@ TODO: create an entry on the spreadsheet
 #   - https://groups.google.com/g/hxlproject/c/N-606LwRz80/m/Q7dq88YzBAAJ
 
 # Links (need organization)
-# - https://humanitarian.atlassian.net/wiki/spaces/HDXKB/pages/2132148234/Data+Loss+Prevention+on+HDX
+# - https://humanitarian.atlassian.net/wiki/spaces/HDXKB/pages
+#   /2132148234/Data+Loss+Prevention+on+HDX
 # - https://cloud.google.com/dlp/docs/infotypes-reference
 
 from dataclasses import dataclass
 
-from typing import (
-    Any
-)
+# from typing import (
+#     Any
+# )
 
 
 @dataclass(init=True, repr=True, eq=True)

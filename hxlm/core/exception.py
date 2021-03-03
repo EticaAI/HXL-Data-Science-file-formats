@@ -4,7 +4,7 @@ TODO: document like
         - sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
 """
 
-import sys
+# import sys
 
 
 # https://github.com/HXLStandard/libhxl-python/blob/master/hxl/__init__.py#L55
@@ -15,7 +15,8 @@ import sys
 #         """Create a new HXL exception.
 #         Args:
 #             message (str): error message for the exception
-#             data (dict): properties associated with the exception (default {})
+#             data (dict): properties associated with the exception
+#                                                                 (default {})
 #         """
 #         super(Exception, self).__init__(message)
 

@@ -10,12 +10,15 @@ import sys
 import os.path
 import requests
 
-from typing import (
-    Type
-)
+# from typing import (
+#     Type
+# )
 
-# TODO: this obvously should not be hardcoded. Update (Emerson Rocha, 2021-03-01 10:47 UTC)
-HMETA_BASE = "/workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline"
+# TODO: this obvously should not be hardcoded. Update
+#       (Emerson Rocha, 2021-03-01 10:47 UTC)
+# HMETA_BASE = HXLM_CORE_BASE + "/data/baseline"
+HMETA_BASE = "/workspace/git/EticaAI/HXL-Data-Science-file-formats" + \
+"/hxlm/data/baseline"  # noqa
 HMETA_HFILE_BASE = HMETA_BASE+"/hfile"
 HMETA_HFILE_BASE_ALT = "/tmp"
 HMETA_HFILE_BASE_NEW = HMETA_HFILE_BASE  # Base path for new requests
@@ -89,7 +92,8 @@ class HFile:
                 return url
             else:
                 sys.stderr.write(
-                    'WARNING: HFile()->is_available_sources HTTP code [' + r.status_code + '] for' + url)
+                    'WARNING: HFile()->is_available_sources HTTP code [' +
+                    r.status_code + '] for' + url)
 
         return False
 

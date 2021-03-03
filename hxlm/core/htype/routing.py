@@ -20,7 +20,8 @@ To implementers:
       responsability of computers 'who route' from the ones 'who undestand'
       the HXL.
 
-TODO: maybe rewrite from *RoutingHtype to HRouting (Emerson Rocha, 2021-02-27 04:53)
+TODO: maybe rewrite from *RoutingHtype to HRouting
+      (Emerson Rocha, 2021-02-27 04:53)
 
 TODO: https://www.manrs.org/wp-content/uploads/2018/03/MANRS-BCOP-20170125.pdf
 TODO: https://www.peeringdb.com/
@@ -44,9 +45,9 @@ from ipaddress import (
     IPv6Address
 )
 
-from hxlm.core.constant import (
-    HDSL3
-)
+# from hxlm.core.constant import (
+#     HDSL3
+# )
 
 HRCACHE = "HRCACHE"  # Please cache this resource (default? Maybe 1H? Max 24h?)
 HRPURGE = "HRPURGE"  # Please purge this resource (if still have it)

@@ -17,7 +17,7 @@ from dataclasses import dataclass
 
 # https://github.com/pandas-dev/pandas/blob/master/pandas/core/dtypes/dtypes.py
 from typing import (
-    Any,
+    # Any,
     Type,
     List
 )
@@ -25,9 +25,8 @@ from typing import (
 from hxlm.core.htype.compliance import ComplianceHtype, BaseComplianceHtype
 from hxlm.core.htype.encryption import EncryptionHtype
 from hxlm.core.htype.sensitive import SensitiveHtype
-from hxlm.core.htype.sensitive import SensitiveHtype
-from hxlm.core.htype.license import LicenseHtype, CopyrightHtype
-from hxlm.core.htype.license import LicenseHtype, CopyrightHtype
+from hxlm.core.htype.license import LicenseHtype
+# from hxlm.core.htype.license import LicenseHtype, CopyrightHtype
 from hxlm.core.compliance import verbose_event
 
 # TODO: implement concept of recipe https://github.com/OCHA-DAP/hxl-recipes.
@@ -56,11 +55,13 @@ class HConteiner:
                  compliance: Type[BaseComplianceHtype] = ComplianceHtype,
                  encryption: List[EncryptionHtype] = None,
                  sensitive: SensitiveHtype = None,
-                 license: Type[LicenseHtype] = None):
+                 license_: Type[LicenseHtype] = None):
         self._compliance = compliance
         self._encryption = encryption
         self._sensitive = sensitive
-        self._license = license
+        self._license = license_
+
+        self._dataset_raw = None
 
         if encryption:
             self.has_encryption = True
@@ -108,7 +109,7 @@ class HConteiner:
 
 
 class HDataset:
-    """HDataset is, informally speaking, a dataset 
+    """HDataset is, informally speaking, a dataset
 
     It is an analogy for a single CSV file, Excel worksheet, or an Pandas
     NDframe (actually, more similar to xarray).

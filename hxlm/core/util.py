@@ -1,7 +1,11 @@
 """hxlm.core.utils provive quick utilitaries for common tasks
 """
 
-from hxlm.core.constant import HTYPE_TRUE, HTYPE_FALSE, HTYPE_UNKNOW
+from hxlm.core.constant import (
+    # HTYPE_TRUE
+    # HTYPE_FALSE
+    HTYPE_UNKNOW
+)
 from hxlm.core.constant import (
     HDSLU,
     HDSL_DEFAULT

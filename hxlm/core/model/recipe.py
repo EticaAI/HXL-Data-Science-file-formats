@@ -91,7 +91,8 @@ class HRecipe:
               (Emerson Rocha, 2021-03-01 10:21 UTC)
         """
 
-        # @see https://github.com/HXLStandard/hxl-proxy/wiki/JSON-processing-specs  #noqa
+        # @see https://github.com/HXLStandard/hxl-proxy/wiki
+        #      /JSON-processing-specs
 
         # hxlspec = {}
         source = ''
@@ -102,22 +103,11 @@ class HRecipe:
             # hxlspec['input'] = self._recipe_raw['src'][0]
             source = self._recipe_raw['src'][0]
 
-        # for validkey in self._valid_options:
-        #     if validkey in self._recipe_raw['filters']:
-        #         hxlspec[validkey] = self._recipe_raw['filters'][validkey]
-
-        # print('hxlspec', hxlspec)
-        # print('_recipe_raw filters', self._recipe_raw['filters'])
-        # print('json.dumps(hxlspec) 1', json.dumps(hxlspec))
-        # print('json.dumps(hxlspec) 2', urllib.parse.quote(json.dumps(hxlspec)))
-        # print('json.dumps(hxlspec) 2 raw', urllib.parse.quote(json.dumps(self._recipe_raw['filters'])))
         spec_string = urllib.parse.quote(
             json.dumps(self._recipe_raw['filters']))
-        # urllib.parse.urlencode(hxlspec)
-        # urllib.parse.urlencode(json.dumps(hxlspec))
-        # print('todo')
-        # return HXLPROXY_URL + '/data.csv?url=' + source + '&recipe=' + urllib.parse.quote(json.dumps(hxlspec))
-        return HXLPROXY_URL + '/data.csv?url=' + source + '&recipe=' + spec_string
+
+        return HXLPROXY_URL + '/data.csv?url=' + source + '&recipe=' \
+            + spec_string
 
     def load_schema(self, recipe_raw):
         """load_schema load object and convert to HRecipe

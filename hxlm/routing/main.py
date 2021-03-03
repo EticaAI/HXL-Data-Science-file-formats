@@ -1,3 +1,6 @@
+"""hxlm.routing is (TODO: document)
+"""
+
 from requests import get
 import hxlm.core.htype.routing as hrouting
 
@@ -40,8 +43,9 @@ def request_cache_resource(hpeer: str, me=None, url: str = None):
     return please.as_object()
 
 
-def request_priority_access(requester: str, trusted_by: str = None, url: str = None):
-    """(draft) Request priority to access data (e.g Overloaded server allow you)
+def request_priority_access(requester: str, trusted_by: str = None,
+                            url: str = None):
+    """(draft) Request priority to access data (eg Overloaded server allow you)
 
     Example:
         please = hxlm.routing.request_priority_access(
@@ -70,7 +74,8 @@ def request_priority_access(requester: str, trusted_by: str = None, url: str = N
         url_ = hrouting.ResourceRoutingHtype(url=url)
 
     please = hrouting.PleaseRoutingHtype(
-        requester=requester_, trusted_by=trusted_by_, please='HRQOSME', resources=url_)
+        requester=requester_, trusted_by=trusted_by_, please='HRQOSME',
+        resources=url_)
     return please.as_object()
 
 # TODO: draft

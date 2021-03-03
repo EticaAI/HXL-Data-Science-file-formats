@@ -2,9 +2,12 @@
 # @see https://pyyaml.org/wiki/PyYAMLDocumentation
 """
 
-import yaml
 import json
-from hxlm.core.model import (
+import yaml
+# from hxlm.core.model import (
+#     HMeta
+# )
+from hxlm.core.model.meta import (
     HMeta
 )
 
@@ -62,12 +65,14 @@ def get_schema_as_hmeta(file):
         # return hmeta.export_schemas()
 
         # For debug, use this (will just export the input)
-        return {'as_meta': hmeta.export_schemas(), 'raw': hmeta.export_schemas_raw()}
+        return {'as_meta': hmeta.export_schemas(),
+                'raw': hmeta.export_schemas_raw()}
 
 
 class Dumper(yaml.Dumper):
     """Force identation on pylint, https://github.com/yaml/pyyaml/issues/234
-    TODO: check on future if this still need (Emerson Rocha, 2021-02-28 10:56 UTC)
+    TODO: check on future if this still need
+          (Emerson Rocha, 2021-02-28 10:56 UTC)
     """
 
     def increase_indent(self, flow=False, *args, **kwargs):

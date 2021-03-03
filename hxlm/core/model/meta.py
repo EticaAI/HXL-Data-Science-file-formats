@@ -9,7 +9,10 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 from hxlm.core.exception import (
     HXLmException
 )
-from hxlm.core.model import (
+# from hxlm.core.model import (
+#     HDataset
+# )
+from hxlm.core.model.base import (
     HDataset
 )
 from hxlm.core.model.file import HFile
@@ -33,10 +36,10 @@ class HMeta:
         self._hrecipes = []
         self._htasks = []
 
-        # if vocab_base:
-        #     self._vocab_base = vocab_base
-        # else:
-        #     self._vocab_base = None # TODO
+        if vocab_base:
+            self._vocab_base = vocab_base
+        else:
+            self._vocab_base = None  # TODO
 
         if self._schemas_raw:
             self._parse_schemas_raw()
@@ -44,7 +47,8 @@ class HMeta:
     def _parse_schemas_raw(self):
         # print('self._schemas_raw', self._schemas_raw)
         # print('self._schemas', self._schemas)
-        # self._schemas_internal = ConversorHSchema(vocab_base=self._vocab_base)
+        # self._schemas_internal =
+        #      ConversorHSchema(vocab_base=self._vocab_base)
 
         for item in self._schemas_raw:
             # print('_parse_schemas_raw item', item)

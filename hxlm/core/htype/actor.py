@@ -11,9 +11,9 @@ GitHub Issue: https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/9
 
 from dataclasses import dataclass
 
-from typing import (
-    Any
-)
+# from typing import (
+#     Any
+# )
 
 
 @dataclass(init=True, repr=True, eq=True)
@@ -21,7 +21,9 @@ class ActorHtype:
     code: str = None
 
 
-# @see https://data.humdata.org/dataset/2048a947-5714-4220-905b-e662cbcd14c8/resource/c7053042-fd68-44c7-ae24-a57890a48235/download/ocha-dr-guidelines-working-draft-032019.pdf
+# @see https://data.humdata.org/dataset/2048a947-5714-4220-905b-e662cbcd14c8
+#      /resource/c7053042-fd68-44c7-ae24-a57890a48235/download
+#      /ocha-dr-guidelines-working-draft-032019.pdf
 
 # TODO: Data processor: A person or organization that processes and adds value
 #       to raw data, e.g. by cleaning it, loading it into a searchable

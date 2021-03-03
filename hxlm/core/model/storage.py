@@ -1,7 +1,9 @@
 """hxlm.core.model.recipe contains SStorage (...)
 
-- https://unix.stackexchange.com/questions/162900/what-is-this-folder-run-user-1000
-- https://superuser.com/questions/45342/when-should-i-use-dev-shm-and-when-should-i-use-tmp
+- https://unix.stackexchange.com/questions/162900
+  /what-is-this-folder-run-user-1000
+- https://superuser.com/questions/45342
+  /when-should-i-use-dev-shm-and-when-should-i-use-tmp
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
