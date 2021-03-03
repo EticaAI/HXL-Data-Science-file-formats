@@ -1,4 +1,4 @@
-"""hxlm is (TODO: document)
+"""hxlm.core is (TODO: document)
 """
 
 import os

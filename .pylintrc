@@ -1,5 +1,8 @@
 # pylint --generate-rcfile
 
+[MASTER]
+ignore-patterns=tests/
+
 [MESSAGES CONTROL]
 
 disable=W0511,  # TODOs

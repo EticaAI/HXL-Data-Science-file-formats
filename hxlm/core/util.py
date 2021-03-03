@@ -1,6 +1,9 @@
 """hxlm.core.utils provive quick utilitaries for common tasks
 """
 
+
+import hxl
+
 from hxlm.core.constant import (
     # HTYPE_TRUE
     # HTYPE_FALSE
@@ -12,8 +15,6 @@ from hxlm.core.constant import (
 )
 from hxlm.core.internal.util import _get_submodules
 from hxlm.core.compliance import verbose_event
-
-import hxl
 
 
 def cmp_sensitive_level(level, reference_level=None):
