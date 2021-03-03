@@ -45,6 +45,23 @@ def test_core_schema_get_schema_vocab():
         'acceptable-use-policy'
 
 
+def test_core_schema_vocab_diff():
+    """test_core_schema_vocab_diff
+    TODO: improve ItemHVocab().diff() and this test
+    TODO: improve ItemHVocab().merge()  and this test
+    """
+    vocab = schema.get_schema_vocab()
+    # vocab2 = schema.get_schema_vocab("{'hcompliance': '123'}")
+    # vocab2 = schema.get_schema_vocab("{'root': {'attr': '123'}}")
+    # vocab2 = schema.get_schema_vocab("{'root': 'invalid-test'}")
+    vocab2 = schema.get_schema_vocab("{'attr': 'invalid-test'}")
+
+    # print('vocab.diff', vocab.diff(vocab2))
+    # print('vocab.merge', vocab.merge(vocab2))
+
+    assert vocab2 is not None
+
+
 # This part run only if called via
 #    ./tests/test_schema.py
 # pylint & tox execute only test_ directly
@@ -56,6 +73,9 @@ test_core_schema_export_schema_yaml()
 
 print('test_core_schema_get_schema_vocab')
 test_core_schema_get_schema_vocab()
+
+print('test_core_schema_vocab_diff')
+test_core_schema_vocab_diff()
 
 # print('')
 # print('')

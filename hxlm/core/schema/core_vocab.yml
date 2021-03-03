@@ -66,6 +66,15 @@
 #       these scripts were my mother tongue.
 #       (Emerson Rocha, 2021-03-02 17:45 UTC)
 
+
+# TODO: maybe as part of the hxlm.core.schema.vocab.ItemHVocab(), if an user
+#       try to override (one very valid and expected example: add unplaned
+#       translations or corrections to new ones) the library require the user
+#       to at bare minimum also override both default name and default contact
+#       e-mail. (Emerson Rocha, 2021-03-03 15:18 UTC)
+# _meta_vocab_contact_name: Emerson Rocha
+# _meta_vocab_contact_email: rocha+corevocab@ieee.org
+
 root:
   # "In general, compliance means conforming to a rule, such as a
   #  specification, policy, standard or law. " -- Wikipedia
