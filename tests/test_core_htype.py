@@ -1,4 +1,4 @@
-import hxlm.core.base
+# import hxlm.core.base
 from hxlm.core.htype.data import (
     textDataHtype,
     emailDataHtype,
