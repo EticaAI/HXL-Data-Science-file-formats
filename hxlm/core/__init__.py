@@ -3,9 +3,9 @@
 
 import os
 
-import hxlm.core.constant
-import hxlm.core.exception
-import hxlm.core.model
+import hxlm.core.constant  # noqa: F401
+import hxlm.core.exception  # noqa: F401
+import hxlm.core.model  # noqa: F401
 
 # Users need to explicitly call this
 # import hxlm.core.compliance

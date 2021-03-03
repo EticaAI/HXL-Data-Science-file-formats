@@ -10,16 +10,38 @@ import yaml
 from hxlm.core.model.meta import (
     HMeta
 )
+from hxlm.core.schema.conversor import (
+    VocabHSchema
+)
+
+__all__ = ['export_schema_yaml', 'export_schema_json', 'get_schema',
+           'get_schema_as_hmeta', 'get_schema_vocab']
 
 
-def export_schema_yaml(schema):
+def export_schema_yaml(schema: HMeta) -> str:
+    """Export an schema as YAML format
+
+    Args:
+        schema (HMeta): An HMeta instance
+
+    Returns:
+        str: result schema in valid YAML format
+    """
     # return yaml.dump(schema, indent=4)
     # @see https://github.com/yaml/pyyaml/issues/234
 
     return yaml.dump(schema, Dumper=Dumper)
 
 
-def export_schema_json(schema):
+def export_schema_json(schema: HMeta) -> str:
+    """Export an schema as YAML format
+
+    Args:
+        schema (HMeta): An HMeta instance
+
+    Returns:
+        str: Result schema in valid JSON format
+    """
     return json.dumps(schema)
 
 
@@ -67,6 +89,11 @@ def get_schema_as_hmeta(file):
         # For debug, use this (will just export the input)
         return {'as_meta': hmeta.export_schemas(),
                 'raw': hmeta.export_schemas_raw()}
+
+
+def get_schema_vocab():
+    vocab = VocabHSchema()
+    print('get_schema_vocab', vocab)
 
 
 class Dumper(yaml.Dumper):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # To output even more verbose results
-#     ./tests/test_schema.py
+#     ./tests/test_core_schema.py
 #     pytest -o log_cli=true --log-cli-level=DEBUG tests/test_core_schema.py
 
 import os
@@ -38,6 +38,18 @@ def test_core_schema_export_schema_yaml():
     assert schema_baseline_yaml is not None
 
 
+def test_core_schema_get_schema_vocab():
+    # vocab = schema.get_schema_vocab()
+    # schema_baseline = schema.get_schema(
+    #     HXLM_BASE_BASELINE_PATH + '/baseline.hdpd.yml')
+    # schema_baseline_yaml = schema.export_schema_yaml(schema_baseline)
+    # # LOGGER.info('schema_baseline', str(schema_baseline))
+    # print('test_core_schema_export_schema_yaml', schema_baseline_yaml)
+
+    assert True
+    # assert schema_baseline_yaml is not None
+
+
 # This part run only if called via
 #    ./tests/test_schema.py
 # pylint & tox execute only test_ directly
@@ -46,6 +58,9 @@ test_core_schema_get_schema()
 
 print('test_core_schema_export_schema_yaml')
 test_core_schema_export_schema_yaml()
+
+print('test_core_schema_get_schema_vocab')
+test_core_schema_get_schema_vocab()
 
 # print('')
 # print('')
