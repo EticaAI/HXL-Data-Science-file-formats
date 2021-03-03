@@ -10,8 +10,8 @@ import yaml
 from hxlm.core.model.meta import (
     HMeta
 )
-from hxlm.core.schema.conversor import (
-    VocabHSchema
+from hxlm.core.schema.vocab import (
+    ItemHVocab
 )
 
 __all__ = ['export_schema_yaml', 'export_schema_json', 'get_schema',
@@ -92,7 +92,7 @@ def get_schema_as_hmeta(file):
 
 
 def get_schema_vocab():
-    vocab = VocabHSchema()
+    vocab = ItemHVocab()
     print('get_schema_vocab', vocab)
 
 

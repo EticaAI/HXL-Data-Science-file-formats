@@ -7,8 +7,9 @@ TODO: document me
 # https://www.jsonschemavalidator.net/
 # https://json-schema.org/
 
-from hxlm.core.schema.conversor import (  # noqa: F401
-    ConversorHSchema
+from hxlm.core.schema.vocab import (  # noqa: F401
+    ConversorHSchema,
+    ItemHVocab
 )
 
 # from hxlm.core.schema.util import *
