@@ -38,8 +38,16 @@ __all__ = ['ConversorHSchema', 'ItemHVocab']
 import os
 from dataclasses import dataclass
 
-# import json
+import json
 import yaml
+
+from hxlm.core.exception import (
+    HXLmException
+)
+
+HXLM_CORE_SCHEMA_CORE_VOCAB = os.path.dirname(os.path.realpath(__file__)) + \
+    '/core_vocab.yml'
+"""schema/core_vocab.yml is the reference vocabulary to internal commands"""
 
 
 class ConversorHSchema:
@@ -57,22 +65,61 @@ class ItemHVocab:
     """An individual vocabulary item
     """
 
-    def __init__(self, vocab_base=None):
-        self.kind: str = 'VocabHSchema'
-        if vocab_base:
-            self._vocab_base = vocab_base
+    values: dict = None
+
+    def __init__(self, vocab=HXLM_CORE_SCHEMA_CORE_VOCAB, allow_local=False):
+        if isinstance(vocab, dict):
+            self.values = vocab
+        elif os.path.isfile(vocab):
+            if allow_local or vocab == HXLM_CORE_SCHEMA_CORE_VOCAB:
+                self.values = self.parse_yaml(vocab)
+            else:
+                raise HXLmException('allow_local must be true to open ' +
+                                    vocab)
         else:
-            core_vocab = os.path.dirname(os.path.realpath(__file__)) + \
-                '/core_vocab.yml'
-            print('vocab_file 0', core_vocab)
-            self._vocab_base = self.parse_file_yaml(core_vocab)
-            print('self._vocab_base', self._vocab_base)
+            self.values = self.parse_yaml(vocab)
 
     @staticmethod
-    def parse_file_yaml(yaml_file):
-        print('yaml_file 1', yaml_file)
-        with open(yaml_file) as openfile:
-            data = yaml.safe_load(openfile)
-            # data = yaml.safe_load_all(file_)
-            # print(data)
+    def parse_yaml(yaml_item):
+        """Parse an YAML file. Can be used statically
+
+        Args:
+            yaml_item ([str]): path to a local file or an string
+
+        Returns:
+            [dict]: YAML result
+        """
+        if os.path.isfile(yaml_item):
+            with open(yaml_item, 'r') as openfile:
+                data = yaml.safe_load(openfile)
+                return data
+        else:
+            data = yaml.safe_load(yaml_item)
             return data
+
+    def to_dict(self) -> dict:
+        """Convert current vocab to Python dict
+
+        Returns:
+            dict: Dict representation
+        """
+
+        return self.values
+
+    def to_json(self) -> str:
+        """Convert current vocab to JSON string
+
+        Returns:
+            str: String representation in YAML format
+        """
+
+        return json.dumps(self.values)
+
+    def to_yaml(self) -> str:
+        """Convert current vocab to YAML string
+
+        Returns:
+            str: String representation in YAML format
+        """
+
+        return yaml.dump(self.values)

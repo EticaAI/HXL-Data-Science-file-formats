@@ -2,11 +2,13 @@
 # @see https://pyyaml.org/wiki/PyYAMLDocumentation
 """
 
+from typing import (
+    Union
+)
+
 import json
 import yaml
-# from hxlm.core.model import (
-#     HMeta
-# )
+
 from hxlm.core.model.meta import (
     HMeta
 )
@@ -91,9 +93,13 @@ def get_schema_as_hmeta(file):
                 'raw': hmeta.export_schemas_raw()}
 
 
-def get_schema_vocab():
-    vocab = ItemHVocab()
-    print('get_schema_vocab', vocab)
+def get_schema_vocab(vocab: Union[str, dict] = None,
+                     allow_local: bool = False):
+    if vocab is not None:
+        vocab = ItemHVocab(vocab=vocab, allow_local=allow_local)
+    else:
+        vocab = ItemHVocab()
+    return vocab
 
 
 class Dumper(yaml.Dumper):

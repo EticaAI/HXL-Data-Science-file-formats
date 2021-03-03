@@ -39,15 +39,10 @@ def test_core_schema_export_schema_yaml():
 
 
 def test_core_schema_get_schema_vocab():
-    # vocab = schema.get_schema_vocab()
-    # schema_baseline = schema.get_schema(
-    #     HXLM_BASE_BASELINE_PATH + '/baseline.hdpd.yml')
-    # schema_baseline_yaml = schema.export_schema_yaml(schema_baseline)
-    # # LOGGER.info('schema_baseline', str(schema_baseline))
-    # print('test_core_schema_export_schema_yaml', schema_baseline_yaml)
+    vocab = schema.get_schema_vocab()
 
-    assert True
-    # assert schema_baseline_yaml is not None
+    assert vocab.to_dict()['root']['hcompliance']['eng']['id'] == \
+        'acceptable-use-policy'
 
 
 # This part run only if called via
