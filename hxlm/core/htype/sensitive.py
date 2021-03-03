@@ -7,11 +7,11 @@ GitHub Issue :https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/9
 TODO: create an entry on the spreadsheet
 """
 
-#### HXL Standard & other discussions related to sensitiveHType
+# HXL Standard & other discussions related to sensitiveHType
 # - About the '+sensitive'
 #   - https://groups.google.com/g/hxlproject/c/N-606LwRz80/m/Q7dq88YzBAAJ
 
-#### Links (need organization)
+# Links (need organization)
 # - https://humanitarian.atlassian.net/wiki/spaces/HDXKB/pages/2132148234/Data+Loss+Prevention+on+HDX
 # - https://cloud.google.com/dlp/docs/infotypes-reference
 
@@ -21,12 +21,13 @@ from typing import (
     Any
 )
 
+
 @dataclass(init=True, repr=True, eq=True)
 class SensitiveHtype:
     code: str = None
 
 
-#### Concepts __________________________________________________________________
+# Concepts __________________________________________________________________
 # TODO: Community Identifiable Information: Data points that enable the
 #       identification, classification, and tracking of individuals, groups,
 #       or multiple groups of individuals by demographically defining factors.
@@ -45,7 +46,7 @@ class SensitiveHtype:
 #       magnitude and severity of potential harms and the likelihood of such
 #       harm materialising.
 
-#### TEMP, remove later ________________________________________________________
+# TEMP, remove later ________________________________________________________
 # Quick links
 #  - https://data.humdata.org/faq
 #  - https://centre.humdata.org/wp-content/uploads/2019/03/image1-768x596.png

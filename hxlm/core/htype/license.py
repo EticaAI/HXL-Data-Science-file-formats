@@ -7,6 +7,7 @@ from dataclasses import dataclass
 # TODO: also implement ways to define MORE than one license (both AND and OR)
 #       since SPDX actually allow this  (fititnt, 2031-02-26 10:50 UTC)
 
+
 @dataclass(init=True, repr=True, eq=True)
 class LicenseHtype:
     comment: str = None

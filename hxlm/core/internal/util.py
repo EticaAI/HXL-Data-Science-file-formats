@@ -22,8 +22,8 @@ def _get_submodules():
 
     # @see https://stackoverflow.com/questions/1707709/list-all-the-modules-that-are-part-of-a-python-package  #noqa
     import pkgutil
-    package=hxlm
+    package = hxlm
     for importer, modname, ispkg in pkgutil.walk_packages(path=package.__path__,
-                                                      prefix=package.__name__+'.',
-                                                      onerror=lambda x: None):
+                                                          prefix=package.__name__+'.',
+                                                          onerror=lambda x: None):
         print(modname)

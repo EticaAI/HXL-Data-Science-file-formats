@@ -10,6 +10,7 @@ from dataclasses import dataclass
 #     Any
 # )
 
+
 @dataclass(init=True, repr=True, eq=True)
 class EncryptionHtype:
     """EncryptionHtype is the generic class for encryption of an data point.

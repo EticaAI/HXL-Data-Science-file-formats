@@ -8,6 +8,7 @@ from typing import (
     Any
 )
 
+
 @dataclass(init=True, repr=True, eq=True)
 class GenericSpecializationHtype:
     """

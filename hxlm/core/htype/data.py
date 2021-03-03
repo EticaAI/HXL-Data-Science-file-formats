@@ -63,9 +63,11 @@ class DataHtype(HXLBaseInformation):
     weight: Type[WeightHtype] = None
     value: Any = None
 
+
 class textDataHtype(DataHtype):
     def __post_init__(self):
         self.dataType = HXL_HTYPE_DATA_TEXT_UID
+
 
 class numberDataHtype(DataHtype):
     def __post_init__(self):

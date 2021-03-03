@@ -48,9 +48,10 @@ from hxlm.core.constant import (
     HDSL3
 )
 
-HRCACHE="HRCACHE"  # Please cache this resource (default? Maybe 1H? Max 24h?)
-HRPURGE="HRPURGE"  # Please purge this resource (if still have it)
-HRQOSME="HRQOSME"  # If you're under HEAVY LOAD, priorize-me to cache you
+HRCACHE = "HRCACHE"  # Please cache this resource (default? Maybe 1H? Max 24h?)
+HRPURGE = "HRPURGE"  # Please purge this resource (if still have it)
+HRQOSME = "HRQOSME"  # If you're under HEAVY LOAD, priorize-me to cache you
+
 
 @dataclass(init=True, repr=True, eq=True)
 class RoutingHtype:

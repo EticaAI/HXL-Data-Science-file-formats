@@ -15,6 +15,7 @@ from typing import (
     Any
 )
 
+
 @dataclass(init=True, repr=True, eq=True)
 class ActorHtype:
     code: str = None
@@ -35,7 +36,7 @@ class ActorHtype:
 #        likely measures. The nomination as a data subject is linked to a
 #        set of specific data subject rights to which this natural person is
 #        entitled with regards to his/her personal data, even when this data
-#        is gathered, collected or otherwise processed by others). 
+#        is gathered, collected or otherwise processed by others).
 #        Although data may also relate to organizations, rather than
 #        individuals, organizations would not be considered ‘data subjects’
 #         under the recognized legal definition.

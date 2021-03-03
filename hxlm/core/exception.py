@@ -29,7 +29,7 @@ import sys
 #         return "<HXLException: " + str(self.message) + ">"
 
 # https://stackoverflow.com/questions/1319615
-# /proper-way-to-declare-custom-exceptions-in-modern-python/53469898#53469898 
+# /proper-way-to-declare-custom-exceptions-in-modern-python/53469898#53469898
 
 class HXLmException(Exception):
     """Generic HXLmException"""

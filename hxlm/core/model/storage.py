@@ -8,6 +8,7 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
+
 class SStorage:
     """SStorage is an abstraction to both 'permanent' and temporary files.
 

@@ -18,6 +18,7 @@ from typing import (
     Any
 )
 
+
 @dataclass(init=True, repr=True, eq=True)
 class LevelHtype:
     code: str = None
