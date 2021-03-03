@@ -8,5 +8,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 class ConversorHSchema:
 
-    def __init__(self):
+    def __init__(self, vocab_base = None, vocab_extension = None):
         self.kind: str = 'ConversorHSchema'
+        self._vocab_base = vocab_base
+        self._vocab_extension = vocab_extension

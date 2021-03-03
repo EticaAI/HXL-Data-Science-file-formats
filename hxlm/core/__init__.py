@@ -1,7 +1,11 @@
 """hxlm is (TODO: document)
 """
 
-__version__="0.7.2"
+__version__="0.7.3"
+
+import os
+
+HXLM_CORE_BASE = os.path.dirname(os.path.realpath(__file__))
 
 import hxlm.core.constant
 import hxlm.core.exception

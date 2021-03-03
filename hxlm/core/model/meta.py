@@ -14,6 +14,7 @@ from hxlm.core.model import (
 )
 from hxlm.core.model.file import HFile
 from hxlm.core.model.recipe import HRecipe
+# from hxlm.core.schema import ConversorHSchema
 
 
 class HMeta:
@@ -22,20 +23,29 @@ class HMeta:
     hmeta.yml from disk
     """
 
-    def __init__(self, schemas_raw=None):
+    def __init__(self, schemas_raw=None, vocab_base=None):
         self.kind: str = 'HMeta'
         self._schemas_raw = schemas_raw
+        self._schemas_internal = None
         self._schemas = []
         self._hdatasets = []
         self._hfiles = []
         self._hrecipes = []
         self._htasks = []
+
+        # if vocab_base:
+        #     self._vocab_base = vocab_base
+        # else:
+        #     self._vocab_base = None # TODO
+
         if self._schemas_raw:
             self._parse_schemas_raw()
 
     def _parse_schemas_raw(self):
         # print('self._schemas_raw', self._schemas_raw)
         # print('self._schemas', self._schemas)
+        # self._schemas_internal = ConversorHSchema(vocab_base=self._vocab_base)
+
         for item in self._schemas_raw:
             # print('_parse_schemas_raw item', item)
             # print('_parse_schemas_raw item type', type(item))
