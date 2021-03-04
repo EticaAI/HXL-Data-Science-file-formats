@@ -25,7 +25,7 @@ from hxlm.core.htype.urn import (
 
 
 # def test_core_schema_urn_example_valid():
-#     example1 = 'urn:x-hurn:xz:eticaai:HXL-Data-Science-file-formats'
+#     example1 = 'urn:x-hdp:xz:eticaai:HXL-Data-Science-file-formats'
 
 #     resul1 = HURN().is_valid(example1)
 
@@ -33,7 +33,7 @@ from hxlm.core.htype.urn import (
 
 
 # def test_core_schema_urn_example_invalid():
-#     example1 = 'urn:hurn:xz:eticaai:HXL-Data-Science-file-formats'
+#     example1 = 'urn:hdp:xz:eticaai:HXL-Data-Science-file-formats'
 
 #     resul1 = HURN().is_valid(example1)
 
@@ -41,7 +41,7 @@ from hxlm.core.htype.urn import (
 
 
 def test_core_htype_urn_is_urn_generic_valid():
-    example1 = 'urn:x-hurn:xz:eticaai:HXL-Data-Science-file-formats'
+    example1 = 'urn:x-hdp:xz:eticaai:HXL-Data-Science-file-formats'
     example2 = GenericUrnHtype(value=example1)
 
     resul1 = is_urn(example1)
@@ -53,10 +53,10 @@ def test_core_htype_urn_is_urn_generic_valid():
 
 
 def test_core_htype_urn_is_urn_valid():
-    example1 = 'urn:x-hurn:xz:eticaai:HXL-Data-Science-file-formats'
+    example1 = 'urn:x-hdp:xz:eticaai:HXL-Data-Science-file-formats'
     example2 = HdpUrnHtype(value=example1)
 
-    resul1 = is_urn(example1, 'urn:x-hurn:')
+    resul1 = is_urn(example1, 'urn:x-hdp:')
     resul2 = is_urn(example2)
 
     assert resul1 is True
@@ -64,13 +64,13 @@ def test_core_htype_urn_is_urn_valid():
 
 
 def test_core_htype_urn_is_urn_invalid():
-    example1 = 'urn:hurn:xz:eticaai:HXL-Data-Science-file-formats'
+    example1 = 'urn:hdp:xz:eticaai:HXL-Data-Science-file-formats'
     example2 = HdpUrnHtype(value=example1)
 
     # print('oooi', example2, example2.is_valid())
     # print('oooi', example2.valid_prefix)
 
-    resul1 = is_urn(example1, 'urn:x-hurn:')
+    resul1 = is_urn(example1, 'urn:x-hdp:')
     resul2 = is_urn(example2)
 
     assert resul1 is False
@@ -82,6 +82,8 @@ def test_core_htype_urn_is_urn_invalid():
 urn_ago = cast_urn('urn:x-hdp:unocha:cod:ps:ago')
 print(urn_ago.get_resources())
 print('cast_urn urn_ago', urn_ago, urn_ago.get_resources())
+print('cast_urn urn_ago is_valid', urn_ago.is_valid())
+print('cast_urn urn_ago prepare', urn_ago.prepare())
 # TODO: https://www.lexml.gov.br/
 
 test_core_htype_urn_is_urn_generic_valid()

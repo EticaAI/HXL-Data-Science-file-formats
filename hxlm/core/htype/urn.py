@@ -18,6 +18,7 @@ ISO
 
 Other libraries to see
 - https://github.com/lexml/lexml-vocabulary
+- https://pypi.org/project/rfc3987/
 
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
@@ -34,7 +35,7 @@ from typing import (
 )
 # __all__ = ['HURN']
 
-HXLM_CORE_SCHEMA_URN_PREFIX = "urn:x-hurn:"
+HXLM_CORE_SCHEMA_URN_PREFIX = "urn:x-hdp:"
 # HXLM_CORE_URN_DICT = {
 #     'urn:': cast_urn
 # }
@@ -67,6 +68,9 @@ def cast_urn(urn: Union[str,
     if urn_lower.startswith('urn:x-hdp:') or urn_lower.startswith('urn:hdp:'):
         return HdpUrnHtype(value=urn)
 
+    if urn_lower.startswith('urn:ietf:'):
+        return IetfUrnHtype(value=urn)
+
     if urn_lower.startswith('urn:'):
         return GenericUrnHtype(value=urn)
 
@@ -89,9 +93,11 @@ def is_urn(urn: Union[str, Type['GenericUrnHtype']],
     """
 
     if isinstance(urn, GenericUrnHtype):
+        # print('eeeeeeeee is_urn', urn, urn.valid_prefix,urn.is_valid())
         return urn.is_valid()
     if isinstance(urn, str):
         urn_lower = urn.lower()
+        # print('oioioioi is_urn', urn, prefix, urn_lower.startswith(prefix))
         return urn_lower.startswith(prefix)
     return False
 
@@ -117,11 +123,44 @@ class GenericUrnHtype:
     #: all URNs must start with 'urn:', so we initialize with this
     valid_prefix: InitVar[str] = 'urn:'
 
+    #: the namespace identifier, and may include letters, digits, and -.
+    nid: InitVar[str] = None  # Example: 'ietf' on 'urn:ietf:rfc:2141'
+
+    #: <NSS> is the Namespace Specific String
+    nss: InitVar[str] = None  # Example: 'rfc:2141' on 'urn:ietf:rfc:2141'
+
+    #: The nss broken in logical parts. Varies by implementation
+    nss_parsed: InitVar[dict] = {}
+
     #: The string value of the URN
     value: str = None
 
+    # def prepare(self, strict: bool = True) -> self:
+    def prepare(self, strict: bool = True):
+        """Prepare the current URN NSS (Namespace Specific String)
+
+        Args:
+            strict (bool, optional): If raise SyntaxError. Defaults to True.
+
+        Raises:
+            SyntaxError: raise if the value is not valid
+
+        Returns:
+            [self, False]: Return self (allow chaining) or false if less strict
+        """
+        if self.is_valid():
+            parts = self.value.split(':')
+            self.nss = self.value.replace('urn:' + parts[1] + ':', '', 1)
+            self.nid = parts[1].lower()
+            self.nss_parsed['_raw'] = self.nss
+        elif strict:
+            raise SyntaxError(self.value + ' not is_valid()')
+        else:
+            return False
+
+        return self
+
     @staticmethod
-    # def get_resolver_documentation(self) -> dict:
     def get_resolver_documentation() -> dict:
         result = {
             'urls': [
@@ -142,11 +181,13 @@ class GenericUrnHtype:
         raise NotImplementedError
 
     def is_valid(self):
-        """Check if current URN is valid (defaults to x-hurn)
+        """Check if current URN is valid (defaults to x-hdp)
 
         Returns:
             bool: if the current URN is valid
         """
+        print('oioioi', self.value, self.valid_prefix)
+
         if self.value:
             urn_lower = self.value.lower()
             return urn_lower.startswith(self.valid_prefix)
@@ -160,16 +201,22 @@ class GenericUrnHtype:
 class HdpUrnHtype(GenericUrnHtype):
     """Parses URNs prefixed with 'urn:x-hdp:'
 
+    TODO: should we use or not the x-? Maybe we use -x just for short term.
+          https://tools.ietf.org/html/rfc6648
+          https://www.rfc-editor.org/pipermail/rfc-dist/2012-June/003402.html
+          (Emerson Rocha, 2021-03-04 20:27 UTC)
+
+
     TODO: at this moment the HdpUrnHtype is too generic. But ideally should
           allow several more specific namespaces AFTER the baseline
           functionality be implemented.
           (Emerson Rocha, 2021-03-04 18:34 UTC)
 
     Args:
-        GenericUrnHtype (GenericUrnHtype): The generic UrnHtype
+        GenericUrnHtype (GenericUrnHtype): The generic UrnHtype to extend
     """
 
-    valid_prefix: str = 'urn:x-hurn:'
+    valid_prefix: str = 'urn:x-hdp:'
 
     def get_resolver_documentation(self) -> dict:
         result = {
@@ -209,10 +256,69 @@ class HdpUrnHtype(GenericUrnHtype):
 class IetfUrnHtype(GenericUrnHtype):
     """Parses URNs prefixed with 'urn:ietf:'
 
+    @see https://tools.ietf.org/html/rfc2648
+
     TODO: do an MVP (Emerson Rocha, 2021-03-04 19:48 UTC)
 
+    Examples:
+        urn:ietf:rfc:2141
+        urn:ietf:std:50
+        urn:ietf:id:ietf-urn-ietf-06
+        urn:ietf:mtg:41-urn
+
     Args:
-        GenericUrnHtype (GenericUrnHtype): The generic UrnHtype
+        GenericUrnHtype (GenericUrnHtype): The generic UrnHtype to extend
     """
 
     valid_prefix: str = 'urn:ietf:'
+
+    def _get_fallback(self):
+        urls = [
+            'https://www.ietf.org/',
+            'https://www.ietf.org/standards/rfcs/'
+        ]
+        return urls
+
+    def _get_rfc(self, rfc_number: Union[int, str]):
+        urls = [
+            # https://www.rfc-editor.org/info/rfc2141
+            'https://www.rfc-editor.org/info/rfc' + rfc_number,
+            # https://www.rfc-editor.org/rfc/rfc2141.txt
+            'https://www.rfc-editor.org/rfc/rfc' + rfc_number + '.txt',
+            # https://www.rfc-editor.org/pdfrfc/rfc2141.txt.pdf
+            'https://www.rfc-editor.org/rfc/rfc' + rfc_number + '.txt.pdf',
+            # https://www.rfc-editor.org/rfc/rfc2141.html
+            'https://www.rfc-editor.org/rfc/rfc' + rfc_number + '.html',
+        ]
+        return urls
+
+    @staticmethod
+    def get_resolver_documentation() -> dict:
+        result = {
+            'urls': [
+                "https://tools.ietf.org/html/rfc2648",
+            ]
+        }
+        return result
+
+    def get_resources(self) -> dict:
+        """Return resources associated with the current IETF URN.
+
+        Since baseline functionality with URNs (in special without API calls
+        to external webservices) may be hard, the get_resources always
+        return a dict.
+
+        Returns:
+            dict: Result
+        """
+
+        result = {
+            'urls': [
+                "https://data.humdata.org/",
+                # "https://tools.ietf.org/html/rfc1737",
+                # "https://tools.ietf.org/html/rfc2141",
+                # "https://www.iana.org/assignments/urn-namespaces",
+            ],
+            'message': "No specific result found. Try manually with the urls",
+        }
+        return result
