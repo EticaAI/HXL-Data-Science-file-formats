@@ -17,6 +17,7 @@ from hxlm.core.constant import (
 #     HURN
 # )
 from hxlm.core.htype.urn import (
+    cast_urn,
     is_urn,
     GenericUrnHtype,
     HdpUrnHtype
@@ -66,8 +67,8 @@ def test_core_htype_urn_is_urn_invalid():
     example1 = 'urn:hurn:xz:eticaai:HXL-Data-Science-file-formats'
     example2 = HdpUrnHtype(value=example1)
 
-    print('oooi', example2, example2.is_valid())
-    print('oooi', example2.valid_prefix)
+    # print('oooi', example2, example2.is_valid())
+    # print('oooi', example2.valid_prefix)
 
     resul1 = is_urn(example1, 'urn:x-hurn:')
     resul2 = is_urn(example2)
@@ -75,6 +76,13 @@ def test_core_htype_urn_is_urn_invalid():
     assert resul1 is False
     assert resul2 is False
 
+# Perfect result:
+#     https://data.humdata.org/dataset
+#     /angola-census-2014-final-and-preliminary-population-results
+urn_ago = cast_urn('urn:x-hdp:unocha:cod:ps:ago')
+print(urn_ago.get_resources())
+print('cast_urn urn_ago', urn_ago, urn_ago.get_resources())
+# TODO: https://www.lexml.gov.br/
 
 test_core_htype_urn_is_urn_generic_valid()
 test_core_htype_urn_is_urn_invalid()

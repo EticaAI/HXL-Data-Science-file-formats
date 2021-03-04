@@ -40,6 +40,39 @@ HXLM_CORE_SCHEMA_URN_PREFIX = "urn:x-hurn:"
 # }
 
 
+def cast_urn(urn: Union[str,
+                        Type['GenericUrnHtype']]) -> Type['GenericUrnHtype']:
+    """Helper to cast an string to the most specific UrnHtype abstraction know
+
+    If you are extending this library consider implement your own custom
+    cast_urn. In theory would be possible to discover all classes that
+    extend GenericUrnHtype and try somewhat bruteforce the more specific type
+    but this, if not a bit slower, may require deeper safety checks.
+
+    Example:
+        urn_ago = cast_urn('urn:x-hdp:cod:ps:ago')
+        print(urn_ago.get_resources())
+        # {'urls': ['https://data.humdata.org/'],
+        #   'message': 'No specific result found. Try manually with the urls'}
+
+    Returns:
+        Type['GenericUrnHtype']: Return the more specific UrnHtype know upfront
+    """
+    if isinstance(urn, GenericUrnHtype):
+        # print('DEBUG: cast_urn already is an instance. Ok.')
+        return urn
+
+    urn_lower = urn.lower()
+
+    if urn_lower.startswith('urn:x-hdp:') or urn_lower.startswith('urn:hdp:'):
+        return HdpUrnHtype(value=urn)
+
+    if urn_lower.startswith('urn:'):
+        return GenericUrnHtype(value=urn)
+
+    return None
+
+
 def is_urn(urn: Union[str, Type['GenericUrnHtype']],
            prefix: str = 'urn:') -> bool:
     """Check if an item is a valid formatted URN
@@ -73,22 +106,23 @@ def is_urn(urn: Union[str, Type['GenericUrnHtype']],
 class GenericUrnHtype:
     """GenericUrnHtype is an abstraction to Uniform Resource Name (URN)
 
-    Can be extended to use other prefixes (like the RFCs, e.g.
-    urn:ietf:rfc:2141)
+    Since the GenericUrnHtype is more optionated, users are likely to preffer
+    this one if do not want to replace the entire HrnHtype abstractions.
+
 
     @see https://tools.ietf.org/html/rfc2141
     @see https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
     """
 
-    valid_prefix: InitVar[str] = 'urn:'  # If want more generic check
-    # valid_prefix: str = None  # If want more generic check
-    # valid_prefix: str = 'urn:'  # If want more generic check
-    # valid_prefix: str = 'urn:x-hurn:'
-    # resolver: str = 'URNResolver'
-    # valid_prefix: str = 'urn:'
+    #: all URNs must start with 'urn:', so we initialize with this
+    valid_prefix: InitVar[str] = 'urn:'
+
+    #: The string value of the URN
     value: str = None
 
-    def get_resolver_documentation(self) -> dict:
+    @staticmethod
+    # def get_resolver_documentation(self) -> dict:
+    def get_resolver_documentation() -> dict:
         result = {
             'urls': [
                 "https://tools.ietf.org/html/rfc1737",
@@ -98,7 +132,13 @@ class GenericUrnHtype:
         }
         return result
 
-    def get_resources(self) -> list:
+    # def get_resources(self) -> dict:
+    def get_resources(self):
+        """Return resources assciated to this URN
+
+        Raises:
+            NotImplementedError: Implement-me
+        """
         raise NotImplementedError
 
     def is_valid(self):
@@ -118,10 +158,18 @@ class GenericUrnHtype:
 
 
 class HdpUrnHtype(GenericUrnHtype):
+    """Parses URNs prefixed with 'urn:x-hdp:'
+
+    TODO: at this moment the HdpUrnHtype is too generic. But ideally should
+          allow several more specific namespaces AFTER the baseline
+          functionality be implemented.
+          (Emerson Rocha, 2021-03-04 18:34 UTC)
+
+    Args:
+        GenericUrnHtype (GenericUrnHtype): The generic UrnHtype
+    """
+
     valid_prefix: str = 'urn:x-hurn:'
-    # def __post_init__(self):
-    #     print('oooooi')
-    #     self.valid_prefix = 'urn:x-hurn:'
 
     def get_resolver_documentation(self) -> dict:
         result = {
@@ -136,6 +184,15 @@ class HdpUrnHtype(GenericUrnHtype):
         return result
 
     def get_resources(self) -> dict:
+        """Return resources associated with the current URN.
+
+        Since baseline functionality with URNs (in special without API calls
+        to external webservices) may be hard, the get_resources always
+        return a dict.
+
+        Returns:
+            dict: Result
+        """
 
         result = {
             'urls': [
@@ -144,24 +201,18 @@ class HdpUrnHtype(GenericUrnHtype):
                 # "https://tools.ietf.org/html/rfc2141",
                 # "https://www.iana.org/assignments/urn-namespaces",
             ],
-            'message': "No specific result found. Try manually with the urls"
+            'message': "No specific result found. Try manually with the urls",
         }
         return result
 
 
-# def urn_hurn_resolver(urn: Union[str, Type['URNHtype']]) -> dict:
-#     result = {}
-#     return result
+class IetfUrnHtype(GenericUrnHtype):
+    """Parses URNs prefixed with 'urn:ietf:'
 
+    TODO: do an MVP (Emerson Rocha, 2021-03-04 19:48 UTC)
 
-class URNResolver:
-    """URN is an abstraction to Uniform Resource Name (URN)
-    @see https://tools.ietf.org/html/rfc2141
-    @see https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
+    Args:
+        GenericUrnHtype (GenericUrnHtype): The generic UrnHtype
     """
 
-    def __init__(self):
-        self.kind: str = 'HURNResolver'
-
-
-# class IETFHURNResolver(HURNResolver):
+    valid_prefix: str = 'urn:ietf:'
