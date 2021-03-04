@@ -187,6 +187,45 @@ root:
     zxx:
       id: hfile
 
+  hsilo:
+    # root.hsilo is the way to "group" hdataset/hfile when do exist a need.
+    # @see https://en.wikipedia.org/wiki/Information_silo
+    # @see https://www.wikidata.org/wiki/Q6031230
+    # @see https://en.wikipedia.org/wiki/Silo
+    # @see https://www.wikidata.org/wiki/Q213643
+    # On wikitionary, silo
+    # @see https://en.wiktionary.org/wiki/silo
+    ara:
+      # https://ar.wikipedia.org/wiki/%D8%B5%D9%88%D9%85%D8%B9%D8%A9_%D8%BA%D9%84%D8%A7%D9%84
+      # Needs revision. 'صومعة غلال' seems, like russian 'Силосная башня', an
+      # very specific definition, and 'صومعة' seems more aligned with silo alone
+      id: 'صومعة'
+    eng:
+      id: 'silo'
+    fra:
+      id: 'silo'
+    spa:
+      id: 'silo'
+    lat:
+      # https://en.wiktionary.org/wiki/silo#Spanish
+      id: 'silo'
+    por:
+      id: 'silo'
+    qaa:
+      # We're using the generic term because is easy to translate to multiple
+      # languages than Information Silo.
+      id: 'q213643'  # silo (Q213643), structure for storing bulk materials
+    rus:
+      # https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BB%D0%BE%D1%81%D0%BD%D0%B0%D1%8F_%D0%B1%D0%B0%D1%88%D0%BD%D1%8F
+      # 'Силосная башня' = "silo tower"
+      # 'силосная' = 'silo' (needs revision)
+      id: 'силосная'
+    zho:
+      # @see https://zh.wikipedia.org/wiki/%E7%AD%92%E4%BB%93
+      id: '筒仓'
+    zxx:
+      id: 'hsilo'
+
 attr:
 
   adm0:
