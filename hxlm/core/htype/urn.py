@@ -25,7 +25,8 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
-from dataclasses import dataclass
+# from dataclasses import dataclass, field, InitVar
+from dataclasses import dataclass, InitVar
 
 from typing import (
     Type,
@@ -34,9 +35,13 @@ from typing import (
 # __all__ = ['HURN']
 
 HXLM_CORE_SCHEMA_URN_PREFIX = "urn:x-hurn:"
+# HXLM_CORE_URN_DICT = {
+#     'urn:': cast_urn
+# }
 
 
-def is_urn(urn: Union[str, Type['URNHtype']], prefix: str = 'urn:') -> bool:
+def is_urn(urn: Union[str, Type['GenericUrnHtype']],
+           prefix: str = 'urn:') -> bool:
     """Check if an item is a valid formatted URN
 
     If the urn is object from a direct or indirect class based on URNHtype
@@ -50,7 +55,7 @@ def is_urn(urn: Union[str, Type['URNHtype']], prefix: str = 'urn:') -> bool:
         boolean: if is an valid URN
     """
 
-    if isinstance(urn, URNHtype):
+    if isinstance(urn, GenericUrnHtype):
         return urn.is_valid()
     if isinstance(urn, str):
         urn_lower = urn.lower()
@@ -58,9 +63,15 @@ def is_urn(urn: Union[str, Type['URNHtype']], prefix: str = 'urn:') -> bool:
     return False
 
 
+# TODO: check some nice way to work with dataclasses allowing override
+#       valid_prefix.
+#       See https://www.infoworld.com/article/3563878
+#       /how-to-use-python-dataclasses.html
+#       (Emerson Rocha, 2021-03-04 17:54 YTC)
+
 @dataclass(init=True, eq=True)
-class URNHtype:
-    """URNHtype is an abstraction to Uniform Resource Name (URN)
+class GenericUrnHtype:
+    """GenericUrnHtype is an abstraction to Uniform Resource Name (URN)
 
     Can be extended to use other prefixes (like the RFCs, e.g.
     urn:ietf:rfc:2141)
@@ -69,9 +80,26 @@ class URNHtype:
     @see https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
     """
 
-    # valid_prefix: str = 'urn'  # If want more generic check
-    valid_prefix: str = 'urn:x-hurn:'
+    valid_prefix: InitVar[str] = 'urn:'  # If want more generic check
+    # valid_prefix: str = None  # If want more generic check
+    # valid_prefix: str = 'urn:'  # If want more generic check
+    # valid_prefix: str = 'urn:x-hurn:'
+    # resolver: str = 'URNResolver'
+    # valid_prefix: str = 'urn:'
     value: str = None
+
+    def get_resolver_documentation(self) -> dict:
+        result = {
+            'urls': [
+                "https://tools.ietf.org/html/rfc1737",
+                "https://tools.ietf.org/html/rfc2141",
+                "https://www.iana.org/assignments/urn-namespaces",
+            ]
+        }
+        return result
+
+    def get_resources(self) -> list:
+        raise NotImplementedError
 
     def is_valid(self):
         """Check if current URN is valid (defaults to x-hurn)
@@ -82,7 +110,48 @@ class URNHtype:
         if self.value:
             urn_lower = self.value.lower()
             return urn_lower.startswith(self.valid_prefix)
+            # if self.valid_prefix:
+            #     return urn_lower.startswith(self.valid_prefix)
+            # else:
+            #     return urn_lower.startswith('urn:')
         return False
+
+
+class HdpUrnHtype(GenericUrnHtype):
+    valid_prefix: str = 'urn:x-hurn:'
+    # def __post_init__(self):
+    #     print('oooooi')
+    #     self.valid_prefix = 'urn:x-hurn:'
+
+    def get_resolver_documentation(self) -> dict:
+        result = {
+            'urls': [
+                "https://github.com/EticaAI/HXL-Data-Science-file-formats",
+                # "https://tools.ietf.org/html/rfc1737",
+                # "https://tools.ietf.org/html/rfc2141",
+                # "https://www.iana.org/assignments/urn-namespaces",
+            ]
+        }
+
+        return result
+
+    def get_resources(self) -> dict:
+
+        result = {
+            'urls': [
+                "https://data.humdata.org/",
+                # "https://tools.ietf.org/html/rfc1737",
+                # "https://tools.ietf.org/html/rfc2141",
+                # "https://www.iana.org/assignments/urn-namespaces",
+            ],
+            'message': "No specific result found. Try manually with the urls"
+        }
+        return result
+
+
+# def urn_hurn_resolver(urn: Union[str, Type['URNHtype']]) -> dict:
+#     result = {}
+#     return result
 
 
 class URNResolver:
