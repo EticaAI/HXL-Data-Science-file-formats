@@ -16,6 +16,9 @@ Example: lexml.gov.br/urn/urn:lex:br:federal:lei:2008-06-19;11705
 ISO
 @see https://tools.ietf.org/html/rfc5141
 
+Other libraries to see
+- https://github.com/lexml/lexml-vocabulary
+
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
@@ -24,26 +27,34 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 from dataclasses import dataclass
 
-# from typing import (
-#     Type,
-#     Union
-# )
-
+from typing import (
+    Type,
+    Union
+)
 # __all__ = ['HURN']
 
 HXLM_CORE_SCHEMA_URN_PREFIX = "urn:x-hurn:"
 
 
-def is_urn(urn, prefix: str = None):
+def is_urn(urn: Union[str, Type['URNHtype']], prefix: str = 'urn:') -> bool:
+    """Check if an item is a valid formatted URN
+
+    If the urn is object from a direct or indirect class based on URNHtype
+    will use urn.is_valid()
+
+    Args:
+        urn (Union[str, Type['URNHtype']):  The item to check if is valid
+        prefix (str, optional): URN prefix. Defaults to 'urn:'
+
+    Returns:
+        boolean: if is an valid URN
+    """
+
     if isinstance(urn, URNHtype):
         return urn.is_valid()
-
     if isinstance(urn, str):
         urn_lower = urn.lower()
-        if not prefix and urn_lower.startswith(prefix):
-            return True
-        if urn_lower.startswith('urn:'):
-            return True
+        return urn_lower.startswith(prefix)
     return False
 
 
@@ -74,7 +85,7 @@ class URNHtype:
         return False
 
 
-class HURNResolver:
+class URNResolver:
     """URN is an abstraction to Uniform Resource Name (URN)
     @see https://tools.ietf.org/html/rfc2141
     @see https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
