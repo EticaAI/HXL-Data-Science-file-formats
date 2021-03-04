@@ -1,0 +1,100 @@
+
+# @from https://github.com/tox-dev/tox-travis
+language: python
+python:
+  - "3.7"
+  - "3.8"
+  - "3.9"
+install: pip install tox-travis
+script: tox
+
+# Code from https://github.com/fititnt/ap-application-load-balancer/blob/master/.travis.yml
+# ---
+# # To test configurations online, use https://config.travis-ci.com/explore
+# # Discussion about alternatives to Travis CI https://github.com/ansible/molecule/issues/1770
+
+# os: linux
+# dist: bionic
+# language: python
+# services:
+#   - docker
+
+# before_install:
+#   - sudo apt-get -qq update
+
+# # https://docs.travis-ci.com/user/hosts/
+# addons:
+#   hosts:
+#     - haproxy.instance
+#     - hello-world.instance
+
+# env:
+# # global:
+# #   - ROLE_NAME: my_role_name
+
+# jobs:
+#   # fast_finish: true
+#   include:
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-ubuntu1804-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-debian10-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: archlinux:latest
+#     - env:
+#         MOLECULE_DISTRO: opensuse/leap:latest
+#     # - env:
+#     #     MOLECULE_DISTRO: freebsd:latest
+#     # FreeBSD support on travis is not trivial
+#     # @see https://github.com/travis-ci/travis-ci/issues/1818
+#     # Humm... someone installed FreeBSD inside Ubuntu and
+#     # then released as image https://github.com/weitjong/dockerized/blob/master/urho3d/freebsd/Dockerfile
+#     # And this one was from Alpine
+#     # https://github.com/ustclug/ustcmirror-images/tree/master/freebsd-ports
+#     - env:
+#       # Note: ustcmirror/freebsd-ports:latest is based on Alpine. It's actually
+#       #       not possible to emulate a non-linux on a linux machine with docker
+#       #       and even if have a FreeBSD host, BSDs does not have same support
+#       #       bor BSDs
+#         MOLECULE_DISTRO: ustcmirror/freebsd-ports:latest
+#     - env:
+#         MOLECULE_DISTRO: openresty/openresty:alpine-fat
+#   allow_failures:
+#     # - env:
+#     #     MOLECULE_DISTRO: geerlingguy/docker-ubuntu1804-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-debian10-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-centos8-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-centos7-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: geerlingguy/docker-fedora31-ansible:latest
+#     - env:
+#         MOLECULE_DISTRO: archlinux:latest
+#     - env:
+#         MOLECULE_DISTRO: opensuse/leap:latest
+#     - env:
+#         MOLECULE_DISTRO: ustcmirror/freebsd-ports:latest
+#     - env:
+#         MOLECULE_DISTRO: openresty/openresty:alpine-fat
+
+# install:
+#   - pip install testinfra molecule docker
+
+# # before_script:
+# #   - cd ../
+# #   - mv ap-application-load-balancer fititnt.ap-application-load-balancer
+# #   - cd fititnt.ap-application-load-balancer
+
+# script:
+#   - molecule test
+
+# notifications:
+#   webhooks: https://galaxy.ansible.com/api/v1/notifications/
