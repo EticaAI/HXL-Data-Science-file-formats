@@ -20,4 +20,9 @@ from hxlm.core.schema.util import (  # noqa: F401
     get_schema_as_hmeta,
     get_schema_vocab
 )
+
+# from hxlm.core.schema.util import *
+# from hxlm.core.schema.urn import (  # noqa: F401
+#     HURN
+# )
 # from hxlm.core.schema.conversor import *
