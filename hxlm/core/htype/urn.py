@@ -93,11 +93,9 @@ def is_urn(urn: Union[str, Type['GenericUrnHtype']],
     """
 
     if isinstance(urn, GenericUrnHtype):
-        # print('eeeeeeeee is_urn', urn, urn.valid_prefix,urn.is_valid())
         return urn.is_valid()
     if isinstance(urn, str):
         urn_lower = urn.lower()
-        # print('oioioioi is_urn', urn, prefix, urn_lower.startswith(prefix))
         return urn_lower.startswith(prefix)
     return False
 
@@ -135,7 +133,6 @@ class GenericUrnHtype:
     #: The string value of the URN
     value: str = None
 
-    # def prepare(self, strict: bool = True) -> self:
     def prepare(self, strict: bool = True):
         """Prepare the current URN NSS (Namespace Specific String)
 
@@ -152,7 +149,9 @@ class GenericUrnHtype:
             parts = self.value.split(':')
             self.nss = self.value.replace('urn:' + parts[1] + ':', '', 1)
             self.nid = parts[1].lower()
-            self.nss_parsed['_raw'] = self.nss
+            self.nss_parsed['nid'] = self.nid
+            self.nss_parsed['nss'] = self.nss
+            # self.nss_parsed['_raw'] = self.nss
         elif strict:
             raise SyntaxError(self.value + ' not is_valid()')
         else:
@@ -186,15 +185,10 @@ class GenericUrnHtype:
         Returns:
             bool: if the current URN is valid
         """
-        print('oioioi', self.value, self.valid_prefix)
 
         if self.value:
             urn_lower = self.value.lower()
             return urn_lower.startswith(self.valid_prefix)
-            # if self.valid_prefix:
-            #     return urn_lower.startswith(self.valid_prefix)
-            # else:
-            #     return urn_lower.startswith('urn:')
         return False
 
 
@@ -280,15 +274,23 @@ class IetfUrnHtype(GenericUrnHtype):
         return urls
 
     def _get_rfc(self, rfc_number: Union[int, str]):
+        """For an RFC format, return the multiple output formats
+
+        Args:
+            rfc_number (Union[int, str]): the RFC number
+
+        Returns:
+            list: Array with direct link for multiple RFC formats
+        """
         urls = [
-            # https://www.rfc-editor.org/info/rfc2141
-            'https://www.rfc-editor.org/info/rfc' + rfc_number,
             # https://www.rfc-editor.org/rfc/rfc2141.txt
             'https://www.rfc-editor.org/rfc/rfc' + rfc_number + '.txt',
             # https://www.rfc-editor.org/pdfrfc/rfc2141.txt.pdf
             'https://www.rfc-editor.org/rfc/rfc' + rfc_number + '.txt.pdf',
             # https://www.rfc-editor.org/rfc/rfc2141.html
             'https://www.rfc-editor.org/rfc/rfc' + rfc_number + '.html',
+            # https://www.rfc-editor.org/info/rfc2141
+            'https://www.rfc-editor.org/info/rfc' + rfc_number,
         ]
         return urls
 
@@ -312,13 +314,41 @@ class IetfUrnHtype(GenericUrnHtype):
             dict: Result
         """
 
-        result = {
-            'urls': [
-                "https://data.humdata.org/",
-                # "https://tools.ietf.org/html/rfc1737",
-                # "https://tools.ietf.org/html/rfc2141",
-                # "https://www.iana.org/assignments/urn-namespaces",
-            ],
-            'message': "No specific result found. Try manually with the urls",
-        }
+        super().prepare()  # Call post init of A
+        result = {}
+
+        # print('prepare 1', self.nid, self.nss, self.nss_parsed)
+        # 'nss': 'rfc:2141', '_blocks': ['rfc', '2141']
+        urn_ietf_parts = self.nss.split(':')
+        if urn_ietf_parts[0] == 'rfc':
+            result['urls'] = self._get_rfc(urn_ietf_parts[1])
+            result['message'] = 'OK'
+        else:
+            result['urls'] = self._get_fallback()
+            result['message'] = 'No specific result found. ' + \
+                'Try manually with the urls'
+
         return result
+
+    def get_url(self) -> str:
+        """Return an single URL if do exist an exact match
+
+        See self.get_resources() for more complete alternative
+
+        Returns:
+            str: exact match, if any
+        """
+        result = self.get_resources()
+        if result['message'] == 'OK':
+            return result['urls'][0]
+        else:
+            return ''
+
+# TODO: Maybe do an proof of concept of IATI (seems more easy than HDX)
+#       http://datastore.iatistandard.org/query/
+#       http://datastore.iatistandard.org/api/1/access/activity
+#       /by_country.csv?recipient-country=MZ
+#       (Emerson Rocha, 2021-03-04 17:54 YTC)
+
+# TODO: do an MVP of ISO https://tools.ietf.org/html/rfc5141
+#       (Emerson Rocha, 2021-03-04 17:54 YTC)
