@@ -65,3 +65,16 @@ class HURN:
                 return True
 
         return False
+
+
+# class HURNResolver:
+#     """URN is an abstraction to Uniform Resource Name (URN)
+#     @see https://tools.ietf.org/html/rfc2141
+#     @see https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
+#     """
+
+#     def __init__(self):
+#         self.kind: str = 'HURNResolver'
+
+
+# class IETFHURNResolver(HURNResolver):
