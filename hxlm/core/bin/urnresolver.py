@@ -3,45 +3,40 @@
 #
 #          FILE:  urnresolver
 #
-#         USAGE:  urnresolver hxlated-data.hxl my-exported-file.example
-#                 cat hxlated-data.hxl | urnresolver > my-exported-file.example
-#                 # Via web, in two different terminals, do it
-#                     hug -f bin/urnresolver
-#                     ngrok http 8000
+#         USAGE:  urnresolver urn:data:un:locode
+#                 urnresolver urn:data:un:locode
+#                 urnresolver urn:data:xz:hxl:std:core:hashtag
+#                 urnresolver urn:data:xz:hxl:std:core:attribute
+#                 urnresolver urn:data:xz:eticaai:pcode:br
+#                 hxlquickimport $(urnresolver urn:data:xz:eticaai:pcode:br)
 #
-#   DESCRIPTION:  urnresolver is an example script to create other scripts with
-#                 some bare minimum command line interface that could work.
-#                 With exception of external libraries, the urnresolver is
-#                 meant to be somewhat self-contained one-file executable ready
-#                 to just be added to the path.
-#
-#                 Hug API can be used to create an ad-hoc web interface to your
-#                 script. This can be both useful if you are using an software
-#                 that accepts an URL as data source and you don't want to use
-#                 this script to save a file locally.
+#   DESCRIPTION:  urnresolver uses hxlm.core to resolve Uniform Resource Name
+#                 (URI) to Uniform Resource Identifier (URI)
 #
 #       OPTIONS:  ---
 #
 #  REQUIREMENTS:  - python3
 #                     - libhxl (@see https://pypi.org/project/libhxl/)
-#                     - hug (https://github.com/hugapi/hug/)
-#                     - your-extra-python-lib-here
-#                 - your-non-python-dependency-here
+#                     - hxlm (github.com/EticaAI/HXL-Data-Science-file-formats)
 #          BUGS:  ---
 #         NOTES:  ---
-#        AUTHOR:  Your Name <you[at]example.org>
-#       COMPANY:  Your Company
-#       LICENSE:  Your License here
-#       VERSION:  v1.0
-#       CREATED:  YYYY-MM-DD hh:mm UTC
+#        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
+#       COMPANY:  EticaAI
+#       LICENSE:  Public Domain dedication
+#                 SPDX-License-Identifier: Unlicense
+#       VERSION:  v0.7.3
+#       CREATED:  2021-03-05 15:37 UTC v0.7.3 started (based on hxl2example)
 #      REVISION:  ---
 # ==============================================================================
+
+# ./hxlm/core/bin/urnresolver.py urn:data:un:locode
+# echo $(./hxlm/core/bin/urnresolver.py urn:data:un:locode)
 
 import sys
 import os
 import logging
 import argparse
-import tempfile
+# import tempfile
 
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
@@ -49,6 +44,8 @@ import tempfile
 import hxl.converters
 import hxl.filters
 import hxl.io
+
+# import hxlm.core.htype.urn as HUrn
 
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
@@ -80,10 +77,9 @@ class URNResolver:
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("urnresolver is an example script to create other "
-                         "scripts with some bare minimum command line "
-                         "interfaces that could work to export HXL files to "
-                         "other formats."))
+            description=("urnresolver uses hxlm.core to resolve Uniform " +
+                         "Resource Name (URI) to Uniform Resource " +
+                         "Identifier (URI)"))
 
         self.args = parser.parse_args()
         return self.args
@@ -95,57 +91,19 @@ class URNResolver:
         called will convert the HXL source to example format.
         """
 
-        # NOTE: the next lines, in fact, only generate an csv outut. So you
-        #       can use as starting point.
-        with self.hxlhelper.make_source(args, stdin) as source, \
-                self.hxlhelper.make_output(args, stdout) as output:
-            hxl.io.write_hxl(output.output, source,
-                             show_tags=not args.strip_tags)
+        print(args.infile)
 
-        return self.EXIT_OK
+        # print('args', args)
+        # print('args', args)
 
-    def execute_web(self, source_url, stdin=STDIN, stdout=sys.stdout,
-                    stderr=sys.stderr, hxlmeta=False):
-        """
-        The execute_web is the main entrypoint of HXL2Tab when this class is
-        called outside command line interface, like the build in HTTP use with
-        hug
-        """
+        # # NOTE: the next lines, in fact, only generate an csv outut. So you
+        # #       can use as starting point.
+        # with self.hxlhelper.make_source(args, stdin) as source, \
+        #         self.hxlhelper.make_output(args, stdout) as output:
+        #     hxl.io.write_hxl(output.output, source,
+        #                      show_tags=not args.strip_tags)
 
-        # TODO: the execute_web needs to output the tabfile with correct
-        #       mimetype, compression, etc
-        #       (fititnt, 2021-02-07 15:59 UTC)
-
-        self.hxlhelper = HXLUtils()
-
-        try:
-            temp_input = tempfile.NamedTemporaryFile('w')
-            temp_output = tempfile.NamedTemporaryFile('w')
-
-            webargs = type('obj', (object,), {
-                "infile": source_url,
-                "sheet_index": None,
-                "selector": None,
-                'sheet': None,
-                'http_header': None,
-                'ignore_certs': False
-            })
-
-            with self.hxlhelper.make_source(webargs, stdin) as source:
-                for line in source.gen_csv(True, True):
-                    temp_input.write(line)
-
-                temp_input.seek(0)
-                # self.hxl2tab(temp_input.name, temp_output.name, False)
-
-                result_file = open(temp_input.name, 'r')
-                return result_file.read()
-
-        finally:
-            temp_input.close()
-            temp_output.close()
-
-        return self.EXIT_OK
+        # return self.EXIT_OK
 
 
 class HXLUtils:
