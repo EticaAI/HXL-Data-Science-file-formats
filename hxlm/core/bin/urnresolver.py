@@ -41,6 +41,7 @@ import sys
 import os
 import logging
 import argparse
+import tempfile
 
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
@@ -49,11 +50,9 @@ import hxl.converters
 import hxl.filters
 import hxl.io
 
-import tempfile
-
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
-import hug
+# import hug
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -360,27 +359,8 @@ if __name__ == "__main__":
     urnresolver.execute_cli(args)
 
 
-@hug.format.content_type('text/csv')
-def output_csv(data, response):
-    if isinstance(data, dict) and 'errors' in data:
-        response.content_type = 'application/json'
-        return hug.output_format.json(data)
-    response.content_type = 'text/csv'
-    if hasattr(data, "read"):
-        return data
-
-    return str(data).encode("utf8")
-
-
-@hug.get('/urnresolver.csv', output=output_csv)
-def api_urnresolver(source_url):
-    """urnresolver (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
-
-    Example:
-    http://localhost:8000/urnresolver.csv?source_url=https://docs.google.com/spreadsheets/u/1/d/1l7POf1WPfzgJb-ks4JM86akFSvaZOhAUWqafSJsm3Y4/edit#gid=634938833
-
-    """
-
+def exec_from_console_scripts():
     urnresolver = URNResolver()
+    args = urnresolver.make_args_urnresolver()
 
-    return urnresolver.execute_web(source_url)
+    urnresolver.execute_cli(args)
