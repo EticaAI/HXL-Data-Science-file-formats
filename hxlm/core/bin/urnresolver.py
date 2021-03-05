@@ -43,6 +43,8 @@
 #    "$HOME/.config/hxlm/urn/data/xz/hxl/std/core/hashtag.csv"
 # urnresolver urn:data:xz:hxl:std:core:attribute
 #    "$HOME/.config/hxlm/urn/data/xz/hxl/std/core/attribute.csv"
+# urnresolver urn:data:un:locode
+#     "$HOME/.config/hxlm/urn/data/un/locode/locode.csv"
 
 # http://www.unece.org/cefact/locode/welcome.html
 # https://github.com/datasets/un-locode
@@ -79,6 +81,7 @@ import hxl.filters
 import hxl.io
 
 import hxlm.core.htype.urn as HUrn
+import hxlm.core.schema.urn.util as HUrnUtil
 
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
@@ -125,7 +128,9 @@ class URNResolver:
         """
 
         urn_item = HUrn.cast_urn(urn=args.infile)
+        valt = HUrnUtil.get_urn_vault_local_info('un', 'locode')
 
+        print('valt', valt)
         print(args.infile, urn_item)
 
         # print('args', args)

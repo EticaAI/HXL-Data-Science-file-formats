@@ -2,8 +2,49 @@
 # DESCRIPTION: while hxlm.core have these values mostly hardcoded you can use
 #              this file as reference for implementations outside python
 
+### HXLM CORE LIBRARY _________________________________________________________
+
+## When local processing is not sufficient, which HXL-proxy use? ..............
+
 # TODO: allow user change the proxy URL (e.g. if using Docker or other service)
 HXLPROXY_URL: "https://proxy.hxlstandard.org"
+
+## When storing data locally (ex.: urnresolver) ...............................
+# Example: /home/user/.config/hxlm/
+HXLM_CONFIG_BASE: "~/.config/hxlm/"
+
+# While (as version v0.7.3) not implemented even as proof of concept, this
+# directory structure draft already not just place to store data, but policy
+# about this data (that eventually could instruct if some use is authorized
+# if the user, for example, is preparing data to someone else). While it is
+# less likely that acceptable use police themselves may require a high level
+# of secrecy, we intentionally have an separate base directory for store data.
+
+
+# TODO: these variables are hardcoded on code. We need at least allow override
+#       with enviroment variables
+# ref acceptable-use-policies
+HXLM_DATA_POLICY_BASE: "~/.config/hxlm/policy/"
+# Default place to search
+HXLM_DATA_VAULT_BASE: "~/.local/var/hxlm/data/"
+# Alternative place to search
+HXLM_DATA_VAULT_BASE_ALT: ""
+ # Path active to write. Makes sense be HXLM_DATA_VAULT_(BASE|_ALT)
+HXLM_DATA_VAULT_BASE_ACTIVE: "~/.local/var/hxlm/data/"
+
+# Note: despite name "(data) vault", as long as the acceptable-usage-policies
+#       are readable (and this does not need to be machine parseable, could be
+#       just text), the human who is working to store/prepare (a equivalent
+#       to 'airline dispatcher') do not need to unencripted access to some data
+#       contents. So if someting is too sensible, even if the human is
+#       trusted to not leak data (but could be forced) people could be
+#       instructed to encrypt some types of information and only give
+#       decription access (think like send the password via private messaging)
+#       to the destinatary.
+
+# @see https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md
+
+### HXLM DATA STRUCTURE _______________________________________________________
 
 HTYPE_PRIMITIVES:
   HTYPE_TRUE: "TRUE"
