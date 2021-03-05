@@ -213,6 +213,26 @@ pip3 install xarray
 # Installing collected packages: xarray
 # Successfully installed xarray-0.16.2
 
+#### antlr ____________________________________________________________________
+# @see https://github.com/antlr/antlr4/blob/master/doc/getting-started.md
+cd /usr/local/lib
+$ curl -O https://www.antlr.org/download/antlr-4.9-complete.jar
+export CLASSPATH=".:/usr/local/lib/antlr-4.9.1-complete.jar:$CLASSPATH"
+
+# I will not add alias to bash_profile; needs to run this everytime
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
+# url.g4 from https://github.com/antlr/grammars-v4/tree/master/url
+
+cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/url-python
+antlr4 -Dlanguage=Python3 /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/url-python/url.g4
+
+# https://pypi.org/project/antlr4-python3-runtime/#files
+# pip3 install antlr4-python3-runtime
+
+# TODO: https://stackoverflow.com/questions/25136463/how-print-parse-tree-using-python2-runtime-with-antlr4?rq=1#comment39129827_25137278
+# TODO: https://github.com/antlr/grammars-v4/tree/master/doiurl
+# TODO: https://github.com/antlr/antlr4/blob/master/doc/python-target.md
 
 #### Rocha's local development notes _________________________________________
 # VSCode python code suggestion is wonderful, but have some issues with

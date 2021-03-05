@@ -199,6 +199,22 @@ class GenericUrnHtype:
 class DataUrnHtype(GenericUrnHtype):
     """Parses URNs prefixed with 'urn:data:', 'urn:data-i:' and 'urn:data-p:'
 
+    TODO: draft some sort of Augmented Backus–Naur form ABNF for `urn:data:`
+          @see https://tools.ietf.org/html/rfc5234
+          @see https://cs.stackexchange.com/questions/127499
+          @see https://tools.ietf.org/tools/bap/abnf.cgi
+          @see http://www.quut.com/abnfgen/
+          (Emerson Rocha, 2021-03-05 21:03 UTC)
+
+Temp, delete this
+http://www.quut.com/abnfgen/:
+cat /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/GRAMMA
+ring = 1*12("ding" SP) "dong"
+abnfgen /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/GRAMMAR
+    Ding dinG dINg DONg
+
+https://github.com/antlr/antlr4/blob/master/doc/getting-started.md
+
     Args:
         GenericUrnHtype (GenericUrnHtype): The UrnHtype to extend
     """
