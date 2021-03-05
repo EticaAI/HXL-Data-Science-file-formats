@@ -32,6 +32,13 @@
 # ./hxlm/core/bin/urnresolver.py urn:data:un:locode
 # echo $(./hxlm/core/bin/urnresolver.py urn:data:un:locode)
 
+# Where to store data for local urn resolving?
+# mkdir "$HOME/.config"
+# mkdir "${HOME}/.config/hxlm"
+# mkdir "${HOME}/.config/hxlm/urn"
+# mkdir "${HOME}/.config/hxlm/urn/data"
+
+
 import sys
 import os
 import logging
@@ -45,7 +52,7 @@ import hxl.converters
 import hxl.filters
 import hxl.io
 
-# import hxlm.core.htype.urn as HUrn
+import hxlm.core.htype.urn as HUrn
 
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
@@ -91,7 +98,9 @@ class URNResolver:
         called will convert the HXL source to example format.
         """
 
-        print(args.infile)
+        urn_item = HUrn.cast_urn(urn = args.infile)
+
+        print(args.infile, urn_item)
 
         # print('args', args)
         # print('args', args)

@@ -20,6 +20,11 @@ Other libraries to see
 - https://github.com/lexml/lexml-vocabulary
 - https://pypi.org/project/rfc3987/
 
+# TODO: for things that need to be named by hashes (think security or
+#       validation) instead of urn: the ni: could be used
+#       @see https://tools.ietf.org/html/rfc6920
+#       (Emerson Rocha, 2021-03-05 16:57 UTC)
+
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
@@ -33,7 +38,7 @@ from typing import (
     Type,
     Union
 )
-# __all__ = ['HURN']
+__all__ = ['HURN', 'GenericUrnHtype']
 
 HXLM_CORE_SCHEMA_URN_PREFIX = "urn:x-hdp:"
 # HXLM_CORE_URN_DICT = {
@@ -64,6 +69,11 @@ def cast_urn(urn: Union[str,
         return urn
 
     urn_lower = urn.lower()
+
+    if urn_lower.startswith('urn:data:') or \
+            urn_lower.startswith('urn:data-i:') or \
+            urn_lower.startswith('urn:data-p:'):
+        return DataUrnHtype(value=urn)
 
     if urn_lower.startswith('urn:x-hdp:') or urn_lower.startswith('urn:hdp:'):
         return HdpUrnHtype(value=urn)
@@ -99,12 +109,6 @@ def is_urn(urn: Union[str, Type['GenericUrnHtype']],
         return urn_lower.startswith(prefix)
     return False
 
-
-# TODO: check some nice way to work with dataclasses allowing override
-#       valid_prefix.
-#       See https://www.infoworld.com/article/3563878
-#       /how-to-use-python-dataclasses.html
-#       (Emerson Rocha, 2021-03-04 17:54 YTC)
 
 @dataclass(init=True, eq=True)
 class GenericUrnHtype:
@@ -190,6 +194,56 @@ class GenericUrnHtype:
             urn_lower = self.value.lower()
             return urn_lower.startswith(self.valid_prefix)
         return False
+
+
+class DataUrnHtype(GenericUrnHtype):
+    """Parses URNs prefixed with 'urn:data:', 'urn:data-i:' and 'urn:data-p:'
+
+    Args:
+        GenericUrnHtype (GenericUrnHtype): The UrnHtype to extend
+    """
+
+    valid_prefix: str = 'urn:data:'
+
+    def get_resolver_documentation(self) -> dict:
+        result = {
+            'urls': [
+                "https://github.com/EticaAI/HXL-Data-Science-file-formats",
+                # "https://tools.ietf.org/html/rfc1737",
+                # "https://tools.ietf.org/html/rfc2141",
+                # "https://www.iana.org/assignments/urn-namespaces",
+            ]
+        }
+
+        return result
+
+    def get_resources(self) -> dict:
+        """Return resources associated with the current URN.
+
+        Since baseline functionality with URNs (in special without API calls
+        to external webservices) may be hard, the get_resources always
+        return a dict.
+
+        Returns:
+            dict: Result
+        """
+
+        result = {
+            'urls': [
+                "https://data.humdata.org/",
+                # "https://tools.ietf.org/html/rfc1737",
+                # "https://tools.ietf.org/html/rfc2141",
+                # "https://www.iana.org/assignments/urn-namespaces",
+            ],
+            'message': "No specific result found. Try manually with the urls",
+        }
+        return result
+
+# TODO: check some nice way to work with dataclasses allowing override
+#       valid_prefix.
+#       See https://www.infoworld.com/article/3563878
+#       /how-to-use-python-dataclasses.html
+#       (Emerson Rocha, 2021-03-04 17:54 YTC)
 
 
 class HdpUrnHtype(GenericUrnHtype):
