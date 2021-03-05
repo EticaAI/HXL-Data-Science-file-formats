@@ -38,9 +38,9 @@ from typing import (
     Type,
     Union
 )
-__all__ = ['HURN', 'GenericUrnHtype']
+# __all__ = ['HURN', 'GenericUrnHtype']
 
-HXLM_CORE_SCHEMA_URN_PREFIX = "urn:x-hdp:"
+# HXLM_CORE_SCHEMA_URN_PREFIX = "urn:x-hdp:"
 # HXLM_CORE_URN_DICT = {
 #     'urn:': cast_urn
 # }

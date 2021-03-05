@@ -21,7 +21,7 @@
 #          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
-#       COMPANY:  EticaAI
+#       COMPANY:  Etica.AI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
 #       VERSION:  v0.7.3
@@ -38,6 +38,32 @@
 # mkdir "${HOME}/.config/hxlm/urn"
 # mkdir "${HOME}/.config/hxlm/urn/data"
 
+# https://data.humdata.org/dataset/hxl-core-schemas
+# urnresolver urn:data:xz:hxl:std:core:hashtag
+#    "$HOME/.config/hxlm/urn/data/xz/hxl/std/core/hashtag.csv"
+# urnresolver urn:data:xz:hxl:std:core:attribute
+#    "$HOME/.config/hxlm/urn/data/xz/hxl/std/core/attribute.csv"
+
+# http://www.unece.org/cefact/locode/welcome.html
+# https://github.com/datasets/un-locode
+# https://datahub.io/core/un-locode
+
+# tree /home/fititnt/.config/hxlm/urn/data
+# /home/fititnt/.config/hxlm/urn/data
+# ├── un
+# │   └── locode
+# │       ├── country.csv
+# │       ├── function.csv
+# │       ├── locode.csv
+# │       ├── status.csv
+# │       └── subdivision.csv
+# └── xz
+#     ├── eticaai
+#     └── hxl
+#         └── std
+#             └── core
+#                 ├── attribute.csv
+#                 └── hashtag.csv
 
 import sys
 import os
@@ -98,7 +124,7 @@ class URNResolver:
         called will convert the HXL source to example format.
         """
 
-        urn_item = HUrn.cast_urn(urn = args.infile)
+        urn_item = HUrn.cast_urn(urn=args.infile)
 
         print(args.infile, urn_item)
 
