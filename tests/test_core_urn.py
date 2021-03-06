@@ -168,6 +168,17 @@ def test_core_htype_urn_cast_b():
     print(urn_unicode8, urn_unicode8.about())
     print(urn_unicode8.about('base_paths'), urn_locode1.about('object_names'))
 
+    # @see https://data.humdata.org/api/3/action
+    #      /package_show?id=hxl-core-schemas
+    urn_hxl9 = cast_urn('urn:data:xz:hxl:std:core:hashtag').prepare()
+    print(urn_hxl9, urn_hxl9.about())
+    # Site: data.humdata.org
+    # Dataset id: hxl-core-schemas
+    # Dataset resource name: hxl-core-hashtag-schema.csv
+    urn_hxl10 = cast_urn('urn:data:xz:__data.humdata.org__:hxl-core-schemas:hxl-core-hashtag-schema.csv').prepare()
+    print(urn_hxl10, urn_hxl10.about())
+    urn_hxl11 = cast_urn('urn:data--d--ckan:xz:__data.humdata.org__:hxl-core-schemas:hxl-core-hashtag-schema.csv').prepare()
+    print(urn_hxl11, urn_hxl11.about())
 
     assert urn_locode1.nid == 'data'
     assert urn_locode2.nid == 'data'

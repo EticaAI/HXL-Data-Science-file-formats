@@ -272,8 +272,19 @@ Maybe?
     #   - urn:data--i:
     #   - urn:data--p:
 
-    nid_attr: InitVar[str] = 'd'  # Example: 'i' on 'urn:data--i:un:locode'
-    nid_attr_spliter: InitVar[str] = '--'  # Example: '--' on 'urn:data--i:'
+    #: The default concept of 'urn:data' is about datasets (nid_attr = 'd')
+    nid_attr: InitVar[str] = 'd'
+    # nid_attr example:
+    #   - 'i' on 'urn:data--i:un:locode' (information about how to get this)
+    #   - 'p' on 'urn:data--i:un:locode' (acceptable-policy-usage)
+
+    # #: If more than one attribute is given
+    # nid_attr_all: InitVar[list] = ['d']
+
+    nid_attr_spliter: InitVar[str] = '--'
+    # nid_attr_spliter example
+    #   - '--' on 'urn:data--i:'
+    #   - '--' on 'urn:data--d--ckan:' (not implemented, may be deprecated)
 
     #: Baseline parser global identifier (ISO 3166-1 alpha-2)
     bpgp: InitVar[str] = ''
@@ -351,6 +362,10 @@ Maybe?
         about['bpln'] = self.bpln
         if self.bpln_isdn:
             about['bpln_isdn'] = self.bpln_isdn
+
+        # if self.nid_attr_all != ['d']:
+        #     about['nid_attr_all'] = self.nid_attr_all
+
         about['nss'] = self.nss
 
         # # print('_', _)
@@ -425,6 +440,18 @@ Maybe?
                     self.nid_attr_spliter)
             else:
                 self.nid = parts[1].lower()
+
+            # if parts[1].lower().find(self.nid_attr_spliter) != -1:
+            #     print('')
+            #     print('')
+            #     parts2 = parts[1].lower().split(self.nid_attr_spliter)
+            #     self.nid = parts2.pop()
+            #     print('self.nidaaaaaaaaaaaaaaaaa', self.nid)
+            #     self.nid_attr = parts2[0]
+            #     self.nid_attr_all = parts2
+            #     # parts[1].lower().split(self.nid_attr_spliter)
+            # else:
+            #     self.nid = parts[1].lower()
 
             self.bpgp, self.bpln, *_ = self.nss.split(":")
             # print('_', _)

@@ -128,11 +128,16 @@ class URNResolver:
         """
 
         urn_item = HUrn.cast_urn(urn=args.infile)
+        urn_item.prepare()
         # valt = HUrnUtil.get_urn_vault_local_info('un', 'locode')
         HUrnUtil.debug_local_data('un', 'locode')
+        HUrnUtil.get_urn_vault_local_info(urn_item)
 
         # print('valt', valt)
         print(args.infile, urn_item)
+        print('about', urn_item.about())
+        print('about base_paths', urn_item.about('base_paths'))
+        print('about object_names', urn_item.about('object_names'))
 
         # print('args', args)
         # print('args', args)

@@ -3,7 +3,15 @@
 
 import os
 
-__all__ = ['get_urn_vault_local_info']
+from typing import (
+    Type
+)
+
+from hxlm.core.htype.urn import (
+    GenericUrnHtype
+)
+
+__all__ = ['get_urn_vault_local_info', 'get_urn_vault_local_info']
 
 
 # TODO: move these variables to somewere else
@@ -44,6 +52,9 @@ HXLM_DATA_VAULT_BASE_ACTIVE = os.getenv(
 # _HXLM_BASE = str(Path.home() + "/.config/hxlm/"
 # HXLM_CORE_URN_DATA_BASE_DEFAULT = str(Path.home() + "/.config/hxlm/urn/data/"
 
+# ./hxlm/core/bin/urnresolver.py urn:data:xz:eticaai:pcode:br
+# ./hxlm/core/bin/urnresolver.py urn:data:xz:hxl:std:core:hashtag
+
 def is_urn_data_prepared(exact_path: str = None, required: bool = False):
     if exact_path:
         if not os.path.exists(exact_path) and required:
@@ -74,10 +85,10 @@ def debug_local_data(judistiction: str, organization: str):
     print('TODO: get_urn_vault_local_info', judistiction, organization)
 
 
-def get_urn_vault_local_info(judistiction: str, organization: str):
+def get_urn_vault_local_info(urn: Type[GenericUrnHtype]):
     print('HXLM_CONFIG_BASE', HXLM_CONFIG_BASE)
     print('HXLM_DATA_POLICY_BASE', HXLM_DATA_POLICY_BASE)
     print('HXLM_DATA_VAULT_BASE', HXLM_DATA_VAULT_BASE)
     print('HXLM_DATA_VAULT_BASE_ALT', HXLM_DATA_VAULT_BASE_ALT)
     print('HXLM_DATA_VAULT_BASE_ACTIVE', HXLM_DATA_VAULT_BASE_ACTIVE)
-    print('TODO: get_urn_vault_local_info', judistiction, organization)
+    print('TODO: urn', urn)
