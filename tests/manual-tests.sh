@@ -230,6 +230,9 @@ antlr4 -Dlanguage=Python3 /workspace/git/EticaAI/HXL-Data-Science-file-formats/t
 # https://pypi.org/project/antlr4-python3-runtime/#files
 # pip3 install antlr4-python3-runtime
 
+#### instantparse _____________________________________________________________
+clojure -X tests/grammar/instaparse-abnf_test.cljc
+
 # TODO: https://stackoverflow.com/questions/25136463/how-print-parse-tree-using-python2-runtime-with-antlr4?rq=1#comment39129827_25137278
 # TODO: https://github.com/antlr/grammars-v4/tree/master/doiurl
 # TODO: https://github.com/antlr/antlr4/blob/master/doc/python-target.md

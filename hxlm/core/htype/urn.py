@@ -215,6 +215,24 @@ abnfgen /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/GRAMMAR
 
 https://github.com/antlr/antlr4/blob/master/doc/getting-started.md
 
+
+Maybe?
+- comparisons
+  - https://en.wikipedia.org/wiki/Comparison_of_parser_generators
+- BNF,EBNF & ABNF
+  - https://github.com/igochkov/vscode-ebnf
+  - https://github.com/kaby76/AntlrVSIX/
+    - Requires run on Windows (but is more complete)
+  - https://dwheeler.com/essays/dont-use-iso-14977-ebnf.html
+  - https://www.grammarware.net/text/2012/bnf-was-here.pdf
+  - https://condor.depaul.edu/ichu/csc447/notes/wk3/BNF.pdf
+  - https://github.com/erikrose/parsimonious
+  - https://github.com/lys-lang/node-ebnf
+- Generic
+  - https://github.com/Engelberg/instaparse
+    - https://github.com/taoroalin/instaparseVScode
+    - https://github.com/Engelberg/instaparse/blob/master/docs/ABNF.md
+
     Args:
         GenericUrnHtype (GenericUrnHtype): The UrnHtype to extend
     """
