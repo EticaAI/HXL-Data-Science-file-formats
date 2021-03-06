@@ -71,8 +71,8 @@ def cast_urn(urn: Union[str,
     urn_lower = urn.lower()
 
     if urn_lower.startswith('urn:data:') or \
-            urn_lower.startswith('urn:data-i:') or \
-            urn_lower.startswith('urn:data-p:'):
+            urn_lower.startswith('urn:data--i:') or \
+            urn_lower.startswith('urn:data--p:'):
         return DataUrnHtype(value=urn)
 
     if urn_lower.startswith('urn:x-hdp:') or urn_lower.startswith('urn:hdp:'):
@@ -128,6 +128,10 @@ class GenericUrnHtype:
     #: the namespace identifier, and may include letters, digits, and -.
     nid: InitVar[str] = None  # Example: 'ietf' on 'urn:ietf:rfc:2141'
 
+    # Used by DataUrnHtype
+    # nid_attr: InitVar[str] = None  # Example: 'i' on 'urn:data--i:un:locode'
+    # nid_attr_spliter: InitVar[str] = '--'  # Example: '--' on 'urn:data--i:'
+
     #: <NSS> is the Namespace Specific String
     nss: InitVar[str] = None  # Example: 'rfc:2141' on 'urn:ietf:rfc:2141'
 
@@ -136,6 +140,24 @@ class GenericUrnHtype:
 
     #: The string value of the URN
     value: str = None
+
+    def about(self, key: str = None):
+        """Quick summary of the current object.
+
+        Args:
+            key (str, optional): Exact key to return.
+
+        Returns:
+            dict|Any: Simple python dictionary
+        """
+        about = {}
+        about['nid'] = self.nid
+        about['nss'] = self.nss
+        if key:
+            if key in about:
+                return about[key]
+            return None
+        return about
 
     def prepare(self, strict: bool = True):
         """Prepare the current URN NSS (Namespace Specific String)
@@ -232,12 +254,64 @@ Maybe?
   - https://github.com/Engelberg/instaparse
     - https://github.com/taoroalin/instaparseVScode
     - https://github.com/Engelberg/instaparse/blob/master/docs/ABNF.md
+- Lark
+  - https://github.com/lark-parser/lark
+  - https://marketplace.visualstudio.com/items?itemName=dirk-thomas.vscode-lark
+  - https://lark-parser.github.io/lark/ide/app.html
+- Generic online quick parser for EBNF
+  - https://planetcalc.com/6385/
+    - Take examples from
+      - en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form
 
     Args:
         GenericUrnHtype (GenericUrnHtype): The UrnHtype to extend
     """
 
-    valid_prefix: str = 'urn:data:'
+    valid_prefix: InitVar[str] = 'urn:data'
+    # valid_prefix examples needs to accept like:
+    #   - 'urn:data:' and 'urn:data--d' (implicit, default of 'urn:data:)
+    #   - urn:data--i:
+    #   - urn:data--p:
+
+    nid_attr: InitVar[str] = 'd'  # Example: 'i' on 'urn:data--i:un:locode'
+    nid_attr_spliter: InitVar[str] = '--'  # Example: '--' on 'urn:data--i:'
+
+    #: Baseline parser global identifier
+    bpgp: InitVar[str] = ''
+    # bpgp examples
+    #   - 'un' on 'urn:data--i:un:locode'
+    #   - 'xz' on 'urn:data--i:xz:hxlcplp:fod:bool'
+
+    #: Baseline parser localized identifier
+    bpln: InitVar[str] = ''
+    # bpln examples
+    #   - 'locode' on 'urn:data--i:un:locode'
+    #   - 'hxlcplp' on 'urn:data--i:xz:hxlcplp:fod:bool'
+
+    bpnss: InitVar[str] = ''
+    # bpln examples
+    #   - '' on 'urn:data--i:un:locode'
+    #   - 'fod:bool' on 'urn:data--i:xz:hxlcplp:fod:bool'
+
+    def about(self, key: str = None):
+        """Quick summary of the current object.
+
+        Args:
+            key (str, optional): Exact key to return.
+
+        Returns:
+            dict|Any: Simple python dictionary
+        """
+        about = {}
+        about['nid'] = self.nid
+        about['nid_attr'] = self.nid_attr
+        about['bpgp'], about['bpln'], *_ = self.nss.split(":")
+        about['nss'] = self.nss
+        if key:
+            if key in about:
+                return about[key]
+            return None
+        return about
 
     def get_resolver_documentation(self) -> dict:
         result = {
@@ -272,6 +346,38 @@ Maybe?
             'message': "No specific result found. Try manually with the urls",
         }
         return result
+
+    def prepare(self, strict: bool = True):
+        """Prepare the current URN NSS (Namespace Specific String) for urn:data
+
+        Args:
+            strict (bool, optional): If raise SyntaxError. Defaults to True.
+
+        Raises:
+            SyntaxError: raise if the value is not valid
+
+        Returns:
+            [self, False]: Return self (allow chaining) or false if less strict
+        """
+        if self.is_valid():
+            parts = self.value.split(':')
+            self.nss = self.value.replace('urn:' + parts[1] + ':', '', 1)
+
+            if parts[1].lower().find(self.nid_attr_spliter) != -1:
+                self.nid, self.nid_attr = parts[1].lower().split(
+                    self.nid_attr_spliter)
+            else:
+                self.nid = parts[1].lower()
+
+            self.nss_parsed['nid'] = self.nid
+            self.nss_parsed['nss'] = self.nss
+            # self.nss_parsed['_raw'] = self.nss
+        elif strict:
+            raise SyntaxError(self.value + ' not is_valid()')
+        else:
+            return False
+
+        return self
 
 # TODO: check some nice way to work with dataclasses allowing override
 #       valid_prefix.
