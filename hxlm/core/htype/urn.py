@@ -300,6 +300,40 @@ Maybe?
     #   - '' on 'urn:data--i:un:locode'
     #   - 'fod:bool' on 'urn:data--i:xz:hxlcplp:fod:bool'
 
+    def _search_paths(self):
+        """Return list of search paths to look for this object
+
+        If you are not only searching, but trying automate save an object,
+        then consider the first result as ideal one.
+
+        Returns:
+            list: list of (default) search paths
+        """
+        paths = []
+        if not self.bpln_isdn:
+            paths.append(self.bpgp + '/' + self.bpln + '/')
+        else:
+            paths.append(self.bpgp + '/' + self.bpln + '/')
+
+        return paths
+
+    def _search_object_names(self):
+        """Return list of search object names to look (without file extension)
+
+        If you are not only searching, but trying automate save an object,
+        then consider the first result as ideal one.
+
+        Returns:
+            list: list of (default) search object names
+        """
+        paths = []
+        if not self.bpln_isdn:
+            paths.append(self.bpln)
+        else:
+            paths.append(self.bpln)
+
+        return paths
+
     def about(self, key: str = None):
         """Quick summary of the current object.
 
@@ -312,13 +346,25 @@ Maybe?
         about = {}
         about['nid'] = self.nid
         about['nid_attr'] = self.nid_attr
-        about['bpgp'], about['bpln'], *_ = self.nss.split(":")
-        if about['bpln'].find('__') != -1:
-            about['bpln'] = about['bpln'].replace('__', '')
-            self.bpln_isdn = True
+        # about['bpgp'], about['bpln'], *_ = self.nss.split(":")
+        about['bpgp'] = self.bpgp
+        about['bpln'] = self.bpln
+        if self.bpln_isdn:
             about['bpln_isdn'] = self.bpln_isdn
         about['nss'] = self.nss
+
+        # # print('_', _)
+        # if about['bpln'].find('__') != -1:
+        #     about['bpln'] = about['bpln'].replace('__', '')
+        #     self.bpln_isdn = True
+        #     about['bpln_isdn'] = self.bpln_isdn
         if key:
+            # We don't expose search paths by default. uses need to call
+            # myurn.about('base_paths')
+            if key == 'base_paths':
+                return self._search_paths()
+            if key == 'object_names':
+                return self._search_object_names()
             if key in about:
                 return about[key]
             return None
@@ -379,6 +425,12 @@ Maybe?
                     self.nid_attr_spliter)
             else:
                 self.nid = parts[1].lower()
+
+            self.bpgp, self.bpln, *_ = self.nss.split(":")
+            # print('_', _)
+            if self.bpln.find('__') != -1:
+                self.bpln = self.bpln.replace('__', '')
+                self.bpln_isdn = True
 
             self.nss_parsed['nid'] = self.nid
             self.nss_parsed['nss'] = self.nss
