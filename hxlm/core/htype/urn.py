@@ -25,7 +25,6 @@ Other libraries to see
 #       @see https://tools.ietf.org/html/rfc6920
 #       (Emerson Rocha, 2021-03-05 16:57 UTC)
 
-
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
@@ -276,17 +275,25 @@ Maybe?
     nid_attr: InitVar[str] = 'd'  # Example: 'i' on 'urn:data--i:un:locode'
     nid_attr_spliter: InitVar[str] = '--'  # Example: '--' on 'urn:data--i:'
 
-    #: Baseline parser global identifier
+    #: Baseline parser global identifier (ISO 3166-1 alpha-2)
     bpgp: InitVar[str] = ''
     # bpgp examples
+    #   - 'br' on 'urn:data:br:sus:covid-19-vacinacao'
     #   - 'un' on 'urn:data--i:un:locode'
     #   - 'xz' on 'urn:data--i:xz:hxlcplp:fod:bool'
 
     #: Baseline parser localized identifier
     bpln: InitVar[str] = ''
     # bpln examples
+    #   - 'sus' on 'urn:data:br:sus:covid-19-vacinacao'
+    #   -  for 'urn:data:br:__saude.gov.br__:covid-19-vacinacao'
+    #     - bpln is ''saude.gov.br'
+    #     - bpln_isdn is True
     #   - 'locode' on 'urn:data--i:un:locode'
     #   - 'hxlcplp' on 'urn:data--i:xz:hxlcplp:fod:bool'
+
+    #: Baseline parser localized identifier was an domain name?
+    bpln_isdn: InitVar[bool] = False
 
     bpnss: InitVar[str] = ''
     # bpln examples
@@ -306,6 +313,10 @@ Maybe?
         about['nid'] = self.nid
         about['nid_attr'] = self.nid_attr
         about['bpgp'], about['bpln'], *_ = self.nss.split(":")
+        if about['bpln'].find('__') != -1:
+            about['bpln'] = about['bpln'].replace('__', '')
+            self.bpln_isdn = True
+            about['bpln_isdn'] = self.bpln_isdn
         about['nss'] = self.nss
         if key:
             if key in about:

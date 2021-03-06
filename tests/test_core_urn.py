@@ -101,6 +101,7 @@ def test_core_htype_urn_cast_a():
     assert urn_hdp1.nid == 'x-hdp'
     assert urn_hdp2.nid == 'x-hdp'
 
+
 def test_core_htype_urn_cast_b():
     urn_unlocode1 = cast_urn('urn:data--i:un:locode')
     urn_unlocode1.prepare()
@@ -108,10 +109,41 @@ def test_core_htype_urn_cast_b():
     urn_unlocode2.prepare()
     urn_unlocode3 = cast_urn('urn:data:un:locode')
     urn_unlocode3.prepare()
+    urn_hxlcplp4 = cast_urn('urn:data--i:xz:hxlcplp:fod:bool')
+    urn_hxlcplp4.prepare()
+    urn_brsus5 = cast_urn('urn:data:br:__saude.gov.br__:covid-19-vacinacao')
+    urn_brsus5.prepare()
+
+    # Note: there are some randon URLs from
+    # http://www.i18nguy.com/markup/idna-examples.html meant to be used
+    # just to see if the library dont break on non-ASCII.
+    # TODO: make it stop breaking with non-ASCII
+    # http://中国.icom.museum
+    urn_unicodetest6 = cast_urn('urn:data-i:cn:__com.museum__:test')
+    urn_unicodetest6.prepare()
+    # http://россия.иком.museum
+    urn_unicodetest7 = cast_urn('urn:data-i:ru:__россия.иком.museum__:test')
+    urn_unicodetest7.prepare()
+    # http://مصر.icom.museum
+    urn_unicodetest8 = cast_urn('urn:data-i:eg:__مصر.icom.museum__:test')
+    urn_unicodetest8.prepare()
+
+    # http://www.i18nguy.com/markup/idna-examples.html
 
     print(urn_unlocode1, urn_unlocode1.about())
     print(urn_unlocode2, urn_unlocode2.about())
     print(urn_unlocode3, urn_unlocode3.about())
+    print(urn_hxlcplp4, urn_hxlcplp4.about())
+    print(urn_brsus5, urn_brsus5.about())
+    print(urn_unicodetest6, urn_unicodetest6.about())
+    print(urn_unicodetest7, urn_unicodetest7.about())
+    print(urn_unicodetest8, urn_unicodetest8.about())
+
+    assert urn_unlocode1.nid == 'data'
+    assert urn_unlocode2.nid == 'data'
+    assert urn_unlocode1.nid_attr == 'i'
+    assert urn_unlocode3.nid_attr == 'd'
+    # assert urn_unlocode5.nid_attr == 'd'
 
     # urn_ietf_teapot = cast_urn('urn:ietf:rfc:2324')
 
@@ -134,6 +166,9 @@ def test_core_htype_urn_cast_b():
 
 
 test_core_htype_urn_cast_b()
+
+# TODO:
+#  - https://opendatasus.saude.gov.br/dataset/covid-19-vacinacao
 
 # Perfect result:
 #     https://data.humdata.org/dataset
