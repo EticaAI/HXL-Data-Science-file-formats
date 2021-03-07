@@ -117,6 +117,24 @@ class URNResolver:
                          "Resource Name (URI) to Uniform Resource " +
                          "Identifier (URI)"))
 
+        parser.add_argument(
+            '--debug',
+            help='instead of return the result, do full debug',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        parser.add_argument(
+            '--config',
+            help='instead of return the result, do full debug',
+            metavar='config_file',
+            type=str,
+            # action='store_const',
+            # const=True,
+            default=False
+        )
+
         self.args = parser.parse_args()
         return self.args
 
@@ -127,17 +145,22 @@ class URNResolver:
         called will convert the HXL source to example format.
         """
 
+        # print('args', args)
         urn_item = HUrn.cast_urn(urn=args.infile)
         urn_item.prepare()
-        # valt = HUrnUtil.get_urn_vault_local_info('un', 'locode')
-        HUrnUtil.debug_local_data('un', 'locode')
-        HUrnUtil.get_urn_vault_local_info(urn_item)
 
-        # print('valt', valt)
-        print(args.infile, urn_item)
-        print('about', urn_item.about())
-        print('about base_paths', urn_item.about('base_paths'))
-        print('about object_names', urn_item.about('object_names'))
+        if 'debug' in args and args.debug:
+            # valt = HUrnUtil.get_urn_vault_local_info('un', 'locode')
+            HUrnUtil.debug_local_data('un', 'locode')
+            HUrnUtil.get_urn_vault_local_info(urn_item)
+
+            # print('valt', valt)
+            print(args.infile, urn_item)
+            print('about', urn_item.about())
+            print('about base_paths', urn_item.about('base_paths'))
+            print('about object_names', urn_item.about('object_names'))
+        
+        print(urn_item.get_resources())
 
         # print('args', args)
         # print('args', args)
