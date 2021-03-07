@@ -211,7 +211,7 @@ def test_core_htype_urn_cast_b():
     # assert urn_hdp1.nid == 'x-hdp'
     # assert urn_hdp2.nid == 'x-hdp'
     # assert resul2 is False
-# get_urn_resolver_local('/workspace/git/EticaAI/HXL-Data-Science-file-formats/tests/urnresolver/all-in-same-dir')
+get_urn_resolver_local('/workspace/git/EticaAI/HXL-Data-Science-file-formats/tests/urnresolver/all-in-same-dir')
 
 # test_core_htype_urn_cast_b()
 

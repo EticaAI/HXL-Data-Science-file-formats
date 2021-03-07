@@ -2,6 +2,7 @@
 """
 
 import os
+import csv
 from pathlib import Path
 # import glob
 
@@ -36,8 +37,27 @@ HXLM_DATA_VAULT_BASE_ALT = os.getenv('HXLM_DATA_VAULT_BASE_ALT')
 HXLM_DATA_VAULT_BASE_ACTIVE = os.getenv(
     'HXLM_DATA_VAULT_BASE_ACTIVE', HXLM_DATA_VAULT_BASE)
 
-#: HXLM_DATA_URN_EXTENSIONS Must be a python truple
+
 HXLM_DATA_URN_EXTENSIONS = ('urn.csv', 'urn.json', 'urn.yml', 'urn.txt')
+"""HXLM_DATA_URN_EXTENSIONS Must be a python truple"""
+
+HXLM_DATA_URN_EXTENSIONS_ENCRYPTED = (
+    'urn.csv.enc', 'urn.csv.gpg',
+    'urn.json.enc', 'urn.json.gpg',
+    'urn.yml.enc', 'urn.yml.gpg',
+    'urn.txt.enc', 'urn.txt.gpg'
+)
+"""HXLM_DATA_URN_EXTENSIONS equivalent when encrypted.
+While implementation is out of scope of this library (and even the cli
+helper urnresolver) these naming conventions can be used when need to
+encrypt even the urn resolvers at rest (or have no option but let an
+public accessible URL online.)
+
+The HXLM_DATA_URN_EXTENSIONS_ENCRYPTED can be used to an quick check if
+some place explicitly point to an remote URN and the end of path ends with
+this. So implementations can at least show an error like
+'Access to this resource need manual intervetion by the user'
+"""
 
 # import json
 # import yaml
@@ -87,29 +107,63 @@ def get_urn_vault_local_info(urn: Type[GenericUrnHtype]):
     print('TODO: urn', urn)
 
 
+def get_urn_resolver_from_csv(urn_file: str,
+                              delimiter: str = ',') -> List[dict]:
+    with open(urn_file, 'r') as open_urn_file:
+        x = csv.reader(open_urn_file)
+        print('get_urn_resolver_from_csv')
+        print(x, list(x))
+    # pass
+
+
 def get_urn_resolver_local(local_file_or_path: str,
                            required: bool = False) -> List[str]:
-    # urn.csv, urn.json, urn.yml, example.urn.csv, etc-123.urn.json, ...
-    result = []
+    """From an exact local file or an folder, return URN resolver dictionary
+
+    Args:
+        local_file_or_path (str): Local file on disk or an folder to search
+                                  (not recursive search)
+        required (bool, optional): Raise error on missing. Defaults to False.
+
+    Raises:
+        RuntimeError: [description]
+
+    Returns:
+        List[str]: [description]
+    """
+    result_files = []
     if Path(local_file_or_path).is_dir():
         basepath = local_file_or_path
     elif Path(local_file_or_path).is_file():
-        result.append(Path(local_file_or_path).read_text())
-        return result
+        result_files.append(Path(local_file_or_path).read_text())
+        return result_files
     elif required:
         raise RuntimeError(
             'local_file_or_path [' + local_file_or_path + '] not found')
 
     # pitr = Path(basepath)
     pitr = Path(basepath).glob('*')
+    # result_files_ = []
     for file_ in pitr:
-        print('file_', file_)
-        print('file_ start', str(file_).startswith('~'))
-        print('file_ ends with csv', str(file_).endswith('.csv'))
-        print('file_ ends with HXLM_DATA_URN_EXTENSIONS',
-              str(file_).endswith(HXLM_DATA_URN_EXTENSIONS))
-        if str(file_).startswith('~'):
+        # print('file_', file_)
+        # print('file_ start ~', str(file_.name).startswith('~'))
+        # print('file_ ends with csv', str(file_).endswith('.csv'))
+        # print('file_ ends with HXLM_DATA_URN_EXTENSIONS',
+        #       str(file_).endswith(HXLM_DATA_URN_EXTENSIONS))
+        if str(file_.name).startswith('~'):
+            print('skiping ', str(file_))
             continue
+        if str(file_.name).endswith(HXLM_DATA_URN_EXTENSIONS):
+            result_files.append(str(file_))
+
+    # print('result_files', result_files)
+    print('sorted result_files', sorted(result_files))
+    the_thing = []
+    for filepath in result_files:
+        if filepath.endswith('.csv'):
+            the_thing.append(get_urn_resolver_from_csv(filepath))
+
+    return result_files
 
     # print('pitr', pitr)
     # # print('list(pitr)', list(pitr))
