@@ -38,11 +38,13 @@ HXLM_DATA_VAULT_BASE_ACTIVE = os.getenv(
     'HXLM_DATA_VAULT_BASE_ACTIVE', HXLM_DATA_VAULT_BASE)
 
 
-HXLM_DATA_URN_EXTENSIONS = ('urn.csv', 'urn.json', 'urn.yml', 'urn.txt')
+HXLM_DATA_URN_EXTENSIONS = ('urn.csv', 'urn.tsv',
+                            'urn.json', 'urn.yml', 'urn.txt')
 """HXLM_DATA_URN_EXTENSIONS Must be a python truple"""
 
 HXLM_DATA_URN_EXTENSIONS_ENCRYPTED = (
     'urn.csv.enc', 'urn.csv.gpg',
+    'urn.tsv.enc', 'urn.tsv.gpg',
     'urn.json.enc', 'urn.json.gpg',
     'urn.yml.enc', 'urn.yml.gpg',
     'urn.txt.enc', 'urn.txt.gpg'
@@ -109,11 +111,43 @@ def get_urn_vault_local_info(urn: Type[GenericUrnHtype]):
 
 def get_urn_resolver_from_csv(urn_file: str,
                               delimiter: str = ',') -> List[dict]:
+    """Parse an local CSV/TSV/TAB file to be used to resolve URNs
+
+    TODO: we're doing an lazy way to check if the file is valid
+          by assuming first row is an URN exact column and the
+          second is the remote source URL. While this is flexible
+          and works, it's obvously less strict than the definitions
+          of the file formats and eventually could (or not) be improved
+          to avoid people using this less strict way just because the
+          software allow it.
+          (Emerson Rocha, 2021-03-07 17:03)
+
+    Args:
+        urn_file (str): Path to an local CSV/TSV/TAB file
+        delimiter (str, optional): [description]. Defaults to ','.
+
+    Returns:
+        List[dict]: parsed result of the current file
+    """
+    result = []
     with open(urn_file, 'r') as open_urn_file:
-        x = csv.reader(open_urn_file)
-        print('get_urn_resolver_from_csv')
-        print(x, list(x))
-    # pass
+        csvreader = csv.reader(open_urn_file, delimiter=delimiter)
+        for row in csvreader:
+            print('row', delimiter, row)
+            # print('row', row[0], row[1], row)
+            if not row[0].startswith('urn:'):
+                # print('get_urn_resolver_from_csv skiping...')
+                continue
+
+            item = {
+                'key': row[0],
+                'source_remote': row[1]
+            }
+            result.append(item)
+
+        # print('get_urn_resolver_from_csv')
+        # print(csvreader, list(csvreader))
+    return result
 
 
 def get_urn_resolver_local(local_file_or_path: str,
@@ -162,32 +196,10 @@ def get_urn_resolver_local(local_file_or_path: str,
     for filepath in result_files:
         if filepath.endswith('.csv'):
             the_thing.append(get_urn_resolver_from_csv(filepath))
+        elif filepath.endswith('.tsv'):
+            the_thing.append(get_urn_resolver_from_csv(filepath, '\t'))
 
     return result_files
-
-    # print('pitr', pitr)
-    # # print('list(pitr)', list(pitr))
-    # print('list(pitr.glob(*)', list(pitr.glob('*')))
-
-    # files_ = Path(lpath).glob('*urn.[csv|json|yml]')
-    # files_ = [Path(lpath).glob('*urn.csv')
-    # files_ = Path(lpath).glob('*.[csv][xl][ts]*')
-    # files_ = Path(lpath).glob('*.{json}')
-    # urnfiles = []
-
-    # for file_ in
-
-    # exts = ["urn.csv", ".json", ".yml", ".urn.txt", ".ppt"]
-    # files_ = (str(i) for i in map(Path, os.listdir(lpath))
-    #             print('i', i)
-    #           if i.suffix.lower() in exts and not i.stem.startswith("~"))
-
-    # print('filelist', filelist)
-
-    # files = [p for p in Path(mainpath).iterdir() if p.suffix in exts]
-    # files_ = Path(lpath).glob('*.json')
-    # for file_ in files_:
-    #     print('files', file_)
 
 
 def get_urn_resolver_remote(iri_or_domain: str,
