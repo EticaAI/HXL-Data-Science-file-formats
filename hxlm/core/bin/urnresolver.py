@@ -126,13 +126,14 @@ class URNResolver:
         )
 
         parser.add_argument(
-            '--config',
-            help='instead of return the result, do full debug',
-            metavar='config_file',
+            '--urn-file',
+            help='URN Resolver file to read config (accept multiple commands)',
+            metavar='urn_index_files',
             type=str,
+            action='append'
             # action='store_const',
             # const=True,
-            default=False
+            # default=False
         )
 
         self.args = parser.parse_args()
@@ -155,11 +156,13 @@ class URNResolver:
             HUrnUtil.get_urn_vault_local_info(urn_item)
 
             # print('valt', valt)
-            print(args.infile, urn_item)
+            print('args', args)
+            print('args.infile', args.infile)
+            print('urn_item', urn_item)
             print('about', urn_item.about())
             print('about base_paths', urn_item.about('base_paths'))
             print('about object_names', urn_item.about('object_names'))
-        
+
         print(urn_item.get_resources())
 
         # print('args', args)

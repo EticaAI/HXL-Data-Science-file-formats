@@ -1,0 +1,11 @@
+# See https://github.com/EticaAI/HXL-Data-Science-file-formats
+# Maybe something like https://developers.google.com/search/docs/advanced/robots/create-robots-txt ?
+# (Emerson Rocha, 2021-03-03 07 12:12 UTC)
+
+User-agent: *
+User-authentication: *
+URN-file: https://example.org/.well-known/urn/urn.csv
+
+User-agent: *
+User-authentication: True
+URN-file: https://example.org/.well-known/urn-restricted/urn.csv

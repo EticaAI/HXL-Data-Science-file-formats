@@ -117,10 +117,12 @@ def test_core_htype_urn_cast_b():
 
     # https://opendatasus.saude.gov.br/dataset/covid-19-vacinacao
 
-    urn_brsus5b = cast_urn('urn:data:br:__opendatasus.saude.gov.br__:__/dataset/covid-19-vacinacao__')
+    urn_brsus5b = cast_urn(
+        'urn:data:br:__opendatasus.saude.gov.br__:__/dataset/covid-19-vacinacao__')
     urn_brsus5b.prepare()
 
-    urn_brsus5c = cast_urn('urn:data:br:__opendatasus.saude.gov.br__:__dataset/covid-19-vacinacao__')
+    urn_brsus5c = cast_urn(
+        'urn:data:br:__opendatasus.saude.gov.br__:__dataset/covid-19-vacinacao__')
     urn_brsus5c.prepare()
 
     # Note: there are some randon URLs from meant to be used
@@ -175,9 +177,11 @@ def test_core_htype_urn_cast_b():
     # Site: data.humdata.org
     # Dataset id: hxl-core-schemas
     # Dataset resource name: hxl-core-hashtag-schema.csv
-    urn_hxl10 = cast_urn('urn:data:xz:__data.humdata.org__:hxl-core-schemas:hxl-core-hashtag-schema.csv').prepare()
+    urn_hxl10 = cast_urn(
+        'urn:data:xz:__data.humdata.org__:hxl-core-schemas:hxl-core-hashtag-schema.csv').prepare()
     print(urn_hxl10, urn_hxl10.about())
-    urn_hxl11 = cast_urn('urn:data--d--ckan:xz:__data.humdata.org__:hxl-core-schemas:hxl-core-hashtag-schema.csv').prepare()
+    urn_hxl11 = cast_urn(
+        'urn:data--d--ckan:xz:__data.humdata.org__:hxl-core-schemas:hxl-core-hashtag-schema.csv').prepare()
     print(urn_hxl11, urn_hxl11.about())
 
     assert urn_locode1.nid == 'data'
