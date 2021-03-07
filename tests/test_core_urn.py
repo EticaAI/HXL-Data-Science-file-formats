@@ -23,6 +23,9 @@ from hxlm.core.htype.urn import (
     HdpUrnHtype
 )
 
+from hxlm.core.schema.urn.util import (
+    get_urn_resolver_local
+)
 
 # def test_core_schema_urn_example_valid():
 #     example1 = 'urn:x-hdp:xz:eticaai:HXL-Data-Science-file-formats'
@@ -208,9 +211,9 @@ def test_core_htype_urn_cast_b():
     # assert urn_hdp1.nid == 'x-hdp'
     # assert urn_hdp2.nid == 'x-hdp'
     # assert resul2 is False
+# get_urn_resolver_local('/workspace/git/EticaAI/HXL-Data-Science-file-formats/tests/urnresolver/all-in-same-dir')
 
-
-test_core_htype_urn_cast_b()
+# test_core_htype_urn_cast_b()
 
 # TODO:
 #  - https://opendatasus.saude.gov.br/dataset/covid-19-vacinacao

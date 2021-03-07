@@ -20,20 +20,24 @@ from hxlm.core.htype.urn import (
 __all__ = ['get_urn_vault_local_info', 'get_urn_vault_local_info']
 
 
+_HOME = str(Path.home())
+
 # TODO: move these variables to somewere else
 HXLM_CONFIG_BASE = os.getenv(
-    'HXLM_CONFIG_BASE', os.getenv('HOME') + '/.config/hxlm/')
+    'HXLM_CONFIG_BASE', _HOME + '/.config/hxlm/')
 
 HXLM_DATA_POLICY_BASE = os.getenv(
-    'HXLM_DATA_POLICY_BASE', os.getenv('HOME') + '/.config/hxlm/policy/')
+    'HXLM_DATA_POLICY_BASE', _HOME + '/.config/hxlm/policy/')
 
 HXLM_DATA_VAULT_BASE = os.getenv(
-    'HXLM_DATA_VAULT_BASE', os.getenv('HOME') + '/.local/var/hxlm/data/')
+    'HXLM_DATA_VAULT_BASE', _HOME + '/.local/var/hxlm/data/')
 
 HXLM_DATA_VAULT_BASE_ALT = os.getenv('HXLM_DATA_VAULT_BASE_ALT')
 HXLM_DATA_VAULT_BASE_ACTIVE = os.getenv(
     'HXLM_DATA_VAULT_BASE_ACTIVE', HXLM_DATA_VAULT_BASE)
 
+#: HXLM_DATA_URN_EXTENSIONS Must be a python truple
+HXLM_DATA_URN_EXTENSIONS = ('urn.csv', 'urn.json', 'urn.yml', 'urn.txt')
 
 # import json
 # import yaml
@@ -56,6 +60,7 @@ HXLM_DATA_VAULT_BASE_ACTIVE = os.getenv(
 
 # ./hxlm/core/bin/urnresolver.py urn:data:xz:eticaai:pcode:br
 # ./hxlm/core/bin/urnresolver.py urn:data:xz:hxl:std:core:hashtag
+
 
 def debug_local_data():
     """[summary]
@@ -84,9 +89,10 @@ def get_urn_vault_local_info(urn: Type[GenericUrnHtype]):
 
 def get_urn_resolver_local(local_file_or_path: str,
                            required: bool = False) -> List[str]:
+    # urn.csv, urn.json, urn.yml, example.urn.csv, etc-123.urn.json, ...
     result = []
     if Path(local_file_or_path).is_dir():
-        lpath = local_file_or_path
+        basepath = local_file_or_path
     elif Path(local_file_or_path).is_file():
         result.append(Path(local_file_or_path).read_text())
         return result
@@ -94,10 +100,40 @@ def get_urn_resolver_local(local_file_or_path: str,
         raise RuntimeError(
             'local_file_or_path [' + local_file_or_path + '] not found')
 
-    # urn.csv, urn.json, urn.yml, example.urn.csv, etc-123.urn.json, ...
-    files = Path(lpath).glob('*urn.[csv|json|yml]')
+    # pitr = Path(basepath)
+    pitr = Path(basepath).glob('*')
+    for file_ in pitr:
+        print('file_', file_)
+        print('file_ start', str(file_).startswith('~'))
+        print('file_ ends with csv', str(file_).endswith('.csv'))
+        print('file_ ends with HXLM_DATA_URN_EXTENSIONS',
+              str(file_).endswith(HXLM_DATA_URN_EXTENSIONS))
+        if str(file_).startswith('~'):
+            continue
 
-    print('files', files)
+    # print('pitr', pitr)
+    # # print('list(pitr)', list(pitr))
+    # print('list(pitr.glob(*)', list(pitr.glob('*')))
+
+    # files_ = Path(lpath).glob('*urn.[csv|json|yml]')
+    # files_ = [Path(lpath).glob('*urn.csv')
+    # files_ = Path(lpath).glob('*.[csv][xl][ts]*')
+    # files_ = Path(lpath).glob('*.{json}')
+    # urnfiles = []
+
+    # for file_ in
+
+    # exts = ["urn.csv", ".json", ".yml", ".urn.txt", ".ppt"]
+    # files_ = (str(i) for i in map(Path, os.listdir(lpath))
+    #             print('i', i)
+    #           if i.suffix.lower() in exts and not i.stem.startswith("~"))
+
+    # print('filelist', filelist)
+
+    # files = [p for p in Path(mainpath).iterdir() if p.suffix in exts]
+    # files_ = Path(lpath).glob('*.json')
+    # for file_ in files_:
+    #     print('files', file_)
 
 
 def get_urn_resolver_remote(iri_or_domain: str,
