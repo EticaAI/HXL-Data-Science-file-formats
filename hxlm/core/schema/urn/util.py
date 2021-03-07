@@ -270,18 +270,34 @@ def get_urn_resolver_local(local_file_or_path: str,
     urn_rules_all = []
     for filepath in result_files:
         if filepath.endswith('.csv'):
-            urn_rules_all.append(get_urn_resolver_from_csv(filepath))
+            urn_rules_all.extend(get_urn_resolver_from_csv(filepath))
         elif filepath.endswith('.tsv'):
-            urn_rules_all.append(get_urn_resolver_from_csv(filepath, '\t'))
+            urn_rules_all.extend(get_urn_resolver_from_csv(filepath, '\t'))
         elif filepath.endswith('.txt'):
             # print('')
             # print('txt')
             # print('')
-            urn_rules_all.append(get_urn_resolver_from_csv(filepath, ':'))
+            urn_rules_all.extend(get_urn_resolver_from_csv(filepath, ':'))
         elif filepath.endswith('.json'):
-            urn_rules_all.append(get_urn_resolver_from_json(filepath))
+            urn_rules_all.extend(get_urn_resolver_from_json(filepath))
         elif filepath.endswith('.yml'):
-            urn_rules_all.append(get_urn_resolver_from_yml(filepath))
+            urn_rules_all.extend(get_urn_resolver_from_yml(filepath))
+
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('urn_rules_all', urn_rules_all)
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+    # print('')
+
+    if required and len(urn_rules_all) == 0:
+        raise RuntimeError(
+            '[' + local_file_or_path + '] without rules')
 
     # TODO: implement some clean up on the urn_rules_all, since may have
     #       repetitive instructions (Emerson Rocha, 2021-03-07 17:56)

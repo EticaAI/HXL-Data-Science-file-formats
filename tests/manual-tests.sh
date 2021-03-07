@@ -96,11 +96,14 @@ hxl2tab https://docs.google.com/spreadsheets/d/1Vqv6-EAdSHMSZvZtE426aXkDiwP8Mdrp
 
 hxlquickimporttab temp/titanic.tab | head
 
-
 ### hxl2encryption -------------------------------------------------------------
 hxl2encryption tests/files/iris_hxlated-csv.csv | head
 ### hxl2decryption -------------------------------------------------------------
 hxl2decryption tests/files/iris_hxlated-csv.csv | head
+
+### urnresolver ----------------------------------------------------------------
+hxlselect "$(urnresolver urn:data:xz:hxl:standard:core:hashtag --urn-file tests/urnresolver/all-in-same-dir/)" --query 'release_status=Released'
+hxlquickimport "$(urnresolver urn:data:xz:hxl:standard:core:hashtag --urn-file tests/urnresolver/all-in-same-dir/)"
 
 #### [meta issue] HXL and data directly from and to SQL databases #10 __________
 # @see https://docs.sqlalchemy.org/en/13/dialects/
