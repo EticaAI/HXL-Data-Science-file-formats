@@ -67,6 +67,11 @@
 #                 ├── attribute.csv
 #                 └── hashtag.csv
 
+# The data:
+#     ~/.local/var/hxlm/data
+# The default place for all individual URNs (excluding the index one)
+#     ~/.config/hxlm/urn
+
 import sys
 import os
 import logging
@@ -81,7 +86,7 @@ import hxl.filters
 import hxl.io
 
 import hxlm.core.htype.urn as HUrn
-import hxlm.core.schema.urn.util as HUrnUtil
+# import hxlm.core.schema.urn.util as HUrnUtil
 
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
@@ -143,25 +148,49 @@ class URNResolver:
                     stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
         """
         The execute_cli is the main entrypoint of URNResolver. When
-        called will convert the HXL source to example format.
+        called will try to convert the URN to an valid IRI.
         """
 
-        # print('args', args)
-        urn_item = HUrn.cast_urn(urn=args.infile)
-        urn_item.prepare()
+        # Test commands:
+        # urnresolver --debug urn:data:xz:hxl:standard:core:hashtag
+        # urnresolver urn:data:xz:hxl:standard:core:hashtag
+        #                --urn-file tests/urnresolver/all-in-same-dir/
 
         if 'debug' in args and args.debug:
-            # valt = HUrnUtil.get_urn_vault_local_info('un', 'locode')
-            HUrnUtil.debug_local_data('un', 'locode')
-            HUrnUtil.get_urn_vault_local_info(urn_item)
+            print('DEBUG: CLI args [[', args, ']]')
 
-            # print('valt', valt)
-            print('args', args)
-            print('args.infile', args.infile)
-            print('urn_item', urn_item)
-            print('about', urn_item.about())
-            print('about base_paths', urn_item.about('base_paths'))
-            print('about object_names', urn_item.about('object_names'))
+        # print('args', args)
+
+        urn_string = args.infile
+
+        urn_item = HUrn.cast_urn(urn=urn_string)
+        urn_item.prepare()
+
+        if 'urn_file' in args and len(args.urn_file) > 0:
+            print('TODO: try load default configurations')
+
+        if 'debug' in args and args.debug:
+            print('DEBUG: urn_item [[', urn_item, ']]')
+            print('DEBUG: urn_item.about() [[', urn_item.about(), ']]')
+            print('DEBUG: urn_item.about(base_paths) [[',
+                  urn_item.about('base_paths'), ']]')
+            print('DEBUG: urn_item.about(object_names) [[',
+                  urn_item.about('object_names'), ']]')
+
+        # if 'debug' in args and args.debug:
+        #     # valt = HUrnUtil.get_urn_vault_local_info('un', 'locode')
+        #     # HUrnUtil.debug_local_data('un', 'locode')
+        #     # HUrnUtil.get_urn_vault_local_info(urn_item)
+
+        #     # print('valt', valt)
+        #     # print('args', args)
+        #     print('args.infile', args.infile)
+        #     print('urn_item', urn_item)
+        #     print('about', urn_item.about())
+        #     print('about base_paths', urn_item.about('base_paths'))
+        #     print('about object_names', urn_item.about('object_names'))
+
+        stderr.write('ERROR: urn [' + urn_string + '] strict match not found')
 
         print(urn_item.get_resources())
 

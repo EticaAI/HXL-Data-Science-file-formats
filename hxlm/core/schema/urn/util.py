@@ -139,6 +139,11 @@ def get_urn_resolver_from_csv(urn_file: str,
     #       (aka lazy), but wrong (Emerson Rocha, 2021-03-07 17:25)
 
     result = []
+
+    # print('ttt', Path(urn_file).name)
+    urnref = Path(urn_file).name
+    # raise Exception(Path(urn_file).name)
+
     with open(urn_file, 'r') as open_urn_file:
         csvreader = csv.reader(open_urn_file, delimiter=delimiter)
         for row in csvreader:
@@ -151,7 +156,8 @@ def get_urn_resolver_from_csv(urn_file: str,
             item = {
                 'urn': row[0],
                 # 'source_remote': row[1]
-                'source': [row[1]]
+                'source': [row[1]],
+                'urnref': urnref
             }
             result.append(item)
 
@@ -173,8 +179,18 @@ def get_urn_resolver_from_json(urn_file: str) -> List[dict]:
     Returns:
         List[dict]: the resolver list of dictionaries to parse
     """
+
+    # To help filter with several sources of URNs, we add an urnref to allow
+    # filter on steps
+    urnref = Path(urn_file).name
+
     with open(urn_file, "r") as read_file:
         data = json.load(read_file)
+
+        for item in data:
+            if 'urnref' not in item:
+                item['urnref'] = urnref
+
         return data
     #     print('data', type(data), data)
 
@@ -194,11 +210,17 @@ def get_urn_resolver_from_yml(urn_file: str) -> List[dict]:
         List[dict]: the resolver list of dictionaries to parse
     """
 
-    # print('get_urn_resolver_from_yml')
+    # To help filter with several sources of URNs, we add an urnref to allow
+    # filter on steps
+    urnref = Path(urn_file).name
 
     with open(urn_file, "r") as read_file:
         data = yaml.safe_load(read_file)
         # print('get_urn_resolver_from_yml data', data)
+
+        for item in data:
+            if 'urnref' not in item:
+                item['urnref'] = urnref
         return data
 
 
