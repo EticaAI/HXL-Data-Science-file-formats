@@ -5,8 +5,8 @@
 #
 #         USAGE:  urnresolver urn:data:un:locode
 #                 urnresolver urn:data:un:locode
-#                 urnresolver urn:data:xz:hxl:std:core:hashtag
-#                 urnresolver urn:data:xz:hxl:std:core:attribute
+#                 urnresolver urn:data:xz:hxl:standard:core:hashtag
+#                 urnresolver urn:data:xz:hxl:standard:core:attribute
 #                 urnresolver urn:data:xz:eticaai:pcode:br
 #                 hxlquickimport $(urnresolver urn:data:xz:eticaai:pcode:br)
 #
@@ -39,9 +39,9 @@
 # mkdir "${HOME}/.config/hxlm/urn/data"
 
 # https://data.humdata.org/dataset/hxl-core-schemas
-# urnresolver urn:data:xz:hxl:std:core:hashtag
+# urnresolver urn:data:xz:hxl:standard:core:hashtag
 #    "$HOME/.config/hxlm/urn/data/xz/hxl/std/core/hashtag.csv"
-# urnresolver urn:data:xz:hxl:std:core:attribute
+# urnresolver urn:data:xz:hxl:standard:core:attribute
 #    "$HOME/.config/hxlm/urn/data/xz/hxl/std/core/attribute.csv"
 # urnresolver urn:data:un:locode
 #     "$HOME/.config/hxlm/urn/data/un/locode/locode.csv"

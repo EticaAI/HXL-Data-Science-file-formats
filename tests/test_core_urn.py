@@ -175,7 +175,7 @@ def test_core_htype_urn_cast_b():
 
     # @see https://data.humdata.org/api/3/action
     #      /package_show?id=hxl-core-schemas
-    urn_hxl9 = cast_urn('urn:data:xz:hxl:std:core:hashtag').prepare()
+    urn_hxl9 = cast_urn('urn:data:xz:hxl:standard:core:hashtag').prepare()
     print(urn_hxl9, urn_hxl9.about())
     # Site: data.humdata.org
     # Dataset id: hxl-core-schemas
@@ -211,7 +211,8 @@ def test_core_htype_urn_cast_b():
     # assert urn_hdp1.nid == 'x-hdp'
     # assert urn_hdp2.nid == 'x-hdp'
     # assert resul2 is False
-get_urn_resolver_local('/workspace/git/EticaAI/HXL-Data-Science-file-formats/tests/urnresolver/all-in-same-dir')
+
+# get_urn_resolver_local('/workspace/git/EticaAI/HXL-Data-Science-file-formats/tests/urnresolver/all-in-same-dir')
 
 # test_core_htype_urn_cast_b()
 

@@ -5,10 +5,10 @@
 #       (Emerson Rocha, 2021-03-06 20:01 UTC)
 
 # https://data.humdata.org/dataset/hxl-core-schemas
-- urn: "urn:data:xz:hxl:std:core:hashtag"
+- urn: "urn:data:xz:hxl:standard:core:hashtag"
   source:
     - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
-- urn: "urn:data:xz:hxl:std:core:attribute"
+- urn: "urn:data:xz:hxl:standard:core:attribute"
   source:
     - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=1810309357&single=true&output=csv
 - urn: "urn:data:xz:hxlcplp:fod:lang"

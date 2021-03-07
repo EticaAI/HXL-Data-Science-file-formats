@@ -3,6 +3,7 @@
 
 import os
 import csv
+import json
 from pathlib import Path
 # import glob
 
@@ -14,14 +15,17 @@ from typing import (
     List
 )
 
+import yaml
+
 from hxlm.core.htype.urn import (
     GenericUrnHtype
 )
 
-__all__ = ['get_urn_vault_local_info', 'get_urn_vault_local_info']
-
+# __all__ = ['get_urn_vault_local_info', 'get_urn_vault_local_info']
 
 _HOME = str(Path.home())
+
+_VERBOSE = 0
 
 # TODO: move these variables to somewere else
 HXLM_CONFIG_BASE = os.getenv(
@@ -81,7 +85,7 @@ this. So implementations can at least show an error like
 # HXLM_CORE_URN_DATA_BASE_DEFAULT = str(Path.home() + "/.config/hxlm/urn/data/"
 
 # ./hxlm/core/bin/urnresolver.py urn:data:xz:eticaai:pcode:br
-# ./hxlm/core/bin/urnresolver.py urn:data:xz:hxl:std:core:hashtag
+# ./hxlm/core/bin/urnresolver.py urn:data:xz:hxl:standard:core:hashtag
 
 
 def debug_local_data():
@@ -111,7 +115,7 @@ def get_urn_vault_local_info(urn: Type[GenericUrnHtype]):
 
 def get_urn_resolver_from_csv(urn_file: str,
                               delimiter: str = ',') -> List[dict]:
-    """Parse an local CSV/TSV/TAB file to be used to resolve URNs
+    """Parse an local CSV/TSV/TAB/TXT file to be used to resolve URNs
 
     TODO: we're doing an lazy way to check if the file is valid
           by assuming first row is an URN exact column and the
@@ -124,30 +128,78 @@ def get_urn_resolver_from_csv(urn_file: str,
 
     Args:
         urn_file (str): Path to an local CSV/TSV/TAB file
-        delimiter (str, optional): [description]. Defaults to ','.
+        delimiter (str, optional): CSV-like delimiter. Defaults to ','.
 
     Returns:
         List[dict]: parsed result of the current file
     """
+
+    # TODO: if an csv have two equivalent rules, convert back to an
+    #       JSON/YAML-like style. This part is not just optionated
+    #       (aka lazy), but wrong (Emerson Rocha, 2021-03-07 17:25)
+
     result = []
     with open(urn_file, 'r') as open_urn_file:
         csvreader = csv.reader(open_urn_file, delimiter=delimiter)
         for row in csvreader:
-            print('row', delimiter, row)
+            # print('row', delimiter, row)
             # print('row', row[0], row[1], row)
-            if not row[0].startswith('urn:'):
+            if len(row) < 2 or not row[0].startswith('urn:data'):
                 # print('get_urn_resolver_from_csv skiping...')
                 continue
 
             item = {
-                'key': row[0],
-                'source_remote': row[1]
+                'urn': row[0],
+                # 'source_remote': row[1]
+                'source': [row[1]]
             }
             result.append(item)
 
         # print('get_urn_resolver_from_csv')
         # print(csvreader, list(csvreader))
+    # print('result', result)
     return result
+
+
+def get_urn_resolver_from_json(urn_file: str) -> List[dict]:
+    """Parse an localJSON file to be used to resolve URNs
+
+    Both urn.json and urn.yml are already expected to be the internal format
+    so this check is a mere conversion.
+
+    Args:
+        urn_file (str): full path to local JSON file
+
+    Returns:
+        List[dict]: the resolver list of dictionaries to parse
+    """
+    with open(urn_file, "r") as read_file:
+        data = json.load(read_file)
+        return data
+    #     print('data', type(data), data)
+
+    # pass
+
+
+def get_urn_resolver_from_yml(urn_file: str) -> List[dict]:
+    """Parse an YAML file to be used to resolve URNs
+
+    Both urn.json and urn.yml are already expected to be the internal format
+    so this check is a mere conversion.
+
+    Args:
+        urn_file (str): full path to local YAML (.yml) file
+
+    Returns:
+        List[dict]: the resolver list of dictionaries to parse
+    """
+
+    # print('get_urn_resolver_from_yml')
+
+    with open(urn_file, "r") as read_file:
+        data = yaml.safe_load(read_file)
+        # print('get_urn_resolver_from_yml data', data)
+        return data
 
 
 def get_urn_resolver_local(local_file_or_path: str,
@@ -185,21 +237,34 @@ def get_urn_resolver_local(local_file_or_path: str,
         # print('file_ ends with HXLM_DATA_URN_EXTENSIONS',
         #       str(file_).endswith(HXLM_DATA_URN_EXTENSIONS))
         if str(file_.name).startswith('~'):
-            print('skiping ', str(file_))
+            if _VERBOSE:
+                print('get_urn_resolver_local skiping ', str(file_))
             continue
         if str(file_.name).endswith(HXLM_DATA_URN_EXTENSIONS):
             result_files.append(str(file_))
 
     # print('result_files', result_files)
-    print('sorted result_files', sorted(result_files))
-    the_thing = []
+    # print('sorted result_files', sorted(result_files))
+    urn_rules_all = []
     for filepath in result_files:
         if filepath.endswith('.csv'):
-            the_thing.append(get_urn_resolver_from_csv(filepath))
+            urn_rules_all.append(get_urn_resolver_from_csv(filepath))
         elif filepath.endswith('.tsv'):
-            the_thing.append(get_urn_resolver_from_csv(filepath, '\t'))
+            urn_rules_all.append(get_urn_resolver_from_csv(filepath, '\t'))
+        elif filepath.endswith('.txt'):
+            # print('')
+            # print('txt')
+            # print('')
+            urn_rules_all.append(get_urn_resolver_from_csv(filepath, ':'))
+        elif filepath.endswith('.json'):
+            urn_rules_all.append(get_urn_resolver_from_json(filepath))
+        elif filepath.endswith('.yml'):
+            urn_rules_all.append(get_urn_resolver_from_yml(filepath))
 
-    return result_files
+    # TODO: implement some clean up on the urn_rules_all, since may have
+    #       repetitive instructions (Emerson Rocha, 2021-03-07 17:56)
+
+    return urn_rules_all
 
 
 def get_urn_resolver_remote(iri_or_domain: str,
