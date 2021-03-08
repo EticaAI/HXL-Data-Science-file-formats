@@ -60,6 +60,8 @@ reference tables.
 
 ##### 1.1.2 Uniform Resource Name on `URN:DATA`
 
+- **Extra content: [urn-data-specification/](urn-data-specification/)** <sup>(warning: its complicated)</sup>
+
 ###### Why use URN to identify resources is more than naming convention
 
 While find _good_ URNs conventions to be used for typical datasets used on
