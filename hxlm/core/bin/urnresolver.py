@@ -208,10 +208,12 @@ class URNResolver:
 
         # If user is not asking to disable load ~/.config/hxlm/urn/
         if not args.no_urn_user_defaults:
+            # print(get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/'))
             if Path(HXLM_CONFIG_BASE + '/urn/').is_dir():
                 opt_ = get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/')
                 if opt_:
-                    # urnrslr_options.extend(opt_)
+                    urnrslr_options.extend(opt_)
+                    # print(get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/'))
                     for item_ in opt_:
                         if item_ not in urnrslr_options:
                             urnrslr_options.append(item_)
@@ -232,7 +234,11 @@ class URNResolver:
         if not args.no_urn_vendor_defaults:
             urnrslvr_def = HXLM_ROOT + '/core/bin/' + \
                 'urnresolver-default.urn.yml'
-            urnrslr_options = get_urn_resolver_local(urnrslvr_def)
+            opt_ = get_urn_resolver_local(urnrslvr_def)
+            for item_ in opt_:
+                if item_ not in urnrslr_options:
+                    urnrslr_options.append(item_)
+            # urnrslr_options = get_urn_resolver_local(urnrslvr_def)
 
         if 'debug' in args and args.debug:
             print('')

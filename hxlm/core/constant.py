@@ -1,4 +1,7 @@
 """hxlm.core.constant
+
+# TODO: consider create new constants based on
+#       https://reliefweb.int/sites/reliefweb.int/files/resources/data.pdf
 """
 import os
 

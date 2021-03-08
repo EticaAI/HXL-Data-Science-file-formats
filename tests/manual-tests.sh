@@ -104,9 +104,14 @@ hxl2decryption tests/files/iris_hxlated-csv.csv | head
 ### urnresolver ----------------------------------------------------------------
 hxlselect "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)" --query 'release_status=Released'
 hxlquickimport "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)"
-
-
 urnresolver urn:data:xz:hxlcplp:fod:lang --no-urn-vendor-defaults  --no-urn-user-defaults
+
+head /home/fititnt/Downloads/brasil-covid.csv | hxlquickimport | hxlselect --query="#item+paciente_racacor_valor=PARDA"
+
+head "$(urnresolver urn:data:br:saude.gov.br:vacinacao:covid-19-vacinacao)"
+
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ wc -l "$(urnresolver urn:data:br:saude.gov.br:vacinacao:covid-19-vacinacao)"
+# 8580433 /home/fititnt/.local/var/hxlm/data/br/saude.gov.br/vacinacao/covid-19-vacinacao/covid-19-vacinacao.csv
 
 #### [meta issue] HXL and data directly from and to SQL databases #10 __________
 # @see https://docs.sqlalchemy.org/en/13/dialects/
