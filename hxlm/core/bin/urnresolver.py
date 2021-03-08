@@ -148,6 +148,25 @@ class URNResolver:
             # default=False
         )
 
+        parser.add_argument(
+            '--no-urn-user-defaults',
+            help='Disable load urnresolver URN indexes from ' +
+            '~/.config/hxlm/urn/.',
+            metavar='no_urn_user',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        parser.add_argument(
+            '--no-urn-vendor-defaults',
+            help='Disable load urnresolver urnresolver-default.urn.yml',
+            metavar='no_urn_vendor_defaults',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
         self.args = parser.parse_args()
         return self.args
 
@@ -186,7 +205,9 @@ class URNResolver:
                 for item_ in opt_:
                     if item_ not in urnrslr_options:
                         urnrslr_options.append(item_)
-        else:
+
+        # If user is not asking to disable load ~/.config/hxlm/urn/
+        if not args.no_urn_user_defaults:
             if Path(HXLM_CONFIG_BASE + '/urn/').is_dir():
                 opt_ = get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/')
                 if opt_:
@@ -207,16 +228,11 @@ class URNResolver:
                         'local urn references'
                     )
 
-                # import hxlm, os
-                # path = os.path.dirname(hxlm.__file__)
-                # print('HXLM_ROOT', HXLM_ROOT)
-                # we will fallback to load the urnresolver-default.urn.yml
-                urnrslvr_def = HXLM_ROOT + '/core/bin/' + \
-                    'urnresolver-default.urn.yml'
-                urnrslr_options = get_urn_resolver_local(urnrslvr_def)
-
-        # print('TODO: try load default configurations', urnrslr_options)
-        # print('urnrslr_options', urnrslvr_def, urnrslr_options)
+        # If user is not asking to tisable load 'urnresolver-default.urn.yml'
+        if not args.no_urn_vendor_defaults:
+            urnrslvr_def = HXLM_ROOT + '/core/bin/' + \
+                'urnresolver-default.urn.yml'
+            urnrslr_options = get_urn_resolver_local(urnrslvr_def)
 
         if 'debug' in args and args.debug:
             print('')
