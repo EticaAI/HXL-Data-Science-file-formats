@@ -91,6 +91,9 @@ from hxlm.core.schema.urn.util import (
     get_urn_resolver_local,
     HXLM_CONFIG_BASE
 )
+from hxlm.core.constant import (
+    HXLM_ROOT
+)
 
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
@@ -175,7 +178,7 @@ class URNResolver:
 
         urnrslr_options = []
 
-        if 'urn_file' in args and len(args.urn_file) > 0:
+        if 'urn_file' in args and args.urn_file and len(args.urn_file) > 0:
             for file_or_path in args.urn_file:
                 opt_ = get_urn_resolver_local(file_or_path, required=True)
                 # print('opt_ >> ', opt_ , '<<')
@@ -184,12 +187,11 @@ class URNResolver:
                     if item_ not in urnrslr_options:
                         urnrslr_options.append(item_)
         else:
-
             if Path(HXLM_CONFIG_BASE + '/urn/').is_dir():
                 opt_ = get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/')
                 if opt_:
                     # urnrslr_options.extend(opt_)
-                    for item_ in urnrslr_options:
+                    for item_ in opt_:
                         if item_ not in urnrslr_options:
                             urnrslr_options.append(item_)
                 else:
@@ -198,13 +200,23 @@ class URNResolver:
                         '/urn/]] exists. but no valid urn lists found'
                     )
             else:
-                print(
-                    'DEBUG: HXLM_CONFIG_BASE/urn/ [[' + HXLM_CONFIG_BASE +
-                    '/urn/]] do not exist. This could be used to store ' +
-                    'local urn references'
-                )
+                if 'debug' in args and args.debug:
+                    print(
+                        'DEBUG: HXLM_CONFIG_BASE/urn/ [[' + HXLM_CONFIG_BASE +
+                        '/urn/]] do not exist. This could be used to store ' +
+                        'local urn references'
+                    )
+
+                # import hxlm, os
+                # path = os.path.dirname(hxlm.__file__)
+                # print('HXLM_ROOT', HXLM_ROOT)
+                # we will fallback to load the urnresolver-default.urn.yml
+                urnrslvr_def = HXLM_ROOT + '/core/bin/' + \
+                    'urnresolver-default.urn.yml'
+                urnrslr_options = get_urn_resolver_local(urnrslvr_def)
 
         # print('TODO: try load default configurations', urnrslr_options)
+        # print('urnrslr_options', urnrslvr_def, urnrslr_options)
 
         if 'debug' in args and args.debug:
             print('')
@@ -219,7 +231,7 @@ class URNResolver:
             print('')
             print('')
 
-        if len(urnrslr_options) > 0:
+        if urnrslr_options and len(urnrslr_options) > 0:
             matches = []
             for item in urnrslr_options:
                 if item['urn'] == urn_string:
@@ -243,7 +255,8 @@ class URNResolver:
         #     print('about base_paths', urn_item.about('base_paths'))
         #     print('about object_names', urn_item.about('object_names'))
 
-        stderr.write('ERROR: urn [' + urn_string + '] strict match not found')
+        stderr.write("ERROR: urn [" + urn_string +
+                     "] strict match not found \n")
         return self.EXIT_ERROR
 
         # print(urn_item.get_resources())

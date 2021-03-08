@@ -224,6 +224,27 @@ def get_urn_resolver_from_yml(urn_file: str) -> List[dict]:
         return data
 
 
+def get_urn_resolver_from_any(filepath: str,
+                              required: bool = False,
+                              filetype: str = '') -> List[dict]:
+
+    if filetype == '.csv' or filepath.endswith('.csv'):
+        return get_urn_resolver_from_csv(filepath)
+    elif filetype == '.tsv' or filepath.endswith('.tsv'):
+        return get_urn_resolver_from_csv(filepath, '\t')
+    elif filetype == '.txt' or filepath.endswith('.txt'):
+        return get_urn_resolver_from_csv(filepath, ':')
+    elif filetype == '.json' or filepath.endswith('.json'):
+        return get_urn_resolver_from_json(filepath)
+    elif filetype == '.yml' or filepath.endswith('.yml'):
+        return get_urn_resolver_from_yml(filepath)
+    elif required:
+        raise RuntimeError(
+            'local_file_or_path [' + filepath + '] not found')
+    else:
+        return None
+
+
 def get_urn_resolver_local(local_file_or_path: str,
                            required: bool = False) -> List[str]:
     """From an exact local file or an folder, return URN resolver dictionary
@@ -243,11 +264,15 @@ def get_urn_resolver_local(local_file_or_path: str,
     if Path(local_file_or_path).is_dir():
         basepath = local_file_or_path
     elif Path(local_file_or_path).is_file():
-        result_files.append(Path(local_file_or_path).read_text())
-        return result_files
+        # result_files.append(Path(local_file_or_path).read_text())
+        # return result_files
+        return get_urn_resolver_from_any(local_file_or_path)
     elif required:
         raise RuntimeError(
             'local_file_or_path [' + local_file_or_path + '] not found')
+    else:
+        # print('get_urn_resolver_local', local_file_or_path)
+        return None
 
     # pitr = Path(basepath)
     pitr = Path(basepath).glob('*')
@@ -269,6 +294,7 @@ def get_urn_resolver_local(local_file_or_path: str,
     # print('sorted result_files', sorted(result_files))
     urn_rules_all = []
     for filepath in result_files:
+
         if filepath.endswith('.csv'):
             urn_rules_all.extend(get_urn_resolver_from_csv(filepath))
         elif filepath.endswith('.tsv'):
