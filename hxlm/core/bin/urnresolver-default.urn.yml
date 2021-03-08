@@ -1,19 +1,72 @@
 ---
 
-# TODO: when URNResolver start to undestand CKAN instances, also put as
-#       extra source CKAN instead of direct access Gooogle Drive
-#       (Emerson Rocha, 2021-03-06 20:01 UTC)
+# TODO: Maybe even draft an bash completion based on URNs already listed on
+#       local cache? See
+#       https://iridakos.com/programming/2018/03/01
+#       /bash-programmable-completion-tutorial
+#       (Emerson Rocha, 2021-03-07 03:33 UTC)
 
-# https://data.humdata.org/dataset/hxl-core-schemas
+# About 'urn:data:':
+#   this prefixis meant to be used to exact datasets, ready to use. But note:
+#     - The resources may may need data preparation. They not necessarily are
+#       HXLated.
+#     - If someone already prepared, they may be behind authentication. Even
+#       then the use of URNs can simplify scripting and documentation
+#
+# About 'urn:data--i:'
+#   when no dataset is ready to use (at least on current listing), an exact
+#   equivalent with 'urn:data--i' could be used to redirect to an
+#   (I)nformative about this resource.
+#
+# About 'urn:data--p:'
+#   This prefix is (as 2021-03-07 only an early draft) about how to document
+#   machine parseable equivalent to 'Acceptable use policy'. It's one way to
+#   point to a different IRI (that can be an YAML file without public access)
+#   without need to point where the data itself is.
+#
+#   Machine parseable policies (even if not written by who share the dataset)
+#   can be used to treat different each dataset.
+#
+#   About AUPs (general concept, not with this level of automation):
+#     - https://en.wikipedia.org/wiki/Acceptable_use_policy
+
+
+#### HXL Standard (hxlstandard.org) ___________________________________________
+# Note: as 2021-03-07 the prefix 'xz' for hxlstandard.org is an draft and may
+#       change. But 'xz' is the namespace prefix used (at the moment) for
+#       organizations that are not strictly to an single country/territory
+#       (Emerson Rocha, 2021-03-07 02:26 UTC)
+
+# @see https://data.humdata.org/dataset/hxl-core-schemas
 - urn: "urn:data:xz:hxl:standard:core:hashtag"
   source:
     - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
 - urn: "urn:data:xz:hxl:standard:core:attribute"
   source:
     - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=1810309357&single=true&output=csv
-- urn: "urn:data:un:locode"
+
+#### UNECE (UN/LOCODE) ________________________________________________________
+# Since the UN itself have an dedicated ISO 3166-1 alpha-2, seems intuitive to
+# use prefix 'urn:data:un'
+
+
+### UN/LOCODE -----------------------------------------------------------------
+# urn:data:un:locode -> urn:data:un:unece:locode -> urn:data--i:un:unece:locode
+#  -> urn:data--i:un:unece:locode
+- urn: urn:data:un:locode
   source:
     - urn:data:un:unece:locode
+
+- urn: urn:data:un:unece:locode
+  source:
+    - urn:data--i:un:unece:locode
+
+- urn: urn:data--i:un:unece:locode
+  source:
+    - https://unece.org/trade/uncefact/unlocode
+
+#### HXL-CPLP (https://github.com/HXL-CPLP) ___________________________________
+# Incomplete list
 - urn: "urn:data:xz:hxlcplp:fod:lang"
   source:
     - https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0

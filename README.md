@@ -18,6 +18,7 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.2.2 `hxl2tab`: tab format, focused for compatibility with Orange Data Mining](#122-hxl2tab-tab-format-focused-for-compatibility-with-orange-data-mining)
             - [1.2.3 `hxlquickmeta`: output information about local/remote datasets (even non HXLated yet)](#123-hxlquickmeta-output-information-about-localremote-datasets-even-non-hxlated-yet)
             - [1.2.4 `hxlquickimport`: (like the `hxltag`)](#124-hxlquickimport-like-the-hxltag)
+            - [1.2.5 `urnresolver`: convert Uniform Resource Name of datasets to real IRIs (URLs)](#125-urnresolver-convert-uniform-resource-name-of-datasets-to-real-iris-urls)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -155,6 +156,65 @@ installed with `libhxl`) mostly only try to by default slugfy whatever was
 before on the old headers and add it as HXL attribute. **Please consider using
 the HXL-Proxy for serious usage. This quick script is more for internal
 testing**
+
+##### 1.2.5 `urnresolver`: convert Uniform Resource Name of datasets to real IRIs (URLs)
+- Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/13>
+- Source code: [hxlm/core/bin/urnresolver.py](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/core/bin/urnresolver.py)
+
+The `urnresolver` is an proof of concept of an URN resolver. (see
+[Uniform Resource Name (URN) on Wikipedia](https://pt.wikipedia.org/wiki/URN)).
+
+**Examples (note: early working draft!)**
+```bash
+# Basic usage: based on local and (to be implemented) remote listing pages
+# it translate one readable URN to one or more datasets
+urnresolver urn:data:xz:hxl:standard:core:hashtag
+# https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
+
+# Now, the more practical example: using to translate to other commands:
+hxlselect "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)" --query '#valid_vocab=+v_pcode'
+#    Hashtag,Hashtag one-liner,Hashtag long description,Release status,Data type restriction,First release,Default taxonomy,Category,Sample HXL,Sample description
+#    #valid_tag,#description+short+en,#description+long+en,#status,#valid_datatype,#meta+release,#valid_vocab+default,#meta+category,#meta+example+hxl,#meta+example+description+en
+#    #adm1,Level 1 subnational area,Top-level subnational administrative area (e.g. a governorate in Syria).,Released,,1.0,+v_pcode,1.1. Places,#adm1 +code,administrative level 1 P-code
+#    #adm2,Level 2 subnational area,Second-level subnational administrative area (e.g. a subdivision in Bangladesh).,Released,,1.0,+v_pcode,1.1. Places,#adm2 +name,administrative level 2 name
+#    #adm3,Level 3 subnational area,Third-level subnational administrative area (e.g. a subdistrict in Afghanistan).,Released,,1.0,+v_pcode,1.1. Places,#adm3 +code,administrative level 3 P-code
+#    #adm4,Level 4 subnational area,Fourth-level subnational administrative area (e.g. a barangay in the Philippines).,Released,,1.0,+v_pcode,1.1. Places,#adm4 +name,administrative level 4 name
+#    #adm5,Level 5 subnational area,Fifth-level subnational administrative area (e.g. a ward of a city).,Released,,1.0,+v_pcode,1.1. Places,#adm5 +code,administrative level 5 name
+
+hxlselect "$(urnresolver urn:data:xz:hxlcplp:fod:lang)" --query '#vocab+id+v_iso6393_3letter=por'
+#    Id,Part2B,Part2T,Part1,Scope,Language_Type,Ref_Name,Comment
+#    #vocab+id+v_iso6393_3letter,#vocab+code+v_iso3692_3letter+z_bibliographic,#vocab+code+v_3692_3letter+z_terminology,#vocab+code+v_6391,#status,#vocab+type,#vocab+name,#description+comment+i_en
+#    por,por,por,pt,I,L,Portuguese,
+```
+
+**More about `urnresolver`**
+
+While find _good_ URNs conventions to be used for typical datasets used on
+humanitarian context is more complex than the
+[ISO URN](https://tools.ietf.org/html/rfc5141) or even the
+[LEX URN](https://en.wikipedia.org/wiki/Lex_(URN)) (this one
+[already used in Brazil](https://www.lexml.gov.br/urn/urn:lex:br:federal:constituicao:1988-10-05;1988)),
+one goal of the `urnresolver` is accept that most data shared are VERY
+sensitive and private, so this this actually is the challenge. So in addition
+to converting some well known public datasets related to HXL, we're already
+designing to eventually be used as abstraction to scripts and tools that
+without this would need to have access to real datasets.
+
+By using URNs, at _worst case_ we're creating documentations and scripts
+that a new user would need to replace by the real one of its use case. But the
+ideal case is to allow exchange scripts or, when an issue happens in a new
+region, the personel who prepare the data could do it and then publish also
+on _private_ URN listing so others could reuse.
+
+Note that the URN Resolver, even if it does have links to resources and not
+just the contact page, the links themselves to download the real data could
+still require authentication case by case. Also same URNs, if you manage to
+have contact with several peers, in special for datasets that are not already
+an COD, but are often needed, are likely to exist with more than one option
+to use.
+
+Deeper integration with CKAN instances and/or awareness of encrypted data
+still not implemented on the current version (v0.7.3)
 
 ### 2. Reasons behind
 

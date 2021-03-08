@@ -102,8 +102,8 @@ hxl2encryption tests/files/iris_hxlated-csv.csv | head
 hxl2decryption tests/files/iris_hxlated-csv.csv | head
 
 ### urnresolver ----------------------------------------------------------------
-hxlselect "$(urnresolver urn:data:xz:hxl:standard:core:hashtag --urn-file tests/urnresolver/all-in-same-dir/)" --query 'release_status=Released'
-hxlquickimport "$(urnresolver urn:data:xz:hxl:standard:core:hashtag --urn-file tests/urnresolver/all-in-same-dir/)"
+hxlselect "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)" --query 'release_status=Released'
+hxlquickimport "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)"
 
 #### [meta issue] HXL and data directly from and to SQL databases #10 __________
 # @see https://docs.sqlalchemy.org/en/13/dialects/
