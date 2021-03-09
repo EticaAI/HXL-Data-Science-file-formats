@@ -89,6 +89,7 @@ import hxl.io
 import hxlm.core.htype.urn as HUrn
 from hxlm.core.schema.urn.util import (
     get_urn_resolver_local,
+    # get_urn_resolver_remote,
     HXLM_CONFIG_BASE
 )
 from hxlm.core.constant import (
@@ -105,8 +106,8 @@ STDIN = sys.stdin.buffer
 
 class URNResolver:
     """
-    URNResolver is a classe to export already HXLated data in the format
-    example.
+    Uurnresolver uses hxlm.core to resolve Uniform Resource Name (URI) to
+    Uniform Resource Identifier (URI)
     """
 
     def __init__(self):
@@ -137,10 +138,24 @@ class URNResolver:
             default=False
         )
 
+        # TODO: add unitary tests for --urn-index-local
         parser.add_argument(
-            '--urn-file',
-            help='URN Resolver file to read config (accept multiple commands)',
-            metavar='urn_index_files',
+            '--urn-index-local',
+            help='Load URN index from local file/folder ' +
+            '(accept multiple options)',
+            metavar='urn_index_local',
+            type=str,
+            action='append'
+            # action='store_const',
+            # const=True,
+            # default=False
+        )
+
+        # TODO: add unitary tests for --urn-index-remote
+        parser.add_argument(
+            '--urn-index-remote',
+            help='Load URN index from exact URL (accept multiple options)',
+            metavar='urn_index_remote',
             type=str,
             action='append'
             # action='store_const',
@@ -197,14 +212,25 @@ class URNResolver:
 
         urnrslr_options = []
 
-        if 'urn_file' in args and args.urn_file and len(args.urn_file) > 0:
-            for file_or_path in args.urn_file:
+        if 'urn_index_local' in args and args.urn_index_local \
+                and len(args.urn_index_local) > 0:
+            for file_or_path in args.urn_index_local:
                 opt_ = get_urn_resolver_local(file_or_path, required=True)
                 # print('opt_ >> ', opt_ , '<<')
                 # urnrslr_options.extend(opt_)
                 for item_ in opt_:
                     if item_ not in urnrslr_options:
                         urnrslr_options.append(item_)
+
+        # if 'urn_index_remote' in args and args.urn_index_remote \
+        #         and len(args.urn_index_remote) > 0:
+        #     for iri_or_domain in args.urn_index_remote:
+        #         opt_ = get_urn_resolver_remote(iri_or_domain, required=True)
+        #         # print('opt_ >> ', opt_ , '<<')
+        #         # urnrslr_options.extend(opt_)
+        #         for item_ in opt_:
+        #             if item_ not in urnrslr_options:
+        #                 urnrslr_options.append(item_)
 
         # If user is not asking to disable load ~/.config/hxlm/urn/
         if not args.no_urn_user_defaults:

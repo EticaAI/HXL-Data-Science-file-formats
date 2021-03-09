@@ -5,6 +5,9 @@ import os
 import csv
 import json
 from pathlib import Path
+# from urllib.parse import urlparse
+# import requests
+
 # import glob
 
 from typing import (
@@ -129,6 +132,7 @@ def get_urn_resolver_from_csv(urn_file: str,
     Args:
         urn_file (str): Path to an local CSV/TSV/TAB file
         delimiter (str, optional): CSV-like delimiter. Defaults to ','.
+        urnref (str, optional): An hint to how to name this URN Index
 
     Returns:
         List[dict]: parsed result of the current file
@@ -332,7 +336,8 @@ def get_urn_resolver_local(local_file_or_path: str,
 
 
 def get_urn_resolver_remote(iri_or_domain: str,
-                            required: bool = False) -> List[str]:
+                            required: bool = False,
+                            headers=None) -> List[str]:
     """Return instructions for an remote resolver
 
     Args:
@@ -345,6 +350,19 @@ def get_urn_resolver_remote(iri_or_domain: str,
     Returns:
         List[str]: list of raw contents for each resolver instructions files
     """
+
+    # bare domain not implemented yet.
+
+    # r = requests.get(iri_or_domain, headers=headers)
+    # path = urlparse(iri_or_domain).path
+    # ext = os.path.splitext(path)[1]
+
+    # print('ext r', urlparse(iri_or_domain))
+    # print('ext r', ext, r, r.text, os.path.splitext(path))
+
+    # if ext == 'csv':
+    #     return ...
+
     raise NotImplementedError(
         "get_urn_resolver_remote for iri_or_domain [" +
         iri_or_domain + "] not implemtend at the moment (but will)"

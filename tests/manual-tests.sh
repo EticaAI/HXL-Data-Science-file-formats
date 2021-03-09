@@ -104,11 +104,14 @@ hxl2decryption tests/files/iris_hxlated-csv.csv | head
 ### urnresolver ----------------------------------------------------------------
 hxlselect "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)" --query 'release_status=Released'
 hxlquickimport "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)"
-urnresolver urn:data:xz:hxlcplp:fod:lang --no-urn-vendor-defaults  --no-urn-user-defaults
+urnresolver urn:data:xz:hxlcplp:fod:lang --no-urn-vendor-defaults --no-urn-user-defaults
 
 head /home/fititnt/Downloads/brasil-covid.csv | hxlquickimport | hxlselect --query="#item+paciente_racacor_valor=PARDA"
 
 head "$(urnresolver urn:data:br:saude.gov.br:vacinacao:covid-19-vacinacao)"
+
+
+urnresolver urn:data:xz:hxlcplp:fod:lang --no-urn-vendor-defaults --no-urn-user-defaults --urn-index-remote="https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/tests/urnresolver/all-in-same-dir/urn.csv"
 
 # fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ wc -l "$(urnresolver urn:data:br:saude.gov.br:vacinacao:covid-19-vacinacao)"
 # 8580433 /home/fititnt/.local/var/hxlm/data/br/saude.gov.br/vacinacao/covid-19-vacinacao/covid-19-vacinacao.csv
@@ -226,7 +229,7 @@ pip3 install xarray
 
 #### antlr ____________________________________________________________________
 # @see https://github.com/antlr/antlr4/blob/master/doc/getting-started.md
-cd /usr/local/lib
+# cd /usr/local/lib
 $ curl -O https://www.antlr.org/download/antlr-4.9-complete.jar
 export CLASSPATH=".:/usr/local/lib/antlr-4.9.1-complete.jar:$CLASSPATH"
 
@@ -235,7 +238,7 @@ alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPAT
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
 # url.g4 from https://github.com/antlr/grammars-v4/tree/master/url
 
-cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/url-python
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/url-python
 antlr4 -Dlanguage=Python3 /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/url-python/url.g4
 
 # https://pypi.org/project/antlr4-python3-runtime/#files

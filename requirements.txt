@@ -5,6 +5,9 @@ hug
 # numpy, while some programs on /bin do not require, is recommended
 numpy
 
+# When working with urnresolver. Not used by others
+cryptography
+
 # pyyaml
 # pip3 install pytest-benchmark
 
