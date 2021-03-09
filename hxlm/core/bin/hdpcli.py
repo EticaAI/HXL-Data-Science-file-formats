@@ -78,6 +78,12 @@ import argparse
 # import tempfile
 from pathlib import Path
 from distutils.util import strtobool
+import secrets
+
+from cryptography.fernet import Fernet
+# from cryptography.hazmat.primitives import hashes
+# import hashlib
+# from cryptography.hazmat.primitives import hashes, hmac
 
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
@@ -211,7 +217,7 @@ class HDPCLI:
 
         allowed = please or prompt_confirmation(
             'Create [' + data_base + '] with permissions [' +
-            str(HXLM_DATA_VAULT_PERM_MODE) + '] (488 = 0o700)?')
+            str(HXLM_DATA_VAULT_PERM_MODE) + ']?')
 
         if allowed:
             os.makedirs(data_base, mode=int(HXLM_DATA_VAULT_PERM_MODE, 8))
@@ -237,12 +243,56 @@ class HDPCLI:
         if config_base is None:
             config_base = HXLM_CONFIG_BASE
 
+        config_base = os.path.normpath(config_base)
+
+        print('_exec_hdp_init_home _get_salt', self._get_salt())
+        print('_exec_hdp_init_home _get_salt', self._get_salt())
+        print('_exec_hdp_init_home _get_salt',
+              str(self._get_salt(debug_output=10)))
+        print('_exec_hdp_init_home get_fernet',
+              self._get_fernet(debug_output=10))
+
+        # Path creation
         if os.path.exists(config_base):
-            print('config_base [' + config_base + '] exists')
+            print('OK: config_base [' + config_base + '] exists')
+            return self.EXIT_OK
 
-        print('TODO: _exec_hdp_init_home', config_base)
+        allowed = please or prompt_confirmation(
+            'Create [' + config_base + '] with permissions [' +
+            str(HXLM_CONFIG_PERM_MODE) + ']?')
 
-        return self.EXIT_OK
+        if allowed:
+            os.makedirs(config_base, mode=int(HXLM_CONFIG_PERM_MODE, 8))
+            print('config_base [' + config_base + '] created.')
+            return self.EXIT_OK
+        else:
+            print('INFO: config_base creation not allowed.')
+
+        print('TODO: create salt or something')
+        return self.EXIT_ERROR
+
+    def _get_salt(self, size=64, debug_output: int = 0):
+        # https://cryptography.io/en/latest/hazmat/primitives/mac/hmac.html
+        # https://www.python.org/dev/peps/pep-0506/
+        # https://docs.python.org/3/library/secrets.html
+        # return hashlib.sha256().hexdigest()
+        if debug_output > 0:
+            while debug_output > 0:
+                print(secrets.token_urlsafe(size))
+
+                debug_output -= 1
+
+        return secrets.token_urlsafe(size)
+        # return 'test'
+
+    def _get_fernet(self, debug_output: int = 0):
+        # https://cryptography.io/en/latest/fernet.html
+        if debug_output > 0:
+            while debug_output > 0:
+                print(Fernet.generate_key())
+                debug_output -= 1
+
+        return Fernet.generate_key()
 
     def make_args_urnresolver(self):
 
