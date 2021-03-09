@@ -77,6 +77,7 @@ import logging
 import argparse
 # import tempfile
 from pathlib import Path
+from distutils.util import strtobool
 
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
@@ -118,6 +119,34 @@ HXLM_DATA_VAULT_BASE_ALT = os.getenv('HXLM_DATA_VAULT_BASE_ALT')
 HXLM_DATA_VAULT_BASE_ACTIVE = os.getenv(
     'HXLM_DATA_VAULT_BASE_ACTIVE', HXLM_DATA_VAULT_BASE)
 
+HXLM_DATA_POLICY_BASE = os.getenv(
+    'HXLM_DATA_POLICY_BASE', _HOME + '/.config/hxlm/policy/')
+
+# Directory/File permissions for NEW content create by hdpcli
+HXLM_CONFIG_PERM_MODE = os.getenv(
+    'HXLM_CONFIG_PERM_MODE', "0700")
+
+HXLM_DATA_VAULT_PERM_MODE = os.getenv(
+    'HXLM_DATA_VAULT_PERM_MODE', "0700")
+
+
+def prompt_confirmation(message: str) -> bool:
+    """Simple wrapper to ask user yes/no with a message without ValueError
+
+    Args:
+        message (str): Message to ask user input
+
+    Returns:
+        bool: True if agree, False if did not agree
+    """
+    val = input(message + " [yes/no]\n")
+    try:
+        sys.stdout.write("'yes' or 'nno'? \n")
+        yesorno = strtobool(val)
+    except ValueError:
+        return prompt_confirmation(message)
+    return yesorno
+
 
 class HDPCLI:
     """
@@ -137,27 +166,77 @@ class HDPCLI:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-    def _exec_hdp_init(self):
-        step1 = self._exec_hdp_init_home()
-        step2 = self._exec_hdp_init_data()
+    def _exec_hdp_init(self, config_base: str = None,
+                       data_base: str = None,
+                       please: bool = None) -> int:
+        """Initialize HDP enviroment
+
+        Args:
+            config_base (str, optional): Configuration path. Defaults to None.
+            data_base (str, optional): Data path. Defaults to None.
+            please (bool, optional): If already confirm changes upfront
+                                     Defaults to None.
+
+        Returns:
+            int: EXIT_OK or EXIT_ERROR
+        """
+        step1 = self._exec_hdp_init_home(
+            config_base=config_base, please=please)
+        step2 = self._exec_hdp_init_data(data_base=data_base, please=please)
 
         if (step1 + step2) == self.EXIT_OK:
             return self.EXIT_OK
 
         return self.EXIT_ERROR
 
-    def _exec_hdp_init_home(self, config_base: str = None):
-        if config_base is None:
-            config_base = HXLM_CONFIG_BASE
+    def _exec_hdp_init_data(self, data_base: str = None, please: bool = None):
+        """Initialize HDP enviroment, data base only
 
-        print('TODO: _exec_hdp_init_home', config_base)
-        return self.EXIT_OK
+        Args:
+            data_base (str, optional): Data path. Defaults to None.
+            please (bool, optional): If already confirm changes upfront
+                                     Defaults to None.
 
-    def _exec_hdp_init_data(self, data_base: str = None):
+        Returns:
+            int: EXIT_OK or EXIT_ERROR
+        """
         if data_base is None:
             data_base = HXLM_DATA_VAULT_BASE_ACTIVE
 
+        data_base = os.path.normpath(data_base)
+
+        if os.path.exists(data_base):
+            print('data_base [' + data_base + '] exists')
+            return self.EXIT_OK
+        prompt_confirmation(
+            'Create [' + data_base + '] with permissions [' +
+            HXLM_DATA_VAULT_PERM_MODE + ']?')
+
+        # prompt('oioioi')
+        # input_var = input("Enter something: ")
+        # print ("you entered " + input_var)
         print('TODO: _exec_hdp_init_data', data_base)
+        return self.EXIT_OK
+
+    def _exec_hdp_init_home(self, config_base: str = None,
+                            please: bool = None):
+        """Initialize HDP enviroment, configuration base only
+
+        Args:
+            config_base (str, optional): Configuration path. Defaults to None.
+            please (bool, optional): If already confirm changes upfront
+                                     Defaults to None.
+
+        Returns:
+            int: EXIT_OK or EXIT_ERROR
+        """
+        if config_base is None:
+            config_base = HXLM_CONFIG_BASE
+
+        if os.path.exists(config_base):
+            print('config_base [' + config_base + '] exists')
+
+        print('TODO: _exec_hdp_init_home', config_base)
 
         return self.EXIT_OK
 
@@ -203,12 +282,27 @@ class HDPCLI:
             '(like an USB stick). ',
             action='store',
             # const=True,
-            default=False,
-            nargs='?'
+            default=None,
+            # nargs='?'
             # # default=HXLM_CONFIG_BASE,
             # default=HXLM_CONFIG_BASE,
             # # default=False,
             # nargs='?'
+        )
+
+        parser.add_argument(
+            '--please',
+            help='For commants that ask for user change, already agree',
+            # action='store',
+            # action=argparse.BooleanOptionalAction,
+            metavar='please',
+            const=True,
+            default=False,
+            # nargs='?'
+            # # default=HXLM_CONFIG_BASE,
+            # default=HXLM_CONFIG_BASE,
+            # # default=False,
+            nargs='?'
         )
 
         parser.add_argument(
@@ -292,10 +386,23 @@ class HDPCLI:
         if 'debug' in args and args.debug:
             print('DEBUG: CLI args [[', args, ']]')
 
-        if args.hdp_init:
-            return self._exec_hdp_init()
+        # TODO: 'Is AI just a bunch of if and else statements?'
+        if (args.hdp_init and (args.hdp_init_home or args.hdp_init_data)) or \
+                (args.hdp_init_home and (args.hdp_init
+                                         or args.hdp_init_data)) or \
+                (args.hdp_init_data and (args.hdp_init or args.hdp_init_home)):
+            print('ERROR: only one of the options can run at same time: \n' +
+                  ' --hdp-init \n --hdp-init-home \n --hdp-init-home')
+            return self.EXIT_ERROR
 
-        # print('args', args)
+        if args.hdp_init_data:
+            return self._exec_hdp_init_data(args.hdp_init_data,
+                                            please=args.please)
+        if args.hdp_init_home:
+            return self._exec_hdp_init_home(args.hdp_init_home,
+                                            please=args.please)
+        if args.hdp_init:
+            return self._exec_hdp_init(please=args.please)
 
         urn_string = args.infile
 
