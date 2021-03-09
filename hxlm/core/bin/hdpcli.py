@@ -245,12 +245,10 @@ class HDPCLI:
 
         config_base = os.path.normpath(config_base)
 
-        print('_exec_hdp_init_home _get_salt', self._get_salt())
-        print('_exec_hdp_init_home _get_salt', self._get_salt())
-        print('_exec_hdp_init_home _get_salt',
-              str(self._get_salt(debug_output=10)))
-        print('_exec_hdp_init_home get_fernet',
-              self._get_fernet(debug_output=10))
+        print('_debug_entropy', self._entropy_pseudotest(self._get_salt))
+        # print('_exec_hdp_init_home _get_salt', self._get_salt())
+        print('_debug_entropy', self._entropy_pseudotest(self._get_fernet))
+        print('_exec_hdp_init_home get_fernet',  self._get_fernet())
 
         # Path creation
         if os.path.exists(config_base):
@@ -271,27 +269,51 @@ class HDPCLI:
         print('TODO: create salt or something')
         return self.EXIT_ERROR
 
-    def _get_salt(self, size=64, debug_output: int = 0):
-        # https://cryptography.io/en/latest/hazmat/primitives/mac/hmac.html
-        # https://www.python.org/dev/peps/pep-0506/
-        # https://docs.python.org/3/library/secrets.html
-        # return hashlib.sha256().hexdigest()
-        if debug_output > 0:
-            while debug_output > 0:
-                print(secrets.token_urlsafe(size))
+    def _entropy_pseudotest(self, method) -> None:
+        """Run a few turns any function supposed to return randon values
 
-                debug_output -= 1
+        Note that while is actually hard to test entropy, this pseudotest
+        can at least give some hint if of very obvious errors, like an
+        salt or crypto key generated with same seeds values.
+
+        Args:
+            method (Function): A method/function to run
+        """
+        debug_output = 10
+
+        print('Testing entropy of method ' + method.__name__ + '\n')
+        while debug_output > 0:
+            print('  [' + str(debug_output).zfill(3) + '] ' + str(method()))
+            debug_output -= 1
+
+        print('\n If the lines above seems repetitive. Something is ' +
+              'wrong with this code or machine.\n\n')
+
+    def _get_salt(self, size: int = 64) -> str:
+        """Get a new salt
+
+        Args:
+            size (int, optional): Byte size of the salt. Defaults to 64.
+
+        Returns:
+            str: an salt
+        """
 
         return secrets.token_urlsafe(size)
         # return 'test'
 
-    def _get_fernet(self, debug_output: int = 0):
-        # https://cryptography.io/en/latest/fernet.html
-        if debug_output > 0:
-            while debug_output > 0:
-                print(Fernet.generate_key())
-                debug_output -= 1
+    def _get_fernet(self):
+        """Get a new Fernet key
 
+        @see https://github.com/fernet/spec
+        @see https://cryptography.io/en/latest/fernet.html
+        @see https://docs.openstack.org/keystone/pike/admin
+             /identity-fernet-token-faq.html
+
+        Returns:
+            [type]: [description]
+        """
+        # https://cryptography.io/en/latest/fernet.html
         return Fernet.generate_key()
 
     def make_args_urnresolver(self):
