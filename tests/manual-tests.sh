@@ -9,6 +9,12 @@ pip3 install hug
 sudo snap install ngrok
 
 #### The tests _________________________________________________________________
+
+### hdpcli ---------------------------------------------------------------------
+./hxlm/core/bin/hdpcli.py --debug --hdp-init-data /tmp/hdp-test --please
+./hxlm/core/bin/hdpcli.py --debug --hdp-init-data /tmp/hdp-test
+
+
 # https://raw.githubusercontent.com/HXLStandard/libhxl-python/master/profile/data/unhcr_popstats_export_persons_of_concern_all_data.hxl
 ### hxl2example ----------------------------------------------------------------
 

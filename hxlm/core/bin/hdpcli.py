@@ -141,7 +141,7 @@ def prompt_confirmation(message: str) -> bool:
     """
     val = input(message + " [yes/no]\n")
     try:
-        sys.stdout.write("'yes' or 'nno'? \n")
+        sys.stdout.write("'yes' or 'no'? \n")
         yesorno = strtobool(val)
     except ValueError:
         return prompt_confirmation(message)
@@ -206,17 +206,21 @@ class HDPCLI:
         data_base = os.path.normpath(data_base)
 
         if os.path.exists(data_base):
-            print('data_base [' + data_base + '] exists')
+            print('OK: data_base [' + data_base + '] exists')
             return self.EXIT_OK
-        prompt_confirmation(
-            'Create [' + data_base + '] with permissions [' +
-            HXLM_DATA_VAULT_PERM_MODE + ']?')
 
-        # prompt('oioioi')
-        # input_var = input("Enter something: ")
-        # print ("you entered " + input_var)
-        print('TODO: _exec_hdp_init_data', data_base)
-        return self.EXIT_OK
+        allowed = please or prompt_confirmation(
+            'Create [' + data_base + '] with permissions [' +
+            str(HXLM_DATA_VAULT_PERM_MODE) + '] (488 = 0o700)?')
+
+        if allowed:
+            os.makedirs(data_base, mode=int(HXLM_DATA_VAULT_PERM_MODE, 8))
+            print('data_base [' + data_base + '] created.')
+            return self.EXIT_OK
+        else:
+            print('INFO: data_base creation not allowed.')
+
+        return self.EXIT_ERROR
 
     def _exec_hdp_init_home(self, config_base: str = None,
                             please: bool = None):
