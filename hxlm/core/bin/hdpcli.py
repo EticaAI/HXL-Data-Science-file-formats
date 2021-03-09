@@ -89,7 +89,7 @@ import hxlm.core.htype.urn as HUrn
 from hxlm.core.schema.urn.util import (
     get_urn_resolver_local,
     # get_urn_resolver_remote,
-    HXLM_CONFIG_BASE
+    # HXLM_CONFIG_BASE
 )
 from hxlm.core.constant import (
     HXLM_ROOT
@@ -101,6 +101,22 @@ from hxlm.core.constant import (
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
+
+
+_HOME = str(Path.home())
+# TODO: clean up redundancy from hxlm/core/schema/urn/util.py
+HXLM_CONFIG_BASE = os.getenv(
+    'HXLM_CONFIG_BASE', _HOME + '/.config/hxlm/')
+
+HXLM_DATA_POLICY_BASE = os.getenv(
+    'HXLM_DATA_POLICY_BASE', _HOME + '/.config/hxlm/policy/')
+
+HXLM_DATA_VAULT_BASE = os.getenv(
+    'HXLM_DATA_VAULT_BASE', _HOME + '/.local/var/hxlm/data/')
+
+HXLM_DATA_VAULT_BASE_ALT = os.getenv('HXLM_DATA_VAULT_BASE_ALT')
+HXLM_DATA_VAULT_BASE_ACTIVE = os.getenv(
+    'HXLM_DATA_VAULT_BASE_ACTIVE', HXLM_DATA_VAULT_BASE)
 
 
 class HDPCLI:
@@ -121,6 +137,30 @@ class HDPCLI:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
+    def _exec_hdp_init(self):
+        step1 = self._exec_hdp_init_home()
+        step2 = self._exec_hdp_init_data()
+
+        if (step1 + step2) == self.EXIT_OK:
+            return self.EXIT_OK
+
+        return self.EXIT_ERROR
+
+    def _exec_hdp_init_home(self, config_base: str = None):
+        if config_base is None:
+            config_base = HXLM_CONFIG_BASE
+
+        print('TODO: _exec_hdp_init_home', config_base)
+        return self.EXIT_OK
+
+    def _exec_hdp_init_data(self, data_base: str = None):
+        if data_base is None:
+            data_base = HXLM_DATA_VAULT_BASE_ACTIVE
+
+        print('TODO: _exec_hdp_init_data', data_base)
+
+        return self.EXIT_OK
+
     def make_args_urnresolver(self):
 
         self.hxlhelper = HXLUtils()
@@ -135,6 +175,56 @@ class HDPCLI:
             action='store_const',
             const=True,
             default=False
+        )
+
+        parser.add_argument(
+            '--hdp-init',
+            help='Initialize local to work with hxlm.core cli tools. ' +
+            'This will use defaults that would work with most single ' +
+            'workspace users. ' +
+            'HXLM_CONFIG_BASE [' + HXLM_CONFIG_BASE + '], ' +
+            'HXLM_DATA_VAULT_BASE_ACTIVE [' +
+            HXLM_DATA_VAULT_BASE_ACTIVE + ']',
+            action='store_const',
+            const=True,
+            default=False,
+            # nargs='?'
+            # # default=HXLM_CONFIG_BASE,
+            # default=HXLM_CONFIG_BASE,
+            # # default=False,
+            # nargs='?'
+        )
+
+        parser.add_argument(
+            '--hdp-init-home',
+            help='Initialize local with non-default configuration home. ' +
+            'Intented for users planning to work with multiple workspaces ' +
+            'or that want to store on specific path ' +
+            '(like an USB stick). ',
+            action='store',
+            # const=True,
+            default=False,
+            nargs='?'
+            # # default=HXLM_CONFIG_BASE,
+            # default=HXLM_CONFIG_BASE,
+            # # default=False,
+            # nargs='?'
+        )
+
+        parser.add_argument(
+            '--hdp-init-data',
+            help='Initialize local with non-default data base. ' +
+            'Intented for users planning to work with multiple workspaces ' +
+            'or that want to store on specific path ' +
+            '(like an huge external HDD or SSD)',
+            action='store',
+            # const=True,
+            default=False,
+            nargs='?'
+            # # default=HXLM_CONFIG_BASE,
+            # default=HXLM_CONFIG_BASE,
+            # # default=False,
+            # nargs='?'
         )
 
         # TODO: add unitary tests for --urn-index-local
@@ -201,6 +291,9 @@ class HDPCLI:
 
         if 'debug' in args and args.debug:
             print('DEBUG: CLI args [[', args, ']]')
+
+        if args.hdp_init:
+            return self._exec_hdp_init()
 
         # print('args', args)
 
