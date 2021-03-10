@@ -53,9 +53,13 @@ import argparse
 # import tempfile
 from pathlib import Path
 from distutils.util import strtobool
+# import base64
 import secrets
 
 from cryptography.fernet import Fernet
+
+import nacl
+from nacl.public import PrivateKey, PublicKey
 # from cryptography.hazmat.primitives import hashes
 # import hashlib
 # from cryptography.hazmat.primitives import hashes, hmac
@@ -224,6 +228,8 @@ class HDPCLI:
         # print('_exec_hdp_init_home _get_salt', self._get_salt())
         print('_debug_entropy', self._entropy_pseudotest(self._get_fernet))
         print('_exec_hdp_init_home get_fernet',  self._get_fernet())
+        print('_debug_entropy', self._entropy_pseudotest(self._get_keypar))
+        print('_exec_hdp_init_home _get_keypar',  self._get_keypar())
 
         # Path creation
         if os.path.exists(config_base):
@@ -264,19 +270,6 @@ class HDPCLI:
         print('\n If the lines above seems repetitive. Something is ' +
               'wrong with this code or machine.\n\n')
 
-    def _get_salt(self, size: int = 64) -> str:
-        """Get a new salt
-
-        Args:
-            size (int, optional): Byte size of the salt. Defaults to 64.
-
-        Returns:
-            str: an salt
-        """
-
-        return secrets.token_urlsafe(size)
-        # return 'test'
-
     def _get_fernet(self):
         """Get a new Fernet key
 
@@ -290,6 +283,57 @@ class HDPCLI:
         """
         # https://cryptography.io/en/latest/fernet.html
         return Fernet.generate_key()
+
+    def _get_keypar(self):
+        """_get_keypar is an draft. The entire way to store the keys should
+           be at least a bit hardened
+
+        Returns:
+            [type]: [description]
+        """
+
+        # @see https://github.com/pyca/pynacl/issues/192
+        # @see https://pynacl.readthedocs.io/en/latest/encoding/
+        # @see https://stackoverflow.com/questions/54093558
+        #      /how-to-load-signingkey-from-its-value-in-pynacl
+        key = PrivateKey.generate()
+        encoded_public_key = key.public_key.encode(
+            encoder=nacl.encoding.Base64Encoder)
+        loaded_public_key = PublicKey(
+            encoded_public_key, encoder=nacl.encoding.Base64Encoder)
+
+        # print('oooi', key._private_key)
+        # print('oooi', key._private_key)
+
+        # print(bytes(key).hex())
+        # print(bytes(key).decode('utf-8'))
+
+        # base64.urlsafe_b64encode(bytes(key))
+        # print('ooi2', base64.urlsafe_b64encode(bytes(key).decode('utf-8')))
+        assert loaded_public_key.encode() == key.public_key.encode()
+        return {
+            'public_key': encoded_public_key,
+            'private_key': bytes(key).hex()
+        }
+
+    def _get_password(self):
+        # @see https://docs.python.org/pt-br/3/library/getpass.html
+        # @see https://gist.github.com/noqqe/cd9f8dc6477c7929f8b3
+        # @see https://github.com/pyca/pynacl/issues/192
+        print('TODO _get_password')
+
+    def _get_salt(self, size: int = 64) -> str:
+        """Get a new salt
+
+        Args:
+            size (int, optional): Byte size of the salt. Defaults to 64.
+
+        Returns:
+            str: an salt
+        """
+
+        return secrets.token_urlsafe(size)
+        # return 'test'
 
     def make_args_urnresolver(self):
 
