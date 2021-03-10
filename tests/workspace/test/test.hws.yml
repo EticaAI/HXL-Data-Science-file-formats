@@ -1,0 +1,6 @@
+---
+hworkspace:
+  # ID will be used to prefix passwords on your keyring
+  id: "test-hws"
+  name: "test-workspace"
+  desc: "Test file for HWorkpace."

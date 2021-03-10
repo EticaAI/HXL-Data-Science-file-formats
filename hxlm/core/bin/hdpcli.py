@@ -32,6 +32,19 @@
 # @see https://github.com/sobolevn/awesome-cryptography
 # @see https://github.com/pFarb/awesome-crypto-papers
 # @see https://github.com/mozilla/sops
+# @see More about RSA:
+#      https://blog.trailofbits.com/2019/07/08/fuck-rsa/
+#      https://www.youtube.com/watch?v=lElHzac8DDI
+#      About Tink and focus on usability. Definely worth read
+#      https://www.youtube.com/watch?v=pqev9r3rUJs&t=9665s
+#      https://github.com/google/tink/blob/master/docs
+#      /Tink-a_cryptographic_library--RealWorldCrypto2019.pdf
+# @see About user experience
+#      "Designing Crypto and Security APIs That Busy Engineers
+#      and Sysadmins Can Use Securely":
+#      https://www.usenix.org/sites/default/files/conference
+#      /protected-files/hotsec15_slides_green.pdf
+
 
 import sys
 import os

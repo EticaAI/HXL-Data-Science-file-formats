@@ -257,6 +257,20 @@ clojure -X tests/grammar/instaparse-abnf_test.cljc
 # TODO: https://github.com/antlr/grammars-v4/tree/master/doiurl
 # TODO: https://github.com/antlr/antlr4/blob/master/doc/python-target.md
 
+#### keying python tests ______________________________________________________
+# pip3 install keyring
+# keyring --help
+# keyring --list-backends
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ keyring set system username
+# Password for 'username' in 'system': (type here: teste)
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ keyring get system username
+# teste
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ python3 -c "import keyring.util.platform_; print(keyring.util.platform_.config_root())"
+# /home/fititnt/.local/share/python_keyring
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ python3 -c "import keyring.util.platform_; print(keyring.util.platform_.data_root())"
+# /home/fititnt/.local/share/python_keyring
+
+
 #### Rocha's local development notes _________________________________________
 # VSCode python code suggestion is wonderful, but have some issues with
 # namespaced packages when doing local development. So this trick is how Rocha
@@ -267,3 +281,7 @@ ln -s /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm  /home/fititnt/.
 ln -s /workspace/git/EticaAI/hxlm-compliance-bra-eticaai/hxlm/compliance /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/compliance
 ln -s /workspace/git/EticaAI/hxlm-crypto-eticaai/hxlm/crypto /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/crypto
 ln -s /workspace/git/EticaAI/hxlm-crypto-eticaai/hxlm/plugin/xe_cryptoexample /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/plugin/xe_cryptoexample
+
+
+### On termux
+pip install git+https://github.comEticaAI/HXL-Data-Science-file-formats.git#egg=hxlm-base-eticaai

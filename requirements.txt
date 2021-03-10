@@ -9,6 +9,8 @@ numpy
 cryptography
 keyring
 
+# SODIUM_INSTALL=system pip3 install pynacl
+
 # pyyaml
 # pip3 install pytest-benchmark
 
@@ -16,4 +18,3 @@ keyring
 # TODO: make both pandas and orange3 optional
 # pandas
 # orange3
-
