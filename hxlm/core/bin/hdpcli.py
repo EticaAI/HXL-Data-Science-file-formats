@@ -80,6 +80,9 @@ from hxlm.core.schema.urn.util import (
 from hxlm.core.constant import (
     HXLM_ROOT
 )
+from hxlm.core.internal.keystore import (
+    HKeystore
+)
 
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
@@ -370,6 +373,22 @@ class HDPCLI:
         )
 
         parser.add_argument(
+            '--hdp-init-data',
+            help='Initialize local with non-default data base. ' +
+            'Intented for users planning to work with multiple workspaces ' +
+            'or that want to store on specific path ' +
+            '(like an huge external HDD or SSD)',
+            action='store',
+            # const=True,
+            default=False,
+            nargs='?'
+            # # default=HXLM_CONFIG_BASE,
+            # default=HXLM_CONFIG_BASE,
+            # # default=False,
+            # nargs='?'
+        )
+
+        parser.add_argument(
             '--hdp-init-home',
             help='Initialize local with non-default configuration home. ' +
             'Intented for users planning to work with multiple workspaces ' +
@@ -379,6 +398,19 @@ class HDPCLI:
             # const=True,
             default=None,
             # nargs='?'
+            # # default=HXLM_CONFIG_BASE,
+            # default=HXLM_CONFIG_BASE,
+            # # default=False,
+            # nargs='?'
+        )
+
+        parser.add_argument(
+            '--hdp-init-keystore',
+            help='(draft, may be removed) Initialize an keystore',
+            action='store',
+            # const=True,
+            default=False,
+            nargs='?'
             # # default=HXLM_CONFIG_BASE,
             # default=HXLM_CONFIG_BASE,
             # # default=False,
@@ -398,22 +430,6 @@ class HDPCLI:
             # default=HXLM_CONFIG_BASE,
             # # default=False,
             nargs='?'
-        )
-
-        parser.add_argument(
-            '--hdp-init-data',
-            help='Initialize local with non-default data base. ' +
-            'Intented for users planning to work with multiple workspaces ' +
-            'or that want to store on specific path ' +
-            '(like an huge external HDD or SSD)',
-            action='store',
-            # const=True,
-            default=False,
-            nargs='?'
-            # # default=HXLM_CONFIG_BASE,
-            # default=HXLM_CONFIG_BASE,
-            # # default=False,
-            # nargs='?'
         )
 
         # TODO: add unitary tests for --urn-index-local
@@ -489,6 +505,11 @@ class HDPCLI:
             print('ERROR: only one of the options can run at same time: \n' +
                   ' --hdp-init \n --hdp-init-home \n --hdp-init-home')
             return self.EXIT_ERROR
+
+        if args.hdp_init_keystore:
+            hks = HKeystore()
+            print('hks', hks)
+            return self.EXIT_OK
 
         if args.hdp_init_data:
             return self._exec_hdp_init_data(args.hdp_init_data,
