@@ -28,48 +28,10 @@
 #      REVISION:  ---
 # ==============================================================================
 
-# ./hxlm/core/bin/hdpcli.py urn:data:un:locode
-# echo $(./hxlm/core/bin/hdpcli.py urn:data:un:locode)
 
-# Where to store data for local urn resolving?
-# mkdir "$HOME/.config"
-# mkdir "${HOME}/.config/hxlm"
-# mkdir "${HOME}/.config/hxlm/urn"
-# mkdir "${HOME}/.config/hxlm/urn/data"
-
-# https://data.humdata.org/dataset/hxl-core-schemas
-#  hdpcli urn:data:xz:hxl:standard:core:hashtag
-#    "$HOME/.config/hxlm/urn/data/xz/hxl/std/core/hashtag.csv"
-#  hdpcli urn:data:xz:hxl:standard:core:attribute
-#    "$HOME/.config/hxlm/urn/data/xz/hxl/std/core/attribute.csv"
-#  hdpcli urn:data:un:locode
-#     "$HOME/.config/hxlm/urn/data/un/locode/locode.csv"
-
-# http://www.unece.org/cefact/locode/welcome.html
-# https://github.com/datasets/un-locode
-# https://datahub.io/core/un-locode
-
-# tree /home/fititnt/.config/hxlm/urn/data
-# /home/fititnt/.config/hxlm/urn/data
-# ├── un
-# │   └── locode
-# │       ├── country.csv
-# │       ├── function.csv
-# │       ├── locode.csv
-# │       ├── status.csv
-# │       └── subdivision.csv
-# └── xz
-#     ├── eticaai
-#     └── hxl
-#         └── std
-#             └── core
-#                 ├── attribute.csv
-#                 └── hashtag.csv
-
-# The data:
-#     ~/.local/var/hxlm/data
-# The default place for all individual URNs (excluding the index one)
-#     ~/.config/hxlm/urn
+# @see https://github.com/sobolevn/awesome-cryptography
+# @see https://github.com/pFarb/awesome-crypto-papers
+# @see https://github.com/mozilla/sops
 
 import sys
 import os

@@ -7,6 +7,7 @@ numpy
 
 # When working with urnresolver. Not used by others
 cryptography
+keyring
 
 # pyyaml
 # pip3 install pytest-benchmark
