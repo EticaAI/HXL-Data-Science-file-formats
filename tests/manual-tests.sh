@@ -212,6 +212,21 @@ head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8-bom
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 
+
+#### frictionless tests ________________________________________________________
+# @see https://framework.frictionlessdata.io/docs/guides/basic-examples/
+# @see https://developers.google.com/public-data/docs/schema/dspl9
+
+pip3 install frictionless
+# cd temp/
+# wget https://raw.githubusercontent.com/frictionlessdata/frictionless-py/master/data/countries.csv
+frictionless describe countries.csv
+
+frictionless describe countries.csv
+frictionless describe /workspace/data/brasil_inep_microdados-enem-2019/DADOS/MICRODADOS_ENEM_2019_head-n-1000.csv
+frictionless describe /workspace/data/brasil_inep_microdados-enem-2019/DADOS/MICRODADOS_ENEM_2019.csv
+frictionless describe /home/fititnt/Downloads/ven_adminboundaries_tabulardata.xlsx
+
 #### dask tests ______________________________________________________________
 # @see https://docs.dask.org/en/latest/install.html
 # python -m pip install "dask[complete]"    # Install everything

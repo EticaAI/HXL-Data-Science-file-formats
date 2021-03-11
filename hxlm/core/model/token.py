@@ -1,4 +1,4 @@
-"""hxlm.core.internal.keystore is an internal colletion of helpers to assist
+"""hxlm.core.model.token is an internal colletion of helpers to assist
 hdpcli command line helper.
 
 NOTE: this class may be moved outsite the core library later.
@@ -12,8 +12,8 @@ import os
 import configparser
 
 
-class HKeystore:
-    """Keystore is (TODO: document)
+class HSToken:
+    """HSToken is (TODO: document)
     """
 
     raw_ini = None

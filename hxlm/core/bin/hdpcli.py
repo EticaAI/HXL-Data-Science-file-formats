@@ -507,7 +507,7 @@ class HDPCLI:
             return self.EXIT_ERROR
 
         if args.hdp_init_keystore:
-            hks = HKeystore()
+            hks = HKeystore(args.hdp_init_keystore)
             print('hks', hks)
             return self.EXIT_OK
 
