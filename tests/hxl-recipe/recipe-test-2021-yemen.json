@@ -1,0 +1,18 @@
+{
+    "input": "https://data.humdata.org/dataset/yemen-humanitarian-needs-overview",
+    "sheet_index": 1,
+    "recipe": [
+        {
+            "filter": "count",
+            "patterns": "adm1+name,adm1+code",
+            "aggregators": [
+                "sum(population) as Population#population"
+            ]
+        },
+        {
+            "filter": "clean_data",
+            "number": "population",
+            "number_format": ".0f"
+        }
+    ]
+}

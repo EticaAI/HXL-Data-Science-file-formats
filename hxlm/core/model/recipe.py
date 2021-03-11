@@ -1,5 +1,17 @@
 """hxlm.core.model.recipe contains HRecipe (...)
 
+Quick links:
+- TEST ONLINE!
+  - https://proxy.hxlstandard.org/api/from-spec.html
+- JSON specs:
+  - https://github.com/HXLStandard/hxl-proxy/wiki/JSON-processing-specs
+- Filter parameters:
+  - https://github.com/HXLStandard/hxl-proxy/wiki/JSON-recipes
+- API endpoint:
+  - https://github.com/HXLStandard/hxl-proxy/wiki/Process-JSON-spec
+- JSON processing specs for HXL data, by David Megginson, 2021-03-11
+  - https://docs.google.com/presentation/d
+    /17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/edit#slide=id.p
 
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License

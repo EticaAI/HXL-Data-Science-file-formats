@@ -1,0 +1,10 @@
+[
+    {
+        "filter": "with_columns",
+        "with_columns": "#vocab+id+v_iso6393_3letter,#vocab+code+v_6391,#vocab+name"
+    },
+    {
+        "filter": "without_rows",
+        "without_rows": "#vocab+code+v_6391="
+    }
+]

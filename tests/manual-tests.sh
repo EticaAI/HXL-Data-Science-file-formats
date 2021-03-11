@@ -212,6 +212,10 @@ head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8-bom
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000_quick-utf8.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 head -n 3 hxlquickimport_samples/MICRODADOS_ENEM_2019_head-n-1000.csv | hxltag --map NU_INSCRICAO#item+incricao --default-tag='#item' 
 
+#### hxlspec __________________________________________________________________
+# /workspace/git/EticaAI/HXL-Data-Science-file-formats/temp/yemen_hno_2021_clusters-intersectoral-severity_dataset.xlsx
+# @source https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+# @source https://data.humdata.org/dataset/yemen-humanitarian-needs-overview/resource/eb4e597c-a969-4b77-b9ef-94c55c216dbf
 
 #### frictionless tests ________________________________________________________
 # @see https://framework.frictionlessdata.io/docs/guides/basic-examples/
