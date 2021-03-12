@@ -5,7 +5,6 @@
   "required": [
     "hsilo"
   ],
-  "$comment": "TODO: make be requred with hsilo + at least another root prop ",
   "fileMatch": [
     "*.hdp.yml",
     "*.hdp.json"
@@ -27,7 +26,9 @@
       "hsilo": {
         "$ref": "#/$defs/root/hsilo"
       }
-    }
+    },
+    "minProperties": 2,
+    "additionalProperties": false
   },
   "$defs": {
     "attr": {
@@ -97,30 +98,40 @@
     "root": {
       "hdataset": {
         "$anchor": "root_hdataset",
-        "type": "object",
-        "required": [
-          "id",
-          "source"
-        ]
+        "type": "array",
+        "items": {
+          "type": "string",
+          "required": [
+            "id",
+            "source"
+          ]
+        },
+        "minItems": 1
       },
       "hfile": {
         "$anchor": "root_hfile",
-        "type": "object",
-        "required": [
-          "id",
-          "source"
-        ]
+        "description": "Generic file",
+        "type": "array",
+        "items": {
+          "type": "string",
+          "required": [
+            "id",
+            "source"
+          ]
+        },
+        "minItems": 1
       },
       "hrecipe": {
         "$anchor": "root_hrecipe",
-        "type": "object",
-        "required": [
-          "id",
-          "source"
-        ],
-        "properties": {
-          "_todo": "_todo"
-        }
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "source"
+          ]
+        },
+        "minItems": 1
       },
       "hsilo": {
         "$anchor": "root_hsilo",
