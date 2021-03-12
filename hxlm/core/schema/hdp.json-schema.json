@@ -1,50 +1,133 @@
 {
   "$id": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json",
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://json-schema.org/draft-07/schema",
   "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.4",
   "required": [
-    "hsilo",
-    "hdataset",
-    "hfile",
-    "hrecipe"
+    "hsilo"
   ],
+  "$comment": "TODO: make be requred with hsilo + at least another root prop ",
   "fileMatch": [
     "*.hdp.yml",
     "*.hdp.json"
   ],
   "type": "array",
-  "definitions": {
-    "hsilo": {
-      "description": "hsilo is (TODO: add description)",
-      "type": "string"
-    },
-    "hdataset": {
-      "description": "hdataset is (TODO: add description)",
-      "type": "array",
-      "minItems": 1
-    },
-    "hfile": {
-      "description": "hfile is (TODO: add description)",
-      "type": "array"
-    },
-    "hrecipe": {
-      "description": "hrecipe is (TODO: add description)",
-      "type": "array",
-      "minItems": 1
-    }
-  },
   "items": {
-    "title": "Test test",
+    "title": "HDP Declarative programming",
     "type": "object",
     "properties": {
-      "hsilo": true,
-      "hrecipe": true
+      "hdataset": {
+        "$ref": "#/$defs/root/hdataset"
+      },
+      "hfile": {
+        "$ref": "#/$defs/root/hfile"
+      },
+      "hrecipe": {
+        "$ref": "#/$defs/root/hrecipe"
+      },
+      "hsilo": {
+        "$ref": "#/$defs/root/hsilo"
+      }
     }
   },
   "$defs": {
+    "attr": {
+      "adm0": {
+        "$anchor": "attr_adm0",
+        "type": "string"
+      },
+      "desc": {
+        "$anchor": "attr_desc",
+        "type": "string"
+      },
+      "id": {
+        "$anchor": "attr_id",
+        "type": "string"
+      },
+      "iri": {
+        "$anchor": "attr_iri",
+        "type": "string",
+        "format": "iri"
+      },
+      "lang": {
+        "$anchor": "attr_lang",
+        "type": "string",
+        "maxLength": 3,
+        "minLength": 3
+      },
+      "meta": {
+        "$anchor": "attr_meta",
+        "type": "object",
+        "minProperties": 1
+      },
+      "name": {
+        "$anchor": "attr_name",
+        "type": "string"
+      },
+      "tag": {
+        "$anchor": "attr_tag",
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "examples": [
+          "ara",
+          "eng",
+          "fra",
+          "spa",
+          "por",
+          "qaa",
+          "rus",
+          "zho"
+        ]
+      },
+      "source": {
+        "$anchor": "attr_source",
+        "type": [
+          "array",
+          "string"
+        ]
+      },
+      "urn": {
+        "$anchor": "attr_urn",
+        "type": [
+          "string"
+        ]
+      }
+    },
     "root": {
-      "hdataset" : {
-        "type": "object"
+      "hdataset": {
+        "$anchor": "root_hdataset",
+        "type": "object",
+        "required": [
+          "id",
+          "source"
+        ]
+      },
+      "hfile": {
+        "$anchor": "root_hfile",
+        "type": "object",
+        "required": [
+          "id",
+          "source"
+        ]
+      },
+      "hrecipe": {
+        "$anchor": "root_hrecipe",
+        "type": "object",
+        "required": [
+          "id",
+          "source"
+        ],
+        "properties": {
+          "_todo": "_todo"
+        }
+      },
+      "hsilo": {
+        "$anchor": "root_hsilo",
+        "type": [
+          "object",
+          "string"
+        ]
       }
     }
   }
