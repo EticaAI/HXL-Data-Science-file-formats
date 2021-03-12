@@ -1,29 +1,51 @@
 {
-  "$schema":"https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json",
-  "name": "hdp.json-schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.4",
+  "required": [
+    "hsilo",
+    "hdataset",
+    "hfile",
+    "hrecipe"
+  ],
   "fileMatch": [
     "*.hdp.yml",
     "*.hdp.json"
   ],
-  "type":"array",
+  "type": "array",
   "definitions": {
     "hsilo": {
       "description": "hsilo is (TODO: add description)",
-      "type":"string"
+      "type": "string"
+    },
+    "hdataset": {
+      "description": "hdataset is (TODO: add description)",
+      "type": "array",
+      "minItems": 1
+    },
+    "hfile": {
+      "description": "hfile is (TODO: add description)",
+      "type": "array"
     },
     "hrecipe": {
-      "description": "hsilo is (TODO: add description)",
-      "type":"array"
+      "description": "hrecipe is (TODO: add description)",
+      "type": "array",
+      "minItems": 1
     }
   },
   "items": {
-    "title": "Ansible Playbook schema",
+    "title": "Test test",
     "type": "object",
     "properties": {
       "hsilo": true,
       "hrecipe": true
+    }
+  },
+  "$defs": {
+    "root": {
+      "hdataset" : {
+        "type": "object"
+      }
     }
   }
 }
