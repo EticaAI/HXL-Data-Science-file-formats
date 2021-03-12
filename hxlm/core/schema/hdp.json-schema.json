@@ -1,4 +1,6 @@
 {
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json",
   "name": "hdp.json-schema.json",
   "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.4",
   "fileMatch": [
@@ -10,9 +12,18 @@
     "hsilo": {
       "description": "hsilo is (TODO: add description)",
       "type":"string"
+    },
+    "hrecipe": {
+      "description": "hsilo is (TODO: add description)",
+      "type":"array"
     }
   },
   "items": {
-
+    "title": "Ansible Playbook schema",
+    "type": "object",
+    "properties": {
+      "hsilo": true,
+      "hrecipe": true
+    }
   }
 }
