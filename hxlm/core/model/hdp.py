@@ -9,6 +9,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
 import os
+from urllib.request import urlopen
 
 from typing import (
     Union,
@@ -94,7 +95,7 @@ class HDP:
             self._safer_zone_list = safer_zone_list
 
         if hdp_entry_point:
-            self._prepare(hdp_entry_point)
+            self._prepare(hdp_entry_point=hdp_entry_point, is_startup=True)
         if json_string:
             self._prepare_from_string(json_string=json_string)
         if yml_string:
@@ -103,7 +104,7 @@ class HDP:
     def _get_urnresolver_iri(self, urn: str) -> str:
         return 'http://localhost/?not-implemented-yet#' + urn
 
-    def _prepare(self, hdp_entry_point: str) -> bool:
+    def _prepare(self, hdp_entry_point: str, is_startup: bool = False) -> bool:
 
         if self._debug:
             print('HDP._prepare', hdp_entry_point)
@@ -112,8 +113,9 @@ class HDP:
         if hdp_entry_point.startswith('urn:'):
             hdp_entry_point = self._get_urnresolver_iri(hdp_entry_point)
 
-        if hdp_entry_point.startswith(('http://', 'http://')):
-            return self._prepare_from_remote_iri(hdp_entry_point)
+        if hdp_entry_point.startswith(('http://', 'https://')):
+            return self._prepare_from_remote_iri(hdp_entry_point,
+                                                 is_startup=is_startup)
 
         if os.path.isfile(hdp_entry_point):
             return self._prepare_from_local_file(hdp_entry_point)
@@ -142,9 +144,26 @@ class HDP:
 
         return False
 
-    def _prepare_from_remote_iri(self, iri: str):
+    def _prepare_from_remote_iri(self, iri: str, is_startup: bool = False):
         if self._debug:
             print('HDP._prepare_from_remote_iri iri', iri)
+            print('HDP._prepare_from_remote_iri is_startup', is_startup)
+            print('HDP._online_unrestricted_init',
+                  self._online_unrestricted_init)
+
+        if (is_startup and self._online_unrestricted_init) or \
+                self.is_remote_allowed(iri):
+            response = urlopen(iri)
+            filestring = response.read()
+            if iri.endswith(self.HDP_JSON_EXTENSIONS):
+                return self._prepare_from_string(json_string=filestring)
+            if iri.endswith(self.HDP_YML_EXTENSIONS):
+                return self._prepare_from_string(yml_string=filestring)
+        else:
+            # if self._debug:
+            # print('HDP.is_remote_allowed iri', iri)
+            raise RuntimeError('remote iri not allowed [' + iri + ']')
+
         return False
 
     def _prepare_from_string(self,
@@ -191,6 +210,30 @@ class HDP:
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
         return yaml.dump(self._hdp, Dumper=Dumper)
+
+    def is_remote_allowed(self, iri: str) -> bool:
+        """Based on current context explain if the resource is allowed to fetch
+
+        Args:
+            iri (str): an resolvable remote resource (not an URN)
+
+        Returns:
+            bool: True allowed
+        """
+
+        if self._debug:
+            print('HDP.is_remote_allowed iri', iri)
+
+        # TODO: implement self._safer_zone_hosts & self._safer_zone_list.
+        #       While this should work for common cases, still hardcoded.
+        #       (Emerson Rocha, 2021-03-13 03:31 UTC)
+        if iri.startswith((
+            'http://localhost',
+            'http://127.0.0.1',
+            'http://::1'
+        )):
+            return True
+        return False
 
 
 class Dumper(yaml.Dumper):
