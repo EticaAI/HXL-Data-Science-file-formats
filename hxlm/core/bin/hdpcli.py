@@ -138,8 +138,7 @@ def prompt_confirmation(message: str) -> bool:
 
 class HDPCLI:
     """
-    Uurnresolver uses hxlm.core to resolve Uniform Resource Name (URI) to
-    Uniform Resource Identifier (URI)
+    HDP Declarative Programming Command Line Interface
     """
 
     def __init__(self):
@@ -342,9 +341,9 @@ class HDPCLI:
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("urnresolver uses hxlm.core to resolve Uniform " +
-                         "Resource Name (URI) to Uniform Resource " +
-                         "Identifier (URI)"))
+            description=(
+                "HDP Declarative Programming Command Line Interface.")
+        )
 
         parser.add_argument(
             '--debug',
@@ -352,6 +351,21 @@ class HDPCLI:
             action='store_const',
             const=True,
             default=False
+        )
+
+        parser.add_argument(
+            '--export-to-hxl-json-processing-specs',
+            help='Export JSON processing specs for HXL data. Use with ' +
+            '"hxlspec myspec.json > data.hxl.csv" or HXL-proxy.' +
+            '(https://proxy.hxlstandard.org/api/from-spec.html)',
+            action='store',
+            # const=True,
+            default=None,
+            # nargs='?'
+            # # default=HXLM_CONFIG_BASE,
+            # default=HXLM_CONFIG_BASE,
+            # # default=False,
+            # nargs='?'
         )
 
         parser.add_argument(
