@@ -8,6 +8,8 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
+import os
+
 from typing import (
     Union
 )
@@ -54,6 +56,20 @@ class HDP:
     listed item already is compromised.
     """
 
+    HDP_JSON_EXTENSIONS: list = [
+        '.hdp.json',
+        '.hdpd.json',
+        '.hdpr.json',
+        # '.urn.json' # See urnresolver
+    ]
+
+    HDP_YML_EXTENSIONS: list = [
+        '.hdp.yml',
+        '.hdpd.yml',
+        '.hdpr.yml',
+        # '.urn.yml' # See urnresolver
+    ]
+
     def __init__(self, hdp_entry_point: str = None,
                  yml_string: str = None,
                  json_string: str = None,
@@ -73,24 +89,61 @@ class HDP:
             self._safer_zone_list = safer_zone_list
 
         if hdp_entry_point:
-            self._prepare_from_entry_point(hdp_entry_point)
+            self._prepare(hdp_entry_point)
         if json_string:
-            self._prepare_from_json_string(json_string)
+            self._prepare_from_string(json_string=json_string)
         if yml_string:
-            self._prepare_from_entry_point(yml_string)
+            self._prepare_from_string(yml_string=yml_string)
 
-    def _prepare_from_entry_point(self, hdp_entry_point):
+    def _get_urnresolver_iri(self, urn: str) -> str:
+        return 'http://localhost/?not-implemented-yet#' + urn
+
+    def _prepare(self, hdp_entry_point: str) -> bool:
+
+        # First things first: try to resolve the URN. Maybe already is local
+        if hdp_entry_point.startswith('urn:'):
+            hdp_entry_point = self._get_urnresolver_iri(hdp_entry_point)
+
+        if hdp_entry_point.startswith(['http://', 'http://']):
+            return self._prepare_from_remote_iri(hdp_entry_point)
+
+        if os.path.isfile(hdp_entry_point):
+            return self._prepare_from_local_file(hdp_entry_point)
+
+        if os.path.isdir(hdp_entry_point):
+            return self._prepare_from_local_directory(hdp_entry_point)
+
+        raise RuntimeError('unknow entrypoint [' + hdp_entry_point + ']')
+
+    def _prepare_from_local_directory(self, dir_path: str):
         pass
 
-    def _prepare_from_json_string(self, json_string):
-        self._hdp_raw = json_string
-        self._hdp = json.loads(json_string)
+    def _prepare_from_local_file(self, file_path: str):
+        pass
 
-    def _prepare_from_yml_string(self, hdp_yml_string):
-        self._hdp_raw = hdp_yml_string
-        self._hdp = yaml.safe_load(hdp_yml_string)
+    def _prepare_from_remote_iri(self, iri: str):
+        return True
 
-    def export_schema_json(self) -> str:
+    def _prepare_from_string(self,
+                             json_string: str = None,
+                             yml_string: str = None):
+        if json_string:
+            self._hdp_raw = json_string
+            self._hdp = json.loads(json_string)
+            return True
+
+        if yml_string:
+            self._hdp_raw = yml_string
+            self._hdp = yaml.safe_load(yml_string)
+            return True
+
+        raise RuntimeError('json_string or yml_string are required')
+
+    # def _prepare_from_yml_string(self, hdp_yml_string):
+    #     self._hdp_raw = hdp_yml_string
+    #     self._hdp = yaml.safe_load(hdp_yml_string)
+
+    def export_json(self) -> str:
         """Export the current HDP internal metadata in an YAML format
 
         Returns:

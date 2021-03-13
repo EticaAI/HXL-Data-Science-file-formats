@@ -161,7 +161,11 @@ class HDPCLI:
     def _exec_export_to_hxl_json_processing_specs(self,
                                                   hdp_entry_point: str) -> HDP:
 
-        hdp = HDP(hdp_entry_point=hdp_entry_point)
+        # TODO: while the default of HDP (and later also from the hdpcli) is
+        #       not allow online initialization, at this moment, for testing,
+        #       we're allowing here. (Emerson Rocha, 2021-03-13 01:48 UTC)
+        hdp = HDP(hdp_entry_point=hdp_entry_point,
+                  online_unrestricted_init=True)
 
         return hdp
 
@@ -530,7 +534,8 @@ class HDPCLI:
                 hdp_entry_point=args.export_to_hxl_json_processing_specs
             )
             # print('export_to_hxl_json_processing_specs', hdp)
-            return str(hdp)
+            # return str(hdp)
+            return hdp.export_yml()
 
         # TODO: 'Is AI just a bunch of if and else statements?'
         if (args.hdp_init and (args.hdp_init_home or args.hdp_init_data)) or \
