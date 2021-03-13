@@ -159,15 +159,23 @@ class HDPCLI:
         self.EXIT_SYNTAX = 2
 
     def _exec_export_to_hxl_json_processing_specs(self,
-                                                  hdp_entry_point: str) -> HDP:
+                                                  hdp_entry_point: str,
+                                                  debug: bool = False) -> str:
 
         # TODO: while the default of HDP (and later also from the hdpcli) is
         #       not allow online initialization, at this moment, for testing,
         #       we're allowing here. (Emerson Rocha, 2021-03-13 01:48 UTC)
         hdp = HDP(hdp_entry_point=hdp_entry_point,
-                  online_unrestricted_init=True)
+                  online_unrestricted_init=True,
+                  debug=debug)
 
-        return hdp
+        if debug:
+            print('hdpcli ... hdp', hdp)
+            print('hdpcli ... hdp', hdp.export_yml())
+
+        string_result = hdp.export_yml()
+
+        return string_result
 
         # return self.EXIT_OK
 
@@ -518,6 +526,8 @@ class HDPCLI:
         called will try to convert the URN to an valid IRI.
         """
 
+        is_debug = False
+
         # Test commands:
         # urnresolver --debug urn:data:xz:hxl:standard:core:hashtag
         # urnresolver urn:data:xz:hxl:standard:core:hashtag
@@ -528,14 +538,16 @@ class HDPCLI:
 
         if 'debug' in args and args.debug:
             print('DEBUG: CLI args [[', args, ']]')
+            is_debug = True
 
         if args.export_to_hxl_json_processing_specs:
-            hdp = self._exec_export_to_hxl_json_processing_specs(
-                hdp_entry_point=args.export_to_hxl_json_processing_specs
+            hdp_result = self._exec_export_to_hxl_json_processing_specs(
+                hdp_entry_point=args.export_to_hxl_json_processing_specs,
+                debug=is_debug
             )
             # print('export_to_hxl_json_processing_specs', hdp)
             # return str(hdp)
-            return hdp.export_yml()
+            return hdp_result
 
         # TODO: 'Is AI just a bunch of if and else statements?'
         if (args.hdp_init and (args.hdp_init_home or args.hdp_init_data)) or \

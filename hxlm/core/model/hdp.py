@@ -11,7 +11,8 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 import os
 
 from typing import (
-    Union
+    Union,
+    Tuple
 )
 
 import json
@@ -24,6 +25,8 @@ __all__ = ['HDP']
 class HDP:
     """Class used by HDP Declarative Programming Command Line Interface
     """
+
+    _debug: bool = False
 
     _hdp: dict = None
     # TODO: what name to use? Maybe Knowledge base?
@@ -39,49 +42,51 @@ class HDP:
     Defaults to False (for security reasons)
     """
 
-    _safer_zone_hosts: list = [
+    _safer_zone_hosts: Tuple = (
         'localhost'
-    ]
-    """List of hostnames that even if under restrictions are considered safe
+    )
+    """Tuple of hostnames that even if under restrictions are considered safe
     The name 'safer' does not mean that is 100% safe if an resource on the
     listed item already is compromised
     """
 
-    _safer_zone_list: list = [
+    _safer_zone_list: Tuple = [
         '127.0.0.1',
         '::1'
     ]
-    """List of IPv4 or IPv6 that even if under restrictions are considered safe
+    """Tuple of IPv4 or IPv6 that even if under restrictions are considered safe
     The name 'safer' does not mean that is 100% safe if an resource on the
     listed item already is compromised.
     """
 
-    HDP_JSON_EXTENSIONS: list = [
+    HDP_JSON_EXTENSIONS: Tuple = (
         '.hdp.json',
         '.hdpd.json',
         '.hdpr.json',
         # '.urn.json' # See urnresolver
-    ]
+    )
 
-    HDP_YML_EXTENSIONS: list = [
+    HDP_YML_EXTENSIONS: Tuple = (
         '.hdp.yml',
         '.hdpd.yml',
         '.hdpr.yml',
         # '.urn.yml' # See urnresolver
-    ]
+    )
 
     def __init__(self, hdp_entry_point: str = None,
                  yml_string: str = None,
                  json_string: str = None,
                  online_unrestricted_init: bool = False,
-                 safer_zone_hosts: list = None,
-                 safer_zone_list: list = None
+                 safer_zone_hosts: Tuple = None,
+                 safer_zone_list: Tuple = None,
+                 debug: bool = False
                  ):
         """
         Constructs all the necessary attributes for the HDPCLI object.
         """
 
         self._online_unrestricted_init = online_unrestricted_init
+        self._debug = debug
 
         if safer_zone_hosts:
             self._safer_zone_hosts = safer_zone_hosts
@@ -100,11 +105,14 @@ class HDP:
 
     def _prepare(self, hdp_entry_point: str) -> bool:
 
+        if self._debug:
+            print('HDP._prepare', hdp_entry_point)
+
         # First things first: try to resolve the URN. Maybe already is local
         if hdp_entry_point.startswith('urn:'):
             hdp_entry_point = self._get_urnresolver_iri(hdp_entry_point)
 
-        if hdp_entry_point.startswith(['http://', 'http://']):
+        if hdp_entry_point.startswith(('http://', 'http://')):
             return self._prepare_from_remote_iri(hdp_entry_point)
 
         if os.path.isfile(hdp_entry_point):
@@ -116,13 +124,28 @@ class HDP:
         raise RuntimeError('unknow entrypoint [' + hdp_entry_point + ']')
 
     def _prepare_from_local_directory(self, dir_path: str):
-        pass
+        if self._debug:
+            print('HDP._prepare_from_local_directory dir_path', dir_path)
+        return False
 
     def _prepare_from_local_file(self, file_path: str):
-        pass
+        if self._debug:
+            print('HDP._prepare_from_local_file file_path', file_path)
+            print('HDP._prepare_from_local_file type file_path',
+                  type(file_path))
+
+        with open(file_path, mode="r") as filestring:
+            if file_path.endswith(self.HDP_JSON_EXTENSIONS):
+                return self._prepare_from_string(json_string=filestring)
+            if file_path.endswith(self.HDP_YML_EXTENSIONS):
+                return self._prepare_from_string(yml_string=filestring)
+
+        return False
 
     def _prepare_from_remote_iri(self, iri: str):
-        return True
+        if self._debug:
+            print('HDP._prepare_from_remote_iri iri', iri)
+        return False
 
     def _prepare_from_string(self,
                              json_string: str = None,
