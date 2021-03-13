@@ -14,6 +14,10 @@ sudo snap install ngrok
 ./hxlm/core/bin/hdpcli.py --debug --hdp-init-data /tmp/hdp-test --please
 ./hxlm/core/bin/hdpcli.py --debug --hdp-init-data /tmp/hdp-test
 
+### hdpcli --export-to-hxl-json-processing-specs ...............................
+
+hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml --debug
+
 
 # https://raw.githubusercontent.com/HXLStandard/libhxl-python/master/profile/data/unhcr_popstats_export_persons_of_concern_all_data.hxl
 ### hxl2example ----------------------------------------------------------------

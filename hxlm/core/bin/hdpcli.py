@@ -77,6 +77,11 @@ from hxlm.core.schema.urn.util import (
     # get_urn_resolver_remote,
     # HXLM_CONFIG_BASE
 )
+
+from hxlm.core.model.hdp import (
+    HDP
+)
+
 from hxlm.core.constant import (
     HXLM_ROOT
 )
@@ -152,6 +157,15 @@ class HDPCLI:
         self.EXIT_OK = 0
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
+
+    def _exec_export_to_hxl_json_processing_specs(self,
+                                                  hdp_entry_point: str) -> HDP:
+
+        hdp = HDP(hdp_entry_point=hdp_entry_point)
+
+        return hdp
+
+        # return self.EXIT_OK
 
     def _exec_hdp_init(self, config_base: str = None,
                        data_base: str = None,
@@ -510,6 +524,13 @@ class HDPCLI:
 
         if 'debug' in args and args.debug:
             print('DEBUG: CLI args [[', args, ']]')
+
+        if args.export_to_hxl_json_processing_specs:
+            hdp = self._exec_export_to_hxl_json_processing_specs(
+                hdp_entry_point=args.export_to_hxl_json_processing_specs
+            )
+            # print('export_to_hxl_json_processing_specs', hdp)
+            return str(hdp)
 
         # TODO: 'Is AI just a bunch of if and else statements?'
         if (args.hdp_init and (args.hdp_init_home or args.hdp_init_data)) or \
