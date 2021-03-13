@@ -1,5 +1,4 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json
-# y___aml-language-server: $schema=https://my.url.to/the/schema
 
 ---
 
@@ -36,14 +35,3 @@
         - filter: clean_data
           number: "population"
           number_format: .0f
-
-    # {
-    #   "filter": "count",
-    #   "patterns": "adm1+name,adm1+code",
-    #   "aggregators": ["sum(population) as Population#population"]
-    # },
-    # {
-    #   "filter": "clean_data",
-    #   "number": "population",
-    #   "number_format": ".0f"
-    # }

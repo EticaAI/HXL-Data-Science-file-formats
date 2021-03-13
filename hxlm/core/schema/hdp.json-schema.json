@@ -1,7 +1,8 @@
 {
   "$id": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json",
   "$schema": "https://json-schema.org/draft-07/schema",
-  "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.4",
+  "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.5",
+  "$comment": "This site can be used to validate this schema https://jsonschemalint.com/#!/version/draft-07/markup/json",
   "required": [
     "hsilo"
   ],
@@ -11,7 +12,7 @@
   ],
   "type": "array",
   "items": {
-    "title": "HDP Declarative programming",
+    "title": "HDP Declarative programming v0.7.5",
     "type": "object",
     "properties": {
       "hdataset": {
@@ -98,6 +99,7 @@
     "root": {
       "hdataset": {
         "$anchor": "root_hdataset",
+        "description": "Abstracion an data set (needs to be minimaly usable with HXL tools)",
         "type": "array",
         "items": {
           "type": "string",
@@ -110,7 +112,7 @@
       },
       "hfile": {
         "$anchor": "root_hfile",
-        "description": "Generic file",
+        "description": "Abstracion to an generic file",
         "type": "array",
         "items": {
           "type": "string",
@@ -123,6 +125,7 @@
       },
       "hrecipe": {
         "$anchor": "root_hrecipe",
+        "description": "Abstraction to HXL processing specs. See https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/edit",
         "type": "array",
         "items": {
           "type": "object",
@@ -135,6 +138,7 @@
       },
       "hsilo": {
         "$anchor": "root_hsilo",
+        "description": "hsilo (plus at least extra rule) are required to validate the file",
         "type": [
           "object",
           "string"
