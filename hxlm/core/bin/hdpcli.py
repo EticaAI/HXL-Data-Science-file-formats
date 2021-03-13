@@ -169,11 +169,12 @@ class HDPCLI:
                   online_unrestricted_init=True,
                   debug=debug)
 
-        if debug:
-            print('hdpcli ... hdp', hdp)
-            print('hdpcli ... hdp', hdp.export_yml())
+        # if debug:
+        #     print('hdpcli ... hdp', hdp)
+        #     print('hdpcli ... hdp', hdp.export_yml())
 
-        string_result = hdp.export_yml()
+        # string_result = hdp.export_yml()
+        string_result = hdp.export_json_processing_specs()
 
         return string_result
 
@@ -547,7 +548,8 @@ class HDPCLI:
             )
             # print('export_to_hxl_json_processing_specs', hdp)
             # return str(hdp)
-            return hdp_result
+            print(hdp_result)
+            return self.EXIT_OK
 
         # TODO: 'Is AI just a bunch of if and else statements?'
         if (args.hdp_init and (args.hdp_init_home or args.hdp_init_data)) or \

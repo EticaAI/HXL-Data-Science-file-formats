@@ -196,7 +196,57 @@ class HDP:
         #       in an place outside HDP internal metadata?
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
-        return json.dumps(self._hdp)
+        return json.dumps(self._hdp, indent=4, sort_keys=True)
+
+    def export_json_processing_specs(self, options=None) -> str:
+        """Export JSON processing specs for HXL data (as an array)
+
+        Note: the result is an Array, but HXL-Proxy and hxlspec expects an
+              single result. You may need to manually decide which item to use.
+              If the result already is only one item, remove the starting '['
+              and the last ']'
+
+        Example
+            # Via command line
+            hxlspec myspec.json > data.hxl.csv
+            # Test on HXL-proxy
+            https://proxy.hxlstandard.org/api/from-spec.html
+
+        Args:
+            options ([type], optional): Select more specific recipes.
+                                        Defaults to None.
+
+        Raises:
+            NotImplementedError: [description]
+
+        Returns:
+            List of JSON processing specs for HXL data
+        """
+
+        if options:
+            raise NotImplementedError('options not implemented yet')
+
+        result = []
+        for hsilo in self._hdp:
+            if 'hrecipe' in hsilo:
+                for hrecipeitem in hsilo['hrecipe']:
+                    recipeitem = {}
+                    if 'iri_example' in hrecipeitem:
+                        # Note: here is an list, but we're taking the first now
+                        recipeitem['input'] = \
+                            hrecipeitem['iri_example'][0]['iri']
+                        if 'sheet_index' in hrecipeitem['iri_example'][0]:
+                            recipeitem['sheet_index'] = \
+                                hrecipeitem['iri_example'][0]['sheet_index']
+                    recipeitem['recipe'] = hrecipeitem['recipe']
+                    result.append(recipeitem)
+
+        # If the result already is exact one item, return just one
+        # So the output can be chained
+        if len(result) == 1:
+            result = result[0]
+
+        return json.dumps(result, indent=4, sort_keys=True)
 
     def export_yml(self) -> str:
         """Export the current HDP internal metadata in an YAML format
