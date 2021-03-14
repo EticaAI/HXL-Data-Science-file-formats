@@ -398,7 +398,7 @@ attr:
       # (This term, 来源, is the simplified form of 來源.)
       id: '來源'  # source; origin 
     zxx:
-      id: 'source'
+      id: 'fontem'
 
   id:
     # attr.id
@@ -503,6 +503,52 @@ attr:
     zxx:
       id: 'lingua'
 
+  locum:
+    # attr.locum an generic reference to place
+    # https://en.m.wiktionary.org/wiki/locum#Latin
+    # https://en.m.wiktionary.org/wiki/place
+    # https://www.wikidata.org/wiki/Property:P276 (location of the object, structure or event.)
+    # https://www.wikidata.org/wiki/Q17334923 (location of physical or non-physical object in space)
+    ara:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      id: 'موقع'
+    eng:
+      id: 'location'
+      descriptionem: 'location of physical or non-physical object in space'
+    fra:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      id: 'lieu'
+      descriptionem: "position dans l'espace où se situe ou se produit une entité par rapport à une autre entité"
+    spa:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      # 'localización' -> localizacion
+      id: 'localizacion'
+      descriptionem: 'ubicación del objeto físico o no físico en el espacio'
+    lat:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      # @see https://www.wikidata.org/wiki/Property:P276
+      # Note: P276 uses 'situs', but we will use locum
+      id: 'locum'
+    por:
+      # @see https://www.wikidata.org/wiki/Property:P276
+      # localização -> localizacao
+      id: 'localizacao'
+      descriptionem: 'localização de um objeto (físico ou abstrato)'
+    qaa:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      # Note: this is an P , not an Q
+      id: 'q17334923'
+      descriptionem: 'location of physical or non-physical object in space'
+    rus:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      id: 'местонахождение'
+      descriptionem: 'местоположение вымышленного или реального объекта в трёхмерном пространстве'
+    zho:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      id: '位置'
+    zxx:
+      id: 'locum'
+
   meta:
     # attr.meta is ...
     # "Metadata is "data that provides information about other data".
@@ -575,37 +621,6 @@ attr:
     zxx:
       id: 'nomen'
 
-  # meta:
-  #   # attr.meta is ...
-  #   # "Meta (from the Greek μετα-, meta-, meaning "after" or "beyond") is a
-  #   #  prefix meaning more comprehensive or transcending." -- Wikipedia
-  #   # https://en.wikipedia.org/wiki/Meta
-  #   # https://en.wiktionary.org/wiki/meta
-  #   ara:
-  #     # https://ar.wikipedia.org/wiki/%D9%85%D9%8A%D8%AA%D8%A7
-  #     id: 'ميتا'  # meta translated to arab tend to be 'dead'
-  #   eng:
-  #     id: 'meta'
-  #   fra:
-  #     id: 'meta'
-  #   spa:
-  #     id: 'meta'
-  #   lat:
-  #     id: 'meta'
-  #   por:
-  #     id: 'meta'
-  #   qaa:
-  #     # https://www.wikidata.org/wiki/Q1045105
-  #     id: 'q1045105'  # meta- (Q1045105), Greek prefix: prefix of abstraction
-  #   rus:
-  #     # https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%B0-
-  #     id: 'мета'
-  #   zho:
-  #     # https://zh.wikipedia.org/wiki/%E5%BE%8C%E8%A8%AD
-  #     id: '後設'
-  #   zxx:
-  #     id: 'meta'
-
   tag:
     # attr.tag is ...
     # @see https://en.wikipedia.org/wiki/Tag_(metadata)
@@ -636,6 +651,49 @@ attr:
       id: '标签' # '标签' ? '標籤' ?
     zxx:
       id: 'tag'
+
+  tempus:
+    # attr.newterm is ...
+    # @see https://www.wikidata.org/wiki/Q11471 time (Q11471)
+    # @see https://en.m.wiktionary.org/wiki/tempus
+    ara:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'زمن'
+      descriptionem: 'البعد الذي يمكن فيه ترتيب الأحداث من الماضي إلى الحاضر وفي المستقبل'
+    eng:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'time'
+      descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
+    fra:
+      id: 'temps'
+      descriptionem: 'dimension dans laquelle les événements peuvent être ordonnés du passé au présent, vers le futur'
+    spa:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'tiempo'
+      # descriptionem: ''
+    lat:
+      # @see https://en.m.wiktionary.org/wiki/tempus
+      id: 'tempus'
+      descriptionem: ''
+    por:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'tempo'
+      descriptionem: ''
+    qaa:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'q11471'
+      descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
+    rus:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'время'
+      descriptionem: 'форма протекания физических и психических процессов'
+    zho:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: '时间'
+      # descriptionem: ''
+    zxx:
+      id: 'tempus'
+      descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
 
   urn:
     # attr.urn:
@@ -680,24 +738,34 @@ attr:
   #   # attr.newterm is ...
   #   ara:
   #     id: ''
+  #     descriptionem: ''
   #   eng:
   #     id: ''
+  #     descriptionem: ''
   #   fra:
   #     id: ''
+  #     descriptionem: ''
   #   spa:
   #     id: ''
+  #     descriptionem: ''
   #   lat:
   #     id: ''
+  #     descriptionem: ''
   #   por:
   #     id: ''
+  #     descriptionem: ''
   #   qaa:
   #     id: ''
+  #     descriptionem: ''
   #   rus:
   #     id: ''
+  #     descriptionem: ''
   #   zho:
   #     id: ''
+  #     descriptionem: ''
   #   zxx:
   #     id: ''
+  #     descriptionem: ''
   # uri:
   #   # @see https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
   #   # @see https://www.wikidata.org/wiki/Q61694
