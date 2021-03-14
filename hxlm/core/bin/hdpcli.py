@@ -105,7 +105,7 @@ from hxlm.core.internal.keystore import (
 )
 
 from hxlm.core.internal.formatter import (
-    format_json_as_terminal
+    beautify
 )
 
 # @see https://github.com/hugapi/hug
@@ -567,8 +567,9 @@ class HDPCLI:
             )
             # print('export_to_hxl_json_processing_specs', hdp)
             # return str(hdp)
-            print(hdp_result)
+            # print(hdp_result)
             # print(format_json_as_terminal(hdp_result))
+            print(beautify(hdp_result, 'json'))
             return self.EXIT_OK
 
         # TODO: 'Is AI just a bunch of if and else statements?'
