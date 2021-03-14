@@ -13,7 +13,8 @@ from urllib.request import urlopen
 
 from typing import (
     Union,
-    Tuple
+    List,
+    Tuple,
 )
 
 import json
@@ -181,6 +182,68 @@ class HDP:
 
         raise RuntimeError('json_string or yml_string are required')
 
+    def _prepare_hrecipe_item(self, recipe: List) -> List:
+        # result = []
+        # recipeitem = {}
+
+        # recipeitem['recipe'] = recipe['_recipe']
+
+        # Note: for convention, the first recipe always will not use any
+        #       example input (this can make easyer for reuse). But old
+        #       examples will need to be updated
+        recipe_without_examplum = {
+            'recipe': recipe['_recipe']
+        }
+        result = [recipe_without_examplum]
+
+        # result.append(recipeitem)
+        # print('ooooi', result)
+        # return result
+
+        # print('eita123', recipe['exemplum'])
+        # print('eita123', recipe['exemplum'][0])
+
+        # TODO: this have the [0] hardoded. Should be generalized
+        # if 'exemplum' in recipe and 'fontem' in recipe['exemplum'][0]:  # noqa
+        #     # print('oioioi', hrecipeitem['exemplum'])
+        #     if 'iri' in recipe['exemplum'][0]['fontem']:
+        #         recipeitem['input'] = recipe['exemplum'][0]['fontem']['iri']  # noqa
+        #     if '_sheet_index' in recipe['exemplum'][0]['fontem']:
+        #         recipeitem['sheet_index'] = recipe['exemplum'][0]['fontem']['_sheet_index']  # noqa
+
+        # result.append(recipeitem)
+
+        if 'exemplum' in recipe:
+            loop = 0
+            # print('exemplum loop', loop)
+            # print('exemplum loop 2', recipe['exemplum'])
+            # print('exemplum loop 2 loop', recipe['exemplum'][loop])
+            # print('exemplum loop 2 loop fontem', recipe['exemplum'][loop]['fontem'])  # noqa
+            # print('exemplum loop 2 loop fontem b', 'fontem' in recipe['exemplum'][loop])  # noqa
+            # print('exemplum loop 2 loop fontem b', loop in recipe['exemplum'])  # noqa
+            # while loop in recipe['exemplum'] and 'fontem' in recipe['exemplum'][loop]:  # noqa
+            # while 'fontem' in recipe['exemplum'][loop]:
+            while True:
+                # print('exemplum loop, inside', loop, recipe['exemplum'][loop]['fontem'])  # noqa
+                recipeitem = {
+                    'recipe': recipe['_recipe']
+                }
+                if 'iri' in recipe['exemplum'][loop]['fontem']:
+                    recipeitem['input'] = recipe['exemplum'][loop]['fontem']['iri']  # noqa
+                if '_sheet_index' in recipe['exemplum'][loop]['fontem']:
+                    recipeitem['sheet_index'] = recipe['exemplum'][loop]['fontem']['_sheet_index']  # noqa
+                if 'datum' in recipe['exemplum'][loop]['fontem']:
+                    recipeitem['input_data'] = recipe['exemplum'][loop]['fontem']['datum']  # noqa
+                if 'objectivum' in recipe['exemplum'][loop] and 'datum' in recipe['exemplum'][loop]['objectivum']:  # noqa
+                    recipeitem['output_data'] = recipe['exemplum'][loop]['objectivum']['datum']  # noqa
+                result.append(recipeitem)
+                loop = loop + 1
+                if loop >= len(recipe['exemplum']):
+                    break
+
+        # return recipeitem
+        return result
+
     # def _prepare_from_yml_string(self, hdp_yml_string):
     #     self._hdp_raw = hdp_yml_string
     #     self._hdp = yaml.safe_load(hdp_yml_string)
@@ -230,38 +293,8 @@ class HDP:
         for hsilo in self._hdp:
             if 'hrecipe' in hsilo:
                 for hrecipeitem in hsilo['hrecipe']:
-                    recipeitem = {}
-                    # Code pré v0.7.4
-                    # if 'iri_example' in hrecipeitem:
-                    #     # Note: here is an list, but we're taking the first
-                    #     recipeitem['input'] = \
-                    #         hrecipeitem['iri_example'][0]['iri']
-                    #     if 'sheet_index' in hrecipeitem['iri_example'][0]:
-                    #         recipeitem['sheet_index'] = \
-                    #             hrecipeitem['iri_example'][0]['sheet_index']
-                    # recipeitem['recipe'] = hrecipeitem['recipe']
-
-                    recipeitem['recipe'] = hrecipeitem['_recipe']
-
-                    # print('eita123', hrecipeitem['exemplum'])
-                    # print('eita123', hrecipeitem['exemplum'][0])
-
-                    # TODO: this have the [0] hardoded. Should be generalized
-                    if 'exemplum' in hrecipeitem and 'fontem' in hrecipeitem['exemplum'][0]:  # noqa
-                        # print('oioioi', hrecipeitem['exemplum'])
-                        if 'iri' in hrecipeitem['exemplum'][0]['fontem']:
-                            recipeitem['input'] = hrecipeitem['exemplum'][0]['fontem']['iri']  # noqa
-                        if 'sheet_index' in hrecipeitem['exemplum'][0]:
-                            recipeitem['sheet_index'] = \
-                                hrecipeitem['iri_example'][0]['sheet_index']
-                    # recipeitem['recipe'] = hrecipeitem['recipe']
-
-                    result.append(recipeitem)
-
-        # If the result already is exact one item, return just one
-        # So the output can be chained
-        if len(result) == 1:
-            result = result[0]
+                    # result.append(self._prepare_hrecipe_item(hrecipeitem))
+                    result.extend(self._prepare_hrecipe_item(hrecipeitem))
 
         return json.dumps(result, indent=4, sort_keys=True)
 

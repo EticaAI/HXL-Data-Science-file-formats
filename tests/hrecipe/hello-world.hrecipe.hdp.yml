@@ -1,6 +1,6 @@
-
 # cd tests/hrecipe
 # hdpcli --export-to-hxl-json-processing-specs hello-world.hrecipe.hdp.yml
+# hdpcli --export-to-hxl-json-processing-specs hello-world.hrecipe.hdp.yml | jq '.[1]' | hxlspec
 ---
 - hsilo:
     nomen: hello-world.hrecipe.hdp.yml
@@ -19,7 +19,6 @@
       #   - iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
       #     sheet_index: 1
       exemplum:
-
         # Example one
         - fontem:
             iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
@@ -27,16 +26,23 @@
 
         # Example two includes both an inline data
         - fontem:
-            # Note: fontem.datum not implemented
+            # Note: fontem.datum not fully implemented. But the idea here is
+            #       be able to create an ad-hoc table instead of use
+            #       external input. So help show as quick example or...
+            #       as some sort of unitary test for an HXL data processing
+            #       spec!
             datum:
-              - ['header 1', 'header 2', 'header 3']
-              - ['#item +id', '#item +name', '#item +value']
-              - ['ACME1', 'ACME Inc.', '123']
-              - ['XPTO1', 'XPTO org', '456']
+              - ["header 1", "header 2", "header 3"]
+              - ["#item +id", "#item +name", "#item +value"]
+              - ["ACME1", "ACME Inc.", "123"]
+              - ["XPTO1", "XPTO org", "456"]
           objectivum:
-            # Note: fontem.objectivum not implemented
+            # Note: fontem.objectivum not fully implemented. But the idea here
+            #       is (like the fontem.datum) work as ad-hoc table, but is
+            #       really allow create some sort of unitary test for a HXL
+            #       data processing spec!
             datum:
-              - ['header 1', 'header 2', 'header 3']
-              - ['#item +id', '#item +name', '#item +value']
-              - ['ACME1', 'ACME Inc.', '123']
-              - ['XPTO1', 'XPTO org', '456']
+              - ["header 1", "header 2", "header 3"]
+              - ["#item +id", "#item +name", "#item +value"]
+              - ["ACME1", "ACME Inc.", "123"]
+              - ["XPTO1", "XPTO org", "456"]

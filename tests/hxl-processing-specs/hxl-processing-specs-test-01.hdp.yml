@@ -5,10 +5,10 @@
 
 # To inspect the result (pretty print)
 #     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml
-# To pipe the result direct to hxlspec (first item of array, use jq '.[0]')
-#     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[0]' | hxlspec
-# To pipe the result direct to hxlspec (first item of array, use jq '.[1]')
+# To pipe the result direct to hxlspec (second item of array, use jq '.[1]')
 #     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[1]' | hxlspec
+# To pipe the result direct to hxlspec (4º item of array, use jq '.[1]')
+#     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[3]' | hxlspec
 
 ---
 
@@ -47,4 +47,3 @@
         - fontem:
             iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
             _sheet_index: 1
-
