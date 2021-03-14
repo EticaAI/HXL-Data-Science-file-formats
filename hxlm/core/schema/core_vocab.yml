@@ -467,10 +467,12 @@ attr:
     zxx:
       id: 'iri'  # 100% OK
 
-  lingua:
+  linguam:
     # attr.lingua is ...
-    # https://en.wikipedia.org/wiki/Language
-    # https://www.wikidata.org/wiki/Q315
+    # @see https://en.wikipedia.org/wiki/Language
+    # @see https://www.wikidata.org/wiki/Q315
+    # @see https://en.wiktionary.org/wiki/language
+    # @see https://en.wiktionary.org/wiki/lingua#Latin
     ara:
       # https://ar.wikipedia.org/wiki/%D9%84%D8%BA%D8%A9
       id: 'لغة'
@@ -620,6 +622,60 @@ attr:
         - '名字'
     zxx:
       id: 'nomen'
+
+  objectivum:
+    # attr.objectivum is objective, goal, aim. Often used with command line as
+    # opposite of fontem, so
+    #    hdpli --fontem-linguam=por --objectivum-linguam=rus
+    # could means something like 'convert this thing from Portuguese to Russian'
+    #
+    # @see https://en.wiktionary.org/wiki/objectivus#Latin
+    # @see https://en.wiktionary.org/wiki/objective
+    # @see https://www.wikidata.org/wiki/Q341954 Objective (Q341954) Wikimedia disambiguation page
+    ara:
+      # TODO: attr.obje.objectivum.ara needs revision. More than one option
+      #       'هدف' is more like english 'goal', 'aim'
+      # @see https://ar.wikipedia.org/wiki/%D9%87%D8%AF%D9%81
+      id: 'هدف'
+      # descriptionem: ''
+    eng:
+      # @see https://en.wikipedia.org/wiki/Objective
+      # @see https://en.wikipedia.org/wiki/Goal
+      id: 'objective'
+      descriptionem: 'a thing aimed at or sought; a goal.'
+    fra:
+      # TODO: attr.obje.objectivum.fra needs revision. More than one option
+      # @see https://fr.wikipedia.org/wiki/Objectif
+      id: 'objectif'
+      # descriptionem: 'objectif'
+    spa:
+      # https://es.wikipedia.org/wiki/Objetivo
+      id: 'objetivo'
+      descriptionem: 'En el sentido de causa final, o sea relativo a los fines o propósitos de algún objeto o algún ser o alguna institución o alguna organización, o bien literalmente, a la doctrina filosófica de las causas finales, o bien a la atribución de una finalidad u objetivo a un proceso concreto o a una estructura institucional.'
+    lat:
+      # @see https://en.wiktionary.org/wiki/objectivus#Latin
+      # 'objectīvum' -> 'objectivum'
+      id: 'objectivum'
+      descriptionem: ''
+    por:
+      # @see https://pt.wiktionary.org/wiki/objetivo
+      id: 'objetivo'
+      descriptionem: 'fim; propósito; alvo; finalidade; intuito'
+    qaa:
+      # https://www.wikidata.org/wiki/Q341954 (Wikimedia disambiguation page)
+      id: 'q341954'
+      # descriptionem: ''
+    rus:
+      # @see https://ru.wikipedia.org/wiki/%D0%A6%D0%B5%D0%BB%D1%8C
+      id: 'цель'
+      descriptionem: ''
+    zho:
+      # @see https://zh.m.wiktionary.org/zh-hans/%E7%9B%AE%E7%9A%84
+      id: '目的'
+      # descriptionem: ''
+    zxx:
+      id: 'objectivum'
+      descriptionem: 'a thing aimed at or sought; a goal.'
 
   tag:
     # attr.tag is ...

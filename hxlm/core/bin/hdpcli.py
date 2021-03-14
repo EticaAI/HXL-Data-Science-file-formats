@@ -415,6 +415,15 @@ class HDPCLI:
         )
 
         parser.add_argument(
+            '--fontem-linguam',
+            help='(draft) Source language (use if not autodetected)' +
+            'Must be an ISO 639-3 code',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
             '--hdp-init',
             help='Initialize local to work with hxlm.core cli tools. ' +
             'This will use defaults that would work with most single ' +
@@ -475,6 +484,15 @@ class HDPCLI:
             # default=HXLM_CONFIG_BASE,
             # # default=False,
             # nargs='?'
+        )
+
+        parser.add_argument(
+            '--objectivum-linguam',
+            help='(draft) Objective language / target language to export. ' +
+            'Must be an ISO 639-3 code',
+            action='store',
+            default=False,
+            nargs='?'
         )
 
         parser.add_argument(
