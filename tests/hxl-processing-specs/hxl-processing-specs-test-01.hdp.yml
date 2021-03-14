@@ -21,23 +21,21 @@
 - hsilo: "test1"
   hrecipe:
     - id: recipe1
-      iri_example:
-        - iri: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
-      recipe:
+      _recipe:
         - filter: with_columns
           includes: "#vocab+id+v_iso6393_3letter,#vocab+code+v_6391,#vocab+name"
         - filter: without_rows
           queries: "#vocab+code+v_6391="
+      exemplum:
+        - fontem:
+            iri: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
 
 - hsilo: 
     nomen: "test1"
     descriptionem: from https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/
   hrecipe:
     - id: example-processing-with-a-JSON-spec
-      iri_example:
-        - iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
-          sheet_index: 1
-      recipe:
+      _recipe:
         - filter: count
           patterns: "adm1+name,adm1+code"
           aggregators:
@@ -45,3 +43,8 @@
         - filter: clean_data
           number: "population"
           number_format: .0f
+      exemplum:
+        - fontem:
+            iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+            _sheet_index: 1
+

@@ -6,7 +6,7 @@
     nomen: yemen-01.hrecipe.hdp.yml
   hrecipe:
     - id: example-processing-with-a-JSON-spec
-      recipe:
+      _recipe:
         - filter: count
           patterns: "adm1+name,adm1+code"
           aggregators:
@@ -14,6 +14,7 @@
         - filter: clean_data
           number: "population"
           number_format: .0f
-      iri_example:
-        - iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
-          sheet_index: 1
+      exemplum:
+        - fontem:
+            iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+            _sheet_index: 1

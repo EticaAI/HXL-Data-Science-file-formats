@@ -131,7 +131,7 @@
           "type": "object",
           "required": [
             "id",
-            "recipe"
+            "_recipe"
           ]
         },
         "minItems": 1

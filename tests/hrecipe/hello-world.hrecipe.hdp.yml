@@ -4,9 +4,10 @@
 ---
 - hsilo:
     nomen: hello-world.hrecipe.hdp.yml
+    linguam: mul # https://iso639-3.sil.org/code/mul
   hrecipe:
     - id: example-processing-with-a-JSON-spec
-      recipe:
+      _recipe:
         - filter: count
           patterns: "adm1+name,adm1+code"
           aggregators:
@@ -14,6 +15,28 @@
         - filter: clean_data
           number: "population"
           number_format: .0f
-      iri_example:
-        - iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
-          sheet_index: 1
+      # iri_example:
+      #   - iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+      #     sheet_index: 1
+      exemplum:
+
+        # Example one
+        - fontem:
+            iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+            _sheet_index: 1
+
+        # Example two includes both an inline data
+        - fontem:
+            # Note: fontem.datum not implemented
+            datum:
+              - ['header 1', 'header 2', 'header 3']
+              - ['#item +id', '#item +name', '#item +value']
+              - ['ACME1', 'ACME Inc.', '123']
+              - ['XPTO1', 'XPTO org', '456']
+          objectivum:
+            # Note: fontem.objectivum not implemented
+            datum:
+              - ['header 1', 'header 2', 'header 3']
+              - ['#item +id', '#item +name', '#item +value']
+              - ['ACME1', 'ACME Inc.', '123']
+              - ['XPTO1', 'XPTO org', '456']

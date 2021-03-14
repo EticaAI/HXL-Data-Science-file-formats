@@ -231,14 +231,31 @@ class HDP:
             if 'hrecipe' in hsilo:
                 for hrecipeitem in hsilo['hrecipe']:
                     recipeitem = {}
-                    if 'iri_example' in hrecipeitem:
-                        # Note: here is an list, but we're taking the first now
-                        recipeitem['input'] = \
-                            hrecipeitem['iri_example'][0]['iri']
-                        if 'sheet_index' in hrecipeitem['iri_example'][0]:
+                    # Code pré v0.7.4
+                    # if 'iri_example' in hrecipeitem:
+                    #     # Note: here is an list, but we're taking the first
+                    #     recipeitem['input'] = \
+                    #         hrecipeitem['iri_example'][0]['iri']
+                    #     if 'sheet_index' in hrecipeitem['iri_example'][0]:
+                    #         recipeitem['sheet_index'] = \
+                    #             hrecipeitem['iri_example'][0]['sheet_index']
+                    # recipeitem['recipe'] = hrecipeitem['recipe']
+
+                    recipeitem['recipe'] = hrecipeitem['_recipe']
+
+                    # print('eita123', hrecipeitem['exemplum'])
+                    # print('eita123', hrecipeitem['exemplum'][0])
+
+                    # TODO: this have the [0] hardoded. Should be generalized
+                    if 'exemplum' in hrecipeitem and 'fontem' in hrecipeitem['exemplum'][0]:  # noqa
+                        # print('oioioi', hrecipeitem['exemplum'])
+                        if 'iri' in hrecipeitem['exemplum'][0]['fontem']:
+                            recipeitem['input'] = hrecipeitem['exemplum'][0]['fontem']['iri']  # noqa
+                        if 'sheet_index' in hrecipeitem['exemplum'][0]:
                             recipeitem['sheet_index'] = \
                                 hrecipeitem['iri_example'][0]['sheet_index']
-                    recipeitem['recipe'] = hrecipeitem['recipe']
+                    # recipeitem['recipe'] = hrecipeitem['recipe']
+
                     result.append(recipeitem)
 
         # If the result already is exact one item, return just one
