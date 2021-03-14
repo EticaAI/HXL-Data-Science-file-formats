@@ -37,8 +37,8 @@
         "$anchor": "attr_adm0",
         "type": "string"
       },
-      "desc": {
-        "$anchor": "attr_desc",
+      "descriptionem": {
+        "$anchor": "attr_descriptionem",
         "type": "string"
       },
       "id": {
@@ -50,8 +50,8 @@
         "type": "string",
         "format": "iri"
       },
-      "lang": {
-        "$anchor": "attr_lang",
+      "lingua": {
+        "$anchor": "attr_lingua",
         "type": "string",
         "maxLength": 3,
         "minLength": 3

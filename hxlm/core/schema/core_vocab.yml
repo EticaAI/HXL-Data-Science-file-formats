@@ -258,10 +258,49 @@ attr:
     zxx:
       id: 'adm0'
 
-  desc:
-    # attr.description is ...
+  datum:
+    # attr.datum (English 'data') is an representation of facts. Often for
+    # inline usage (e.g. without point the data for an externa urn or iri)
+    # @see https://en.wiktionary.org/wiki/datum#Latin
+    # @see https://en.wiktionary.org/wiki/datus#Latin
+    # @see https://www.wikidata.org/wiki/Q42848
+    ara:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'بيانات'
+    eng:
+      id: 'data'
+    fra:
+      # @see https://www.wikidata.org/wiki/Q42848
+      # 'donnée' -> donnee
+      id: 'donnee'
+    spa:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'dato'
+    lat:
+      # Q42848 uses 'data', but we're using datum since is
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'datum'
+    por:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'dados'
+    qaa:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'q42848'
+    rus:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'данные'
+    zho:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: '数据'
+    zxx:
+      id: 'datum'
+
+  descriptionem:
+    # attr.desc is description about current context
+    # an sort term for descriptio
     # https://en.wikipedia.org/wiki/Description
     # https://www.wikidata.org/wiki/Q1200750
+    # @see https://en.wiktionary.org/wiki/descriptio#Latin
     ara:
       # same as attr.desc.zho, ara is likely to have several alternatives
       id: 'وصف'
@@ -272,7 +311,9 @@ attr:
     spa:
       id: 'descripcion'
     lat:
-      id: 'descriptio'
+      # @see https://en.wiktionary.org/wiki/descriptio
+      # dēscrīptiōnem = descriptionem
+      id: 'descriptionem'
     por:
       id: 'descricao'
     qaa:
@@ -286,7 +327,7 @@ attr:
       #       so many alternatives
       id: '描述'  # TODO: needs revision / add more alternatives
     zxx:
-      id: 'desc'
+      id: 'descriptionem'
 
   exemplum:
     # attr.exemplar is ...
@@ -322,6 +363,43 @@ attr:
     zxx:
       id: 'exemplum'
 
+  fontem:
+    # attr.fontem is the source of the information in the current context. Often
+    # to mention an external source. See also attr.datum for inline source of
+    # data
+    #
+    # https://en.wikipedia.org/wiki/Source
+    # https://en.wikipedia.org/wiki/Source_document
+    # @see https://en.wiktionary.org/wiki/fons#Latin
+    # @see https://www.wikidata.org/wiki/Q224772
+    ara:
+      # https://ar.wikipedia.org/wiki/%D9%85%D8%B5%D8%AF%D8%B1
+      id: 'مصدر'
+    eng:
+      id: 'source'
+    fra:
+      # https://fr.wikipedia.org/wiki/Source
+      id: 'source'
+    spa:
+      # https://es.wikipedia.org/wiki/Source_(desambiguaci%C3%B3n)
+      id: 'fuente'
+    lat:
+      # https://en.wiktionary.org/wiki/fons#Latin
+      id: 'fontem'
+    por:
+      id: 'fonte'
+    qaa:
+      # https://www.wikidata.org/wiki/Q224772
+      id: 'q224772'  # Source (Q224772), Wikimedia disambiguation page
+    rus:
+      id: 'источник' # Source
+    zho:
+      # https://en.wiktionary.org/wiki/%E4%BE%86%E6%BA%90
+      # (This term, 来源, is the simplified form of 來源.)
+      id: '來源'  # source; origin 
+    zxx:
+      id: 'source'
+
   id:
     # attr.id
     # @see https://en.wikipedia.org/wiki/Identifier
@@ -351,6 +429,7 @@ attr:
       id: '標識符'
     zxx:
       id: 'id'
+
   iri:
     # attr.iri
     # "The Internationalized Resource Identifier (IRI) is an internet protocol
@@ -388,8 +467,8 @@ attr:
     zxx:
       id: 'iri'  # 100% OK
 
-  lang:
-    # attr.lang is ...
+  lingua:
+    # attr.lingua is ...
     # https://en.wikipedia.org/wiki/Language
     # https://www.wikidata.org/wiki/Q315
     ara:
@@ -422,7 +501,7 @@ attr:
       # https://zh.wikipedia.org/wiki/%E8%AA%9E%E8%A8%80
       id: '语言'
     zxx:
-      id: 'lang'
+      id: 'lingua'
 
   meta:
     # attr.meta is ...
@@ -459,7 +538,8 @@ attr:
     zxx:
       id: 'meta'
 
-  name:
+  nomen:
+    # TODO: change internal name to Latin term instead of English term
     # attr.name
     # ara seems to uses noum.
     # zho, as expected, may use several ones for this. We would need
@@ -477,6 +557,8 @@ attr:
     spa:
       id: 'nombre'
     lat:
+      # https://en.wiktionary.org/wiki/nomen#Latin
+      # nōmen -> nomen
       id: 'nomen'
     por:
       id: 'nome'
@@ -491,7 +573,7 @@ attr:
       id_alts:
         - '名字'
     zxx:
-      id: 'name'
+      id: 'nomen'
 
   # meta:
   #   # attr.meta is ...
@@ -554,37 +636,6 @@ attr:
       id: '标签' # '标签' ? '標籤' ?
     zxx:
       id: 'tag'
-
-  source:
-    # attr.source
-    # https://en.wikipedia.org/wiki/Source
-    # https://en.wikipedia.org/wiki/Source_document
-    ara:
-      # https://ar.wikipedia.org/wiki/%D9%85%D8%B5%D8%AF%D8%B1
-      id: 'مصدر'
-    eng:
-      id: 'source'
-    fra:
-      # https://fr.wikipedia.org/wiki/Source
-      id: 'source'
-    spa:
-      # https://es.wikipedia.org/wiki/Source_(desambiguaci%C3%B3n)
-      id: 'fuente'
-    lat:
-      id: 'fons'
-    por:
-      id: 'fonte'
-    qaa:
-      # https://www.wikidata.org/wiki/Q224772
-      id: 'q224772'  # Source (Q224772), Wikimedia disambiguation page
-    rus:
-      id: 'источник' # Source
-    zho:
-      # https://en.wiktionary.org/wiki/%E4%BE%86%E6%BA%90
-      # (This term, 来源, is the simplified form of 來源.)
-      id: '來源'  # source; origin 
-    zxx:
-      id: 'source'
 
   urn:
     # attr.urn:

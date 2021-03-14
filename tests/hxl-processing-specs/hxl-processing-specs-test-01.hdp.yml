@@ -30,8 +30,8 @@
           queries: "#vocab+code+v_6391="
 
 - hsilo: 
-    name: "test1"
-    desc: from https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/
+    nomen: "test1"
+    descriptionem: from https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/
   hrecipe:
     - id: example-processing-with-a-JSON-spec
       iri_example:

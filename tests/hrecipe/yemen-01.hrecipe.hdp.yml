@@ -3,7 +3,7 @@
 # hdpcli --export-to-hxl-json-processing-specs yemen-01.hrecipe.hdp.yml
 ---
 - hsilo:
-    name: yemen-01.hrecipe.hdp.yml
+    nomen: yemen-01.hrecipe.hdp.yml
   hrecipe:
     - id: example-processing-with-a-JSON-spec
       recipe:
