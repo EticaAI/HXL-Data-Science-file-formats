@@ -1,5 +1,14 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json
 
+# How to run this file? Version tested: v0.7.4
+# @see https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/14#issuecomment-798454298
+#
+# This example will output JSON spec (note: this file have two instances, but
+# on that comment, one of these instances was commented)
+#     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml
+# To pipe the result direct to hxlspec
+#    hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | hxlspec
+
 ---
 
 # See also https://proxy.hxlstandard.org/api/from-spec.html

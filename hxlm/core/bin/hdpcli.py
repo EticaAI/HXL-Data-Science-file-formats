@@ -45,6 +45,21 @@
 #      https://www.usenix.org/sites/default/files/conference
 #      /protected-files/hotsec15_slides_green.pdf
 
+# TODO:
+#   https://stackoverflow.com/questions/25638905/coloring-json-output-in-python
+
+# from pygments import highlight
+# from pygments.lexers import PythonLexer
+# from pygments.formatters import HtmlFormatter
+# from pygments.formatters import ImageFormatter
+# from pygments.formatters import TerminalTrueColorFormatter
+# from pygments.formatters import NullFormatter
+
+# code = 'print "Hello World"'
+# # print(highlight(code, PythonLexer(), TerminalTrueColorFormatter()))
+# print(highlight(code, PythonLexer(), NullFormatter()))
+# # print(highlight(code, PythonLexer(), HtmlFormatter()))
+# # print(highlight(code, PythonLexer(), ImageFormatter(), 'img.png'))
 
 import sys
 import os

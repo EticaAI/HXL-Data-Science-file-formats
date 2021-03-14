@@ -17,6 +17,7 @@ sudo snap install ngrok
 ### hdpcli --export-to-hxl-json-processing-specs ...............................
 
 hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml --debug
+hdpcli --export-to-hxl-json-processing-specs https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml --debug
 
 
 # https://raw.githubusercontent.com/HXLStandard/libhxl-python/master/profile/data/unhcr_popstats_export_persons_of_concern_all_data.hxl

@@ -9,6 +9,9 @@ numpy
 cryptography
 keyring
 
+# Testing things
+pygments
+
 # SODIUM_INSTALL=system pip3 install pynacl
 
 # pyyaml
