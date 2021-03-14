@@ -52,6 +52,7 @@ def cmp_sensitive_level(level, reference_level=None):
 
 
 def debug():
+    """Debug things"""
     verbose_event()
     _get_submodules()
 

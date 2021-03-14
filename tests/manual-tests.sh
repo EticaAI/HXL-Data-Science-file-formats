@@ -19,6 +19,15 @@ sudo snap install ngrok
 hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml --debug
 hdpcli --export-to-hxl-json-processing-specs https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml --debug
 
+# To inspect the result (pretty print)
+hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml
+# To pipe the result direct to hxlspec (first item of array, use jq '.[0]')
+hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[0]' | hxlspec
+# To pipe the result direct to hxlspec (first item of array, use jq '.[1]')
+hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[1]' | hxlspec
+
+# hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[0]' | hxlspec | tabulate
+
 
 # https://raw.githubusercontent.com/HXLStandard/libhxl-python/master/profile/data/unhcr_popstats_export_persons_of_concern_all_data.hxl
 ### hxl2example ----------------------------------------------------------------
