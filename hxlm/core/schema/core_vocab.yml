@@ -288,6 +288,40 @@ attr:
     zxx:
       id: 'desc'
 
+  exemplum:
+    # attr.exemplar is ...
+    # @see https://en.wiktionary.org/wiki/exemplum
+    # @see https://www.wikidata.org/wiki/Q14944328
+    ara:
+      id: 'مثال'
+    eng:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'example'
+    fra:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'exemple'
+    spa:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'ejemplo'
+    lat:
+      # @see https://en.wiktionary.org/wiki/exemplum
+      # @see https://www.wikidata.org/wiki/Q14944328
+      id: 'exemplum'
+    por:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'exemplo'
+    qaa:
+      # https://www.wikidata.org/wiki/Q14944328
+      id: 'q14944328'
+    rus:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'пример'
+    zho:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: '例子'
+    zxx:
+      id: 'exemplum'
+
   id:
     # attr.id
     # @see https://en.wikipedia.org/wiki/Identifier
