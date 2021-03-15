@@ -69,6 +69,20 @@
         },
         "additionalProperties": false
       },
+      "grupum": {
+        "$anchor": "attr_grupum",
+        "description": "One way to group colletions (hsilos).While the tags allow use at any level, this attribute should be explicity named at top level.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "examples": [
+          "organization-name",
+          "org-code",
+          "functionality-name",
+          "default"
+        ]
+      },
       "id": {
         "$anchor": "attr_id",
         "type": "string"
@@ -191,6 +205,12 @@
           },
           "descriptionem": {
             "$ref": "#/$defs/attr/descriptionem"
+          },
+          "grupum": {
+            "$ref": "#/$defs/attr/grupum"
+          },
+          "id": {
+            "$ref": "#/$defs/attr/id"
           },
           "meta": {
             "type": "object"

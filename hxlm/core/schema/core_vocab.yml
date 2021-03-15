@@ -400,6 +400,57 @@ attr:
     zxx:
       id: 'fontem'
 
+  grupum:
+    # attr.grupum (English: group) is one way to group colletions (hsilos).
+    # While the tags allow use at any level, attr.grupum should be explicity
+    # named at top level.
+    # @see https://en.wiktionary.org/wiki/grupus#Latin
+    # @see https://www.wikidata.org/wiki/Q16887380 (well-defined collection of discrete entities who choose or are assigned to be part of a collective whole)
+    ara:
+      # @see https://en.wiktionary.org/wiki/%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A9
+      # @see https://www.wikidata.org/wiki/Q16887380
+      id: 'مجموعة'
+      descriptionem: 'عناصر ذات أي طبيعة ينظر إليها كمجموعة'
+    eng:
+      # @see https://en.wiktionary.org/wiki/group#English
+      id: 'group'
+      descriptionem: 'Well-defined collection of discrete entities who choose or are assigned to be part of a collective whole'
+    fra:
+      # @see https://en.wiktionary.org/wiki/groupe#French
+      id: 'groupe'
+      descriptionem: "regroupement d'entités ayant des caractéristiques semblables"
+    spa:
+      # @see https://en.wiktionary.org/wiki/grupo#Spanish
+      # @see https://www.wikidata.org/wiki/Q16887380
+      id: 'grupo'
+      descriptionem: 'conjunto de cosas o personas'
+    lat:
+      # @see https://en.wiktionary.org/wiki/grupus#Latin
+      id: 'grupum'
+      # descriptionem: ''
+    por:
+      # @see https://en.wiktionary.org/wiki/grupo#Portuguese
+      # @see https://www.wikidata.org/wiki/Q16887380
+      id: 'grupo'
+      descriptionem: 'múltiplos elementos (coisas, pessoas, etc.) de mesma natureza considerados formadores de um conjunto'
+    qaa:
+      # @see https://www.wikidata.org/wiki/Q16887380 (well-defined collection of discrete entities who choose or are assigned to be part of a collective whole)
+      id: 'q16887380'
+      descriptionem: 'well-defined collection of discrete entities who choose or are assigned to be part of a collective whole'
+    rus:
+      # @see https://www.wikidata.org/wiki/Q16887380
+      # @see https://ru.wikipedia.org/wiki/%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0
+      id: 'группа'
+      descriptionem: 'объединение сущностей с общими свойствами'
+    zho:
+      # @see https://www.wikidata.org/wiki/Q16887380
+      # @see https://en.wiktionary.org/wiki/%E7%B5%84
+      id: '組'
+      # descriptionem: ''
+    zxx:
+      id: 'grupum'
+      descriptionem: 'One way to group colletions (hsilos).While the tags allow use at any level, this attribute should be explicity named at top level.'
+
   id:
     # attr.id
     # @see https://en.wikipedia.org/wiki/Identifier
@@ -429,6 +480,8 @@ attr:
       id: '標識符'
     zxx:
       id: 'id'
+
+# TODO: add some term for 'import (file)'; See https://en.wiktionary.org/wiki/importo#Latin
 
   iri:
     # attr.iri
