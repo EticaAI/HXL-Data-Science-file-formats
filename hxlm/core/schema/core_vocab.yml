@@ -363,6 +363,91 @@ attr:
     zxx:
       id: 'exemplum'
 
+  falsum:
+    # attr.falsum (opposite of attr.verum) reference to not truly, untrue.
+    # (mostly to be used with command line interface).
+    #
+    # Note: the internal dictionary will use attr.falsum (since is less likely
+    # to conflict with local laguages than 'non' word)
+    #
+    # Note, terms for 'yes'/'no' in Latin are not as easy to find. So the
+    # local languages actually use an equivalent of 'yes'/'no' instead of
+    # 'true'/false, but alternatives are allowed
+    #
+    # @see https://en.wiktionary.org/wiki/falsum
+    # @see https://en.wikipedia.org/wiki/False_(logic)
+    ara:
+      # TODO attr.falsum.ara is likely to need revision.
+      # @see https://en.wiktionary.org/wiki/%D9%84%D9%8A%D8%B3
+      # @see https://en.wiktionary.org/wiki/%D9%84%D8%A7#Arabic
+      id: 'ليس'  # English 'not'
+      descriptionem: ''
+      id_alts:
+        - 'لا'  # English 'no'
+    eng:
+      id: 'not'
+      descriptionem: 'Untrue, false, negation'
+      id_alts:
+        - 'no'
+        - 'false'
+        - 'untrue'
+    fra:
+      # @see https://en.wiktionary.org/wiki/ne#French
+      id: 'ne'
+      # descriptionem: ''
+      id_alts:
+        - 'non'
+    spa:
+      # @see https://en.wiktionary.org/wiki/no#Spanish
+      id: 'no'
+      # descriptionem: ''
+      id_alts:
+        - 'falso'
+    lat:
+      # @see https://en.wiktionary.org/wiki/falsum
+      # @see https://en.wiktionary.org/wiki/non#Latin
+      id: 'falsum'
+      descriptionem: ''
+      id_alts:
+        - 'non'
+    por:
+      id: 'nao'
+      descriptionem: 'Negação, falso, oposto de verdadeiro.'
+      id_alts:
+        - 'falso'
+    qaa:
+      # @see https://en.wikipedia.org/wiki/False_(logic)
+      # @see https://www.wikidata.org/wiki/Q5432619
+      id: 'q5432619'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    rus:
+      # @see https://en.wiktionary.org/wiki/%D0%BD%D0%B5%D1%82#Russian
+      id: 'нет'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    zho:
+      # TODO: attr.falsum.zho have many variants. Even if the canonical
+      #       attr.falsum.zho.id is acceptable, some work may be need here
+      # @see https://zh.m.wiktionary.org/zh/%E4%B8%8D
+      id: '不'
+      # descriptionem: ''
+      id_alts:
+        - '不是'
+        - '不是'
+    zxx:
+      id: 'falsum'
+      descriptionem: 'reference to not truly, untrue. (mostly to be used with command line interface)'
+      id_alts:
+        - non
+        - 'false'
+        - 'untrue'
+        - False
+        - '⊥' # (logic) An arbitrary contradiction, denoted ⊥.
+        - '¬'
+
   fontem:
     # attr.fontem is the source of the information in the current context. Often
     # to mention an external source. See also attr.datum for inline source of
@@ -843,38 +928,129 @@ attr:
       id: 'urn'
     zxx:
       id: 'urn'  # 100% OK
+
+  verum:
+    # attr.verum is reference to truly, true, fact, reality. (mostly to be
+    # used with command line interface)
+    # Note, terms for 'yes'/'no' in Latin are not as easy to find. So the
+    # local languages actually use an equivalent of 'yes'/'no' instead of
+    # 'true'/false, but alternatives are allowed
+    # @see https://en.wiktionary.org/wiki/verum
+    # @see https://en.wiktionary.org/wiki/verus#Latin
+    # @see https://en.wikipedia.org/wiki/Logical_truth
+    ara:
+      # TODO: attr.verum.ara needs revision.
+      # @see https://en.wiktionary.org/wiki/%D9%86%D8%B9%D9%85
+      id: 'نعم'
+      # descriptionem: ''
+      id_alts:
+        - 'صحيح'
+    eng:
+      # https://en.wiktionary.org/wiki/true
+      id: 'yes'
+      descriptionem: 'truly, true, fact, reality.'
+      id_alts:
+        - 'true'
+    fra:
+      # TODO: attr.verum.rus needs revision.
+      # @see https://en.wiktionary.org/wiki/oui#French
+      id: 'oui'
+      # descriptionem: ''
+      id_alts:
+        - 'quais'
+        - 'verite'
+    spa:
+      id: 'si'
+      # descriptionem: ''
+      id_alts:
+        - 'verdad'
+    lat:
+       # @see https://en.wiktionary.org/wiki/verum
+      # @see https://en.wiktionary.org/wiki/verus#Latin
+      id: 'verum'
+      # descriptionem: ''
+      id_alts:
+        - 'verus'
+    por:
+      # @see https://pt.wikipedia.org/wiki/Verdade
+      id: 'sim'
+      descriptionem: 'Sim, verdade, verdadeiro, fato.'
+      id_alts:
+        - 'verdade'
+    qaa:
+      # https://www.wikidata.org/wiki/Q3311695
+      id: 'q3311695'  # logical truth (Q3311695) statement which is true regardless of the truth or falsity of its constituent parts
+      descriptionem: 'statement which is true regardless of the truth or falsity of its constituent parts'
+    rus:
+      # TODO: attr.verum.rus needs revision.
+      # @see https://ru.wikipedia.org/wiki/%D0%98%D1%81%D1%82%D0%B8%D0%BD%D0%B0
+      id: 'да'
+      descriptionem: 'И́стина — гносеологическая характеристика мышления в его отношении к своему предмету. Мысль называется истинной (или истиной), если она соответствует предмету'
+      id_alts:
+        - 'истина'
+    zho:
+      # TODO: attr.verum.zho needs revision.
+      id: '是的'
+      # descriptionem: ''
+    zxx:
+      id: 'verum'
+      descriptionem: 'reference to truly, true, fact, reality. (mostly to be used with command line interface)'
+      id_alts:
+        - 'true'
+        - True
+
   # newterm:
   #   # attr.newterm is ...
   #   ara:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   eng:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   fra:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   spa:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   lat:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   por:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   qaa:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   rus:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   zho:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   #   zxx:
   #     id: ''
   #     descriptionem: ''
+  #     id_alts:
+  #       - ''
   # uri:
   #   # @see https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
   #   # @see https://www.wikidata.org/wiki/Q61694
