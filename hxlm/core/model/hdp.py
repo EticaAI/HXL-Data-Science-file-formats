@@ -18,7 +18,7 @@ from typing import (
 )
 
 from pathlib import Path
-import datetime
+# import datetime
 
 import json
 import yaml
@@ -109,7 +109,24 @@ class HDP:
     def _get_urnresolver_iri(self, urn: str) -> str:
         return 'http://localhost/?not-implemented-yet#' + urn
 
-    def _update(self, hdp_rules: Union[List, dict]) -> bool:
+    def _get_hsilo_urn(self, hsilo_object: dict,
+                       domain_base: str = 'local',
+                       container_base: str = "default",
+                       container_item_index: int = 0) -> str:
+        # print('hsilo_object >>>', hsilo_object, '<<<<<')
+
+        if 'urn' in hsilo_object:
+            return hsilo_object.urn
+
+        suffix = ''
+        if container_item_index > 0:
+            suffix = '-' + str(container_item_index)
+        return ('urn:oo:hsilo:' + domain_base + ':' +
+                container_base + suffix)
+
+    def _update(self, hdp_rules: Union[List, dict],
+                domain_base: str,
+                container_base: str) -> bool:
         """Self update the internal metadata
 
         Args:
@@ -126,8 +143,22 @@ class HDP:
         # key =  hash(hdp_rules)
         # self._hdp[key] = hdp_rules
         # import datetime
-        timestap = datetime.datetime.now().timestamp()
-        self._hdp[str(timestap)] = hdp_rules
+        # print('type', type(hdp_rules))
+        # if type(hdp_rules) == 'list':
+        if isinstance(hdp_rules, list):
+            loop = 0
+            for hdp_rule in hdp_rules:
+                # timestap = datetime.datetime.now().timestamp()
+                # self._hdp[str(timestap)] = hdp_rule
+                hashkey = self._get_hsilo_urn(
+                    hdp_rule, domain_base=domain_base,
+                    container_base=container_base, container_item_index=loop)
+                # print('hashkey', hashkey)
+                self._hdp[hashkey] = hdp_rule
+                loop = loop + 1
+        else:
+            raise RuntimeError('Unknow hdp_rules [' + str(hdp_rules) + ']')
+
         return True
 
     def _prepare(self, hdp_entry_point: str, is_startup: bool = False) -> bool:
@@ -189,12 +220,23 @@ class HDP:
             print('HDP._prepare_from_local_file file_path', file_path)
             print('HDP._prepare_from_local_file type file_path',
                   type(file_path))
+            print('HDP._prepare_from_local_file os.path.split',
+                  os.path.split(file_path))
+            print('HDP._prepare_from_local_file os.path.split [1]',
+                  os.path.split(file_path)[1])
+
+        domain_base = 'local'
+        container_base = os.path.split(file_path)[1]
 
         with open(file_path, mode="r") as filestring:
             if file_path.endswith(self.HDP_JSON_EXTENSIONS):
-                return self._prepare_from_string(json_string=filestring)
+                return self._prepare_from_string(json_string=filestring,
+                                                 domain_base=domain_base,
+                                                 container_base=container_base)
             if file_path.endswith(self.HDP_YML_EXTENSIONS):
-                return self._prepare_from_string(yml_string=filestring)
+                return self._prepare_from_string(yml_string=filestring,
+                                                 domain_base=domain_base,
+                                                 container_base=container_base)
 
         return False
 
@@ -222,20 +264,26 @@ class HDP:
 
     def _prepare_from_string(self,
                              json_string: str = None,
-                             yml_string: str = None):
+                             yml_string: str = None,
+                             domain_base: str = 'local',
+                             container_base: str = "default"):
         if json_string:
             # self._hdp_raw = json_string
             # self._hdp = json.loads(json_string)
             # return True
             parsed = json.loads(json_string)
-            return self._update(parsed)
+            return self._update(parsed,
+                                domain_base=domain_base,
+                                container_base=container_base)
 
         if yml_string:
             # self._hdp_raw = yml_string
             # self._hdp = yaml.safe_load(yml_string)
             # return True
             parsed = yaml.safe_load(yml_string)
-            return self._update(parsed)
+            return self._update(parsed,
+                                domain_base=domain_base,
+                                container_base=container_base)
 
         raise RuntimeError('json_string or yml_string are required')
 
@@ -339,6 +387,9 @@ class HDP:
         if options:
             raise NotImplementedError('options not implemented yet')
 
+        if self._debug:
+            print('HDP.export_json_processing_specs self._hdp', self._hdp)
+
         result = []
         # for hsilo in self._hdp:
         #     if 'hrecipe' in hsilo:
@@ -346,11 +397,24 @@ class HDP:
         #             # result.append(self._prepare_hrecipe_item(hrecipeitem))
         #             result.extend(self._prepare_hrecipe_item(hrecipeitem))
         for hdphash in self._hdp:
-            for hsilo in self._hdp[hdphash]:
-                if 'hrecipe' in hsilo:
-                    for hrecipeitem in hsilo['hrecipe']:
-                        # result.append(self._prepare_hrecipe_item(hrecipeitem))
-                        result.extend(self._prepare_hrecipe_item(hrecipeitem))
+            if self._debug:
+                print('HDP.export_json_processing_specs ...2',
+                      self._hdp[hdphash])
+            # for hsilo in self._hdp[hdphash]:
+            # print('HDP.export_json_processing_specs ...3',
+            #         self._hdp[hdphash][hsilo])
+            if 'hrecipe' in self._hdp[hdphash]:
+                # if self._debug:
+                #     print('HDP.export_json_processing_specs ...4',
+                #             hsilo)
+                #     print('HDP.export_json_processing_specs ...5',
+                #             hsilo['hrecipe'])
+                for hrecipeitem in self._hdp[hdphash]['hrecipe']:
+                    result.extend(self._prepare_hrecipe_item(hrecipeitem))
+            else:
+                if self._debug:
+                    print('HDP....6 no hrecipe',
+                          self._hdp[hdphash])
 
         return json.dumps(result, indent=4, sort_keys=True)
 
