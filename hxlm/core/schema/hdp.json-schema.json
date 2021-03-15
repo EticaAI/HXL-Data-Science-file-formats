@@ -37,9 +37,37 @@
         "$anchor": "attr_adm0",
         "type": "string"
       },
+      "datum": {
+        "$anchor": "attr_datum",
+        "type": "array"
+      },
       "descriptionem": {
         "$anchor": "attr_descriptionem",
-        "type": "string"
+        "type": "object",
+        "minProperties": 1,
+        "$comment": "TODO: need to implement one way to enforce keys with EXACT 3 chars (ISO 369-3)"
+      },
+      "exemplum": {
+        "$anchor": "attr_exemplum",
+        "type": "array",
+        "minItems": 1
+      },
+      "fontem": {
+        "$anchor": "attr_fontem",
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "datum": {
+            "$ref": "#/$defs/attr/datum"
+          },
+          "iri": {
+            "$ref": "#/$defs/attr/iri"
+          },
+          "_sheet_index": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
       },
       "id": {
         "$anchor": "attr_id",
@@ -50,8 +78,8 @@
         "type": "string",
         "format": "iri"
       },
-      "lingua": {
-        "$anchor": "attr_lingua",
+      "linguam": {
+        "$anchor": "attr_linguam",
         "type": "string",
         "maxLength": 3,
         "minLength": 3
@@ -61,9 +89,29 @@
         "type": "object",
         "minProperties": 1
       },
-      "name": {
-        "$anchor": "attr_name",
+      "nomen": {
+        "$anchor": "attr_nomen",
         "type": "string"
+      },
+      "objectivum": {
+        "$anchor": "attr_objectivum",
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "datum": {
+            "$ref": "#/$defs/attr/datum"
+          },
+          "descriptionem": {
+            "$ref": "#/$defs/attr/descriptionem"
+          },
+          "iri": {
+            "$ref": "#/$defs/attr/iri"
+          },
+          "_sheet_index": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
       },
       "tag": {
         "$anchor": "attr_tag",
@@ -82,13 +130,6 @@
           "zho"
         ]
       },
-      "source": {
-        "$anchor": "attr_source",
-        "type": [
-          "array",
-          "string"
-        ]
-      },
       "urn": {
         "$anchor": "attr_urn",
         "type": [
@@ -105,7 +146,7 @@
           "type": "string",
           "required": [
             "id",
-            "source"
+            "fontem"
           ]
         },
         "minItems": 1
@@ -118,7 +159,7 @@
           "type": "string",
           "required": [
             "id",
-            "source"
+            "fontem"
           ]
         },
         "minItems": 1
@@ -139,10 +180,28 @@
       "hsilo": {
         "$anchor": "root_hsilo",
         "description": "hsilo (plus at least extra rule) are required to validate the file",
-        "type": [
-          "object",
-          "string"
-        ]
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "nomen": {
+            "$ref": "#/$defs/attr/nomen"
+          },
+          "linguam": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "descriptionem": {
+            "$ref": "#/$defs/attr/descriptionem"
+          },
+          "meta": {
+            "type": "object"
+          },
+          "tag": {
+            "$ref": "#/$defs/attr/tag"
+          },
+          "urn": {
+            "$ref": "#/$defs/attr/urn"
+          }
+        }
       }
     }
   }

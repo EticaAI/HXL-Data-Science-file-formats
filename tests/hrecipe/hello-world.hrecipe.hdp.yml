@@ -5,6 +5,9 @@
 - hsilo:
     nomen: hello-world.hrecipe.hdp.yml
     linguam: mul # https://iso639-3.sil.org/code/mul
+    descriptionem:
+      eng: "Hello World!"
+      por: "Olá Mundo!"
   hrecipe:
     - id: example-processing-with-a-JSON-spec
       _recipe:

@@ -11,14 +11,14 @@
 #     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[3]' | hxlspec
 
 ---
-
 # See also https://proxy.hxlstandard.org/api/from-spec.html
 # http://json-schema.org/understanding-json-schema/
 # Test schema online https://www.jsonschemavalidator.net/
 # Validate schema here: https://www.json-schema-linter.com/
 # TODO: better validate HERE https://jsonschemalint.com/#!/version/draft-07/markup/json
 
-- hsilo: "test1"
+- hsilo:
+    nomen: "test1"
   hrecipe:
     - id: recipe1
       _recipe:
@@ -30,9 +30,9 @@
         - fontem:
             iri: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
 
-- hsilo: 
-    nomen: "test1"
-    descriptionem: from https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/
+- hsilo:
+    descriptionem:
+      mul: https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/
   hrecipe:
     - id: example-processing-with-a-JSON-spec
       _recipe:

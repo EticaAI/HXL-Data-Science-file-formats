@@ -183,10 +183,24 @@ class HDP:
         raise RuntimeError('json_string or yml_string are required')
 
     def _prepare_hrecipe_item(self, recipe: List) -> List:
-        # result = []
-        # recipeitem = {}
+        """Prepare an individual iten from HXL data processing specs
 
-        # recipeitem['recipe'] = recipe['_recipe']
+        Notes:
+            1. If an recipe does have example iri (likely to be an remote
+            resource) or exemplum data (often inline) the FIRST item of the
+            array will not have these values, but the second will.
+            2. If you have several examples, EACH example (plus an output)
+            without the input/output data, will create result on an item.
+
+        See also:
+            self.export_json_processing_specs()
+
+        Args:
+            recipe (List): An individual item from an hrecipe
+
+        Returns:
+            List: The result list
+        """
 
         # Note: for convention, the first recipe always will not use any
         #       example input (this can make easyer for reuse). But old
@@ -196,33 +210,9 @@ class HDP:
         }
         result = [recipe_without_examplum]
 
-        # result.append(recipeitem)
-        # print('ooooi', result)
-        # return result
-
-        # print('eita123', recipe['exemplum'])
-        # print('eita123', recipe['exemplum'][0])
-
-        # TODO: this have the [0] hardoded. Should be generalized
-        # if 'exemplum' in recipe and 'fontem' in recipe['exemplum'][0]:  # noqa
-        #     # print('oioioi', hrecipeitem['exemplum'])
-        #     if 'iri' in recipe['exemplum'][0]['fontem']:
-        #         recipeitem['input'] = recipe['exemplum'][0]['fontem']['iri']  # noqa
-        #     if '_sheet_index' in recipe['exemplum'][0]['fontem']:
-        #         recipeitem['sheet_index'] = recipe['exemplum'][0]['fontem']['_sheet_index']  # noqa
-
-        # result.append(recipeitem)
-
         if 'exemplum' in recipe:
             loop = 0
-            # print('exemplum loop', loop)
-            # print('exemplum loop 2', recipe['exemplum'])
-            # print('exemplum loop 2 loop', recipe['exemplum'][loop])
-            # print('exemplum loop 2 loop fontem', recipe['exemplum'][loop]['fontem'])  # noqa
-            # print('exemplum loop 2 loop fontem b', 'fontem' in recipe['exemplum'][loop])  # noqa
-            # print('exemplum loop 2 loop fontem b', loop in recipe['exemplum'])  # noqa
-            # while loop in recipe['exemplum'] and 'fontem' in recipe['exemplum'][loop]:  # noqa
-            # while 'fontem' in recipe['exemplum'][loop]:
+
             while True:
                 # print('exemplum loop, inside', loop, recipe['exemplum'][loop]['fontem'])  # noqa
                 recipeitem = {
@@ -241,7 +231,6 @@ class HDP:
                 if loop >= len(recipe['exemplum']):
                     break
 
-        # return recipeitem
         return result
 
     # def _prepare_from_yml_string(self, hdp_yml_string):
@@ -267,20 +256,22 @@ class HDP:
         Note: the result is an Array, but HXL-Proxy and hxlspec expects an
               single result. You may need to manually decide which item to use.
               If the result already is only one item, remove the starting '['
-              and the last ']'
+              and the last ']'. The jq command line utility can deal with this!
 
-        Example
+        Example:
             # Via command line
             hxlspec myspec.json > data.hxl.csv
             # Test on HXL-proxy
             https://proxy.hxlstandard.org/api/from-spec.html
 
+        See also:
+            self._prepare_hrecipe_item()
         Args:
             options ([type], optional): Select more specific recipes.
                                         Defaults to None.
 
         Raises:
-            NotImplementedError: [description]
+            NotImplementedError: options is not implemented... yet
 
         Returns:
             List of JSON processing specs for HXL data
