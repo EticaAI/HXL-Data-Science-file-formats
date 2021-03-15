@@ -17,6 +17,9 @@ from typing import (
     Tuple,
 )
 
+from pathlib import Path
+import datetime
+
 import json
 import yaml
 
@@ -30,12 +33,13 @@ class HDP:
 
     _debug: bool = False
 
-    _hdp: dict = None
+    _hdp: dict = {}
     # TODO: what name to use? Maybe Knowledge base?
     #       https://en.wikipedia.org/wiki/Knowledge_base
     #       (Emerson Rocha, 2021-03-13 00:59 UTC)
 
-    _hdp_raw: Union[str, dict] = None
+    # _hdp_raw: Union[str, dict] = None
+    _hdp_raw: List = []
 
     _online_unrestricted_init: bool = False
     """For requests that implicitly ask for not-only localhost data, should
@@ -105,6 +109,27 @@ class HDP:
     def _get_urnresolver_iri(self, urn: str) -> str:
         return 'http://localhost/?not-implemented-yet#' + urn
 
+    def _update(self, hdp_rules: Union[List, dict]) -> bool:
+        """Self update the internal metadata
+
+        Args:
+            hdp_rules (Union[List, dict]): The new information to add
+
+        Returns:
+            bool: True if ok
+        """
+
+        # TODO: create some simple hash for objects to use instead of timestamp
+        #       (Emerson Rocha, 2021-03-15 01:37 UTC)
+
+        self._hdp_raw.append(hdp_rules)
+        # key =  hash(hdp_rules)
+        # self._hdp[key] = hdp_rules
+        # import datetime
+        timestap = datetime.datetime.now().timestamp()
+        self._hdp[str(timestap)] = hdp_rules
+        return True
+
     def _prepare(self, hdp_entry_point: str, is_startup: bool = False) -> bool:
 
         if self._debug:
@@ -126,10 +151,38 @@ class HDP:
 
         raise RuntimeError('unknow entrypoint [' + hdp_entry_point + ']')
 
-    def _prepare_from_local_directory(self, dir_path: str):
+    def _prepare_from_local_directory(self, dir_path: str) -> bool:
         if self._debug:
             print('HDP._prepare_from_local_directory dir_path', dir_path)
-        return False
+
+        result_status = True
+        result_files = []
+        pitr = Path(dir_path).glob('*')
+
+        for file_ in pitr:
+            # print('file_', file_)
+            # print('file_ start ~', str(file_.name).startswith('~'))
+            # print('file_ ends with csv', str(file_).endswith('.csv'))
+            # print('file_ ends with HXLM_DATA_URN_EXTENSIONS',
+            #       str(file_).endswith(HXLM_DATA_URN_EXTENSIONS))
+            if str(file_.name).startswith('~'):
+                if self._debug:
+                    print('_prepare_from_local_directory skiping ', str(file_))
+                continue
+            if str(file_.name).endswith(self.HDP_YML_EXTENSIONS):
+                result_files.append(str(file_))
+            if str(file_.name).endswith(self.HDP_JSON_EXTENSIONS):
+                result_files.append(str(file_))
+
+        result_files_sorted = sorted(result_files)
+
+        for filepath in result_files_sorted:
+            if not self._prepare_from_local_file(filepath):
+                if self._debug:
+                    print('ERROR', str(filepath))
+                result_status = False
+
+        return result_status
 
     def _prepare_from_local_file(self, file_path: str):
         if self._debug:
@@ -171,14 +224,18 @@ class HDP:
                              json_string: str = None,
                              yml_string: str = None):
         if json_string:
-            self._hdp_raw = json_string
-            self._hdp = json.loads(json_string)
-            return True
+            # self._hdp_raw = json_string
+            # self._hdp = json.loads(json_string)
+            # return True
+            parsed = json.loads(json_string)
+            return self._update(parsed)
 
         if yml_string:
-            self._hdp_raw = yml_string
-            self._hdp = yaml.safe_load(yml_string)
-            return True
+            # self._hdp_raw = yml_string
+            # self._hdp = yaml.safe_load(yml_string)
+            # return True
+            parsed = yaml.safe_load(yml_string)
+            return self._update(parsed)
 
         raise RuntimeError('json_string or yml_string are required')
 
@@ -248,6 +305,8 @@ class HDP:
         #       in an place outside HDP internal metadata?
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
+        # print('aaaaaam ',self._hdp.keys())
+
         return json.dumps(self._hdp, indent=4, sort_keys=True)
 
     def export_json_processing_specs(self, options=None) -> str:
@@ -281,11 +340,17 @@ class HDP:
             raise NotImplementedError('options not implemented yet')
 
         result = []
-        for hsilo in self._hdp:
-            if 'hrecipe' in hsilo:
-                for hrecipeitem in hsilo['hrecipe']:
-                    # result.append(self._prepare_hrecipe_item(hrecipeitem))
-                    result.extend(self._prepare_hrecipe_item(hrecipeitem))
+        # for hsilo in self._hdp:
+        #     if 'hrecipe' in hsilo:
+        #         for hrecipeitem in hsilo['hrecipe']:
+        #             # result.append(self._prepare_hrecipe_item(hrecipeitem))
+        #             result.extend(self._prepare_hrecipe_item(hrecipeitem))
+        for hdphash in self._hdp:
+            for hsilo in self._hdp[hdphash]:
+                if 'hrecipe' in hsilo:
+                    for hrecipeitem in hsilo['hrecipe']:
+                        # result.append(self._prepare_hrecipe_item(hrecipeitem))
+                        result.extend(self._prepare_hrecipe_item(hrecipeitem))
 
         return json.dumps(result, indent=4, sort_keys=True)
 

@@ -86,20 +86,10 @@ import hxl.converters
 import hxl.filters
 import hxl.io
 
-import hxlm.core.htype.urn as HUrn
-from hxlm.core.schema.urn.util import (
-    get_urn_resolver_local,
-    # get_urn_resolver_remote,
-    # HXLM_CONFIG_BASE
-)
-
 from hxlm.core.model.hdp import (
     HDP
 )
 
-from hxlm.core.constant import (
-    HXLM_ROOT
-)
 from hxlm.core.internal.keystore import (
     HKeystore
 )
@@ -613,121 +603,29 @@ class HDPCLI:
         if args.hdp_init:
             return self._exec_hdp_init(please=args.please)
 
-        urn_string = args.infile
+        # TODO: and what if infile actually is some command piping to hdpcli?
+        #       We should either test better this or disable
+        #       (Emerson Rocha, 2021-03-14 00:52 UTC)
 
-        urn_item = HUrn.cast_urn(urn=urn_string)
-        urn_item.prepare()
+        # TODO: while the default of HDP (and later also from the hdpcli) is
+        #       not allow online initialization, at this moment, for testing,
+        #       we're allowing here. (Emerson Rocha, 2021-03-13 01:48 UTC)
+        if 'infile' in args and (os.path.isfile(args.infile) or
+                                 os.path.isdir(args.infile)):
+            hdp = HDP(hdp_entry_point=args.infile,
+                      online_unrestricted_init=True,
+                      debug=is_debug)
+            # print('hdp', hdp)
+            hdp_rules = hdp.export_yml()
+            print(beautify(hdp_rules, 'yaml'))
+            # print(hdp.export_yml())
+            # print('hdp _hdp', hdp._hdp)
+            return self.EXIT_OK
 
-        urnrslr_options = []
-
-        if 'urn_index_local' in args and args.urn_index_local \
-                and len(args.urn_index_local) > 0:
-            for file_or_path in args.urn_index_local:
-                opt_ = get_urn_resolver_local(file_or_path, required=True)
-                # print('opt_ >> ', opt_ , '<<')
-                # urnrslr_options.extend(opt_)
-                for item_ in opt_:
-                    if item_ not in urnrslr_options:
-                        urnrslr_options.append(item_)
-
-        # if 'urn_index_remote' in args and args.urn_index_remote \
-        #         and len(args.urn_index_remote) > 0:
-        #     for iri_or_domain in args.urn_index_remote:
-        #         opt_ = get_urn_resolver_remote(iri_or_domain, required=True)
-        #         # print('opt_ >> ', opt_ , '<<')
-        #         # urnrslr_options.extend(opt_)
-        #         for item_ in opt_:
-        #             if item_ not in urnrslr_options:
-        #                 urnrslr_options.append(item_)
-
-        # If user is not asking to disable load ~/.config/hxlm/urn/
-        if not args.no_urn_user_defaults:
-            # print(get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/'))
-            if Path(HXLM_CONFIG_BASE + '/urn/').is_dir():
-                opt_ = get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/')
-                if opt_:
-                    urnrslr_options.extend(opt_)
-                    # print(get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/'))
-                    for item_ in opt_:
-                        if item_ not in urnrslr_options:
-                            urnrslr_options.append(item_)
-                else:
-                    print(
-                        'DEBUG: HXLM_CONFIG_BASE/urn/ [[' + HXLM_CONFIG_BASE +
-                        '/urn/]] exists. but no valid urn lists found'
-                    )
-            else:
-                if 'debug' in args and args.debug:
-                    print(
-                        'DEBUG: HXLM_CONFIG_BASE/urn/ [[' + HXLM_CONFIG_BASE +
-                        '/urn/]] do not exist. This could be used to store ' +
-                        'local urn references'
-                    )
-
-        # If user is not asking to tisable load 'urnresolver-default.urn.yml'
-        if not args.no_urn_vendor_defaults:
-            urnrslvr_def = HXLM_ROOT + '/core/bin/' + \
-                'urnresolver-default.urn.yml'
-            opt_ = get_urn_resolver_local(urnrslvr_def)
-            for item_ in opt_:
-                if item_ not in urnrslr_options:
-                    urnrslr_options.append(item_)
-            # urnrslr_options = get_urn_resolver_local(urnrslvr_def)
-
-        if 'debug' in args and args.debug:
-            print('')
-            print('DEBUG: urnrslr_options [[', urnrslr_options, ']]')
-            print('')
-            print('DEBUG: urn_item [[', urn_item, ']]')
-            print('DEBUG: urn_item.about() [[', urn_item.about(), ']]')
-            print('DEBUG: urn_item.about(base_paths) [[',
-                  urn_item.about('base_paths'), ']]')
-            print('DEBUG: urn_item.about(object_names) [[',
-                  urn_item.about('object_names'), ']]')
-            print('')
-            print('')
-
-        if urnrslr_options and len(urnrslr_options) > 0:
-            matches = []
-            for item in urnrslr_options:
-                if item['urn'] == urn_string:
-                    # print('great')
-                    matches.append(item)
-
-            if len(matches) > 0:
-                print(matches[0]['source'][0])
-                return self.EXIT_OK
-
-        # if 'debug' in args and args.debug:
-        #     # valt = HUrnUtil.get_urn_vault_local_info('un', 'locode')
-        #     # HUrnUtil.debug_local_data('un', 'locode')
-        #     # HUrnUtil.get_urn_vault_local_info(urn_item)
-
-        #     # print('valt', valt)
-        #     # print('args', args)
-        #     print('args.infile', args.infile)
-        #     print('urn_item', urn_item)
-        #     print('about', urn_item.about())
-        #     print('about base_paths', urn_item.about('base_paths'))
-        #     print('about object_names', urn_item.about('object_names'))
-
-        stderr.write("ERROR: urn [" + urn_string +
-                     "] strict match not found \n")
+        print('ERROR: what to do? try:')
+        print('    hdpcli --help')
+        print('    hdpcli --debug <your instructions>')
         return self.EXIT_ERROR
-
-        # print(urn_item.get_resources())
-
-        # print('args', args)
-        # print('args', args)
-
-        # # NOTE: the next lines, in fact, only generate an csv outut. So you
-        # #       can use as starting point.
-        # with self.hxlhelper.make_source(args, stdin) as source, \
-        #         self.hxlhelper.make_output(args, stdout) as output:
-        #     hxl.io.write_hxl(output.output, source,
-        #                      show_tags=not args.strip_tags)
-
-        # return self.EXIT_OK
 
 
 class HXLUtils:
