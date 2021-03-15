@@ -149,7 +149,7 @@ class HDP:
         if os.path.isdir(hdp_entry_point):
             return self._prepare_from_local_directory(hdp_entry_point)
 
-        raise RuntimeError('unknow entrypoint [' + hdp_entry_point + ']')
+        raise RuntimeError('Unknow entrypoint [' + hdp_entry_point + ']')
 
     def _prepare_from_local_directory(self, dir_path: str) -> bool:
         if self._debug:
@@ -365,7 +365,8 @@ class HDP:
         #       in an place outside HDP internal metadata?
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
-        return yaml.dump(self._hdp, Dumper=Dumper)
+        return yaml.dump(self._hdp, Dumper=Dumper,
+                         encoding='utf-8', allow_unicode=True)
 
     def is_remote_allowed(self, iri: str) -> bool:
         """Based on current context explain if the resource is allowed to fetch
