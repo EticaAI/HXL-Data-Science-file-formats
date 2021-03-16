@@ -157,7 +157,6 @@
         "description": "Abstracion an data set (needs to be minimaly usable with HXL tools)",
         "type": "array",
         "items": {
-          "type": "string",
           "required": [
             "id",
             "fontem"
@@ -170,7 +169,6 @@
         "description": "Abstracion to an generic file",
         "type": "array",
         "items": {
-          "type": "string",
           "required": [
             "id",
             "fontem"
