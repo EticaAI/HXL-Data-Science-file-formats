@@ -519,7 +519,7 @@ class HDPCLI:
 
         parser.add_argument(
             '--non-urn',
-            help='(draft) Filter by except URN pattern. ' +
+            help='Filter by except URN pattern. ' +
             'Use values based on strings defined on HDP file.',
             action='store',
             default=None,
@@ -623,7 +623,7 @@ class HDPCLI:
 
         parser.add_argument(
             '--verum-urn',
-            help='(draft) Filter by URN pattern. ' +
+            help='Filter by URN pattern.' +
             'Use values based on strings defined on HDP file.',
             action='store',
             default=None,

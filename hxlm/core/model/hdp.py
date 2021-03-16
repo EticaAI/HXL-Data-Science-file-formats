@@ -9,6 +9,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
 import os
+import re
 from urllib.request import urlopen
 
 from typing import (
@@ -123,7 +124,7 @@ class HDP:
         suffix = ''
         if container_item_index > 0:
             suffix = '-' + str(container_item_index)
-        return ('urn:oo:hsilo:' + domain_base + ':' +
+        return ('urn:hdp:oo:hsilo:' + domain_base + ':' +
                 container_base + suffix)
 
     def _update(self, hdp_rules: Union[List, dict],
@@ -178,6 +179,13 @@ class HDP:
         if self._debug:
             print('HDP._get_filtered hdp_filters', hdp_filters)
 
+        if 'verum_urn' in hdp_filters:
+            filtered = self._get_filtered_urn(
+                filtered, hdp_filters['verum_urn'])
+        if 'non_urn' in hdp_filters:
+            filtered = self._get_filtered_urn(
+                filtered, hdp_filters['non_urn'], False)
+
         if 'verum_grupum' in hdp_filters:
             filtered = self._get_filtered_grupum(
                 filtered, hdp_filters['verum_grupum'])
@@ -227,6 +235,52 @@ class HDP:
                 # or grupum not in hdpgroup.hsilo.grupum):
             # if not present and ('grupum' not hdp_current[hdpgroup]hsilo
             #     or grupum not in hdpgroup.hsilo.grupum):
+        return hdp_result
+
+    def _get_filtered_urn(self, hdp_current: dict,
+                          urn_regex: str, present: bool = True) -> dict:
+        """Filter (present/absent) urn_regex on hdp_current subnamespace
+
+        Args:
+            hdp_current (dict): HDP current internal representation
+            urn_regex (str): urn (group) to filter
+            present (bool, optional): If the grupum must be present (True) or
+                    is an inverse filter (absent). Defaults to True.
+
+        Returns:
+            dict: Filtered result
+        """
+        if self._debug:
+            print('HDP._get_filtered_urn', urn_regex, present, hdp_current)
+
+        if len(hdp_current) == 0:
+            return hdp_current
+
+        hdp_result = deepcopy(hdp_current)
+
+        try:
+            pattern = re.compile(urn_regex)
+
+            for hdpns in hdp_current:
+                # print('ooooi', hdpns, pattern,
+                #       re.search(pattern, hdpns), present)
+                # print('ooooi2', re.search(pattern, hdpns) is not None)
+                if re.search(pattern, hdpns) is not None:
+                    if present:
+                        continue
+                else:
+                    if not present:
+                        continue
+
+                deleteditem = hdp_result.pop(hdpns, None)
+                if self._debug:
+                    print('HDP._get_filtered_urn deleteditem', deleteditem)
+        except Exception as e:
+            print("HDP._get_filtered_urn:An exception occurred", e)
+            print('Did the regex is valid? urn_regex [ ' + urn_regex + ' ]')
+            print('ABORTING')
+            return False
+
         return hdp_result
 
     def _prepare(self, hdp_entry_point: str, is_startup: bool = False) -> bool:
