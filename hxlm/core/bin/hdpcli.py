@@ -492,7 +492,7 @@ class HDPCLI:
 
         parser.add_argument(
             '--non-grupum',
-            help='(draft) Filter by except grupum (group). ' +
+            help='Filter by except grupum (group). ' +
             'Use values based on strings defined on each hsilo.grupum',
             action='store',
             default=None,
@@ -605,7 +605,7 @@ class HDPCLI:
 
         parser.add_argument(
             '--verum-grupum',
-            help='(draft) Filter by grupum (group). ' +
+            help='Filter by grupum (group). ' +
             'Use values based on strings defined on each hsilo.grupum',
             action='store',
             default=None,

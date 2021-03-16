@@ -17,6 +17,8 @@ from typing import (
     Tuple,
 )
 
+from copy import deepcopy
+
 from pathlib import Path
 # import datetime
 
@@ -160,6 +162,72 @@ class HDP:
             raise RuntimeError('Unknow hdp_rules [' + str(hdp_rules) + ']')
 
         return True
+
+    def _get_filtered(self, hdp_filters: dict = None) -> dict:
+        """Apply filters to HDP complete points to knowledge
+
+        Args:
+            hdp_filters (dict, optional): Filters. Defaults to None.
+
+        Returns:
+            dict: Filered result
+        """
+
+        filtered = self._hdp
+
+        if self._debug:
+            print('HDP._get_filtered hdp_filters', hdp_filters)
+
+        if 'verum_grupum' in hdp_filters:
+            filtered = self._get_filtered_grupum(
+                filtered, hdp_filters['verum_grupum'])
+        if 'non_grupum' in hdp_filters:
+            filtered = self._get_filtered_grupum(
+                filtered, hdp_filters['non_grupum'], False)
+
+        return filtered
+
+    def _get_filtered_grupum(self, hdp_current: dict,
+                             grupum: str, present: bool = True) -> dict:
+        """Filter (present/absent) grupum on hdp_current subnamespace
+
+        Args:
+            hdp_current (dict): HDP current internal representation
+            grupum (str): grupum (group) to filter
+            present (bool, optional): If the grupum must be present (True) or
+                    is an inverse filter (absent). Defaults to True.
+
+        Returns:
+            dict: Filtered result
+        """
+
+        hdp_result = deepcopy(hdp_current)
+
+        # print('ooioioi', hdp_current, grupum, present)
+        for hdpns in hdp_current:
+            # print('ooioioi 1')
+            # request not a group, or this hdpns does not contain grupum
+            if not present and ('grupum' not in hdp_current[hdpns]['hsilo']):
+                # print('ooioioi 2')
+                continue
+            if present and (('grupum' in hdp_current[hdpns]['hsilo']) and
+                            (grupum in hdp_current[hdpns]['hsilo']['grupum'])):
+                # print('ooioioi 3')
+                continue
+            if not present and \
+                    (grupum not in hdp_current[hdpns]['hsilo']['grupum']):
+                # print('ooioioi 4')
+                continue
+            # If come until here, the entire hdpns (hsilo) must be removed
+            # print('ooioioi 5')
+            deleteditem = hdp_result.pop(hdpns, None)
+            if self._debug:
+                print('HDP._get_filtered_grupum deleteditem', deleteditem)
+            # delattr(hdp_current, hdpns)
+                # or grupum not in hdpgroup.hsilo.grupum):
+            # if not present and ('grupum' not hdp_current[hdpgroup]hsilo
+            #     or grupum not in hdpgroup.hsilo.grupum):
+        return hdp_result
 
     def _prepare(self, hdp_entry_point: str, is_startup: bool = False) -> bool:
 
@@ -430,9 +498,15 @@ class HDP:
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
         # if hdp_filters:
-        #     print('TODO hdp_filters')
+        #     print('TODO hdp_filters', hdp_filters)
 
-        return yaml.dump(self._hdp, Dumper=Dumper,
+        result = self._get_filtered(hdp_filters)
+
+        # print('result', result, type(result), yaml.dump(None))
+        # print('result none',  yaml.dump(None))
+        # print('result []',  yaml.dump([]))
+
+        return yaml.dump(result, Dumper=Dumper,
                          encoding='utf-8', allow_unicode=True)
 
     def get_prepared_filter(self, args) -> dict:
@@ -440,7 +514,7 @@ class HDP:
         for arg in vars(args):
             if (arg.startswith(('non_', 'verum_')) and
                     getattr(args, arg) is not None):
-                print(arg, getattr(args, arg))
+                # print(arg, getattr(args, arg))
                 filters[arg] = getattr(args, arg)
         # for a in vars(args.parse_args()):
         #     print('This arg is %s' % a)
