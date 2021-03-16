@@ -709,7 +709,10 @@ class HDPCLI:
 
             # print('hdp_filters', hdp_filters)
             # print('hdp', hdp)
-            hdp_rules = hdp.export_yml(hdp_filters)
+            hdp_rules = hdp.export_yml(hdp_filters, args.objectivum_linguam)
+
+            # if 'objectivum_linguam' in args:
+
             print(beautify(hdp_rules, 'yaml'))
             # print(hdp.export_yml())
             # print('hdp _hdp', hdp._hdp)

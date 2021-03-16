@@ -23,7 +23,8 @@ hdpcli tests/hrecipe/hello-world.hrecipe.hdp.yml --non-grupum hello-world
 hdpcli tests/hrecipe/hello-world.hrecipe.hdp.yml --verum-grupum hello-world
 hdpcli tests/hrecipe/yemen-01.hrecipe.hdp.yml --verum-urn yemen
 hdpcli tests/hrecipe/hello-world.hrecipe.hdp.yml --verum-urn hello-world --verum-grupum hello-world
-
+# TODO: implement use this:
+hdpcli tests/hrecipe/hello-world.hrecipe.hdp.yml --objectivum-linguam rus
 
 # To inspect the result (pretty print)
 hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml

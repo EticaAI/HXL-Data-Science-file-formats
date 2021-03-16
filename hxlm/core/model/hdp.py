@@ -26,6 +26,11 @@ from pathlib import Path
 import json
 import yaml
 
+from hxlm.core.schema.vocab import (
+    # HXLM_CORE_SCHEMA_CORE_VOCAB,
+    ItemHVocab
+)
+
 
 __all__ = ['HDP']
 
@@ -68,6 +73,8 @@ class HDP:
     listed item already is compromised.
     """
 
+    _vocab: dict
+
     HDP_JSON_EXTENSIONS: Tuple = (
         '.hdp.json',
         '.hdpd.json',
@@ -96,6 +103,10 @@ class HDP:
 
         self._online_unrestricted_init = online_unrestricted_init
         self._debug = debug
+
+        self._vocab = ItemHVocab().to_dict()
+
+        # print('self._vocab', self._vocab)
 
         if safer_zone_hosts:
             self._safer_zone_hosts = safer_zone_hosts
@@ -164,7 +175,8 @@ class HDP:
 
         return True
 
-    def _get_filtered(self, hdp_filters: dict = None) -> dict:
+    def _get_filtered(self, hdp_filters: dict = None,
+                      linguam: str = None) -> dict:
         """Apply filters to HDP complete points to knowledge
 
         Args:
@@ -177,7 +189,7 @@ class HDP:
         filtered = self._hdp
 
         if self._debug:
-            print('HDP._get_filtered hdp_filters', hdp_filters)
+            print('HDP._get_filtered hdp_filters', hdp_filters, linguam)
 
         if 'verum_urn' in hdp_filters:
             filtered = self._get_filtered_urn(
@@ -192,6 +204,10 @@ class HDP:
         if 'non_grupum' in hdp_filters:
             filtered = self._get_filtered_grupum(
                 filtered, hdp_filters['non_grupum'], False)
+
+        # if linguam and filtered and len(filtered):
+        if linguam:
+            filtered = self._get_translated(filtered, linguam)
 
         return filtered
 
@@ -280,6 +296,63 @@ class HDP:
             print('Did the regex is valid? urn_regex [ ' + urn_regex + ' ]')
             print('ABORTING')
             return False
+
+        return hdp_result
+
+    def _get_translated(self, hdp_current: dict, linguam: str) -> dict:
+
+        if self._debug:
+            print('HDP._get_translated', linguam, hdp_current)
+            # print('HDP._get_translated', self._vocab)
+
+        if len(hdp_current) == 0:
+            return hdp_current
+
+        hdp_result = deepcopy(hdp_current)
+
+        if len(linguam) != 3:
+            raise SyntaxError('linguam must be an ISO 639-3 (3 letter) ' +
+                              'code, like "ara" or "rus" [' + linguam + ']')
+
+        for hdpns in hdp_current:
+
+            # First level
+            for key_l1 in hdp_current[hdpns]:
+                if ((key_l1 in self._vocab['root']) and
+                (linguam in self._vocab['root'][key_l1])):  # noqa
+                    newterm = self._vocab['root'][key_l1][linguam]['id']
+                    # print('key_l1 in self._vocab.root', key_l1)
+                    # print('key_l1 in self._vocab.root', newterm)  # noqa
+                    hdp_result[hdpns][newterm] = hdp_result[hdpns].pop(key_l1)
+                    hdp_result[hdpns][newterm] = \
+                        self._get_translated_attr(
+                            hdp_result[hdpns][newterm], linguam)
+                else:
+                    if not str(key_l1).startswith('_'):
+                        hdp_result[hdpns][key_l1] = \
+                            self._get_translated_attr(
+                            hdp_current[hdpns][key_l1], linguam)
+            # continue
+
+        return hdp_result
+
+    def _get_translated_attr(self, hdp_current: dict, linguam: str) -> dict:
+        hdp_result = deepcopy(hdp_current)
+
+        # print('oioioioioi2', linguam, type(linguam))
+
+        for key_ln in hdp_current:
+            # print('oioioioioi3', type(key_ln), key_ln)
+
+            if not isinstance(key_ln, str):
+                if self._debug:
+                    print('HDP._get_translated_attr: TODO: fix this', key_ln)
+                continue
+
+            if ((key_ln in self._vocab['attr']) and
+            (linguam in self._vocab['attr'][key_ln])):  # noqa
+                newterm = self._vocab['attr'][key_ln][linguam]['id']
+                hdp_result[newterm] = hdp_result.pop(key_ln)
 
         return hdp_result
 
@@ -540,7 +613,7 @@ class HDP:
 
         return json.dumps(result, indent=4, sort_keys=True)
 
-    def export_yml(self, hdp_filters: dict = None) -> str:
+    def export_yml(self, hdp_filters: dict = None, linguam: str = None) -> str:
         """Export the current HDP internal metadata in an YAML format
 
         Returns:
@@ -554,7 +627,7 @@ class HDP:
         # if hdp_filters:
         #     print('TODO hdp_filters', hdp_filters)
 
-        result = self._get_filtered(hdp_filters)
+        result = self._get_filtered(hdp_filters, linguam)
 
         # print('result', result, type(result), yaml.dump(None))
         # print('result none',  yaml.dump(None))
