@@ -3,11 +3,25 @@
 # hdpcli --export-to-hxl-json-processing-specs hello-world.hrecipe.hdp.yml | jq '.[1]' | hxlspec
 ---
 - hsilo:
-    nomen: hello-world.hrecipe.hdp.yml
     linguam: mul # https://iso639-3.sil.org/code/mul
     descriptionem:
       eng: "Hello World!"
       por: "Olá Mundo!"
+    adm0:
+      - AO
+      - BR
+      - CV
+      - GQ
+      - GW
+      - MO
+      - MZ
+      - PT
+      - ST
+      - TL
+    grupum:
+      - hello-world
+    tag:
+      - CPLP
   hrecipe:
     - id: example-processing-with-a-JSON-spec
       _recipe:

@@ -3,12 +3,12 @@
 #
 #          FILE:  hdpcli
 #
-#         USAGE:  hdpcli urn:data:un:locode
-#                 hdpcli urn:data:un:locode
-#                 hdpcli urn:data:xz:hxl:standard:core:hashtag
-#                 hdpcli urn:data:xz:hxl:standard:core:attribute
-#                 hdpcli urn:data:xz:eticaai:pcode:br
-#                 hxlquickimport $( urn:data:xz:eticaai:pcode:br)
+#         USAGE:  Load all *.hdp.yml/*hdp.json on current directory:
+#                   hdpcli .
+#                 Specific file, local:
+#                   hdpcli path/to/my.hdp.yml
+#                 Specific file, remote:
+#                   hdpcli http://example.org/path/my.hdp.yml
 #
 #   DESCRIPTION:  HDP Declarative Programming Command Line Interface
 #
@@ -414,7 +414,7 @@ class HDPCLI:
             help='(draft) Source language (use if not autodetected)' +
             'Must be an ISO 639-3 code',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -486,7 +486,7 @@ class HDPCLI:
             help='(draft) Filter by except adm0 (country/territory). ' +
             'Must be an ISO 3166-1 alpha-2 code',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -495,7 +495,7 @@ class HDPCLI:
             help='(draft) Filter by except grupum (group). ' +
             'Use values based on strings defined on each hsilo.grupum',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -504,7 +504,7 @@ class HDPCLI:
             help='(draft) Filter by except nomen pattern' +
             'Use values based on strings defined on HDP file.',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -513,7 +513,7 @@ class HDPCLI:
             help='(draft) Filter by except tag. ' +
             'Use values based on strings defined on HDP file.',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -522,7 +522,7 @@ class HDPCLI:
             help='(draft) Filter by except URN pattern. ' +
             'Use values based on strings defined on HDP file.',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -531,7 +531,7 @@ class HDPCLI:
             help='(draft) Objective language / target language to export. ' +
             'Must be an ISO 639-3 code',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -599,7 +599,7 @@ class HDPCLI:
             help='(draft) Filter by adm0 (country/territory). ' +
             'Must be an ISO 3166-1 alpha-2 code',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -608,7 +608,7 @@ class HDPCLI:
             help='(draft) Filter by grupum (group). ' +
             'Use values based on strings defined on each hsilo.grupum',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -617,7 +617,7 @@ class HDPCLI:
             help='(draft) Filter by tag. ' +
             'Use values based on strings defined on HDP file.',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -626,7 +626,7 @@ class HDPCLI:
             help='(draft) Filter by URN pattern. ' +
             'Use values based on strings defined on HDP file.',
             action='store',
-            default=False,
+            default=None,
             nargs='?'
         )
 
@@ -697,12 +697,19 @@ class HDPCLI:
         #       not allow online initialization, at this moment, for testing,
         #       we're allowing here. (Emerson Rocha, 2021-03-13 01:48 UTC)
         if 'infile' in args and (os.path.isfile(args.infile) or
-                                 os.path.isdir(args.infile)):
+                                 os.path.isdir(args.infile) or
+                                 args.infile.startswith(('http://',
+                                                         'https://',
+                                                         'urn:'))):
             hdp = HDP(hdp_entry_point=args.infile,
                       online_unrestricted_init=True,
                       debug=is_debug)
+
+            hdp_filters = hdp.get_prepared_filter(args)
+
+            # print('hdp_filters', hdp_filters)
             # print('hdp', hdp)
-            hdp_rules = hdp.export_yml()
+            hdp_rules = hdp.export_yml(hdp_filters)
             print(beautify(hdp_rules, 'yaml'))
             # print(hdp.export_yml())
             # print('hdp _hdp', hdp._hdp)

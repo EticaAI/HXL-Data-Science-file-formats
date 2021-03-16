@@ -418,7 +418,7 @@ class HDP:
 
         return json.dumps(result, indent=4, sort_keys=True)
 
-    def export_yml(self) -> str:
+    def export_yml(self, hdp_filters: dict = None) -> str:
         """Export the current HDP internal metadata in an YAML format
 
         Returns:
@@ -429,8 +429,25 @@ class HDP:
         #       in an place outside HDP internal metadata?
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
+        # if hdp_filters:
+        #     print('TODO hdp_filters')
+
         return yaml.dump(self._hdp, Dumper=Dumper,
                          encoding='utf-8', allow_unicode=True)
+
+    def get_prepared_filter(self, args) -> dict:
+        filters = {}
+        for arg in vars(args):
+            if (arg.startswith(('non_', 'verum_')) and
+                    getattr(args, arg) is not None):
+                print(arg, getattr(args, arg))
+                filters[arg] = getattr(args, arg)
+        # for a in vars(args.parse_args()):
+        #     print('This arg is %s' % a)
+        # for option in args:
+        #     print('option', option)
+
+        return filters
 
     def is_remote_allowed(self, iri: str) -> bool:
         """Based on current context explain if the resource is allowed to fetch
