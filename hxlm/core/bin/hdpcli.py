@@ -374,6 +374,11 @@ class HDPCLI:
         # return 'test'
 
     def make_args_urnresolver(self):
+        """Prepare parse args
+
+        Returns:
+            [dict]: args
+        """
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
@@ -477,6 +482,51 @@ class HDPCLI:
         )
 
         parser.add_argument(
+            '--non-adm0',
+            help='(draft) Filter by except adm0 (country/territory). ' +
+            'Must be an ISO 3166-1 alpha-2 code',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--non-grupum',
+            help='(draft) Filter by except grupum (group). ' +
+            'Use values based on strings defined on each hsilo.grupum',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--non-nomen',
+            help='(draft) Filter by except nomen pattern' +
+            'Use values based on strings defined on HDP file.',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--non-tag',
+            help='(draft) Filter by except tag. ' +
+            'Use values based on strings defined on HDP file.',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--non-urn',
+            help='(draft) Filter by except URN pattern. ' +
+            'Use values based on strings defined on HDP file.',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
             '--objectivum-linguam',
             help='(draft) Objective language / target language to export. ' +
             'Must be an ISO 639-3 code',
@@ -542,6 +592,42 @@ class HDPCLI:
             action='store_const',
             const=True,
             default=False
+        )
+
+        parser.add_argument(
+            '--verum-adm0',
+            help='(draft) Filter by adm0 (country/territory). ' +
+            'Must be an ISO 3166-1 alpha-2 code',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--verum-grupum',
+            help='(draft) Filter by grupum (group). ' +
+            'Use values based on strings defined on each hsilo.grupum',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--verum-tag',
+            help='(draft) Filter by tag. ' +
+            'Use values based on strings defined on HDP file.',
+            action='store',
+            default=False,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--verum-urn',
+            help='(draft) Filter by URN pattern. ' +
+            'Use values based on strings defined on HDP file.',
+            action='store',
+            default=False,
+            nargs='?'
         )
 
         self.args = parser.parse_args()
