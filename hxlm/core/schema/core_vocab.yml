@@ -115,28 +115,28 @@ root:
   #
   hcompliance:
     id: "HC"
-    ara:
+    ARA:
       id: 'hcompliance'  # TODO: still need an term
-    eng:
+    ENG:
       # https://en.wikipedia.org/wiki/Acceptable_use_policy
       id: 'acceptable-use-policy'
-    fra:
+    FRA:
       id: 'politique-dutilisation-acceptable'  # TODO: review
-    spa:
+    SPA:
       id: 'politica-de-uso-aceptable'  # TODO: review
-    lat:
+    LAT:
       id: 'hcompliance'  # TODO
-    por:
+    POR:
       id: 'politica-de-utilizacao-aceitavel' # 'politica-de-uso' # or 'termos-e-condicoes-de-uso'
-    qaa:
+    QAA:
       id: 'q4672374'  # Acceptable use policy (Q4672374)
-    rus:
+    RUS:
       # https://ru.wikipedia.org/wiki/%D0%A3%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F_%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F
       id: 'условия-использования' # 'Terms of service'; Still not perfect
-    zho:
+    ZHO:
       # https://zh.wikipedia.org/wiki/%E6%9C%8D%E5%8B%99%E6%A2%9D%E6%AC%BE
       id: '可接受使用策略' # Acceptable use policy (可接受使用策略)
-    zxx:
+    ZXX:
       id: 'hcompliance'
     hdp:
       id: 'hcompliance'
@@ -150,16 +150,16 @@ root:
     # - https://en.wiktionary.org/wiki/datum#Latin
     #   > datum n (genitive datī); second declension gift, present
     id: "HD"
-    ara:
+    ARA:
       id: 'مجموعة-بيانات'
-    eng:
+    ENG:
       id: 'data-set'
-    fra:
+    FRA:
       id: 'jeux-de-donnees'
-    spa:
-      # spa: https://es.wikipedia.org/wiki/Conjunto_de_datos
+    SPA:
+      # SPA: https://es.wikipedia.org/wiki/Conjunto_de_datos
       id: 'conjunto-de-datos'
-    lat:
+    LAT:
       # - https://en.wiktionary.org/wiki/data#English
       #   > 'data', (English) Borrowed from Latin data, nominative plural of
       #      datum (“that is given”), neuter past participle of dō (“I give”).
@@ -169,19 +169,19 @@ root:
       id: 'hdatum'
       id_alts:
         - "datum"
-    por:
+    POR:
       id: 'conjunto-de-dados'
-    qaa:
-      # qaa: TODO: we should consider which reserved code use for Wikidata
+    QAA:
+      # QAA: TODO: we should consider which reserved code use for Wikidata
       id: 'q1172284'
-    rus:
-      # rus: Needs revision about if is a good term or not
+    RUS:
+      # RUS: Needs revision about if is a good term or not
       #      https://ru.wikipedia.org/wiki/%D0%98%D1%80%D0%B8%D1%81%D1%8B_%D0%A4%D0%B8%D1%88%D0%B5%D1%80%D0%B0
       id: 'Ирисы-Фишера'
-    zho:
-      # zha/zho: '数据集' term needs additional revision. No wikidata term
+    ZHO:
+      # zha/ZHO: '数据集' term needs additional revision. No wikidata term
       id: '数据集'
-    zxx:
+    ZXX:
       id: 'hdataset'
 
   # hfile: https://www.wikidata.org/wiki/Q82753
@@ -193,15 +193,15 @@ root:
   # # TODO: consider change to 'hfilum' (Latin: 'fīlum')
   hfilum:
     id: "HF"
-    ara:
+    ARA:
       id: 'ملف-حاسوب'
-    eng:
+    ENG:
       id: 'computer-file'
-    fra:
+    FRA:
       id: 'fichier-informatique'
-    spa:
+    SPA:
       id: 'archivo'
-    lat:
+    LAT:
       # - https://en.wiktionary.org/wiki/file#English
       #   > "File": English -> Etymology -> From Latin fīlum (“thread”). Doublet of file.
       # - https://en.wiktionary.org/wiki/filum#Latin
@@ -210,17 +210,17 @@ root:
       id: 'hfilum'
       id_alts:
         - "filum"
-    por:
+    POR:
       id: 'arquivo-de-computador'
-    qaa:
+    QAA:
       id: 'q82753'
-    rus:
+    RUS:
       id: 'Файл'
-    zho:
+    ZHO:
       # zha/zho : https://zh.wikipedia.org/wiki/%E9%9B%BB%E8%85%A6%E6%AA%94%E6%A1%88
       #           https://zh.wikipedia.org/wiki/%E6%AA%94%E6%A1%88
       id: "電腦檔案" # Computer file
-    zxx:
+    ZXX:
       id: hfilum
 
   htransformare:
@@ -233,7 +233,7 @@ root:
     # @see https://en.wikipedia.org/wiki/Data_transformation
     # @see https://en.wikipedia.org/wiki/Data_transformation
     id: "HT"
-    ara:
+    ARA:
       # root.htransformare.ara needs revision. The raw term 'تحويل' seems to
       # have broader (potentially bad) concept. And 'Datafication' is too
       # specific.
@@ -243,58 +243,58 @@ root:
       # descriptionem: ''
       # id_alts:
       #   - ''
-    eng:
+    ENG:
       # @see https://www.wikidata.org/wiki/Q4272815
       id: 'data-transformation'
       descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
       # id_alts:
       #   - ''
-    fra:
+    FRA:
       # @see https://en.wiktionary.org/wiki/transformation#French
       # @see http://www.fao.org/3/x6831f/X6831f08.htm
       id: 'transformation-de-donnees'
       # descriptionem: ''
       # id_alts:
       #   - ''
-    spa:
+    SPA:
       # @see https://es.wikipedia.org/wiki/Transformaci%C3%B3n_de_datos (not exact match)
       id: 'transformacion-de-datos'
       descriptionem: 'Acción de transformar o transformarse.'
       # id_alts:
       #   - ''
-    lat:
+    LAT:
        # @see https://en.wiktionary.org/wiki/transformare#Latin
       # @see https://en.wiktionary.org/wiki/transformo#Latin
       id: 'transformare'
       # descriptionem: ''
       # id_alts:
       #   - ''
-    por:
+    POR:
       id: 'transformacao-de-dados'
       # descriptionem: ''
       # id_alts:
       #   - ''
-    qaa:
+    QAA:
       # @see https://www.wikidata.org/wiki/Q4272815
       id: 'q4272815'  # data transformation (Q4272815)
       descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
       # id_alts:
       #   - ''
-    rus:
+    RUS:
       # @see https://www.wikidata.org/wiki/Q4272815
       # @see https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F
       id: 'трансформация-данных'
       descriptionem: 'совокупность техник преобразования данных для их переноса между различными базами данных'
       # id_alts:
       #   - ''
-    zho:
+    ZHO:
       # @see https://www.wikidata.org/wiki/Q4272815
       # @see https://en.wiktionary.org/wiki/%E8%BD%AC%E5%9E%8B
       id: '数据变换'
       # descriptionem: ''
       id_alts:
         - '转型'
-    zxx:
+    ZXX:
       id: 'htransformare'
       descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
       # id_alts:
@@ -309,67 +309,66 @@ root:
     # On wikitionary, silo
     # @see https://en.wiktionary.org/wiki/silo
     id: "HS"
-    ara:
+    ARA:
       # https://ar.wikipedia.org/wiki/%D8%B5%D9%88%D9%85%D8%B9%D8%A9_%D8%BA%D9%84%D8%A7%D9%84
       # Needs revision. 'صومعة غلال' seems, like russian 'Силосная башня', an
       # very specific definition, and 'صومعة' seems more aligned with silo alone
       id: 'صومعة'
-    eng:
+    ENG:
       id: 'silo'
-    fra:
+    FRA:
       id: 'silo'
-    spa:
+    SPA:
       id: 'silo'
-    lat:
+    LAT:
       # https://en.wiktionary.org/wiki/silo#Spanish
       id: 'silo'
-    por:
+    POR:
       id: 'silo'
-    qaa:
+    QAA:
       # We're using the generic term because is easy to translate to multiple
       # languages than Information Silo.
       id: 'q213643'  # silo (Q213643), structure for storing bulk materials
-    rus:
+    RUS:
       # https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BB%D0%BE%D1%81%D0%BD%D0%B0%D1%8F_%D0%B1%D0%B0%D1%88%D0%BD%D1%8F
       # 'Силосная башня' = "silo tower"
       # 'силосная' = 'silo' (needs revision)
       id: 'силосная'
-    zho:
+    ZHO:
       # @see https://zh.wikipedia.org/wiki/%E7%AD%92%E4%BB%93
       id: '筒仓'
-    zxx:
+    ZXX:
       id: 'hsilo'
 
 attr:
-
   adm0:
     # attr.adm0 is a country/territory
     # https://en.wikipedia.org/wiki/Administrative_division
     # https://en.wikipedia.org/wiki/Country
     # https://en.wikipedia.org/wiki/GADM
-    ara:
+    ARA:
       # https://ar.wikipedia.org/wiki/%D8%A8%D9%84%D8%AF
       id: 'بلد'
-    eng:
+    ENG:
       id: 'country'
-    fra:
+    FRA:
       id: 'pays'
-    spa:
+    SPA:
       id: 'pais'
-    lat:
+    LAT:
       id: 'patriam'
-    por:
+    POR:
       id: 'pais'
-    qaa:
+    QAA:
       # https://www.wikidata.org/wiki/Q6256
       id: 'q6256'  # country (Q6256)
-    rus:
+    RUS:
       # https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%B0
       id: 'страна'
-    zho:
+    ZHO:
       # https://zh.wikipedia.org/wiki/%E5%9B%BD%E5%AE%B6
       id: '国家'
-    zxx:
+    ZXX:
       id: 'adm0'
 
   datum:
@@ -378,35 +377,35 @@ attr:
     # @see https://en.wiktionary.org/wiki/datum#Latin
     # @see https://en.wiktionary.org/wiki/datus#Latin
     # @see https://www.wikidata.org/wiki/Q42848
-    ara:
+    ARA:
       # @see https://www.wikidata.org/wiki/Q42848
       id: 'بيانات'
-    eng:
+    ENG:
       id: 'data'
-    fra:
+    FRA:
       # @see https://www.wikidata.org/wiki/Q42848
       # 'donnée' -> donnee
       id: 'donnee'
-    spa:
+    SPA:
       # @see https://www.wikidata.org/wiki/Q42848
       id: 'dato'
-    lat:
+    LAT:
       # Q42848 uses 'data', but we're using datum since is
       # @see https://www.wikidata.org/wiki/Q42848
       id: 'datum'
-    por:
+    POR:
       # @see https://www.wikidata.org/wiki/Q42848
       id: 'dados'
-    qaa:
+    QAA:
       # @see https://www.wikidata.org/wiki/Q42848
       id: 'q42848'
-    rus:
+    RUS:
       # @see https://www.wikidata.org/wiki/Q42848
       id: 'данные'
-    zho:
+    ZHO:
       # @see https://www.wikidata.org/wiki/Q42848
       id: '数据'
-    zxx:
+    ZXX:
       id: 'datum'
 
   descriptionem:
@@ -415,66 +414,66 @@ attr:
     # https://en.wikipedia.org/wiki/Description
     # https://www.wikidata.org/wiki/Q1200750
     # @see https://en.wiktionary.org/wiki/descriptio#Latin
-    ara:
+    ARA:
       # same as attr.desc.zho, ara is likely to have several alternatives
       id: 'وصف'
-    eng:
+    ENG:
       id: 'description'
-    fra:
+    FRA:
       id: 'description'
-    spa:
+    SPA:
       id: 'descripcion'
-    lat:
+    LAT:
       # @see https://en.wiktionary.org/wiki/descriptio
       # dēscrīptiōnem = descriptionem
       id: 'descriptionem'
-    por:
+    POR:
       id: 'descricao'
-    qaa:
+    QAA:
       id: 'q1200750'  # description (Q1200750), text for clarification;
-    rus:
+    RUS:
       # https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5
       id: 'описание'
-    zho:
+    ZHO:
       # https://baike.baidu.com/item/%E6%8F%8F%E8%BF%B0
       # TODO: this one will need some work. Like attr.name, is likely to have
       #       so many alternatives
       id: '描述'  # TODO: needs revision / add more alternatives
-    zxx:
+    ZXX:
       id: 'descriptionem'
 
   exemplum:
     # attr.exemplar is ...
     # @see https://en.wiktionary.org/wiki/exemplum
     # @see https://www.wikidata.org/wiki/Q14944328
-    ara:
+    ARA:
       id: 'مثال'
-    eng:
+    ENG:
       # from https://www.wikidata.org/wiki/Q14944328
       id: 'example'
-    fra:
+    FRA:
       # from https://www.wikidata.org/wiki/Q14944328
       id: 'exemple'
-    spa:
+    SPA:
       # from https://www.wikidata.org/wiki/Q14944328
       id: 'ejemplo'
-    lat:
+    LAT:
       # @see https://en.wiktionary.org/wiki/exemplum
       # @see https://www.wikidata.org/wiki/Q14944328
       id: 'exemplum'
-    por:
+    POR:
       # from https://www.wikidata.org/wiki/Q14944328
       id: 'exemplo'
-    qaa:
+    QAA:
       # https://www.wikidata.org/wiki/Q14944328
       id: 'q14944328'
-    rus:
+    RUS:
       # from https://www.wikidata.org/wiki/Q14944328
       id: 'пример'
-    zho:
+    ZHO:
       # from https://www.wikidata.org/wiki/Q14944328
       id: '例子'
-    zxx:
+    ZXX:
       id: 'exemplum'
 
   falsum:
@@ -490,7 +489,7 @@ attr:
     #
     # @see https://en.wiktionary.org/wiki/falsum
     # @see https://en.wikipedia.org/wiki/False_(logic)
-    ara:
+    ARA:
       # TODO attr.falsum.ara is likely to need revision.
       # @see https://en.wiktionary.org/wiki/%D9%84%D9%8A%D8%B3
       # @see https://en.wiktionary.org/wiki/%D9%84%D8%A7#Arabic
@@ -498,51 +497,51 @@ attr:
       # descriptionem: ''
       id_alts:
         - 'لا'  # English 'no'
-    eng:
+    ENG:
       id: 'not'
       descriptionem: 'Untrue, false, negation'
       id_alts:
         - 'no'
         - 'false'
         - 'untrue'
-    fra:
+    FRA:
       # @see https://en.wiktionary.org/wiki/ne#French
       id: 'ne'
       # descriptionem: ''
       id_alts:
         - 'non'
-    spa:
+    SPA:
       # @see https://en.wiktionary.org/wiki/no#Spanish
       id: 'no'
       # descriptionem: ''
       id_alts:
         - 'falso'
-    lat:
+    LAT:
       # @see https://en.wiktionary.org/wiki/falsum
       # @see https://en.wiktionary.org/wiki/non#Latin
       id: 'falsum'
       # descriptionem: ''
       id_alts:
         - 'non'
-    por:
+    POR:
       id: 'nao'
       descriptionem: 'Negação, falso, oposto de verdadeiro.'
       id_alts:
         - 'falso'
-    qaa:
+    QAA:
       # @see https://en.wikipedia.org/wiki/False_(logic)
       # @see https://www.wikidata.org/wiki/Q5432619
       id: 'q5432619'
       # descriptionem: ''
       # id_alts:
       #   - ''
-    rus:
+    RUS:
       # @see https://en.wiktionary.org/wiki/%D0%BD%D0%B5%D1%82#Russian
       id: 'нет'
       # descriptionem: ''
       # id_alts:
       #   - ''
-    zho:
+    ZHO:
       # TODO: attr.falsum.zho have many variants. Even if the canonical
       #       attr.falsum.zho.id is acceptable, some work may be need here
       # @see https://zh.m.wiktionary.org/zh/%E4%B8%8D
@@ -551,7 +550,7 @@ attr:
       id_alts:
         - '不是'
         - '不是'
-    zxx:
+    ZXX:
       id: 'falsum'
       descriptionem: 'reference to not truly, untrue. (mostly to be used with command line interface)'
       id_alts:
@@ -571,32 +570,32 @@ attr:
     # https://en.wikipedia.org/wiki/Source_document
     # @see https://en.wiktionary.org/wiki/fons#Latin
     # @see https://www.wikidata.org/wiki/Q224772
-    ara:
+    ARA:
       # https://ar.wikipedia.org/wiki/%D9%85%D8%B5%D8%AF%D8%B1
       id: 'مصدر'
-    eng:
+    ENG:
       id: 'source'
-    fra:
+    FRA:
       # https://fr.wikipedia.org/wiki/Source
       id: 'source'
-    spa:
+    SPA:
       # https://es.wikipedia.org/wiki/Source_(desambiguaci%C3%B3n)
       id: 'fuente'
-    lat:
+    LAT:
       # https://en.wiktionary.org/wiki/fons#Latin
       id: 'fontem'
-    por:
+    POR:
       id: 'fonte'
-    qaa:
+    QAA:
       # https://www.wikidata.org/wiki/Q224772
       id: 'q224772'  # Source (Q224772), Wikimedia disambiguation page
-    rus:
+    RUS:
       id: 'источник' # Source
-    zho:
+    ZHO:
       # https://en.wiktionary.org/wiki/%E4%BE%86%E6%BA%90
       # (This term, 来源, is the simplified form of 來源.)
       id: '來源'  # source; origin 
-    zxx:
+    ZXX:
       id: 'fontem'
 
   grupum:
@@ -605,48 +604,48 @@ attr:
     # named at top level.
     # @see https://en.wiktionary.org/wiki/grupus#Latin
     # @see https://www.wikidata.org/wiki/Q16887380 (well-defined collection of discrete entities who choose or are assigned to be part of a collective whole)
-    ara:
+    ARA:
       # @see https://en.wiktionary.org/wiki/%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A9
       # @see https://www.wikidata.org/wiki/Q16887380
       id: 'مجموعة'
       descriptionem: 'عناصر ذات أي طبيعة ينظر إليها كمجموعة'
-    eng:
+    ENG:
       # @see https://en.wiktionary.org/wiki/group#English
       id: 'group'
       descriptionem: 'Well-defined collection of discrete entities who choose or are assigned to be part of a collective whole'
-    fra:
+    FRA:
       # @see https://en.wiktionary.org/wiki/groupe#French
       id: 'groupe'
       descriptionem: "regroupement d'entités ayant des caractéristiques semblables"
-    spa:
+    SPA:
       # @see https://en.wiktionary.org/wiki/grupo#Spanish
       # @see https://www.wikidata.org/wiki/Q16887380
       id: 'grupo'
       descriptionem: 'conjunto de cosas o personas'
-    lat:
+    LAT:
       # @see https://en.wiktionary.org/wiki/grupus#Latin
       id: 'grupum'
       # descriptionem: ''
-    por:
+    POR:
       # @see https://en.wiktionary.org/wiki/grupo#Portuguese
       # @see https://www.wikidata.org/wiki/Q16887380
       id: 'grupo'
       descriptionem: 'múltiplos elementos (coisas, pessoas, etc.) de mesma natureza considerados formadores de um conjunto'
-    qaa:
+    QAA:
       # @see https://www.wikidata.org/wiki/Q16887380 (well-defined collection of discrete entities who choose or are assigned to be part of a collective whole)
       id: 'q16887380'
       descriptionem: 'well-defined collection of discrete entities who choose or are assigned to be part of a collective whole'
-    rus:
+    RUS:
       # @see https://www.wikidata.org/wiki/Q16887380
       # @see https://ru.wikipedia.org/wiki/%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0
       id: 'группа'
       descriptionem: 'объединение сущностей с общими свойствами'
-    zho:
+    ZHO:
       # @see https://www.wikidata.org/wiki/Q16887380
       # @see https://en.wiktionary.org/wiki/%E7%B5%84
       id: '組'
       # descriptionem: ''
-    zxx:
+    ZXX:
       id: 'grupum'
       descriptionem: 'One way to group colletions (hsilos).While the tags allow use at any level, this attribute should be explicity named at top level.'
 
@@ -654,30 +653,30 @@ attr:
     # attr.id
     # @see https://en.wikipedia.org/wiki/Identifier
     # @see https://www.wikidata.org/wiki/Q853614
-    ara:
+    ARA:
       id: 'المعرف'  # The Identifier; needs some review
-    eng:
+    ENG:
       # https://en.wikipedia.org/wiki/Identifier
       id: 'identifier'
-    fra:
+    FRA:
       # https://fr.wikipedia.org/wiki/Identifiant
       id: 'identifiant'
-    spa:
+    SPA:
       # https://es.wikipedia.org/wiki/Identificador
       id: 'identificador'
-    lat:
+    LAT:
       id: 'id'  # TODO
-    por:
+    POR:
       id: 'identificador'
-    qaa:
+    QAA:
       id: 'q853614'  # identifier (Q853614)
-    rus:
+    RUS:
       # https://ru.wikipedia.org/wiki/%D0%98%D0%B4%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D1%80
       id: 'идентификатор'
-    zho:
+    ZHO:
       # https://zh.wikipedia.org/wiki/%E6%A8%99%E8%AD%98%E7%AC%A6
       id: '標識符'
-    zxx:
+    ZXX:
       id: 'id'
 
 # TODO: add some term for 'import (file)'; See https://en.wiktionary.org/wiki/importo#Latin
@@ -696,27 +695,27 @@ attr:
     # @see https://www.wikidata.org/wiki/Q424583
     #
     # TODO: attr.iri needs revision. Some languages do not have equivalent yet
-    ara:
+    ARA:
       id: 'iri'
-    eng:
+    ENG:
       id: 'iri' # 100% OK
-    fra:
+    FRA:
       id: 'iri' # 100% OK
-    spa:
+    SPA:
       id: 'iri'
-    lat:
+    LAT:
       id: 'iri'
-    por:
-      # attr.iri.por: https://pt.wikipedia.org/wiki/IRI
+    POR:
+      # attr.iri.POR: https://pt.wikipedia.org/wiki/IRI
       # 100% mach for portuguese
       id: 'iri'
-    qaa:
+    QAA:
       id: 'q424583'  # 100% OK
-    rus:
+    RUS:
       id: 'iri'
-    zho:
+    ZHO:
       id: 'iri'
-    zxx:
+    ZXX:
       id: 'iri'  # 100% OK
 
   linguam:
@@ -725,36 +724,36 @@ attr:
     # @see https://www.wikidata.org/wiki/Q315
     # @see https://en.wiktionary.org/wiki/language
     # @see https://en.wiktionary.org/wiki/lingua#Latin
-    ara:
+    ARA:
       # https://ar.wikipedia.org/wiki/%D9%84%D8%BA%D8%A9
       id: 'لغة'
-    eng:
+    ENG:
       # https://en.wikipedia.org/wiki/Language
       id: 'language'
-    fra:
+    FRA:
       # https://fr.wikipedia.org/wiki/Idiome
       id: 'idiome'
-    spa:
+    SPA:
       # https://es.wikipedia.org/wiki/Idioma
       # idiom (Q337968): "language or language variety; specifically, a
       # restricted dialect used in a given historicalperiod, context etc;
       #  neutral term between ‘language’ and ‘dialect’"
       id: 'idioma'
-    lat:
+    LAT:
       # https://la.wikipedia.org/wiki/Lingua
       id: 'lingua'
-    por:
+    POR:
       # https://pt.wikipedia.org/wiki/idioma
       id: 'idioma'
-    qaa:
+    QAA:
       id: 'q315'  # language (Q315)
-    rus:
+    RUS:
       # https://ru.wikipedia.org/wiki/%D0%AF%D0%B7%D1%8B%D0%BA
       id: 'язык'
-    zho:
+    ZHO:
       # https://zh.wikipedia.org/wiki/%E8%AA%9E%E8%A8%80
       id: '语言'
-    zxx:
+    ZXX:
       id: 'lingua'
 
   locum:
@@ -763,44 +762,44 @@ attr:
     # https://en.m.wiktionary.org/wiki/place
     # https://www.wikidata.org/wiki/Property:P276 (location of the object, structure or event.)
     # https://www.wikidata.org/wiki/Q17334923 (location of physical or non-physical object in space)
-    ara:
+    ARA:
       # @see https://www.wikidata.org/wiki/Q17334923
       id: 'موقع'
-    eng:
+    ENG:
       id: 'location'
       descriptionem: 'location of physical or non-physical object in space'
-    fra:
+    FRA:
       # @see https://www.wikidata.org/wiki/Q17334923
       id: 'lieu'
       descriptionem: "position dans l'espace où se situe ou se produit une entité par rapport à une autre entité"
-    spa:
+    SPA:
       # @see https://www.wikidata.org/wiki/Q17334923
       # 'localización' -> localizacion
       id: 'localizacion'
       descriptionem: 'ubicación del objeto físico o no físico en el espacio'
-    lat:
+    LAT:
       # @see https://www.wikidata.org/wiki/Q17334923
       # @see https://www.wikidata.org/wiki/Property:P276
       # Note: P276 uses 'situs', but we will use locum
       id: 'locum'
-    por:
+    POR:
       # @see https://www.wikidata.org/wiki/Property:P276
       # localização -> localizacao
       id: 'localizacao'
       descriptionem: 'localização de um objeto (físico ou abstrato)'
-    qaa:
+    QAA:
       # @see https://www.wikidata.org/wiki/Q17334923
       # Note: this is an P , not an Q
       id: 'q17334923'
       descriptionem: 'location of physical or non-physical object in space'
-    rus:
+    RUS:
       # @see https://www.wikidata.org/wiki/Q17334923
       id: 'местонахождение'
       descriptionem: 'местоположение вымышленного или реального объекта в трёхмерном пространстве'
-    zho:
+    ZHO:
       # @see https://www.wikidata.org/wiki/Q17334923
       id: '位置'
-    zxx:
+    ZXX:
       id: 'locum'
 
   meta:
@@ -812,30 +811,30 @@ attr:
     #  metadata." -- Wikipedia
     # https://en.wikipedia.org/wiki/Metadata
     # https://www.wikidata.org/wiki/Q180160
-    ara:
+    ARA:
       # https://ar.wikipedia.org/wiki/%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA_%D9%88%D8%B5%D9%81%D9%8A%D8%A9
       id: 'بيانات-وصفية'
-    eng:
+    ENG:
       id: 'metadata'
-    fra:
+    FRA:
       # https://fr.wikipedia.org/wiki/M%C3%A9tadonn%C3%A9e
       id: 'metadonnee'
-    spa:
+    SPA:
       id: 'metadato'
-    lat:
+    LAT:
       # https://en.wiktionary.org/wiki/metadatum
       id: 'meta'  # TODO: check
-    por:
+    POR:
       id: 'metadado'
-    qaa:
+    QAA:
       id: 'q180160'  # metadata (Q180160), data about data
-    rus:
+    RUS:
       # https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%B0%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5
       id: 'метаданные'
-    zho:
+    ZHO:
       # https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE
       id: '元数据'
-    zxx:
+    ZXX:
       id: 'meta'
 
   nomen:
@@ -847,32 +846,32 @@ attr:
     #      back they keep the internal one we use here.
     # https://en.wikipedia.org/wiki/Name
     # https://www.wikidata.org/wiki/Q82799
-    ara:
+    ARA:
       # https://ar.wikipedia.org/wiki/%D8%A7%D8%B3%D9%85
       id: 'اسم'  #  'Substantivo' (por) 'noum' (eng)
-    eng:
+    ENG:
       id: 'name'
-    fra:
+    FRA:
       id: 'nom'
-    spa:
+    SPA:
       id: 'nombre'
-    lat:
+    LAT:
       # https://en.wiktionary.org/wiki/nomen#Latin
       # nōmen -> nomen
       id: 'nomen'
-    por:
+    POR:
       id: 'nome'
-    qaa:
+    QAA:
       # https://www.wikidata.org/wiki/Q82799
       id: 'q82799'  # name (Q82799), word or term used for identification
-    rus:
+    RUS:
       id: 'имя'
-    zho:
+    ZHO:
       # https://zh.wikipedia.org/wiki/%E5%90%8D%E7%A7%B0
       id: '名称'  # '名称' ? '名字'
       id_alts:
         - '名字'
-    zxx:
+    ZXX:
       id: 'nomen'
 
   objectivum:
@@ -884,48 +883,48 @@ attr:
     # @see https://en.wiktionary.org/wiki/objectivus#Latin
     # @see https://en.wiktionary.org/wiki/objective
     # @see https://www.wikidata.org/wiki/Q341954 Objective (Q341954) Wikimedia disambiguation page
-    ara:
+    ARA:
       # TODO: attr.obje.objectivum.ara needs revision. More than one option
       #       'هدف' is more like english 'goal', 'aim'
       # @see https://ar.wikipedia.org/wiki/%D9%87%D8%AF%D9%81
       id: 'هدف'
       # descriptionem: ''
-    eng:
+    ENG:
       # @see https://en.wikipedia.org/wiki/Objective
       # @see https://en.wikipedia.org/wiki/Goal
       id: 'objective'
       descriptionem: 'a thing aimed at or sought; a goal.'
-    fra:
+    FRA:
       # TODO: attr.obje.objectivum.fra needs revision. More than one option
       # @see https://fr.wikipedia.org/wiki/Objectif
       id: 'objectif'
       # descriptionem: 'objectif'
-    spa:
+    SPA:
       # https://es.wikipedia.org/wiki/Objetivo
       id: 'objetivo'
       descriptionem: 'En el sentido de causa final, o sea relativo a los fines o propósitos de algún objeto o algún ser o alguna institución o alguna organización, o bien literalmente, a la doctrina filosófica de las causas finales, o bien a la atribución de una finalidad u objetivo a un proceso concreto o a una estructura institucional.'
-    lat:
+    LAT:
       # @see https://en.wiktionary.org/wiki/objectivus#Latin
       # 'objectīvum' -> 'objectivum'
       id: 'objectivum'
       descriptionem: ''
-    por:
+    POR:
       # @see https://pt.wiktionary.org/wiki/objetivo
       id: 'objetivo'
       descriptionem: 'fim; propósito; alvo; finalidade; intuito'
-    qaa:
+    QAA:
       # https://www.wikidata.org/wiki/Q341954 (Wikimedia disambiguation page)
       id: 'q341954'
       # descriptionem: ''
-    rus:
+    RUS:
       # @see https://ru.wikipedia.org/wiki/%D0%A6%D0%B5%D0%BB%D1%8C
       id: 'цель'
       descriptionem: ''
-    zho:
+    ZHO:
       # @see https://zh.m.wiktionary.org/zh-hans/%E7%9B%AE%E7%9A%84
       id: '目的'
       # descriptionem: ''
-    zxx:
+    ZXX:
       id: 'objectivum'
       descriptionem: 'a thing aimed at or sought; a goal.'
 
@@ -933,73 +932,73 @@ attr:
     # attr.tag is ...
     # @see https://en.wikipedia.org/wiki/Tag_(metadata)
     # @see https://www.wikidata.org/wiki/Q658349
-    ara:
+    ARA:
       # https://ar.wikipedia.org/wiki/%D9%88%D8%B3%D9%85_(%D8%AA%D8%B5%D9%86%D9%8A%D9%81)
       id: 'وسم'
-    eng:
+    ENG:
       id: 'tag'
-    fra:
+    FRA:
       # https://fr.wikipedia.org/wiki/Tag_(m%C3%A9tadonn%C3%A9e)
       id: 'tag'
-    spa:
+    SPA:
       # https://es.wikipedia.org/wiki/Etiqueta_(metadato)
       id: 'etiqueta'
-    lat:
+    LAT:
       id: 'tag'  # TODO, using default value
-    por:
+    POR:
       # https://pt.wikipedia.org/wiki/Etiqueta_(metadados)
       id: 'etiqueta'
-    qaa:
+    QAA:
       id: 'q658349'  # tag (Q658349) metadata used for classifications or adding of informations
-    rus:
+    RUS:
       # https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%B3_(%D0%BC%D0%B5%D1%82%D0%B0%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5)
       id: 'тег'
-    zho:
+    ZHO:
       # https://zh.wikipedia.org/wiki/%E6%A8%99%E7%B1%A4_(%E5%85%83%E6%95%B8%E6%93%9A)
       id: '标签' # '标签' ? '標籤' ?
-    zxx:
+    ZXX:
       id: 'tag'
 
   tempus:
     # attr.newterm is ...
     # @see https://www.wikidata.org/wiki/Q11471 time (Q11471)
     # @see https://en.m.wiktionary.org/wiki/tempus
-    ara:
+    ARA:
       # @see https://www.wikidata.org/wiki/Q11471
       id: 'زمن'
       descriptionem: 'البعد الذي يمكن فيه ترتيب الأحداث من الماضي إلى الحاضر وفي المستقبل'
-    eng:
+    ENG:
       # @see https://www.wikidata.org/wiki/Q11471
       id: 'time'
       descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
-    fra:
+    FRA:
       id: 'temps'
       descriptionem: 'dimension dans laquelle les événements peuvent être ordonnés du passé au présent, vers le futur'
-    spa:
+    SPA:
       # @see https://www.wikidata.org/wiki/Q11471
       id: 'tiempo'
       # descriptionem: ''
-    lat:
+    LAT:
       # @see https://en.m.wiktionary.org/wiki/tempus
       id: 'tempus'
       descriptionem: ''
-    por:
+    POR:
       # @see https://www.wikidata.org/wiki/Q11471
       id: 'tempo'
       descriptionem: ''
-    qaa:
+    QAA:
       # @see https://www.wikidata.org/wiki/Q11471
       id: 'q11471'
       descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
-    rus:
+    RUS:
       # @see https://www.wikidata.org/wiki/Q11471
       id: 'время'
       descriptionem: 'форма протекания физических и психических процессов'
-    zho:
+    ZHO:
       # @see https://www.wikidata.org/wiki/Q11471
       id: '时间'
       # descriptionem: ''
-    zxx:
+    ZXX:
       id: 'tempus'
       descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
 
@@ -1022,25 +1021,25 @@ attr:
     # @see https://tools.ietf.org/html/rfc5141
     #
     # TODO: attr.urn needs revision. Some languages do not have equivalent yet
-    ara:
+    ARA:
       id: 'urn'
-    eng:
+    ENG:
       id: 'urn'  # 100% OK
-    fra:
+    FRA:
       id: 'urn'
-    spa:
+    SPA:
       id: 'urn'
-    lat:
+    LAT:
       id: 'urn'
-    por:
+    POR:
       id: 'urn'
-    qaa:
+    QAA:
       id: 'q76497'  # 100% OK
-    rus:
+    RUS:
       id: 'urn'
-    zho:
+    ZHO:
       id: 'urn'
-    zxx:
+    ZXX:
       id: 'urn'  # 100% OK
 
   verum:
@@ -1052,20 +1051,20 @@ attr:
     # @see https://en.wiktionary.org/wiki/verum
     # @see https://en.wiktionary.org/wiki/verus#Latin
     # @see https://en.wikipedia.org/wiki/Logical_truth
-    ara:
+    ARA:
       # TODO: attr.verum.ara needs revision.
       # @see https://en.wiktionary.org/wiki/%D9%86%D8%B9%D9%85
       id: 'نعم'
       # descriptionem: ''
       id_alts:
         - 'صحيح'
-    eng:
+    ENG:
       # https://en.wiktionary.org/wiki/true
       id: 'yes'
       descriptionem: 'truly, true, fact, reality.'
       id_alts:
         - 'true'
-    fra:
+    FRA:
       # TODO: attr.verum.rus needs revision.
       # @see https://en.wiktionary.org/wiki/oui#French
       id: 'oui'
@@ -1073,40 +1072,40 @@ attr:
       id_alts:
         - 'quais'
         - 'verite'
-    spa:
+    SPA:
       id: 'si'
       # descriptionem: ''
       id_alts:
         - 'verdad'
-    lat:
+    LAT:
        # @see https://en.wiktionary.org/wiki/verum
       # @see https://en.wiktionary.org/wiki/verus#Latin
       id: 'verum'
       # descriptionem: ''
       id_alts:
         - 'verus'
-    por:
+    POR:
       # @see https://pt.wikipedia.org/wiki/Verdade
       id: 'sim'
       descriptionem: 'Sim, verdade, verdadeiro, fato.'
       id_alts:
         - 'verdade'
-    qaa:
+    QAA:
       # https://www.wikidata.org/wiki/Q3311695
       id: 'q3311695'  # logical truth (Q3311695) statement which is true regardless of the truth or falsity of its constituent parts
       descriptionem: 'statement which is true regardless of the truth or falsity of its constituent parts'
-    rus:
+    RUS:
       # TODO: attr.verum.rus needs revision.
       # @see https://ru.wikipedia.org/wiki/%D0%98%D1%81%D1%82%D0%B8%D0%BD%D0%B0
       id: 'да'
       descriptionem: 'И́стина — гносеологическая характеристика мышления в его отношении к своему предмету. Мысль называется истинной (или истиной), если она соответствует предмету'
       id_alts:
         - 'истина'
-    zho:
+    ZHO:
       # TODO: attr.verum.zho needs revision.
       id: '是的'
       # descriptionem: ''
-    zxx:
+    ZXX:
       id: 'verum'
       descriptionem: 'reference to truly, true, fact, reality. (mostly to be used with command line interface)'
       id_alts:
@@ -1115,52 +1114,52 @@ attr:
 
   # newterm:
   #   # attr.newterm is ...
-  #   ara:
+  #   ARA:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   eng:
+  #   ENG:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   fra:
+  #   FRA:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   spa:
+  #   SPA:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   lat:
+  #   LAT:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   por:
+  #   POR:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   qaa:
+  #   QAA:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   rus:
+  #   RUS:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   zho:
+  #   ZHO:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   zxx:
+  #   ZXX:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:
@@ -1168,7 +1167,7 @@ attr:
   # uri:
   #   # @see https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
   #   # @see https://www.wikidata.org/wiki/Q61694
-  #   ara:
+  #   ARA:
   #     #...
 
 #### About some prefix for an Uniform Resource Name ___________________________

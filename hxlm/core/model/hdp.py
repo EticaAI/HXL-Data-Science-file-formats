@@ -300,6 +300,19 @@ class HDP:
         return hdp_result
 
     def _get_translated(self, hdp_current: dict, linguam: str) -> dict:
+        """For an hdp_current (already with internal format) get translation
+
+        Args:
+            hdp_current (dict): an hdp meta object. Must already have keys in
+                                the linguam:HDP
+            linguam (str): ISO 639-3 code
+
+        Raises:
+            SyntaxError: when using ISO 639-3 invalid codes
+
+        Returns:
+            dict: And HDP object already translated to target linguam
+        """
 
         if self._debug:
             print('HDP._get_translated', linguam, hdp_current)
@@ -343,13 +356,42 @@ class HDP:
 
     def _get_translated_attr(self, hdp_current: dict, linguam: str,
                              context: str = None) -> dict:
+        """Get translations for sub attibutes
+
+        Args:
+            hdp_current (dict): [description]
+            linguam (str): ISO 639-3 code
+            context (str, optional): Context (key on upper level key).
+                                     Defaults to None.
+
+        Returns:
+            dict: And HDP object already translated to target linguam
+        """
         hdp_result = deepcopy(hdp_current)
 
         # print('oioioioioi2', linguam, type(linguam))
-        # print('oioioioioi2', type(hdp_current), hdp_current)
+        # print('oioioioioi2', type(hdp_current), isinstance(hdp_current, list), hdp_current)  # noqa
 
         if isinstance(hdp_current, list):
-            return hdp_result
+            if self._debug:
+                print('HDP._get_translated_attr is list', linguam, context, hdp_current)  # noqa
+
+            for idx, item in enumerate(hdp_current):
+                # print('    pepa', type(idx))
+                # print('    pepa', type(item))
+                for key_ln in item:
+                    # underline keys, like _recipe, means 'do not try translate
+                    # this key and eventual keys under this
+                    if str(key_ln).startswith('_'):
+                        continue
+                    # print('    pepa2', type(key_ln), key_ln, (key_ln in self._vocab['attr']), (linguam in self._vocab['attr'][key_ln]))  # noqa
+                    if ((key_ln in self._vocab['attr']) and
+                    (linguam in self._vocab['attr'][key_ln])):  # noqa
+                        # print('yeep')
+                        newterm = self._vocab['attr'][key_ln][linguam]['id']  # noqa
+                        hdp_result[idx][newterm] = hdp_result[idx].pop(key_ln)
+
+        #     return hdp_result
 
         for key_ln in hdp_current:
             # print('oioioioioi3', type(key_ln), key_ln)
@@ -360,12 +402,12 @@ class HDP:
 
             #     continue
 
-            # if not isinstance(key_ln, str):
-            #     if self._debug:
-            #         print('HDP._get_translated_attr: TODO: fix this', key_ln, type(key_ln))  # noqa
-            #     # self._get_translated_attr_arr(
-            #     #     hdp_current[key_ln], linguam=linguam, context=context)
-            #     continue
+            if not isinstance(key_ln, str):
+                if self._debug:
+                    print('HDP._get_translated_attr: TODO: fix this', key_ln, type(key_ln))  # noqa
+                # self._get_translated_attr_arr(
+                #     hdp_current[key_ln], linguam=linguam, context=context)
+                continue
 
             if ((key_ln in self._vocab['attr']) and
             (linguam in self._vocab['attr'][key_ln])):  # noqa

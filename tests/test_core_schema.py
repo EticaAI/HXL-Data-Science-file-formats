@@ -41,7 +41,7 @@ def test_core_schema_export_schema_yaml():
 def test_core_schema_get_schema_vocab():
     vocab = schema.get_schema_vocab()
 
-    assert vocab.to_dict()['root']['hcompliance']['eng']['id'] == \
+    assert vocab.to_dict()['root']['hcompliance']['ENG']['id'] == \
         'acceptable-use-policy'
 
 
