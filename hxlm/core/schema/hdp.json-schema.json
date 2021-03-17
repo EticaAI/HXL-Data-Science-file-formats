@@ -21,8 +21,8 @@
       "hdataset": {
         "$ref": "#/$defs/root/hdataset"
       },
-      "hfile": {
-        "$ref": "#/$defs/root/hfile"
+      "hfilum": {
+        "$ref": "#/$defs/root/hfilum"
       },
       "htransformare": {
         "$ref": "#/$defs/root/htransformare"
@@ -173,8 +173,8 @@
         },
         "minItems": 1
       },
-      "hfile": {
-        "$anchor": "root_hfile",
+      "hfilum": {
+        "$anchor": "root_hfilum",
         "description": "Abstracion to an generic file",
         "type": "array",
         "items": {

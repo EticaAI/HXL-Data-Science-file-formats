@@ -108,6 +108,7 @@ root:
   # @see https://en.wikipedia.org/wiki/Acceptable_use_policy
   #
   hcompliance:
+    id: "HC"
     ara:
       id: 'hcompliance'  # TODO: still need an term
     eng:
@@ -131,9 +132,18 @@ root:
       id: '可接受使用策略' # Acceptable use policy (可接受使用策略)
     zxx:
       id: 'hcompliance'
+    hdp:
+      id: 'hcompliance'
 
   # https://www.wikidata.org/wiki/Q1172284
   hdataset:
+    # - https://en.wiktionary.org/wiki/data#English
+    #   > 'data', (English) Borrowed from Latin data, nominative plural of
+    #      datum (“that is given”), neuter past participle of dō (“I give”).
+    #      Doublet of date
+    # - https://en.wiktionary.org/wiki/datum#Latin
+    #   > datum n (genitive datī); second declension gift, present
+    id: "HD"
     ara:
       id: 'مجموعة-بيانات'
     eng:
@@ -144,7 +154,15 @@ root:
       # spa: https://es.wikipedia.org/wiki/Conjunto_de_datos
       id: 'conjunto-de-datos'
     lat:
-      id: 'notitia-paro'
+      # - https://en.wiktionary.org/wiki/data#English
+      #   > 'data', (English) Borrowed from Latin data, nominative plural of
+      #      datum (“that is given”), neuter past participle of dō (“I give”).
+      #      Doublet of date
+      # - https://en.wiktionary.org/wiki/datum#Latin
+      #   > datum n (genitive datī); second declension gift, present
+      id: 'hdatum'
+      id_alts:
+        - "datum"
     por:
       id: 'conjunto-de-dados'
     qaa:
@@ -162,7 +180,13 @@ root:
 
   # hfile: https://www.wikidata.org/wiki/Q82753
   #        computer file | file
-  hfile:
+  #
+  # - https://en.wiktionary.org/wiki/file#English
+  #   > "File": English -> Etymology -> From Latin fīlum (“thread”). Doublet of file.
+  # - https://en.wiktionary.org/wiki/filum#Latin
+  # # TODO: consider change to 'hfilum' (Latin: 'fīlum')
+  hfilum:
+    id: "HF"
     ara:
       id: 'ملف-حاسوب'
     eng:
@@ -172,8 +196,14 @@ root:
     spa:
       id: 'archivo'
     lat:
+      # - https://en.wiktionary.org/wiki/file#English
+      #   > "File": English -> Etymology -> From Latin fīlum (“thread”). Doublet of file.
+      # - https://en.wiktionary.org/wiki/filum#Latin
+      # # TODO: consider change to 'hfilum' (Latin: 'fīlum')
       # TODO: find latim term for hfile
-      id: 'hfile'
+      id: 'hfilum'
+      id_alts:
+        - "filum"
     por:
       id: 'arquivo-de-computador'
     qaa:
@@ -185,7 +215,7 @@ root:
       #           https://zh.wikipedia.org/wiki/%E6%AA%94%E6%A1%88
       id: "電腦檔案" # Computer file
     zxx:
-      id: hfile
+      id: hfilum
 
   htransformare:
     # attr.htransformare is ...
@@ -196,6 +226,7 @@ root:
     # @see https://en.wiktionary.org/wiki/transformo#Latin
     # @see https://en.wikipedia.org/wiki/Data_transformation
     # @see https://en.wikipedia.org/wiki/Data_transformation
+    id: "HT"
     ara:
       # root.htransformare.ara needs revision. The raw term 'تحويل' seems to
       # have broader (potentially bad) concept. And 'Datafication' is too
@@ -229,7 +260,7 @@ root:
        # @see https://en.wiktionary.org/wiki/transformare#Latin
       # @see https://en.wiktionary.org/wiki/transformo#Latin
       id: 'transformare'
-      descriptionem: ''
+      # descriptionem: ''
       # id_alts:
       #   - ''
     por:
@@ -271,6 +302,7 @@ root:
     # @see https://www.wikidata.org/wiki/Q213643
     # On wikitionary, silo
     # @see https://en.wiktionary.org/wiki/silo
+    id: "HS"
     ara:
       # https://ar.wikipedia.org/wiki/%D8%B5%D9%88%D9%85%D8%B9%D8%A9_%D8%BA%D9%84%D8%A7%D9%84
       # Needs revision. 'صومعة غلال' seems, like russian 'Силосная башня', an
