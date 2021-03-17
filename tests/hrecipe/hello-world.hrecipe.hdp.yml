@@ -22,7 +22,7 @@
       - hello-world
     tag:
       - CPLP
-  hrecipe:
+  htransformare:
     - id: example-processing-with-a-JSON-spec
       _recipe:
         - filter: count

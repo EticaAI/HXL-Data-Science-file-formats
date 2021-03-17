@@ -187,6 +187,82 @@ root:
     zxx:
       id: hfile
 
+  htransformare:
+    # attr.htransformare is ...
+    # TODO: review this exact usage of Latin. The trānsfōrmandum/trānsfōrmātum
+    #       variant (that could be more consistent with other latin usages)
+    #       seems more strange
+    # @see https://en.wiktionary.org/wiki/transformare#Latin
+    # @see https://en.wiktionary.org/wiki/transformo#Latin
+    # @see https://en.wikipedia.org/wiki/Data_transformation
+    # @see https://en.wikipedia.org/wiki/Data_transformation
+    ara:
+      # root.htransformare.ara needs revision. The raw term 'تحويل' seems to
+      # have broader (potentially bad) concept. And 'Datafication' is too
+      # specific.
+      # @see https://en.wikipedia.org/wiki/Datafication
+      # @see https://ar.wikipedia.org/wiki/%D8%AA%D8%AD%D9%88%D9%8A%D9%84_%D8%A7%D9%84%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA
+      id: 'تحويل-البيانات' # TODO: review. This means 'Datafication' in English
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    eng:
+      # @see https://www.wikidata.org/wiki/Q4272815
+      id: 'data-transformation'
+      descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
+      # id_alts:
+      #   - ''
+    fra:
+      # @see https://en.wiktionary.org/wiki/transformation#French
+      # @see http://www.fao.org/3/x6831f/X6831f08.htm
+      id: 'transformation-de-donnees'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    spa:
+      # @see https://es.wikipedia.org/wiki/Transformaci%C3%B3n_de_datos (not exact match)
+      id: 'transformacion-de-datos'
+      descriptionem: 'Acción de transformar o transformarse.'
+      # id_alts:
+      #   - ''
+    lat:
+       # @see https://en.wiktionary.org/wiki/transformare#Latin
+      # @see https://en.wiktionary.org/wiki/transformo#Latin
+      id: 'transformare'
+      descriptionem: ''
+      # id_alts:
+      #   - ''
+    por:
+      id: 'transformacao-de-dados'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    qaa:
+      # @see https://www.wikidata.org/wiki/Q4272815
+      id: 'q4272815'  # data transformation (Q4272815)
+      descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
+      # id_alts:
+      #   - ''
+    rus:
+      # @see https://www.wikidata.org/wiki/Q4272815
+      # @see https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F
+      id: 'трансформация-данных'
+      descriptionem: 'совокупность техник преобразования данных для их переноса между различными базами данных'
+      # id_alts:
+      #   - ''
+    zho:
+      # @see https://www.wikidata.org/wiki/Q4272815
+      # @see https://en.wiktionary.org/wiki/%E8%BD%AC%E5%9E%8B
+      id: '数据变换'
+      # descriptionem: ''
+      id_alts:
+        - '转型'
+    zxx:
+      id: 'htransformare'
+      descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
+      # id_alts:
+      #   - ''
+
   hsilo:
     # root.hsilo is the way to "group" hdataset/hfile when do exist a need.
     # @see https://en.wikipedia.org/wiki/Information_silo
@@ -381,7 +457,7 @@ attr:
       # @see https://en.wiktionary.org/wiki/%D9%84%D9%8A%D8%B3
       # @see https://en.wiktionary.org/wiki/%D9%84%D8%A7#Arabic
       id: 'ليس'  # English 'not'
-      descriptionem: ''
+      # descriptionem: ''
       id_alts:
         - 'لا'  # English 'no'
     eng:
@@ -407,7 +483,7 @@ attr:
       # @see https://en.wiktionary.org/wiki/falsum
       # @see https://en.wiktionary.org/wiki/non#Latin
       id: 'falsum'
-      descriptionem: ''
+      # descriptionem: ''
       id_alts:
         - 'non'
     por:

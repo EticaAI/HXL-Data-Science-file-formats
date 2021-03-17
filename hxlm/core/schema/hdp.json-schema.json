@@ -24,8 +24,8 @@
       "hfile": {
         "$ref": "#/$defs/root/hfile"
       },
-      "hrecipe": {
-        "$ref": "#/$defs/root/hrecipe"
+      "htransformare": {
+        "$ref": "#/$defs/root/htransformare"
       },
       "hsilo": {
         "$ref": "#/$defs/root/hsilo"
@@ -185,8 +185,8 @@
         },
         "minItems": 1
       },
-      "hrecipe": {
-        "$anchor": "root_hrecipe",
+      "htransformare": {
+        "$anchor": "root_htransformare",
         "description": "Abstraction to HXL processing specs. See https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/edit",
         "type": "array",
         "items": {

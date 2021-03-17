@@ -4,7 +4,7 @@
 ---
 - hsilo:
     nomen: yemen-01.hrecipe.hdp.yml
-  hrecipe:
+  htransformare:
     - id: example-processing-with-a-JSON-spec
       _recipe:
         - filter: count
