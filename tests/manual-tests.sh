@@ -16,24 +16,44 @@ sudo snap install ngrok
 
 ### hdpcli --export-to-hxl-json-processing-specs ...............................
 
-hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml --debug
-hdpcli --export-to-hxl-json-processing-specs https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml --debug
-hdpcli https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml 
-hdpcli tests/hrecipe/hello-world.hrecipe.hdp.yml --non-grupum hello-world
-hdpcli tests/hrecipe/hello-world.hrecipe.hdp.yml --verum-grupum hello-world
-hdpcli tests/hrecipe/yemen-01.hrecipe.hdp.yml --verum-urn yemen
-hdpcli tests/hrecipe/hello-world.hrecipe.hdp.yml --verum-urn hello-world --verum-grupum hello-world
-# TODO: implement use this:
-hdpcli tests/hrecipe/hello-world.hrecipe.hdp.yml --objectivum-linguam rus
+# remote access
+hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml --debug
+hdpcli --export-to-hxl-json-processing-specs https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml --debug
+hdpcli https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml 
+
 
 # To inspect the result (pretty print)
-hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml
+hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml
 # To pipe the result direct to hxlspec (first item of array, use jq '.[0]')
-hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[0]' | hxlspec
+hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml | jq '.[0]' | hxlspec
 # To pipe the result direct to hxlspec (first item of array, use jq '.[1]')
-hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[1]' | hxlspec
+hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml | jq '.[1]' | hxlspec
 
-# hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml | jq '.[0]' | hxlspec | tabulate
+### hdpcli --non-(*) / --verum-(*) (filters) ...................................
+# This allow filter the HDP internal dictionary
+
+# Returns empty:
+hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --non-grupum hello-world
+
+# Returns something
+hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --verum-grupum hello-world
+
+# Retuns something
+hdpcli tests/hrecipe/yemen-01.hrecipe.mul.hdp.yml --verum-urn yemen
+
+# Retuns something
+hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --verum-urn hello-world --verum-grupum hello-world
+
+# export languages
+hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --objectivum-linguam RUS
+
+### hdpcli --objectivum-linguam ZZZ (export to language) .......................
+# this will export to a new know language
+hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --objectivum-linguam ARA
+hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --objectivum-linguam POR
+hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --objectivum-linguam RUS
+
+# hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml | jq '.[0]' | hxlspec | tabulate
 
 
 # https://raw.githubusercontent.com/HXLStandard/libhxl-python/master/profile/data/unhcr_popstats_export_persons_of_concern_all_data.hxl

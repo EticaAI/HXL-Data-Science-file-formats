@@ -17,7 +17,7 @@ TESTS_BASE = os.path.dirname(os.path.realpath(__file__))
 
 def test_core_hxl_data_processing_specs_test1():
     hdp1 = HDP(hdp_entry_point=TESTS_BASE +
-               '/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml')
+               '/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml')
     spec_str1 = hdp1.export_json_processing_specs()
     spec_json1 = json.loads(spec_str1)
 
@@ -46,7 +46,7 @@ def test_core_hxl_data_processing_specs_test1():
 
 def test_core_hxl_data_processing_specs_test2():
     hdp1 = HDP(hdp_entry_point=TESTS_BASE +
-               '/hrecipe/hello-world.hrecipe.hdp.yml')
+               '/hrecipe/hello-world.hrecipe.mul.hdp.yml')
     spec_str1 = hdp1.export_json_processing_specs()
     spec_json1 = json.loads(spec_str1)
 

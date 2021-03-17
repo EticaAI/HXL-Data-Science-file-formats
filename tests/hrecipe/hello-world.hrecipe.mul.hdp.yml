@@ -1,6 +1,6 @@
 # cd tests/hrecipe
-# hdpcli --export-to-hxl-json-processing-specs hello-world.hrecipe.hdp.yml
-# hdpcli --export-to-hxl-json-processing-specs hello-world.hrecipe.hdp.yml | jq '.[1]' | hxlspec
+# hdpcli --export-to-hxl-json-processing-specs hello-world.hrecipe.mul.hdp.yml
+# hdpcli --export-to-hxl-json-processing-specs hello-world.hrecipe.mul.hdp.yml | jq '.[1]' | hxlspec
 ---
 - hsilo:
     linguam: MUL # https://iso639-3.sil.org/code/mul

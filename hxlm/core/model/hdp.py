@@ -89,6 +89,21 @@ class HDP:
         # '.urn.yml' # See urnresolver
     )
 
+    HDP_RECURSION_LEAF: Tuple = (
+        'hsilo.adm0',
+        'hsilo.grupum',
+        # 'hsilo.tag',
+        '.tag',
+        # 'htransformare.exemplum.fontem.datum',
+        'fontem.datum',
+    )
+    """Tuple to give a hint that even if do undestand the key term, please
+    do not try to translate even the data themselves.
+
+    Without things user may get funny results (like translate inline data
+    or tag names)
+    """
+
     def __init__(self, hdp_entry_point: str = None,
                  yml_string: str = None,
                  json_string: str = None,
@@ -135,7 +150,7 @@ class HDP:
         suffix = ''
         if container_item_index > 0:
             suffix = '-' + str(container_item_index)
-        return ('urn:hdp:oo:hsilo:' + domain_base + ':' +
+        return ('urn:hdp:OO:HS:' + domain_base + ':' +
                 container_base + suffix)
 
     def _update(self, hdp_rules: Union[List, dict],
@@ -368,56 +383,9 @@ class HDP:
             dict: And HDP object already translated to target linguam
         """
 
-        return self._get_translated_recursive(hdp_current, linguam=linguam, context=context)  # noqa
-
-        hdp_result = deepcopy(hdp_current)
-
-        # print('oioioioioi2', linguam, type(linguam))
-        # print('oioioioioi2', type(hdp_current), isinstance(hdp_current, list), hdp_current)  # noqa
-
-        if isinstance(hdp_current, list):
-            if self._debug:
-                print('HDP._get_translated_attr is list', linguam, context, hdp_current)  # noqa
-
-            for idx, item in enumerate(hdp_current):
-                # print('    pepa', type(idx))
-                # print('    pepa', type(item))
-                for key_ln in item:
-                    # underline keys, like _recipe, means 'do not try translate
-                    # this key and eventual keys under this
-                    if str(key_ln).startswith('_'):
-                        continue
-                    # print('    pepa2', type(key_ln), key_ln, (key_ln in self._vocab['attr']), (linguam in self._vocab['attr'][key_ln]))  # noqa
-                    if ((key_ln in self._vocab['attr']) and
-                    (linguam in self._vocab['attr'][key_ln])):  # noqa
-                        # print('yeep')
-                        newterm = self._vocab['attr'][key_ln][linguam]['id']  # noqa
-                        hdp_result[idx][newterm] = hdp_result[idx].pop(key_ln)
-
-        #     return hdp_result
-
-        for key_ln in hdp_current:
-            # print('oioioioioi3', type(key_ln), key_ln)
-
-            # if not isinstance(key_ln, dict):
-            #     self._get_translated_attr_arr(
-            #         hdp_current[key_ln], linguam=linguam, context=context)
-
-            #     continue
-
-            if not isinstance(key_ln, str):
-                if self._debug:
-                    print('HDP._get_translated_attr: TODO: fix this', key_ln, type(key_ln))  # noqa
-                # self._get_translated_attr_arr(
-                #     hdp_current[key_ln], linguam=linguam, context=context)
-                continue
-
-            if ((key_ln in self._vocab['attr']) and
-            (linguam in self._vocab['attr'][key_ln])):  # noqa
-                newterm = self._vocab['attr'][key_ln][linguam]['id']
-                hdp_result[newterm] = hdp_result.pop(key_ln)
-
-        return hdp_result
+        return self._get_translated_recursive(hdp_current,
+                                              linguam=linguam,
+                                              context=context)
 
     def _get_translated_recursive(self,
                                   hdp_current: Union[dict, list],
@@ -448,6 +416,11 @@ class HDP:
 
         if self._debug:
             print('HDP._get_translated_recursive: start', level, context, linguam)  # noqa
+
+        if context.endswith(self.HDP_RECURSION_LEAF):
+            if self._debug:
+                print('HDP._get_translated_recursive: leaf. nop')
+            return hdp_current
 
         if isinstance(hdp_current, list):
             if self._debug:
@@ -499,7 +472,14 @@ class HDP:
 
                 if isinstance(hdp_current, (dict, list)):
                     # TODO: go deeper, not stop here... yet
-                    hdp_new[k_new] = hdp_current[k]
+                    # hdp_new[k_new] = hdp_current[k]
+                    context_new = context + '.' + k
+                    hdp_new[k_new] = self._get_translated_recursive(
+                        hdp_current[k],
+                        linguam=linguam,
+                        context=context_new,
+                        level=(level+1)
+                    )
                     continue
 
                 if isinstance(v, str):
@@ -511,6 +491,8 @@ class HDP:
                 if self._debug:
                     print('HDP._get_translated_recursive: dict (?)', k, v)
                 hdp_new[k_new] = hdp_current[k]
+
+            return hdp_new
 
         if self._debug:
             print('HDP._get_translated_recursive: not dict/list')  # noqa
@@ -780,17 +762,17 @@ class HDP:
             # for hsilo in self._hdp[hdphash]:
             # print('HDP.export_json_processing_specs ...3',
             #         self._hdp[hdphash][hsilo])
-            if 'hrecipe' in self._hdp[hdphash]:
+            if 'htransformare' in self._hdp[hdphash]:
                 # if self._debug:
                 #     print('HDP.export_json_processing_specs ...4',
                 #             hsilo)
                 #     print('HDP.export_json_processing_specs ...5',
                 #             hsilo['hrecipe'])
-                for hrecipeitem in self._hdp[hdphash]['hrecipe']:
+                for hrecipeitem in self._hdp[hdphash]['htransformare']:
                     result.extend(self._prepare_hrecipe_item(hrecipeitem))
             else:
                 if self._debug:
-                    print('HDP....6 no hrecipe',
+                    print('HDP....6 no htransformare',
                           self._hdp[hdphash])
 
         return json.dumps(result, indent=4, sort_keys=True)
