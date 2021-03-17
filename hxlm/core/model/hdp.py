@@ -367,6 +367,9 @@ class HDP:
         Returns:
             dict: And HDP object already translated to target linguam
         """
+
+        return self._get_translated_recursive(hdp_current, linguam=linguam, context=context)  # noqa
+
         hdp_result = deepcopy(hdp_current)
 
         # print('oioioioioi2', linguam, type(linguam))
@@ -415,6 +418,104 @@ class HDP:
                 hdp_result[newterm] = hdp_result.pop(key_ln)
 
         return hdp_result
+
+    def _get_translated_recursive(self,
+                                  hdp_current: Union[dict, list],
+                                  linguam: str,
+                                  context: str = None,
+                                  level: int = 1) -> Union[dict, bool]:
+        """Recursively translate an item.
+
+        Args:
+            hdp_current (dict, list): The hdp internal object/list
+            linguam (str): ISO 639-3 code
+            context (str, optional): Context (key on upper level key).
+                                     Defaults to None.
+            level (int, optional): How deep we are on this recursion?
+
+        Returns:
+            Union[dict, bool]: And HDP object already translated to target
+                               linguam or bool if no translation is need
+        """
+
+        if level > 10:
+            raise RecursionError('Level too high. ' +
+                                 'Programming or HDP file error? ' +
+                                 '[ ' + str(level) + ' ] ' +
+                                 '[ ' + str(context) + ' ] ' +
+                                 '[ ' + str(linguam) + ' ] ' +
+                                 '[ ' + str(hdp_current) + ' ] ')
+
+        if self._debug:
+            print('HDP._get_translated_recursive: start', level, context, linguam)  # noqa
+
+        if isinstance(hdp_current, list):
+            if self._debug:
+                print('HDP._get_translated_recursive: list')  # noqa
+
+            hdp_new = []
+
+            # for idx, item in enumerate(hdp_current):
+            for idx, _ in enumerate(hdp_current):
+                # print('    pepa', type(idx))
+                # print('    pepa', type(item))
+
+                hdp_new.append(
+                    self._get_translated_recursive(
+                        hdp_current[idx],
+                        linguam=linguam,
+                        context=context,
+                        level=(level+1))
+                )
+            return hdp_new
+
+        if isinstance(hdp_current, dict):
+            if self._debug:
+                print('HDP._get_translated_recursive: dict', hdp_current)  # noqa
+
+            hdp_new = {}
+
+            for idx, (k, v) in enumerate(hdp_current.items()):
+
+                # key attribute start with k. Don't translate this or leafs
+                if str(k).startswith('_'):
+                    hdp_new[k] = hdp_current[k]
+                    continue
+
+                # Let's find if current attribute is translatabe
+                # - attr exists?
+                # - linguam exists for this attr?
+                # - id exists for this attr+linguam?
+                if ((k in self._vocab['attr']) and
+                        (self._vocab['attr'][k][linguam]['id']) and
+                        (self._vocab['attr'][k][linguam]['id'])):
+
+                    k_new = self._vocab['attr'][k][linguam]['id']
+                else:
+                    if self._debug:
+                        print('HDP._get_translated_recursive: nop k', k)
+
+                    k_new = k
+
+                if isinstance(hdp_current, (dict, list)):
+                    # TODO: go deeper, not stop here... yet
+                    hdp_new[k_new] = hdp_current[k]
+                    continue
+
+                if isinstance(v, str):
+                    # If value already is an string, perfect match
+                    hdp_new[k_new] = hdp_current[k]
+                    continue
+
+                # Did exist some conditiono not checked?
+                if self._debug:
+                    print('HDP._get_translated_recursive: dict (?)', k, v)
+                hdp_new[k_new] = hdp_current[k]
+
+        if self._debug:
+            print('HDP._get_translated_recursive: not dict/list')  # noqa
+
+        return hdp_current
 
     # def _get_translated_attr_arr(self, hdp_current: dict, linguam: str,
     #                              context: str) -> dict:
