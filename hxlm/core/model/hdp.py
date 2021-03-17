@@ -310,9 +310,14 @@ class HDP:
 
         hdp_result = deepcopy(hdp_current)
 
-        if len(linguam) != 3:
-            raise SyntaxError('linguam must be an ISO 639-3 (3 letter) ' +
-                              'code, like "ara" or "rus" [' + linguam + ']')
+        if len(linguam) != 3 or not linguam.isalpha():
+            raise SyntaxError('No 3 letter or 3 ASCII letter? ' +
+                              'linguam must be an ISO 639-3 (3 letter) ' +
+                              'code, like "ARA" or "RUS" [' + linguam + ']')
+        if not linguam.isupper():
+            raise SyntaxError('No UPPERCASE? ' +
+                              'linguam must be an ISO 639-3 (3 letter) ' +
+                              'code, like "ARA" or "ARA" [' + linguam + ']')
 
         for hdpns in hdp_current:
 
@@ -326,28 +331,41 @@ class HDP:
                     hdp_result[hdpns][newterm] = hdp_result[hdpns].pop(key_l1)
                     hdp_result[hdpns][newterm] = \
                         self._get_translated_attr(
-                            hdp_result[hdpns][newterm], linguam)
+                            hdp_result[hdpns][newterm], linguam=linguam, context=key_l1)  # noqa
                 else:
                     if not str(key_l1).startswith('_'):
                         hdp_result[hdpns][key_l1] = \
                             self._get_translated_attr(
-                            hdp_current[hdpns][key_l1], linguam)
+                            hdp_current[hdpns][key_l1], linguam=linguam, context=key_l1)  # noqa
             # continue
 
         return hdp_result
 
-    def _get_translated_attr(self, hdp_current: dict, linguam: str) -> dict:
+    def _get_translated_attr(self, hdp_current: dict, linguam: str,
+                             context: str = None) -> dict:
         hdp_result = deepcopy(hdp_current)
 
         # print('oioioioioi2', linguam, type(linguam))
+        # print('oioioioioi2', type(hdp_current), hdp_current)
+
+        if isinstance(hdp_current, list):
+            return hdp_result
 
         for key_ln in hdp_current:
             # print('oioioioioi3', type(key_ln), key_ln)
 
-            if not isinstance(key_ln, str):
-                if self._debug:
-                    print('HDP._get_translated_attr: TODO: fix this', key_ln)
-                continue
+            # if not isinstance(key_ln, dict):
+            #     self._get_translated_attr_arr(
+            #         hdp_current[key_ln], linguam=linguam, context=context)
+
+            #     continue
+
+            # if not isinstance(key_ln, str):
+            #     if self._debug:
+            #         print('HDP._get_translated_attr: TODO: fix this', key_ln, type(key_ln))  # noqa
+            #     # self._get_translated_attr_arr(
+            #     #     hdp_current[key_ln], linguam=linguam, context=context)
+            #     continue
 
             if ((key_ln in self._vocab['attr']) and
             (linguam in self._vocab['attr'][key_ln])):  # noqa
@@ -355,6 +373,27 @@ class HDP:
                 hdp_result[newterm] = hdp_result.pop(key_ln)
 
         return hdp_result
+
+    # def _get_translated_attr_arr(self, hdp_current: dict, linguam: str,
+    #                              context: str) -> dict:
+    #     hdp_result = deepcopy(hdp_current)
+
+    #     print('oioioioioi2', linguam, type(linguam), context)
+
+    #     # for key_ln in hdp_current:
+    #     #     # print('oioioioioi3', type(key_ln), key_ln)
+
+    #     #     if not isinstance(key_ln, str):
+    #     #         if self._debug:
+    #     #             print('HDP._get_translated_attr: TODO: fix this', key_ln)  # noqa
+    #     #         continue
+
+    #     #     if ((key_ln in self._vocab['attr']) and
+    #     #     (linguam in self._vocab['attr'][key_ln])):  # noqa
+    #     #         newterm = self._vocab['attr'][key_ln][linguam]['id']
+    #     #         hdp_result[newterm] = hdp_result.pop(key_ln)
+
+    #     return hdp_result
 
     def _prepare(self, hdp_entry_point: str, is_startup: bool = False) -> bool:
 

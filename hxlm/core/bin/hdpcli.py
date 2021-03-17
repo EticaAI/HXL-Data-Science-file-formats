@@ -529,7 +529,7 @@ class HDPCLI:
         parser.add_argument(
             '--objectivum-linguam',
             help='(draft) Objective language / target language to export. ' +
-            'Must be an ISO 639-3 code',
+            'Must be an ISO 639-3 code (UPPERCASE)',
             action='store',
             default=None,
             nargs='?'

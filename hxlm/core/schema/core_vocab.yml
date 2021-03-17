@@ -75,6 +75,12 @@
 # _meta_vocab_contact_name: Emerson Rocha
 # _meta_vocab_contact_email: rocha+corevocab@ieee.org
 
+# TODO: implement JSON-SCHEMA conditionals
+# https://json-schema.org/understanding-json-schema/reference/conditionals.html
+# https://json-schema.org/understanding-json-schema/reference/combining.html
+# https://json-schema.org/understanding-json-schema/structuring.html#structuring
+#        (Emerson Rocha, 2021-03-17 19:31 UTC)
+
 root:
   # "In general, compliance means conforming to a rule, such as a
   #  specification, policy, standard or law. " -- Wikipedia
