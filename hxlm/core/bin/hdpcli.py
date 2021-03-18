@@ -75,8 +75,8 @@ import gettext
 
 from cryptography.fernet import Fernet
 
-import nacl
-from nacl.public import PrivateKey, PublicKey
+# import nacl
+# from nacl.public import PrivateKey, PublicKey
 # from cryptography.hazmat.primitives import hashes
 # import hashlib
 # from cryptography.hazmat.primitives import hashes, hmac
@@ -107,8 +107,6 @@ from hxlm.core.internal.formatter import (
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
 
-_ = gettext.gettext
-
 
 _HOME = str(Path.home())
 # TODO: clean up redundancy from hxlm/core/schema/urn/util.py
@@ -134,6 +132,13 @@ HXLM_CONFIG_PERM_MODE = os.getenv(
 
 HXLM_DATA_VAULT_PERM_MODE = os.getenv(
     'HXLM_DATA_VAULT_PERM_MODE', "0700")
+
+HXLM_LOCALE = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.realpath(__file__)))) + '/locale'
+
+gettext.bindtextdomain('hdp', HXLM_LOCALE)
+gettext.textdomain('hdp')
+_ = gettext.gettext
 
 
 def prompt_confirmation(message: str) -> bool:
@@ -266,12 +271,12 @@ class HDPCLI:
 
         config_base = os.path.normpath(config_base)
 
-        print('_debug_entropy', self._entropy_pseudotest(self._get_salt))
-        # print('_exec_hdp_init_home _get_salt', self._get_salt())
-        print('_debug_entropy', self._entropy_pseudotest(self._get_fernet))
-        print('_exec_hdp_init_home get_fernet',  self._get_fernet())
-        print('_debug_entropy', self._entropy_pseudotest(self._get_keypar))
-        print('_exec_hdp_init_home _get_keypar',  self._get_keypar())
+        # print('_debug_entropy', self._entropy_pseudotest(self._get_salt))
+        # # print('_exec_hdp_init_home _get_salt', self._get_salt())
+        # print('_debug_entropy', self._entropy_pseudotest(self._get_fernet))
+        # print('_exec_hdp_init_home get_fernet',  self._get_fernet())
+        # print('_debug_entropy', self._entropy_pseudotest(self._get_keypar))
+        # print('_exec_hdp_init_home _get_keypar',  self._get_keypar())
 
         # Path creation
         if os.path.exists(config_base):
@@ -334,6 +339,15 @@ class HDPCLI:
             [type]: [description]
         """
 
+        # TODO: these imports from nacl, since are temporary test, are not
+        #       installed as dependency, so we removed from top file import
+        #       and move here to at least allow test-infra tests don't fail.
+        #       This also means that last releases likely do not installed
+        #       correctly on other peoples machines
+        #       (Emerson Rocha, 2021-03-18 22:58)
+        import nacl  # noqa
+        from nacl.public import PrivateKey, PublicKey  # noqa
+
         # @see https://github.com/pyca/pynacl/issues/192
         # @see https://pynacl.readthedocs.io/en/latest/encoding/
         # @see https://stackoverflow.com/questions/54093558
@@ -377,7 +391,7 @@ class HDPCLI:
         return secrets.token_urlsafe(size)
         # return 'test'
 
-    def make_args_urnresolver(self):
+    def make_args_hdpcli(self):
         """Prepare parse args
 
         Returns:
@@ -935,13 +949,13 @@ class StreamOutput(object):
 if __name__ == "__main__":
 
     hdpcli = HDPCLI()
-    args = hdpcli.make_args_urnresolver()
+    args_ = hdpcli.make_args_hdpcli()
 
-    hdpcli.execute_cli(args)
+    hdpcli.execute_cli(args_)
 
 
 def exec_from_console_scripts():
     hdpcli = HDPCLI()
-    args = hdpcli.make_args_urnresolver()
+    args_ = hdpcli.make_args_hdpcli()
 
-    hdpcli.execute_cli(args)
+    hdpcli.execute_cli(args_)

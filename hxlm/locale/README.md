@@ -24,9 +24,9 @@ About locale:
 ```bash
 # root directory
 
-xgettext hxlm/core/bin/hdpcli.py --output=hxlm/locale/hdp.pot --language=Python --package-name='hxlm' --package-version="0.8.1" --default-domain=hdp  --add-comments --no-location --indent
+xgettext hxlm/core/bin/hdpcli.py --output=hxlm/locale/hdp.pot --language=Python --package-name='hxlm' --package-version="0.8.1" --default-domain=hdp  --add-comments --no-location
 
-xgettext hxlm/core/bin/hdpcli.py --output=hxlm/locale/pt/LC_MESSAGES/hdp.po --language=Python --package-name='hxlm' --package-version="0.8.1" --default-domain=hdp  --add-comments --no-location --inden --join-existing
+xgettext hxlm/core/bin/hdpcli.py --output=hxlm/locale/pt/LC_MESSAGES/hdp.po --language=Python --package-name='hxlm' --package-version="0.8.1" --default-domain=hdp  --add-comments --no-location --join-existing
 
 # xgettext hxlm/core/bin/hdpcli.py --output-dir=hxlm/locale/ --language=Python --package-name='hxlm' --package-version="0.8.1" --default-domain=hdp --no-location
 ```

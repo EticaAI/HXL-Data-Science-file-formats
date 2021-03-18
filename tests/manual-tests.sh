@@ -11,12 +11,17 @@ sudo snap install ngrok
 #### localization ______________________________________________________________
 
 ### Enviroment checks ----------------------------------------------------------
+locale
 echo "$LANGUAGE"
 echo "$LC_ALL"
 echo "$LC_MESSAGES"
 echo "$LANG"
 echo "$LC_NUMERIC"
 echo "$LC_MONETARY"
+
+# To force run hdpcli with an different locale, can prefix with enviroment
+# variables, like
+LANG=en.UTF-8 LANGUAGE=en.UTF-8 hdpcli --help
 
 ### Extract keywords -----------------------------------------------------------
 xgettext hxlm/core/bin/hdpcli.py
