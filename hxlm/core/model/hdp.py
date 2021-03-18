@@ -28,7 +28,8 @@ import yaml
 
 from hxlm.core.schema.vocab import (
     # HXLM_CORE_SCHEMA_CORE_VOCAB,
-    ItemHVocab
+    ItemHVocab,
+    HVocabHelper
 )
 
 
@@ -78,6 +79,8 @@ class HDP:
     """
 
     _vocab: dict
+
+    _vocab_helper = None
 
     HDP_JSON_EXTENSIONS: Tuple = (
         '.hdp.json',
@@ -143,6 +146,8 @@ class HDP:
         self._online_unrestricted_init = online_unrestricted_init
         self._vocab = ItemHVocab().to_dict()
 
+        self.vocab_helper = HVocabHelper(self._vocab)
+
         # print('self._vocab', self._vocab)
 
         if safer_zone_hosts:
@@ -192,7 +197,7 @@ class HDP:
     def _update(self, hdp_rules: Union[List, dict],
                 domain_base: str,
                 container_base: str) -> bool:
-        """Self update the internal metadata
+        """Self update the internal HDPm (HDP metadata)
 
         Args:
             hdp_rules (Union[List, dict]): The new information to add
@@ -215,6 +220,8 @@ class HDP:
             for hdp_rule in hdp_rules:
                 # timestap = datetime.datetime.now().timestamp()
                 # self._hdp[str(timestap)] = hdp_rule
+                hdp_rule = self._update_sanitize(hdp_rule,
+                                                 container_base=container_base)
                 hashkey = self._get_hsilo_urn(
                     hdp_rule, domain_base=domain_base,
                     container_base=container_base, container_item_index=loop)
@@ -225,6 +232,27 @@ class HDP:
             raise RuntimeError('Unknow hdp_rules [' + str(hdp_rules) + ']')
 
         return True
+
+    def _update_sanitize(self,
+                         hdp_current: dict,
+                         container_base: str) -> dict:
+        """For an hdp_rule (an hsilo) to be added, do some sanitization
+
+        Args:
+            hdp_current (dict): [description]
+            container_base (str): [description]
+
+        Returns:
+            dict: [description]
+        """
+        if self._debug:
+            print('HDP._update_sanitize',
+                  container_base, hdp_current)
+            linguam = self.quid_est_hoc_linguam(hdp_current, container_base)
+            print('HDP._update_sanitize linguam',
+                  linguam)
+
+        return hdp_current
 
     def _get_filtered(self, hdp_filters: dict = None,
                       objectivum_linguam: str = None) -> dict:
@@ -345,7 +373,7 @@ class HDP:
                 deleteditem = hdp_result.pop(hdpns, None)
                 if self._debug:
                     print('HDP._get_filtered_urn deleteditem', deleteditem)
-        except Exception as e:
+        except SyntaxError as e:
             print("HDP._get_filtered_urn:An exception occurred", e)
             print('Did the regex is valid? urn_regex [ ' + urn_regex + ' ]')
             print('ABORTING')
@@ -921,7 +949,8 @@ class HDP:
 
         return res
 
-    def quid_est_hoc_linguam(self, hdp_obj: dict) -> str:
+    def quid_est_hoc_linguam(self, hdp_obj: dict,
+                             container_base: str = None) -> str:
         """What is this language?
 
         Args:
@@ -930,9 +959,27 @@ class HDP:
         Returns:
             str: Return the language
         """
+        res = {
+            'filum': None,  # language by file name (if any)
+            'metam': None,  # language on hsilo.linguam (if any)
+            'objectivum': None,  # language this file should be (if any)
+            'erratum': None  # If something is very wrong
+        }
 
-        # return 'MUL' # MUL = multiple languages
-        return 'UND' # UND = undetermined
+        if container_base:
+            parts = container_base.split('.')
+            if ((len(parts) > 3) and (parts[-2] == 'hdp') and
+                    (len(parts[-3]) == 3) and parts[-3].isalpha()):
+                res['filum'] = parts[-3].upper()
+        # hsilokeyword = self._vocab['root']['hsilo']
+        # hsilokeyword = self._vocab['root']['hsilo'].keys()
+
+        # print('hsilokeyword', hsilokeyword)
+
+        # raise Exception('stop')
+        # MUL = multiple languages
+        # UND = undetermined
+        return res
 
 
 class Dumper(yaml.Dumper):

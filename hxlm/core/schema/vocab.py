@@ -40,7 +40,7 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
-__all__ = ['ConversorHSchema', 'ItemHVocab']
+__all__ = ['ConversorHSchema', 'ItemHVocab', 'HVocabHelper']
 
 import os
 from dataclasses import dataclass
@@ -222,3 +222,13 @@ class ItemHVocab:
         """
 
         return yaml.dump(self.values)
+
+
+class HVocabHelper:
+    _vocab_values: dict = None
+
+    _ids_hsilo: list
+    _ids_meta: list
+
+    def __init__(self, vocab_values: dict):
+        self._vocab_values = vocab_values
