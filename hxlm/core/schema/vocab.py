@@ -232,3 +232,9 @@ class HVocabHelper:
 
     def __init__(self, vocab_values: dict):
         self._vocab_values = vocab_values
+
+
+# TODO: https://vinta.ws/code
+# /dot-notation-obj-x-y-z-for-nested-objects-and-dictionaries-in-python.html
+# TODO: https://stackoverflow.com/questions/25833613
+# /safe-method-to-get-value-of-nested-dictionary

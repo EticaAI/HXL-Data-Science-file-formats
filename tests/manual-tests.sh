@@ -8,6 +8,14 @@ pip3 install hug
 # If you plan to use ngrok to proxy for external world, use something like
 sudo snap install ngrok
 
+#### localization ______________________________________________________________
+
+### Enviroment checks ----------------------------------------------------------
+echo "$LANGUAGE"
+echo "$LC_ALL"
+echo "$LC_MESSAGES"
+echo "$LANG"
+
 #### The tests _________________________________________________________________
 
 ### hdpcli ---------------------------------------------------------------------

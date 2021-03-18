@@ -71,6 +71,8 @@ from distutils.util import strtobool
 # import base64
 import secrets
 
+import gettext
+
 from cryptography.fernet import Fernet
 
 import nacl
@@ -104,6 +106,8 @@ from hxlm.core.internal.formatter import (
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
+
+_ = gettext.gettext
 
 
 _HOME = str(Path.home())
@@ -383,7 +387,7 @@ class HDPCLI:
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
             description=(
-                "HDP Declarative Programming Command Line Interface.")
+                _("HDP Declarative Programming Command Line Interface."))
         )
 
         parser.add_argument(
