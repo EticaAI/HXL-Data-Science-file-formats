@@ -33,25 +33,25 @@ hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-proc
 # This allow filter the HDP internal dictionary
 
 # Returns empty:
-hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --non-grupum hello-world
+hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --non-grupum salve-mundi
 
 # Returns something
-hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --verum-grupum hello-world
+hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --verum-grupum salve-mundi
 
 # Retuns something
 hdpcli tests/hrecipe/yemen-01.hrecipe.mul.hdp.yml --verum-urn yemen
 
 # Retuns something
-hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --verum-urn hello-world --verum-grupum hello-world
+hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --verum-urn salve-mundi --verum-grupum salve-mundi
 
 # export languages
-hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --objectivum-linguam RUS
+hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --objectivum-linguam RUS
 
 ### hdpcli --objectivum-linguam ZZZ (export to language) .......................
 # this will export to a new know language
-hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --objectivum-linguam ARA
-hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --objectivum-linguam POR
-hdpcli tests/hrecipe/hello-world.hrecipe.mul.hdp.yml --objectivum-linguam RUS
+hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --objectivum-linguam ARA
+hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --objectivum-linguam POR
+hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --objectivum-linguam RUS
 
 # hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml | jq '.[0]' | hxlspec | tabulate
 
