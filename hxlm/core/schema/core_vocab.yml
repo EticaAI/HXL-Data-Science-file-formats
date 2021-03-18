@@ -138,7 +138,7 @@ root:
       id: '可接受使用策略' # Acceptable use policy (可接受使用策略)
     ZXX:
       id: 'hcompliance'
-    hdp:
+    QDP:
       id: 'hcompliance'
 
   # https://www.wikidata.org/wiki/Q1172284
@@ -181,7 +181,7 @@ root:
     ZHO:
       # zha/ZHO: '数据集' term needs additional revision. No wikidata term
       id: '数据集'
-    ZXX:
+    QDP:
       id: 'hdataset'
 
   # hfile: https://www.wikidata.org/wiki/Q82753
@@ -220,7 +220,7 @@ root:
       # zha/zho : https://zh.wikipedia.org/wiki/%E9%9B%BB%E8%85%A6%E6%AA%94%E6%A1%88
       #           https://zh.wikipedia.org/wiki/%E6%AA%94%E6%A1%88
       id: "電腦檔案" # Computer file
-    ZXX:
+    QDP:
       id: hfilum
 
   htransformare:
@@ -294,7 +294,7 @@ root:
       # descriptionem: ''
       id_alts:
         - '转型'
-    ZXX:
+    QDP:
       id: 'htransformare'
       descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
       # id_alts:
@@ -337,7 +337,7 @@ root:
     ZHO:
       # @see https://zh.wikipedia.org/wiki/%E7%AD%92%E4%BB%93
       id: '筒仓'
-    ZXX:
+    QDP:
       id: 'hsilo'
 
 attr:
@@ -368,7 +368,7 @@ attr:
     ZHO:
       # https://zh.wikipedia.org/wiki/%E5%9B%BD%E5%AE%B6
       id: '国家'
-    ZXX:
+    QDP:
       id: 'adm0'
 
   datum:
@@ -405,7 +405,7 @@ attr:
     ZHO:
       # @see https://www.wikidata.org/wiki/Q42848
       id: '数据'
-    ZXX:
+    QDP:
       id: 'datum'
 
   descriptionem:
@@ -439,7 +439,7 @@ attr:
       # TODO: this one will need some work. Like attr.name, is likely to have
       #       so many alternatives
       id: '描述'  # TODO: needs revision / add more alternatives
-    ZXX:
+    QDP:
       id: 'descriptionem'
 
   exemplum:
@@ -473,7 +473,7 @@ attr:
     ZHO:
       # from https://www.wikidata.org/wiki/Q14944328
       id: '例子'
-    ZXX:
+    QDP:
       id: 'exemplum'
 
   falsum:
@@ -550,7 +550,7 @@ attr:
       id_alts:
         - '不是'
         - '不是'
-    ZXX:
+    QDP:
       id: 'falsum'
       descriptionem: 'reference to not truly, untrue. (mostly to be used with command line interface)'
       id_alts:
@@ -595,7 +595,7 @@ attr:
       # https://en.wiktionary.org/wiki/%E4%BE%86%E6%BA%90
       # (This term, 来源, is the simplified form of 來源.)
       id: '來源'  # source; origin 
-    ZXX:
+    QDP:
       id: 'fontem'
 
   grupum:
@@ -645,7 +645,7 @@ attr:
       # @see https://en.wiktionary.org/wiki/%E7%B5%84
       id: '組'
       # descriptionem: ''
-    ZXX:
+    QDP:
       id: 'grupum'
       descriptionem: 'One way to group colletions (hsilos).While the tags allow use at any level, this attribute should be explicity named at top level.'
 
@@ -676,7 +676,7 @@ attr:
     ZHO:
       # https://zh.wikipedia.org/wiki/%E6%A8%99%E8%AD%98%E7%AC%A6
       id: '標識符'
-    ZXX:
+    QDP:
       id: 'id'
 
 # TODO: add some term for 'import (file)'; See https://en.wiktionary.org/wiki/importo#Latin
@@ -715,7 +715,7 @@ attr:
       id: 'iri'
     ZHO:
       id: 'iri'
-    ZXX:
+    QDP:
       id: 'iri'  # 100% OK
 
   linguam:
@@ -753,7 +753,7 @@ attr:
     ZHO:
       # https://zh.wikipedia.org/wiki/%E8%AA%9E%E8%A8%80
       id: '语言'
-    ZXX:
+    QDP:
       id: 'lingua'
 
   locum:
@@ -799,7 +799,7 @@ attr:
     ZHO:
       # @see https://www.wikidata.org/wiki/Q17334923
       id: '位置'
-    ZXX:
+    QDP:
       id: 'locum'
 
   meta:
@@ -834,7 +834,7 @@ attr:
     ZHO:
       # https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE
       id: '元数据'
-    ZXX:
+    QDP:
       id: 'meta'
 
   nomen:
@@ -871,7 +871,7 @@ attr:
       id: '名称'  # '名称' ? '名字'
       id_alts:
         - '名字'
-    ZXX:
+    QDP:
       id: 'nomen'
 
   objectivum:
@@ -924,7 +924,7 @@ attr:
       # @see https://zh.m.wiktionary.org/zh-hans/%E7%9B%AE%E7%9A%84
       id: '目的'
       # descriptionem: ''
-    ZXX:
+    QDP:
       id: 'objectivum'
       descriptionem: 'a thing aimed at or sought; a goal.'
 
@@ -1011,7 +1011,7 @@ attr:
     ZHO:
       # https://zh.wikipedia.org/wiki/%E6%A8%99%E7%B1%A4_(%E5%85%83%E6%95%B8%E6%93%9A)
       id: '标签' # '标签' ? '標籤' ?
-    ZXX:
+    QDP:
       id: 'tag'
 
   tempus:
@@ -1053,7 +1053,7 @@ attr:
       # @see https://www.wikidata.org/wiki/Q11471
       id: '时间'
       # descriptionem: ''
-    ZXX:
+    QDP:
       id: 'tempus'
       descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
 
@@ -1094,7 +1094,7 @@ attr:
       id: 'urn'
     ZHO:
       id: 'urn'
-    ZXX:
+    QDP:
       id: 'urn'  # 100% OK
 
   verum:
@@ -1160,7 +1160,7 @@ attr:
       # TODO: attr.verum.zho needs revision.
       id: '是的'
       # descriptionem: ''
-    ZXX:
+    QDP:
       id: 'verum'
       descriptionem: 'reference to truly, true, fact, reality. (mostly to be used with command line interface)'
       id_alts:
@@ -1214,7 +1214,7 @@ attr:
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  #   ZXX:
+  #   QDP:
   #     id: ''
   #     descriptionem: ''
   #     id_alts:

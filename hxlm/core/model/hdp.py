@@ -108,6 +108,23 @@ class HDP:
     or tag names)
     """
 
+    HDP_VOCAB_QDP_ROOT: Tuple = (
+        'hcompliance',
+        'hdataset',
+        'hfilum',
+        'htransformare',
+        'hsilo'
+    )
+    """For performance reasons, we can do an quick check if an HDP Meta object
+    already is perfectly aligned with internal HDP vocabulary.
+
+    'QDP' is the code we use for HDP internal coding, since qaa–qtz are
+    'reserved for local use with ISO 639-3.
+
+    Also 'QDP' is not assigned on https://www.kreativekorp.com/clcr/, an
+    'ConLang Code Registry'
+    """
+
     def __init__(self, hdp_entry_point: str = None,
                  yml_string: str = None,
                  json_string: str = None,
@@ -394,8 +411,8 @@ class HDP:
 
                     # TODO: bruteforce here the thing
                     if self._debug:
-                        res = self.quid_est_hoc_linguam(key_l1)
-                        print('    HDP.quid_est_hoc_linguam ', key_l1, res)
+                        res = self.quid_est_hoc(key_l1)
+                        print('    HDP.quid_est_hoc ', key_l1, res)
 
                     if not str(key_l1).startswith('_'):
                         hdp_result[hdpns][key_l1] = \
@@ -515,6 +532,8 @@ class HDP:
                 else:
                     if self._debug:
                         print('HDP._get_translated_recursive: nop k', k)
+
+                    # Ok. Deeper search
 
                     k_new = k
 
@@ -859,7 +878,7 @@ class HDP:
             return True
         return False
 
-    def quid_est_hoc_linguam(self, verbum: str) -> dict:
+    def quid_est_hoc(self, verbum: str) -> dict:
         """What does this word means in the current know vocabulary?
 
         Args:
@@ -901,6 +920,19 @@ class HDP:
                     # if verbum == verbum_hdp:
 
         return res
+
+    def quid_est_hoc_linguam(self, hdp_obj: dict) -> str:
+        """What is this language?
+
+        Args:
+            hdp_obj (dict): An hdp root object
+
+        Returns:
+            str: Return the language
+        """
+
+        # return 'MUL' # MUL = multiple languages
+        return 'UND' # UND = undetermined
 
 
 class Dumper(yaml.Dumper):
