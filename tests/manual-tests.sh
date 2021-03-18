@@ -46,6 +46,8 @@ hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --verum-urn salve-mundi --v
 
 # export languages
 hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --objectivum-linguam RUS
+hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml --objectivum-linguam POR
+hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml --fontem-linguam=RUS --objectivum-linguam POR
 
 ### hdpcli --objectivum-linguam ZZZ (export to language) .......................
 # this will export to a new know language

@@ -210,11 +210,12 @@ class HDP:
         return True
 
     def _get_filtered(self, hdp_filters: dict = None,
-                      linguam: str = None) -> dict:
+                      objectivum_linguam: str = None) -> dict:
         """Apply filters to HDP complete points to knowledge
 
         Args:
             hdp_filters (dict, optional): Filters. Defaults to None.
+            objectivum_linguam (str): ISO 639-3 code to convert
 
         Returns:
             dict: Filered result
@@ -223,7 +224,8 @@ class HDP:
         filtered = self._hdp
 
         if self._debug:
-            print('HDP._get_filtered hdp_filters', hdp_filters, linguam)
+            print('HDP._get_filtered hdp_filters',
+                  hdp_filters, objectivum_linguam)
 
         if 'verum_urn' in hdp_filters:
             filtered = self._get_filtered_urn(
@@ -240,8 +242,9 @@ class HDP:
                 filtered, hdp_filters['non_grupum'], False)
 
         # if linguam and filtered and len(filtered):
-        if linguam:
-            filtered = self._get_translated(filtered, linguam)
+        if objectivum_linguam:
+            filtered = self._get_translated(
+                filtered, objectivum_linguam=objectivum_linguam)
 
         return filtered
 
@@ -333,13 +336,16 @@ class HDP:
 
         return hdp_result
 
-    def _get_translated(self, hdp_current: dict, linguam: str) -> dict:
+    def _get_translated(self, hdp_current: dict,
+                        objectivum_linguam: str,
+                        fontem_linguam: str = None) -> dict:
         """For an hdp_current (already with internal format) get translation
 
         Args:
             hdp_current (dict): an hdp meta object. Must already have keys in
                                 the linguam:HDP
-            linguam (str): ISO 639-3 code
+            objectivum_linguam (str): ISO 639-3 code to convert
+            fontem_linguam (str): ISO 639-3 code to import. Defaults to none
 
         Raises:
             SyntaxError: when using ISO 639-3 invalid codes
@@ -349,7 +355,7 @@ class HDP:
         """
 
         if self._debug:
-            print('HDP._get_translated', linguam, hdp_current)
+            print('HDP._get_translated', fontem_linguam, objectivum_linguam, hdp_current)  # noqa
             # print('HDP._get_translated', self._vocab)
 
         if len(hdp_current) == 0:
@@ -357,44 +363,60 @@ class HDP:
 
         hdp_result = deepcopy(hdp_current)
 
-        if len(linguam) != 3 or not linguam.isalpha():
+        if len(objectivum_linguam) != 3 or not objectivum_linguam.isalpha():
             raise SyntaxError('No 3 letter or 3 ASCII letter? ' +
                               'linguam must be an ISO 639-3 (3 letter) ' +
-                              'code, like "ARA" or "RUS" [' + linguam + ']')
-        if not linguam.isupper():
+                              'code, like "ARA" or "RUS" ' +
+                              '[' + objectivum_linguam + ']')
+        if not objectivum_linguam.isupper():
             raise SyntaxError('No UPPERCASE? ' +
                               'linguam must be an ISO 639-3 (3 letter) ' +
-                              'code, like "ARA" or "ARA" [' + linguam + ']')
+                              'code, like "ARA" or "ARA" ' +
+                              '[' + objectivum_linguam + ']')
 
         for hdpns in hdp_current:
 
             # First level
             for key_l1 in hdp_current[hdpns]:
                 if ((key_l1 in self._vocab['root']) and
-                (linguam in self._vocab['root'][key_l1])):  # noqa
-                    newterm = self._vocab['root'][key_l1][linguam]['id']
+                (objectivum_linguam in self._vocab['root'][key_l1])):  # noqa
+                    newterm = self._vocab['root'][key_l1][objectivum_linguam]['id']  # noqa
                     # print('key_l1 in self._vocab.root', key_l1)
                     # print('key_l1 in self._vocab.root', newterm)  # noqa
                     hdp_result[hdpns][newterm] = hdp_result[hdpns].pop(key_l1)
                     hdp_result[hdpns][newterm] = \
                         self._get_translated_attr(
-                            hdp_result[hdpns][newterm], linguam=linguam, context=key_l1)  # noqa
+                            hdp_result[hdpns][newterm],
+                            objectivum_linguam=objectivum_linguam,
+                            fontem_linguam=fontem_linguam,
+                            context=key_l1)
                 else:
+
+                    # TODO: bruteforce here the thing
+                    if self._debug:
+                        res = self.quid_est_hoc_linguam(key_l1)
+                        print('    HDP.quid_est_hoc_linguam ', key_l1, res)
+
                     if not str(key_l1).startswith('_'):
                         hdp_result[hdpns][key_l1] = \
                             self._get_translated_attr(
-                            hdp_current[hdpns][key_l1], linguam=linguam, context=key_l1)  # noqa
-            # continue
+                            hdp_current[hdpns][key_l1],
+                            objectivum_linguam=objectivum_linguam,
+                            fontem_linguam=fontem_linguam,
+                            context=key_l1)
 
         return hdp_result
 
-    def _get_translated_attr(self, hdp_current: dict, linguam: str,
+    def _get_translated_attr(self, hdp_current: dict,
+                             objectivum_linguam: str,
+                             fontem_linguam: str = None,
                              context: str = None) -> dict:
         """Get translations for sub attibutes
 
         Args:
             hdp_current (dict): [description]
-            linguam (str): ISO 639-3 code
+            objectivum_linguam (str): ISO 639-3 code to convert
+            fontem_linguam (str): ISO 639-3 code to import. Defaults to none
             context (str, optional): Context (key on upper level key).
                                      Defaults to None.
 
@@ -402,20 +424,24 @@ class HDP:
             dict: And HDP object already translated to target linguam
         """
 
-        return self._get_translated_recursive(hdp_current,
-                                              linguam=linguam,
-                                              context=context)
+        return self._get_translated_recursive(
+            hdp_current,
+            objectivum_linguam=objectivum_linguam,
+            fontem_linguam=fontem_linguam,
+            context=context
+        )
 
     def _get_translated_recursive(self,
                                   hdp_current: Union[dict, list],
-                                  linguam: str,
+                                  objectivum_linguam: str,
+                                  fontem_linguam: str = None,
                                   context: str = None,
                                   level: int = 1) -> Union[dict, bool]:
         """Recursively translate an item.
 
         Args:
             hdp_current (dict, list): The hdp internal object/list
-            linguam (str): ISO 639-3 code
+            objectivum_linguam (str): ISO 639-3 code
             context (str, optional): Context (key on upper level key).
                                      Defaults to None.
             level (int, optional): How deep we are on this recursion?
@@ -430,11 +456,13 @@ class HDP:
                                  'Programming or HDP file error? ' +
                                  '[ ' + str(level) + ' ] ' +
                                  '[ ' + str(context) + ' ] ' +
-                                 '[ ' + str(linguam) + ' ] ' +
+                                 '[ ' + str(objectivum_linguam) + ' ] ' +
+                                 '[ ' + str(fontem_linguam) + ' ] ' +
                                  '[ ' + str(hdp_current) + ' ] ')
 
         if self._debug:
-            print('HDP._get_translated_recursive: start', level, context, linguam)  # noqa
+            print('HDP._get_translated_recursive: start', level, context,
+                   objectivum_linguam, fontem_linguam)  # noqa
 
         if context.endswith(self.HDP_RECURSION_LEAF):
             if self._debug:
@@ -455,7 +483,8 @@ class HDP:
                 hdp_new.append(
                     self._get_translated_recursive(
                         hdp_current[idx],
-                        linguam=linguam,
+                        objectivum_linguam=objectivum_linguam,
+                        fontem_linguam=fontem_linguam,
                         context=context,
                         level=(level+1))
                 )
@@ -476,13 +505,13 @@ class HDP:
 
                 # Let's find if current attribute is translatabe
                 # - attr exists?
-                # - linguam exists for this attr?
-                # - id exists for this attr+linguam?
+                # - objectivum_linguam exists for this attr?
+                # - id exists for this attr+objectivum_linguam?
                 if ((k in self._vocab['attr']) and
-                        (self._vocab['attr'][k][linguam]['id']) and
-                        (self._vocab['attr'][k][linguam]['id'])):
+                        (self._vocab['attr'][k][objectivum_linguam]['id']) and
+                        (self._vocab['attr'][k][objectivum_linguam]['id'])):
 
-                    k_new = self._vocab['attr'][k][linguam]['id']
+                    k_new = self._vocab['attr'][k][objectivum_linguam]['id']
                 else:
                     if self._debug:
                         print('HDP._get_translated_recursive: nop k', k)
@@ -490,12 +519,11 @@ class HDP:
                     k_new = k
 
                 if isinstance(hdp_current, (dict, list)):
-                    # TODO: go deeper, not stop here... yet
-                    # hdp_new[k_new] = hdp_current[k]
                     context_new = context + '.' + k
                     hdp_new[k_new] = self._get_translated_recursive(
                         hdp_current[k],
-                        linguam=linguam,
+                        objectivum_linguam=objectivum_linguam,
+                        fontem_linguam=fontem_linguam,
                         context=context_new,
                         level=(level+1)
                     )
@@ -517,27 +545,6 @@ class HDP:
             print('HDP._get_translated_recursive: not dict/list')  # noqa
 
         return hdp_current
-
-    # def _get_translated_attr_arr(self, hdp_current: dict, linguam: str,
-    #                              context: str) -> dict:
-    #     hdp_result = deepcopy(hdp_current)
-
-    #     print('oioioioioi2', linguam, type(linguam), context)
-
-    #     # for key_ln in hdp_current:
-    #     #     # print('oioioioioi3', type(key_ln), key_ln)
-
-    #     #     if not isinstance(key_ln, str):
-    #     #         if self._debug:
-    #     #             print('HDP._get_translated_attr: TODO: fix this', key_ln)  # noqa
-    #     #         continue
-
-    #     #     if ((key_ln in self._vocab['attr']) and
-    #     #     (linguam in self._vocab['attr'][key_ln])):  # noqa
-    #     #         newterm = self._vocab['attr'][key_ln][linguam]['id']
-    #     #         hdp_result[newterm] = hdp_result.pop(key_ln)
-
-    #     return hdp_result
 
     def _prepare(self, hdp_entry_point: str, is_startup: bool = False) -> bool:
 
@@ -796,7 +803,8 @@ class HDP:
 
         return json.dumps(result, indent=4, sort_keys=True)
 
-    def export_yml(self, hdp_filters: dict = None, linguam: str = None) -> str:
+    def export_yml(self, hdp_filters: dict = None,
+                   objectivum_linguam: str = None) -> str:
         """Export the current HDP internal metadata in an YAML format
 
         Returns:
@@ -807,14 +815,8 @@ class HDP:
         #       in an place outside HDP internal metadata?
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
-        # if hdp_filters:
-        #     print('TODO hdp_filters', hdp_filters)
-
-        result = self._get_filtered(hdp_filters, linguam)
-
-        # print('result', result, type(result), yaml.dump(None))
-        # print('result none',  yaml.dump(None))
-        # print('result []',  yaml.dump([]))
+        result = self._get_filtered(hdp_filters,
+                                    objectivum_linguam=objectivum_linguam)
 
         return yaml.dump(result, Dumper=Dumper,
                          encoding='utf-8', allow_unicode=True)
@@ -856,6 +858,49 @@ class HDP:
         )):
             return True
         return False
+
+    def quid_est_hoc_linguam(self, verbum: str) -> dict:
+        """What does this word means in the current know vocabulary?
+
+        Args:
+            verbum (str): The word
+
+        Returns:
+            dict: What it is
+        """
+        # TODO: maybe implement SimpleNamespace, so we could use dot notation
+        #   https://docs.python.org/3/library/types.html#types.SimpleNamespace
+        # @see https://en.wiktionary.org/wiki/verbum#Latin
+        # @see https://en.wiktionary.org/wiki/conceptus#Latin
+        # @see https://en.wiktionary.org/wiki/significatio#Latin
+
+        res = {}
+
+        for idx, verbum_hdp in enumerate(self._vocab['root']):
+            if verbum == verbum_hdp:
+                res['conceptum'] = 'root.' + verbum_hdp
+                res['linguam'] = 'HDP'
+                # TODO: allow select an target language
+                res['significatio'] = verbum_hdp
+                return res
+            # print('>>>>>>>>>>', idx, verbum_hdp)
+
+            for idx2, root_block in enumerate(self._vocab['root']):
+                # print('>>>root_block', self._vocab['root'][root_block])
+                # print('>>>root_block', self._vocab['root'][root_block])
+                for idx3, iso3lang in enumerate(self._vocab['root'][root_block]):  # noqa
+                    # print('>oooi3', idx3, iso3lang)
+                    # print('>oooi3', self._vocab['root'][root_block][iso3lang])  # noqa
+
+                    # TODO: check on id_alts (may get too much false positives)
+                    if ((self._vocab['root'][root_block][iso3lang] == verbum)):
+                        res['conceptum'] = 'root.' + verbum_hdp
+                        res['linguam'] = iso3lang
+                        res['significatio'] = verbum_hdp
+                    # continue
+                    # if verbum == verbum_hdp:
+
+        return res
 
 
 class Dumper(yaml.Dumper):
