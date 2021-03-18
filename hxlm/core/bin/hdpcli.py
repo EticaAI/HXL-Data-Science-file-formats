@@ -737,10 +737,11 @@ class HDPCLI:
             # print('hdp _hdp', hdp._hdp)
             return self.EXIT_OK
 
-        print('ERROR: what to do? try:')
-        print('    hdpcli --help')
-        print('    hdpcli --debug <your instructions>')
-        return self.EXIT_ERROR
+        print('ERROR: what to do? try:', file=stderr)
+        print('    hdpcli --help', file=stderr)
+        print('    hdpcli --debug <your instructions>', file=stderr)
+        # print(self.EXIT_ERROR)
+        return sys.exit(self.EXIT_ERROR)
 
 
 class HXLUtils:
