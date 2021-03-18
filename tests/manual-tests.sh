@@ -54,7 +54,13 @@ hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --objectivum-linguam POR
 hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --objectivum-linguam RUS
 
 # hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml | jq '.[0]' | hxlspec | tabulate
+jsonschema -i temp/salve-mundi.hrecipe.mul.hdp.json hxlm/core/schema/hdp.json-schema.json
+# jsonschema tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml hxlm/core/schema/hdp.json-schema.json
 
+### jsonschema .................................................................
+# TODO: maybe?
+#       - https://github.com/Julian/jsonschema
+#       - https://python-jsonschema.readthedocs.io/en/stable/
 
 # https://raw.githubusercontent.com/HXLStandard/libhxl-python/master/profile/data/unhcr_popstats_export_persons_of_concern_all_data.hxl
 ### hxl2example ----------------------------------------------------------------

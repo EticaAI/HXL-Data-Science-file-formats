@@ -1,4 +1,7 @@
 # hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml
+# hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml --fontem-linguam=RUS
+# hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml --fontem-linguam=RUS --objectivum-linguam POR
+# hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml --objectivum-linguam POR
 # hdpcli --export-to-hxl-json-processing-specs tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml
 # hdpcli --export-to-hxl-json-processing-specs tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml | jq '.[1]' | hxlspec
 ---
@@ -21,7 +24,7 @@
       - TL
     тег:
       - CPLP
-    язык: MUL
+    язык: RUS
   трансформация-данных:
     - _recipe:
         - aggregators:

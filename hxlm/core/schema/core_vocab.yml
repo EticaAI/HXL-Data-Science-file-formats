@@ -928,6 +928,61 @@ attr:
       id: 'objectivum'
       descriptionem: 'a thing aimed at or sought; a goal.'
 
+  # strictum:
+  #     # attr.structus is ...
+  #     # @see https://en.wiktionary.org/wiki/strictus#Latin
+  #     ARA:
+  #       id: ''
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+  #     ENG:
+  #       id: 'strict'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     FRA:
+  #       id: 'strict'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     SPA:
+  #       # @see https://en.wiktionary.org/wiki/estricto#Spanish
+  #       id: 'estricto'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     LAT:
+  #       id: 'strictum'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     POR:
+  #       id: 'estrito'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     QAA:
+  #       id: ''
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+  #     RUS:
+  #       id: ''
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+  #     ZHO:
+  #       id: ''
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+  #     ZXX:
+  #       id: 'strictum'
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+
   tag:
     # attr.tag is ...
     # @see https://en.wikipedia.org/wiki/Tag_(metadata)

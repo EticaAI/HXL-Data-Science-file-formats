@@ -46,7 +46,7 @@ def test_core_hxl_data_processing_specs_test1():
 
 def test_core_hxl_data_processing_specs_test2():
     hdp1 = HDP(hdp_entry_point=TESTS_BASE +
-               '/hrecipe/hello-world.hrecipe.mul.hdp.yml')
+               '/hrecipe/salve-mundi.hrecipe.mul.hdp.yml')
     spec_str1 = hdp1.export_json_processing_specs()
     spec_json1 = json.loads(spec_str1)
 

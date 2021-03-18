@@ -40,6 +40,10 @@ class HDP:
     """
 
     _debug: bool = False
+    """Debug enabled?"""
+
+    _fontem_linguam: str = None
+    """Force HDP input language. Defaults to autodetect"""
 
     _hdp: dict = {}
     # TODO: what name to use? Maybe Knowledge base?
@@ -110,15 +114,16 @@ class HDP:
                  online_unrestricted_init: bool = False,
                  safer_zone_hosts: Tuple = None,
                  safer_zone_list: Tuple = None,
+                 fontem_linguam: str = None,
                  debug: bool = False
                  ):
         """
-        Constructs all the necessary attributes for the HDPCLI object.
+        Constructs all the necessary attributes for the HDP object.
         """
 
-        self._online_unrestricted_init = online_unrestricted_init
         self._debug = debug
-
+        self._fontem_linguam = fontem_linguam
+        self._online_unrestricted_init = online_unrestricted_init
         self._vocab = ItemHVocab().to_dict()
 
         # print('self._vocab', self._vocab)
@@ -146,6 +151,20 @@ class HDP:
 
         if 'urn' in hsilo_object:
             return hsilo_object.urn
+
+        # TODO: make this hardcoded replace less ugly
+        #       (Emerson Rocha, 2021-03-18 01:05 UTC)
+        if container_base.find('.hdp.yml') > -1:
+            container_base = container_base.replace('.hdp.yml', '')
+        if container_base.find('.hdp.json') > -1:
+            container_base = container_base.replace('.hdp.json', '')
+
+        # TODO: this gambiarra beyond ugly. Fix it (eventually)
+        #       (Emerson Rocha, 2021-03-18 01:05 UTC)
+        for adm0 in ['.mul', '.ara', '.eng', '.fra', '.spa',
+                     '.lat', '.por', '.qaa', '.rus', '.zho', '.zxx']:
+            if container_base.find(adm0) > -1:
+                container_base = container_base.replace(adm0, '')
 
         suffix = ''
         if container_item_index > 0:
