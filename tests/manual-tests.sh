@@ -15,6 +15,17 @@ echo "$LANGUAGE"
 echo "$LC_ALL"
 echo "$LC_MESSAGES"
 echo "$LANG"
+echo "$LC_NUMERIC"
+echo "$LC_MONETARY"
+
+### Extract keywords -----------------------------------------------------------
+xgettext hxlm/core/bin/hdpcli.py
+
+# Generate pot file
+xgettext hxlm/core/bin/hdpcli.py --output=hxlm/locale/hdp.pot --language=Python --package-name='hxlm' --package-version="0.8.1" --default-domain=hdp  --add-comments --no-location --indent
+
+# Example of how generate an specific translation file
+xgettext hxlm/core/bin/hdpcli.py --output=hxlm/locale/pt/LC_MESSAGES/hdp.po --language=Python --package-name='hxlm' --package-version="0.8.1" --default-domain=hdp  --add-comments --no-location --inden --join-existing
 
 #### The tests _________________________________________________________________
 

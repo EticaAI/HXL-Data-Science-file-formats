@@ -387,6 +387,7 @@ class HDPCLI:
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
             description=(
+                # This is an test comment for translators
                 _("HDP Declarative Programming Command Line Interface."))
         )
 
