@@ -2,6 +2,7 @@
 
 PROTIP: is possible to test this file directly with
     python3 -m doctest -v hxlm/core/schema/vocab.py
+    pytest -vv hxlm/ --doctest-modules --pyargs
 
 This file is meant to accept 3 categories of internal vocabularies:
 
@@ -260,14 +261,34 @@ class HVocabHelper:
 
         self._vocab_values = vocab_values
 
-    def get_translation_value(self, vocab_path: str):
-        """Get an translation value, dot notation
+    def get_languages_of_vocab(self):
+        """Get know languages on current loaded vocabulary
+
+        The bare minimum to add a new vocabulary is add an root.hsilo option.
+        So this method abstract this. Note that this example uses the default
+        vocabulary, but is possible to add new ones in runtime.
+
+        Example:
+        >>> from hxlm.core.schema.vocab import HVocabHelper
+        >>> HVocabHelper().get_languages_of_vocab()
+        ['ARA', 'ENG', 'FRA', 'SPA', 'LAT', 'POR', 'QAA', 'RUS', 'ZHO', 'QDP']
+
+        Returns:
+            [list]: list of all know languages in the current loaded vocab
+        """
+
+        hsilo_list = list(self._vocab_values['root']['hsilo'].keys())
+        hsilo_list.remove('id')
+        return hsilo_list
+
+    def get_value_of(self, vocab_path: str):
+        """Get an translation value, dot notation (get_value syntactic sugar)
 
         Examples:
             >>> from hxlm.core.schema.vocab import HVocabHelper
-            >>> HVocabHelper().get_translation_value('attr.datum.POR.id')
+            >>> HVocabHelper().get_value_of('attr.datum.POR.id')
             'dados'
-            >>> HVocabHelper().get_translation_value('datum.POR.id')
+            >>> HVocabHelper().get_value_of('datum.POR.id')
             'dados'
 
         Args:
@@ -288,11 +309,11 @@ class HVocabHelper:
         return val
 
     def get_value(self, dotted_key: str, default: Any = None) -> Any:
-        """Get value by dotted notation key
+        """Get value by dot notation key
 
         Examples:
             >>> from hxlm.core.schema.vocab import HVocabHelper
-            >>> HVocabHelper().get_value('datum.POR.i')
+            >>> HVocabHelper().get_value('datum.POR.id')
             >>> HVocabHelper().get_value('attr.datum.POR.id')
             'dados'
 
@@ -308,9 +329,3 @@ class HVocabHelper:
             lambda d, key: d.get(
                 key) if d else default, keys, self._vocab_values
         )
-
-
-# TODO: https://vinta.ws/code
-# /dot-notation-obj-x-y-z-for-nested-objects-and-dictionaries-in-python.html
-# TODO: https://stackoverflow.com/questions/25833613
-# /safe-method-to-get-value-of-nested-dictionary
