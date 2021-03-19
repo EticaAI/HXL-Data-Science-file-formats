@@ -273,6 +273,46 @@ class HVocabHelper:
 
         self._values = vocab_values
 
+    def _parse_language_score_details(self,
+                                      wordlist: list,
+                                      score: dict,
+                                      details: dict = None) -> dict:
+        """Preprocess result from get_languages_of_words
+
+        Args:
+            wordlist (list): A list of words to search on loaded vocabulary
+            score (dict): score from get_languages_of_words()
+            details (dict, optional): details from get_languages_of_words()
+
+        Returns:
+            dict: an result
+        """
+        result = {
+            'lang': 'UND',
+            'langs': [],
+            'score': {},
+            'details': {}
+        }
+        ocorrences = []
+        # print('scorescorescorescore', score)
+        for lang_ in score:
+            if score[lang_] is not None and score[lang_] > 0:
+                ocorrences.append(lang_)
+                result['score'][lang_] = score[lang_]
+                result['langs'].append(lang_)
+                if (details is not None) and (lang_ in details):
+                    result['details'][lang_] = details[lang_]
+
+        if (len(result['langs']) == 1) or \
+                (len(wordlist) == result['score'][lang_]):
+            result['lang'] = result['langs'][0]
+
+        if self._debug:
+            print('HVocabHelper()._parse_language_score_details',
+                  result, wordlist, score, details)
+            print('    ocorrences', ocorrences)
+        return result
+
     def get_languages_of_hsilo(self, hsilo: dict,
                                strict: bool = False) -> list:
 
@@ -282,15 +322,20 @@ class HVocabHelper:
                 str(list(hsilo.keys())[0]).lower().startswith('urn:')):
             hsilo = hsilo[list(hsilo.keys())[0]]
 
-        print('hsilo', hsilo)
+        search_root_strict = self.get_languages_of_words(
+            wordlist=list(hsilo.keys()),
+            verbose=True
+        )
+        # print('hsilo', hsilo)
         print('hsilo.keys()', hsilo.keys())
+        print('search_root_strict', search_root_strict)
 
         # print('get_languages_of_words', self.get_languages_of_words(
         #     ['silo', 'transformacao-de-dados', 'lalala'],
         #     try_harder=True, verbose=True))  # noqa
-        print('get_languages_of_words', self.get_languages_of_words(
-            ['iri', 'urn', 'fontem'],
-            search_attr=True, try_harder=True, verbose=True))  # noqa
+        # print('get_languages_of_words', self.get_languages_of_words(
+        #     ['urn', 'dados', 'exemplo', 'fonte'],
+        #     search_attr=True, try_harder=True, verbose=True))  # noqa
 
         # print('len2', hsilo.keys())
         # print('len3', str(list(hsilo.keys())[0]).lower().startswith('urn:'))
@@ -304,25 +349,32 @@ class HVocabHelper:
                                try_harder: bool = False,
                                try_even_harder: bool = False,
                                verbose: bool = False):
-        """get_languages_of_words is (...)
+        """get_languages_of_words accept wordlist and guess the language
 
         Args:
-            wordlist (list): [description]
-            search_root (bool, optional): [description]. Defaults to True.
-            search_attr (bool, optional): [description]. Defaults to False.
-            try_harder (bool, optional): [description]. Defaults to False.
-            try_even_harder (bool, optional): [description]. Defaults to False.
-            verbose (bool, optional): [description]. Defaults to False.
+            wordlist (list): A list of words to search on loaded vocabulary
+            search_root (bool, optional): Search vocab.root?.
+            search_attr (bool, optional): Search vocab.attr?.
+            try_harder (bool, optional): Search id_alts.
+            try_even_harder (bool, optional): Brute force search.
+            verbose (bool, optional): Return more information.
+
+        Examples:
+            >>> from hxlm.core.schema.vocab import HVocabHelper
+            >>> vhelper = HVocabHelper()
+            >>> vhelper.get_languages_of_words(['lalala', 'not exist'])['lang']
+            'UND'
 
         Raises:
-            NotImplementedError: [description]
+            NotImplementedError: try_even_harder not implemented
 
         Returns:
-            [type]: [description]
+            [dict]: Dictionary
         """
 
         if self._debug:
             print('HVocabHelper().get_languages_of_words START')
+            print('   wordlist', wordlist)
 
         langs = self.get_languages_of_vocab()
 
@@ -330,11 +382,12 @@ class HVocabHelper:
         score = dict(zip(langs, ([0] * len(langs))))
         found_on_root = set()
         found_on_attr = set()
+        details = None
 
         for stopword in self.stopwords:
             if stopword in wordlist:
                 if self._debug:
-                    print('  removed stopword', stopword, wordlist)
+                    print('   >removed stopword', stopword, wordlist)
                 wordlist.remove(stopword)
 
         if verbose:
@@ -344,14 +397,19 @@ class HVocabHelper:
         # For each root.TERM
         for idx, root_ in enumerate(self._values['root']):
             if not search_root:
+                if self._debug:
+                    print('   >> not search_root')
                 break
             found = 0
+            print('   For each root.TERM...', root_)
             # For each root.term.LANG.id
             for idx2, lang_ in enumerate(self._values['root'][root_]):
                 if lang_ == 'id':
                     continue
                 val_ = self._values['root'][root_][lang_]['id']
-                # print('langs[lang_]', langs, lang_)
+                if self._debug:
+                    print('   >>> For each root.term.LANG.id', val_)
+                # print('   langs[lang_]', val_,  lang_)
                 if val_ in wordlist:
                     score[lang_] += 1
                     found_on_root.add(val_)
@@ -364,7 +422,7 @@ class HVocabHelper:
                         # print('found in details',  details)
 
                 if not try_harder and not try_even_harder:
-                    break
+                    continue
 
                 # For each root.term.LANG.id_alts
                 if 'id_alts' in self._values['root'][root_][lang_]:
@@ -385,6 +443,8 @@ class HVocabHelper:
         # For each root.TERM
         for idx, attr_ in enumerate(self._values['attr']):
             if not search_attr:
+                if self._debug:
+                    print('   not search_attr')
                 break
             found = 0
             # For each root.term.LANG.id
@@ -415,18 +475,19 @@ class HVocabHelper:
                         if id_alt_ in wordlist:
                             score[lang_] += 1
                             found_on_attr.add(id_alt_)
+                            found += 1
                             if verbose:
                                 if details[lang_] is None:
                                     details[lang_] = {}
-                                details[lang_][id_alt_] = [
-                                    'attr.' + attr_ + '.' +
-                                    lang_ + '.id_alts']  # noqa
-                            found += 1
+                                    details[lang_][id_alt_] = [
+                                        'attr.' + attr_ + '.' +
+                                        lang_ + '.id_alts']  # noqa
 
         for word in wordlist:
             if (word not in found_on_root) and (word not in found_on_attr):
-                details['UND'].append(word)
                 score['UND'] += 1
+                if verbose:
+                    details['UND'].append(word)
                 if self._debug:
                     print('  not found found_on_root', found_on_root)
                     print('  not found wordlist', wordlist)
@@ -444,7 +505,9 @@ class HVocabHelper:
         if try_even_harder:
             raise NotImplementedError('try_even_harder not implemented... yet')
 
-        return score
+        return self._parse_language_score_details(wordlist=wordlist,
+                                                  score=score,
+                                                  details=details)
 
     def get_languages_of_vocab(self):
         """Get know languages on current loaded vocabulary
