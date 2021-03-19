@@ -23,6 +23,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 
 import locale
+import os
 
 
 def debug_localization() -> dict:
@@ -37,15 +38,35 @@ def debug_localization() -> dict:
     info = {}
     info['locale'] = locale.getlocale()
     info['defaultlocale'] = locale.getdefaultlocale()
-    info['preferredencoding2'] = locale.getpreferredencoding()
-    info['LC_CTYPE'] = locale.LC_CTYPE
-    info['LC_COLLATE'] = locale.LC_COLLATE
-    info['LC_TIME'] = locale.LC_TIME
-    info['LC_MONETARY'] = locale.LC_MONETARY
-    info['LC_MESSAGES'] = locale.LC_MESSAGES
-    info['LC_NUMERIC'] = locale.LC_NUMERIC
-    info['LC_ALL'] = locale.LC_ALL
-    info['CHAR_MAX'] = locale.CHAR_MAX
+    info['preferredencoding'] = locale.getpreferredencoding(),
+    info['environment'] = {
+        'LANG': os.getenv('LANG'),
+        'LANGUAGE': os.getenv('LANGUAGE'),
+        'LC_ALL': os.getenv('LC_ALL'),
+        'LC_ADDRESS': os.getenv('LC_ADDRESS'),
+        'LC_COLLATE': os.getenv('LC_COLLATE'),
+        'LC_CTYPE': os.getenv('LC_CTYPE'),
+        'LC_IDENTIFICATION': os.getenv('LC_IDENTIFICATION'),
+        'LC_MEASUREMENT': os.getenv('LC_MEASUREMENT'),
+        'LC_MESSAGES': os.getenv('LC_MESSAGES'),
+        'LC_MONETARY': os.getenv('LC_MONETARY'),
+        'LC_NAME': os.getenv('LC_NAME'),
+        'LC_NUMERIC': os.getenv('LC_NUMERIC'),
+        'LC_PAPER': os.getenv('LC_PAPER'),
+        'LC_TELEPHONE': os.getenv('LC_TELEPHONE'),
+        'LC_TIME': os.getenv('LC_TIME')
+    }
+    info['pylocale'] = {
+        'LC_CTYPE': locale.LC_CTYPE,
+        'LC_COLLATE': locale.LC_COLLATE,
+        'LC_TIME': locale.LC_TIME,
+        'LC_MONETARY': locale.LC_MONETARY,
+        'LC_MESSAGES': locale.LC_MESSAGES,
+        'LC_NUMERIC': locale.LC_NUMERIC,
+        'LC_ALL': locale.LC_ALL,
+        'CHAR_MAX': locale.CHAR_MAX
+    }
+
     info['nl_langinfo'] = {
         'CODESET': locale.nl_langinfo(locale.CODESET),
         'D_T_FMT': locale.nl_langinfo(locale.D_T_FMT),
@@ -93,6 +114,28 @@ def debug_localization() -> dict:
     }
 
     return info
+
+
+def get_language_preferred(
+        hint_preferred: str = None,
+        lang_original: list = None,
+        lang_translation: list = None) -> str:
+
+    if hint_preferred is None:
+        # We will default to... Latin
+        hint_preferred = os.getenv('LANGUAGE', 'la')
+
+    if not isinstance(hint_preferred, list):
+        hint_preferred = hint_preferred.split(':')
+
+    for lang_ in hint_preferred:
+        if lang_original is not None:
+            if lang_ in lang_original:
+                return lang_
+        if lang_translation is not None:
+            if lang_ in lang_translation:
+                return lang_
+    return None
 
 # @see https://code.visualstudio.com/docs/python/jupyter-support
 # @see https://ipython.org/ipython-doc/3/config/extensions/autoreload.html

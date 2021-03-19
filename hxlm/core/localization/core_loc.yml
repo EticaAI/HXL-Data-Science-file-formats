@@ -1,0 +1,20 @@
+# hxlm.core.localization.core_loc.yml
+# @see https://en.wikipedia.org/wiki/ISO_639-3
+
+linguam23:
+  # https://iso639-3.sil.org/code/ara
+  AR: 'ARA'
+  # https://iso639-3.sil.org/code/eng
+  EN: 'ENG'
+  # https://iso639-3.sil.org/code/fra
+  FR: 'FRA'
+  # https://iso639-3.sil.org/code/spa
+  ES: 'SPA'
+  # https://iso639-3.sil.org/code/lat
+  LA: 'LAT'
+  # https://iso639-3.sil.org/code/por
+  PT: 'POR'
+  # https://iso639-3.sil.org/code/rus
+  RU: 'RUS'
+  # https://iso639-3.sil.org/code/zho
+  zh: 'ZHO'
