@@ -1,5 +1,8 @@
 """hxlm.core.schema.vocab prepare internal vocabularies to be used by schema
 
+PROTIP: is possible to test this file directly with
+    python3 -m doctest -v hxlm/core/schema/vocab.py
+
 This file is meant to accept 3 categories of internal vocabularies:
 
 - core_vocab.yml (default, always): the (lastest) default vocabulary inside
@@ -45,6 +48,7 @@ __all__ = ['ConversorHSchema', 'ItemHVocab', 'HVocabHelper']
 import os
 from dataclasses import dataclass
 from typing import (
+    Any,
     Type
 )
 
@@ -52,7 +56,6 @@ import functools
 
 from copy import deepcopy
 from difflib import Differ
-# from collections import ChainMap
 
 import json
 
@@ -227,16 +230,45 @@ class ItemHVocab:
 
 
 class HVocabHelper:
+    """An Helper for ItemHVocab-like results
+
+    NOTE: to test this file, is possible to use:
+        python3 -m doctest -v hxlm/core/schema/vocab.py
+
+    """
+
     _vocab_values: dict = None
+    """An dict compatible with ItemHVocab().to_dict() output"""
 
     _ids_hsilo: list
     _ids_meta: list
 
-    def __init__(self, vocab_values: dict) -> str:
+    def __init__(self, vocab_values: dict = None) -> str:
+        """Initialize
+
+        Args:
+            vocab_values (dict, optional): Explicitly load an vocab_values
+                            compatible with ItemHVocab().to_dict() output. If
+                            none is give, this will call the ItemHVocab()
+                            with default values (e.g. without extending
+                            vocabulary beyond what alreayd comes with the
+                            core package)
+        """
+
+        if vocab_values is None:
+            vocab_values = ItemHVocab().to_dict()
+
         self._vocab_values = vocab_values
 
     def get_translation_value(self, vocab_path: str):
         """Get an translation value, dot notation
+
+        Examples:
+            >>> from hxlm.core.schema.vocab import HVocabHelper
+            >>> HVocabHelper().get_translation_value('attr.datum.POR.id')
+            'dados'
+            >>> HVocabHelper().get_translation_value('datum.POR.id')
+            'dados'
 
         Args:
             vocab_path (str): Search path, with dot notation
@@ -244,9 +276,37 @@ class HVocabHelper:
         Returns:
             [str]: Value (if translation do exist)
         """
-        keys = vocab_path.split('.')
+
+        if vocab_path.startswith(('root.', 'attr.')):
+            return self.get_value(vocab_path)
+
+        val = self.get_value('root.' + vocab_path)
+        if val is None:
+            val = self.get_value('attr.' + vocab_path)
+
+        # keys = vocab_path.split('.')
+        return val
+
+    def get_value(self, dotted_key: str, default: Any = None) -> Any:
+        """Get value by dotted notation key
+
+        Examples:
+            >>> from hxlm.core.schema.vocab import HVocabHelper
+            >>> HVocabHelper().get_value('datum.POR.i')
+            >>> HVocabHelper().get_value('attr.datum.POR.id')
+            'dados'
+
+        Args:
+            dotted_key (str): Dotted key notation
+            default ([Any], optional): Value if not found. Defaults to None.
+
+        Returns:
+            [Any]: Return the result. Defaults to default
+        """
+        keys = dotted_key.split('.')
         return functools.reduce(
-            lambda d, key: d.get(key) if d else None, keys, self._vocab_values
+            lambda d, key: d.get(
+                key) if d else default, keys, self._vocab_values
         )
 
 

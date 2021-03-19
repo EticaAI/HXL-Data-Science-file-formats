@@ -863,8 +863,10 @@ class HDP:
         #       in an place outside HDP internal metadata?
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
-        # print('  >>>>', self._VHelper.get_translation_value('root.hcompliance.id2'))
-        # raise StopIteration('debug')
+        print('  >>>>', self._VHelper.get_translation_value('root.hcompliance.id2'))
+        print('  >>>>', self._VHelper.get_translation_value('root.hcompliance.id'))
+        print('  >>>>', self._VHelper.get_translation_value('datum.ARA.id'))
+        raise StopIteration('debug')
 
         result = self._get_filtered(hdp_filters,
                                     objectivum_linguam=objectivum_linguam)

@@ -9,6 +9,7 @@ TODO: document me
 
 from hxlm.core.schema.vocab import (  # noqa: F401
     ConversorHSchema,
+    HVocabHelper,
     ItemHVocab
 )
 
