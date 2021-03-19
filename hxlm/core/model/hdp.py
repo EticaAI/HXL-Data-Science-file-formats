@@ -80,7 +80,7 @@ class HDP:
 
     _vocab: dict
 
-    _vocab_helper = None
+    _VHelper: HVocabHelper = None
 
     HDP_JSON_EXTENSIONS: Tuple = (
         '.hdp.json',
@@ -145,8 +145,9 @@ class HDP:
         self._fontem_linguam = fontem_linguam
         self._online_unrestricted_init = online_unrestricted_init
         self._vocab = ItemHVocab().to_dict()
+        self._vocab = ItemHVocab().to_dict()
 
-        self.vocab_helper = HVocabHelper(self._vocab)
+        self._VHelper = HVocabHelper(self._vocab)
 
         # print('self._vocab', self._vocab)
 
@@ -861,6 +862,9 @@ class HDP:
         #       access credentials. Or maybe we should put such things
         #       in an place outside HDP internal metadata?
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
+
+        # print('  >>>>', self._VHelper.get_translation_value('root.hcompliance.id2'))
+        # raise StopIteration('debug')
 
         result = self._get_filtered(hdp_filters,
                                     objectivum_linguam=objectivum_linguam)

@@ -48,6 +48,8 @@ from typing import (
     Type
 )
 
+import functools
+
 from copy import deepcopy
 from difflib import Differ
 # from collections import ChainMap
@@ -230,8 +232,22 @@ class HVocabHelper:
     _ids_hsilo: list
     _ids_meta: list
 
-    def __init__(self, vocab_values: dict):
+    def __init__(self, vocab_values: dict) -> str:
         self._vocab_values = vocab_values
+
+    def get_translation_value(self, vocab_path: str):
+        """Get an translation value, dot notation
+
+        Args:
+            vocab_path (str): Search path, with dot notation
+
+        Returns:
+            [str]: Value (if translation do exist)
+        """
+        keys = vocab_path.split('.')
+        return functools.reduce(
+            lambda d, key: d.get(key) if d else None, keys, self._vocab_values
+        )
 
 
 # TODO: https://vinta.ws/code
