@@ -313,8 +313,24 @@ class HVocabHelper:
             print('    ocorrences', ocorrences)
         return result
 
-    def get_languages_of_hsilo(self, hsilo: dict,
-                               strict: bool = False) -> list:
+    def get_languages_of_hsilo(self,
+                               hsilo: dict,
+                               strict: bool = None) -> dict:
+        """Bruteforce whatever keys an dict have to detect language is written
+
+        Args:
+            hsilo (dict): an HDPm single item. Accepts with urn as first key
+            strict (bool, optional): If will check also metadata to detect
+                                     an document written in one type of
+                                     keywords, but hsilo.linguam says another.
+                                     If strict = None, it will warn invalid
+                                     input, but will not not stop everyting.
+                                     If strict = False, it will tolerate most
+                                     inputs, but will not check deeper
+
+        Returns:
+            dict: returns an dict. See self._parse_language_score_details()
+        """
 
         # If there is an HDP wrapper, around a single element, parse it
         # If there is an wrapper around more than one, let it fail
@@ -322,26 +338,48 @@ class HVocabHelper:
                 str(list(hsilo.keys())[0]).lower().startswith('urn:')):
             hsilo = hsilo[list(hsilo.keys())[0]]
 
-        search_root_strict = self.get_languages_of_words(
+        search_root = self.get_languages_of_words(
             wordlist=list(hsilo.keys()),
             verbose=True
         )
-        # print('hsilo', hsilo)
-        print('hsilo.keys()', hsilo.keys())
-        print('search_root_strict', search_root_strict)
-
-        # print('get_languages_of_words', self.get_languages_of_words(
-        #     ['silo', 'transformacao-de-dados', 'lalala'],
-        #     try_harder=True, verbose=True))  # noqa
-        # print('get_languages_of_words', self.get_languages_of_words(
-        #     ['urn', 'dados', 'exemplo', 'fonte'],
-        #     search_attr=True, try_harder=True, verbose=True))  # noqa
-
-        # print('len2', hsilo.keys())
-        # print('len3', str(list(hsilo.keys())[0]).lower().startswith('urn:'))
+        thsilo = search_root['hsilo_term']
 
         # print('hsilo', hsilo)
-        pass
+        # print('hsilo.keys()', hsilo.keys())
+
+        if self._debug:
+            print('search_root', search_root)
+
+        if not thsilo:
+            if strict is not False:
+                raise SyntaxWarning('hsilo_term not found for ' + str(hsilo))
+            else:
+                if self._debug:
+                    print('hsilo_term not found for ' + str(hsilo))
+
+        # print('   oooooooi', thsilo)
+        # print('   oooooooi', hsilo[thsilo])
+        # print('   oooooooi', type(hsilo[thsilo]))
+
+        if strict is True:
+            tlinguam = [
+                self.get_value_of('attr.linguam.' +
+                                  search_root['lang'] + '.id')]
+
+            # TODO: when id_alts exist for root term, implement
+            # tlinguam by list
+
+            if tlinguam[0] in hsilo[thsilo]:
+                vlinguam = hsilo[thsilo][tlinguam[0]]
+                if vlinguam != search_root['lang']:
+                    warning = 'WARNING: hsilo.linguam do not match [' + \
+                        vlinguam + '] vs [' + search_root['lang'] + ']'
+                    search_root['messages'] = []
+                    search_root['messages'].append(warning)
+                    if self._debug:
+                        print(warning)
+
+        return search_root
 
     def get_languages_of_words(self, wordlist: list,
                                search_root: bool = True,
@@ -383,6 +421,7 @@ class HVocabHelper:
         found_on_root = set()
         found_on_attr = set()
         details = None
+        hsilo_term = ''
 
         for stopword in self.stopwords:
             if stopword in wordlist:
@@ -413,6 +452,8 @@ class HVocabHelper:
                 if val_ in wordlist:
                     score[lang_] += 1
                     found_on_root.add(val_)
+                    if root_ == 'hsilo':
+                        hsilo_term = val_
                     if verbose:
                         details[lang_] = {}
                         details[lang_][val_] = [
@@ -432,6 +473,8 @@ class HVocabHelper:
                         if id_alt_ in wordlist:
                             score[lang_] += 1
                             found_on_root.add(id_alt_)
+                            if root_ == 'hsilo':
+                                hsilo_term = val_
                             if verbose:
                                 if details[lang_] is None:
                                     details[lang_] = {}
@@ -498,6 +541,7 @@ class HVocabHelper:
 
         # if verbose:
         #     print('verbose found_on_root', found_on_root)
+        #     print('verbose hsilo_term', hsilo_term)
         #     print('verbose wordlist', wordlist)
         #     print('verbose score',  score)
         #     print('verbose details',  details)
@@ -505,9 +549,11 @@ class HVocabHelper:
         if try_even_harder:
             raise NotImplementedError('try_even_harder not implemented... yet')
 
-        return self._parse_language_score_details(wordlist=wordlist,
-                                                  score=score,
-                                                  details=details)
+        result = self._parse_language_score_details(wordlist=wordlist,
+                                                    score=score,
+                                                    details=details)
+        result['hsilo_term'] = hsilo_term
+        return result
 
     def get_languages_of_vocab(self):
         """Get know languages on current loaded vocabulary

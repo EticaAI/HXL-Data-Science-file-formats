@@ -866,7 +866,7 @@ class HDP:
         result = self._get_filtered(hdp_filters,
                                     objectivum_linguam=objectivum_linguam)
 
-        # print('  >>>>', self._VHelper.get_languages_of_hsilo(result))
+        # print('  >>>>', self._VHelper.get_languages_of_hsilo(result, strict=True))  # noqa
         # # # # print('  >>>>', self._VHelper.get_translation_value('root.hcompliance.id'))  # noqa
         # # # # print('  >>>>', self._VHelper.get_translation_value('datum.ARA.id'))  # noqa
         # raise StopIteration('This is just debug test; ignore it')
