@@ -334,6 +334,8 @@ root:
       # 'Силосная башня' = "silo tower"
       # 'силосная' = 'silo' (needs revision)
       id: 'силосная'
+      id_alts:
+        - 'silo'
     ZHO:
       # @see https://zh.wikipedia.org/wiki/%E7%AD%92%E4%BB%93
       id: '筒仓'

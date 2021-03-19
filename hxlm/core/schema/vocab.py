@@ -279,10 +279,10 @@ class HVocabHelper:
         print('hsilo', hsilo)
         print('hsilo.keys()', hsilo.keys())
 
-        print('get_languages_of_words', self.get_languages_of_words(['silo', 'transformacao-de-dados', 'lalala']))  # noqa
+        print('get_languages_of_words', self.get_languages_of_words(
+            ['silo', 'transformacao-de-dados', 'lalala'],
+            try_harder=True, verbose=True))  # noqa
 
-        # # if len(hsilo.keys()) == 1 and str(list(hsilo.keys())[0]):
-        # # if len(hsilo.keys()) == 1 and str(list(hsilo.keys())[0]).lower().startswith('urn:'):  # noqa
         # print('len2', hsilo.keys())
         # print('len3', str(list(hsilo.keys())[0]).lower().startswith('urn:'))
 
@@ -293,11 +293,17 @@ class HVocabHelper:
                                search_root: bool = True,
                                search_attr: bool = False,
                                try_harder: bool = False,
-                               try_even_harder: bool = False):
+                               try_even_harder: bool = False,
+                               verbose: bool = False):
         langs = self.get_languages_of_vocab()
 
         langs.append('UND')
         score = dict(zip(langs, ([0] * len(langs))))
+        if verbose:
+            details = dict(zip(langs, ([None] * len(langs))))
+            details['UND'] = []
+
+        print('details', details)
 
         for idx, root_ in enumerate(self._values['root']):
             if not search_root:
@@ -307,16 +313,42 @@ class HVocabHelper:
                 found = 0
                 if lang_ == 'id':
                     continue
+                val_ = self._values['root'][root_][lang_]['id']
                 # print('langs[lang_]', langs, lang_)
-                if self._values['root'][root_][lang_]['id'] in wordlist:
+                if val_ in wordlist:
                     score[lang_] += 1
-                    found += 1
-                # print('idx2', root_, lang_)
-                # print('idx2', self._values['root'][root_]['id'])
-                # print('idx2', self._values['root'][root_])
-                # print('idx5', self._values['root'][root_][lang_]['id'])
+                    if verbose:
+                        details[lang_] = {}
+                        details[lang_][val_] = [
+                            'root.' + root_ + '.' + lang_ + '.id']
+                        found += 1
+                        # print('found in lang', val_, lang_, found)
+                        # print('found in details',  details)
+
+                if not try_harder and not try_even_harder:
+                    if found == 0:
+                        # print('found', found, found == 0)
+                        details['UND'].append(val_)
+                        score['UND'] += 1
+                    break
+
+                if 'id_alts' in self._values['root'][root_][lang_]:
+
+                    id_alts_ = self._values['root'][root_][lang_]['id_alts']
+                    for id_alt_ in id_alts_:
+                        if id_alt_ in wordlist:
+                            score[lang_] += 1
+                            if verbose:
+                                if details[lang_] is None:
+                                    details[lang_] = {}
+                                details[lang_][id_alt_] = [
+                                    'root.' + root_ + '.' +
+                                    lang_ + '.id_alts']  # noqa
+                            found += 1
 
                 if found == 0:
+                    print('found', found, found == 0)
+                    details['UND'].append(val_)
                     score['UND'] += 1
 
         for idx, _ in enumerate(self._values['attr']):
@@ -330,9 +362,14 @@ class HVocabHelper:
                 for idx, _ in enumerate(self._values['root']):
                     print('idx', idx)
                     continue
+        if verbose:
+            print('score', score, wordlist, details)
+            print('details', details)
 
-        print('score', score, wordlist)
-        pass
+        if try_even_harder:
+            raise NotImplementedError('try_even_harder not implemented... yet')
+
+        return score
 
     def get_languages_of_vocab(self):
         """Get know languages on current loaded vocabulary
