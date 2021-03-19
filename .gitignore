@@ -3,6 +3,7 @@ data-mining-projects/
 hxlquickimport_samples/
 *.~lock*
 *__pycache__*
+notebooks/
 dist/
 build/
 *.egg-info*

@@ -440,7 +440,7 @@ class HVocabHelper:
                     print('   >> not search_root')
                 break
             found = 0
-            print('   For each root.TERM...', root_)
+            # print('   For each root.TERM...', root_)
             # For each root.term.LANG.id
             for idx2, lang_ in enumerate(self._values['root'][root_]):
                 if lang_ == 'id':
