@@ -50,7 +50,8 @@ import os
 from dataclasses import dataclass
 from typing import (
     Any,
-    Type
+    Type,
+    Tuple
 )
 
 import functools
@@ -238,11 +239,17 @@ class HVocabHelper:
 
     """
 
-    _vocab_values: dict = None
+    _values: dict = None
     """An dict compatible with ItemHVocab().to_dict() output"""
 
     _ids_hsilo: list
     _ids_meta: list
+
+    stopwords: Tuple = (
+        'iri',
+        'uri'
+    )
+    """Some terms are unreliable to guess language."""
 
     def __init__(self, vocab_values: dict = None) -> str:
         """Initialize
@@ -259,7 +266,73 @@ class HVocabHelper:
         if vocab_values is None:
             vocab_values = ItemHVocab().to_dict()
 
-        self._vocab_values = vocab_values
+        self._values = vocab_values
+
+    def get_languages_of_hsilo(self, hsilo: dict,
+                               strict: bool = False) -> list:
+
+        # If there is an HDP wrapper, around a single element, parse it
+        # If there is an wrapper around more than one, let it fail
+        if (len(hsilo.keys()) == 1 and
+                str(list(hsilo.keys())[0]).lower().startswith('urn:')):
+            hsilo = hsilo[list(hsilo.keys())[0]]
+        print('hsilo', hsilo)
+        print('hsilo.keys()', hsilo.keys())
+
+        print('get_languages_of_words', self.get_languages_of_words(['silo', 'transformacao-de-dados', 'lalala']))  # noqa
+
+        # # if len(hsilo.keys()) == 1 and str(list(hsilo.keys())[0]):
+        # # if len(hsilo.keys()) == 1 and str(list(hsilo.keys())[0]).lower().startswith('urn:'):  # noqa
+        # print('len2', hsilo.keys())
+        # print('len3', str(list(hsilo.keys())[0]).lower().startswith('urn:'))
+
+        # print('hsilo', hsilo)
+        pass
+
+    def get_languages_of_words(self, wordlist: list,
+                               search_root: bool = True,
+                               search_attr: bool = False,
+                               try_harder: bool = False,
+                               try_even_harder: bool = False):
+        langs = self.get_languages_of_vocab()
+
+        langs.append('UND')
+        score = dict(zip(langs, ([0] * len(langs))))
+
+        for idx, root_ in enumerate(self._values['root']):
+            if not search_root:
+                break
+
+            for idx2, lang_ in enumerate(self._values['root'][root_]):
+                found = 0
+                if lang_ == 'id':
+                    continue
+                # print('langs[lang_]', langs, lang_)
+                if self._values['root'][root_][lang_]['id'] in wordlist:
+                    score[lang_] += 1
+                    found += 1
+                # print('idx2', root_, lang_)
+                # print('idx2', self._values['root'][root_]['id'])
+                # print('idx2', self._values['root'][root_])
+                # print('idx5', self._values['root'][root_][lang_]['id'])
+
+                if found == 0:
+                    score['UND'] += 1
+
+        for idx, _ in enumerate(self._values['attr']):
+            if not search_attr:
+                break
+            # print('idx', idx)
+            #     continue
+
+        for word in wordlist:
+            if search_root:
+                for idx, _ in enumerate(self._values['root']):
+                    print('idx', idx)
+                    continue
+
+        print('score', score, wordlist)
+        pass
 
     def get_languages_of_vocab(self):
         """Get know languages on current loaded vocabulary
@@ -277,7 +350,7 @@ class HVocabHelper:
             [list]: list of all know languages in the current loaded vocab
         """
 
-        hsilo_list = list(self._vocab_values['root']['hsilo'].keys())
+        hsilo_list = list(self._values['root']['hsilo'].keys())
         hsilo_list.remove('id')
         return hsilo_list
 
@@ -327,5 +400,5 @@ class HVocabHelper:
         keys = dotted_key.split('.')
         return functools.reduce(
             lambda d, key: d.get(
-                key) if d else default, keys, self._vocab_values
+                key) if d else default, keys, self._values
         )

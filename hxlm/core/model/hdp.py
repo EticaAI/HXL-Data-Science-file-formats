@@ -863,13 +863,13 @@ class HDP:
         #       in an place outside HDP internal metadata?
         #       (Emerson Rocha, 2021-03-13 01:00 UTC)
 
-        # print('  >>>>', self._VHelper.get_know_languages())
-        # # print('  >>>>', self._VHelper.get_translation_value('root.hcompliance.id'))  # noqa
-        # # print('  >>>>', self._VHelper.get_translation_value('datum.ARA.id'))  # noqa
-        # raise StopIteration('This is just debug test; ignore it')
-
         result = self._get_filtered(hdp_filters,
                                     objectivum_linguam=objectivum_linguam)
+
+        # print('  >>>>', self._VHelper.get_languages_of_hsilo(result))
+        # # # print('  >>>>', self._VHelper.get_translation_value('root.hcompliance.id'))  # noqa
+        # # # print('  >>>>', self._VHelper.get_translation_value('datum.ARA.id'))  # noqa
+        # raise StopIteration('This is just debug test; ignore it')
 
         return yaml.dump(result, Dumper=Dumper,
                          encoding='utf-8', allow_unicode=True)
