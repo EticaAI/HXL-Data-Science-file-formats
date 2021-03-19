@@ -239,6 +239,9 @@ class HVocabHelper:
 
     """
 
+    _debug: bool = False
+    """Debug enabled?"""
+
     _values: dict = None
     """An dict compatible with ItemHVocab().to_dict() output"""
 
@@ -247,11 +250,11 @@ class HVocabHelper:
 
     stopwords: Tuple = (
         'iri',
-        'uri'
+        'urn',
     )
     """Some terms are unreliable to guess language."""
 
-    def __init__(self, vocab_values: dict = None) -> str:
+    def __init__(self, vocab_values: dict = None, debug: bool = False) -> str:
         """Initialize
 
         Args:
@@ -262,6 +265,8 @@ class HVocabHelper:
                             vocabulary beyond what alreayd comes with the
                             core package)
         """
+
+        self._debug = debug
 
         if vocab_values is None:
             vocab_values = ItemHVocab().to_dict()
@@ -276,12 +281,16 @@ class HVocabHelper:
         if (len(hsilo.keys()) == 1 and
                 str(list(hsilo.keys())[0]).lower().startswith('urn:')):
             hsilo = hsilo[list(hsilo.keys())[0]]
+
         print('hsilo', hsilo)
         print('hsilo.keys()', hsilo.keys())
 
+        # print('get_languages_of_words', self.get_languages_of_words(
+        #     ['silo', 'transformacao-de-dados', 'lalala'],
+        #     try_harder=True, verbose=True))  # noqa
         print('get_languages_of_words', self.get_languages_of_words(
-            ['silo', 'transformacao-de-dados', 'lalala'],
-            try_harder=True, verbose=True))  # noqa
+            ['iri', 'urn', 'fontem'],
+            search_attr=True, try_harder=True, verbose=True))  # noqa
 
         # print('len2', hsilo.keys())
         # print('len3', str(list(hsilo.keys())[0]).lower().startswith('urn:'))
@@ -295,28 +304,57 @@ class HVocabHelper:
                                try_harder: bool = False,
                                try_even_harder: bool = False,
                                verbose: bool = False):
+        """get_languages_of_words is (...)
+
+        Args:
+            wordlist (list): [description]
+            search_root (bool, optional): [description]. Defaults to True.
+            search_attr (bool, optional): [description]. Defaults to False.
+            try_harder (bool, optional): [description]. Defaults to False.
+            try_even_harder (bool, optional): [description]. Defaults to False.
+            verbose (bool, optional): [description]. Defaults to False.
+
+        Raises:
+            NotImplementedError: [description]
+
+        Returns:
+            [type]: [description]
+        """
+
+        if self._debug:
+            print('HVocabHelper().get_languages_of_words START')
+
         langs = self.get_languages_of_vocab()
 
         langs.append('UND')
         score = dict(zip(langs, ([0] * len(langs))))
+        found_on_root = set()
+        found_on_attr = set()
+
+        for stopword in self.stopwords:
+            if stopword in wordlist:
+                if self._debug:
+                    print('  removed stopword', stopword, wordlist)
+                wordlist.remove(stopword)
+
         if verbose:
             details = dict(zip(langs, ([None] * len(langs))))
             details['UND'] = []
 
-        print('details', details)
-
+        # For each root.TERM
         for idx, root_ in enumerate(self._values['root']):
             if not search_root:
                 break
-
+            found = 0
+            # For each root.term.LANG.id
             for idx2, lang_ in enumerate(self._values['root'][root_]):
-                found = 0
                 if lang_ == 'id':
                     continue
                 val_ = self._values['root'][root_][lang_]['id']
                 # print('langs[lang_]', langs, lang_)
                 if val_ in wordlist:
                     score[lang_] += 1
+                    found_on_root.add(val_)
                     if verbose:
                         details[lang_] = {}
                         details[lang_][val_] = [
@@ -326,18 +364,16 @@ class HVocabHelper:
                         # print('found in details',  details)
 
                 if not try_harder and not try_even_harder:
-                    if found == 0:
-                        # print('found', found, found == 0)
-                        details['UND'].append(val_)
-                        score['UND'] += 1
                     break
 
+                # For each root.term.LANG.id_alts
                 if 'id_alts' in self._values['root'][root_][lang_]:
 
                     id_alts_ = self._values['root'][root_][lang_]['id_alts']
                     for id_alt_ in id_alts_:
                         if id_alt_ in wordlist:
                             score[lang_] += 1
+                            found_on_root.add(id_alt_)
                             if verbose:
                                 if details[lang_] is None:
                                     details[lang_] = {}
@@ -346,25 +382,64 @@ class HVocabHelper:
                                     lang_ + '.id_alts']  # noqa
                             found += 1
 
-                if found == 0:
-                    print('found', found, found == 0)
-                    details['UND'].append(val_)
-                    score['UND'] += 1
-
-        for idx, _ in enumerate(self._values['attr']):
+        # For each root.TERM
+        for idx, attr_ in enumerate(self._values['attr']):
             if not search_attr:
                 break
-            # print('idx', idx)
-            #     continue
+            found = 0
+            # For each root.term.LANG.id
+            for idx2, lang_ in enumerate(self._values['attr'][attr_]):
+                if lang_ == 'id':
+                    continue
+                val_ = self._values['attr'][attr_][lang_]['id']
+                # print('langs[lang_]', langs, lang_)
+                if val_ in wordlist:
+                    score[lang_] += 1
+                    found_on_attr.add(val_)
+                    if verbose:
+                        details[lang_] = {}
+                        details[lang_][val_] = [
+                            'attr.' + attr_ + '.' + lang_ + '.id']
+                        found += 1
+                        # print('found in lang', val_, lang_, found)
+                        # print('found in details',  details)
+
+                if not try_harder and not try_even_harder:
+                    break
+
+                # For each attr.term.LANG.id_alts
+                if 'id_alts' in self._values['attr'][attr_][lang_]:
+
+                    id_alts_ = self._values['attr'][attr_][lang_]['id_alts']
+                    for id_alt_ in id_alts_:
+                        if id_alt_ in wordlist:
+                            score[lang_] += 1
+                            found_on_attr.add(id_alt_)
+                            if verbose:
+                                if details[lang_] is None:
+                                    details[lang_] = {}
+                                details[lang_][id_alt_] = [
+                                    'attr.' + attr_ + '.' +
+                                    lang_ + '.id_alts']  # noqa
+                            found += 1
 
         for word in wordlist:
-            if search_root:
-                for idx, _ in enumerate(self._values['root']):
-                    print('idx', idx)
-                    continue
-        if verbose:
-            print('score', score, wordlist, details)
-            print('details', details)
+            if (word not in found_on_root) and (word not in found_on_attr):
+                details['UND'].append(word)
+                score['UND'] += 1
+                if self._debug:
+                    print('  not found found_on_root', found_on_root)
+                    print('  not found wordlist', wordlist)
+                    print('  not found score',  score)
+                    print('  not found details',  details)
+                    # print('not found', wordlist)
+                    # print('not found', val_, score, details)
+
+        # if verbose:
+        #     print('verbose found_on_root', found_on_root)
+        #     print('verbose wordlist', wordlist)
+        #     print('verbose score',  score)
+        #     print('verbose details',  details)
 
         if try_even_harder:
             raise NotImplementedError('try_even_harder not implemented... yet')

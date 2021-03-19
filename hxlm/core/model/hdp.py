@@ -147,7 +147,7 @@ class HDP:
         self._vocab = ItemHVocab().to_dict()
         self._vocab = ItemHVocab().to_dict()
 
-        self._VHelper = HVocabHelper(self._vocab)
+        self._VHelper = HVocabHelper(self._vocab, debug=debug)
 
         # print('self._vocab', self._vocab)
 
