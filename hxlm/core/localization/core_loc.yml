@@ -1,5 +1,14 @@
 # hxlm.core.localization.core_loc.yml
+# This is an example (in fact, the default, "core") HDP LKG
+# ('HDP localization knowledge graph')
 # @see https://en.wikipedia.org/wiki/ISO_639-3
+
+# TODO: eventually try define better the terms, like knowlege base, ontology,
+#       see:
+# - https://ai.stackexchange.com/questions/21797
+#   /what-are-the-differences-between-a-knowledge-base-and-a-knowledge-graph
+# - https://arxiv.org/pdf/2003.02320.pdf
+#       (Emerson Rocha, 2021-03-19 22:19)
 
 linguam23:
   # https://iso639-3.sil.org/code/ara

@@ -21,9 +21,25 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
-
+from functools import lru_cache
 import locale
 import os
+
+import yaml
+
+__all__ = ['debug_localization', 'get_language_preferred',
+           'get_ISO_369_3_from_string',
+           'get_localization_knowledge_graph']
+
+
+# os.environ["HDP_DEBUG"] = "1"
+_IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
+
+HXLM_CORE_LOCALIZATION_CORE_LOC = \
+    os.path.dirname(os.path.realpath(__file__)) + '/core_loc.yml'
+"""localization/core_loc.yml is the default reference of knowledge base
+for localization
+"""
 
 
 def debug_localization() -> dict:
@@ -116,35 +132,118 @@ def debug_localization() -> dict:
     return info
 
 
+def get_ISO_369_3_from_string(term: str,
+                              default: str = None,
+                              hdp_lkg: dict = None) -> str:
+    return term
+
+
+# import hxlm.core.localization as l10n
+# os.environ["HDP_DEBUG"] = "1"
+# l10n.get_language_preferred()
+
+
 def get_language_preferred(
         hint_preferred: str = None,
-        lang_original: list = None,
-        lang_translation: list = None) -> str:
+        langs_original: list = None,
+        langs_strict: list = None,
+        langs_extra: list = None,
+        hdp_lkg: dict = None) -> str:
+    """[summary]
+
+    See https://superuser.com/questions/392439
+        /lang-and-language-environment-variable-in-debian-based-systems
+    for the syntax of hint_preferred.
+
+    Args:
+        hint_preferred (str, optional): An string with language preferences.
+                    Defaults to search local user environment variable.
+        langs_original (list, optional): If the resource already have one or
+                    more languages availible as original (e.g, without any
+                    automated strict or extra conversion) we will recommend
+                    the original
+        langs_strict (list, optional): List of strict, equally valid,
+                    conversions that can be done for this resource. Default
+                    to use internal HDP localization knowledge graph.
+        langs_extra (list, optional): if do exist some way that, while not as
+                    perfect as langs_strict, still be able to do automated
+                    conversion, use the langs_extra. Defaults to not be used.
+        hdp_lkg (dict, optional): HDP localization knowledge graph dictionary.
+                    Default to use internal HDP localization knowledge graph.
+
+    Returns:
+        str: [description]
+    """
+
+    result = {
+        'lang': None,
+        'type': None
+    }
+
+    # if linguam23 is None:
 
     if hint_preferred is None:
         # We will default to... Latin
         hint_preferred = os.getenv('LANGUAGE', 'la')
 
+    if hdp_lkg is None:
+        hdp_lkg = get_localization_knowledge_graph()
+
     if not isinstance(hint_preferred, list):
         hint_preferred = hint_preferred.split(':')
 
+    if _IS_DEBUG:
+        print('get_language_preferred')
+        print('  hint_preferred', hint_preferred)
+        print('  langs_original', langs_original)
+        print('  langs_strict', langs_strict)
+        print('  langs_extra', langs_extra)
     for lang_ in hint_preferred:
-        if lang_original is not None:
-            if lang_ in lang_original:
-                return lang_
-        if lang_translation is not None:
-            if lang_ in lang_translation:
-                return lang_
-    return None
+        lnorm = get_ISO_369_3_from_string(lang_, hdp_lkg=hdp_lkg)
+        if langs_original is not None:
+            if lnorm in langs_original:
+                result['lang'] = lnorm
+                result['type'] = 'original'
+                return result
+        if langs_strict is not None:
+            if lnorm in langs_strict:
+                result['lang'] = lnorm
+                result['type'] = 'strict'
+                return result
+        if langs_extra is not None:
+            if lnorm in langs_extra:
+                result['lang'] = lnorm
+                result['type'] = 'extra'
+                return result
+    return result
 
-# @see https://code.visualstudio.com/docs/python/jupyter-support
-# @see https://ipython.org/ipython-doc/3/config/extensions/autoreload.html
 
-# import importlib
-# import hxlm.core.localization as l10n
-# importlib.reload(hxlm.core.localization)
+@lru_cache(maxsize=8)
+def get_localization_knowledge_graph(
+        path: str = HXLM_CORE_LOCALIZATION_CORE_LOC) -> dict:
+    """Get an HDP localization knowledge graph
 
-# import importlib
-# import hxlm.core.localization as l10n
-# l10n.debug_localization()
-# importlib.reload(l10n.util)
+    Args:
+        path (str, optional): Path for an file compatible with the
+                    'HDP localization knowledge graph.
+                    Defaults to HXLM_CORE_LOCALIZATION_CORE_LOC.
+
+    Returns:
+        dict: an HDP localization knowledge graph dict
+    """
+
+    with open(path, 'r') as openfile:
+        data = yaml.safe_load(openfile)
+        return data
+
+    # @see https://code.visualstudio.com/docs/python/jupyter-support
+    # @see https://ipython.org/ipython-doc/3/config/extensions/autoreload.html
+
+    # import importlib
+    # import hxlm.core.localization as l10n
+    # importlib.reload(hxlm.core.localization)
+
+    # import importlib
+    # import hxlm.core.localization as l10n
+    # l10n.debug_localization()
+    # importlib.reload(l10n.util)
