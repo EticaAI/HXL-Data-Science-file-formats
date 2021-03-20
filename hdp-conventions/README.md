@@ -1,6 +1,6 @@
 # HDP Declarative Programming conventions, early draft
 
-**This is an draft. See <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/16>.
+**This is an draft. See <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/16>.**
 
 ---
 
@@ -19,6 +19,7 @@
 - [Conteiner format](#conteiner-format)
     - [Exchange of commands with foreign interface](#exchange-of-commands-with-foreign-interface)
     - [Conventions for identifiers (key names)](#conventions-for-identifiers-key-names)
+        - [Tokens meaning on keys](#tokens-meaning-on-keys)
 
 <!-- /TOC -->
 
@@ -54,4 +55,63 @@
 
 ### Conventions for identifiers (key names)
 
-> TODO:
+#### Tokens meaning on keys
+
+```yaml
+# Quick example 1
+- hsilo:           # hsilo is an verb, without additional tokens
+    linguam: LAT   # linguam is also an verb, LAT is an value
+
+```
+
+- **HDP internationalized vocab**: No token
+  - Description:
+    - No token means an word that is perfectly valid HDP vocab that should be
+      able to be translated to EVERY know natural language enabled by
+      as it is.
+  - Examples:
+    - `hsilo`<sup>LAT</sup>, `silo` <sup>ENG/SPA/LAT/POR</sup>
+    - `linguam`<sup>LAT</sup>, `language` <sup>ENG</sup>, `язык` <sup>RUS</sup>
+- **HDP internationalized vocab with metadata**: `[` <sup>prefix</sup>,
+  `[[` <sup>prefix</sup> , `]` <sup>suffix</sup>, `]]` <sup>suffix</sup>
+  - Description:
+    - TODO
+  - Examples:
+    - TODO
+  - Notes:
+    - Reserved undocumented token.
+- **Digitaly signed vocab**: `{` <sup>prefix</sup>, `{{` <sup>prefix</sup> ,
+  `}` <sup>suffix</sup>, `}}` <sup>suffix</sup>
+  - Description:
+    - Token to explicitly mention that the content of this key are digitally
+      signed
+    - Removing the [`{`, `{{`, `}}`, `}`], the resulting term must be
+      perfectly valid HDP vocab that should be able to be translated to EVERY
+      know natural language enabled by as it is.
+  - Notes:
+    - For sake of simplicity, if an upper key already is digitally signed,
+      interfaces do not need to show these tokens **if all contents**, with
+      exception of [`<`, `<<`, `>>`, `>>`], are signed.
+    - When tokes [`(`, `((`, `)`, `))`] are present, the explicit use of this
+      token us not yet defined, since this meas that an outisde program
+      also need to be evaluated.
+      - Maybe this with [`(!(` term-here `))`] this notation could be good
+        enough?
+- **Eval**: `(` <sup>prefix</sup>, `((` <sup>prefix</sup> , `)` <sup>suffix</sup>,
+  `))` <sup>suffix</sup>
+  - Examples:
+    - `{{hsilo}}`
+  - Notes:
+    - Reserved undocumented token.
+- **Comment:** `<` <sup>prefix</sup>, `<<` <sup>prefix</sup> ,
+  `>` <sup>suffix</sup>, `>>` <sup>suffix</sup>
+  - Description:
+    - This key can be used as comment
+    - Do not evaluate. Can be safely ignored contents. Do not try to guess
+      the core mesage
+  - Examples:
+     - `<<COMMENT>>`, `<ENG<COMMENT>>`, `<POR<COMENTARIO>>`
+
+<!--
+      - [`(`, `((`, `)`, `))`] are not recommended for generic comments
+-->

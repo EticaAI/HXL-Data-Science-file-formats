@@ -743,7 +743,7 @@ attr:
       id: 'idioma'
     LAT:
       # https://la.wikipedia.org/wiki/Lingua
-      id: 'lingua'
+      id: 'linguam'
     POR:
       # https://pt.wikipedia.org/wiki/idioma
       id: 'idioma'
@@ -756,7 +756,7 @@ attr:
       # https://zh.wikipedia.org/wiki/%E8%AA%9E%E8%A8%80
       id: '语言'
     QDP:
-      id: 'lingua'
+      id: 'linguam'
 
   locum:
     # attr.locum an generic reference to place
