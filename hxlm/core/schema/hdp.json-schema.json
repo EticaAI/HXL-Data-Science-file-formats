@@ -41,8 +41,9 @@
   "$defs": {
     "attr": {
       "adm0": {
+        "$comment": "TODO make attr.adm0 more strict than string & array",
         "$anchor": "attr_adm0",
-        "type": "string"
+        "type": ["string", "array"]
       },
       "datum": {
         "$anchor": "attr_datum",
@@ -207,11 +208,30 @@
         "description": "hsilo (plus at least extra rule) are required to validate the file",
         "type": "object",
         "minProperties": 1,
+        "additionalProperties": false,
         "properties": {
+          "adm0": {
+            "$ref": "#/$defs/attr/adm0"
+          },
           "nomen": {
             "$ref": "#/$defs/attr/nomen"
           },
           "linguam": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]ENG]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]FRA]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]LAT]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]POR]": {
             "$ref": "#/$defs/attr/linguam"
           },
           "descriptionem": {
