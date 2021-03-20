@@ -1,0 +1,72 @@
+# hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml
+# hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml --fontem-linguam=RUS
+# hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml --fontem-linguam=RUS --objectivum-linguam POR
+# hdpcli tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml --objectivum-linguam POR
+# hdpcli --export-to-hxl-json-processing-specs tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml
+# hdpcli --export-to-hxl-json-processing-specs tests/hrecipe/salve-mundi.hrecipe.rus.hdp.yml | jq '.[1]' | hxlspec
+---
+- силосная:
+    группа:
+      - salve-mundi
+    описание:
+      ENG: Hello World!
+      POR: Olá Mundo!
+    страна:
+      - AO
+      - BR
+      - CV
+      - GQ
+      - GW
+      - MO
+      - MZ
+      - PT
+      - ST
+      - TL
+    тег:
+      - CPLP
+    # Note: this code part is just an test to tolerate { } ( ) [ ] characters
+    #       (Emerson Rocha, 2021-03-20 19:31 UTC)
+    '{{([[язык]LAT])}}': RUS
+    '<<{{([[язык]LAT])}}>>': "This is an comment; ignore-it"
+  трансформация-данных:
+    - _recipe:
+        - aggregators:
+            - sum(population) as Population#population
+          filter: count
+          patterns: adm1+name,adm1+code
+        - filter: clean_data
+          number: population
+          number_format: .0f
+      идентификатор: example-processing-with-a-JSON-spec
+      пример:
+        - источник:
+            _sheet_index: 1
+            iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+        - источник:
+            данные:
+              - - header 1
+                - header 2
+                - header 3
+              - - '#item +id'
+                - '#item +name'
+                - '#item +value'
+              - - ACME1
+                - ACME Inc.
+                - '123'
+              - - XPTO1
+                - XPTO org
+                - '456'
+          цель:
+            данные:
+              - - header 1
+                - header 2
+                - header 3
+              - - '#item +id'
+                - '#item +name'
+                - '#item +value'
+              - - ACME1
+                - ACME Inc.
+                - '123'
+              - - XPTO1
+                - XPTO org
+                - '456'
