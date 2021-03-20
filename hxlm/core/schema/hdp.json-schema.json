@@ -1,7 +1,7 @@
 {
   "$id": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json",
   "$schema": "https://json-schema.org/draft-07/schema",
-  "description": "JSON Schema for HXL-v1.1+metapackage-v0.8.1",
+  "description": "JSON Schema for HDP Declarative Programming v0.8.2",
   "$comment": "This site can be used to validate this schema https://jsonschemalint.com/#!/version/draft-07/markup/json",
   "required": [
     "hsilo"
@@ -16,7 +16,7 @@
   ],
   "type": "array",
   "items": {
-    "title": "HDP Declarative programming v0.8.1",
+    "title": "HDP Declarative programming v0.8.2",
     "type": "object",
     "properties": {
       "_import": {
