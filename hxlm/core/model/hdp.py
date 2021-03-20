@@ -26,6 +26,8 @@ from pathlib import Path
 import json
 import yaml
 
+import hxlm.core.localization as l10n
+
 from hxlm.core.schema.vocab import (
     # HXLM_CORE_SCHEMA_CORE_VOCAB,
     ItemHVocab,
@@ -270,8 +272,8 @@ class HDP:
         filtered = self._hdp
 
         if self._debug:
-            print('HDP._get_filtered hdp_filters',
-                  hdp_filters, objectivum_linguam)
+            print('HDP._get_filtered started')
+            print('  hdp_filters', hdp_filters, objectivum_linguam)
 
         if 'verum_urn' in hdp_filters:
             filtered = self._get_filtered_urn(
@@ -291,6 +293,15 @@ class HDP:
         if objectivum_linguam:
             filtered = self._get_translated(
                 filtered, objectivum_linguam=objectivum_linguam)
+        else:
+            objectivum_linguam = l10n.get_language_preferred()
+
+            if self._debug:
+                print(' implicit get_language_preferred', objectivum_linguam)
+
+            if objectivum_linguam['lang']:
+                filtered = self._get_translated(
+                    filtered, objectivum_linguam=objectivum_linguam['lang'])
 
         return filtered
 
