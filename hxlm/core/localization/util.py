@@ -27,8 +27,10 @@ import os
 
 import yaml
 
-__all__ = ['debug_localization', 'get_language_preferred',
+__all__ = ['debug_localization',
            'get_ISO_369_3_from_string',
+           'get_language_preferred',
+           'get_language_user_know',
            'get_localization_knowledge_graph']
 
 
@@ -40,6 +42,19 @@ HXLM_CORE_LOCALIZATION_CORE_LOC = \
 """localization/core_loc.yml is the default reference of knowledge base
 for localization
 """
+
+
+@lru_cache(maxsize=1)
+def _get_langs_strict_default():
+    """List of keys from the 'HDP localization knowledge graph'
+
+    Returns:
+        [list]: the default keys with core HDP.
+    """
+    hdp_lkg = get_localization_knowledge_graph(HXLM_CORE_LOCALIZATION_CORE_LOC)
+    if hdp_lkg and 'linguam23' in hdp_lkg:
+        return list(hdp_lkg['linguam23'].values())
+    return []
 
 
 def debug_localization() -> dict:
@@ -134,8 +149,63 @@ def debug_localization() -> dict:
 
 def get_ISO_369_3_from_string(term: str,
                               default: str = None,
+                              strict: bool = False,
                               hdp_lkg: dict = None) -> str:
-    return term
+    """Convert an individual item to a ISO 369-3 language code, UPPERCASE
+
+    Args:
+        term (str): The input term to search
+        default (str, optional): Default no match found. Defaults to None.
+        strict (bool, optional): If require exact match on hdp_lkg.
+        hdp_lkg (dict, optional): HDP localization knowledge graph dictionary.
+                    Default to use internal HDP localization knowledge graph.
+
+    Returns:
+        str: An ISO 369-3 language code, UPPERCASE
+
+    Examples:
+        >>> import hxlm.core.localization as l10n
+        >>> l10n.get_ISO_369_3_from_string(term='pt')
+        'POR'
+        >>> l10n.get_ISO_369_3_from_string(term='en')
+        'ENG'
+        >>> l10n.get_ISO_369_3_from_string(term='ZZZ', strict=False)
+        'ZZZ'
+        >>> l10n.get_ISO_369_3_from_string(term='pt_BR')
+        >>> # inputs like 'pt_BR' still not implemented... yet
+        >>> # But when using system languages, like 'pt_BR:pt:en',
+        >>> # often the next term would be PT anyway
+    """
+
+    if _IS_DEBUG:
+        print('get_ISO_369_3_from_string')
+        print('  term', term)
+        print('  term.upper', term.upper())
+        print('  default', default)
+        print('  strict', strict)
+        # print('  hdp_lkg', hdp_lkg)
+
+    result = default
+    if hdp_lkg is None:
+        hdp_lkg = get_localization_knowledge_graph()
+
+    # Since the HDP localization knowledge may not contain the full ISO 639-3
+    # language codes, without strict = True, if the input already is 3 letter
+    # uppercase ASCII letters, we will fallback to this
+    if not strict and (len(term) == 3 and term.isalpha() and term.isupper()):
+        result = term
+
+    if hdp_lkg is None or 'linguam23' not in hdp_lkg:
+        return result
+
+    if term.upper() in hdp_lkg['linguam23']:
+        return hdp_lkg['linguam23'][term.upper()]
+
+    if len(term) >= 5 and len(term) >= 12:
+        if _IS_DEBUG:
+            print('  TODO: implement some type of search by language name')
+
+    return result
 
 
 # import hxlm.core.localization as l10n
@@ -149,7 +219,14 @@ def get_language_preferred(
         langs_strict: list = None,
         langs_extra: list = None,
         hdp_lkg: dict = None) -> str:
-    """[summary]
+    """Get user preferred language to see an resource
+
+    - langs_original, if defined, will take priority over langs_strict (the
+      ones HDP would be able to convert on the fly)
+      - In other words, except if user force traslate, it will always try
+        to use at least some language know by the user.
+    - hint_preferred, if defined, will be used over try to guess the language
+      user wants (read environment variables)
 
     See https://superuser.com/questions/392439
         /lang-and-language-environment-variable-in-debian-based-systems
@@ -165,6 +242,8 @@ def get_language_preferred(
         langs_strict (list, optional): List of strict, equally valid,
                     conversions that can be done for this resource. Default
                     to use internal HDP localization knowledge graph.
+                    PROTIP: set this as false or as empty list to avoid
+                    loading the _get_langs_strict_default()
         langs_extra (list, optional): if do exist some way that, while not as
                     perfect as langs_strict, still be able to do automated
                     conversion, use the langs_extra. Defaults to not be used.
@@ -172,7 +251,17 @@ def get_language_preferred(
                     Default to use internal HDP localization knowledge graph.
 
     Returns:
-        str: [description]
+        dict: an object with one exact language and the type of how it was
+              discovered
+
+    Examples:
+        >>> import hxlm.core.localization as l10n
+        >>> l10n.get_language_preferred('pt_BR:pt:en')
+        {'lang': 'POR', 'type': 'strict'}
+        >>> l10n.get_language_preferred('pt_BR:pt:en', langs_original=['ARA'])
+        {'lang': 'POR', 'type': 'strict'}
+        >>> l10n.get_language_preferred('pt_BR:pt:en', langs_original=['ENG'])
+        {'lang': 'ENG', 'type': 'original'}
     """
 
     result = {
@@ -182,39 +271,70 @@ def get_language_preferred(
 
     # if linguam23 is None:
 
-    if hint_preferred is None:
-        # We will default to... Latin
-        hint_preferred = os.getenv('LANGUAGE', 'la')
-
     if hdp_lkg is None:
         hdp_lkg = get_localization_knowledge_graph()
 
-    if not isinstance(hint_preferred, list):
-        hint_preferred = hint_preferred.split(':')
+    user_languages = get_language_user_know(hint_preferred, hdp_lkg=hdp_lkg)
 
     if _IS_DEBUG:
         print('get_language_preferred')
         print('  hint_preferred', hint_preferred)
+        print('  user_languages', user_languages)
         print('  langs_original', langs_original)
         print('  langs_strict', langs_strict)
         print('  langs_extra', langs_extra)
-    for lang_ in hint_preferred:
-        lnorm = get_ISO_369_3_from_string(lang_, hdp_lkg=hdp_lkg)
+
+    if langs_strict is None:
+        langs_strict = _get_langs_strict_default()
+
+    # print('langs_strict', langs_strict)
+
+    for lang_ in user_languages:
         if langs_original is not None:
-            if lnorm in langs_original:
-                result['lang'] = lnorm
+            if lang_ in langs_original:
+                result['lang'] = lang_
                 result['type'] = 'original'
                 return result
+
+    for lang_ in user_languages:
         if langs_strict is not None:
-            if lnorm in langs_strict:
-                result['lang'] = lnorm
+            if lang_ in langs_strict:
+                result['lang'] = lang_
                 result['type'] = 'strict'
                 return result
+
+    for lang_ in user_languages:
         if langs_extra is not None:
-            if lnorm in langs_extra:
-                result['lang'] = lnorm
+            if lang_ in langs_extra:
+                result['lang'] = lang_
                 result['type'] = 'extra'
                 return result
+    return result
+
+
+def get_language_user_know(hint_preferred: str = None,
+                           hdp_lkg: dict = None) -> list:
+    """List of user know languages that we're may able to provide extra help
+
+    Args:
+        hint_preferred (str, optional): An string with language preferences.
+                    Defaults to search local user environment variable.
+        hdp_lkg (dict, optional): HDP localization knowledge graph dictionary.
+                    Default to use internal HDP localization knowledge graph.
+    Returns:
+        list: List of ISO 639-3 language codes. First one is preferred
+    """
+
+    if hint_preferred is None:
+        # We will default to... Latin! Often system already defaults to en
+        hint_preferred = os.getenv('LANGUAGE', 'la')
+
+    system_langs_list = hint_preferred.split(':')
+    result = []
+    for lang_ in system_langs_list:
+        parsed = get_ISO_369_3_from_string(lang_, hdp_lkg=hdp_lkg)
+        if parsed:
+            result.append(parsed)
     return result
 
 

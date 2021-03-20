@@ -1,5 +1,14 @@
 #!/bin/sh
 
+#### Automated tests __________________________________________________________
+
+## tox
+# @see https://tox.readthedocs.io/en/latest/
+tox
+
+## doctest
+# @see https://docs.python.org/3/library/doctest.html
+pytest -vv hxlm/ --doctest-modules
 
 #### Requisites ________________________________________________________________
 pip3 install libhxl
