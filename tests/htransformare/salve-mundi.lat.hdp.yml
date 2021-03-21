@@ -4,7 +4,6 @@
 # hdpcli tests/htransformare/salve-mundi.lat.hdp.yml --objectivum-linguam POR
 ---
 
-
 - ([Lingua Latina]):
     - Hic est temptare.
     - salve-mundi.lat.hdp.yml

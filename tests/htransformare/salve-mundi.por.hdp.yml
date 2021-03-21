@@ -1,0 +1,69 @@
+# hdpcli tests/htransformare/salve-mundi.por.hdp.yml --objectivum-linguam LAT
+
+---
+- ([Língua portuguesa]):
+    - ([Lingua Latina]):
+        - Hic est temptare.
+        - salve-mundi.lat.hdp.yml
+  silo:
+    descricao:
+      ENG: Hello World!
+      POR: Olá Mundo!
+    etiqueta:
+      - CPLP
+    grupo:
+      - salve-mundi
+    idioma: LAT
+    pais:
+      - AO
+      - BR
+      - CV
+      - GQ
+      - GW
+      - MO
+      - MZ
+      - PT
+      - ST
+      - TL
+  transformacao-de-dados:
+    - _recipe:
+        - aggregators:
+            - sum(population) as Population#population
+          filter: count
+          patterns: adm1+name,adm1+code
+        - filter: clean_data
+          number: population
+          number_format: .0f
+      exemplo:
+        - fonte:
+            _sheet_index: 1
+            iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+        - fonte:
+            dados:
+              - - header 1
+                - header 2
+                - header 3
+              - - "#item +id"
+                - "#item +name"
+                - "#item +value"
+              - - ACME1
+                - ACME Inc.
+                - "123"
+              - - XPTO1
+                - XPTO org
+                - "456"
+          objetivo:
+            dados:
+              - - header 1
+                - header 2
+                - header 3
+              - - "#item +id"
+                - "#item +name"
+                - "#item +value"
+              - - ACME1
+                - ACME Inc.
+                - "123"
+              - - XPTO1
+                - XPTO org
+                - "456"
+      identificador: example-processing-with-a-JSON-spec
