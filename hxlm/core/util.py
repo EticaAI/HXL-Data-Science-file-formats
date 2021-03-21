@@ -1,8 +1,14 @@
 """hxlm.core.utils provive quick utilitaries for common tasks
 """
-
+from functools import reduce
+from typing import (
+    Any
+)
 
 import hxl
+
+# from functools import lru_cache, reduce
+
 
 from hxlm.core.constant import (
     # HTYPE_TRUE
@@ -15,6 +21,8 @@ from hxlm.core.constant import (
 )
 from hxlm.core.internal.util import _get_submodules
 from hxlm.core.compliance import verbose_event
+
+__all__ = ['cmp_sensitive_level', 'debug', 'hxl_info']
 
 
 def cmp_sensitive_level(level, reference_level=None):
@@ -55,6 +63,52 @@ def debug():
     """Debug things"""
     verbose_event()
     _get_submodules()
+
+
+def get_value_by_key_exists(source: dict,
+                            dotted_key: str,
+                            default: Any = None) -> Any:
+    """Get value of an nesteb object by dotted notation key (if key exist)
+
+    Examples (draft):
+        >  >> from hxlm.core.schema.vocab import HVocabHelper
+        >  >> get_value_by_key('datum.POR.i')
+        >  >> HVocabHelper().get_value('attr.datum.POR.id')
+        'dados'
+
+    Args:
+        source (dict): An nestet object to search
+        dotted_key (str): Dotted key notation
+        default ([Any], optional): Value if not found. Defaults to None.
+
+    Returns:
+        [Any]: Return the result. Defaults to default
+    """
+    keys = dotted_key.split('.')
+    return reduce(
+        lambda d, key: d.get(
+            key) if d else default, keys, source
+    )
+
+
+def get_object_by_value_eq_on_key(source: dict,
+                                  dotted_key: str,
+                                  default: Any = None) -> dict:
+    # TODO: implement
+
+    # On this case, the key should contain an simple string or int
+
+    return 'TODO'
+
+
+def get_object_by_value_in_key(source: dict,
+                               dotted_key: str,
+                               default: Any = None) -> dict:
+    # TODO: implement
+
+    # On this case, the key should contain an list
+
+    return 'TODO'
 
 
 def hxl_info(data):

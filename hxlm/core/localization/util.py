@@ -25,13 +25,18 @@ from functools import lru_cache
 import locale
 import os
 
+# from typing import (
+#     Any
+# )
+
 import yaml
 
 __all__ = ['debug_localization',
            'get_ISO_369_3_from_string',
            'get_language_preferred',
            'get_language_user_know',
-           'get_localization_knowledge_graph']
+           'get_localization_knowledge_graph',
+           'get_localization_lids']
 
 
 # os.environ["HDP_DEBUG"] = "1"
@@ -355,6 +360,47 @@ def get_localization_knowledge_graph(
     with open(path, 'r') as openfile:
         data = yaml.safe_load(openfile)
         return data
+
+# @lru_cache(maxsize=1)
+
+
+def get_localization_lids() -> dict:
+    hdp_lkg = get_localization_knowledge_graph()
+
+    if _IS_DEBUG:
+        print('get_localization_lids')
+        print('  hdp_lkg', hdp_lkg)
+
+    return hdp_lkg['lid']
+
+
+# def search_by_value(search: dict, dotted_key: str,
+#                     default: Any = None) -> Any:
+#     """Get value by dot notation key
+
+#     Examples:
+#         >>> from hxlm.core.schema.vocab import HVocabHelper
+#         >>> HVocabHelper().get_value('datum.POR.id')
+#         >>> HVocabHelper().get_value('attr.datum.POR.id')
+#         'dados'
+
+#     Args:
+#         search (dict): Dictionary to search
+#         dotted_key (str): Dotted key notation
+#         default ([Any], optional): Value if not found. Defaults to None.
+
+#     Returns:
+#         [Any]: Return the result. Defaults to default
+#     """
+#     keys = dotted_key.split('.')
+#     return reduce(
+#         lambda d, key: d.get(
+#             key) if d else default, keys, search
+#     )
+
+    # print(hdp_lkg)
+
+    # pass
 
     # @see https://code.visualstudio.com/docs/python/jupyter-support
     # @see https://ipython.org/ipython-doc/3/config/extensions/autoreload.html

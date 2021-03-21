@@ -14,16 +14,22 @@
 # Alphabetic order by iso3693
 lid:
 
+  # iso3693: https://iso639-3.sil.org/
+  # iso15924: https://en.wikipedia.org/wiki/ISO_15924
+
   # Arab macro language, START _________________________________________________
 
     # https://en.wikipedia.org/wiki/Modern_Standard_Arabic
     # https://www.wikidata.org/wiki/Q56467
     # https://en.wikipedia.org/wiki/Arabic_script
-    # https://en.wikipedia.org/wiki/Naskh_(script) ??
+    # https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
   'اللغة العربية الفصحى الحديثة':
+    lid: ARA-Arab
+    klid: 'اللغة العربية الفصحى الحديثة'
+    klid_alts: []
     iso6391: AR
     iso3693: ARA
-    iso15924: Arab
+    iso15924: Arab  # https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
     macro: True
     q: Q56467
 
@@ -32,6 +38,9 @@ lid:
   # https://en.wikipedia.org/wiki/English_language
   # https://www.wikidata.org/wiki/Q1860
   English language:
+    lid: ENG-Latn
+    klid: English language
+    klid_alts: ['English']
     iso6391: EN
     iso3693: ENG
     iso15924: Latn
@@ -42,6 +51,9 @@ lid:
   # https://fr.wikipedia.org/wiki/Fran%C3%A7ais
   # https://www.wikidata.org/wiki/Q150
   Langue française:
+    lid: FRA-Latn
+    klid: Langue française
+    klid_alts: ['Français']
     iso6391: FR
     iso3693: FRA
     iso15924: Latn
@@ -51,6 +63,9 @@ lid:
   # https://la.wikipedia.org/wiki/Lingua_Latina
   # https://www.wikidata.org/wiki/Q397
   Lingua Latina:
+    lid: LAT-Latn
+    klid: Lingua Latina
+    klid_alts: []
     iso6391: LA
     iso3693: LAT
     iso15924: Latn
@@ -60,6 +75,9 @@ lid:
   # https://pt.wikipedia.org/wiki/L%C3%ADngua_portuguesa
   # https://www.wikidata.org/wiki/Q5146
   Língua portuguesa:
+    lid: POR-Latn
+    klid: Língua portuguesa
+    klid_alts: ['Português']
     iso6391: PT
     iso3693: POR
     iso15924: Latn
@@ -71,6 +89,9 @@ lid:
   # https://www.wikidata.org/wiki/Q7737
   # https://en.wikipedia.org/wiki/Cyrillic_script
   Русский язык:
+    lid: RUS-Cyrl
+    klid: Русский язык
+    klid_alts: []
     iso6391: RU
     iso3693: RUS
     iso15924: Cyrl  # https://en.wikipedia.org/wiki/Cyrillic_script
@@ -79,7 +100,10 @@ lid:
 
   # https://es.wikipedia.org/wiki/Idioma_espa%C3%B1ol
   # https://www.wikidata.org/wiki/Q1321
-  Español:
+  Idioma español:
+    lid: SPA-Latn
+    klid: Idioma español
+    klid_alts: ['Español']
     iso6391: ES
     iso3693: SPA
     iso15924: Latn
@@ -104,6 +128,9 @@ lid:
   # https://en.wikipedia.org/wiki/Traditional_Chinese_characters
   # https://en.wikipedia.org/wiki/Chinese_language
   '汉语': # (simplified Chinese: 汉语)
+    lid: ZHO-Hans
+    klid: '汉语'
+    klid_alts: []
     iso6391: ZH     #
     iso3693: ZHO    # cmn is more specific
     iso15924: Hans  # https://en.wikipedia.org/wiki/ISO_15924
@@ -139,6 +166,8 @@ lid:
   # Chinese macro language, END ______________________________________________
 
   # newlanguage:
+  #   id: 'newlanguage'
+  #   id_alts: []
   #   iso6391: ZZZ    #
   #   iso3693: ZZZ    # https://iso639-3.sil.org/
   #   iso15924: Latn  # https://en.wikipedia.org/wiki/ISO_15924
