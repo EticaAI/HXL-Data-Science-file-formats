@@ -6,6 +6,7 @@
 import os
 
 HXLM_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+HXLM_TESTS_ROOT = os.path.dirname(HXLM_ROOT) + '/tests'
 
 # ### True, False, Missing, Unknow, Encrypted, START _________________________
 # Even without controlled vocabularies (like +v_un_bool with 6 official UN

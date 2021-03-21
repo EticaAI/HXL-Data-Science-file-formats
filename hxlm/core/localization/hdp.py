@@ -18,7 +18,7 @@ from hxlm.core.localization.util import (
 # TODO: move vocabulary conversions from hxlm.core.schema.vocab to here
 #       (Emerson Rocha, 2021-03-20 03:01 UTC)
 
-__all__ = ['get_hdp_term_cleaned']
+__all__ = ['get_hdp_term_cleaned', 'get_language_from_hdp_raw']
 
 # os.environ["HDP_DEBUG"] = "1"
 _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
@@ -57,7 +57,7 @@ def get_lid_from_keyterm(keyterm: str) -> dict:
         keyterm (str): keyterm to search
 
     Returns:
-        dict: An HDP Location ID object
+        dict: An HDP LKG dict
 
     Examples:
         >>> import hxlm.core.localization.hdp as hdploc
@@ -110,20 +110,36 @@ def get_lid_from_keyterm(keyterm: str) -> dict:
     return None
 
 
-def get_hdp_raw_object_language(hdp_robj: dict) -> dict:
+def get_language_from_hdp_raw(hdp_robj: dict) -> dict:
     """For an RAW HDP individual object, return the natural language
 
     This will search for tokens like '([Lingua Latina])', ([Русский язык]),
     '(['اللغة العربية الفصحى الحديثة'])', etc and return the language.
 
     Args:
-        hdp_robj (dict): [description]
+        hdp_robj (dict): An raw HDP file (as if loaded direct from disk)
 
     Returns:
-        dict: [description]
+        dict: An HDP LKG dict
+
+    Examples
+    >>> from hxlm.core.constant import HXLM_TESTS_ROOT
+    >>> from hxlm.core.util import load_file
+    >>> from hxlm.core.localization.hdp import get_language_from_hdp_raw
+    >>> file_path1 = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.lat.hdp.yml'
+    >>> hsilo_example1 = load_file(file_path1)
+    >>> result1 = get_language_from_hdp_raw(hsilo_example1[0])
+    >>> result1['lid']
+    'LAT-Latn'
+    >>> file_path2 = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.por.hdp.yml'
+    >>> hsilo_example2 = load_file(file_path2)
+    >>> result2 = get_language_from_hdp_raw(hsilo_example2[0])
+    >>> result2['lid']
+    'POR-Latn'
     """
-    # TODO: draft get_hdp_silo_language
-    result = {
-        'todo': hdp_robj
-    }
-    return result
+
+    for key in hdp_robj.keys():
+        lang_ = get_lid_from_keyterm(key)
+        if lang_ is not None:
+            return lang_
+    return None

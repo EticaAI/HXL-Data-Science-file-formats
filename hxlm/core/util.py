@@ -1,14 +1,17 @@
 """hxlm.core.util provive quick utilitaries for common tasks
 """
-from functools import reduce
+from functools import reduce, lru_cache
 from typing import (
-    Any
+    Any,
+    Union
 )
 
+import json
+import csv
+import yaml
+
+
 import hxl
-
-# from functools import lru_cache, reduce
-
 
 from hxlm.core.constant import (
     # HTYPE_TRUE
@@ -240,3 +243,37 @@ def is_legally_right():
         HType: True, False, ?
     """
     return HTYPE_UNKNOW
+
+
+@lru_cache(maxsize=128)
+def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
+    """Generic simple file loader (YAML, JSON, CSV) with cache.
+
+    Args:
+        file_path (str): Path or bytes for the file
+        delimiter (str): Delimiter. Only applicable if is an CSV/TSV like item
+
+    Returns:
+        Union[dict, list]: The loaded file result
+
+    >>> from hxlm.core.constant import HXLM_TESTS_ROOT
+    >>> from hxlm.core.util import load_file
+    >>> file_path = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.lat.hdp.yml'
+    >>> hsilo_example = load_file(file_path)
+    >>> hsilo_example[0]['hsilo']['tag']
+    ['CPLP']
+    """
+
+    with open(file_path, 'r') as stream:
+        if file_path.endswith('.json'):
+            return json.load(stream)
+        if file_path.endswith('.yml'):
+            return yaml.safe_load(stream)
+        if file_path.endswith('.csv'):
+            reader = csv.reader(stream, delimiter=delimiter)
+            result = []
+            for row in reader:
+                result.append(row)
+            return result
+
+    raise SystemError('Unknow input [' + str(file_path) + ']')
