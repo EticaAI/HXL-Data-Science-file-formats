@@ -194,8 +194,10 @@ class HDP:
         suffix = ''
         if container_item_index > 0:
             suffix = '-' + str(container_item_index)
-        return ('urn:hdp:OO:HS:' + domain_base + ':' +
-                container_base + suffix)
+        # return ('urn:hdp:OO:HS:' + domain_base + ':' +
+        #         container_base + suffix)
+        return ('[[urn:hdp:OO:HS:' + domain_base + ':' +
+                container_base + suffix + ']]')
 
     def _update(self, hdp_rules: Union[List, dict],
                 domain_base: str,

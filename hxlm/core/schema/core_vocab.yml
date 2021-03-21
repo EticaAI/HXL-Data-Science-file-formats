@@ -81,6 +81,34 @@
 # https://json-schema.org/understanding-json-schema/structuring.html#structuring
 #        (Emerson Rocha, 2021-03-17 19:31 UTC)
 
+# see also
+# - https://omniglot.com/language/names.htm
+
+lid:
+    # https://en.wikipedia.org/wiki/Modern_Standard_Arabic
+    # https://en.wikipedia.org/wiki/Arabic_script
+    # https://en.wikipedia.org/wiki/Naskh_(script) ??
+  'اللغة العربية الفصحى الحديثة':
+    iso3693: ARA
+    iso15924: Arab
+    macro: True
+
+  # https://en.wikipedia.org/wiki/English_language
+  English:
+    macro: False
+    iso3693: ENG
+    iso15924: Latn
+
+  # https://la.wikipedia.org/wiki/Lingua_Latina
+  Lingua Latina:
+    macro: False
+    iso3693: LAT
+    iso15924: Latn
+
+  # newlanguage:
+  #   iso3693: ZZZ    # https://iso639-3.sil.org/
+  #   iso15924: Latn  # https://en.wikipedia.org/wiki/ISO_15924
+
 root:
   # "In general, compliance means conforming to a rule, such as a
   #  specification, policy, standard or law. " -- Wikipedia

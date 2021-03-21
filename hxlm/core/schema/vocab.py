@@ -66,6 +66,9 @@ import yaml
 from hxlm.core.exception import (
     HXLmException
 )
+from hxlm.core.localization.hdp import (
+    get_hdp_term_cleaned
+)
 
 HXLM_CORE_SCHEMA_CORE_VOCAB = os.path.dirname(os.path.realpath(__file__)) + \
     '/core_vocab.yml'
@@ -334,9 +337,14 @@ class HVocabHelper:
 
         # If there is an HDP wrapper, around a single element, parse it
         # If there is an wrapper around more than one, let it fail
-        if (len(hsilo.keys()) == 1 and
-                str(list(hsilo.keys())[0]).lower().startswith('urn:')):
-            hsilo = hsilo[list(hsilo.keys())[0]]
+        # if (len(hsilo.keys()) == 1 and
+        #         str(list(hsilo.keys())[0]).lower().startswith('urn:')):
+        #     hsilo = hsilo[list(hsilo.keys())[0]]
+        if len(hsilo.keys()) == 1:
+            key1 = str(list(hsilo.keys())[0]).lower()
+            key1norm = get_hdp_term_cleaned(key1)
+            if key1norm.startswith('urn:'):
+                hsilo = hsilo[list(hsilo.keys())[0]]
 
         search_root = self.get_languages_of_words(
             wordlist=list(hsilo.keys()),

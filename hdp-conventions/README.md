@@ -70,8 +70,11 @@
       able to be translated to EVERY know natural language enabled by
       as it is.
   - Examples:
-    - `hsilo`<sup>LAT</sup>, `silo` <sup>ENG/SPA/LAT/POR</sup>
-    - `linguam`<sup>LAT</sup>, `language` <sup>ENG</sup>, `язык` <sup>RUS</sup>
+    - `hsilo`<sub><em>linguam: LAT</em></sub>
+      - `silo`<sub><em>linguam: ENG|SPA|LAT|POR</em></sub>
+    - `linguam`<sub><em>linguam: LAT</em></sub>
+      - `language` <sub><em>linguam: ENG</em></sub>
+      - `язык`<sub><em>linguam: RUS</em></sub>
 - **HDP internationalized vocab with metadata**: `[` <sup>prefix</sup>,
   `[[` <sup>prefix</sup> , `]` <sup>suffix</sup>, `]]` <sup>suffix</sup>
   - Description:
@@ -80,8 +83,8 @@
     - TODO
   - Notes:
     - Reserved undocumented token.
-- **Digitaly signed vocab**: `{` <sup>prefix</sup>, `{{` <sup>prefix</sup> ,
-  `}` <sup>suffix</sup>, `}}` <sup>suffix</sup>
+- **HDP vocab with digitaly signed values**: `{` <sup>prefix</sup>,
+  `{{` <sup>prefix</sup> , `}` <sup>suffix</sup>, `}}` <sup>suffix</sup>
   - Description:
     - Token to explicitly mention that the content of this key are digitally
       signed
@@ -97,10 +100,17 @@
       also need to be evaluated.
       - Maybe this with [`(!(` term-here `))`] this notation could be good
         enough?
+  - Examples:
+    - `{{datum}}`<sub><em>linguam: LAT</em></sub> <sup>contents digitally
+      signed and recently verified</sup>
+    - `{?{datum}?}`<sub><em>linguam: LAT</em></sub> <sup>contents digitally
+      signed, but not verified yet or this computer can't do automated
+      verification</sup>
+    - `{!!!{datum}!!!}`<sub><em>linguam: LAT</em></sub> <sup>contents
+      digitally signed, but with 1) error, 2) explicitly untrusted or 3) this
+      environment do not tolerate `{?{datum}?}`</sup>
 - **Eval**: `(` <sup>prefix</sup>, `((` <sup>prefix</sup> , `)` <sup>suffix</sup>,
   `))` <sup>suffix</sup>
-  - Examples:
-    - `{{hsilo}}`
   - Notes:
     - Reserved undocumented token.
 - **Comment:** `<` <sup>prefix</sup>, `<<` <sup>prefix</sup> ,
