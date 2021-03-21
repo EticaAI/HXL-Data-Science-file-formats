@@ -1,4 +1,4 @@
-"""hxlm.core.utils provive quick utilitaries for common tasks
+"""hxlm.core.util provive quick utilitaries for common tasks
 """
 from functools import reduce
 from typing import (
@@ -22,7 +22,8 @@ from hxlm.core.constant import (
 from hxlm.core.internal.util import _get_submodules
 from hxlm.core.compliance import verbose_event
 
-__all__ = ['cmp_sensitive_level', 'debug', 'hxl_info']
+__all__ = ['cmp_sensitive_level', 'debug', 'get_value_if_key_exists',
+           'hxl_info']
 
 
 def cmp_sensitive_level(level, reference_level=None):
@@ -65,19 +66,20 @@ def debug():
     _get_submodules()
 
 
-def get_value_by_key_exists(source: dict,
+def get_value_if_key_exists(source: dict,
                             dotted_key: str,
                             default: Any = None) -> Any:
     """Get value of an nesteb object by dotted notation key (if key exist)
 
-    Examples (draft):
-        >  >> from hxlm.core.schema.vocab import HVocabHelper
-        >  >> get_value_by_key('datum.POR.i')
-        >  >> HVocabHelper().get_value('attr.datum.POR.id')
-        'dados'
+    Examples:
+        >>> import hxlm.core.util as Cutil
+        >>> import hxlm.core.localization.util as Lutil
+        >>> hdp_lkg = Lutil.get_localization_knowledge_graph()
+        >>> Cutil.get_value_if_key_exists(hdp_lkg, 'linguam23.AR')
+        'ARA'
 
     Args:
-        source (dict): An nestet object to search
+        source (dict): An nested object to search
         dotted_key (str): Dotted key notation
         default ([Any], optional): Value if not found. Defaults to None.
 
@@ -91,24 +93,74 @@ def get_value_by_key_exists(source: dict,
     )
 
 
-def get_object_by_value_eq_on_key(source: dict,
-                                  dotted_key: str,
-                                  default: Any = None) -> dict:
-    # TODO: implement
+def get_object_if_value_eq_on_key(source: list,
+                                  key: str,
+                                  value: Any) -> dict:
+    """For a list of objects, return an dict that match an key value
 
-    # On this case, the key should contain an simple string or int
+    Args:
+        source (list): a list of objects to search
+        key (str): the key to compare an exact value
+        value (Any): The value to be compared
 
-    return 'TODO'
+    Returns:
+        dict: Return the entire dictionary if an key match
+
+    Examples:
+
+    >>> import hxlm.core.util as Cutil
+    >>> import hxlm.core.localization.util as Lutil
+    >>> hdp_lkg = Lutil.get_localization_knowledge_graph()
+    >>> v = Cutil.get_object_if_value_eq_on_key(hdp_lkg['lid'], 'q', 'Q397')
+    >>> print(v['iso6391'])
+    LA
+    >>> print(v['iso3693'])
+    LAT
+    >>> print(v['macro'])
+    False
+    """
+
+    for item in source:
+        if source[item][key] == value:
+            return source[item]
+
+    return None
 
 
 def get_object_by_value_in_key(source: dict,
-                               dotted_key: str,
-                               default: Any = None) -> dict:
-    # TODO: implement
+                               key: str,
+                               value: Any) -> dict:
+    """For a list of objects, return an dict that the key have the value on it
 
-    # On this case, the key should contain an list
+    Args:
+        source (list): a list of objects to search
+        key (str): the key to compare an exact value
+        value (Any): The value that need to be inside of an list
 
-    return 'TODO'
+    Returns:
+        dict: Return the entire dictionary if an value is found on key
+
+    Examples:
+
+    >>> import hxlm.core.util as Cutil
+    >>> import hxlm.core.localization.util as Lutil
+    >>> hdp_lkg = Lutil.get_localization_knowledge_graph()
+    >>> v = Cutil.get_object_by_value_in_key(hdp_lkg['lid'], \
+                                             'klid_alts', 'English')
+    >>> print(v['klid_alts'])
+    ['English']
+    >>> print(v['klid'])
+    English language
+    >>> print(v['iso3693'])
+    ENG
+    """
+
+    for item in source:
+        if source[item][key] is not None and \
+                value in source[item][key]:
+            return source[item]
+
+    return None
 
 
 def hxl_info(data):

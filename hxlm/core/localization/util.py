@@ -361,10 +361,16 @@ def get_localization_knowledge_graph(
         data = yaml.safe_load(openfile)
         return data
 
-# @lru_cache(maxsize=1)
 
-
+@lru_cache(maxsize=1)
 def get_localization_lids() -> dict:
+    """Get localization/core_vocab.yml contents
+
+    TODO: allow, like core_vocab.yml, be extensible
+
+    Returns:
+        dict: localization/core_vocab.yml contents
+    """
     hdp_lkg = get_localization_knowledge_graph()
 
     if _IS_DEBUG:
