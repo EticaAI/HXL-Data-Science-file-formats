@@ -29,6 +29,7 @@ import yaml
 import hxlm.core.localization as l10n
 
 from hxlm.core.schema.vocab import (
+    VOCAB_RECURSION_LEAF,
     # HXLM_CORE_SCHEMA_CORE_VOCAB,
     ItemHVocab,
     HVocabHelper
@@ -98,14 +99,15 @@ class HDP:
         # '.urn.yml' # See urnresolver
     )
 
-    HDP_RECURSION_LEAF: Tuple = (
-        'hsilo.adm0',
-        'hsilo.grupum',
-        # 'hsilo.tag',
-        '.tag',
-        # 'htransformare.exemplum.fontem.datum',
-        'fontem.datum',
-    )
+    HDP_RECURSION_LEAF = VOCAB_RECURSION_LEAF
+    # HDP_RECURSION_LEAF: Tuple = (
+    #     'hsilo.adm0',
+    #     'hsilo.grupum',
+    #     # 'hsilo.tag',
+    #     '.tag',
+    #     # 'htransformare.exemplum.fontem.datum',
+    #     'fontem.datum',
+    # )
     """Tuple to give a hint that even if do undestand the key term, please
     do not try to translate even the data themselves.
 
@@ -147,7 +149,7 @@ class HDP:
         self._fontem_linguam = fontem_linguam
         self._online_unrestricted_init = online_unrestricted_init
         self._vocab = ItemHVocab().to_dict()
-        self._vocab = ItemHVocab().to_dict()
+        # self._vocab = ItemHVocab().to_dict()
 
         self._VHelper = HVocabHelper(self._vocab, debug=debug)
 

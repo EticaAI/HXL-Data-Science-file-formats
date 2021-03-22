@@ -44,7 +44,8 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
-__all__ = ['ConversorHSchema', 'ItemHVocab', 'HVocabHelper']
+__all__ = ['ConversorHSchema', 'ItemHVocab', 'HVocabHelper',
+           'VOCAB_RECURSION_LEAF']
 
 import os
 from dataclasses import dataclass
@@ -73,6 +74,15 @@ from hxlm.core.localization.hdp import (
 HXLM_CORE_SCHEMA_CORE_VOCAB = os.path.dirname(os.path.realpath(__file__)) + \
     '/core_vocab.yml'
 """schema/core_vocab.yml is the reference vocabulary to internal commands"""
+
+VOCAB_RECURSION_LEAF = (
+    'hsilo.adm0',
+    'hsilo.grupum',
+    # 'hsilo.tag',
+    '.tag',
+    # 'htransformare.exemplum.fontem.datum',
+    'fontem.datum',
+)
 
 
 class ConversorHSchema:
