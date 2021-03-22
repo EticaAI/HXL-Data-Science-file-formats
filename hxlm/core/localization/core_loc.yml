@@ -32,6 +32,9 @@ lid:
     iso15924: Arab  # https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
     macro: True
     q: Q56467
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=arz
+      unicode_xml: https://unicode.org/udhr/d/udhr_arb.xml
 
   # Arab macro language, END ___________________________________________________
 
@@ -46,6 +49,9 @@ lid:
     iso15924: Latn
     macro: False
     q: Q1860
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=eng
+      unicode_xml: https://unicode.org/udhr/d/udhr_eng.xml
 
   # https://en.wikipedia.org/wiki/French_language
   # https://fr.wikipedia.org/wiki/Fran%C3%A7ais
@@ -59,6 +65,9 @@ lid:
     iso15924: Latn
     macro: False
     q: 'Q150'
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=frn
+      unicode_xml: https://unicode.org/udhr/d/udhr_fra.xml
 
   # https://la.wikipedia.org/wiki/Lingua_Latina
   # https://www.wikidata.org/wiki/Q397
@@ -71,6 +80,9 @@ lid:
     iso15924: Latn
     macro: False
     q: Q397
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=ltn
+      unicode_xml: https://unicode.org/udhr/d/udhr_lat.xml
 
   # https://pt.wikipedia.org/wiki/L%C3%ADngua_portuguesa
   # https://www.wikidata.org/wiki/Q5146
@@ -83,6 +95,9 @@ lid:
     iso15924: Latn
     macro: False
     q: Q5146
+    udur:
+      ohchr_html: https://unicode.org/udhr/d/udhr_por_PT.xml
+      unicode_xml: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=por
 
   # https://en.wikipedia.org/wiki/Russian_language
   # https://ru.wikipedia.org/wiki/%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9_%D1%8F%D0%B7%D1%8B%D0%BA
@@ -97,6 +112,9 @@ lid:
     iso15924: Cyrl  # https://en.wikipedia.org/wiki/Cyrillic_script
     macro: False
     q: Q7737
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=rus
+      unicode_xml: https://unicode.org/udhr/d/udhr_rus.xml
 
   # https://es.wikipedia.org/wiki/Idioma_espa%C3%B1ol
   # https://www.wikidata.org/wiki/Q1321
@@ -109,6 +127,9 @@ lid:
     iso15924: Latn
     macro: False
     q: Q1321
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=spn
+      unicode_xml: https://unicode.org/udhr/d/udhr_spa.xml
 
   # Chinese macro language, START ______________________________________________
 
@@ -136,6 +157,11 @@ lid:
     iso15924: Hans  # https://en.wikipedia.org/wiki/ISO_15924
     macro: True
     q: null      # TODO: find an wikidata code
+    udur:
+      # Chinese, Mandarin (Simplified), see
+      # https://unicode.org/udhr/translations.html
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=chn
+      unicode_xml: https://unicode.org/udhr/d/udhr_cmn_hans.xml
 
   # languages + writting system:
   #    - traditional Chinese: 漢語
