@@ -73,7 +73,7 @@ HDP_VKG_FULL: dict = {}
 
 
 def build_new_vocabulary_knowledge_graph(
-    base_vid: str,
+    base_vid: str = 'LAT',
     vkg_name: str = None,
     source_vkg: dict = HDP_VKG,
     keep_source_vkg: bool = True,
@@ -111,7 +111,34 @@ def build_new_vocabulary_knowledge_graph(
             print('build_new_vocabulary_knowledge_graph was cached', vkg_name)
         return full_vkgs
 
-    # TODO: do the thing
+    vkg_new = {
+        'root': {},
+        'attr': {}
+    }
+
+    # if keep_source_vkg, we copy them first; they can be replaced later
+    if keep_source_vkg:
+        for r_key in source_vkg['root']:
+            vkg_new['root'][r_key] = source_vkg['root'][r_key]
+        for a_key in source_vkg['attr']:
+            vkg_new['attr'][a_key] = source_vkg['attr'][a_key]
+
+    # First the id_alts
+    # TODO: implement id_alts
+
+    # Then the IDs
+    for r_key in source_vkg['root']:
+        r_key_new = source_vkg['root'][r_key][base_vid]['id']
+        vkg_new['root'][r_key_new] = source_vkg['root'][r_key]
+
+    for a_key in source_vkg['attr']:
+        a_key_new = source_vkg['attr'][a_key][base_vid]['id']
+        vkg_new['attr'][a_key_new] = source_vkg['attr'][a_key]
+
+    # for r_key in source_vkg['root']:
+    #     source_vkg['root'][r_key] =
+
+    full_vkgs[vkg_name] = vkg_new
     return full_vkgs
 
 
