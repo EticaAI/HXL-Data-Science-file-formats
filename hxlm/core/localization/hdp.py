@@ -67,6 +67,9 @@ VOCAB_RECURSION_LEAF = (
 HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/core/schema/core_vocab.yml')
 """Vocabulary knowledge graph, aka core_vocab.yml"""
 
+HDP_VKG_FROM: dict = None
+"""Dictionary with transposition from other languages back to Latin"""
+
 
 def get_hdp_term_cleaned(term: str) -> str:
     """get_hdp_term_cleaned is (TODO: document)"""
@@ -199,7 +202,8 @@ def transpose_hsilo(hsilo: dict,
 
     return _transpose_root(hsilo,
                            objectivum_linguam=target_lid,
-                           fontem_linguam=source_lid
+                           fontem_linguam=source_lid,
+                           active_vkg=active_vkg
                            )
 
     # return hsilo
@@ -268,7 +272,8 @@ def _transpose_root(hdp_current: dict,
                         hdp_result[hdpns][newterm],
                         objectivum_linguam=objectivum_linguam,
                         fontem_linguam=fontem_linguam,
-                        context=key_l1)
+                        context=key_l1,
+                        active_vkg=active_vkg)
             else:
 
                 # print('hdp_current', hdp_current[hdpns])
@@ -285,7 +290,8 @@ def _transpose_root(hdp_current: dict,
                         hdp_current[hdpns][key_l1],
                         objectivum_linguam=objectivum_linguam,
                         fontem_linguam=fontem_linguam,
-                        context=key_l1)
+                        context=key_l1,
+                        active_vkg=active_vkg)
 
     return hdp_result
 
@@ -347,7 +353,8 @@ def _transpose_recursive(hdp_current: Union[dict, list],
                     objectivum_linguam=objectivum_linguam,
                     fontem_linguam=fontem_linguam,
                     context=context,
-                    level=(level+1))
+                    level=(level+1),
+                    active_vkg=active_vkg)
             )
         return hdp_new
 
@@ -388,7 +395,8 @@ def _transpose_recursive(hdp_current: Union[dict, list],
                     objectivum_linguam=objectivum_linguam,
                     fontem_linguam=fontem_linguam,
                     context=context_new,
-                    level=(level+1)
+                    level=(level+1),
+                    active_vkg=active_vkg
                 )
                 continue
 
