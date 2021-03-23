@@ -19,7 +19,8 @@ from hxlm.core.localization.util import (
 # TODO: move vocabulary conversions from hxlm.core.schema.vocab to here
 #       (Emerson Rocha, 2021-03-20 03:01 UTC)
 
-__all__ = ['get_hdp_term_cleaned', 'get_language_from_hdp_raw',
+__all__ = ['build_new_vocabulary_knowledge_graph',
+           'get_hdp_term_cleaned', 'get_language_from_hdp_raw',
            'transpose_hsilo']
 
 # os.environ["HDP_DEBUG"] = "1"
@@ -67,8 +68,51 @@ VOCAB_RECURSION_LEAF = (
 HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/core/schema/core_vocab.yml')
 """Vocabulary knowledge graph, aka core_vocab.yml"""
 
-HDP_VKG_FROM: dict = None
+HDP_VKG_FULL: dict = {}
 """Dictionary with transposition from other languages back to Latin"""
+
+
+def build_new_vocabulary_knowledge_graph(
+    base_vid: str,
+    vkg_name: str = None,
+    source_vkg: dict = HDP_VKG,
+    keep_source_vkg: bool = True,
+    full_vkgs: dict = HDP_VKG_FULL,
+) -> dict:
+    """Transpose core_vocab.yml to point from LAT-Latn from a new language
+
+    Args:
+        base_vid (str): The Vocabulary id on the HDP_VKG on the source_vkg to
+                        point from new references
+        vkg_name (str, optional): The name of the new VID. Defaults to use
+                        base_vid
+        source_vkg (str, optional): The source of the source_vkg to transpose.
+                        Defaults to use core_vocab (LAT-Latn), HDP_VKG
+        keep_source_vkg (dict, optional): If you want to, instead of create an
+                        strict new vocab, still allow old keys on the new
+                        VKG. In practice, this means that implicitly, if your
+                        new vocabulay already does not define terms a new
+                        meaning from the source vocabulary had (like att
+                        LAT exemplum), even if define the same term (like
+                        attr POR exemplo), when transposing both 'examplum'
+                        and 'exemplo' would be undestood. Defaults to True
+        full_vkgs (dict, optional): The source full_vkgs. Defaults to
+                        HDP_VKG_FULL.
+
+    Returns:
+        dict: Return the result. Use as reference input of full_vkgs
+    """
+    if vkg_name is None:
+        vkg_name = base_vid
+
+    # This already is a know vocabulary. We don't need to re-create it.
+    if vkg_name in full_vkgs:
+        if _IS_DEBUG:
+            print('build_new_vocabulary_knowledge_graph was cached', vkg_name)
+        return full_vkgs
+
+    # TODO: do the thing
+    return full_vkgs
 
 
 def get_hdp_term_cleaned(term: str) -> str:
