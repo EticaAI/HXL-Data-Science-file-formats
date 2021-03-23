@@ -66,6 +66,7 @@ VOCAB_RECURSION_LEAF = (
 )
 
 # HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/core/schema/core_vocab.yml')
+# HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.vkg.yml')
 HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.vkg.yml')
 """Vocabulary knowledge graph, aka ontology/core.vkg.yml"""
 
@@ -269,6 +270,21 @@ def transpose_hsilo(hsilo: dict,
 
     Returns:
         dict: An transposed HSilo
+
+    Examples
+    >>> from hxlm.core.constant import HXLM_TESTS_ROOT
+    >>> from hxlm.core.util import load_file
+    >>> from hxlm.core.localization.hdp import get_language_from_hdp_raw
+    >>> file_path1 = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.lat.hdp.yml'
+    >>> hsilo_example1 = load_file(file_path1)
+    >>> result1 = get_language_from_hdp_raw(hsilo_example1[0])
+    >>> result1['lid']
+    'LAT-Latn'
+    >>> file_path2 = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.por.hdp.yml'
+    >>> hsilo_example2 = load_file(file_path2)
+    >>> result2 = get_language_from_hdp_raw(hsilo_example2[0])
+    >>> result2['lid']
+    'POR-Latn'
     """
 
     # print('target_lid', target_lid)

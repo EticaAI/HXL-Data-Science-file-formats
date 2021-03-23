@@ -6,9 +6,18 @@
 import os
 
 HXLM_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
+HDATUM_UDUR = HXLM_ROOT + '/data/udhr'
+HONTOLOGIA_LKG = HXLM_ROOT + '/ontology/core.lkg.yml'
+HONTOLOGIA_VKG = HXLM_ROOT + '/ontology/core.vkg.yml'
+
+# _HXLM_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
+# HXLM_UDUR = _HXLM_ROOT + '/data/udhr'
+
+# TODO: path to test folder is deprecated.
 HXLM_TESTS_ROOT = os.path.dirname(HXLM_ROOT) + '/tests'
 
-HXLM_UDUR = HXLM_ROOT + '/data/udhr'
 
 # ### True, False, Missing, Unknow, Encrypted, START _________________________
 # Even without controlled vocabularies (like +v_un_bool with 6 official UN

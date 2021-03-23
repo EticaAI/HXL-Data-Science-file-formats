@@ -12,8 +12,8 @@ Example of usage:
 >>> #
 >>> import hxlm
 >>> import hxlm.core.localization as HL10n
->>> from hxlm.core.constant import HXLM_UDUR
->>> urhd_lat = hxlm.core.util.load_file(HXLM_UDUR + '/udhr.lat.hdp.yml')
+>>> from hxlm.core.constant import HDATUM_UDUR
+>>> urhd_lat = hxlm.core.util.load_file(HDATUM_UDUR + '/udhr.lat.hdp.yml')
 >>> HL10n.get_language_from_hdp_raw(urhd_lat[0])['iso3693']
 'LAT'
 >>> # urhd_lat_rus = HL10n.transpose_hsilo(urhd_lat, 'RUS-Cyrl')
