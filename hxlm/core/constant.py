@@ -7,7 +7,7 @@ import os
 
 HXLM_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-HDATUM_UDUR = HXLM_ROOT + '/data/udhr'
+HDATUM_UDHR = HXLM_ROOT + '/data/udhr'
 
 # TODO: 'ontologia' (ontology) seems to be not classical Latin, but somewhat
 #       recent (1600). We will for now use HOntologia as term

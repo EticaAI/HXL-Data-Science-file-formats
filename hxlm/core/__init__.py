@@ -10,12 +10,17 @@ downloading from the GitHub, this is the command to run all the tests:
 Examples:
 
     >>> import hxlm.core as HXLm
-    >>> urhd_lat = HXLm.util.load_file(HDATUM_UDUR + '/udhr.lat.hdp.yml')
-    >>> HXLm.L10N.get_language_from_hdp_raw(urhd_lat[0])['iso3693']
+    >>> UDUR_LAT = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
+    >>> HXLm.L10N.get_language_from_hdp_raw(UDUR_LAT[0])['iso3693']
     'LAT'
-    >>> urhd_lat_rus = HXLm.L10N.transpose_hsilo(urhd_lat, 'RUS-Cyrl')
-    >>> # This is one way to dump an YAML string (is commented)
-    >>> # hxlm.core.util.to_yaml(urhd_lat)
+    >>> UDUR_LAT2RUS = HXLm.L10N.transpose_hsilo(UDUR_LAT, 'RUS-Cyrl')
+    >>> UDUR_LAT2RUS[0]['силосная']['тег']
+    ['udhr']
+    >>> UDUR_LAT2RUS2POR = HXLm.L10N.transpose_hsilo(
+    ...    UDUR_LAT2RUS, 'POR', 'RUS'
+    ... )
+    >>> UDUR_LAT2RUS2POR[0]['silo']['etiqueta']
+    ['udhr']
 """
 
 # import os
@@ -32,7 +37,7 @@ __version__ = "0.8.2"
 # To simplify documentation, we're always load this constant when end users do
 #    import hxlm as HXLm
 from hxlm.core.constant import (  # noqa: F401
-    HDATUM_UDUR
+    HDATUM_UDHR
 )
 
 import hxlm.core.localization as L10N  # noqa: F401

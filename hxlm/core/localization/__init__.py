@@ -8,7 +8,7 @@ Examples:
 -----------------
 
 >>> import hxlm.core as HXLm
->>> urhd_lat = HXLm.util.load_file(HXLm.HDATUM_UDUR + '/udhr.lat.hdp.yml')
+>>> urhd_lat = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
 >>> HXLm.L10N.get_language_from_hdp_raw(urhd_lat[0])['iso3693']
 'LAT'
 """

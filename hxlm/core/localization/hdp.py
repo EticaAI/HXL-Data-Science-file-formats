@@ -238,19 +238,15 @@ def get_language_from_hdp_raw(hdp_robj: dict) -> dict:
         dict: An HDP LKG dict
 
     Examples
-    >>> from hxlm.core.constant import HXLM_TESTS_ROOT
-    >>> from hxlm.core.util import load_file
-    >>> from hxlm.core.localization.hdp import get_language_from_hdp_raw
-    >>> file_path1 = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.lat.hdp.yml'
-    >>> hsilo_example1 = load_file(file_path1)
-    >>> result1 = get_language_from_hdp_raw(hsilo_example1[0])
+    >>> import hxlm.core as HXLm
+    >>> urhd_lat = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
+    >>> result1 = get_language_from_hdp_raw(urhd_lat[0])
     >>> result1['lid']
     'LAT-Latn'
-    >>> file_path2 = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.por.hdp.yml'
-    >>> hsilo_example2 = load_file(file_path2)
-    >>> result2 = get_language_from_hdp_raw(hsilo_example2[0])
-    >>> result2['lid']
-    'POR-Latn'
+    >>> urhd_rus = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.rus.hdp.yml')
+    >>> result1 = get_language_from_hdp_raw(urhd_rus[0])
+    >>> result1['lid']
+    'RUS-Cyrl'
     """
 
     for key in hdp_robj.keys():
@@ -260,15 +256,16 @@ def get_language_from_hdp_raw(hdp_robj: dict) -> dict:
     return None
 
 
-def transpose_hsilo(hsilo: dict,
-                    target_lid: str, source_lid: str = 'LAT') -> dict:
+def transpose_hsilo(hsilo: Union[list, dict],
+                    target_lid: str,
+                    source_lid: str = None) -> Union[list, dict]:
     """Transpose ('translate') and HSilo from Latin to another language
 
     If the object already is not in Latin, you should first prepare in Latin
     before use this function
 
     Args:
-        hdp_hsilo (dict): An HSilo object
+        hsilo (dict): An HSilo object
         target_lid (str): An Localization ID, like RUS-Cyrl
 
     Returns:
@@ -276,19 +273,15 @@ def transpose_hsilo(hsilo: dict,
 
     Examples:
 
-    >>> from hxlm.core.constant import HXLM_TESTS_ROOT
-    >>> from hxlm.core.util import load_file
-    >>> from hxlm.core.localization.hdp import get_language_from_hdp_raw
-    >>> file_path1 = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.lat.hdp.yml'
-    >>> hsilo_example1 = load_file(file_path1)
-    >>> result1 = get_language_from_hdp_raw(hsilo_example1[0])
+    >>> import hxlm.core as HXLm
+    >>> urhd_lat = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
+    >>> result1 = get_language_from_hdp_raw(urhd_lat[0])
     >>> result1['lid']
     'LAT-Latn'
-    >>> file_path2 = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.por.hdp.yml'
-    >>> hsilo_example2 = load_file(file_path2)
-    >>> result2 = get_language_from_hdp_raw(hsilo_example2[0])
-    >>> result2['lid']
-    'POR-Latn'
+    >>> urhd_rus = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.rus.hdp.yml')
+    >>> result1 = get_language_from_hdp_raw(urhd_rus[0])
+    >>> result1['lid']
+    'RUS-Cyrl'
     """
 
     # TODO: maybe we should review this need here
@@ -296,26 +289,46 @@ def transpose_hsilo(hsilo: dict,
 
     # print('target_lid', target_lid)
 
-    if len(target_lid) == 8:
-        # We still using 3 letter (like RUS) instead of 8 (like RUS-Cyrl)
-        target_lid = target_lid[0:3]
+    result = []
 
-    if len(source_lid) == 8:
-        # We still using 3 letter (like RUS) instead of 8 (like RUS-Cyrl)
-        source_lid = source_lid[0:3]
+    for idx, _ in enumerate(hsilo):
+        if source_lid is None:
+            # print('hsilo', hsilo)
+            # raise Exception('hsilo' + str(hsilo))
+            result1 = get_language_from_hdp_raw(hsilo[idx])
+            source_lid_ = result1['lid']
+        else:
+            source_lid_ = source_lid
 
-    HDP_VKG_FULL = build_new_vocabulary_knowledge_graph(key_vid=source_lid)
+        if len(target_lid) == 8:
+            # We still using 3 letter (like RUS) instead of 8 (like RUS-Cyrl)
+            target_lid = target_lid[0:3]
 
-    # active_vkg = HDP_VKG
-    active_vkg = HDP_VKG_FULL[source_lid]
-    # if HPD_VKG is None:
-    #     HPD_VKG = Cutil.load_file(C.HXLM_ROOT + '/schema/core_vocab.yml')
+        if len(source_lid_) == 8:
+            # We still using 3 letter (like RUS) instead of 8 (like RUS-Cyrl)
+            source_lid_ = source_lid_[0:3]
 
-    return _transpose_root(hsilo,
-                           objectivum_linguam=target_lid,
-                           fontem_linguam=source_lid,
-                           active_vkg=active_vkg
-                           )
+        # HDP_VKG_FULL = build_new_vocabulary_knowledge_graph(
+        #     key_vid=target_lid)
+        HDP_VKG_FULL = build_new_vocabulary_knowledge_graph(
+            key_vid=source_lid_)
+
+        # active_vkg = HDP_VKG
+        active_vkg = HDP_VKG_FULL[source_lid_]
+
+        # print('active_vkg', source_lid_, hsilo[idx])
+        # print('active_vkg', source_lid_, target_lid, active_vkg)
+        # if HPD_VKG is None:
+        #     HPD_VKG = Cutil.load_file(C.HXLM_ROOT + '/schema/core_vocab.yml')
+
+        result.extend(_transpose_root(hsilo,
+                                      objectivum_linguam=target_lid,
+                                      fontem_linguam=source_lid_,
+                                      active_vkg=active_vkg
+                                      ))
+
+    # print('result >>>>', result)
+    return result
 
     # return hsilo
 
@@ -351,16 +364,16 @@ def _transpose_root(hdp_current: dict,
 
     hdp_result = deepcopy(hdp_current)
 
-    if len(objectivum_linguam) != 3 or not objectivum_linguam.isalpha():
-        raise SyntaxError('No 3 letter or 3 ASCII letter? ' +
-                          'linguam must be an ISO 639-3 (3 letter) ' +
-                          'code, like "ARA" or "RUS" ' +
-                          '[' + objectivum_linguam + ']')
-    if not objectivum_linguam.isupper():
-        raise SyntaxError('No UPPERCASE? ' +
-                          'linguam must be an ISO 639-3 (3 letter) ' +
-                          'code, like "ARA" or "ARA" ' +
-                          '[' + objectivum_linguam + ']')
+    # if len(objectivum_linguam) != 3 or not objectivum_linguam.isalpha():
+    #     raise SyntaxError('No 3 letter or 3 ASCII letter? ' +
+    #                       'linguam must be an ISO 639-3 (3 letter) ' +
+    #                       'code, like "ARA" or "RUS" ' +
+    #                       '[' + objectivum_linguam + ']')
+    # if not objectivum_linguam.isupper():
+    #     raise SyntaxError('No UPPERCASE? ' +
+    #                       'linguam must be an ISO 639-3 (3 letter) ' +
+    #                       'code, like "ARA" or "ARA" ' +
+    #                       '[' + objectivum_linguam + ']')
 
     # for hdpns in hdp_current:
     for hdpns, _ in enumerate(hdp_current):
@@ -403,6 +416,10 @@ def _transpose_root(hdp_current: dict,
                         fontem_linguam=fontem_linguam,
                         context=key_l1,
                         active_vkg=active_vkg)
+
+    # TODO: the transpose root should create a new header with the new
+    #       language. At the moment it's not doing this, so the language
+    #       detection may vail
 
     return hdp_result
 
