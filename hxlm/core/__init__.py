@@ -32,7 +32,7 @@ import hxlm.core.model  # noqa: F401
 # Users need to explicitly call this
 # import hxlm.core.compliance
 
-__version__ = "0.8.2"
+__version__ = "0.8.3"
 
 # To simplify documentation, we're always load this constant when end users do
 #    import hxlm as HXLm
