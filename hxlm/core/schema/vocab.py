@@ -6,11 +6,11 @@ PROTIP: is possible to test this file directly with
 
 This file is meant to accept 3 categories of internal vocabularies:
 
-- core_vocab.yml (default, always): the (lastest) default vocabulary inside
-  the core of the library.
+- ontology/core.vkg.yml (default, always): the (lastest) default vocabulary
+  inside the core of the library.
 - core_vocab_deprecated_vNNN (not implemented, but may be used): if over time
-  breaking chances do occur on the default core_vocab.yml, an file may replace
-  the old one
+  breaking chances do occur on the default ontology/core.vkg.yml, an file may
+  replace the old one
     - This approach may be the ideal to allow faster changes at cost of
       additional logic (to be used outside the core library).
     - Note that the fixes may also be provided, just not on the core library
@@ -22,7 +22,7 @@ This file is meant to accept 3 categories of internal vocabularies:
   to update, the tool can explicitly allow am separate file where an human
   acceptable the legal responsibility.
     - Special measures (like at least by default log chances compared to the
-      core_vocab.yml for future auditing; even if such log is encrypted) may
+      core.vkg.yml for future auditing; even if such log is encrypted) may
       be taken in such cases by default, in special if do not exist an human
       capable of review.
     - Please note that such extra steps are not a signal of untrust; is much
@@ -71,9 +71,13 @@ from hxlm.core.localization.hdp import (
     get_hdp_term_cleaned
 )
 
-HXLM_CORE_SCHEMA_CORE_VOCAB = os.path.dirname(os.path.realpath(__file__)) + \
-    '/core_vocab.yml'
-"""schema/core_vocab.yml is the reference vocabulary to internal commands"""
+# HXLM_CORE_SCHEMA_CORE_VOCAB = os.path.dirname(os.path.realpath(__file__)) + \
+#     '/core_vocab.yml'
+# """schema/core_vocab.yml is the reference vocabulary to internal commands"""
+HXLM_CORE_SCHEMA_CORE_VOCAB = os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.realpath(__file__)))) + \
+    '/ontology/core.vkg.yml'
+"""ontology/core.vkg.yml is the reference vocabulary to internal commands"""
 
 VOCAB_RECURSION_LEAF = (
     'hsilo.adm0',
@@ -100,10 +104,10 @@ class ItemHVocab:
     """Class to abstract individual vocab required to hxlm.core work
 
     While at minimum implementation the ItemHVocab 'only' abstract use of
-    core_vocab.yml the implementation actually allows extend the vocab
+    ontology/core.lkg.yml the implementation actually allows extend the vocab
     (like for an umplanned language) while requiring some minimum extra
     requeriments and making easier to know who requested change compared to
-    core_vocab.yml and how different was the new content.
+    ontology/core.lkg.yml and how different was the new content.
 
     """
 
@@ -143,7 +147,7 @@ class ItemHVocab:
               strictly_safe: bool = True) -> bool:
         """Merge extend the current ItemHVocab in-place with a ItemHVocab
 
-        While the core_vocab.yml published on the web may have minimal
+        While the ontology/core.lkg.yml published on the web may have minimal
         functionality to enable work with the hxlm.core, we explicitly allow
         users (or who help users to convert content from new strings) to
         customize this. Since this customization itself can become a problem

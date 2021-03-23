@@ -142,7 +142,7 @@ root:
       id: 'hcompliance'
 
   # https://www.wikidata.org/wiki/Q1172284
-  hdataset:
+  hdatum:
     # - https://en.wiktionary.org/wiki/data#English
     #   > 'data', (English) Borrowed from Latin data, nominative plural of
     #      datum (“that is given”), neuter past participle of dō (“I give”).
@@ -169,6 +169,7 @@ root:
       id: 'hdatum'
       id_alts:
         - "datum"
+        - "hdatum"
     POR:
       id: 'conjunto-de-dados'
     QAA:
@@ -182,7 +183,7 @@ root:
       # zha/ZHO: '数据集' term needs additional revision. No wikidata term
       id: '数据集'
     QDP:
-      id: 'hdataset'
+      id: 'hdatum'
 
   # hfile: https://www.wikidata.org/wiki/Q82753
   #        computer file | file
@@ -265,10 +266,10 @@ root:
     LAT:
        # @see https://en.wiktionary.org/wiki/transformare#Latin
       # @see https://en.wiktionary.org/wiki/transformo#Latin
-      id: 'transformare'
+      id: 'htransformare'
       # descriptionem: ''
-      # id_alts:
-      #   - ''
+      id_alts:
+        - 'transformare'
     POR:
       id: 'transformacao-de-dados'
       # descriptionem: ''
@@ -301,7 +302,7 @@ root:
       #   - ''
 
   hsilo:
-    # root.hsilo is the way to "group" hdataset/hfile when do exist a need.
+    # root.hsilo is the way to "group" hdatum/hfile when do exist a need.
     # @see https://en.wikipedia.org/wiki/Information_silo
     # @see https://www.wikidata.org/wiki/Q6031230
     # @see https://en.wikipedia.org/wiki/Silo
@@ -322,7 +323,9 @@ root:
       id: 'silo'
     LAT:
       # https://en.wiktionary.org/wiki/silo#Spanish
-      id: 'silo'
+      id: 'hsilo'
+      id_alts:
+        - 'silo'
     POR:
       id: 'silo'
     QAA:

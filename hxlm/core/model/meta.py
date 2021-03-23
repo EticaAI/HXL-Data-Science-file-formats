@@ -19,6 +19,9 @@ from hxlm.core.model.file import HFile
 from hxlm.core.model.recipe import HRecipe
 # from hxlm.core.schema import ConversorHSchema
 
+# TODO: as 2021-03-23 the HMeta is outdated. Some terms, like hdatasets
+#       (hdatum) changed. (Emerson Rocha, 2021-03-23 05:29 UTC)
+
 
 class HMeta:
     """HMeta is the main entry point to glue collections of HConteiner and etc

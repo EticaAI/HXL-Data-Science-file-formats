@@ -65,8 +65,9 @@ VOCAB_RECURSION_LEAF = (
     'fontem.datum',
 )
 
-HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/core/schema/core_vocab.yml')
-"""Vocabulary knowledge graph, aka core_vocab.yml"""
+# HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/core/schema/core_vocab.yml')
+HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.vkg.yml')
+"""Vocabulary knowledge graph, aka ontology/core.vkg.yml"""
 
 HDP_VKG_FULL: dict = {}
 """Dictionary with transposition from other languages back to Latin"""
@@ -75,11 +76,11 @@ HDP_VKG_FULL: dict = {}
 def build_new_vocabulary_knowledge_graph(
     base_vid: str = 'LAT',
     vkg_name: str = None,
-    source_vkg: dict = HDP_VKG,
+    source_vkg: dict = None,
     keep_source_vkg: bool = True,
-    full_vkgs: dict = HDP_VKG_FULL,
+    full_vkgs: dict = None,
 ) -> dict:
-    """Transpose core_vocab.yml to point from LAT-Latn from a new language
+    """Transpose core.vkg.yml to point from LAT-Latn from a new language
 
     Args:
         base_vid (str): The Vocabulary id on the HDP_VKG on the source_vkg to
@@ -101,9 +102,20 @@ def build_new_vocabulary_knowledge_graph(
 
     Returns:
         dict: Return the result. Use as reference input of full_vkgs
+
+    Examples:
+        >>> vkg_1 = build_new_vocabulary_knowledge_graph()
+        >>> vkg_1['LAT']['root']['hfilum']['SPA']['id']
+        'archivo'
     """
     if vkg_name is None:
         vkg_name = base_vid
+
+    if source_vkg is None:
+        source_vkg = HDP_VKG
+
+    if full_vkgs is None:
+        full_vkgs = HDP_VKG_FULL
 
     # This already is a know vocabulary. We don't need to re-create it.
     if vkg_name in full_vkgs:

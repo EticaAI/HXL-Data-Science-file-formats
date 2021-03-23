@@ -117,7 +117,7 @@ class HDP:
 
     HDP_VOCAB_QDP_ROOT: Tuple = (
         'hcompliance',
-        'hdataset',
+        'hdatum',
         'hfilum',
         'htransformare',
         'hsilo'

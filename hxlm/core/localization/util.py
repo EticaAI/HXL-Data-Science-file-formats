@@ -42,9 +42,11 @@ __all__ = ['debug_localization',
 # os.environ["HDP_DEBUG"] = "1"
 _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 
-HXLM_CORE_LOCALIZATION_CORE_LOC = \
-    os.path.dirname(os.path.realpath(__file__)) + '/core_loc.yml'
-"""localization/core_loc.yml is the default reference of knowledge base
+# HXLM_CORE_LOCALIZATION_CORE_LOC = \
+#     os.path.dirname(os.path.realpath(__file__)) + '/core_loc.yml'
+HXLM_CORE_LOCALIZATION_CORE_LOC = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.realpath(__file__)))) + '/ontology/core.lkg.yml'
+"""ontology/core.lkg.yml is the default reference of knowledge base
 for localization
 """
 
@@ -364,12 +366,12 @@ def get_localization_knowledge_graph(
 
 @lru_cache(maxsize=1)
 def get_localization_lids() -> dict:
-    """Get localization/core_vocab.yml contents
+    """Get ontology/core.lkg.yml contents
 
-    TODO: allow, like core_vocab.yml, be extensible
+    TODO: allow, like ontology/core.vkg.yml, be extensible
 
     Returns:
-        dict: localization/core_vocab.yml contents
+        dict: ontology/core.lkg.yml contents
     """
     hdp_lkg = get_localization_knowledge_graph()
 

@@ -24,11 +24,11 @@
     },
     "has_encryption": {
       "type": "boolean",
-      "description": "If at least one hdataset explicitly have encryption.",
+      "description": "If at least one hdatum explicitly have encryption.",
       "default": false
     }
   },
-  "hdatasets": {
+  "hdatums": {
     "type": "array",
     "description": "Each HDataset is, informally speaking, a dataset. It is an analogy for a single CSV file, Excel worksheet, or an Pandas NDframe (actually, more similar to xarray).",
     "items": {

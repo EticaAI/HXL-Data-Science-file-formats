@@ -30,7 +30,7 @@
     tag:
       - udhr
 
-  hdataset:
+  hdatum:
     - id: ARA
       descriptionem:
         ARA: "الإعلان العالمي لحقوق الإنسان"

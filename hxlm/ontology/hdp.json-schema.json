@@ -22,8 +22,8 @@
       "_import": {
         "$ref": "#/$defs/root/_import"
       },
-      "hdataset": {
-        "$ref": "#/$defs/root/hdataset"
+      "hdatum": {
+        "$ref": "#/$defs/root/hdatum"
       },
       "hfilum": {
         "$ref": "#/$defs/root/hfilum"
@@ -166,8 +166,8 @@
         "type": "array",
         "minItems": 1
       },
-      "hdataset": {
-        "$anchor": "root_hdataset",
+      "hdatum": {
+        "$anchor": "root_hdatum",
         "description": "Abstracion an data set (needs to be minimaly usable with HXL tools)",
         "type": "array",
         "items": {
