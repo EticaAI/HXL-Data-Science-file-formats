@@ -8,6 +8,12 @@ import os
 HXLM_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 HDATUM_UDUR = HXLM_ROOT + '/data/udhr'
+
+# TODO: 'ontologia' (ontology) seems to be not classical Latin, but somewhat
+#       recent (1600). We will for now use HOntologia as term
+#       (Emerson Rocha, 2021-03-23 08:48 UTC)
+# https://en.wikipedia.org/wiki/Jacob_Lorhard
+# 'He uses "Ontologia" synonymously with "Metaphysica".'
 HONTOLOGIA_LKG = HXLM_ROOT + '/ontology/core.lkg.yml'
 HONTOLOGIA_VKG = HXLM_ROOT + '/ontology/core.vkg.yml'
 

@@ -1,9 +1,26 @@
-"""hxlm.core is (TODO: document)
+"""hxlm.core is (TODO: decide what hxlm.core is)
+
+
+Notes: if you are reading the source code, when you find these '>>>' this is
+Python doctest (https://docs.python.org/3/library/doctest.html) and are tested
+when the code is deployed (so are somewhat granted that are valid). If
+downloading from the GitHub, this is the command to run all the tests:
+    pytest -vv hxlm/ --doctest-modules
+
+Examples:
+
+    >>> import hxlm.core as HXLm
+    >>> urhd_lat = HXLm.util.load_file(HDATUM_UDUR + '/udhr.lat.hdp.yml')
+    >>> HXLm.L10N.get_language_from_hdp_raw(urhd_lat[0])['iso3693']
+    'LAT'
+    >>> urhd_lat_rus = HXLm.L10N.transpose_hsilo(urhd_lat, 'RUS-Cyrl')
+    >>> # This is one way to dump an YAML string (is commented)
+    >>> # hxlm.core.util.to_yaml(urhd_lat)
 """
 
 # import os
 
-import hxlm.core.constant as C # noqa: F401
+import hxlm.core.constant as C  # noqa: F401
 import hxlm.core.exception  # noqa: F401
 import hxlm.core.model  # noqa: F401
 
@@ -14,16 +31,9 @@ __version__ = "0.8.2"
 
 # To simplify documentation, we're always load this constant when end users do
 #    import hxlm as HXLm
-from hxlm.core.constant import (
+from hxlm.core.constant import (  # noqa: F401
     HDATUM_UDUR
 )
 
-# HXLM_CORE_BASE = os.path.dirname(os.path.realpath(__file__))
-# HXLM_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-
-# HDATUM_UDUR = HXLM_ROOT + '/data/udhr'
-# HONTOLOGIA_LKG = HXLM_ROOT + '/ontology/core.lkg.yml'
-# HONTOLOGIA_VKG = HXLM_ROOT + '/ontology/core.vkg.yml'
-
-# https://en.wikipedia.org/wiki/Jacob_Lorhard
-# 'He uses "Ontologia" synonymously with "Metaphysica".'
+import hxlm.core.localization as L10N  # noqa: F401
+import hxlm.core.util as util  # noqa: F401

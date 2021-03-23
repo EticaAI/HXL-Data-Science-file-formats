@@ -236,7 +236,7 @@ def _get_hash_sha3_512(thing: str) -> str:
 
 
 def get_hashable(thing: Union[str, dict, list]) -> str:
-    """Get an normalized string ready to be normalized
+    """Get an normalized string ready to generate an hash
 
     Args:
         thing (Union[str, dict, list]): Input source

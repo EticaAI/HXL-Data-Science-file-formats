@@ -75,7 +75,7 @@ HDP_VKG_FULL: dict = {}
 
 
 def build_new_vocabulary_knowledge_graph(
-    base_vid: str = 'LAT',
+    key_vid: str = 'LAT',
     vkg_name: str = None,
     source_vkg: dict = None,
     keep_source_vkg: bool = True,
@@ -84,10 +84,10 @@ def build_new_vocabulary_knowledge_graph(
     """Transpose core.vkg.yml to point from LAT-Latn from a new language
 
     Args:
-        base_vid (str): The Vocabulary id on the HDP_VKG on the source_vkg to
+        key_vid (str): The Vocabulary id on the HDP_VKG on the source_vkg to
                         point from new references
         vkg_name (str, optional): The name of the new VID. Defaults to use
-                        base_vid
+                        key_vid
         source_vkg (str, optional): The source of the source_vkg to transpose.
                         Defaults to use core_vocab (LAT-Latn), HDP_VKG
         keep_source_vkg (dict, optional): If you want to, instead of create an
@@ -109,8 +109,11 @@ def build_new_vocabulary_knowledge_graph(
         >>> vkg_1['LAT']['root']['hfilum']['SPA']['id']
         'archivo'
     """
+    # TODO: maybe we should review this need here
+    global HDP_VKG_FULL  # pylint: disable=W0603
+
     if vkg_name is None:
-        vkg_name = base_vid
+        vkg_name = key_vid
 
     if source_vkg is None:
         source_vkg = HDP_VKG
@@ -141,11 +144,11 @@ def build_new_vocabulary_knowledge_graph(
 
     # Then the IDs
     for r_key in source_vkg['root']:
-        r_key_new = source_vkg['root'][r_key][base_vid]['id']
+        r_key_new = source_vkg['root'][r_key][key_vid]['id']
         vkg_new['root'][r_key_new] = source_vkg['root'][r_key]
 
     for a_key in source_vkg['attr']:
-        a_key_new = source_vkg['attr'][a_key][base_vid]['id']
+        a_key_new = source_vkg['attr'][a_key][key_vid]['id']
         vkg_new['attr'][a_key_new] = source_vkg['attr'][a_key]
 
     # for r_key in source_vkg['root']:
@@ -271,7 +274,8 @@ def transpose_hsilo(hsilo: dict,
     Returns:
         dict: An transposed HSilo
 
-    Examples
+    Examples:
+
     >>> from hxlm.core.constant import HXLM_TESTS_ROOT
     >>> from hxlm.core.util import load_file
     >>> from hxlm.core.localization.hdp import get_language_from_hdp_raw
@@ -287,15 +291,23 @@ def transpose_hsilo(hsilo: dict,
     'POR-Latn'
     """
 
+    # TODO: maybe we should review this need here
+    global HDP_VKG_FULL  # pylint: disable=W0603
+
     # print('target_lid', target_lid)
 
     if len(target_lid) == 8:
         # We still using 3 letter (like RUS) instead of 8 (like RUS-Cyrl)
         target_lid = target_lid[0:3]
-    # print('target_lid', target_lid)
 
-    source_lid = 'LAT'
-    active_vkg = HDP_VKG
+    if len(source_lid) == 8:
+        # We still using 3 letter (like RUS) instead of 8 (like RUS-Cyrl)
+        source_lid = source_lid[0:3]
+
+    HDP_VKG_FULL = build_new_vocabulary_knowledge_graph(key_vid=source_lid)
+
+    # active_vkg = HDP_VKG
+    active_vkg = HDP_VKG_FULL[source_lid]
     # if HPD_VKG is None:
     #     HPD_VKG = Cutil.load_file(C.HXLM_ROOT + '/schema/core_vocab.yml')
 
