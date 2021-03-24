@@ -20,7 +20,8 @@ from hxlm.core.localization.util import (
 #       (Emerson Rocha, 2021-03-20 03:01 UTC)
 
 __all__ = ['build_new_vocabulary_knowledge_graph',
-           'get_hdp_term_cleaned', 'get_language_from_hdp_raw',
+           'get_hdp_term_cleaned', 'get_meta_header',
+           'get_language_from_hdp_raw',
            'transpose_hsilo']
 
 # os.environ["HDP_DEBUG"] = "1"
@@ -253,6 +254,27 @@ def get_language_from_hdp_raw(hdp_robj: dict) -> dict:
         lang_ = get_lid_from_keyterm(key)
         if lang_ is not None:
             return lang_
+    return None
+
+
+def get_meta_header(hsilo: Union[list, dict]) -> Union[list, dict]:
+
+    result = []
+    for item in hsilo:
+        # print(item)
+        result.append(_get_hsilo_header(item))
+    return result
+
+
+def _get_hsilo_header(hsilo: dict) -> dict:
+
+    for key in hsilo.keys():
+        lang_ = get_lid_from_keyterm(key)
+        if lang_ is not None:
+
+            return {
+                key: hsilo[key]
+            }
     return None
 
 
