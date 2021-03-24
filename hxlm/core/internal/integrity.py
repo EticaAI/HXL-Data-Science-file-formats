@@ -17,6 +17,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
 from hashlib import md5, sha224, sha256, sha3_256, sha3_512, blake2b
+from binascii import crc32
 
 from typing import (
     Union
@@ -235,6 +236,11 @@ def _get_hash_sha3_512(thing: str) -> str:
     return sha3_512(str(thing).encode('utf-8')).hexdigest()
 
 
+def get_checksum_crc32(thing: Union[str, dict, list]) -> int:
+    hashable = get_hashable(thing)
+    return crc32(bytes(hashable.encode('utf-8')))
+
+
 def get_hashable(thing: Union[str, dict, list]) -> str:
     """Get an normalized string ready to generate an hash
 
@@ -261,7 +267,7 @@ def get_hashable(thing: Union[str, dict, list]) -> str:
     if isinstance(thing, int):
         return str(thing)
 
-    return get_hashable_json(jsonlike)
+    return get_hashable_json(thing)
 
 
 def get_hashable_json(thing: Union[dict, list]) -> str:

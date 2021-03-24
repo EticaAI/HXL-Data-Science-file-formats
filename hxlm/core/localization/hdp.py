@@ -9,10 +9,16 @@ import os
 from copy import deepcopy
 from typing import Union
 
+# from binascii import crc32
+
 import hxlm.core.constant as C
 import hxlm.core.util as Cutil
 from hxlm.core.localization.util import (
     get_localization_lids
+)
+
+from hxlm.core.internal.integrity import (
+    get_checksum_crc32
 )
 
 
@@ -20,7 +26,8 @@ from hxlm.core.localization.util import (
 #       (Emerson Rocha, 2021-03-20 03:01 UTC)
 
 __all__ = ['build_new_vocabulary_knowledge_graph',
-           'get_hdp_term_cleaned', 'get_meta_header',
+           'get_hdp_term_cleaned', 'get_hsilo_checksum',
+           'get_hsilo_meta_header',
            'get_language_from_hdp_raw',
            'transpose_hsilo']
 
@@ -257,25 +264,44 @@ def get_language_from_hdp_raw(hdp_robj: dict) -> dict:
     return None
 
 
-def get_meta_header(hsilo: Union[list, dict]) -> Union[list, dict]:
+def get_hsilo_checksum(hsilo: list) -> list:
+    """Get Checksum for HSilo items
 
+    Args:
+        hsilo (list): An HSilo (list of individual HSilo items)
+
+    Returns:
+        list: List of S-expression checksum values
+    """
     result = []
-    for item in hsilo:
-        # print(item)
-        result.append(_get_hsilo_header(item))
+
+    for hsilo_ in hsilo:
+        result.append('(CRC32 ' + str(get_checksum_crc32(hsilo_)) + ')')
     return result
 
 
-def _get_hsilo_header(hsilo: dict) -> dict:
+def get_hsilo_meta_header(hsilo: list) -> list:
+    """The the HSilo header field
 
-    for key in hsilo.keys():
-        lang_ = get_lid_from_keyterm(key)
-        if lang_ is not None:
+    Args:
+        hsilo (list): An HSilo (list of individual HSilo items)
 
-            return {
-                key: hsilo[key]
-            }
-    return None
+    Returns:
+        list: Only each HSilo header field
+    """
+
+    result = []
+
+    for hsilo_ in hsilo:
+        # print(item)
+        # result.append(_get_hsilo_header(item))
+        for key in hsilo_.keys():
+            lang_ = get_lid_from_keyterm(key)
+            if lang_ is not None:
+                result.append({
+                    key: hsilo_[key]
+                })
+    return result
 
 
 def transpose_hsilo(hsilo: Union[list, dict],
