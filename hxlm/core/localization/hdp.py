@@ -18,7 +18,8 @@ from hxlm.core.localization.util import (
 )
 
 from hxlm.core.internal.integrity import (
-    get_checksum_crc32
+    get_checksum_crc32,
+    get_hashable
 )
 
 
@@ -26,10 +27,11 @@ from hxlm.core.internal.integrity import (
 #       (Emerson Rocha, 2021-03-20 03:01 UTC)
 
 __all__ = ['build_new_vocabulary_knowledge_graph',
-           'get_hdp_term_cleaned', 'get_hsilo_checksum',
-           'get_hsilo_meta_header',
-           'get_language_from_hdp_raw',
-           'transpose_hsilo']
+           'get_hdp_term_cleaned',
+           'get_metadata',
+           'get_language_identifiers',
+           'get_language_from_hdp_raw',  # Deprecated
+           'transpose', 'transpose_hsilo']
 
 # os.environ["HDP_DEBUG"] = "1"
 _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
@@ -80,6 +82,87 @@ HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.vkg.yml')
 
 HDP_VKG_FULL: dict = {}
 """Dictionary with transposition from other languages back to Latin"""
+
+
+def _get_hsilo_body(hsilo_item: dict) -> dict:
+    """Get an individual HSilo body
+
+    Args:
+        hsilo_item (dict): An individual HSilo item
+
+    Returns:
+        hsilo_item (dict): The same HSilo item without meta header field
+    """
+
+    hsilo_item_new = {}
+
+    for key in hsilo_item.keys():
+        lang_ = get_lid_from_keyterm(key)
+        if lang_ is None:
+            hsilo_item_new[key] = hsilo_item[key]
+
+    return hsilo_item_new
+
+
+def _get_checksum(hashable: list) -> list:
+    """Get Checksum for HSilo items
+
+    Args:
+        hsilo (list): An HSilo (list of individual HSilo items)
+
+    Returns:
+        list: List of S-expression checksum values
+    """
+    return '(CRC32 ' + str(get_checksum_crc32(hashable)) + ')'
+    # result = []
+
+    # for hsilo_ in hsilo:
+    #     result.append('(CRC32 ' + str(get_checksum_crc32(hsilo_)) + ')')
+    # return result
+
+
+def _get_hsilo_meta_header(hsilo_item: dict) -> dict:
+    """Get an individual HSilo meta header
+
+    Args:
+        hsilo (list): An HSilo (list of individual HSilo items)
+
+    Returns:
+        list: Only each HSilo header field
+    """
+
+    hsilo_item_new = {}
+
+    for key in hsilo_item.keys():
+        lang_ = get_lid_from_keyterm(key)
+        if lang_ is not None:
+            hsilo_item_new[key] = hsilo_item[key]
+
+    return hsilo_item_new
+
+
+def _get_language_hsilo_header(hdp_robj: dict) -> dict:
+    """For an RAW HDP object, return the natural language
+
+    This will search for tokens like '([Lingua Latina])', ([Русский язык]),
+    '(['اللغة العربية الفصحى الحديثة'])', etc and return the language.
+
+    Args:
+        hdp_robj (dict): An raw HDP file (as if loaded direct from disk)
+
+    Returns:
+        dict: An HDP LKG dict
+
+    Examples
+
+    """
+
+    raise DeprecationWarning('Use _get_language_hsilo_header')
+    for key in hdp_robj.keys():
+        lang_ = get_lid_from_keyterm(key)
+        if lang_ is not None:
+            return lang_
+    return None
 
 
 def build_new_vocabulary_knowledge_graph(
@@ -233,8 +316,8 @@ def get_lid_from_keyterm(keyterm: str) -> dict:
     return None
 
 
-def get_language_from_hdp_raw(hdp_robj: dict) -> dict:
-    """For an RAW HDP individual object, return the natural language
+def get_language_identifiers(hdp_item: dict) -> dict:
+    """For an RAW HDP object, return the natural language
 
     This will search for tokens like '([Lingua Latina])', ([Русский язык]),
     '(['اللغة العربية الفصحى الحديثة'])', etc and return the language.
@@ -248,60 +331,82 @@ def get_language_from_hdp_raw(hdp_robj: dict) -> dict:
     Examples
     >>> import hxlm.core as HXLm
     >>> urhd_lat = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
-    >>> result1 = get_language_from_hdp_raw(urhd_lat[0])
-    >>> result1['lid']
+    >>> result1 = get_language_identifiers(urhd_lat[0])
+    >>> result1['header']['lid']
     'LAT-Latn'
-    >>> urhd_rus = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.rus.hdp.yml')
-    >>> result1 = get_language_from_hdp_raw(urhd_rus[0])
-    >>> result1['lid']
-    'RUS-Cyrl'
     """
 
-    for key in hdp_robj.keys():
-        lang_ = get_lid_from_keyterm(key)
-        if lang_ is not None:
-            return lang_
-    return None
+    result = {
+        'header': None,
+        'body': None
+    }
 
+    for key in hdp_item.keys():
+        lid_header = get_lid_from_keyterm(key)
+        if lid_header is not None:
+            result['header'] = lid_header
+            break
 
-def get_hsilo_checksum(hsilo: list) -> list:
-    """Get Checksum for HSilo items
-
-    Args:
-        hsilo (list): An HSilo (list of individual HSilo items)
-
-    Returns:
-        list: List of S-expression checksum values
-    """
-    result = []
-
-    for hsilo_ in hsilo:
-        result.append('(CRC32 ' + str(get_checksum_crc32(hsilo_)) + ')')
+    # TODO: implement result['header'] body
     return result
 
 
-def get_hsilo_meta_header(hsilo: list) -> list:
-    """The the HSilo header field
+def get_language_from_hdp_raw(hdp_robj: dict) -> dict:
+    """Deprecated. Use get_language_identifiers"""
+    # raise DeprecationWarning('Use _get_language_hsilo_header')
+    return get_language_identifiers(hdp_robj)['header']  # noqa
+
+
+def get_metadata(hdpgroup: list) -> list:
+    """Get Metadata from an HDP group (e.g. an 'HDP file with 1+ hsilos)
 
     Args:
-        hsilo (list): An HSilo (list of individual HSilo items)
+        hdpgroup (list): an HDP Grouping (a list with one or more hsilo)
 
     Returns:
-        list: Only each HSilo header field
+        list: list of dicts with metadata information
     """
 
     result = []
 
-    for hsilo_ in hsilo:
-        # print(item)
-        # result.append(_get_hsilo_header(item))
-        for key in hsilo_.keys():
-            lang_ = get_lid_from_keyterm(key)
-            if lang_ is not None:
-                result.append({
-                    key: hsilo_[key]
-                })
+    for hsilo in hdpgroup:
+        meta = {
+            # Checksum consider only the body
+            'checksum': None,
+            'header_lid': None,
+            'body_lid': None,
+            'header': _get_hsilo_meta_header(hsilo),
+            'body': None,
+            'body_canonical': None,
+            'checksum_source': None
+        }
+
+        lids = get_language_identifiers(hsilo)
+
+        # print('lids', lids)
+
+        if lids['header'] is not None and 'lid' in lids['header']:  # noqa pylint: disable=E1135
+            meta['header_lid'] = lids['header']['lid']  # pylint: disable=E1136
+
+        if lids['body'] is not None and 'lid' in lids['body']:  # noqa pylint: disable=E1135
+            meta['body_lid'] = lids['body']['lid']  # pylint: disable=E1136
+
+        meta['body'] = _get_hsilo_body(hsilo)
+        # meta['body_lat'] = 'TODO'
+
+        # TODO: this should only be used when already is Latin
+        meta['body_canonical'] = _get_hsilo_body(hsilo)
+        meta['checksum_source'] = get_hashable(meta['body_canonical'])
+        meta['checksum'] = _get_checksum(meta['checksum_source'])
+
+        result.append(meta)
+
     return result
+
+
+def transpose(hsilo: list, target_lid: str) -> list:
+
+    return transpose_hsilo(hsilo, target_lid=target_lid)
 
 
 def transpose_hsilo(hsilo: Union[list, dict],
@@ -343,8 +448,9 @@ def transpose_hsilo(hsilo: Union[list, dict],
         if source_lid is None:
             # print('hsilo', hsilo)
             # raise Exception('hsilo' + str(hsilo))
-            result1 = get_language_from_hdp_raw(hsilo[idx])
-            source_lid_ = result1['lid']
+            # result1 = _get_language_hsilo_header(hsilo[idx])
+            result1 = get_language_identifiers(hsilo[idx])
+            source_lid_ = result1['header']['lid']   # pylint: disable=E1136
         else:
             source_lid_ = source_lid
 

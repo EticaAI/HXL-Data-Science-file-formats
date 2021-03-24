@@ -284,7 +284,7 @@ def get_hashable_json(thing: Union[dict, list]) -> str:
         '["test"]'
     """
     # json_object = json.load(thing)
-    return json.dumps(thing, indent=None, sort_keys=True)
+    return json.dumps(thing, indent=None, ensure_ascii=False, sort_keys=True)
 
 
 def is_json_string(thing: str) -> Union[bool, str]:
