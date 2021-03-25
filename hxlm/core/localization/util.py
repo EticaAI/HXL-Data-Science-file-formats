@@ -368,7 +368,7 @@ def get_localization_knowledge_graph(
 def get_localization_lids() -> dict:
     """Get ontology/core.lkg.yml contents
 
-    TODO: allow, like ontology/core.vkg.yml, be extensible
+    # TODO: Allow return just LIDs or ISO codes as option
 
     Returns:
         dict: ontology/core.lkg.yml contents

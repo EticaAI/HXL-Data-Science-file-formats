@@ -11,13 +11,25 @@
 #       (Emerson Rocha, 2021-03-19 22:19)
 
 
+### File suffixes ______________________________________________________________
+# When using HDP, the library try to detect user languages by environment (and
+# add user preferences in order) and then will consider fs.hdp.base as default.
+fs:
+  hdp:
+    base:
+      - lat.hdp.json
+      - lat.hdp.yml
+      - mul.hdp.json
+      - mul.hdp.yml
+
+#### Localization identifiers __________________________________________________
 # Alphabetic order by iso3693
 lid:
 
   # iso3693: https://iso639-3.sil.org/
   # iso15924: https://en.wikipedia.org/wiki/ISO_15924
 
-  # Arab macro language, START _________________________________________________
+  ### Arab macro language, START -----------------------------------------------
 
     # https://en.wikipedia.org/wiki/Modern_Standard_Arabic
     # https://www.wikidata.org/wiki/Q56467
@@ -36,7 +48,7 @@ lid:
       ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=arz
       unicode_xml: https://unicode.org/udhr/d/udhr_arb.xml
 
-  # Arab macro language, END ___________________________________________________
+  ### Arab macro language, END -------------------------------------------------
 
   # https://en.wikipedia.org/wiki/English_language
   # https://www.wikidata.org/wiki/Q1860
@@ -131,7 +143,7 @@ lid:
       ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=spn
       unicode_xml: https://unicode.org/udhr/d/udhr_spa.xml
 
-  # Chinese macro language, START ______________________________________________
+  ### Chinese macro language, START --------------------------------------------
 
   # Note to native speakers:
   #   The way HDP uses verbs is not as powerful as one full natural language.
@@ -189,7 +201,7 @@ lid:
   # csp  Southern Ping Chinese  Active
 
 
-  # Chinese macro language, END ______________________________________________
+  ### Chinese macro language, END ----------------------------------------------
 
   # newlanguage:
   #   id: 'newlanguage'

@@ -90,6 +90,10 @@ HDP_VKG_FULL: dict = {}
 """Dictionary with transposition from other languages back to Latin"""
 
 
+CORE_LKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.lkg.yml')
+"""Localization knowledge graph, aka ontology/core.lkg.yml"""
+
+
 def _get_hsilo_body(hsilo_item: dict) -> dict:
     """Get an individual HSilo body
 
@@ -127,18 +131,25 @@ def _get_checksum(hashable: list) -> list:
     # return result
 
 
-def _get_file_prefered_suffix() -> tuple:
+def _get_file_preferred_suffix() -> tuple:
+    """Based on ontology/core.lkg.yml + env variable LANGUAGE, build preferred
+    user language
+
+    Returns:
+        tuple: the result of file sufisex
+    """
     userpref_suffix = []
 
     # TODO: the file_prefered must be moved to core ontology, since this
     #       is from interest of the end users
     #       (Emerson Rocha, 2021-03-25 03:03 UTC)
-    core_suffix = [
-        'lat.hdp.json',
-        'lat.hdp.yml',
-        'mul.hdp.json',
-        'mul.hdp.yml'
-    ]
+    # core_suffix = [
+    #     'lat.hdp.json',
+    #     'lat.hdp.yml',
+    #     'mul.hdp.json',
+    #     'mul.hdp.yml'
+    # ]
+    core_suffix = CORE_LKG['fs']['hdp']['base']
 
     userlangs_upper = get_language_user_know()
     if len(userlangs_upper) > 0:
@@ -160,6 +171,8 @@ def _get_file_prefered_suffix() -> tuple:
     # print('combined_suffixes', combined_suffixes)
     # print('a', userpref_suffix.extend(core_suffix))
     # print('b', tuple(userpref_suffix.extend(core_suffix)))
+
+    # print('CORE_LKG', CORE_LKG['fs']['hdp']['base'])
 
     return tuple(combined_suffixes)
 
@@ -224,7 +237,7 @@ def load(path: str) -> Union[dict, list]:
                 directory, try some default filenames)
     """
 
-    file_prefered_suffix = _get_file_prefered_suffix()
+    file_prefered_suffix = _get_file_preferred_suffix()
 
     if os.path.isfile(path):
         return generic_load_file(path)
