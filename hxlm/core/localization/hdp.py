@@ -94,6 +94,20 @@ CORE_LKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.lkg.yml')
 """Localization knowledge graph, aka ontology/core.lkg.yml"""
 
 
+def _clean_comments(thing: Union[dict, list]) -> Union[dict, list]:
+    """Remove keys with << preffix and >> suffix
+
+    Args:
+        thing (Union[dict, list]): input object to search and replace
+
+    Returns:
+        Union[dict, list]: Same object, cleaned
+    """
+    # TODO: clean the thing
+
+    return thing
+
+
 def _get_hsilo_body(hsilo_item: dict) -> dict:
     """Get an individual HSilo body
 
@@ -247,7 +261,7 @@ def load(path: str) -> Union[dict, list]:
             if str(file_.name).startswith('~'):
                 continue
             if str(file_.name).endswith(file_prefered_suffix):
-                return generic_load_file(path)
+                return generic_load_file(path + '/' + file_.name)
         raise SyntaxError('Path is used, but no default file found')
 
     raise SyntaxError('Cannot load this path [' + str(path) + ']')
@@ -492,9 +506,13 @@ def get_metadata(hdpgroup: list) -> list:
     return result
 
 
-def transpose(hsilo: list, target_lid: str) -> list:
+def transpose(hsilo: list, target_lid: str, verbose: bool = False) -> list:
 
-    return transpose_hsilo(hsilo, target_lid=target_lid)
+    transposed = transpose_hsilo(hsilo, target_lid=target_lid)
+    if not verbose:
+        transposed = _clean_comments(transposed)
+
+    return transposed
 
 
 def transpose_hsilo(hsilo: Union[list, dict],
@@ -658,6 +676,26 @@ def _transpose_root(hdp_current: dict,
                         fontem_linguam=fontem_linguam,
                         context=key_l1,
                         active_vkg=active_vkg)
+
+        # print(type(hdp_current[hdpns]))
+        hdp_current[hdpns]['<<transpose>>'] = {
+            'source_lid': fontem_linguam,
+            'target_lid': objectivum_linguam
+        }
+
+        # if fontem_linguam != objectivum_linguam:
+
+        #     hheader = _get_hsilo_meta_header(hdp_current[hdpns])
+        #     mheaderkey = list(hheader.keys())[0]
+        #     hheaderkey_new = '([' + objectivum_linguam + '])'
+
+        #     print(hdp_current[hdpns])
+        #     hdp_current[hdpns][mheaderkey] = 'old'
+        #     # delattr(hdp_current[hdpns], mheaderkey)
+
+        #     hdp_current[hdpns][hheaderkey_new] = hheader
+
+        #     print('TODO: add header', hheader, mheaderkey)
 
     # TODO: the transpose root should create a new header with the new
     #       language. At the moment it's not doing this, so the language
