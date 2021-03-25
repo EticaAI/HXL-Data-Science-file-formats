@@ -18,6 +18,7 @@ from pathlib import Path
 import hxlm.core.constant as C
 import hxlm.core.util as Cutil
 from hxlm.core.localization.util import (
+    get_language_user_know,
     get_localization_lids
 )
 
@@ -126,6 +127,43 @@ def _get_checksum(hashable: list) -> list:
     # return result
 
 
+def _get_file_prefered_suffix() -> tuple:
+    userpref_suffix = []
+
+    # TODO: the file_prefered must be moved to core ontology, since this
+    #       is from interest of the end users
+    #       (Emerson Rocha, 2021-03-25 03:03 UTC)
+    core_suffix = [
+        'lat.hdp.json',
+        'lat.hdp.yml',
+        'mul.hdp.json',
+        'mul.hdp.yml'
+    ]
+
+    userlangs_upper = get_language_user_know()
+    if len(userlangs_upper) > 0:
+        # print('oi', userlangs_upper)
+        userlangs = map(lambda x: x.lower(), userlangs_upper)
+        # print('oi2', userlangs)
+        for lang_ in userlangs:
+            userpref_suffix.append(lang_ + '.hdp.json')
+            userpref_suffix.append(lang_ + '.hdp.yml')
+
+    # print('userlangs', userlangs)
+    # raise AttributeError('DEBUG only: userlangs', userlangs_upper,
+    #                      userlangs, userpref_suffix,
+    #                      userpref_suffix.extend(core_suffix))
+
+    # print('userpref_suffix', userpref_suffix)
+    # print('core_suffix', core_suffix)
+    combined_suffixes = userpref_suffix + core_suffix
+    # print('combined_suffixes', combined_suffixes)
+    # print('a', userpref_suffix.extend(core_suffix))
+    # print('b', tuple(userpref_suffix.extend(core_suffix)))
+
+    return tuple(combined_suffixes)
+
+
 def _get_hsilo_meta_header(hsilo_item: dict) -> dict:
     """Get an individual HSilo meta header
 
@@ -186,15 +224,7 @@ def load(path: str) -> Union[dict, list]:
                 directory, try some default filenames)
     """
 
-    # TODO: the file_prefered must be moved to core ontology, since this
-    #       is from interest of the end users
-    #       (Emerson Rocha, 2021-03-25 03:03 UTC)
-    file_prefered = (
-        'lat.hdp.json',
-        'lat.hdp.yml',
-        'mul.hdp.json',
-        'mul.hdp.yml'
-    )
+    file_prefered_suffix = _get_file_prefered_suffix()
 
     if os.path.isfile(path):
         return generic_load_file(path)
@@ -203,7 +233,7 @@ def load(path: str) -> Union[dict, list]:
         for file_ in pitr:
             if str(file_.name).startswith('~'):
                 continue
-            if str(file_.name).endswith(file_prefered):
+            if str(file_.name).endswith(file_prefered_suffix):
                 return generic_load_file(path)
         raise SyntaxError('Path is used, but no default file found')
 
