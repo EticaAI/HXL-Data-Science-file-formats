@@ -40,5 +40,7 @@ from hxlm.core.constant import (  # noqa: F401
     HDATUM_UDHR
 )
 
+import hxlm.core.hdp as HDP  # noqa: F401
+
 import hxlm.core.localization as L10N  # noqa: F401
 import hxlm.core.util as util  # noqa: F401
