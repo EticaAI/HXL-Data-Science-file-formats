@@ -2,6 +2,22 @@
 
 This module provide some aliases for HDP functionality
 
+Examples (pytest -vv hxlm/ --doctest-modules)
+
+>>> import hxlm.core as HXLm
+>>> file_path = HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml'
+>>> hsilo_example = HXLm.HDP.load(file_path)
+>>> hsilo_example[0]['hsilo']['tag']
+['udhr']
+
+Now, without explicitly label the file:
+>>> import hxlm.core as HXLm
+>>> dir_path = HXLm.HDATUM_UDHR
+>>> hsilo_example2 = HXLm.HDP.load(file_path)
+>>> hsilo_example2[0]['hsilo']['tag']
+['udhr']
+
+
 Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
@@ -16,5 +32,10 @@ __all__ = [
 from hxlm.core.localization.hdp import (  # noqa
     get_language_identifiers,
     get_metadata,
+    load,
     transpose
 )
+
+# from hxlm.core.util import (  # noqa
+#     load_file
+# )

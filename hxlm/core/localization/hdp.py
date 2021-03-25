@@ -11,6 +11,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 import os
 from copy import deepcopy
 from typing import Union
+from pathlib import Path
 
 # from binascii import crc32
 
@@ -25,6 +26,7 @@ from hxlm.core.internal.integrity import (
     get_hashable
 )
 
+from hxlm.core.util import load_file as generic_load_file
 
 # TODO: move vocabulary conversions from hxlm.core.schema.vocab to here
 #       (Emerson Rocha, 2021-03-20 03:01 UTC)
@@ -168,6 +170,44 @@ def _get_language_hsilo_header(hdp_robj: dict) -> dict:
 
 # def _is_hsilo_lid(hsilo_item: dict, lid: str = 'LAT'):
 #     print('TODO:')
+
+
+def load(path: str) -> Union[dict, list]:
+    """Syntatic sugar to load file from local disk (YAML, JSON, CSV)
+
+    Note that this method does not do advanced processing. As long as the
+    file have some valid syntax, it will work.
+
+    Args:
+        path (str): Directory path or exact file
+
+    Returns:
+        Union[dict, list]: An list or dict from the loaded file (or, if
+                directory, try some default filenames)
+    """
+
+    # TODO: the file_prefered must be moved to core ontology, since this
+    #       is from interest of the end users
+    #       (Emerson Rocha, 2021-03-25 03:03 UTC)
+    file_prefered = (
+        'lat.hdp.json',
+        'lat.hdp.yml',
+        'mul.hdp.json',
+        'mul.hdp.yml'
+    )
+
+    if os.path.isfile(path):
+        return generic_load_file(path)
+    if os.path.isdir(path):
+        pitr = Path(path).glob('*')
+        for file_ in pitr:
+            if str(file_.name).startswith('~'):
+                continue
+            if str(file_.name).endswith(file_prefered):
+                return generic_load_file(path)
+        raise SyntaxError('Path is used, but no default file found')
+
+    raise SyntaxError('Cannot load this path [' + str(path) + ']')
 
 
 def build_new_vocabulary_knowledge_graph(
