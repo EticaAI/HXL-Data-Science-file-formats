@@ -156,8 +156,6 @@ def _get_language_hsilo_header(hdp_robj: dict) -> dict:
     Returns:
         dict: An HDP LKG dict
 
-    Examples
-
     """
 
     raise DeprecationWarning('Use _get_language_hsilo_header')
@@ -166,6 +164,10 @@ def _get_language_hsilo_header(hdp_robj: dict) -> dict:
         if lang_ is not None:
             return lang_
     return None
+
+
+# def _is_hsilo_lid(hsilo_item: dict, lid: str = 'LAT'):
+#     print('TODO:')
 
 
 def build_new_vocabulary_knowledge_graph(

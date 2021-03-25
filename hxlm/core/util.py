@@ -256,12 +256,11 @@ def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
     Returns:
         Union[dict, list]: The loaded file result
 
-    >>> from hxlm.core.constant import HXLM_TESTS_ROOT
-    >>> from hxlm.core.util import load_file
-    >>> file_path = HXLM_TESTS_ROOT + '/htransformare/salve-mundi.lat.hdp.yml'
+    >>> import hxlm.core as HXLm
+    >>> file_path = HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml'
     >>> hsilo_example = load_file(file_path)
     >>> hsilo_example[0]['hsilo']['tag']
-    ['CPLP']
+    ['udhr']
     """
 
     with open(file_path, 'r') as stream:
