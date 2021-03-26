@@ -278,7 +278,7 @@ def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
     raise SystemError('Unknow input [' + str(file_path) + ']')
 
 
-def to_json(thing: Any, indent=4, sort_keys=True) -> str:
+def to_json(thing: Any, indent=4, sort_keys=True, ensure_ascii=False) -> str:
     """Generic JSON exporter
 
     Args:
@@ -290,7 +290,8 @@ def to_json(thing: Any, indent=4, sort_keys=True) -> str:
         str: Returns an JSON formated string
     """
 
-    return json.dumps(thing, indent=indent, sort_keys=sort_keys)
+    return json.dumps(thing, indent=indent, sort_keys=sort_keys,
+                      ensure_ascii=ensure_ascii)
 
 
 def to_yaml(thing: Any) -> str:

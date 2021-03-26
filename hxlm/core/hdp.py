@@ -32,6 +32,7 @@ __all__ = [
 from hxlm.core.localization.hdp import (  # noqa
     get_language_identifiers,
     get_metadata,
+    hashable,
     load,
     transpose
 )

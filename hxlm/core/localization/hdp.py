@@ -37,7 +37,9 @@ __all__ = ['build_new_vocabulary_knowledge_graph',
            'get_metadata',
            'get_language_identifiers',
            'get_language_from_hdp_raw',  # Deprecated
-           'transpose', 'transpose_hsilo']
+           'hashable',
+           'transpose',
+           'transpose_hsilo']
 
 # os.environ["HDP_DEBUG"] = "1"
 _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
@@ -552,7 +554,7 @@ def get_metadata(hdpgroup: list) -> list:
             'header': _get_hsilo_meta_header(hsilo),
             'body': None,
             'body_canonical': None,
-            'checksum_source': None
+            'checksum_source': hashable([hsilo])[0]
         }
 
         lids = get_language_identifiers(hsilo)
@@ -574,6 +576,37 @@ def get_metadata(hdpgroup: list) -> list:
         meta['checksum'] = _get_checksum(meta['checksum_source'])
 
         result.append(meta)
+
+    return result
+
+
+def hashable(hdpgroup: list, htag: str = None) -> list:
+    """Get list of hashable strings from hdpgroups
+
+    Args:
+        hdpgroup (list): list of HDP-like objects
+        htag (str): select only by special tags (for complex documents) mixing
+                several hashings
+
+    Returns:
+        list: List of strings optimized to be used as input for hashing
+    """
+    result = []
+
+    if htag is not None:
+        raise NotImplementedError('htag not implemented at the moment')
+
+    for hsilo in hdpgroup:
+
+        # transpose requires array, but we're calling directly
+        hsilo_lat = transpose([hsilo], 'LAT')[0]
+        hsilo_lat_body = _get_hsilo_body(hsilo_lat)
+        hsilo_lat_body_clean = _clean_metakeys(
+            hsilo_lat_body, prefix='<<', suffix='>>')
+
+        hsilo_lat_body_clean_str = get_hashable(
+            hsilo_lat_body_clean)
+        result.append(hsilo_lat_body_clean_str)
 
     return result
 
