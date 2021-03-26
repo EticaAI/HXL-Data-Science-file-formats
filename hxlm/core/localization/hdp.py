@@ -94,17 +94,56 @@ CORE_LKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.lkg.yml')
 """Localization knowledge graph, aka ontology/core.lkg.yml"""
 
 
-def _clean_comments(thing: Union[dict, list]) -> Union[dict, list]:
-    """Remove keys with << preffix and >> suffix
+def _clean_metakeys(thing: Union[dict, list],
+                    level: int = 0,
+                    prefix: str = None,
+                    suffix: str = None) -> Union[dict, list]:
+    """Remove internal meta keys like (<<! preffix & !>> suffix) from an thing
 
     Args:
-        thing (Union[dict, list]): input object to search and replace
+        thing (Union[dict, list]): An list/dict HDP like object
+        level (int, optional): Level of nesting, used to mitigate infinite
+                    loops. Defaults to 0.
+        prefix (str, optional): Prefix. Defaults to
+                    ontology/core.lkg.yml -> itkn.internal_l1.start
+        suffix (str, optional): Prefix. Defaults to
+                    ontology/core.lkg.yml -> itkn.internal_l1.end
 
     Returns:
-        Union[dict, list]: Same object, cleaned
+        Union[dict, list]: Same thing, but without metakeys (if any)
     """
-    # TODO: clean the thing
 
+    level += 1
+
+    if prefix is None:
+        prefix = CORE_LKG['itkn']['internal_l1']['start']
+    if suffix is None:
+        suffix = CORE_LKG['itkn']['internal_l1']['end']
+
+    if level >= 10:
+        # Likely to be some error.
+        return thing
+
+    if isinstance(thing, dict):
+
+        # We do a deep copy to not change in place (raise would raise errors)
+        thing_new = deepcopy(thing)
+        for key, _ in thing.items():
+            if key.startswith(prefix) and key.endswith(suffix):
+                if _IS_DEBUG:
+                    print('_clean_comments cleared', key)
+                # print('_clean_comments cleared', key)
+                del thing_new[key]
+            else:
+                thing_new[key] = _clean_metakeys(thing[key], level)
+
+        return thing_new
+    if isinstance(thing, list):
+        # Lists do not have named keys, so we just iterate over
+        for key, _ in enumerate(thing):
+            thing[key] = _clean_metakeys(thing[key], level)
+
+    # Neiter list or dict; Likely to be an end value (or set/tuple). Return it
     return thing
 
 
@@ -506,11 +545,24 @@ def get_metadata(hdpgroup: list) -> list:
     return result
 
 
-def transpose(hsilo: list, target_lid: str, verbose: bool = False) -> list:
+def transpose(hsilo: list,
+              target_lid: str,
+              verbose: bool = False) -> list:
+    """Transpose ('translate') and HSilo betwen languages
+
+    Args:
+        hsilo (list): [description]
+        target_lid (str): An Localization ID, like RUS-Cyrl
+        verbose (bool, optional): If output metakeys. Defaults to False.
+
+    Returns:
+        list: An transposed hdggroup
+    """
 
     transposed = transpose_hsilo(hsilo, target_lid=target_lid)
     if not verbose:
-        transposed = _clean_comments(transposed)
+        transposed = _clean_metakeys(transposed)
+        # print('oioioi', verbose, transposed)
 
     return transposed
 
@@ -581,11 +633,13 @@ def transpose_hsilo(hsilo: Union[list, dict],
         # if HPD_VKG is None:
         #     HPD_VKG = Cutil.load_file(C.HXLM_ROOT + '/schema/core_vocab.yml')
 
-        result.extend(_transpose_root(hsilo,
-                                      objectivum_linguam=target_lid,
-                                      fontem_linguam=source_lid_,
-                                      active_vkg=active_vkg
-                                      ))
+        hsilo_ = _transpose_root(hsilo,
+                                 objectivum_linguam=target_lid,
+                                 fontem_linguam=source_lid_,
+                                 active_vkg=active_vkg
+                                 )
+
+        result.extend(hsilo_)
 
     # print('result >>>>', result)
     return result
@@ -651,13 +705,12 @@ def _transpose_root(hdp_current: dict,
                 # print('key_l1 in active_vkg.root', key_l1)
                 # print('key_l1 in active_vkg.root', newterm)  # noqa
                 hdp_result[hdpns][newterm] = hdp_result[hdpns].pop(key_l1)
-                hdp_result[hdpns][newterm] = \
-                    _transpose_recursive(
-                        hdp_result[hdpns][newterm],
-                        objectivum_linguam=objectivum_linguam,
-                        fontem_linguam=fontem_linguam,
-                        context=key_l1,
-                        active_vkg=active_vkg)
+                hdp_result[hdpns][newterm] = _transpose_recursive(
+                    hdp_result[hdpns][newterm],
+                    objectivum_linguam=objectivum_linguam,
+                    fontem_linguam=fontem_linguam,
+                    context=key_l1,
+                    active_vkg=active_vkg)
             else:
 
                 # print('hdp_current', hdp_current[hdpns])
@@ -669,8 +722,7 @@ def _transpose_root(hdp_current: dict,
                 #     print('    HDP.quid_est_hoc ', key_l1, res)
 
                 if not str(key_l1).startswith('_'):
-                    hdp_result[hdpns][key_l1] = \
-                        _transpose_recursive(
+                    hdp_result[hdpns][key_l1] = _transpose_recursive(
                         hdp_current[hdpns][key_l1],
                         objectivum_linguam=objectivum_linguam,
                         fontem_linguam=fontem_linguam,
@@ -678,7 +730,7 @@ def _transpose_root(hdp_current: dict,
                         active_vkg=active_vkg)
 
         # print(type(hdp_current[hdpns]))
-        hdp_current[hdpns]['<<transpose>>'] = {
+        hdp_current[hdpns]['<<!transpose!>>'] = {
             'source_lid': fontem_linguam,
             'target_lid': objectivum_linguam
         }

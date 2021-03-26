@@ -11,7 +11,13 @@
 #       (Emerson Rocha, 2021-03-19 22:19)
 
 
-### File suffixes ______________________________________________________________
+# TODO: add reference to these concepts from here
+#       https://en.wikipedia.org/wiki/List_of_Unicode_characters
+#       (Emerson Rocha, 2021-03-25 08:10 UTC)
+
+### File suffixes, and other default internals _________________________________
+
+## File suffixes ---------------------------------------------------------------
 # When using HDP, the library try to detect user languages by environment (and
 # add user preferences in order) and then will consider fs.hdp.base as default.
 fs:
@@ -21,6 +27,24 @@ fs:
       - lat.hdp.yml
       - mul.hdp.json
       - mul.hdp.yml
+
+### Special internal tokens ----------------------------------------------------
+
+itkn:
+  # '<<Key Name>>: value' is one way to users 'comment' files
+  # TODO: implement regex for itkn.comment
+  comment:
+    start: '<<'
+    end: '>>'
+  internal_l1:
+    start: '<<!'
+    end: '!>>'
+  # internal_l2:
+  #   start: '<<!!'
+  #   end: '!!>>'
+  # internal_l3:
+  #   start: '<<!!!'
+  #   end: '!!!>>'
 
 #### Localization identifiers __________________________________________________
 # Alphabetic order by iso3693

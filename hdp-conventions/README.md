@@ -20,6 +20,7 @@
     - [Exchange of commands with foreign interface](#exchange-of-commands-with-foreign-interface)
     - [Conventions for identifiers (key names)](#conventions-for-identifiers-key-names)
         - [Tokens meaning on keys](#tokens-meaning-on-keys)
+            - [The `<< >>`, `<<! !>>`, , `<<!! !!>>`, , `<<!!! !!!>>`](#the----------)
 
 <!-- /TOC -->
 
@@ -121,6 +122,27 @@
       the core mesage
   - Examples:
      - `<<COMMENT>>`, `<ENG<COMMENT>>`, `<POR<COMENTARIO>>`
+
+##### The `<< >>`, `<<! !>>`, , `<<!! !!>>`, , `<<!!! !!!>>`
+
+> Draft from v0.8.3
+
+- `<< >>`,  `<(.*)<  >(.*)>`
+  - For sake of convention, we could use this more for user-related comments
+  - the _(.*)_ means that something can be put betwen `<<`/`>>`, like
+    `<POR<Meu comentário aqui em Português>>`
+- `<<! !>>`
+  - When processing HDP files, internal functions often need to pass
+    information that is essential for functionality (or at least to speed
+    up). This extra ! could be used for this type of internal comment
+    - Maybe we could allow user expose this with 'verbose' parameters?
+- `<<!! !!>>`, `<<!!! !!!>>`
+  - Similar to `<<! !>>`, but for higher level of information that is not
+    necessary for end user, but may be for who would work with the library
+    - Maybe we could allow user expose this with 'debug' parameters?
+
+> Issue: `!` character is sometimes used to mean 'encrypted', so maybe we
+  should choose another character
 
 <!--
       - [`(`, `((`, `)`, `))`] are not recommended for generic comments
