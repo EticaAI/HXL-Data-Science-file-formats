@@ -167,11 +167,33 @@ def _get_hsilo_body(hsilo_item: dict) -> dict:
     return hsilo_item_new
 
 
+def _get_hsilo_body_language_identifier(hsilo_item: dict) -> dict:
+    """Generic test to try all possibilities to detect lid of only hsilo body
+
+    Args:
+        hsilo_item (dict): An individual HSilo item
+
+    Returns:
+        hsilo_item (dict): The same HSilo item without meta header field
+    """
+
+    lid = {}
+
+    # hsilo_item_new = {}
+
+    # for key in hsilo_item.keys():
+    #     lang_ = get_lid_from_keyterm(key)
+    #     if lang_ is None:
+    #         hsilo_item_new[key] = hsilo_item[key]
+
+    return lid
+
+
 def _get_checksum(hashable: list) -> list:
     """Get Checksum for HSilo items
 
     Args:
-        hsilo (list): An HSilo (list of individual HSilo items)
+        hashable (list): an alterady ready to hash (like Latin) input
 
     Returns:
         list: List of S-expression checksum values
@@ -193,41 +215,50 @@ def _get_file_preferred_suffix() -> tuple:
     """
     userpref_suffix = []
 
-    # TODO: the file_prefered must be moved to core ontology, since this
-    #       is from interest of the end users
-    #       (Emerson Rocha, 2021-03-25 03:03 UTC)
-    # core_suffix = [
-    #     'lat.hdp.json',
-    #     'lat.hdp.yml',
-    #     'mul.hdp.json',
-    #     'mul.hdp.yml'
-    # ]
     core_suffix = CORE_LKG['fs']['hdp']['base']
 
     userlangs_upper = get_language_user_know()
     if len(userlangs_upper) > 0:
-        # print('oi', userlangs_upper)
         userlangs = map(lambda x: x.lower(), userlangs_upper)
-        # print('oi2', userlangs)
         for lang_ in userlangs:
             userpref_suffix.append(lang_ + '.hdp.json')
             userpref_suffix.append(lang_ + '.hdp.yml')
 
-    # print('userlangs', userlangs)
-    # raise AttributeError('DEBUG only: userlangs', userlangs_upper,
-    #                      userlangs, userpref_suffix,
-    #                      userpref_suffix.extend(core_suffix))
-
-    # print('userpref_suffix', userpref_suffix)
-    # print('core_suffix', core_suffix)
     combined_suffixes = userpref_suffix + core_suffix
-    # print('combined_suffixes', combined_suffixes)
-    # print('a', userpref_suffix.extend(core_suffix))
-    # print('b', tuple(userpref_suffix.extend(core_suffix)))
-
-    # print('CORE_LKG', CORE_LKG['fs']['hdp']['base'])
 
     return tuple(combined_suffixes)
+
+
+def _get_ideal_header_key(generic_lang_term: str) -> str:
+    """Return the most ideal header key for an input term
+
+    This method is mostly used when transposing
+
+    >>> _get_ideal_header_key('POR')
+    '([Língua portuguesa])'
+    >>> _get_ideal_header_key('ENG-Latn')
+    '([English language])'
+    >>> _get_ideal_header_key('Idioma español')
+    '([Idioma español])'
+
+    Args:
+        generic_lang_term (str): The generic term (language code, text, etc)
+
+    Returns:
+        str: [description]
+    """
+    check1_lid = get_lid_from_keyterm(generic_lang_term)
+    if check1_lid is not None:
+        return '([' + check1_lid['klid'] + '])'
+
+    # It's somewhat lazy to reuse the get_lid_from_keyterm when often this
+    # function would already know the language input. But this could
+    # be more restricted later
+    check2_lid = get_lid_from_keyterm('([' + generic_lang_term + '])')
+    if check2_lid is not None:
+        return '([' + check2_lid['klid'] + '])'
+
+    return None
 
 
 def _get_hsilo_meta_header(hsilo_item: dict) -> dict:
@@ -479,6 +510,7 @@ def get_language_identifiers(hdp_item: dict) -> dict:
 
     result = {
         'header': None,
+        'header_key': None,
         'body': None
     }
 
@@ -486,6 +518,7 @@ def get_language_identifiers(hdp_item: dict) -> dict:
         lid_header = get_lid_from_keyterm(key)
         if lid_header is not None:
             result['header'] = lid_header
+            result['header_key'] = key
             break
 
     # TODO: implement result['header'] body
@@ -578,6 +611,8 @@ def transpose_hsilo(hsilo: Union[list, dict],
     Args:
         hsilo (dict): An HSilo object
         target_lid (str): An Localization ID, like RUS-Cyrl
+        source_lid (str): An Localization ID, like RUS-Cyrl. If not given, will
+                be implicitly detected
 
     Returns:
         dict: An transposed HSilo
@@ -638,7 +673,44 @@ def transpose_hsilo(hsilo: Union[list, dict],
                                  fontem_linguam=source_lid_,
                                  active_vkg=active_vkg
                                  )
+        # TODO: this selection of first item of list should be changed when
+        #       _transpose_root receive an refactoring. See notes there.
+        #       (Emerson Rocha, 2021-03-26 06:39)
 
+        # print('aaa', type(hsilo_[0]), hsilo_[0])
+        # print('aaa', type(hsilo_[0]), hsilo_[0]['<<!transpose!>>'])
+
+        # if hsilo_[0]['<<!transpose!>>']:
+        #     print ('oi', hsilo_[0]['<<!transpose!>>'])
+
+        if hsilo_[0]['<<!transpose!>>']['needs_header_change']:
+
+            tmeta = hsilo_[0]['<<!transpose!>>']
+
+            h_new = tmeta['header_key_target']
+            h_old = tmeta['header_key_now']
+
+            hsilo_[0][h_new] = [
+                tmeta['checksum'],
+                {
+                    h_old: hsilo_[0][h_old]
+                }
+            ]
+
+            # hsilo_[0][h_new] = []
+            # hsilo_[0][h_new].append(tmeta['checksum'])
+            # hsilo_[h_new].append(
+            #     {
+            #         h_old: hsilo_[0][h_old]
+            #     }
+            # )
+            # Delete old header
+            # print('oi2', hsilo_[0].keys())
+            # print('oooi', hsilo_[0][h_old])
+            hsilo_[0].pop(h_old)
+            # delattr(hsilo_[0], h_old)
+            # delattr(hsilo_[0], h_old)
+            # del hsilo_[0][h_old]
         result.extend(hsilo_)
 
     # print('result >>>>', result)
@@ -665,6 +737,11 @@ def _transpose_root(hdp_current: dict,
     Returns:
         dict: And HDP object already translated to target linguam
     """
+
+    # TODO: maybe this should be converted to change only one dict while
+    #       transpose_hsilo keep track of the lists. For now lists will
+    #       stay as it is, but this is something to do on potential refactoring
+    #       (Emerson Rocha, 2021-03-26 06:39)
 
     # print('oi1', hdp_current)
 
@@ -730,10 +807,29 @@ def _transpose_root(hdp_current: dict,
                         active_vkg=active_vkg)
 
         # print(type(hdp_current[hdpns]))
-        hdp_current[hdpns]['<<!transpose!>>'] = {
+
+        lidsnow_ = get_language_identifiers(hdp_result[hdpns])
+        hdp_result[hdpns]['<<!transpose!>>'] = {
+            'checksum': '(CRC (TODO))',
+            'checksum_changed': False,  # TODO: this need to be tested later
             'source_lid': fontem_linguam,
-            'target_lid': objectivum_linguam
+            'target_lid': objectivum_linguam,
+            'header_key_now': lidsnow_['header_key'],
+            'header_key_target': _get_ideal_header_key(objectivum_linguam),
+            'needs_header_change': True
         }
+
+        # meta['body_canonical'] = _get_hsilo_body(hsilo)
+        # meta['checksum_source'] = get_hashable(meta['body_canonical'])
+        # meta['checksum'] = _get_checksum(meta['checksum_source'])
+
+        if _IS_DEBUG:
+            hdp_result[hdpns]['<<!!transpose!!>>'] = {
+                'body_canonical': None,
+                'checksum_source': None
+            }
+
+        # print('lidsnow_', lidsnow_)
 
         # if fontem_linguam != objectivum_linguam:
 
