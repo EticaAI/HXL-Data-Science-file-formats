@@ -9,7 +9,8 @@
 #  - https://unicode.org/udhr/d/udhr_por_PT.txt
 ---
 - ([Lingua Latina]):
-    - udhr.lat.hpd.yml
+    - salve mundi!
+    - (CRC32 'α "3839021470")
   hsilo:
     descriptionem:
       ARA: "الإعلان العالمي لحقوق الإنسان"

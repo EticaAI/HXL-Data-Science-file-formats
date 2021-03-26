@@ -32,14 +32,17 @@ from hxlm.core.util import load_file as generic_load_file
 # TODO: move vocabulary conversions from hxlm.core.schema.vocab to here
 #       (Emerson Rocha, 2021-03-20 03:01 UTC)
 
-__all__ = ['build_new_vocabulary_knowledge_graph',
-           'get_hdp_term_cleaned',
-           'get_metadata',
-           'get_language_identifiers',
-           'get_language_from_hdp_raw',  # Deprecated
-           'hashable',
-           'transpose',
-           'transpose_hsilo']
+__all__ = [
+    'build_new_vocabulary_knowledge_graph',  # Maybe make it short?
+    'checksum',
+    'get_hdp_term_cleaned',  # Maybe this could be _private?
+    'get_metadata',
+    'get_language_identifiers',
+    'get_language_from_hdp_raw',  # Deprecated
+    'hashable',
+    'transpose',
+    'transpose_hsilo'
+]
 
 # os.environ["HDP_DEBUG"] = "1"
 _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
@@ -207,6 +210,83 @@ def _get_checksum(hashable_str: str, chktag: str = 'α') -> list:
 
     return '(CRC32 \'' + chktag + ' "' + \
         str(get_checksum_crc32(hashable_str)) + '")'
+
+
+def _get_checksum_keyterm(keyterm: str) -> dict:
+    """Both check an keyterm seems to be an checksum, and, if is, explain it
+
+    Args:
+        keyterm (keyterm): keyterm to search
+
+    Returns:
+        dict: an dict with: 'algorithm', 'chktag', 'value' & (if any) 'salt'
+
+    Examples:
+    >>> _get_checksum_keyterm('invalid')
+    >>> _get_checksum_keyterm('(invalid invalid invalid invalid)')
+    >>> _get_checksum_keyterm('CRC32 \\'α "invalid"')
+    >>> _get_checksum_keyterm('(CRC32 \\'α "3839021470")')
+    {'algorithm': 'CRC32', 'chktag': "'α", 'value': '3839021470'}
+    >>> _get_checksum_keyterm("(CRC32 'α '3839021470')")
+    {'algorithm': 'CRC32', 'chktag': "'α", 'value': '3839021470'}
+    >>> _get_checksum_keyterm("(CRC32 'α 3839021470)")
+    {'algorithm': 'CRC32', 'chktag': "'α", 'value': '3839021470'}
+    """
+    # We do some very quick checks. An CRC checkcksum is similar to
+    #    (CRC32 'α "3839021470")
+    if len(keyterm) < 20 or \
+            not keyterm.startswith('(') or not keyterm.endswith(')'):
+        return None
+
+    # Even if someone implement an SHA-3 512, the hash would have
+    # like 128 characters.
+    #    (SHA3-512 'term123 "looooooooooooooooooooooooooooooooooooooooo.....")
+    # We will just add 128 + 64 to limit at something, but this could would
+    # need to be updated to support other hashes
+    if len(keyterm) > 192:
+        return None
+
+    # At this moment, only CRC32 is supported. And we do not internationalized
+    # another terms
+    if not keyterm.startswith('(CRC32 '):
+        return None
+
+    result = {
+        'algorithm': None,
+        'chktag': None,  # TODO: I18N this thing if is know, see VKG.numerum
+        'value': None
+        # 'salt': None  # Not implemented, but maybe will be
+    }
+
+    t_1 = keyterm.replace('(', '', 1)
+    t_2 = t_1.replace(')', '', len(t_1))
+
+    # Know issue: at the moment, we still not support Lisp/Racket like
+    # symbols with spaces in it. like (CRC32 '|my custom tag| "3839021470")
+    t_parts = t_2.split(' ')
+
+    if len(t_parts) < 3:
+        raise ValueError('Checksum parts too small, [' + keyterm + ']')
+
+    if len(t_parts) > 4:
+        raise ValueError('Checksum parts too big, [' + keyterm + ']')
+
+    result['algorithm'] = t_parts[0]
+    result['chktag'] = t_parts[1]
+    v_1 = t_parts[2]
+    v_2 = v_1.replace('"', '', 1)
+    # result['value'] = v_2.replace('"', '', len(v_2))
+    v_3 = v_2.replace('"', '', len(v_2))
+    v_4 = v_3.replace('\'', '', 1)
+    result['value'] = v_4.replace('\'', '', len(v_4))
+    # result['value'] = v_3
+    # if result['value'][0] == "'" and \
+    #     result['value'][len(result['value'])] == "'":
+
+    if len(t_parts) >= 4:
+        result['salt'] = t_parts[3]
+
+    return result
 
 
 def _get_file_preferred_suffix() -> tuple:
@@ -422,6 +502,41 @@ def build_new_vocabulary_knowledge_graph(
 
     full_vkgs[vkg_name] = vkg_new
     return full_vkgs
+
+
+def check_authenticity():
+    """Check authenticity of the resource
+
+    Raises:
+        NotImplementedError: HDP, without external help, can not grant
+                             authenticity. check_integrity can be used for
+                             non-intentional data corruption.
+    """
+    raise NotImplementedError(
+        "HDP, without external help, can not grant authenticity. " +
+        "check_integrity can be used for non-intentional data corruption."
+    )
+
+
+def check_integrity(hdpgroup: list,
+                    verbose: bool = False,
+                    enforce: bool = False) -> Union[list, bool]:
+    any_invalid = False
+    result = []
+
+    for hsilo in hdpgroup:
+
+        # TODO: test CRCs and feed the checkresult
+        checkresult = None
+        result.append(checkresult)
+
+        if checkresult is False:
+            any_invalid = False
+
+    if any_invalid and enforce:
+        raise SyntaxError('check_integrity failed')
+
+    return result
 
 
 def checksum(hdpgroup: list,
