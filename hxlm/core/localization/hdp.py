@@ -191,21 +191,22 @@ def _get_hsilo_body_language_identifier(hsilo_item: dict) -> dict:
     return lid
 
 
-def _get_checksum(hashable: list) -> list:
-    """Get Checksum for HSilo items
+def _get_checksum(hashable_str: str, chktag: str = 'α') -> list:
+    """Generic CRC32 checksum for strings
 
     Args:
-        hashable (list): an alterady ready to hash (like Latin) input
+        hashable_str (str): an alterady ready to hash (like Latin) input
 
     Returns:
         list: List of S-expression checksum values
     """
-    return '(CRC32 ' + str(get_checksum_crc32(hashable)) + ')'
-    # result = []
 
-    # for hsilo_ in hsilo:
-    #     result.append('(CRC32 ' + str(get_checksum_crc32(hsilo_)) + ')')
-    # return result
+    # TODO: maybe move this entire function out of here? it's somewhat
+    #       redundant with checksum()
+    #       (Emerson Rocha, 2021-03-26 08:37 UTC)
+
+    return '(CRC32 \'' + chktag + ' "' + \
+        str(get_checksum_crc32(hashable_str)) + '")'
 
 
 def _get_file_preferred_suffix() -> tuple:
@@ -423,6 +424,45 @@ def build_new_vocabulary_knowledge_graph(
     return full_vkgs
 
 
+def checksum(hdpgroup: list,
+             algorithm: str = 'CRC32',
+             chktag: str = 'α') -> list:
+    """List of checksums-like for detection of Non-intentional data corruption
+
+    See https://en.wikipedia.org/wiki/Cksum
+    See https://en.wikipedia.org/wiki/Checksum
+
+    Args:
+        hdpgroup (list): list of HDP-like objects
+        type (str): The type of checker
+        htag (str): select only by special tags (for complex documents) mixing
+                several hashings. See hashable()
+
+    Returns:
+        list: List of strings optimized to be used as input for hashing
+
+    >>> import hxlm.core as HXLm
+    >>> UDUR_LAT = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
+    >>> checksum(UDUR_LAT)
+    ['(CRC32 \\'α "3839021470")']
+    >>> UDUR_RUS = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.rus.hdp.yml')
+    >>> checksum(UDUR_RUS)
+    ['(CRC32 \\'α "3839021470")']
+    """
+
+    if algorithm != 'CRC32':
+        raise NotImplementedError('algorithm [' +
+                                  str(algorithm) + '] not implemented')
+    result = []
+    for hsilo in hdpgroup:
+
+        hashable_str = hashable([hsilo])[0]
+        hashable_code = _get_checksum(hashable_str, chktag=chktag)
+        result.append(hashable_code)
+
+    return result
+
+
 def get_hdp_term_cleaned(term: str) -> str:
     """get_hdp_term_cleaned is (TODO: document)"""
     for tkc in HDP_TOKEN_CHARS:
@@ -580,21 +620,28 @@ def get_metadata(hdpgroup: list) -> list:
     return result
 
 
-def hashable(hdpgroup: list, htag: str = None) -> list:
+def hashable(hdpgroup: list, chktag: str = 'α') -> list:
     """Get list of hashable strings from hdpgroups
 
     Args:
         hdpgroup (list): list of HDP-like objects
-        htag (str): select only by special tags (for complex documents) mixing
-                several hashings
+        chktag (str): select only by special tags (for complex documents)
+                mixing several hashings
 
     Returns:
         list: List of strings optimized to be used as input for hashing
+
+    >>> import hxlm.core as HXLm
+    >>> UDUR_LAT = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
+    >>> hashable(UDUR_LAT)[0].startswith('{"hdatum": [{"descriptionem": {')
+    True
+    >>> hashable(UDUR_LAT)[0].endswith('["UN"], "tag": ["udhr"]}}')
+    True
     """
     result = []
 
-    if htag is not None:
-        raise NotImplementedError('htag not implemented at the moment')
+    if chktag != 'α':
+        raise NotImplementedError('chktag still work in progress')
 
     for hsilo in hdpgroup:
 
