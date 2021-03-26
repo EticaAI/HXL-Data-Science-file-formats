@@ -1230,6 +1230,55 @@ attr:
   #   ARA:
   #     #...
 
+#### Rank, numerals, means to express ordering _________________________________
+# Some implementations, like the implicit checksums, the default 'checking tags'
+# are symbols that represent some sort of order.
+
+# https://en.wikipedia.org/wiki/List_of_numbers_in_various_languages
+# https://en.wikipedia.org/wiki/List_of_numbers_in_various_languages
+# https://en.wiktionary.org/wiki/numerus#Latin
+# https://en.wikipedia.org/wiki/Latin_numerals
+# https://en.wikipedia.org/wiki/Greek_alphabet
+numerum:
+  _1_:
+    binary:
+      id: '1'
+    Grek:
+      id: α
+      id_alts:
+        - Α
+    system:
+      id: 1
+  _2_:
+    binary:
+      id: '10'
+    Grek:
+      id: β
+      id_alts:
+        - Β
+    system:
+      id: 2
+  _last_:
+    # binary:
+    #   id: '10'
+    Grek:
+      id: ω
+      id_alts:
+        - Ω
+    # system:
+    #   id: 2
+
+  # 'Grek' is from (ISO 15924), see https://en.wikipedia.org/wiki/Greek_alphabet
+  # _ZZZZ_:
+  #   binary:
+  #     id: 'ZZZZ'
+  #   Grek:
+  #     id: ZZZZ
+  #     id_alts:
+  #       - ZZZZ
+  #   system:
+  #     id: ZZZZ
+
 #### About some prefix for an Uniform Resource Name ___________________________
 # @see https://en.wikipedia.org/wiki/Uniform_Resource_Name
 # @see https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
