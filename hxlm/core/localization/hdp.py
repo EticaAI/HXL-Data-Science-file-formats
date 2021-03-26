@@ -232,6 +232,8 @@ def _get_checksum_keyterm(keyterm: str) -> dict:
     >>> _get_checksum_keyterm("(CRC32 'α 3839021470)")
     {'algorithm': 'CRC32', 'chktag': "'α", 'value': '3839021470'}
     """
+
+    # print('_get_checksum_keyterm', keyterm)
     # We do some very quick checks. An CRC checkcksum is similar to
     #    (CRC32 'α "3839021470")
     if len(keyterm) < 20 or \
@@ -351,17 +353,17 @@ def _get_hsilo_meta_header(hsilo_item: dict) -> dict:
         hsilo (list): An HSilo (list of individual HSilo items)
 
     Returns:
-        list: Only each HSilo header field
+        dict: Only each HSilo header field
     """
-
     hsilo_item_new = {}
 
     for key in hsilo_item.keys():
         lang_ = get_lid_from_keyterm(key)
         if lang_ is not None:
             hsilo_item_new[key] = hsilo_item[key]
+            return hsilo_item_new
 
-    return hsilo_item_new
+    # return hsilo_item_new
 
 
 def _get_language_hsilo_header(hdp_robj: dict) -> dict:
@@ -521,27 +523,108 @@ def check_authenticity():
 def check_integrity(hdpgroup: list,
                     verbose: bool = False,
                     enforce: bool = False) -> Union[list, bool]:
+    """Check integrity (comprare checksums) non-proposital data corruption
+
+    Args:
+        hdpgroup (list): [description]
+        verbose (bool, optional): [description]. Defaults to False.
+        enforce (bool, optional): [description]. Defaults to False.
+
+    Raises:
+        SyntaxError: [description]
+
+    Returns:
+        Union[list, bool]: [description]
+
+    >>> import hxlm.core as HXLm
+    >>> UDUR_LAT = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
+    >>> check_integrity(UDUR_LAT)
+    True
+    >>> check_integrity(UDUR_LAT, verbose=True)
+    [True, []]
+    >>> HXL_ENG = HXLm.util.load_file(HXLm.HDATUM_HXL + '/hxl.eng.hdp.yml')
+    >>> check_integrity(HXL_ENG)
+    True
+    """
     any_invalid = False
     result = []
+    verbose_msgs = []
 
     for hsilo in hdpgroup:
 
-        # TODO: test CRCs and feed the checkresult
-        checkresult = None
-        result.append(checkresult)
+        mheader = _get_hsilo_meta_header(hsilo)
 
-        if checkresult is False:
-            any_invalid = False
+        if mheader is None:
+            # This item does not even have mheader. It's beyond invalid
+            any_invalid = True
+            verbose_msgs.append('check_integrity not even mheader')
+            continue
+
+        crcs_list = []
+        # loop = 0
+
+        hheadervals = mheader.values()
+        # print('hheadervals', hheadervals)
+
+        # has_any_crc = False
+
+        # for hitem in hheadervals:
+        for _, hitem0 in enumerate(hheadervals):
+            for hitem1 in hitem0:
+                # print('loop', hitem1, _)
+                # continue
+                crc_resp = _get_checksum_keyterm(hitem1)
+
+                if crc_resp is not None:
+                    # has_any_crc = True
+                    crcs_list.append(crc_resp)
+
+        # print('oooi', crcs_list)
+        if len(crcs_list) == 0:
+            # Enforce enabled; We will require an CRC
+            if enforce:
+                any_invalid = True
+
+            verbose_msgs.append('check_integrity no CRCs for ' + str(mheader))
+            result.append(None)
+            continue
+
+        # print('crcs_list now', crcs_list)
+
+        for crc_now in crcs_list:
+
+            hsilo_hash_string = checksum([hsilo],
+                                         algorithm=crc_now['algorithm'],
+                                         chktag=crc_now['chktag'])[0]
+
+            # hsilo_hash_string2 = hsilo_hash_string.replace("\'\'", "'")
+            hsilo_hash = _get_checksum_keyterm(hsilo_hash_string)
+
+            if crc_now['value'] != hsilo_hash['value']:
+
+                # TODO: deal with more than one CRC on some files; it should
+                #       tolerate by default such cases, but now we're
+                #       considering total from multiple hsilos
+                result.append(False)
+                any_invalid = True
+                verbose_msgs.append('check_integrity FAILED ' +
+                                    '[' + str(crc_now) + '][' +
+                                    str(hsilo_hash))
+            else:
+                result.append(True)
 
     if any_invalid and enforce:
         raise SyntaxError('check_integrity failed')
 
-    return result
+    if verbose:
+        return [not any_invalid, verbose_msgs]
+
+    return not any_invalid
 
 
 def checksum(hdpgroup: list,
              algorithm: str = 'CRC32',
-             chktag: str = 'α') -> list:
+             chktag: str = '\'α') -> list:
     """List of checksums-like for detection of Non-intentional data corruption
 
     See https://en.wikipedia.org/wiki/Cksum
@@ -559,15 +642,21 @@ def checksum(hdpgroup: list,
     >>> import hxlm.core as HXLm
     >>> UDUR_LAT = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
     >>> checksum(UDUR_LAT)
-    ['(CRC32 \\'α "3839021470")']
+    ['(CRC32 \\'\\'α "3839021470")']
     >>> UDUR_RUS = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.rus.hdp.yml')
     >>> checksum(UDUR_RUS)
-    ['(CRC32 \\'α "3839021470")']
+    ['(CRC32 \\'\\'α "3839021470")']
     """
 
     if algorithm != 'CRC32':
         raise NotImplementedError('algorithm [' +
                                   str(algorithm) + '] not implemented')
+
+    # Escape ' is not an walk in the park. Just to simplify, we will replace
+    # double '' with '
+    if chktag.find("''") > -1:
+        chktag = chktag.replace("''", "'")
+
     result = []
     for hsilo in hdpgroup:
 
