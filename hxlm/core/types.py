@@ -19,6 +19,8 @@ class EntryPointType(Enum):
 
     # TODO: webdav?
 
+    # https://tools.ietf.org/html/rfc1738 (File protocol)
+
     FTP = 'ftp'
     """FTP/FTPS protocol https://tools.ietf.org/html/rfc959"""
 
@@ -35,20 +37,26 @@ class EntryPointType(Enum):
     # https://english.stackexchange.com/questions/113606
     # /difference-between-folder-and-directory
 
-    LOCAL_DIR = "/local/"
+    LOCAL_DIR = "file://localhost/dir/"
     """Local directory"""
 
-    LOCAL_FILE = "/local/file"
+    LOCAL_FILE = "file://localhost/file"
     """Local file"""
+
+    NETWORK_DIR = "file://remotehost/dir/"
+    """Directory acessible via access to an non-localhost hostname"""
+
+    NETWORK_FILE = "file://remotehost/file"
+    """File acessible via access to an non-localhost hostname"""
 
     SSH = 'ssh://'
     """Secure Shell (SSH), https://tools.ietf.org/html/rfc4253"""
 
     # https://docs.python.org/3/library/asyncio-stream.html
-    STREAM = "stream"
+    STREAM = "STREAM"
     """Data stream"""
 
-    RAW_STRING = "RAW_STRING"
+    STRING = "STRING"
     """Generic raw string ready to be immediately parsed (see STREAM"""
 
     UNKNOW = "?"
