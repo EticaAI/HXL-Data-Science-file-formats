@@ -1,14 +1,15 @@
 """hxlm.core.util provive quick utilitaries for common tasks
 """
-from functools import reduce, lru_cache
+# from functools import reduce, lru_cache
+from functools import reduce
 from typing import (
     Any,
-    Union
+    # Union
 )
 
-import json
-import csv
-import yaml
+# import json
+# import csv
+# import yaml
 
 
 import hxl
@@ -28,8 +29,24 @@ from hxlm.core.constant import (
 from hxlm.core.internal.util import _get_submodules
 from hxlm.core.compliance import verbose_event
 
-__all__ = ['cmp_sensitive_level', 'debug', 'get_value_if_key_exists',
-           'hxl_info']
+from hxlm.core.io.local import (  # noqa
+    load_file
+)
+
+from hxlm.core.io.converter import (  # noqa
+    to_json,
+    to_yaml
+)
+
+__all__ = [
+    'cmp_sensitive_level',
+    'debug',
+    'get_value_if_key_exists',
+    'hxl_info',
+    'load_file',  # hxlm.core.io.local
+    'to_json',    # hxlm.core.io.converter
+    'to_yaml'     # hxlm.core.io.converter
+]
 
 
 def cmp_sensitive_level(level, reference_level=None):
@@ -246,73 +263,3 @@ def is_legally_right():
         HType: True, False, ?
     """
     return HTYPE_UNKNOW
-
-
-@lru_cache(maxsize=128)
-def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
-    """Generic simple file loader (YAML, JSON, CSV) with cache.
-
-    Args:
-        file_path (str): Path or bytes for the file
-        delimiter (str): Delimiter. Only applicable if is an CSV/TSV like item
-
-    Returns:
-        Union[dict, list]: The loaded file result
-
-    >>> import hxlm.core as HXLm
-    >>> file_path = HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml'
-    >>> hsilo_example = load_file(file_path)
-    >>> hsilo_example[0]['hsilo']['tag']
-    ['udhr']
-    """
-
-    with open(file_path, 'r') as stream:
-        if file_path.endswith('.json'):
-            return json.load(stream)
-        if file_path.endswith('.yml'):
-            return yaml.safe_load(stream)
-        if file_path.endswith('.csv'):
-            reader = csv.reader(stream, delimiter=delimiter)
-            result = []
-            for row in reader:
-                result.append(row)
-            return result
-
-    raise SystemError('Unknow input [' + str(file_path) + ']')
-
-
-def to_json(thing: Any, indent=4, sort_keys=True, ensure_ascii=False) -> str:
-    """Generic JSON exporter
-
-    Args:
-        thing (Any): Object to convert to JSON string
-        indent (int, optional): JSON string ident. Defaults to 4.
-        sort_keys (bool, optional): If keys are shorted. Defaults to True.
-
-    Returns:
-        str: Returns an JSON formated string
-    """
-
-    return json.dumps(thing, indent=indent, sort_keys=sort_keys,
-                      ensure_ascii=ensure_ascii)
-
-
-def to_yaml(thing: Any) -> str:
-    """Generic YAML exporter
-
-    Returns:
-        str: Returns an YAML formated string
-    """
-
-    return yaml.dump(thing, Dumper=Dumper,
-                     encoding='utf-8', allow_unicode=True)
-
-
-class Dumper(yaml.Dumper):
-    """Force identation on pylint, https://github.com/yaml/pyyaml/issues/234
-    TODO: check on future if this still need
-          (Emerson Rocha, 2021-02-28 10:56 UTC)
-    """
-
-    def increase_indent(self, flow=False, *args, **kwargs):  # noqa
-        return super().increase_indent(flow=flow, indentless=False)

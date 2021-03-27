@@ -1,4 +1,4 @@
-"""hxlm.core.urn.util
+"""hxlm.core.io.util
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
