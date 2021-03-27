@@ -17,12 +17,22 @@ import os
 
 # from dataclasses import asdict
 
+from typing import (
+    List
+)
+
 from hxlm.core.types import (
     L10NContext
 )
 from hxlm.core.util import (
     get_value_if_key_exists
 )
+
+from hxlm.core.hdp.datamodel import (
+    HSiloWrapper,
+    HDPRaw
+)
+
 from hxlm.core.localization.util import (
     l10n
 )
@@ -47,9 +57,17 @@ class HDPProject:
     _l10n: L10NContext
     """Current active user context."""
 
-    def __init__(self, entry_point: str, l10n: L10NContext):
+    hdpraw: List[HDPRaw]
+    """HDPRaw is, informally speaking it is a crude representation of
+    information in a disk file that MAY be an single hsilo or not.
+    """
+
+    hsilos: List[HSiloWrapper]
+    """List of individual HSilo (one physical file could have multiple)"""
+
+    def __init__(self, entry_point: str, user_l10n: L10NContext):
         self._entry_point = entry_point
-        self._l10n = l10n
+        self._l10n = user_l10n
 
     def _init_project(self, entry_point: str):
         pass
@@ -71,8 +89,8 @@ class HDPProject:
 
 
 def project(entry_point: str) -> HDPProject:
-    l10n_user = l10n()
+    user_l10n = l10n()
     # raise SyntaxError(l10n_user.know_languages)
     # raise SyntaxError(l10n_user.about())
-    result = HDPProject(entry_point, l10n=l10n_user)
+    result = HDPProject(entry_point, user_l10n=user_l10n)
     return result
