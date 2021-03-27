@@ -18,10 +18,16 @@ from hxlm.core.constant import (
     # HTYPE_FALSE
     HTYPE_UNKNOW
 )
+
 from hxlm.core.constant import (
     HDSLU,
     HDSL_DEFAULT
 )
+
+from hxlm.core.types import (
+    EntryPointType
+)
+
 from hxlm.core.internal.util import _get_submodules
 from hxlm.core.compliance import verbose_event
 
@@ -134,6 +140,37 @@ def get_object_if_value_eq_on_key(source: list,
 # /what-are-the-main-differences-of-namedtuple-and-typeddict-in-python-mypy
 # /63218574#63218574
 # def get_input_type(input_str: str) ->
+
+def get_entrypoint_type(entrypoint: Any) -> EntryPointType:
+    """Get the entry point type of an generic information
+
+    See
+      - https://stackoverflow.com/questions/1661262
+        /check-if-object-is-file-like-in-python
+    Args:
+        entrypoint (Any): Anything to be checket against EntryPointType Enum
+
+    Returns:
+        EntryPointType: An EntryPointType value
+    """
+
+    if isinstance(entrypoint, str):
+        ep_lower = entrypoint.lower()
+        if ep_lower.startswith(('ftp://', 'ftps://')):
+            return EntryPointType.FTP
+        if ep_lower.startswith('git://'):
+            return EntryPointType.GIT
+        if ep_lower.startswith(('http://', 'https://')):
+            return EntryPointType.HTTP
+        if ep_lower.startswith('ssh:'):
+            return EntryPointType.SSH
+        if ep_lower.startswith('urn:'):
+            return EntryPointType.URN
+
+        # TODO: check with local paths and string as last resort
+
+    # Streams and other things not tested yet
+    return EntryPointType.UNKNOW
 
 
 def get_object_by_value_in_key(source: dict,
