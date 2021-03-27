@@ -130,6 +130,12 @@ def get_object_if_value_eq_on_key(source: list,
     return None
 
 
+# https://stackoverflow.com/questions/53409117
+# /what-are-the-main-differences-of-namedtuple-and-typeddict-in-python-mypy
+# /63218574#63218574
+# def get_input_type(input_str: str) ->
+
+
 def get_object_by_value_in_key(source: dict,
                                key: str,
                                value: Any) -> dict:
