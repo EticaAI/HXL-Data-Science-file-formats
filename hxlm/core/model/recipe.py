@@ -13,7 +13,7 @@ Quick links:
   - https://docs.google.com/presentation/d
     /17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/edit#slide=id.p
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """

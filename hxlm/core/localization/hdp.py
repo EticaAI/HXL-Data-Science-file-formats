@@ -3,7 +3,7 @@
 TODO: some functions from here should be moved to a higher namespace, like
       HXLm.HDP
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """

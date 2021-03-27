@@ -39,7 +39,7 @@ TODO: maybe implement this for part of this method
         /making-functions-non-override-able
       - https://www.python.org/dev/peps/pep-0591/
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """

@@ -27,7 +27,7 @@ TODO: https://www.manrs.org/wp-content/uploads/2018/03/MANRS-BCOP-20170125.pdf
 TODO: https://www.peeringdb.com/
 
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """

@@ -75,7 +75,7 @@ NOTE: [Contextual comments as 2021-03-10]. While some sort of automated
       current time and resources or any quick-but-very-wrong-fix would make
       more damage to human lives. (Emerson Rocha, 2021-03-10 18:19 BRT)
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """

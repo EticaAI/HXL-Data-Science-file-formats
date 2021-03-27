@@ -11,7 +11,7 @@ For Python libraries
   - https://tools.ietf.org/html/rfc2104.html
 - https://docs.python.org/3/library/hashlib.html
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """

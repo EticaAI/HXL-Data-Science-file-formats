@@ -36,7 +36,7 @@ TODO: explain ways based on the Data processor (the natural person) that
       can receive additional (preferable also some fake ones, just to always
       have noise) list of hashes that are not authorized to see.
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """

@@ -5,7 +5,7 @@
 - https://superuser.com/questions/45342
   /when-should-i-use-dev-shm-and-when-should-i-use-tmp
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """

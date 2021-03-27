@@ -25,7 +25,7 @@ Other libraries to see
 #       @see https://tools.ietf.org/html/rfc6920
 #       (Emerson Rocha, 2021-03-05 16:57 UTC)
 
-Copyleft 🄯 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
