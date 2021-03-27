@@ -14,6 +14,13 @@ _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 
 
 class HDPProject:
+    """Abstraction to an HDP Declarative Programming  project
+
+    While is possible to load individual YAML/JSON file to work with single
+    resouce, the HDPProject is an way to deal with colletions of HDP files.
+
+    It's an partial refactoring of the hxlm/core/model/hdp.py
+    """
 
     _entry_point: str
 

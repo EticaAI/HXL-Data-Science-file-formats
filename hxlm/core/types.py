@@ -9,9 +9,10 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
-# from dataclasses import dataclass
+from dataclasses import InitVar, dataclass
 # from typing import NamedTuple, TypedDict
 from enum import Enum
+from typing import Any
 
 
 class EntryPointType(Enum):
@@ -83,6 +84,21 @@ class RemoteType(Enum):
 
     UNKNOW = "?"
     """Unknow entrypoint"""
+
+
+# Class definition: Almost the same
+@dataclass
+class ResourceWrapper:
+    """An Resource Wrapper"""
+
+    entrypoint: InitVar[Any] = None
+
+    entrypoint_t: InitVar[EntryPointType] = None
+
+    remote_t: InitVar[RemoteType] = None
+
+    content: InitVar[str] = ''
+    """If the entrypoint already is not an RAW string/object, the content"""
 
 
 class FileType(Enum):
