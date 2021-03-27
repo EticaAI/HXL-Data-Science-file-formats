@@ -15,6 +15,11 @@
 #       https://en.wikipedia.org/wiki/List_of_Unicode_characters
 #       (Emerson Rocha, 2021-03-25 08:10 UTC)
 
+# TODO: check these links
+# - https://en.wikipedia.org/wiki/Non-English-based_programming_languages
+#   - https://metacpan.org/pod/distribution/Lingua-Romana-Perligata
+#     /lib/Lingua/Romana/Perligata.pm
+
 ### File suffixes, and other default internals _________________________________
 
 ## File suffixes ---------------------------------------------------------------
