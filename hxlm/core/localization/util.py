@@ -31,12 +31,19 @@ import os
 
 import yaml
 
+from hxlm.core.types import (
+    L10NContext
+)
+
+
 __all__ = ['debug_localization',
            'get_ISO_369_3_from_string',
            'get_language_preferred',
            'get_language_user_know',
            'get_localization_knowledge_graph',
-           'get_localization_lids']
+           'get_localization_lids',
+           'l10n'  # This is the user-friendly call
+           ]
 
 
 # os.environ["HDP_DEBUG"] = "1"
@@ -381,6 +388,32 @@ def get_localization_lids() -> dict:
 
     return hdp_lkg['lid']
 
+
+def l10n() -> L10NContext:
+    """Get an summarized localization current context
+
+    Note: This function is the that is recommended for end users
+
+    Returns:
+        L10NContext: The user current context
+    """
+
+    lids_all = get_localization_lids()
+    available = []
+
+    for _, key in enumerate(lids_all):
+        available.append(lids_all[key]['lid'])
+
+    result = L10NContext(
+        available=available,
+        user=get_language_user_know()
+    )
+
+    # print('result', result)
+    # raise SyntaxError(str(get_language_user_know()))
+    # raise SyntaxError(str(result.__dict__))
+
+    return result
 
 # def search_by_value(search: dict, dotted_key: str,
 #                     default: Any = None) -> Any:

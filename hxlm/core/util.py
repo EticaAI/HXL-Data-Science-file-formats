@@ -314,5 +314,5 @@ class Dumper(yaml.Dumper):
           (Emerson Rocha, 2021-02-28 10:56 UTC)
     """
 
-    def increase_indent(self, flow=False, *args, **kwargs):
+    def increase_indent(self, flow=False, *args, **kwargs):  # noqa
         return super().increase_indent(flow=flow, indentless=False)

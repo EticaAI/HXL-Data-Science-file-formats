@@ -29,6 +29,10 @@ __all__ = [
     'transpose'
 ]
 
+from hxlm.core.hdp.project import (  # noqa
+    project
+)
+
 from hxlm.core.localization.hdp import (  # noqa
     get_language_identifiers,
     get_metadata,

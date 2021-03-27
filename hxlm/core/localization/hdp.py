@@ -182,7 +182,11 @@ def _get_hsilo_body_language_identifier(hsilo_item: dict) -> dict:
         hsilo_item (dict): The same HSilo item without meta header field
     """
 
-    lid = {}
+    # TODO do _get_hsilo_body_language_identifier or remove
+
+    lid = {
+        'TODO': hsilo_item
+    }
 
     # hsilo_item_new = {}
 
@@ -381,11 +385,11 @@ def _get_language_hsilo_header(hdp_robj: dict) -> dict:
     """
 
     raise DeprecationWarning('Use _get_language_hsilo_header')
-    for key in hdp_robj.keys():
-        lang_ = get_lid_from_keyterm(key)
-        if lang_ is not None:
-            return lang_
-    return None
+    # for key in hdp_robj.keys():
+    #     lang_ = get_lid_from_keyterm(key)
+    #     if lang_ is not None:
+    #         return lang_
+    # return None
 
 
 # def _is_hsilo_lid(hsilo_item: dict, lid: str = 'LAT'):

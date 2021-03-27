@@ -14,6 +14,9 @@ from dataclasses import InitVar, dataclass
 from enum import Enum
 from typing import Any
 
+__all__ = ['EntryPointType', 'FileType', 'RemoteType',  'ResourceWrapper',
+           'URNType']
+
 
 class EntryPointType(Enum):
     """Typehints for entry points to resources (the 'pointer', not content)"""
@@ -67,40 +70,6 @@ class EntryPointType(Enum):
     """Uniform Resource Name, see https://tools.ietf.org/html/rfc8141"""
 
 
-class RemoteType(Enum):
-    """Typehints for specialization of entrypoints"""
-
-    # TODO: S3
-    # TODO: Google Spreadsheet
-    # TODO: CKAN
-    # TODO: HXL-Proxy
-    # TODO: FTP strict / FTPS
-
-    HTTP = "http://"
-    """Generic HTTP without HTTPS"""
-
-    HTTPS = "https://"
-    """Generic HTTPS"""
-
-    UNKNOW = "?"
-    """Unknow entrypoint"""
-
-
-# Class definition: Almost the same
-@dataclass
-class ResourceWrapper:
-    """An Resource Wrapper"""
-
-    entrypoint: InitVar[Any] = None
-
-    entrypoint_t: InitVar[EntryPointType] = None
-
-    remote_t: InitVar[RemoteType] = None
-
-    content: InitVar[str] = ''
-    """If the entrypoint already is not an RAW string/object, the content"""
-
-
 class FileType(Enum):
     """File formats
 
@@ -137,6 +106,71 @@ class FileType(Enum):
 
     YAML = '.yml'  # .yml, .yaml
     """An YAML 'YAML Ain't Markup Language' container, https://yaml.org/"""
+
+
+# Class definition: Almost the same
+@dataclass
+class L10NContext:
+    """Localization Context for current user, see hxlm.core.localization
+
+    This dataclass is mostly an wrapper around the context of current user (so
+    it will try to localize/translate based on users know languages) but
+    can be also used when exporting or explicitly requiting an different
+    localization.
+
+    """
+
+    available: list
+    """Available languages (lid) on loaded VKG"""
+
+    user: list
+    """Orderen know languages of the user"""
+
+    def about(self, key: str = None):
+        """Export values"""
+        about = {
+            'available': self.available,
+            'user': self.user,
+        }
+        if key:
+            if key in about:
+                return about[key]
+            return None
+        return about
+
+
+class RemoteType(Enum):
+    """Typehints for specialization of entrypoints"""
+
+    # TODO: S3
+    # TODO: Google Spreadsheet
+    # TODO: CKAN
+    # TODO: HXL-Proxy
+    # TODO: FTP strict / FTPS
+
+    HTTP = "http://"
+    """Generic HTTP without HTTPS"""
+
+    HTTPS = "https://"
+    """Generic HTTPS"""
+
+    UNKNOW = "?"
+    """Unknow entrypoint"""
+
+
+# Class definition: Almost the same
+@dataclass
+class ResourceWrapper:
+    """An Resource Wrapper"""
+
+    entrypoint: InitVar[Any] = None
+
+    entrypoint_t: InitVar[EntryPointType] = None
+
+    remote_t: InitVar[RemoteType] = None
+
+    content: InitVar[str] = ''
+    """If the entrypoint already is not an RAW string/object, the content"""
 
 
 class URNType(Enum):
