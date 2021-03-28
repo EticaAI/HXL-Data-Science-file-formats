@@ -25,6 +25,10 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.2.4 `hxlquickimport`: (like the `hxltag`)](#124-hxlquickimport-like-the-hxltag)
         - [1.3 `URN` Command line tools](#13-urn-command-line-tools)
             - [1.3.1 `urnresolver`: convert Uniform Resource Name of datasets to real IRIs (URLs)](#131-urnresolver-convert-uniform-resource-name-of-datasets-to-real-iris-urls)
+        - [1.4 `HDP` HDP Declarative Programming (early draft)](#14-hdp-hdp-declarative-programming-early-draft)
+            - [1.4.1 HDP conventions (The YAML/JSON file structure)](#141-hdp-conventions-the-yamljson-file-structure)
+            - [1.4.2 `hdpcli` (command line interface)](#142-hdpcli-command-line-interface)
+            - [1.4.3 `HXLm.HDP` (python library subpackage) usage](#143-hxlmhdp-python-library-subpackage-usage)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -257,6 +261,42 @@ hxlselect "$(urnresolver urn:data:xz:hxlcplp:fod:lang)" --query '#vocab+id+v_iso
 #    #vocab+id+v_iso6393_3letter,#vocab+code+v_iso3692_3letter+z_bibliographic,#vocab+code+v_3692_3letter+z_terminology,#vocab+code+v_6391,#status,#vocab+type,#vocab+name,#description+comment+i_en
 #    por,por,por,pt,I,L,Portuguese,
 ```
+
+#### 1.4 `HDP` HDP Declarative Programming (early draft)
+
+- _[Big Picture]_ The main GitHUb issue:
+  - https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/16
+- https://en.wikipedia.org/wiki/Non-English-based_programming_languages#International_programming_languages
+- Note: most of _the logic that matters_ of HDP is likely to be on
+  Knowledge Graphs (YAML files that expand in memory).
+  - See [hxlm/ontology/](hxlm/ontology/)
+    - In special [ontology/core.vkg.yml](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/ontology/core.vkg.yml)
+
+##### 1.4.1 HDP conventions (The YAML/JSON file structure)
+
+- [hdp-conventions](hdp-conventions)
+
+
+<!--
+> "ALGOL 68 was the first (and possibly one of the last) major language for
+  which a full formal definition was made before it was implemented."
+  -- C. H. A. Koster
+-->
+
+
+##### 1.4.2 `hdpcli` (command line interface)
+
+- [hxlm/core/bin/hdpcli.py](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/core/bin/hdpcli.py)
+
+##### 1.4.3 `HXLm.HDP` (python library subpackage) usage
+
+- GitHub Gist
+  - https://gist.github.com/fititnt/3dd12c61170d290fe94cafb1f672a0b5
+- Google Colab (Jupyter Notebook)
+  - File
+  - Folder `HXL-CPLP-Publico/Datasets/EticaAI-Data/EticaAI-Data_HXL-Data-Science-file-formats/HDP-playbooks`
+    - https://drive.google.com/drive/u/1/folders/1Zs-hw6y2ZHMgYXjGY1QbhrXn2UmheUEO
+
 
 ### 2. Reasons behind
 
