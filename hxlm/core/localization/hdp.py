@@ -914,11 +914,11 @@ def transpose_hsilo(hsilo: Union[list, dict],
     Examples:
 
     >>> import hxlm.core as HXLm
-    >>> urhd_lat = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
+    >>> urhd_lat = HXLm.util.load_file(HXLm.HDATUM_UDHR + 'udhr.lat.hdp.yml')
     >>> result1 = get_language_from_hdp_raw(urhd_lat[0])
     >>> result1['lid']
     'LAT-Latn'
-    >>> urhd_rus = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.rus.hdp.yml')
+    >>> urhd_rus = HXLm.util.load_file(HXLm.HDATUM_UDHR + 'udhr.rus.hdp.yml')
     >>> result1 = get_language_from_hdp_raw(urhd_rus[0])
     >>> result1['lid']
     'RUS-Cyrl'

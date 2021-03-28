@@ -12,6 +12,7 @@ import os
 
 from typing import (
     # Any,
+    List,
     Union
 )
 
@@ -58,7 +59,7 @@ def is_local_dir(path: str) -> bool:
     return path.is_dir() and os.access(path, os.R_OK)
 
 
-def is_local_file(path: str) -> bool:
+def is_local_file(file_path: str) -> bool:
     """Check if an path exist on local computer
 
     Args:
@@ -68,9 +69,11 @@ def is_local_file(path: str) -> bool:
         bool: True if exists on local disk (either file or path)
     """
 
-    path = strip_file_protocol(path, strict=False)
-    path = pathlib.Path(path)
-    return path.is_file() and os.access(path, os.R_OK)
+    file_path = strip_file_protocol(file_path, strict=False)
+    path_ = pathlib.Path(file_path)
+
+    # print('is_local_file?? ', path)
+    return path_.is_file() and os.access(path_, os.R_OK)
 
 # NOTE: while the initial reason for load_file is load some small files
 #       (like the configuration files for HDP) for huge files (the real
@@ -81,6 +84,9 @@ def is_local_file(path: str) -> bool:
 @lru_cache(maxsize=128)
 def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
     """Generic simple file loader (YAML, JSON, CSV) with cache.
+
+    Note: this function is not HXL-aware. The CSV parser is primitive and
+          is not intented for general use.
 
     Args:
         file_path (str): Path or bytes for the file
@@ -97,13 +103,14 @@ def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
     """
 
     file_path = strip_file_protocol(file_path)
+    norm_path = os.path.normpath(file_path)
 
-    with open(file_path, 'r') as stream:
-        if file_path.endswith('.json'):
+    with open(norm_path, 'r') as stream:
+        if norm_path.endswith('.json'):
             return json.load(stream)
-        if file_path.endswith('.yml'):
+        if norm_path.endswith('.yml'):
             return yaml.safe_load(stream)
-        if file_path.endswith('.csv'):
+        if norm_path.endswith('.csv'):
             reader = csv.reader(stream, delimiter=delimiter)
             result = []
             for row in reader:
@@ -111,3 +118,9 @@ def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
             return result
 
     raise SystemError('Unknow input [' + str(file_path) + ']')
+
+
+def load_first_available_file(file_path: List[str],
+                              delimiter: str = ',',
+                              strict: bool = True) -> Union[dict, list]:
+    pass

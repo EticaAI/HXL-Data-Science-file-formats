@@ -2,9 +2,18 @@
 
 
 >>> import hxlm.core as HXLm
->>> #  HXLm.HDATUM_UDHR
-# >>> hdatum_udhr_lat = get_entrypoint(HXLm.HDATUM_UDHR + 'udhr.lat.yml')
-# >>> hdatum_udhr_lat
+>>> RAW_udhr_lat = HXLm.io.util.get_entrypoint(
+...    HXLm.HDATUM_UDHR + 'udhr.lat.hdp.yml')
+>>> RAW_udhr_lat
+<class 'hxlm.core.types.ResourceWrapper'>
+>>> RAW_udhr_lat.entrypoint_t
+<EntryPointType.LOCAL_FILE: 'file://localhost/file'>
+>>> RAW_json = HXLm.io.util.get_entrypoint('{"json": "example"}')
+Traceback (most recent call last):
+...
+NotImplementedError: get_entrypoint STRING
+
+
 #  >>> hdatum_udhr = get_entrypoint(HXLm.HDATUM_UDHR)
 #  >>> hdatum_udhr
 
@@ -34,21 +43,26 @@ import hxlm.core.io.local
 #     load_file as load_local_file
 # )
 
+__all__ = [
+    'get_entrypoint',
+    'strip_file_protocol'  # Useful if users want to strig file://host/
+]
+
 
 def _get_infered_filenames(indexes: List[str],
                            base_path: str = None,
                            only_prefixed: bool = False,
                            infer_index_prefix: bool = True) -> list:
-    """[summary]
+    """Helper to build list of filenames to fetch when users give a directory
 
     Args:
-        indexes (List[str]): [description]
+        indexes (List[str]): List of files (and/or suffix-like) strings
         base_path (str, optional): [description]. Defaults to None.
         only_prefixed (bool, optional): [description]. Defaults to False.
         infer_index_prefix (bool, optional): [description]. Defaults to True.
 
     Returns:
-        list: [description]
+        list: List of files (without the base_path) infered
 
     >>> _get_infered_filenames(['.hdp.yml'], 'file:///urn/data/xz/hxl')
     ['.hdp.yml', 'hxl.hdp.yml']
@@ -103,20 +117,30 @@ def get_entrypoint(entrypoint: Any,
     resw = ResourceWrapper
     resw.entrypoint = {entrypoint: entrypoint}
     resw.entrypoint_t = get_entrypoint_type(entrypoint)
-    # print(resw.content)
+
+    # Exact file on local filesystem. The simplest case!
     if resw.entrypoint_t == EntryPointType.LOCAL_FILE:
         if hxlm.core.io.local.is_local_file(entrypoint):
-            # if is_local_file(entrypoint):
             resw.content = hxlm.core.io.local.load_file(entrypoint)
-            print(resw.content)
             return resw
         resw.failed = True
-    elif True:
-        print('Not implemented')
+        resw.log.append('[' + entrypoint + '] not is_local_file')
+    elif resw.entrypoint_t == EntryPointType.LOCAL_DIR:
+        raise NotImplementedError('get_entrypoint LOCAL_DIR')
+    elif resw.entrypoint_t == EntryPointType.HTTP:
+        raise NotImplementedError('get_entrypoint HTTP')
+    elif resw.entrypoint_t == EntryPointType.STRING:
+        raise NotImplementedError('get_entrypoint STRING')
+    elif resw.entrypoint_t in [
+        EntryPointType.HTTP, EntryPointType.FTP, EntryPointType.NETWORK_DIR,
+        EntryPointType.NETWORK_FILE, EntryPointType.SSH, EntryPointType.STREAM,
+        EntryPointType.UNKNOW, EntryPointType.URN
+    ]:
+        raise NotImplementedError('get_entrypoint ' + resw.entrypoint_t)
 
     # resw.failed = True
 
-    print(resw.content, resw.entrypoint_t)
+    # print(resw.content, resw.entrypoint_t, resw.log)
 
     # print(resw.entrypoint_t, resw.__dict__)
 
