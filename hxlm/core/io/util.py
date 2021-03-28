@@ -2,12 +2,24 @@
 
 
 >>> import hxlm.core as HXLm
+
+>>> ##### Raw dict/lists (not typical usage, but allowed)
+>>> simpledict = HXLm.io.util.get_entrypoint({'key': 'val'})
+>>> simpledict.entrypoint_t
+<EntryPointType.PYDICT: 'PyDict'>
+
+>>> simpledict = HXLm.io.util.get_entrypoint(['simple', 'list'])
+>>> simpledict.entrypoint_t
+<EntryPointType.PYLIST: 'PyList'>
+
+
 >>> RAW_udhr_lat_file = HXLm.io.util.get_entrypoint(
 ...    HXLm.HDATUM_UDHR + 'udhr.lat.hdp.yml')
 >>> RAW_udhr_lat_file
 <class 'hxlm.core.types.ResourceWrapper'>
 >>> RAW_udhr_lat_file.entrypoint_t
 <EntryPointType.LOCAL_FILE: 'file://localhost/file'>
+
 
 >>> RAW_udhr_lat_dir = HXLm.io.util.get_entrypoint(
 ...    HXLm.HDATUM_UDHR, indexes=['lat.hdp.yml'])
@@ -18,6 +30,8 @@
 >>> RAW_udhr_lat_dir.content[0].keys()
 dict_keys(['([Lingua Latina])', 'hsilo', 'hdatum'])
 
+
+>>> ##### Remote url, exact file given
 >>> URL_udhr_file = 'https://raw.githubusercontent.com/EticaAI/' + \
         'HXL-Data-Science-file-formats/main/hxlm/data/udhr/udhr.lat.hdp.yml'
 >>> RAW_Rem_UDHR_file = HXLm.io.util.get_entrypoint(
@@ -25,6 +39,15 @@ dict_keys(['([Lingua Latina])', 'hsilo', 'hdatum'])
 >>> RAW_Rem_UDHR_file.content[0].keys()
 dict_keys(['([Lingua Latina])', 'hsilo', 'hdatum'])
 
+>>> ##### Remote url, infered url based on 'indexes' hint
+>>> URL_udhr_dir = 'https://raw.githubusercontent.com/EticaAI/' + \
+        'HXL-Data-Science-file-formats/main/hxlm/data/udhr/'
+>>> RAW_Rem_UDHR_dir = HXLm.io.util.get_entrypoint(
+...    URL_udhr_dir, indexes=['lat.hdp.yml'])
+>>> RAW_Rem_UDHR_dir.content[0].keys()
+dict_keys(['([Lingua Latina])', 'hsilo', 'hdatum'])
+
+>>> ##### Raw string not implemented yet
 >>> RAW_json = HXLm.io.util.get_entrypoint('{"json": "example"}')
 Traceback (most recent call last):
 ...
@@ -155,11 +178,12 @@ def get_entrypoint(entrypoint: Any,
         ResourceWrapper: The loaded resource with extra metadata
     """
     resw = ResourceWrapper
-    resw.entrypoint = {entrypoint: entrypoint}
+    resw.entrypoint = {'entrypoint': entrypoint, 'indexes': indexes}
     resw.entrypoint_t = get_entrypoint_type(entrypoint)
 
-    # Exact file on local filesystem. The simplest case!
-    if resw.entrypoint_t == EntryPointType.LOCAL_FILE:
+    if resw.entrypoint_t in [EntryPointType.PYDICT, EntryPointType.PYDICT]:
+        resw.content = entrypoint
+    elif resw.entrypoint_t == EntryPointType.LOCAL_FILE:
         if hxlm.core.io.local.is_local_file(entrypoint):
             resw.content = hxlm.core.io.local.load_file(entrypoint)
             return resw
@@ -179,7 +203,10 @@ def get_entrypoint(entrypoint: Any,
             if not entrypoint.endswith('/'):
                 resw.content = hxlm.core.io.net.load_remote_file(entrypoint)
             else:
-                print('TODO: directory')
+                iris = _get_infered_filenames(indexes=indexes,
+                                              base_path=entrypoint,
+                                              infer_index_prefix=True)
+                resw.content = hxlm.core.io.net.load_remote_file(iris)
         except IOError as err:
             resw.failed = True
             resw.log.append('[' + entrypoint +
@@ -187,7 +214,7 @@ def get_entrypoint(entrypoint: Any,
     elif resw.entrypoint_t == EntryPointType.STRING:
         raise NotImplementedError('get_entrypoint STRING')
     elif resw.entrypoint_t in [
-        EntryPointType.HTTP, EntryPointType.FTP, EntryPointType.NETWORK_DIR,
+        EntryPointType.FTP, EntryPointType.NETWORK_DIR,
         EntryPointType.NETWORK_FILE, EntryPointType.SSH, EntryPointType.STREAM,
         EntryPointType.UNKNOW, EntryPointType.URN
     ]:
@@ -238,6 +265,12 @@ def get_entrypoint_type(entrypoint: Any,
     >>> get_entrypoint_type('/path/to/absolute/file.csv')
     <EntryPointType.STRING: 'STRING'>
     """
+
+    if isinstance(entrypoint, dict):
+        return EntryPointType.PYDICT
+
+    if isinstance(entrypoint, list):
+        return EntryPointType.PYLIST
 
     if isinstance(entrypoint, str):
         ep_lower = entrypoint.lower()

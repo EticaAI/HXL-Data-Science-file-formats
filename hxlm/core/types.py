@@ -53,6 +53,16 @@ class EntryPointType(Enum):
     NETWORK_FILE = "file://remotehost/file"
     """File acessible via access to an non-localhost hostname"""
 
+    PYDICT = "PyDict"
+    """Entrypoint already is Python Dict object"""
+
+    PYLIST = "PyList"
+    """Entrypoint already is Python List object"""
+
+    # Note: hxlm.core, at least for entrypoint type, mostly use python list
+    #       and in some cases dict. So at the moment we will not implement
+    #       other internal types
+
     SSH = 'ssh://'
     """Secure Shell (SSH), https://tools.ietf.org/html/rfc4253"""
 

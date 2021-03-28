@@ -12,7 +12,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 from typing import (
     # Any,
-    # List,
+    List,
     Union
 )
 import json
@@ -33,15 +33,69 @@ __all__ = [
 ]
 
 
-def is_remote_file(iri: str):
-    """TODO: is_remote_file is an draft (HTTP HEAD request) """
-    # req = requests.head(iri)
-    # print('is_remote_filereq', req)
+def is_remote_file(iri: str, verify: bool = True) -> bool:
+    """Check if a remote file exists without fully downloaded it
 
-    return True
+    This method will do an HEAD request, so as long as you are not trying to
+    check a resouce that is created on demand (like an HXL-proxy without
+    cache) this strategy is acceptable cheap
 
+    Args:
+        iri (str): An single HTT
+        verify (bool, optional): [description]. Defaults to True.
+
+    Returns:
+        [bool]: True if ok
+    """
+
+    # TODO: is_remote_file is likely to require more testing (like how to deal
+    #       with redirects)
+
+    resp = requests.head(iri, verify=verify)
+    return resp.ok
+
+
+def load_huge_remote_file():
+    """(not implemented yet)
+    """
+    raise NotImplementedError(
+        'hxlm.core.io.net is not optimized at this ' +
+        'moment for huge files, like for streams. You can use ' +
+        'load_remote_file or HXL directly')
 
 # @lru_cache(maxsize=128)
+
+
+def load_any_remote_file(iris: List[str],
+                         delimiter: str = ',',
+                         verify: bool = True) -> Union[dict, list]:
+    """Generic remote file loader (YAML, JSON, CSV) for first available resource
+
+    See also function load_remote_file()
+
+    Args:
+        file_paths (List[str]): List of one or more absolute file paths
+        delimiter (str, optional): If any file do have CSV extension, this
+                    could be used to parse an not fully HXLated dataset. Not
+                    as powerful as HXL parser, so use as last resort.
+                    Defaults to ','.
+
+    Raises:
+        IOError: If none of the file_paths is available this will raise error
+
+    Returns:
+        Union[dict, list]: Return parsed result of the file
+    """
+
+    for iri in iris:
+        if is_remote_file(iri):
+            return load_remote_file(iri, delimiter=delimiter, verify=verify)
+
+    raise IOError(
+        'No remote files available from this list [' + str(iris) + ']'
+    )
+
+
 def load_remote_file(iri: str, delimiter: str = ',',
                      verify: bool = True) -> Union[dict, list]:
     """Generic simple remote file loader (YAML, JSON, CSV)
