@@ -3,18 +3,22 @@
 
 >>> import hxlm.core as HXLm
 >>> #  HXLm.HDATUM_UDHR
->>> # hdatum_udhr = get_entrypoint(HXLm.HDATUM_UDHR)
->>> # hdatum_udhr
+# >>> hdatum_udhr_lat = get_entrypoint(HXLm.HDATUM_UDHR + 'udhr.lat.yml')
+# >>> hdatum_udhr_lat
+#  >>> hdatum_udhr = get_entrypoint(HXLm.HDATUM_UDHR)
+#  >>> hdatum_udhr
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
+import pathlib
+
 from typing import (
     Any,
     List,
-    Union
+    # Union
 )
 
 from hxlm.core.types import (
@@ -22,21 +26,101 @@ from hxlm.core.types import (
     ResourceWrapper
 )
 
+import hxlm.core.io.local
+# import hxlm.core.io.local as load_local_file
+
+# from hxlm.core.io.local import (
+#     # is_local_file,
+#     load_file as load_local_file
+# )
+
+
+def _get_infered_filenames(indexes: List[str],
+                           base_path: str = None,
+                           only_prefixed: bool = False,
+                           infer_index_prefix: bool = True) -> list:
+    """[summary]
+
+    Args:
+        indexes (List[str]): [description]
+        base_path (str, optional): [description]. Defaults to None.
+        only_prefixed (bool, optional): [description]. Defaults to False.
+        infer_index_prefix (bool, optional): [description]. Defaults to True.
+
+    Returns:
+        list: [description]
+
+    >>> _get_infered_filenames(['.hdp.yml'], 'file:///urn/data/xz/hxl')
+    ['.hdp.yml', 'hxl.hdp.yml']
+    >>> _get_infered_filenames(['.hdp.yml'], 'http://example/hxl')
+    ['.hdp.yml', 'hxl.hdp.yml']
+    >>> _get_infered_filenames(['.hdp.yml'],
+    ... 'http://example/hxl', only_prefixed=True)
+    ['hxl.hdp.yml']
+    >>> _get_infered_filenames(['.hdp.yml'])
+    ['.hdp.yml']
+    """
+
+    if not infer_index_prefix or base_path is None:
+        if not only_prefixed:
+            return indexes
+        return []
+
+    # Note: if is passed a path to a file (not a dir/, it will get filename
+    #       without extension. )
+    path_ = pathlib.PurePath(base_path)
+    infered_prefix = path_.name
+
+    result = []
+
+    # We use index prefixes as initial
+    if not only_prefixed:
+        result.extend(indexes)
+
+    for suffix in indexes:
+        result.append(infered_prefix + suffix)
+
+    return result
+
 
 def get_entrypoint(entrypoint: Any,
-                   indexes: List[str] = None) -> Union[dict, list]:
+                   indexes: List[str] = None,
+                   infer_index_prefix: bool = True
+                   ) -> ResourceWrapper:
     """From a genery entrypoint, discover and parse whatever is means
 
     Args:
         entrypoint (Any): Any generic entrypoint
         indexes (List[str]): If loading directories, explicitly inform files
                     would called if they exist.
+        infer_index_prefix (bool): when indexes is not None, if this method is
+                    True, it will guess the imediate top level directory name
+                    as additional prefix for each file.
 
     Returns:
-        Union[dict, list]: [description]
+        ResourceWrapper: [description]
     """
+    resw = ResourceWrapper
+    resw.entrypoint = {entrypoint: entrypoint}
+    resw.entrypoint_t = get_entrypoint_type(entrypoint)
+    # print(resw.content)
+    if resw.entrypoint_t == EntryPointType.LOCAL_FILE:
+        if hxlm.core.io.local.is_local_file(entrypoint):
+            # if is_local_file(entrypoint):
+            resw.content = hxlm.core.io.local.load_file(entrypoint)
+            print(resw.content)
+            return resw
+        resw.failed = True
+    elif True:
+        print('Not implemented')
 
-    return get_entrypoint_type(entrypoint)
+    # resw.failed = True
+
+    print(resw.content, resw.entrypoint_t)
+
+    # print(resw.entrypoint_t, resw.__dict__)
+
+    return resw
 
 
 def get_entrypoint_type(entrypoint: Any,

@@ -12,7 +12,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 from dataclasses import InitVar, dataclass
 # from typing import NamedTuple, TypedDict
 from enum import Enum
-from typing import Any
+from typing import Any, Union
 
 __all__ = ['EntryPointType', 'FileType', 'RemoteType',  'ResourceWrapper',
            'URNType']
@@ -159,18 +159,40 @@ class RemoteType(Enum):
 
 
 # Class definition: Almost the same
-@dataclass
+@dataclass(init=True, eq=True)
 class ResourceWrapper:
     """An Resource Wrapper"""
+
+    content: Union[dict, list, str] = None
+    """If the entrypoint already is not an RAW string/object, the content"""
 
     entrypoint: InitVar[Any] = None
 
     entrypoint_t: InitVar[EntryPointType] = None
 
+    log: InitVar[list] = []
+    """Log of message. Can be used when failed = True or for verbose output"""
+
+    failed: bool = False
+    """If this resource tried to be loaded, bug failed"""
+
     remote_t: InitVar[RemoteType] = None
 
-    content: InitVar[str] = ''
-    """If the entrypoint already is not an RAW string/object, the content"""
+    # def about(self, key: str = None):
+    #     """Export values"""
+    #     about = {
+    #         'failed': self.failed,
+    #         'log': self.log,
+    #         'entrypoint': self.entrypoint,
+    #         'entrypoint_t': self.entrypoint_t,
+    #         'remote_t': self.remote_t,
+    #         'content': self.content,
+    #     }
+    #     if key:
+    #         if key in about:
+    #             return about[key]
+    #         return None
+    #     return about
 
 
 class URNType(Enum):

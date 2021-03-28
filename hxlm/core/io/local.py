@@ -25,6 +25,8 @@ from hxlm.core.io.util import (
     strip_file_protocol
 )
 
+__all__ = ['is_local', 'is_local_dir', 'is_local_file', 'load_file']
+
 
 def is_local(path: str) -> bool:
     """Check if what seems to be an path is valid on local computer
