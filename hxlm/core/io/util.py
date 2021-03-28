@@ -18,6 +18,13 @@
 >>> RAW_udhr_lat_dir.content[0].keys()
 dict_keys(['([Lingua Latina])', 'hsilo', 'hdatum'])
 
+>>> URL_udhr_file = 'https://raw.githubusercontent.com/EticaAI/' + \
+        'HXL-Data-Science-file-formats/main/hxlm/data/udhr/udhr.lat.hdp.yml'
+>>> RAW_Rem_UDHR_file = HXLm.io.util.get_entrypoint(
+...    URL_udhr_file, indexes=['lat.hdp.yml'])
+>>> RAW_Rem_UDHR_file.content[0].keys()
+dict_keys(['([Lingua Latina])', 'hsilo', 'hdatum'])
+
 >>> RAW_json = HXLm.io.util.get_entrypoint('{"json": "example"}')
 Traceback (most recent call last):
 ...
@@ -42,6 +49,7 @@ from hxlm.core.types import (
 )
 
 import hxlm.core.io.local
+import hxlm.core.io.net
 # import hxlm.core.io.local as load_local_file
 
 # from hxlm.core.io.local import (
@@ -165,9 +173,17 @@ def get_entrypoint(entrypoint: Any,
             resw.content = hxlm.core.io.local.load_any_file(files)
         except IOError as err:
             resw.log.append('[' + entrypoint +
-                            '] failed. Message: [' + err + ']')
+                            '] failed. Message: [' + str(err) + ']')
     elif resw.entrypoint_t == EntryPointType.HTTP:
-        raise NotImplementedError('get_entrypoint HTTP')
+        try:
+            if not entrypoint.endswith('/'):
+                resw.content = hxlm.core.io.net.load_remote_file(entrypoint)
+            else:
+                print('TODO: directory')
+        except IOError as err:
+            resw.failed = True
+            resw.log.append('[' + entrypoint +
+                            '] failed. Message: [' + str(err) + ']')
     elif resw.entrypoint_t == EntryPointType.STRING:
         raise NotImplementedError('get_entrypoint STRING')
     elif resw.entrypoint_t in [
