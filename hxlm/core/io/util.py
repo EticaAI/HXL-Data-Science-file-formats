@@ -2,20 +2,26 @@
 
 
 >>> import hxlm.core as HXLm
->>> RAW_udhr_lat = HXLm.io.util.get_entrypoint(
+>>> RAW_udhr_lat_file = HXLm.io.util.get_entrypoint(
 ...    HXLm.HDATUM_UDHR + 'udhr.lat.hdp.yml')
->>> RAW_udhr_lat
+>>> RAW_udhr_lat_file
 <class 'hxlm.core.types.ResourceWrapper'>
->>> RAW_udhr_lat.entrypoint_t
+>>> RAW_udhr_lat_file.entrypoint_t
 <EntryPointType.LOCAL_FILE: 'file://localhost/file'>
+
+>>> RAW_udhr_lat_dir = HXLm.io.util.get_entrypoint(
+...    HXLm.HDATUM_UDHR, indexes=['lat.hdp.yml'])
+>>> RAW_udhr_lat_dir
+<class 'hxlm.core.types.ResourceWrapper'>
+>>> RAW_udhr_lat_dir.entrypoint_t
+<EntryPointType.LOCAL_DIR: 'file://localhost/dir/'>
+>>> RAW_udhr_lat_dir.content[0].keys()
+dict_keys(['([Lingua Latina])', 'hsilo', 'hdatum'])
+
 >>> RAW_json = HXLm.io.util.get_entrypoint('{"json": "example"}')
 Traceback (most recent call last):
 ...
 NotImplementedError: get_entrypoint STRING
-
-
-#  >>> hdatum_udhr = get_entrypoint(HXLm.HDATUM_UDHR)
-#  >>> hdatum_udhr
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
@@ -51,25 +57,36 @@ __all__ = [
 
 def _get_infered_filenames(indexes: List[str],
                            base_path: str = None,
+                           full_path: bool = True,
                            only_prefixed: bool = False,
                            infer_index_prefix: bool = True) -> list:
     """Helper to build list of filenames to fetch when users give a directory
 
+    IMPORTANT:
+        If the base_path is a directory, is very important to end with slash /
+        or this function will not be able to make good inferences about desired
+        file to load
+
+        GOOD: /tmp/my/directory/ , https://example.org/my/data/
+        BAD:  /tmp/my/directory ,  https://example.org/my/data
+
     Args:
         indexes (List[str]): List of files (and/or suffix-like) strings
         base_path (str, optional): [description]. Defaults to None.
+        full_path (bool, optional): If full path, not just names. Requires
+                                    base_path defined.
         only_prefixed (bool, optional): [description]. Defaults to False.
         infer_index_prefix (bool, optional): [description]. Defaults to True.
 
     Returns:
         list: List of files (without the base_path) infered
 
-    >>> _get_infered_filenames(['.hdp.yml'], 'file:///urn/data/xz/hxl')
-    ['.hdp.yml', 'hxl.hdp.yml']
-    >>> _get_infered_filenames(['.hdp.yml'], 'http://example/hxl')
-    ['.hdp.yml', 'hxl.hdp.yml']
+    >>> _get_infered_filenames(['.hdp.yml'], 'file:///urn/data/xz/hxl/')
+    ['file:///urn/data/xz/hxl/.hdp.yml', 'file:///urn/data/xz/hxl/hxl.hdp.yml']
+    >>> _get_infered_filenames(['.hdp.yml'], 'http://example/hxl/')
+    ['http://example/hxl/.hdp.yml', 'http://example/hxl/hxl.hdp.yml']
     >>> _get_infered_filenames(['.hdp.yml'],
-    ... 'http://example/hxl', only_prefixed=True)
+    ... 'http://example/hxl/', only_prefixed=True, full_path=False)
     ['hxl.hdp.yml']
     >>> _get_infered_filenames(['.hdp.yml'])
     ['.hdp.yml']
@@ -92,7 +109,14 @@ def _get_infered_filenames(indexes: List[str],
         result.extend(indexes)
 
     for suffix in indexes:
-        result.append(infered_prefix + suffix)
+        if suffix.startswith('.'):
+            result.append(infered_prefix + suffix)
+        else:
+            result.append(infered_prefix + '.' + suffix)
+
+    if full_path:
+        for idx, _ in enumerate(result):
+            result[idx] = base_path + result[idx]
 
     return result
 
@@ -103,6 +127,14 @@ def get_entrypoint(entrypoint: Any,
                    ) -> ResourceWrapper:
     """From a genery entrypoint, discover and parse whatever is means
 
+    IMPORTANT:
+        If the entrypoint is a directory, is very important to end with slash /
+        or this function will not be able to make good inferences about desired
+        file to load
+
+        GOOD: /tmp/my/directory/ , https://example.org/my/data/
+        BAD:  /tmp/my/directory ,  https://example.org/my/data
+
     Args:
         entrypoint (Any): Any generic entrypoint
         indexes (List[str]): If loading directories, explicitly inform files
@@ -112,7 +144,7 @@ def get_entrypoint(entrypoint: Any,
                     as additional prefix for each file.
 
     Returns:
-        ResourceWrapper: [description]
+        ResourceWrapper: The loaded resource with extra metadata
     """
     resw = ResourceWrapper
     resw.entrypoint = {entrypoint: entrypoint}
@@ -126,7 +158,14 @@ def get_entrypoint(entrypoint: Any,
         resw.failed = True
         resw.log.append('[' + entrypoint + '] not is_local_file')
     elif resw.entrypoint_t == EntryPointType.LOCAL_DIR:
-        raise NotImplementedError('get_entrypoint LOCAL_DIR')
+        files = _get_infered_filenames(indexes=indexes,
+                                       base_path=entrypoint,
+                                       infer_index_prefix=True)
+        try:
+            resw.content = hxlm.core.io.local.load_any_file(files)
+        except IOError as err:
+            resw.log.append('[' + entrypoint +
+                            '] failed. Message: [' + err + ']')
     elif resw.entrypoint_t == EntryPointType.HTTP:
         raise NotImplementedError('get_entrypoint HTTP')
     elif resw.entrypoint_t == EntryPointType.STRING:

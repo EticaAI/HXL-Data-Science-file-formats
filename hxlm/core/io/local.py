@@ -81,6 +81,35 @@ def is_local_file(file_path: str) -> bool:
 #       for the user
 
 
+def load_any_file(file_paths: List[str],
+                  delimiter: str = ',') -> Union[dict, list]:
+    """Generic simple file loader (YAML, JSON, CSV) for first available file
+
+    See also function load_file()
+
+    Args:
+        file_paths (List[str]): List of one or more absolute file paths
+        delimiter (str, optional): If any file do have CSV extension, this
+                    could be used to parse an not fully HXLated dataset. Not
+                    as powerful as HXL parser, so use as last resort.
+                    Defaults to ','.
+
+    Raises:
+        IOError: If none of the file_paths is available this will raise error
+
+    Returns:
+        Union[dict, list]: Return parsed result of the file
+    """
+
+    for filepath in file_paths:
+        if is_local_file(filepath):
+            return load_file(filepath, delimiter=delimiter)
+
+    raise IOError(
+        'No files available from this list [' + str(file_paths) + ']'
+    )
+
+
 @lru_cache(maxsize=128)
 def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
     """Generic simple file loader (YAML, JSON, CSV) with cache.
@@ -117,10 +146,4 @@ def load_file(file_path: str, delimiter: str = ',') -> Union[dict, list]:
                 result.append(row)
             return result
 
-    raise SystemError('Unknow input [' + str(file_path) + ']')
-
-
-def load_first_available_file(file_path: List[str],
-                              delimiter: str = ',',
-                              strict: bool = True) -> Union[dict, list]:
-    pass
+    raise IOError('Unknow input [' + str(file_path) + ']')
