@@ -13,5 +13,10 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
 
+# NOTE: the is_hxl_file, in special if is remote files, is likely to reeealy
+#       need some work around the hxlm.core.io.cache before we make it too
+#       easy for users. Also the is_hxl_file itself should be somewhat
+#       equivalent to an HTTP HEAD request (aka we do not load too much
+#       data)
 def is_hxl_file():
     """TODO: is_hxl_file is an draft. """

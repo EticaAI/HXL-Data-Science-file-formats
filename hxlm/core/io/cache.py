@@ -12,3 +12,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 #       https://pypi.org/project/requests-cache/
 #       https://github.com/reclosedev/requests-cache/tree/master/examples
 #       https://requests-cache.readthedocs.io/en/latest/
+
+
+# TODO: see also these general-propose caches (non-HTTP specific)
+#       https://github.com/grantjenks/python-diskcache

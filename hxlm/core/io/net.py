@@ -9,3 +9,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 #       https://pypi.org/project/requests-cache/
 #       https://github.com/reclosedev/requests-cache/tree/master/examples
 #       https://requests-cache.readthedocs.io/en/latest/
+
+
+def is_remote_file():
+    """TODO: is_remote_file is an draft (HTTP HEAD request) """

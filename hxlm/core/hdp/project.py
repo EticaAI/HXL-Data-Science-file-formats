@@ -44,7 +44,7 @@ _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 
 
 class HDPProject:
-    """Abstraction to an HDP Declarative Programming  project
+    """Abstraction to an HDP Declarative Programming project
 
     While is possible to load individual YAML/JSON file to work with single
     resouce, the HDPProject is an way to deal with colletions of HDP files.
@@ -72,6 +72,8 @@ class HDPProject:
     def _init_project(self, entry_point: str):
         pass
 
+    # def whith(self, query: str)
+
     def info(self, dotted_key: str = None) -> str:
         """Quick sumamary about current HDP project
         """
@@ -89,6 +91,14 @@ class HDPProject:
 
 
 def project(entry_point: str) -> HDPProject:
+    """Initialize an HDP project (load collections of HDP files)
+
+    Args:
+        entry_point (str): Path to an entrypoint file
+
+    Returns:
+        HDPProject: An HDPProject instance
+    """
     user_l10n = l10n()
     # raise SyntaxError(l10n_user.know_languages)
     # raise SyntaxError(l10n_user.about())

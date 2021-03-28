@@ -27,6 +27,10 @@ from hxlm.core.internal.integrity import (
     get_hashable
 )
 
+from hxlm.core.io.util import (
+    strip_file_protocol
+)
+
 from hxlm.core.util import load_file as generic_load_file
 
 # TODO: move vocabulary conversions from hxlm.core.schema.vocab to here
@@ -409,6 +413,8 @@ def load(path: str) -> Union[dict, list]:
         Union[dict, list]: An list or dict from the loaded file (or, if
                 directory, try some default filenames)
     """
+
+    path = strip_file_protocol(path)
 
     file_prefered_suffix = _get_file_preferred_suffix()
 

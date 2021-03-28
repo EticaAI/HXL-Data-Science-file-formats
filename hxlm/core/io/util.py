@@ -1,5 +1,11 @@
 """hxlm.core.io.util
 
+
+>>> import hxlm.core as HXLm
+>>> #  HXLm.HDATUM_UDHR
+>>> # hdatum_udhr = get_entrypoint(HXLm.HDATUM_UDHR)
+>>> # hdatum_udhr
+
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
@@ -7,13 +13,30 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 from typing import (
     Any,
-    List
+    List,
+    Union
 )
 
 from hxlm.core.types import (
     EntryPointType,
     ResourceWrapper
 )
+
+
+def get_entrypoint(entrypoint: Any,
+                   indexes: List[str] = None) -> Union[dict, list]:
+    """From a genery entrypoint, discover and parse whatever is means
+
+    Args:
+        entrypoint (Any): Any generic entrypoint
+        indexes (List[str]): If loading directories, explicitly inform files
+                    would called if they exist.
+
+    Returns:
+        Union[dict, list]: [description]
+    """
+
+    return get_entrypoint_type(entrypoint)
 
 
 def get_entrypoint_type(entrypoint: Any,
@@ -103,3 +126,34 @@ def get_concatenated_resources(
         ResourceWrapper: [description]
     """
     print('TODO', resources)
+
+
+def strip_file_protocol(path: str, strict: bool = True) -> str:
+    """Strip (if necessary) file://host/ protocol from an local path
+
+    See:
+        - https://en.wikipedia.org/wiki/File_URI_scheme
+        - https://tools.ietf.org/html/rfc3986
+
+    Args:
+        file_path (str): The file path
+        strict (bool, optional): If raise exception or sillent ignore
+                    non-standard prefixes. Defaults to True.
+
+    Raises:
+        SyntaxError: Raised with strict mode
+
+    Returns:
+        str: The same path, with protocol removed (if necessary)
+    """
+
+    if path.find('file:///') == 0:
+        return path.replace('file://', '')
+    if path.find('file://localhost/') == 0:
+        return path.replace('file://', '')
+    if path.find('file://') == 0:
+        if strict:
+            raise SyntaxError('file:// preffix for localhost or ' +
+                              'non-localhost not supported at the moment')
+        return path.replace('file:/', '')
+    return path
