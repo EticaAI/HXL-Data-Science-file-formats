@@ -181,7 +181,7 @@ class ResourceWrapper:
     entrypoint_t: InitVar[EntryPointType] = None
 
     log: InitVar[list] = []
-    """Log of message. Can be used when failed = True or for verbose output"""
+    """Log of messages. Can be used when failed = True or for verbose output"""
 
     failed: bool = False
     """If this resource tried to be loaded, bug failed"""

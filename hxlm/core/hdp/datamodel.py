@@ -17,6 +17,10 @@ from typing import (
     Union
 )
 
+from hxlm.core.types import (
+    ResourceWrapper
+)
+
 
 @dataclass
 class HDPRaw:
@@ -25,11 +29,11 @@ class HDPRaw:
 
     """
 
-    raw: str
-    """The RAW string value"""
-
     hsilos: List[dict]
     """The list of hsilos"""
+
+    resource: ResourceWrapper
+    """The ResourceWrapper from this item"""
 
     # def about(self, key: str = None):
     #     """Export values"""
