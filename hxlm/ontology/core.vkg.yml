@@ -1144,6 +1144,7 @@ attr:
       # descriptionem: ''
       id_alts:
         - 'verus'
+        - '⊤' # ⊤, U+22A4, https://en.wikipedia.org/wiki/List_of_logic_symbols
     POR:
       # @see https://pt.wikipedia.org/wiki/Verdade
       id: 'sim'

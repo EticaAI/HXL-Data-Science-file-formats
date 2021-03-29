@@ -691,20 +691,19 @@ def get_lid_from_keyterm(keyterm: str) -> dict:
         dict: An HDP LKG dict
 
     Examples:
-        >>> import hxlm.core.localization.hdp as hdploc
-        >>> hdploc.get_lid_from_keyterm('([LAT])')['lid']
+        >>> get_lid_from_keyterm('([LAT])')['lid']
         'LAT-Latn'
-        >>> hdploc.get_lid_from_keyterm('([RUS-Cyrl])')['q']
+        >>> get_lid_from_keyterm('([RUS-Cyrl])')['q']
         'Q7737'
-        >>> hdploc.get_lid_from_keyterm('[LAT]')
+        >>> get_lid_from_keyterm('[LAT]')
         >>> # This should return None
-        >>> hdploc.get_lid_from_keyterm('(LAT)')
+        >>> get_lid_from_keyterm('(LAT)')
         >>> # This should return None
-        >>> hdploc.get_lid_from_keyterm('([Língua portuguesa])')['iso3693']
+        >>> get_lid_from_keyterm('([Língua portuguesa])')['iso3693']
         'POR'
-        >>> hdploc.get_lid_from_keyterm('([Português])')['iso3693']
+        >>> get_lid_from_keyterm('([Português])')['iso3693']
         'POR'
-        >>> hdploc.get_lid_from_keyterm('([Língua tupi]POR)')
+        >>> get_lid_from_keyterm('([Língua tupi]POR)')
     """
     # The minimal viable term is '([ZZZ])', We do some quick checks
     if len(keyterm) < 7 or \
