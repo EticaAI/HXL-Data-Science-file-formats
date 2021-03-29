@@ -28,11 +28,12 @@ class HDPRaw:
 
     """
 
-    hsilos: List[dict]
-    """The list of hsilos"""
-
     resource: ResourceWrapper
     """The ResourceWrapper from this item"""
+
+    # hsilos: List[dict]
+    hsilos: InitVar[List[dict]] = []
+    """The list of hsilos"""
 
     log: InitVar[list] = []
     """Log of messages. Can be used when failed = True or for verbose output"""
