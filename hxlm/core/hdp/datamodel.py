@@ -22,6 +22,42 @@ from hxlm.core.types import (
 
 
 @dataclass(init=True, eq=True)
+class HDPIndex:
+    """An HDP Index object
+
+    Different from most HDP files (that most of the time can reference
+    data sets, files, data transformation tasks, etc), HDP index files are
+    mostly to be used by people 'building' colletion of HDP files that may be
+    in several different places.
+
+    They have a very minimalistic syntax.
+
+    An HDP index file have syntax similar to this:
+
+        # .hdp.yml
+        #### Vocabulary Knowledge Graph
+        # Notation: ∫, ∬, ∭
+        ∫:
+          - hxlm/data/core.vkg.yml
+
+        #### Localization Knowledge Graph
+        # Notation: ∮, ∯, ∰
+        ∮:
+          - hxlm/data/core.lkg.yml
+
+        #### HDP Declarative Programming entry points
+        # Notation: ∂
+        ∂:
+          - hxlm/data/hxl/hxl.eng.hdp.yml
+          - hxlm/data/udhr/udhr.lat.hdp.yml
+    """
+    # pylint: disable=invalid-name,non-ascii-name
+    d: list  # ∂
+    Ʃ: list  # ∫
+    l: list  # ∮, ∯, ∰
+
+
+@dataclass(init=True, eq=True)
 class HDPRaw:
     """HDPRaw is, informally speaking it is a crude representation of
     information in a disk file that MAY be an single hsilo or not.

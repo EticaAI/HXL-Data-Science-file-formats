@@ -1,0 +1,45 @@
+# .hdp.yml
+
+---
+#### Vocabulary Knowledge Graph _______________________________________________
+# Notation: ∫, ∬, ∭
+#
+# Note: the primitive VKG is expanded in memory when an request for a new
+#       natural language is done it transpose from the language used in the
+#       current writting system (by default, if you use Latin script, it uses
+#       Latin language).
+∫:
+  - hxlm/data/core.vkg.yml
+
+#### Localization Knowledge Graph _____________________________________________
+# Notation: ∮, ∯, ∰
+#
+# Note: LGK (at the moment) are not transposed like the VKGs are. LKgs are used
+#       mostly to remove hardcoded terms from code lower to none knowlege
+#       programing skill is need
+∮:
+  - hxlm/data/core.lkg.yml
+
+#### HDP Declarative Programming entry points _________________________________
+# Notation: ∂
+#
+# Note: this is an ordered list of HDP files with exact loading order. If an
+#       path, like 'hxlm/data/udhr/' instead of exact file, like
+#       'hxlm/data/udhr/udhr.lat.hdp.yml', is given, the software is instructed
+#       to scan the entire directory and load files by name in descrecent
+#       order.
+∂:
+  - hxlm/data/hxl/hxl.eng.hdp.yml
+  - hxlm/data/udhr/udhr.lat.hdp.yml
+
+
+# This is an draft and may be removed or at least moved for another git
+# repository; Ignore for now (2021-03-15)
+
+# - hsilo:
+#     descriptionem:
+#       eng: "example of index file"
+#   _import:
+#     - hsilo: hxlm/data/baseline/baseline.hdpd.yml
+#     - hrecipe: tests/hrecipe/hello-world.hrecipe.hdp.yml
+#     - hrecipe: https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/tests/hxl-processing-specs/hxl-processing-specs-test-01.hdp.yml

@@ -181,6 +181,8 @@ def get_entrypoint(entrypoint: Any,
     resw.entrypoint = {'entrypoint': entrypoint, 'indexes': indexes}
     resw.entrypoint_t = get_entrypoint_type(entrypoint)
 
+    # print('oioioi', resw.entrypoint)
+
     if resw.entrypoint_t in [EntryPointType.PYDICT, EntryPointType.PYDICT]:
         resw.content = entrypoint
     elif resw.entrypoint_t == EntryPointType.LOCAL_FILE:

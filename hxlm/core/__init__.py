@@ -37,6 +37,7 @@ __version__ = "0.8.4"
 # To simplify documentation, we're always load this constant when end users do
 #    import hxlm as HXLm
 from hxlm.core.constant import (  # noqa: F401
+    HDATUM_EXEMPLUM,
     HDATUM_HXL,
     HDATUM_UDHR
 )

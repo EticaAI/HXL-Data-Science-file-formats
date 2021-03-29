@@ -167,5 +167,6 @@ Error messages symbols using math:
     - https://en.wikipedia.org/wiki/Existential_quantification
   - Etc
     - https://en.wikipedia.org/wiki/List_of_logic_symbols
+    - https://en.wikipedia.org/wiki/Mathematical_operators_and_symbols_in_Unicode
 
 -->
