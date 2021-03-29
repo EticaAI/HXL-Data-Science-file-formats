@@ -3,12 +3,15 @@
 
 >>> import hxlm.core as HXLm
 >>> # Loading single file
->>> hp =HXLm.HDP.project(HXLm.HDATUM_UDHR)
+>>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR)
 >>> hp.ok
 True
 
 #  >>> hp.info()
 #  >>> hp.info('entry_point')
+# >>> hp._log
+# >>> hp.hdpraw[0].failed
+# >>> hp.hdpraw[0].log
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
@@ -38,6 +41,11 @@ from hxlm.core.io.util import (
 from hxlm.core.hdp.datamodel import (
     HSiloWrapper,
     HDPRaw
+)
+
+from hxlm.core.hdp.raw import (
+    convert_resource_to_hdpraw,
+    ResourceWrapper
 )
 
 from hxlm.core.localization.util import (
@@ -70,7 +78,7 @@ class HDPProject:
     _log: list = []
     """Log of messages. Both for verbose and error messages"""
 
-    hdpraw: List[HDPRaw]
+    hdpraw: List[HDPRaw] = []
     """HDPRaw is, informally speaking it is a crude representation of
     information in a disk file that MAY be an single hsilo or not.
     """
@@ -106,6 +114,18 @@ class HDPProject:
             self._log.append('_parse_entrypoint failed: input [' +
                              str(entrypoint) + '] ResourceWrapper log [ ' +
                              str(self._entrypoint.log) + ']')
+        hdpraw1 = self._parse_resource(self._entrypoint)
+
+        if hdpraw1.failed:
+            self.ok = False
+            self._log.append('_parse_resource failed: input [' +
+                             str(entrypoint) + '] HDPRaw log [ ' +
+                             str(hdpraw1.log) + ']')
+
+    def _parse_resource(self, resource: ResourceWrapper) -> bool:
+        hdpraw = convert_resource_to_hdpraw(resource)
+        self.hdpraw.append(hdpraw)
+        return hdpraw
 
     def info(self, dotted_key: str = None) -> str:
         """Quick sumamary about current HDP project
