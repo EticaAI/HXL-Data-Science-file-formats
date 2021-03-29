@@ -157,4 +157,15 @@ exceptions it could at least be somewhat based
 
 - https://www.rapidtables.com/math/symbols/Logic_Symbols.html
 
+
+Error messages symbols using math:
+  - '∀' ∀(x)
+    - "given any" or "for all"
+    - https://en.wikipedia.org/wiki/Universal_quantification
+  - '∃' ∃(x)
+    - "there exists", "there is at least one"
+    - https://en.wikipedia.org/wiki/Existential_quantification
+  - Etc
+    - https://en.wikipedia.org/wiki/List_of_logic_symbols
+
 -->
