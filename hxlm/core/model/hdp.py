@@ -1,5 +1,9 @@
 """hxlm.core.model.hdp contains HDP class
 
+DEPRECATION: The hxlm.core.model.hdp is being refactored break it's
+             functionalities. Se in special hxlm.core.hdp.
+             (Emerson Rocha, 2021-03-29 07:52 UTC)
+
 This is used by the HDP Declarative Programming Command Line Interface
 
 

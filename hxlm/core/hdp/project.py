@@ -107,14 +107,6 @@ class HDPProject:
                              str(entrypoint) + '] ResourceWrapper log [ ' +
                              str(self._entrypoint.log) + ']')
 
-        # if True:
-        # # if _IS_DEBUG:
-        #     self._log.append('raw entrypoint: [' + str(entrypoint) + ']')
-        #     self._log.append('get_entrypoint.failed: [' +
-        #                      str(self._entrypoint.failed) + ']')
-
-    # def whith(self, query: str)
-
     def info(self, dotted_key: str = None) -> str:
         """Quick sumamary about current HDP project
         """
