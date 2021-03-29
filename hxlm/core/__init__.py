@@ -11,12 +11,12 @@ Examples:
 
     >>> import hxlm.core as HXLm
     >>> UDUR_LAT = HXLm.util.load_file(HXLm.HDATUM_UDHR + '/udhr.lat.hdp.yml')
-    >>> HXLm.L10N.get_language_from_hdp_raw(UDUR_LAT[0])['iso3693']
+    >>> HXLm.HDP.util.get_language_from_hdp_raw(UDUR_LAT[0])['iso3693']
     'LAT'
-    >>> UDUR_LAT2RUS = HXLm.L10N.transpose_hsilo(UDUR_LAT, 'RUS-Cyrl')
+    >>> UDUR_LAT2RUS = HXLm.HDP.util.transpose_hsilo(UDUR_LAT, 'RUS-Cyrl')
     >>> UDUR_LAT2RUS[0]['силосная']['тег']
     ['udhr']
-    >>> UDUR_LAT2RUS2POR = HXLm.L10N.transpose_hsilo(
+    >>> UDUR_LAT2RUS2POR = HXLm.HDP.util.transpose_hsilo(
     ...    UDUR_LAT2RUS, 'POR', 'RUS'
     ... )
     >>> UDUR_LAT2RUS2POR[0]['silo']['etiqueta']

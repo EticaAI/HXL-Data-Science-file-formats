@@ -147,3 +147,14 @@
 <!--
       - [`(`, `((`, `)`, `))`] are not recommended for generic comments
 -->
+
+
+<!--
+
+Software internal error messages could use "math language"; They are not good
+for end user (even for the HDP specification itself) but for internal software
+exceptions it could at least be somewhat based
+
+- https://www.rapidtables.com/math/symbols/Logic_Symbols.html
+
+-->
