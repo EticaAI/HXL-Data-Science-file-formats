@@ -9,8 +9,7 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
-# from dataclasses import InitVar, dataclass
-from dataclasses import dataclass
+from dataclasses import dataclass, InitVar
 
 from typing import (
     List,
@@ -22,7 +21,7 @@ from hxlm.core.types import (
 )
 
 
-@dataclass
+@dataclass(init=True, eq=True)
 class HDPRaw:
     """HDPRaw is, informally speaking it is a crude representation of
     information in a disk file that MAY be an single hsilo or not.
@@ -34,6 +33,11 @@ class HDPRaw:
 
     resource: ResourceWrapper
     """The ResourceWrapper from this item"""
+
+    log: InitVar[list] = []
+    """Log of messages. Can be used when failed = True or for verbose output"""
+
+    failed: bool = False
 
     # def about(self, key: str = None):
     #     """Export values"""
