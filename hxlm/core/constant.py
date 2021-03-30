@@ -11,6 +11,9 @@ HDATUM_EXEMPLUM = 'file://' + HXLM_ROOT + '/data/exemplum/'
 HDATUM_HXL = 'file://' + HXLM_ROOT + '/data/hxl/'
 HDATUM_UDHR = 'file://' + HXLM_ROOT + '/data/udhr/'
 
+# TODO: add 'file://' to HONTOLOGIA_LKG / HONTOLOGIA_VKG and change the rest
+#       of the program.
+
 # TODO: 'ontologia' (ontology) seems to be not classical Latin, but somewhat
 #       recent (1600). We will for now use HOntologia as term
 #       (Emerson Rocha, 2021-03-23 08:48 UTC)

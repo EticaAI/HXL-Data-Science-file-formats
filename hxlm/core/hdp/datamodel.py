@@ -20,6 +20,11 @@ from hxlm.core.types import (
     ResourceWrapper
 )
 
+from hxlm.core.constant import (
+    HONTOLOGIA_LKG,
+    HONTOLOGIA_VKG
+)
+
 
 @dataclass(init=True, eq=True)
 class HDPIndex:
@@ -52,9 +57,31 @@ class HDPIndex:
           - hxlm/data/udhr/udhr.lat.hdp.yml
     """
     # pylint: disable=invalid-name,non-ascii-name
-    d: list  # ∂
-    Ʃ: list  # ∫
-    l: list  # ∮, ∯, ∰
+
+    resource: ResourceWrapper
+    """The ResourceWrapper from this item"""
+
+    # ∂
+    hdp: InitVar[list] = []
+    """List of HDP indexes files"""
+
+    # ∫
+    vkg: InitVar[list] = [
+        'file://' + HONTOLOGIA_VKG
+    ]
+    """List of Vocabulary Knowledge Graph"""
+
+    # ∮, ∯, ∰
+    lkg: InitVar[list] = [
+        'file://' + HONTOLOGIA_LKG
+    ]
+    """List of Localization Knowledge Graph"""
+
+    log: InitVar[list] = []
+    """Log of messages. Can be used when failed = True or for verbose output"""
+
+    failed: bool = False
+    """If something failed"""
 
 
 @dataclass(init=True, eq=True)
@@ -75,6 +102,7 @@ class HDPRaw:
     """Log of messages. Can be used when failed = True or for verbose output"""
 
     failed: bool = False
+    """If something failed"""
 
     # def about(self, key: str = None):
     #     """Export values"""
