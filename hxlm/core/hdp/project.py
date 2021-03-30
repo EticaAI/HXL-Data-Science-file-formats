@@ -39,6 +39,7 @@ from hxlm.core.io.util import (
 )
 
 from hxlm.core.hdp.datamodel import (
+    HDPPolicyLoad,
     HSiloWrapper,
     HDPRaw
 )
@@ -51,6 +52,10 @@ from hxlm.core.hdp.raw import (
     convert_resource_to_hdpraw,
     is_raw_hdp_item_syntax,
     ResourceWrapper
+)
+from hxlm.core.hdp.hazmat.policy import (
+    get_policy_HDSL1,
+    is_not_acceptable_load_this
 )
 
 from hxlm.core.localization.util import (
@@ -98,10 +103,17 @@ class HDPProject:
     allow user correct in running time)
     """
 
-    def __init__(self, entrypoint: Any, user_l10n: L10NContext):
+    def __init__(self, entrypoint: Any,
+                 user_l10n: L10NContext,
+                 policy: HDPPolicyLoad):
         # self._entry_point = entrypoint
         self._l10n = user_l10n
         self._parse_entrypoint(entrypoint)
+
+        if is_not_acceptable_load_this(entrypoint, policy):
+            raise SyntaxError('[' + entrypoint +
+                              '] ¬ is_acceptable_load_this [' +
+                              str(policy) + ']')
 
     def _parse_entrypoint(self, entrypoint: Any):
         """Generic parser for the initial entrypoint
@@ -198,7 +210,9 @@ def project(entry_point: str) -> HDPProject:
         HDPProject: An HDPProject instance
     """
     user_l10n = l10n()
-    # raise SyntaxError(l10n_user.know_languages)
-    # raise SyntaxError(l10n_user.about())
-    result = HDPProject(entry_point, user_l10n=user_l10n)
+
+    # TODO: eventually the policy should be configurable also on startup
+    #       not only when running
+    policy = get_policy_HDSL1()
+    result = HDPProject(entry_point, user_l10n=user_l10n, policy=policy)
     return result
