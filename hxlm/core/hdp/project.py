@@ -43,8 +43,13 @@ from hxlm.core.hdp.datamodel import (
     HDPRaw
 )
 
+from hxlm.core.hdp.index import (
+    # convert_resource_to_hdpindex,
+    is_index_hdp
+)
 from hxlm.core.hdp.raw import (
     convert_resource_to_hdpraw,
+    is_raw_hdp_item_syntax,
     ResourceWrapper
 )
 
@@ -99,6 +104,12 @@ class HDPProject:
         self._parse_entrypoint(entrypoint)
 
     def _parse_entrypoint(self, entrypoint: Any):
+        """Generic parser for the initial entrypoint
+
+        Args:
+            entrypoint (Any):  Anything that hxlm.core.io.util.get_entrypoint
+                               is able to undestand.
+        """
         # TODO: at the moment, we're only parsing the raw input, but it should
         #       be loaded as an Silo
 
@@ -114,6 +125,7 @@ class HDPProject:
             self._log.append('_parse_entrypoint failed: input [' +
                              str(entrypoint) + '] ResourceWrapper log [ ' +
                              str(self._entrypoint.log) + ']')
+
         hdpraw1 = self._parse_resource(self._entrypoint)
 
         if hdpraw1.failed:
@@ -121,6 +133,37 @@ class HDPProject:
             self._log.append('_parse_resource failed: input [' +
                              str(entrypoint) + '] HDPRaw log [ ' +
                              str(hdpraw1.log) + ']')
+
+    def _recursive_resource_parsing(
+            self,
+            resource: ResourceWrapper) -> 'HDPProject':
+        """Method to do recursive parsing of files.
+
+        While the simplest case (load a simple HDP file) may already have more
+        than one HSilo, the fact that we allow HDPIndex files have
+        _interesting_ usages, in special because both for performance and
+        privacy of the user, full automated parsing may not be the default
+        case
+
+        Returns:
+            [HDPProject]: An instance of this class itself
+        """
+        # TODO: _recursive_hdp_parsing is an draft and should be implemented.
+        if resource.failed:
+            self.ok = False
+            self._log.append('resource.failed: [' + str(resource) + ']')
+        elif is_index_hdp(resource.content):
+            print('TODO: is_index_hdp')
+
+        elif is_raw_hdp_item_syntax(resource.content):
+            print('TODO: is_index_hdp')
+        else:
+            self.ok = False
+            self._log.append(
+                'resource ¬ (is_index_hdp | is_raw_hdp_item_syntax) ['
+                + str(resource) + ']')
+
+        return self
 
     def _parse_resource(self, resource: ResourceWrapper) -> bool:
         hdpraw = convert_resource_to_hdpraw(resource)

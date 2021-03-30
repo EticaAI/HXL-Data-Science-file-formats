@@ -61,6 +61,8 @@ class HDPIndex:
     resource: ResourceWrapper
     """The ResourceWrapper from this item"""
 
+    hsilos: List['HSiloWrapper']
+
     # ∂
     hdp: InitVar[list] = []
     """List of HDP indexes files"""
