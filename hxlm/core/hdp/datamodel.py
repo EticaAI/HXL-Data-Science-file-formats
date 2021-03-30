@@ -138,6 +138,9 @@ class HDPPolicyLoad:
     to run until this is fixed.
     """
 
+    custom_allowed_domains: InitVar[Tuple] = ()
+    """Allow list of strings that, if an suffix of an domain, are allowed"""
+
     log: InitVar[list] = []
     """Log of messages (if any)"""
 
@@ -149,10 +152,10 @@ class HDPPolicyLoad:
     listed item already is compromised
     """
 
-    safer_zone_list: InitVar[Tuple] = [
+    safer_zone_list: InitVar[Tuple] = (
         '127.0.0.1',
         '::1'
-    ]
+    )
     """Tuple of IPv4 or IPv6 that even if under restrictions are considered safe
     The name 'safer' does not mean that is 100% safe if an resource on the
     listed item already is compromised.

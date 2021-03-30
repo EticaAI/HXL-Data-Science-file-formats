@@ -16,6 +16,11 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 import os
 
+from hxlm.core.types import (
+    EntryPointType,
+    # ResourceWrapper
+)
+
 from hxlm.core.hdp.datamodel import (
     HDPPolicyLoad,
     # HDPLoadRecursion
@@ -27,18 +32,60 @@ _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 def _get_bunker() -> HDPPolicyLoad:
     """bunker"""
     policy = HDPPolicyLoad
+
+    policy.enforce_startup_generic_tests = True
+
+    policy.allowed_entrypoint_type = (
+        EntryPointType.LOCAL_DIR,  # air-gapped compliant
+        EntryPointType.LOCAL_FILE,  # air-gapped compliant
+        EntryPointType.NETWORK_DIR,  # air-gapped compliant
+        EntryPointType.NETWORK_FILE,  # air-gapped compliant
+        EntryPointType.PYDICT,  # air-gapped compliant
+        EntryPointType.PYLIST,  # air-gapped compliant
+        EntryPointType.STRING,  # air-gapped compliant
+        EntryPointType.URN  # air-gapped compliant (it's an resolver)
+    )
+    policy.safer_zones_hosts = None
+    policy.safer_zone_list = None
+
     return policy
 
 
 def _get_debug() -> HDPPolicyLoad:
     """debug"""
-    policy = HDPPolicyLoad
+    policy = _get_user_know_what_is_doing()
+    policy.debug_no_restrictions = True
     return policy
 
 
 def _get_user_know_what_is_doing() -> HDPPolicyLoad:
-    """user_know_what_is_doing assumes user trust all files it's loading"""
+    """get_user_know_what_is_doing template policy
+
+    Returns:
+        HDPPolicyLoad: The policy
+    """
     policy = HDPPolicyLoad
+
+    # Note: in general the default generic HDPPolicyLoad somewhat already
+    #       is flexible (with exception that does not have hardcoded names
+    #       for network domains). This means that we will add some domains.
+    #       Most of then are either for organizations accredited at
+    #       international level or are places that averange software developer
+    #       would release open source material.
+    policy.custom_allowed_domains = (
+        # >>> very specific global level domains
+        '.int',  # intergovernmental organisations
+        # TODO: add suffix of user country (if we manage to detect)
+        # >>> Humanitarian-focused
+        'data.humdata.org',
+        'hxlstandard.org',  # Includes proxy.hxlstandard.org
+        # >>> Common sites to share code and data
+        'gitee.com',  # Very popular on China.
+        'github.com',
+        'githubusercontent.com',
+        'gitlab.com',
+
+    )
     return policy
 
 
