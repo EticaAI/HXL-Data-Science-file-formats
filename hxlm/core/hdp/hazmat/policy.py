@@ -24,8 +24,30 @@ from hxlm.core.hdp.datamodel import (
 _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 
 
+def _get_bunker() -> HDPPolicyLoad:
+    """bunker"""
+    policy = HDPPolicyLoad
+    return policy
+
+
+def _get_debug() -> HDPPolicyLoad:
+    """debug"""
+    policy = HDPPolicyLoad
+    return policy
+
+
+def _get_user_know_what_is_doing() -> HDPPolicyLoad:
+    """user_know_what_is_doing assumes user trust all files it's loading"""
+    policy = HDPPolicyLoad
+    return policy
+
+
 def get_policy_HDSL1() -> HDPPolicyLoad:
-    """Generate an HDPPolicyLoad for the internal constant 'HDSL1'
+    """Syntatic sugar to generate an generic optionated policy for 'HDSL1'
+
+    Very important notes:
+      - Implementers very likely would want to create HDPPolicyLoad directly
+        that would align with the specific needs
 
     See:
       - hxlm/core/constant.py
@@ -36,12 +58,15 @@ def get_policy_HDSL1() -> HDPPolicyLoad:
     """
     # pylint: disable=invalid-name
 
-    policy = HDPPolicyLoad
-    return policy
+    return _get_user_know_what_is_doing()
 
 
 def get_policy_HDSL4() -> HDPPolicyLoad:
     """Generate an HDPPolicyLoad for the internal constant 'HDSL4'
+
+    Very important notes:
+      - Implementers very likely would want to create HDPPolicyLoad directly
+        that would align with the specific needs
 
     See:
       - hxlm/core/constant.py
@@ -51,6 +76,4 @@ def get_policy_HDSL4() -> HDPPolicyLoad:
         [HDPPolicyLoad]: HDPPolicyLoad
     """
     # pylint: disable=invalid-name
-
-    policy = HDPPolicyLoad
-    return policy
+    return _get_bunker()
