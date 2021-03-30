@@ -11,16 +11,13 @@ HDATUM_EXEMPLUM = 'file://' + HXLM_ROOT + '/data/exemplum/'
 HDATUM_HXL = 'file://' + HXLM_ROOT + '/data/hxl/'
 HDATUM_UDHR = 'file://' + HXLM_ROOT + '/data/udhr/'
 
-# TODO: add 'file://' to HONTOLOGIA_LKG / HONTOLOGIA_VKG and change the rest
-#       of the program.
-
 # TODO: 'ontologia' (ontology) seems to be not classical Latin, but somewhat
 #       recent (1600). We will for now use HOntologia as term
 #       (Emerson Rocha, 2021-03-23 08:48 UTC)
 # https://en.wikipedia.org/wiki/Jacob_Lorhard
 # 'He uses "Ontologia" synonymously with "Metaphysica".'
-HONTOLOGIA_LKG = HXLM_ROOT + '/ontology/core.lkg.yml'
-HONTOLOGIA_VKG = HXLM_ROOT + '/ontology/core.vkg.yml'
+HONTOLOGIA_LKG = 'file://' + HXLM_ROOT + '/ontology/core.lkg.yml'
+HONTOLOGIA_VKG = 'file://' + HXLM_ROOT + '/ontology/core.vkg.yml'
 
 # _HXLM_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
