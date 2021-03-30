@@ -86,6 +86,25 @@ class HDPIndex:
     """If something failed"""
 
 
+@dataclass
+class HDPLoadRecursion:
+    """Abstraction to internals of hxlm.core.hdp.hazmat hdprecursion_resource
+    """
+    log: InitVar[list] = []
+    """Log of messages (if any)"""
+
+
+@dataclass
+class HDPPolicyLoad:
+    """Policies about how resources (like HDP rules or data) are allowed
+
+    Used by hxlm.core.hdp.hazmat to abstract not just what already is cached
+    but also what should not be loaded without user request
+    """
+    log: InitVar[list] = []
+    """Log of messages (if any)"""
+
+
 @dataclass(init=True, eq=True)
 class HDPRaw:
     """HDPRaw is, informally speaking it is a crude representation of
