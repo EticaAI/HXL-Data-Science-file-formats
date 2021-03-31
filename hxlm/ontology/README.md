@@ -35,3 +35,18 @@ corrections.
 ### Other languages
 
 > TODO: explain more about it  (Emerson Rocha, 2021-03 09:46 UTC)
+
+## To Do's
+
+While the idea behind the hxlm.core project is output production-ready
+toolchains (and, to make easier for localization, the number of core keywords
+and how they are used is keep as as minimalist as possible) do already exist
+other works, like the Perl Lingua::Romana::Perligata, that can at least help
+with usages for internal terms in Latin.
+
+- https://en.wikipedia.org/wiki/Non-English-based_programming_languages
+  - This page have a lot of reference on non-english keyworkd based
+    programming languages
+- This one from Latin is very, very complex.
+  - https://metacpan.org/pod/distribution/Lingua-Romana-Perligata/lib/Lingua/Romana/Perligata.pm
+  - https://metacpan.org/source/DCONWAY/Lingua-Romana-Perligata-0.602/lib%2FLingua%2FRomana%2FPerligata.pm

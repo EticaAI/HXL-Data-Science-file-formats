@@ -41,6 +41,7 @@ from hxlm.core.hdp.exception import (
 )
 
 from hxlm.core.types import (
+    Factum,
     L10NContext
 )
 # from hxlm.core.util import (
@@ -162,17 +163,21 @@ class HDPProject:
 
         if self._entrypoint.failed:
             self._okay = False
-            self._log.append('_parse_entrypoint failed: input [' +
-                             str(entrypoint) + '] ResourceWrapper log [ ' +
-                             str(self._entrypoint.log) + ']')
+            fact = Factum('_parse_entrypoint failed: input [' +
+                          str(entrypoint) + '] ResourceWrapper log [ ' +
+                          str(self._entrypoint.log) + ']')
+            self._log.append(fact)
+            # self._log.append('_parse_entrypoint failed: input [' +
+            #                  str(entrypoint) + '] ResourceWrapper log [ ' +
+            #                  str(self._entrypoint.log) + ']')
 
         hdpraw1 = self._parse_resource(self._entrypoint)
         # print('oioioi', hdpraw1.failed, self._okay)
         if hdpraw1.failed:
             self._okay = False
-            self._log.append('_parse_resource failed: input [' +
-                             str(entrypoint) + '] HDPRaw log [ ' +
-                             str(hdpraw1.log) + ']')
+            self._log.append(Factum('_parse_resource failed: input [' +
+                                    str(entrypoint) + '] HDPRaw log [ ' +
+                                    str(hdpraw1.log) + ']'))
 
     def _recursive_resource_parsing(
             self,
@@ -191,7 +196,8 @@ class HDPProject:
         # TODO: _recursive_hdp_parsing is an draft and should be implemented.
         if resource.failed:
             self._okay = False
-            self._log.append('resource.failed: [' + str(resource) + ']')
+            self._log.append(Factum('resource.failed: [' +
+                                    str(resource) + ']'))
         elif is_index_hdp(resource.content):
             print('TODO: is_index_hdp')
 
@@ -199,9 +205,9 @@ class HDPProject:
             print('TODO: is_index_hdp')
         else:
             self._okay = False
-            self._log.append(
+            self._log.append(Factum(
                 'resource ¬ (is_index_hdp | is_raw_hdp_item_syntax) ['
-                + str(resource) + ']')
+                + str(resource) + ']'))
 
         return self
 
@@ -248,9 +254,12 @@ class HDPProject:
         self._log_okay = []
         if is_not_acceptable_load_this(self._entrypoint_str,
                                        self._aup_loader):
-            raise HDPExceptionem('[' + self._entrypoint_str +
-                                 '] ¬ is_acceptable_load_this [' +
-                                 str(self._aup_loader) + ']')
+            raise HDPExceptionem(Factum('[' + self._entrypoint_str +
+                                        '] ¬ is_acceptable_load_this [' +
+                                        str(self._aup_loader) + ']'))
+            # raise HDPExceptionem('[' + self._entrypoint_str +
+            #                      '] ¬ is_acceptable_load_this [' +
+            #                      str(self._aup_loader) + ']')
             # raise SyntaxError('[' + self._entrypoint_str +
             #                   '] ¬ is_acceptable_load_this [' +
             #                   str(self._aup_loader) + ']')

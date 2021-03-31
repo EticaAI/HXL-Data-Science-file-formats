@@ -68,6 +68,7 @@ from typing import (
 
 from hxlm.core.types import (
     EntryPointType,
+    Factum,
     ResourceWrapper
 )
 
@@ -190,7 +191,7 @@ def get_entrypoint(entrypoint: Any,
             resw.content = hxlm.core.io.local.load_file(entrypoint)
             return resw
         resw.failed = True
-        resw.log.append('[' + entrypoint + '] not is_local_file')
+        resw.log.append(Factum('[' + entrypoint + '] not is_local_file'))
     elif resw.entrypoint_t == EntryPointType.LOCAL_DIR:
         files = _get_infered_filenames(indexes=indexes,
                                        base_path=entrypoint,
@@ -198,8 +199,8 @@ def get_entrypoint(entrypoint: Any,
         try:
             resw.content = hxlm.core.io.local.load_any_file(files)
         except IOError as err:
-            resw.log.append('[' + entrypoint +
-                            '] failed. Message: [' + str(err) + ']')
+            resw.log.append(Factum('[' + entrypoint +
+                                   '] failed. Message: [' + str(err) + ']'))
     elif resw.entrypoint_t == EntryPointType.HTTP:
         try:
             if not entrypoint.endswith('/'):
@@ -211,8 +212,8 @@ def get_entrypoint(entrypoint: Any,
                 resw.content = hxlm.core.io.net.load_remote_file(iris)
         except IOError as err:
             resw.failed = True
-            resw.log.append('[' + entrypoint +
-                            '] failed. Message: [' + str(err) + ']')
+            resw.log.append(Factum('[' + entrypoint +
+                                   '] failed. Message: [' + str(err) + ']'))
     elif resw.entrypoint_t == EntryPointType.STRING:
         raise NotImplementedError('get_entrypoint STRING')
     elif resw.entrypoint_t in [

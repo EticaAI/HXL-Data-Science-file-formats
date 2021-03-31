@@ -115,6 +115,8 @@ class Factum:
     linguam: str = None
     """When descriptionem is an natural language, this can explicit this"""
 
+    # TODO: implement type of Factum (like if is error, or informative message)
+
     def __repr__(self):
         """Export an string representation without user translation of terms
 

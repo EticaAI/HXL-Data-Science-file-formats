@@ -32,6 +32,7 @@ import os
 import yaml
 
 from hxlm.core.types import (
+    Factum,
     L10NContext
 )
 
@@ -387,6 +388,27 @@ def get_localization_lids() -> dict:
         print('  hdp_lkg', hdp_lkg)
 
     return hdp_lkg['lid']
+
+
+def i10n_factum(factum: Factum) -> str:
+    """Get an translated version of Factum as S-expression string
+
+    Args:
+        factum (Factum): an Factum entry
+
+    Returns:
+        str: An S-expression string
+
+>>> i10n_factum(Factum("Testing"))
+'(vkg.attr.factum (vkg.attr.descriptionem "Testing"))'
+>>> i10n_factum(Factum("Testing", linguam="ENG"))
+'(vkg.attr.factum (vkg.attr.descriptionem (ENG "Testing")))'
+>>> i10n_factum(Factum("Testing", datum=[1, 2]))
+'(vkg.attr.factum (vkg.attr.descriptionem "Testing")(vkg.attr.datum "[1, 2]"))'
+    """
+
+    # TODO: implement, _de facto_ the localization. This is just a dummy.
+    return str(factum)
 
 
 def l10n() -> L10NContext:
