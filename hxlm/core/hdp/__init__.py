@@ -29,6 +29,8 @@ __all__ = [
     'transpose'
 ]
 
+import hxlm.core.hdp.exception  # noqa
+
 from hxlm.core.hdp.project import (  # noqa
     project
 )

@@ -167,7 +167,7 @@ class HDPPolicyLoad:
 
 
 @dataclass
-class HDPProjectInfo:
+class HDPDescriptionem:
     """An quick summary about an current HDP object.
     """
 

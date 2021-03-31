@@ -28,6 +28,11 @@ from typing import (
     # Union
 )
 
+from hxlm.core.hdp.exception import (
+    HDPExceptionem,
+    # l10n_descriptionem
+)
+
 from hxlm.core.types import (
     L10NContext
 )
@@ -41,7 +46,7 @@ from hxlm.core.io.util import (
 
 from hxlm.core.hdp.datamodel import (
     HDPPolicyLoad,
-    HDPProjectInfo,
+    HDPDescriptionem,
     HSiloWrapper,
     HDPRaw
 )
@@ -144,6 +149,7 @@ class HDPProject:
             '.hdp.yml',
             '.lat.hdp.yml',
         ]
+
         self._entrypoint = get_entrypoint(entrypoint, indexes=indexes)
 
         if self._entrypoint.failed:
@@ -153,7 +159,7 @@ class HDPProject:
                              str(self._entrypoint.log) + ']')
 
         hdpraw1 = self._parse_resource(self._entrypoint)
-
+        # print('oioioi', hdpraw1.failed, self.okay)
         if hdpraw1.failed:
             self.okay = False
             self._log.append('_parse_resource failed: input [' +
@@ -196,18 +202,25 @@ class HDPProject:
         self.hdpraw.append(hdpraw)
         return hdpraw
 
-    def info(self) -> HDPProjectInfo:
+    def info(self, okay: bool = True) -> HDPDescriptionem:
         """Quick sumamary about current HDP project
+
+        Args:
+            okay (bool, optional): [description]. Defaults to True.
 
         Returns:
             HDPProjectInfo: The result
         """
-        info = HDPProjectInfo(
+        # print('oioioi', self.okay)
+        info = HDPDescriptionem(
             aup_loader=None,
             l10n=self._l10n,
             log=self._log,
             okay=self.okay,
         )
+
+        # if len(self._log_okay):
+        #     info.log.extend(self._log_okay)
 
         return info
 
@@ -227,10 +240,15 @@ class HDPProject:
         self._log_okay = []
         if is_not_acceptable_load_this(self._entrypoint_str,
                                        self._aup_loader):
-            raise SyntaxError('[' + self._entrypoint_str +
-                              '] ¬ is_acceptable_load_this [' +
-                              str(self._aup_loader) + ']')
+            raise HDPExceptionem('[' + self._entrypoint_str +
+                                 '] ¬ is_acceptable_load_this [' +
+                                 str(self._aup_loader) + ']')
+            # raise SyntaxError('[' + self._entrypoint_str +
+            #                   '] ¬ is_acceptable_load_this [' +
+            #                   str(self._aup_loader) + ']')
         self._parse_entrypoint(self._entrypoint_str)
+
+        # print('oioioi', self.okay)
 
         return self
 
