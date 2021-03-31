@@ -4,8 +4,15 @@
 >>> import hxlm.core as HXLm
 >>> # Loading single file
 >>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR).load()
->>> hp.okay
+>>> isinstance(hp.okay(), HXLm.HDP.datamodel.HDPOkay)
 True
+>>> isinstance(hp.descriptionem(), HXLm.HDP.datamodel.HDPDescriptionem)
+True
+
+
+
+## >>> hp.okay() == True
+## True
 
 #  >>> hp.info()
 #  >>> hp.info('entry_point')
@@ -45,8 +52,9 @@ from hxlm.core.io.util import (
 )
 
 from hxlm.core.hdp.datamodel import (
-    HDPPolicyLoad,
     HDPDescriptionem,
+    HDPPolicyLoad,
+    HDPOkay,
     HSiloWrapper,
     HDPRaw
 )
@@ -118,7 +126,7 @@ class HDPProject:
     hsilos: List[HSiloWrapper]
     """List of individual HSilo (one physical file could have multiple)"""
 
-    okay: bool = True
+    _okay: bool = True
     """attr.okay indicates if this is, at bare minimum, working
     It does not mean perfect or great. But is opposite of bad. The perfect
     example is okay = True when something goes bad but the program know how to
@@ -153,15 +161,15 @@ class HDPProject:
         self._entrypoint = get_entrypoint(entrypoint, indexes=indexes)
 
         if self._entrypoint.failed:
-            self.okay = False
+            self._okay = False
             self._log.append('_parse_entrypoint failed: input [' +
                              str(entrypoint) + '] ResourceWrapper log [ ' +
                              str(self._entrypoint.log) + ']')
 
         hdpraw1 = self._parse_resource(self._entrypoint)
-        # print('oioioi', hdpraw1.failed, self.okay)
+        # print('oioioi', hdpraw1.failed, self._okay)
         if hdpraw1.failed:
-            self.okay = False
+            self._okay = False
             self._log.append('_parse_resource failed: input [' +
                              str(entrypoint) + '] HDPRaw log [ ' +
                              str(hdpraw1.log) + ']')
@@ -182,7 +190,7 @@ class HDPProject:
         """
         # TODO: _recursive_hdp_parsing is an draft and should be implemented.
         if resource.failed:
-            self.okay = False
+            self._okay = False
             self._log.append('resource.failed: [' + str(resource) + ']')
         elif is_index_hdp(resource.content):
             print('TODO: is_index_hdp')
@@ -190,7 +198,7 @@ class HDPProject:
         elif is_raw_hdp_item_syntax(resource.content):
             print('TODO: is_index_hdp')
         else:
-            self.okay = False
+            self._okay = False
             self._log.append(
                 'resource ¬ (is_index_hdp | is_raw_hdp_item_syntax) ['
                 + str(resource) + ']')
@@ -202,7 +210,7 @@ class HDPProject:
         self.hdpraw.append(hdpraw)
         return hdpraw
 
-    def info(self, okay: bool = True) -> HDPDescriptionem:
+    def descriptionem(self) -> HDPDescriptionem:
         """Quick sumamary about current HDP project
 
         Args:
@@ -211,12 +219,12 @@ class HDPProject:
         Returns:
             HDPProjectInfo: The result
         """
-        # print('oioioi', self.okay)
+        # print('oioioi', self._okay)
         info = HDPDescriptionem(
             aup_loader=None,
-            l10n=self._l10n,
+            # l10n=self._l10n,
             log=self._log,
-            okay=self.okay,
+            okay=self._okay,
         )
 
         # if len(self._log_okay):
@@ -248,9 +256,28 @@ class HDPProject:
             #                   str(self._aup_loader) + ']')
         self._parse_entrypoint(self._entrypoint_str)
 
-        # print('oioioi', self.okay)
+        # print('oioioi', self._okay)
 
         return self
+
+    def okay(self) -> HDPOkay:
+        """Debug-like relevant information for end user know when is not okay
+
+        Returns:
+            HDPOkay: The result
+        """
+        if self._entrypoint:
+            entry_ = self._entrypoint
+        else:
+            entry_ = self._entrypoint_str
+        # print('oioioi', self._okay)
+        okay_ = HDPOkay(
+            entrypoint=entry_,
+            hdpdescriptionem=self.descriptionem(),
+            l10n=self._l10n,
+        )
+
+        return okay_
 
     def reload(self):
         self.load()
