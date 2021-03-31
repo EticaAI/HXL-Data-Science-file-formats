@@ -17,9 +17,9 @@ from typing import (
     Union
 )
 
-# from hxlm.core.types import (
-#     L10NContext
-# )
+from hxlm.core.types import (
+    L10NContext
+)
 
 from hxlm.core.types import (
     EntryPointType,
@@ -166,17 +166,33 @@ class HDPPolicyLoad:
     """
 
 
-# @dataclass
-# class HDPProjectInfo:
-#     """An quick summary about an current HDP object.
-#     """
-#     # pylint: disable=invalid-name
+@dataclass
+class HDPProjectInfo:
+    """An quick summary about an current HDP object.
+    """
 
-#     ok: bool = True
-#     """Syntatic sugar to 'is everything perfectly unrealisticworking'?"""
+    aup_loader: HDPPolicyLoad
+    """Acceptable Use Policy for load HDP file projects (not the data)
 
-#     L10N: L10NContext
-#     """Localization information"""
+    Note that each HDP file can have individual Acceptable Use Policy. This
+    item is mostly used by advanced users who want to automate too much (not
+    even need human intervention) or they want to share snippets with less
+    experienced people while somewhat tolerating the person dealing HDP files
+    from several places
+    """
+
+    l10n: L10NContext
+    """Localization information"""
+
+    log: InitVar[list] = []
+    """Raw message log. Either used for debug or explain errors"""
+
+    okay: bool = True
+    """attr.okay indicates if this is, at bare minimum, working
+    It does not mean perfect or great. But is opposite of bad. The perfect
+    example is okay = True when something goes bad but the program know how to
+    recover.
+    """
 
 
 @dataclass(init=True, eq=True)

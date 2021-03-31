@@ -4,7 +4,7 @@
 >>> import hxlm.core as HXLm
 >>> # Loading single file
 >>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR).load()
->>> hp.ok
+>>> hp.okay
 True
 
 #  >>> hp.info()
@@ -25,15 +25,15 @@ import os
 from typing import (
     Any,
     List,
-    Union
+    # Union
 )
 
 from hxlm.core.types import (
     L10NContext
 )
-from hxlm.core.util import (
-    get_value_if_key_exists
-)
+# from hxlm.core.util import (
+#     get_value_if_key_exists
+# )
 
 from hxlm.core.io.util import (
     get_entrypoint
@@ -41,6 +41,7 @@ from hxlm.core.io.util import (
 
 from hxlm.core.hdp.datamodel import (
     HDPPolicyLoad,
+    HDPProjectInfo,
     HSiloWrapper,
     HDPRaw
 )
@@ -81,6 +82,16 @@ class HDPProject:
     It's an partial refactoring of the hxlm/core/model/hdp.py
     """
 
+    _aup_loader: HDPPolicyLoad
+    """Acceptable Use Policy for load HDP file projects (not the data)
+
+    Note that each HDP file can have individual Acceptable Use Policy. This
+    item is mostly used by advanced users who want to automate too much (not
+    even need human intervention) or they want to share snippets with less
+    experienced people while somewhat tolerating the person dealing HDP files
+    from several places
+    """
+
     _entrypoint: ResourceWrapper
 
     _entrypoint_str: str
@@ -99,23 +110,19 @@ class HDPProject:
     hsilos: List[HSiloWrapper]
     """List of individual HSilo (one physical file could have multiple)"""
 
-    ok: bool = True
-    """Boolean to check if everyting is 100%.
-
-    HDP project can still work with somewhat broken input (even if means
-    allow user correct in running time)
+    okay: bool = True
+    """attr.okay indicates if this is, at bare minimum, working
+    It does not mean perfect or great. But is opposite of bad. The perfect
+    example is okay = True when something goes bad but the program know how to
+    recover.
     """
-
-    policy_loader: HDPPolicyLoad
-    """An HDP policy about what rules could be loaded
-    (ex.: restrict domains)"""
 
     def __init__(self, entrypoint: Any,
                  user_l10n: L10NContext,
                  policy_loader: HDPPolicyLoad):
         self._entrypoint_str = entrypoint
         self._l10n = user_l10n
-        self.policy_loader = policy_loader
+        self._aup_loader = policy_loader
 
         # return self
 
@@ -137,7 +144,7 @@ class HDPProject:
         self._entrypoint = get_entrypoint(entrypoint, indexes=indexes)
 
         if self._entrypoint.failed:
-            self.ok = False
+            self.okay = False
             self._log.append('_parse_entrypoint failed: input [' +
                              str(entrypoint) + '] ResourceWrapper log [ ' +
                              str(self._entrypoint.log) + ']')
@@ -145,7 +152,7 @@ class HDPProject:
         hdpraw1 = self._parse_resource(self._entrypoint)
 
         if hdpraw1.failed:
-            self.ok = False
+            self.okay = False
             self._log.append('_parse_resource failed: input [' +
                              str(entrypoint) + '] HDPRaw log [ ' +
                              str(hdpraw1.log) + ']')
@@ -166,7 +173,7 @@ class HDPProject:
         """
         # TODO: _recursive_hdp_parsing is an draft and should be implemented.
         if resource.failed:
-            self.ok = False
+            self.okay = False
             self._log.append('resource.failed: [' + str(resource) + ']')
         elif is_index_hdp(resource.content):
             print('TODO: is_index_hdp')
@@ -174,7 +181,7 @@ class HDPProject:
         elif is_raw_hdp_item_syntax(resource.content):
             print('TODO: is_index_hdp')
         else:
-            self.ok = False
+            self.okay = False
             self._log.append(
                 'resource ¬ (is_index_hdp | is_raw_hdp_item_syntax) ['
                 + str(resource) + ']')
@@ -186,38 +193,27 @@ class HDPProject:
         self.hdpraw.append(hdpraw)
         return hdpraw
 
-    def info(self, dotted_key: str = None) -> Union[dict, str, bool]:
+    def info(self) -> HDPProjectInfo:
         """Quick sumamary about current HDP project
 
-        Args:
-            dotted_key (str, optional): 'dotted.key' style filter.
-                        Defaults to load all information
-
         Returns:
-            Union[dict, str, bool]: Without dotted_key returns a dict. But
-                        depending of filters, users can select inner values
-                        with different structures
+            HDPProjectInfo: The result
         """
-        info = {
-            'ok': self.ok,
-            'log': self._log,
-            # 'entrypoint': self._entrypoint,
-            'l10n': self._l10n
-            # 'l10n_user': asdict(self._l10n_user)
-        }
-
-        # raise SyntaxError(info)
-        if dotted_key is not None:
-            return get_value_if_key_exists(info, dotted_key)
+        info = HDPProjectInfo(
+            aup_loader=None,
+            l10n=self._l10n,
+            log=self._log,
+            okay=self.okay,
+        )
 
         return info
 
     def load(self):
         if is_not_acceptable_load_this(self._entrypoint_str,
-                                       self.policy_loader):
+                                       self._aup_loader):
             raise SyntaxError('[' + self._entrypoint_str +
                               '] ¬ is_acceptable_load_this [' +
-                              str(self.policy_loader) + ']')
+                              str(self._aup_loader) + ']')
         self._parse_entrypoint(self._entrypoint_str)
 
         return self
