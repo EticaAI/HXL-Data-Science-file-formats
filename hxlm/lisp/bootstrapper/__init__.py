@@ -5,6 +5,7 @@ License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
 
+from hxlm.lisp.bootstrapper.hdplisp import *
 
 def todo():
     """TODO message"""
