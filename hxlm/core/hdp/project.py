@@ -24,7 +24,8 @@ import os
 
 from typing import (
     Any,
-    List
+    List,
+    Union
 )
 
 from hxlm.core.types import (
@@ -80,7 +81,7 @@ class HDPProject:
     It's an partial refactoring of the hxlm/core/model/hdp.py
     """
 
-    _entrypoint: str
+    _entrypoint: ResourceWrapper
 
     _entrypoint_str: str
 
@@ -185,13 +186,22 @@ class HDPProject:
         self.hdpraw.append(hdpraw)
         return hdpraw
 
-    def info(self, dotted_key: str = None) -> str:
+    def info(self, dotted_key: str = None) -> Union[dict, str, bool]:
         """Quick sumamary about current HDP project
+
+        Args:
+            dotted_key (str, optional): 'dotted.key' style filter.
+                        Defaults to load all information
+
+        Returns:
+            Union[dict, str, bool]: Without dotted_key returns a dict. But
+                        depending of filters, users can select inner values
+                        with different structures
         """
         info = {
             'ok': self.ok,
             'log': self._log,
-            'entrypoint': self._entrypoint,
+            # 'entrypoint': self._entrypoint,
             'l10n': self._l10n
             # 'l10n_user': asdict(self._l10n_user)
         }

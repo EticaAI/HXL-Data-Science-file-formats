@@ -936,6 +936,83 @@ attr:
       id: 'objectivum'
       descriptionem: 'a thing aimed at or sought; a goal.'
 
+  okay:
+    # attr.okay (from contemporay Latin 'Okay') can be used for special
+    # indication of a thin is correct, acceptable. It does not mean that is
+    # 100% correct, it could be 'mediocre' (in contrast with perfect or 'good')
+    # but at least is not bad.
+    #
+    # Use case: when a program is loading instructions that are not perfect,
+    # but still be able to process or recover. This is a case where attr.okay
+    # can express that, at least, is not bad
+    #
+    # "OK (spelling variations include okay, O.K., and ok) is an English word
+    #  (originally American English) denoting approval, acceptance, agreement,
+    #  assent, acknowledgment, or a sign of indifference. OK is frequently
+    #  used as a loanword in other languages. It has been described as the most
+    #  frequently spoken or written word on the planet.[1] The origins of the
+    #  word are disputed." -- https://en.wikipedia.org/wiki/OK
+    # @see https://en.wikipedia.org/wiki/OK
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D8%A3%D9%88%D9%83%D9%8A
+      id: 'أوكي'
+      descriptionem: 'اوكي أو OK (الصيغ الإملائية التي تشمل okay وOK وok) هي كلمة إنجليزية أمريكية تشير إلى الموافقة أو القبول أو الاتفاق أو الإقرار أو علامة اللامبالاة. كثيرا ما يستخدم OK كلفظ دخيل في لغات أخرى. وقد وصفت بأنها أكثر الكلمات المنطوقة أو المكتوبة على كوكب الأرض.'
+      # id_alts:
+      #   - ''
+    ENG:
+      # https://en.wikipedia.org/wiki/OK
+      id: 'ok'
+      descriptionem: 'OK (spelling variations include okay, O.K., and ok) is an English word (originally American English) denoting approval, acceptance, agreement, assent, acknowledgment, or a sign of indifference. OK is frequently used as a loanword in other languages. It has been described as the most frequently spoken or written word on the planet.[1] The origins of the word are disputed.'
+      # id_alts:
+      #   - ''
+    FRA:
+      # https://fr.wikipedia.org/wiki/OK_(expression)
+      id: 'ok'
+      descriptionem: "OK /ɔkɛ/ (/oke/ au Québec) est une expression abrégée de l'anglais américain qui désigne l'approbation, l'acceptation, l'accord, l'assentiment, la reconnaissance ou un signe d'indifférence. Son équivalent en français est « d'accord », « correct »"
+      # id_alts:
+      #   - ''
+    SPA:
+      # https://es.wikipedia.org/wiki/OK
+      id: 'ok'
+      descriptionem: 'La locución O. K., ok, okay y en español okey2​3​ proviene del inglés estadounidense y se usa como equivalente a «de acuerdo», «está bien» o para indicar conformidad, comúnmente utilizada en Hispanoamérica, no así en España, lugar en el que predomina la interjección: vale.4​ Se usa como adjetivo y adverbio.'
+      id_alts:
+        - ''
+    LAT:
+      # https://la.wikipedia.org/wiki/Okay
+      id: 'okay'
+      descriptionem: 'Okay sive litteris compendiariis o.k., saepe modo ok est verbum celebre Anglicum Americanum. Interea etiam in multis aliis linguis in usu est et “ita”, “ita est”, “recte” et similia significat. Verbum etiam quaestio esse potest: okay? id est “itane?”'
+      # id_alts:
+      #   - ''
+    POR:
+      # https://pt.wikipedia.org/wiki/OK
+      id: 'ok'
+      descriptionem: '"O.K." é uma palavra do inglês americano de origem desconhecida e etimologia muito discutida. Equivale à expressão "Está bem!", e suas derivações, no português. É descrita como uma das expressões mais escritas e faladas no planeta.'
+      # id_alts:
+      #   - ''
+    QAA:
+      # https://www.wikidata.org/wiki/Q217844
+      id: 'q217844'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%9E%D0%BA%D0%B5%D0%B9
+      id: 'окей'
+      descriptionem: 'Окей (англ. Okay; произносится оу ке́й; сокращённо обозначается Ok, O.k.; в русском написании «о’кей», «окей», O’key является неправильным написанием) — американское общеупотребительное выражение, ставшее международным, означающее согласие; «ладно»; «да»; «всё в порядке; хорошо; правильно». Из Америки распространилось по всему миру. Это выражение используют для одобрения или подтверждения чего-либо; в качестве прилагательного это может означать «модный, престижный, относящийся к высшему классу»; и, кроме того, данное выражение используют в качестве междометия: «есть!, идёт!, ладно!, хорошо!».'
+      # id_alts:
+      #   - ''
+    ZHO:
+      # https://zh.wikipedia.org/zh-cn/OK
+      id: 'ok'
+      descriptionem: 'OK（又作okay、O.K.）是一个英语口语词，但也常见于其他语言的口语。英语中意思是对、好、可以、行的意思。OK表示赞同、许可、同意，即英文中yes的含义，而不作为表达好坏程度的副词使用。'
+      # id_alts:
+      #   - ''
+    QDP:
+      id: 'okay'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+
   # strictum:
   #     # attr.structus is ...
   #     # @see https://en.wiktionary.org/wiki/strictus#Latin
@@ -1228,11 +1305,6 @@ attr:
   #     descriptionem: ''
   #     id_alts:
   #       - ''
-  # uri:
-  #   # @see https://en.wikipedia.org/wiki/Uniform_Resource_Identifier
-  #   # @see https://www.wikidata.org/wiki/Q61694
-  #   ARA:
-  #     #...
 
 #### Rank, numerals, means to express ordering _________________________________
 # Some implementations, like the implicit checksums, the default 'checking tags'

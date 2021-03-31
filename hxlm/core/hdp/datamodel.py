@@ -17,6 +17,10 @@ from typing import (
     Union
 )
 
+# from hxlm.core.types import (
+#     L10NContext
+# )
+
 from hxlm.core.types import (
     EntryPointType,
     ResourceWrapper
@@ -160,6 +164,19 @@ class HDPPolicyLoad:
     The name 'safer' does not mean that is 100% safe if an resource on the
     listed item already is compromised.
     """
+
+
+# @dataclass
+# class HDPProjectInfo:
+#     """An quick summary about an current HDP object.
+#     """
+#     # pylint: disable=invalid-name
+
+#     ok: bool = True
+#     """Syntatic sugar to 'is everything perfectly unrealisticworking'?"""
+
+#     L10N: L10NContext
+#     """Localization information"""
 
 
 @dataclass(init=True, eq=True)
