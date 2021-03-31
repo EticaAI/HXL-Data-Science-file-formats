@@ -102,6 +102,9 @@ class HDPProject:
     _log: list = []
     """Log of messages. Both for verbose and error messages"""
 
+    _log_okay: list = []
+    """Short, temporary most recent log if not okay"""
+
     hdpraw: List[HDPRaw] = []
     """HDPRaw is, informally speaking it is a crude representation of
     information in a disk file that MAY be an single hsilo or not.
@@ -209,6 +212,19 @@ class HDPProject:
         return info
 
     def load(self):
+        """Do, _de facto_ the (re-)loading of data by user request.
+
+        load() and reload() are used to allow lazy-loading and/or user fix
+        issues interactively without trow exceptions everywhere. The only hard
+        requeriment are pretty puch the boostraping entrypoint
+
+        Raises:
+            SyntaxError: [description]
+
+        Returns:
+            [type]: [description]
+        """
+        self._log_okay = []
         if is_not_acceptable_load_this(self._entrypoint_str,
                                        self._aup_loader):
             raise SyntaxError('[' + self._entrypoint_str +

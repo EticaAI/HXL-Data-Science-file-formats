@@ -103,14 +103,15 @@ def convert_resource_to_hdpraw(resource: ResourceWrapper) -> HDPRaw:
     for idx, maybe_silo in enumerate(content_):
         if not isinstance(maybe_silo, dict):
             error_count += 1
-            hdpraw.log.append('ResourceWrapper.content(' + idx + ') ¬ dict')
+            hdpraw.log.append('ResourceWrapper.content(' +
+                              str(idx) + ') ¬ dict')
             continue
         if is_raw_hdp_item_syntax(maybe_silo):
             hdpraw.hsilos.append(maybe_silo)
         else:
             error_count += 1
             hdpraw.log.append('ResourceWrapper.content(' +
-                              idx + ') ¬ is_raw_hdp_item_syntax')
+                              str(idx) + ') ¬ is_raw_hdp_item_syntax')
 
     if error_count > 0:
         hdpraw.failed = True

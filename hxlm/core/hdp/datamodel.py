@@ -187,6 +187,9 @@ class HDPProjectInfo:
     log: InitVar[list] = []
     """Raw message log. Either used for debug or explain errors"""
 
+    log_okay: InitVar[list] = []
+    """Short, temporary most recent log if not okay"""
+
     okay: bool = True
     """attr.okay indicates if this is, at bare minimum, working
     It does not mean perfect or great. But is opposite of bad. The perfect
