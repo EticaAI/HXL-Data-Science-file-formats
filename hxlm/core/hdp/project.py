@@ -3,7 +3,7 @@
 
 >>> import hxlm.core as HXLm
 >>> # Loading single file
->>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR)
+>>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR).load()
 >>> hp.ok
 True
 
@@ -82,6 +82,8 @@ class HDPProject:
 
     _entrypoint: str
 
+    _entrypoint_str: str
+
     _l10n: L10NContext
     """Current active user context."""
 
@@ -103,17 +105,18 @@ class HDPProject:
     allow user correct in running time)
     """
 
+    policy_loader: HDPPolicyLoad
+    """An HDP policy about what rules could be loaded
+    (ex.: restrict domains)"""
+
     def __init__(self, entrypoint: Any,
                  user_l10n: L10NContext,
-                 policy: HDPPolicyLoad):
-        # self._entry_point = entrypoint
+                 policy_loader: HDPPolicyLoad):
+        self._entrypoint_str = entrypoint
         self._l10n = user_l10n
-        self._parse_entrypoint(entrypoint)
+        self.policy_loader = policy_loader
 
-        if is_not_acceptable_load_this(entrypoint, policy):
-            raise SyntaxError('[' + entrypoint +
-                              '] ¬ is_acceptable_load_this [' +
-                              str(policy) + ']')
+        # return self
 
     def _parse_entrypoint(self, entrypoint: Any):
         """Generic parser for the initial entrypoint
@@ -199,8 +202,22 @@ class HDPProject:
 
         return info
 
+    def load(self):
+        if is_not_acceptable_load_this(self._entrypoint_str,
+                                       self.policy_loader):
+            raise SyntaxError('[' + self._entrypoint_str +
+                              '] ¬ is_acceptable_load_this [' +
+                              str(self.policy_loader) + ']')
+        self._parse_entrypoint(self._entrypoint_str)
 
-def project(entry_point: str) -> HDPProject:
+        return self
+
+    def reload(self):
+        self.load()
+        return self
+
+
+def project(entrypoint: str) -> HDPProject:
     """Initialize an HDP project (load collections of HDP files)
 
     Args:
@@ -213,6 +230,8 @@ def project(entry_point: str) -> HDPProject:
 
     # TODO: eventually the policy should be configurable also on startup
     #       not only when running
-    policy = get_policy_HDSL1()
-    result = HDPProject(entry_point, user_l10n=user_l10n, policy=policy)
+    policy_loader = get_policy_HDSL1()
+    result = HDPProject(entrypoint,
+                        user_l10n=user_l10n,
+                        policy_loader=policy_loader)
     return result
