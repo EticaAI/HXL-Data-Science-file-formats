@@ -40,7 +40,8 @@ def hdprecursion_resource(
     """
     if resource.failed:
         if _IS_DEBUG:
-            print('resource.failed: [' + str(resource) + ']')
+            print('resource.failed: [' + str(resource) + ']' +
+                  '[' + str(policy) + ']')
     elif is_index_hdp(resource.content):
         print('TODO: is_index_hdp')
 

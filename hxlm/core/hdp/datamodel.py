@@ -14,7 +14,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 # TODO: resultatum = result, temp varis to return values, etc
 #       see resultātum https://en.wiktionary.org/wiki/resultatum#Latin
 
-from dataclasses import dataclass, InitVar
+from dataclasses import dataclass, field, InitVar
 
 from typing import (
     Any,
@@ -57,7 +57,7 @@ class HDPDescriptionem:
     entrypoint: Any = None
     """The entrypoint"""
 
-    # l10n: L10NContext
+    # l10n: L10NContext = field(repr=False)
     # """Localization information"""
 
     log: InitVar[list] = []
@@ -160,10 +160,10 @@ class HDPOkay:
     """The entrypoint"""
 
     # TODO: hide this field when user is calling HDPOkay
-    _hdpdescriptionem: HDPDescriptionem
+    _hdpdescriptionem: HDPDescriptionem = field(repr=False)
     """A HDPDescriptionem with full details of the project"""
 
-    _l10n: L10NContext
+    _l10n: L10NContext = field(repr=False)
     """Localization information"""
 
     okay: bool = True
