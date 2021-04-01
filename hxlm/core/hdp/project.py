@@ -4,9 +4,9 @@
 >>> import hxlm.core as HXLm
 >>> # Loading single file
 >>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR).load()
->>> isinstance(hp.okay(), HXLm.HDP.data.radix.HDPOkay)
+>>> isinstance(hp.okay(), HXLm.HDP.data.aux.AuxHDPOkay)
 True
->>> isinstance(hp.descriptionem(), HXLm.HDP.data.radix.HDPDescriptionem)
+>>> isinstance(hp.descriptionem(), HXLm.HDP.data.aux.AuxHDPDesc)
 True
 >>> hp.okay() == True
 True
@@ -49,10 +49,13 @@ from hxlm.core.io.util import (
     get_entrypoint
 )
 
+from hxlm.core.hdp.data.aux import (
+    AuxHDPDesc,
+    AuxHDPOkay
+)
+
 from hxlm.core.hdp.data.radix import (
-    HDPDescriptionem,
     HDPPolicyLoad,
-    HDPOkay,
     HSiloWrapper,
     HDPRaw
 )
@@ -213,7 +216,7 @@ class HDPProject:
         self.hdpraw.append(hdpraw)
         return hdpraw
 
-    def descriptionem(self) -> HDPDescriptionem:
+    def descriptionem(self) -> AuxHDPDesc:
         """Quick sumamary about current HDP project
 
         Args:
@@ -223,7 +226,7 @@ class HDPProject:
             HDPProjectInfo: The result
         """
         # print('oioioi', self._okay)
-        info = HDPDescriptionem(
+        info = AuxHDPDesc(
             aup_loader=None,
             # l10n=self._l10n,
             log=self._log,
@@ -266,18 +269,18 @@ class HDPProject:
 
         return self
 
-    def okay(self) -> HDPOkay:
+    def okay(self) -> AuxHDPOkay:
         """Debug-like relevant information for end user know when is not okay
 
         Returns:
-            HDPOkay: The result
+            AuxHDPOkay: The result
         """
         if self._entrypoint:
             entry_ = self._entrypoint
         else:
             entry_ = self._entrypoint_str
         # print('oioioi', self._okay)
-        okay_ = HDPOkay(
+        okay_ = AuxHDPOkay(
             entrypoint=entry_,
             hdpdescriptionem=self.descriptionem(),
             l10n=self._l10n,

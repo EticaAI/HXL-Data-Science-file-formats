@@ -7,9 +7,13 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 import os
 
+from hxlm.core.hdp.data.aux import (
+    AuxLoadRecursion
+)
+
 from hxlm.core.hdp.data.radix import (
     HDPPolicyLoad,
-    HDPLoadRecursion
+    # HDPLoadRecursion
 )
 
 from hxlm.core.hdp.index import (
@@ -29,7 +33,7 @@ _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 
 def hdprecursion_resource(
         resource: ResourceWrapper,
-        policy: HDPPolicyLoad) -> HDPLoadRecursion:
+        policy: HDPPolicyLoad) -> AuxLoadRecursion:
     """HDP recursion of resource
 
     Args:
