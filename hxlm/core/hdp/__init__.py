@@ -35,7 +35,7 @@ from hxlm.core.hdp.project import (  # noqa
     project
 )
 
-from hxlm.core.hdp.util import (  # noqa
+from hxlm.core.hdp.util.common import (  # noqa
     get_language_identifiers,
     get_metadata,
     hashable,

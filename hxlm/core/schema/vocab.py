@@ -67,7 +67,7 @@ import yaml
 from hxlm.core.exception import (
     HXLmException
 )
-from hxlm.core.hdp.util import (
+from hxlm.core.hdp.util.common import (
     get_hdp_term_cleaned
 )
 

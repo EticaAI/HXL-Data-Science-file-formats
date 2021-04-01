@@ -1,4 +1,4 @@
-"""hxlm.core.hdp.util
+"""hxlm.core.hdp.util.common
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
