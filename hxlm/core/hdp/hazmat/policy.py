@@ -30,10 +30,11 @@ from hxlm.core.types import (
     # ResourceWrapper
 )
 
-from hxlm.ontologia.python.hdp.radix import (
-    HDPPolicyLoad,
+from hxlm.ontologia.python.hdp.aux import (
+    AuxLoadPolicy,
     # HDPLoadRecursion
 )
+
 # os.environ["HDP_DEBUG"] = "1"
 _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 
@@ -41,9 +42,9 @@ __all__ = ['get_policy_HDSL1', 'get_policy_HDSL4',
            'is_not_acceptable_load_this']
 
 
-def _get_bunker() -> HDPPolicyLoad:
+def _get_bunker() -> AuxLoadPolicy:
     """bunker"""
-    policy = HDPPolicyLoad()
+    policy = AuxLoadPolicy()
 
     policy.enforce_startup_generic_tests = True
 
@@ -63,22 +64,22 @@ def _get_bunker() -> HDPPolicyLoad:
     return policy
 
 
-def _get_debug() -> HDPPolicyLoad:
+def _get_debug() -> AuxLoadPolicy:
     """debug"""
     policy = _get_user_know_what_is_doing()
     policy.debug_no_restrictions = True
     return policy
 
 
-def _get_user_know_what_is_doing() -> HDPPolicyLoad:
+def _get_user_know_what_is_doing() -> AuxLoadPolicy:
     """get_user_know_what_is_doing template policy
 
     Returns:
-        HDPPolicyLoad: The policy
+        AuxLoadPolicy: The policy
     """
-    policy = HDPPolicyLoad()
+    policy = AuxLoadPolicy()
 
-    # Note: in general the default generic HDPPolicyLoad somewhat already
+    # Note: in general the default generic AuxLoadPolicy somewhat already
     #       is flexible (with exception that does not have hardcoded names
     #       for network domains). This means that we will add some domains.
     #       Most of then are either for organizations accredited at
@@ -101,11 +102,11 @@ def _get_user_know_what_is_doing() -> HDPPolicyLoad:
     return policy
 
 
-def get_policy_HDSL1() -> HDPPolicyLoad:
+def get_policy_HDSL1() -> AuxLoadPolicy:
     """Syntatic sugar to generate an generic optionated policy for 'HDSL1'
 
     Very important notes:
-      - Implementers very likely would want to create HDPPolicyLoad directly
+      - Implementers very likely would want to create AuxLoadPolicy directly
         that would align with the specific needs
 
     See:
@@ -113,18 +114,18 @@ def get_policy_HDSL1() -> HDPPolicyLoad:
         - HDSL1: Low Sensitivity
 
     Returns:
-        [HDPPolicyLoad]: HDPPolicyLoad
+        [AuxLoadPolicy]: AuxLoadPolicy
     """
     # pylint: disable=invalid-name
 
     return _get_user_know_what_is_doing()
 
 
-def get_policy_HDSL4() -> HDPPolicyLoad:
-    """Generate an HDPPolicyLoad for the internal constant 'HDSL4'
+def get_policy_HDSL4() -> AuxLoadPolicy:
+    """Generate an AuxLoadPolicy for the internal constant 'HDSL4'
 
     Very important notes:
-      - Implementers very likely would want to create HDPPolicyLoad directly
+      - Implementers very likely would want to create AuxLoadPolicy directly
         that would align with the specific needs
 
     See:
@@ -132,7 +133,7 @@ def get_policy_HDSL4() -> HDPPolicyLoad:
         - HDSL4: Severe Sensitivity
 
     Returns:
-        [HDPPolicyLoad]: HDPPolicyLoad
+        [AuxLoadPolicy]: AuxLoadPolicy
     """
     # pylint: disable=invalid-name
     return _get_bunker()
@@ -140,12 +141,12 @@ def get_policy_HDSL4() -> HDPPolicyLoad:
 
 def is_not_acceptable_load_this(
         entrypoint_str: str,
-        policy: HDPPolicyLoad) -> Union[bool, str]:
+        policy: AuxLoadPolicy) -> Union[bool, str]:
     """Checj if an entrypoint string is not acceptable by an policy
 
     Args:
         entrypoint_str (str): An full entrypoint string (not an object)
-        policy (HDPPolicyLoad): the reference policy
+        policy (AuxLoadPolicy): the reference policy
 
     Returns:
         Union[bool, str]: False if ok. String with explanation if not.

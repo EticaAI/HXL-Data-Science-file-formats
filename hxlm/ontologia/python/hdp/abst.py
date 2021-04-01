@@ -10,3 +10,82 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 # participle of abstrahō (“draw away”),
 # formed from abs- (“away”) + trahō (“to pull, draw”).
 # The verbal sense is first attested in 1542.
+
+from dataclasses import dataclass, InitVar
+# from dataclasses import dataclass
+
+
+@dataclass
+class AbstAttr:
+    """Abstractum Attribūtum, "Abstraction to (HDP) attributes"
+
+    Trivia:
+    - https://en.wiktionary.org/wiki/abstractum#Latin
+    - https://en.wiktionary.org/wiki/attributum#Latin
+    """
+    # No customization at the moment
+
+
+@dataclass
+class AbstAux:
+    """Abstractum Auxilium, "Abstraction to (HDP) raid/help"
+
+    Trivia:
+    - https://en.wiktionary.org/wiki/abstractum#Latin
+    - https://en.wiktionary.org/wiki/attributum#Latin
+    """
+    # No customization at the moment
+
+    librum: InitVar[list] = []
+    """List of useful message logs
+
+    Trivia:
+      - "librum" means "book"
+        - https://en.wiktionary.org/wiki/liber#Etymology_2_2
+        - https://en.wiktionary.org/wiki/librum#Latin
+    """
+
+    okay: InitVar[bool] = True
+    """attr.okay indicates if this is, at bare minimum, working
+    It does not mean perfect or great. But is opposite of bad. The perfect
+    example is okay = True when something goes bad but the program know how to
+    recover.
+
+    Trivia:
+      - Okay (from OK in English)
+        - 'It has been described as the most frequently spoken or written word
+          on the planet.', source https://en.wikipedia.org/wiki/OK
+        - So by using Okay, we're making translaton simpler
+    """
+
+
+@dataclass
+class AbstRadix:
+    """Abstractum Rādīcem, "Abstraction (HDP) root"
+
+    Trivia:
+    - https://en.wiktionary.org/wiki/abstractum#Latin
+    - https://en.wiktionary.org/wiki/radix#Latin
+    """
+
+    librum: InitVar[list] = []
+    """List of useful message logs
+
+    Trivia:
+      - "librum" means "book"
+        - https://en.wiktionary.org/wiki/liber#Etymology_2_2
+        - https://en.wiktionary.org/wiki/librum#Latin
+    """
+
+    okay: InitVar[bool] = True
+    """attr.okay indicates if this is, at bare minimum, working
+    It does not mean perfect or great. But is opposite of bad. The perfect
+    example is okay = True when something goes bad but the program know how to
+    recover.
+
+    Trivia:
+      - Okay (from OK in English)
+        - 'It has been described as the most frequently spoken or written word
+          on the planet.', source https://en.wikipedia.org/wiki/OK
+        - So by using Okay, we're making translaton simpler
+    """

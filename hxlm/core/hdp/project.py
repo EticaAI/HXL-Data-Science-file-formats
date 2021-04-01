@@ -4,12 +4,14 @@
 >>> import hxlm.core as HXLm
 >>> # Loading single file
 >>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR).load()
->>> isinstance(hp.okay(), HXLm.Ontologia.hdp.aux.AuxHDPOkay)
+>>> isinstance(hp.okay(), HXLm.Ontologia.hdp.aux.AuxHDPExplanare)
 True
 >>> isinstance(hp.descriptionem(), HXLm.Ontologia.hdp.aux.AuxHDPDesc)
 True
 >>> hp.okay() == True
 True
+
+# >>> hp.okay()
 
 #  >>> hp.info()
 #  >>> hp.info('entry_point')
@@ -51,11 +53,12 @@ from hxlm.core.io.util import (
 
 from hxlm.ontologia.python.hdp.aux import (
     AuxHDPDesc,
-    AuxHDPOkay
+    AuxHDPExplanare,
+    AuxLoadPolicy
 )
 
 from hxlm.ontologia.python.hdp.radix import (
-    HDPPolicyLoad,
+    # HDPPolicyLoad,
     HSiloWrapper,
     HDPRaw
 )
@@ -96,7 +99,7 @@ class HDPProject:
     It's an partial refactoring of the hxlm/core/model/hdp.py
     """
 
-    _aup_loader: HDPPolicyLoad
+    _aup_loader: AuxLoadPolicy
     """Acceptable Use Policy for load HDP file projects (not the data)
 
     Note that each HDP file can have individual Acceptable Use Policy. This
@@ -136,7 +139,7 @@ class HDPProject:
 
     def __init__(self, entrypoint: Any,
                  user_l10n: L10NContext,
-                 policy_loader: HDPPolicyLoad):
+                 policy_loader: AuxLoadPolicy):
         self._entrypoint_str = entrypoint
         self._l10n = user_l10n
         self._aup_loader = policy_loader
@@ -229,7 +232,7 @@ class HDPProject:
         info = AuxHDPDesc(
             aup_loader=None,
             # l10n=self._l10n,
-            log=self._log,
+            librum=self._log,
             okay=self._okay,
         )
 
@@ -269,19 +272,19 @@ class HDPProject:
 
         return self
 
-    def okay(self) -> AuxHDPOkay:
+    def okay(self) -> AuxHDPExplanare:
         """Debug-like relevant information for end user know when is not okay
 
         Returns:
-            AuxHDPOkay: The result
+            AuxHDPExplanare: The result
         """
         if self._entrypoint:
             entry_ = self._entrypoint
         else:
             entry_ = self._entrypoint_str
         # print('oioioi', self._okay)
-        okay_ = AuxHDPOkay(
-            entrypoint=entry_,
+        okay_ = AuxHDPExplanare(
+            trivium=entry_,
             hdpdescriptionem=self.descriptionem(),
             l10n=self._l10n,
         )

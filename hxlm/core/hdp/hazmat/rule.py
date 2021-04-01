@@ -11,8 +11,8 @@ from hxlm.ontologia.python.hdp.aux import (
     AuxLoadRecursion
 )
 
-from hxlm.ontologia.python.hdp.radix import (
-    HDPPolicyLoad,
+from hxlm.ontologia.python.hdp.aux import (
+    AuxLoadPolicy,
     # HDPLoadRecursion
 )
 
@@ -33,7 +33,7 @@ _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 
 def hdprecursion_resource(
         resource: ResourceWrapper,
-        policy: HDPPolicyLoad) -> AuxLoadRecursion:
+        policy: AuxLoadPolicy) -> AuxLoadRecursion:
     """HDP recursion of resource
 
     Args:

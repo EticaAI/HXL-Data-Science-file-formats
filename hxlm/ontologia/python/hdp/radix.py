@@ -50,7 +50,7 @@ from dataclasses import dataclass, InitVar
 from typing import (
     # Any,
     List,
-    Tuple,
+    # Tuple,
     # Type,
     Union
 )
@@ -60,7 +60,7 @@ from typing import (
 # )
 
 from hxlm.core.types import (
-    EntryPointType,
+    # EntryPointType,
     ResourceWrapper
 )
 
@@ -93,7 +93,7 @@ from hxlm.ontologia.python.hdp.attr import (
 
 
 __all__ = [
-    'HDPPolicyLoad', 'HSiloWrapper', 'HDPRaw'
+    'HSiloWrapper', 'HDPRaw'
 ]
 
 
@@ -155,72 +155,6 @@ class HDPIndex:
 
     failed: bool = False
     """If something failed"""
-
-
-@dataclass
-class HDPPolicyLoad:
-    """Policies about how resources (like HDP rules or data) are allowed
-
-    Used by hxlm.core.hdp.hazmat to abstract not just what already is cached
-    but also what should not be loaded without user request
-    """
-
-    # TODO: move the rest of the hxlm.core.model.hdp rules to here and to
-    #       hxlm.core.hdp.hazmat (Emerson Rocha, 2021-03-30 17:57 UTC)
-
-    allowed_entrypoint_type: InitVar[Tuple] = [
-        EntryPointType.FTP,
-        EntryPointType.GIT,
-        EntryPointType.HTTP,
-        EntryPointType.LOCAL_DIR,  # air-gapped compliant
-        EntryPointType.LOCAL_FILE,  # air-gapped compliant
-        EntryPointType.NETWORK_DIR,  # air-gapped compliant
-        EntryPointType.NETWORK_FILE,  # air-gapped compliant
-        EntryPointType.PYDICT,  # air-gapped compliant
-        EntryPointType.PYLIST,  # air-gapped compliant
-        EntryPointType.SSH,
-        EntryPointType.STREAM,
-        EntryPointType.STRING,  # air-gapped compliant
-        # EntryPointType.UNKNOW,
-        EntryPointType.URN  # air-gapped compliant (it's an resolver)
-    ]
-    """Tuple of EntryPointType"""
-
-    debug_no_restrictions: bool = False
-    """Debug Mode. This ask policy checkers to not enforce any other rule"""
-
-    enforce_startup_generic_tests: bool = False
-    """If, and only if, implementations could do generic check EVERY time
-    an library start, this variable is the way to give a hint.
-
-    The use case is, even if an HDP implementation like this python library
-    would try to comply, actually do generic tests like if no network access
-    is allowed, try to test if is possible to do HTTP requests and then refuse
-    to run until this is fixed.
-    """
-
-    custom_allowed_domains: InitVar[Tuple] = ()
-    """Allow list of strings that, if an suffix of an domain, are allowed"""
-
-    log: InitVar[list] = []
-    """Log of messages (if any)"""
-
-    safer_zones_hosts: InitVar[Tuple] = (
-        'localhost'
-    )
-    """Tuple of hostnames that even if under restrictions are considered safe
-    The name 'safer' does not mean that is 100% safe if an resource on the
-    listed item already is compromised
-    """
-
-    safer_zone_list: InitVar[Tuple] = (
-        '127.0.0.1',
-        '::1'
-    )
-    """Tuple of IPv4 or IPv6 that even if under restrictions are considered safe
-    The name 'safer' does not mean that is 100% safe if an resource on the
-    listed item already is compromised.
-    """
 
 
 @dataclass(init=True, eq=True)

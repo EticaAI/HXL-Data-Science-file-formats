@@ -2,7 +2,7 @@
 
 """
 
-# TODO: Since HDPPolicyLoad have an flag 'enforce_startup_generic_tests'
+# TODO: Since AuxLoadPolicy have an flag 'enforce_startup_generic_tests'
 #       We could choose some server (or a list of servers), and use files
 #       like this one https://www.un.org/robots.txt as check if network is
 #       enabled when an Policy is so high that this would need to be blocked

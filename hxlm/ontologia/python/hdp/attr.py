@@ -1,4 +1,4 @@
-"""hxlm.core.hdp.data.attr
+"""hxlm.core.hdp.data.attr is an draft. Not implemented yet
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
