@@ -1,4 +1,4 @@
-"""hxlm.core.hdp.data
+"""hxlm.ontologia.python.hdp
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
@@ -14,6 +14,6 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 # TODO: these imports needs more testing
 
-import hxlm.core.hdp.data.abst  # noqa
-import hxlm.core.hdp.data.attr  # noqa
-import hxlm.core.hdp.data.radix  # noqa
+import hxlm.ontologia.python.hdp.abst  # noqa
+import hxlm.ontologia.python.hdp.attr  # noqa
+import hxlm.ontologia.python.hdp.radix  # noqa

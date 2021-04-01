@@ -1,4 +1,4 @@
-"""hxlm.core.hdp.data.attr
+"""hxlm.ontologia.python.hdp.attr
 
 Trivia
 ------
@@ -26,11 +26,11 @@ from hxlm.core.types import (
     L10NContext
 )
 
-from hxlm.core.hdp.data.radix import (
-    HDPPolicyLoad,
-    HDPRaw,
-    HSiloWrapper
-)
+# from hxlm.ontologia.python.hdp.radix import (
+#     HDPPolicyLoad,
+#     HDPRaw,
+#     HSiloWrapper
+# )
 
 
 @dataclass

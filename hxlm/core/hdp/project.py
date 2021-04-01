@@ -4,9 +4,9 @@
 >>> import hxlm.core as HXLm
 >>> # Loading single file
 >>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR).load()
->>> isinstance(hp.okay(), HXLm.HDP.data.aux.AuxHDPOkay)
+>>> isinstance(hp.okay(), HXLm.Ontologia.hdp.aux.AuxHDPOkay)
 True
->>> isinstance(hp.descriptionem(), HXLm.HDP.data.aux.AuxHDPDesc)
+>>> isinstance(hp.descriptionem(), HXLm.Ontologia.hdp.aux.AuxHDPDesc)
 True
 >>> hp.okay() == True
 True
@@ -49,12 +49,12 @@ from hxlm.core.io.util import (
     get_entrypoint
 )
 
-from hxlm.core.hdp.data.aux import (
+from hxlm.ontologia.python.hdp.aux import (
     AuxHDPDesc,
     AuxHDPOkay
 )
 
-from hxlm.core.hdp.data.radix import (
+from hxlm.ontologia.python.hdp.radix import (
     HDPPolicyLoad,
     HSiloWrapper,
     HDPRaw

@@ -30,7 +30,7 @@ from hxlm.core.types import (
     # ResourceWrapper
 )
 
-from hxlm.core.hdp.data.radix import (
+from hxlm.ontologia.python.hdp.radix import (
     HDPPolicyLoad,
     # HDPLoadRecursion
 )

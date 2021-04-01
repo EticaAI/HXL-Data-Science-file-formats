@@ -1,4 +1,4 @@
-"""hxlm.core.hdp.data.radix is focused on root strictly related to HDP
+"""hxlm.ontologia.python.hdp.radix is focused on root strictly related to HDP
 
 See also:
   - hxlm/core/types.py
@@ -69,7 +69,7 @@ from hxlm.core.constant import (
     HONTOLOGIA_VKG
 )
 
-from hxlm.core.hdp.data.attr import (
+from hxlm.ontologia.python.hdp.attr import (
     # AttrAdm0,
     AttrDescriptionem
 )

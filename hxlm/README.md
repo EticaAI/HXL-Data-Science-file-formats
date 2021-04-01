@@ -1,5 +1,8 @@
 # About hxlm-eticaai
 
+> TODO: update this description from `hxlm-eticaai` to `hdp-toolchain`
+> (Emerson Rocha, 2021-04-01 17:09 UTC)
+
 hxlm-eticaai is an working draft. Some internal notes:
 
 - `hxlm.core`: on a ideal scenario, would be a place with both functions that

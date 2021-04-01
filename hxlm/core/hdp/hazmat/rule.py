@@ -7,11 +7,11 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 import os
 
-from hxlm.core.hdp.data.aux import (
+from hxlm.ontologia.python.hdp.aux import (
     AuxLoadRecursion
 )
 
-from hxlm.core.hdp.data.radix import (
+from hxlm.ontologia.python.hdp.radix import (
     HDPPolicyLoad,
     # HDPLoadRecursion
 )
