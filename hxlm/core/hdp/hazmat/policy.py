@@ -25,7 +25,7 @@ from hxlm.core.io.util import (
     get_entrypoint_type
 )
 
-from hxlm.core.types import (
+from hxlm.ontologia.python.systema import (
     EntryPointType,
     # ResourceWrapper
 )

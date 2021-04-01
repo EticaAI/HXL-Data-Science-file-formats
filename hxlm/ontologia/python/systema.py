@@ -1,13 +1,27 @@
-"""hxlm.core.types contain envelope to internal types that are not Htypes
+"""hxlm.ontologia.python.systema
 
-- https://stackoverflow.com/questions/53409117
-  /what-are-the-main-differences-of-namedtuple-and-typeddict-in-python-mypy
-  /63218574#63218574
+This module, like hxlm.ontologia.python.commune, contains generic data classes
+when implementing HXLm in python. But one main difference is that on this
+module... the initial author have no idea good naming in Latin! But note that
+most of what is here was created on last 100 years, so we may need to keep
+as it is.
+
+
+Trivia:
+  - "systēma"
+    - https://en.wiktionary.org/wiki/systema#Latin
+    - Latin, Etymology: From Ancient Greek σύστημα (sústēma,
+      “organised whole, body”), from σύν (sún, “with, together”) + ἵστημι
+      (hístēmi, “I stand”).
+    - Noun, systēma n (genitive systēmatis); third declension,
+      - 1. system
+      - 2. harmony
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
 SPDX-License-Identifier: Unlicense OR 0BSD
 """
+
 
 from dataclasses import InitVar, dataclass
 # from typing import NamedTuple, TypedDict

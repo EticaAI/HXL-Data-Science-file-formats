@@ -1,4 +1,10 @@
-"""hxlm.core.hdp.data.attr is an draft. Not implemented yet
+"""hxlm.ontologia.python.hdp.attr is an draft. Not implemented yet
+
+- attr (Latin: Attributus):
+  - This file contains classes related to HDP attributes'.
+    Most of the time this is an syntatic sugar for who create code with HXLm
+    do not work with plain objects (it helps with code autocomplete)
+  - This module DOES represents direct implementation of some parts of VKG/LKGs
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License

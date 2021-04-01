@@ -39,8 +39,12 @@ from hxlm.core.hdp.exception import (
     # l10n_descriptionem
 )
 
-from hxlm.core.types import (
-    Factum,
+from hxlm.ontologia.python.commune import (
+    Factum
+)
+
+from hxlm.ontologia.python.systema import (
+    # Factum,
     L10NContext
 )
 # from hxlm.core.util import (

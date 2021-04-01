@@ -1,4 +1,11 @@
-"""hxlm.ontologia.py.hdp.abst
+"""hxlm.ontologia.python.hdp.abst
+
+- abst (Latin: Abstractum):
+  - This file contains 'abstract' (or base) python classes which are
+    inherited by the other groups in the ontologia hxlm.ontologia.python.hdp
+  - Part of this module DOES represents direct implementation of some parts of
+    VKG/LKGs (to avoid repetition)
+
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License

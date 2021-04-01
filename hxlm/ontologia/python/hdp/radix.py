@@ -1,4 +1,10 @@
-"""hxlm.ontologia.python.hdp.radix is focused on root strictly related to HDP
+"""hxlm.ontologia.python.hdp.radix
+
+- radix (Latin: rādīcem; English: root)
+  -  This module contains classes related either to root objects on HDP file
+     (like hdatum, hsilo, htransformare...) or pseudo objets that are not
+     documented to the end user, but act as somewhat wrapper.
+  - Part (not all) of module DOES represents direct implementation of VKG/LKGs
 
 See also:
   - hxlm/core/types.py
@@ -59,7 +65,7 @@ from typing import (
 #     L10NContext
 # )
 
-from hxlm.core.types import (
+from hxlm.ontologia.python.systema import (
     # EntryPointType,
     ResourceWrapper
 )

@@ -1,14 +1,20 @@
 """hxlm.ontologia.python.hdp.aux
 
-Trivia
-------
-- aux.py
-  - auxilium: https://en.wiktionary.org/wiki/auxilium#Latin
-- "auxilium", Latin, Etymology:
-  - From augeō (“spread, honor, promote”).
-- "trivium"
-  - 'a crossroads or fork where three roads meet'
-  - https://en.wiktionary.org/wiki/trivium#Latin
+
+- aux (Latin: Auxilium):
+    - Data that needs to be exchanged when manipulating data are described
+      here.
+    - This module do not represents direct implementation of some parts of
+      VKG/LKGs. But may show off a lot when investigating errors.
+
+Trivia:
+  - aux.py
+    - auxilium: https://en.wiktionary.org/wiki/auxilium#Latin
+  - "auxilium", Latin, Etymology:
+    - From augeō (“spread, honor, promote”).
+  - "trivium"
+    - 'a crossroads or fork where three roads meet'
+    - https://en.wiktionary.org/wiki/trivium#Latin
 
 Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 License: Public Domain / BSD Zero Clause License
@@ -27,11 +33,8 @@ from typing import (
 
 from hxlm.ontologia.python.hdp.abst import AbstAux
 
-from hxlm.core.types import (
-    EntryPointType
-)
-
-from hxlm.core.types import (
+from hxlm.ontologia.python.systema import (
+    EntryPointType,
     L10NContext
 )
 

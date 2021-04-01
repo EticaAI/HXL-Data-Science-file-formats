@@ -51,7 +51,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 import os
 
-from hxlm.core.types import (
+from hxlm.ontologia.python.systema import (
     ResourceWrapper
 )
 

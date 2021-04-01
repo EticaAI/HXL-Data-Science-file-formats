@@ -16,7 +16,7 @@
 >>> RAW_udhr_lat_file = HXLm.io.util.get_entrypoint(
 ...    HXLm.HDATUM_UDHR + 'udhr.lat.hdp.yml')
 >>> RAW_udhr_lat_file
-<class 'hxlm.core.types.ResourceWrapper'>
+<class 'hxlm.ontologia.python.systema.ResourceWrapper'>
 >>> RAW_udhr_lat_file.entrypoint_t
 <EntryPointType.LOCAL_FILE: 'file://localhost/file'>
 
@@ -24,7 +24,7 @@
 >>> RAW_udhr_lat_dir = HXLm.io.util.get_entrypoint(
 ...    HXLm.HDATUM_UDHR, indexes=['lat.hdp.yml'])
 >>> RAW_udhr_lat_dir
-<class 'hxlm.core.types.ResourceWrapper'>
+<class 'hxlm.ontologia.python.systema.ResourceWrapper'>
 >>> RAW_udhr_lat_dir.entrypoint_t
 <EntryPointType.LOCAL_DIR: 'file://localhost/dir/'>
 >>> RAW_udhr_lat_dir.content[0].keys()
@@ -66,10 +66,14 @@ from typing import (
     # Union
 )
 
-from hxlm.core.types import (
+from hxlm.ontologia.python.systema import (
     EntryPointType,
-    Factum,
+    # Factum,
     ResourceWrapper
+)
+
+from hxlm.ontologia.python.commune import (
+    Factum
 )
 
 import hxlm.core.io.local

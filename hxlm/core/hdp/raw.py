@@ -53,7 +53,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 import os
 
 from hxlm.ontologia.python.hdp.radix import HDPRaw
-from hxlm.core.types import ResourceWrapper
+from hxlm.ontologia.python.systema import ResourceWrapper
 
 # os.environ["HDP_DEBUG"] = "1"
 _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))

@@ -31,8 +31,12 @@ import os
 
 import yaml
 
-from hxlm.core.types import (
-    Factum,
+from hxlm.ontologia.python.commune import (
+    Factum
+)
+
+from hxlm.ontologia.python.systema import (
+    # Factum,
     L10NContext
 )
 
