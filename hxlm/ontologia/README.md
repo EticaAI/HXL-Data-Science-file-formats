@@ -76,6 +76,9 @@ to port to other programming languages.
 
 ### Other programming languages
 
+- See also
+  - [tests/transpile-python-to-javascript.sh](tests/transpile-python-to-javascript.sh)
+
 > Note: at the moment (2021-04-01) there is no interest to implement
   non-portable underlining classes (at least form HXLm.core.HPD) on other
   languages like the HXL Standard (see

@@ -1,4 +1,7 @@
 #!/bin/sh
+echo "Read me, not execute-me. Usage:"
+echo "  cat manual-tests.sh"
+exit
 
 #### Automated tests __________________________________________________________
 
