@@ -269,8 +269,8 @@ hxlselect "$(urnresolver urn:data:xz:hxlcplp:fod:lang)" --query '#vocab+id+v_iso
 - https://en.wikipedia.org/wiki/Non-English-based_programming_languages#International_programming_languages
 - Note: most of _the logic that matters_ of HDP is likely to be on
   Knowledge Graphs (YAML files that expand in memory).
-  - See [hxlm/ontology/](hxlm/ontology/)
-    - In special [ontology/core.vkg.yml](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/ontology/core.vkg.yml)
+  - See [hxlm/ontologia/](hxlm/ontologia/)
+    - In special [ontologia/core.vkg.yml](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/ontologia/core.vkg.yml)
 
 ##### 1.4.1 HDP conventions (The YAML/JSON file structure)
 

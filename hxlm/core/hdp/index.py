@@ -62,7 +62,7 @@ from hxlm.core.hdp.data.radix import (
 
 __all__ = ['convert_resource_to_hdpindex', 'is_index_hdp']
 
-# TODO: move this to ontology
+# TODO: move this to ontologia
 HDP_INDEX_ALLOWED = (
     '∫',     # ∫, ∬, ∭
     # 'vkg',   # alias for ∫

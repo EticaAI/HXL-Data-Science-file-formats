@@ -89,15 +89,15 @@ VOCAB_RECURSION_LEAF = (
 
 # HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/core/schema/core_vocab.yml')
 # HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.vkg.yml')
-HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.vkg.yml')
-"""Vocabulary knowledge graph, aka ontology/core.vkg.yml"""
+HDP_VKG = Cutil.load_file(C.HXLM_ROOT + '/ontologia/core.vkg.yml')
+"""Vocabulary knowledge graph, aka ontologia/core.vkg.yml"""
 
 HDP_VKG_FULL: dict = {}
 """Dictionary with transposition from other languages back to Latin"""
 
 
-CORE_LKG = Cutil.load_file(C.HXLM_ROOT + '/ontology/core.lkg.yml')
-"""Localization knowledge graph, aka ontology/core.lkg.yml"""
+CORE_LKG = Cutil.load_file(C.HXLM_ROOT + '/ontologia/core.lkg.yml')
+"""Localization knowledge graph, aka ontologia/core.lkg.yml"""
 
 
 def _clean_metakeys(thing: Union[dict, list],
@@ -111,9 +111,9 @@ def _clean_metakeys(thing: Union[dict, list],
         level (int, optional): Level of nesting, used to mitigate infinite
                     loops. Defaults to 0.
         prefix (str, optional): Prefix. Defaults to
-                    ontology/core.lkg.yml -> itkn.internal_l1.start
+                    ontologia/core.lkg.yml -> itkn.internal_l1.start
         suffix (str, optional): Prefix. Defaults to
-                    ontology/core.lkg.yml -> itkn.internal_l1.end
+                    ontologia/core.lkg.yml -> itkn.internal_l1.end
 
     Returns:
         Union[dict, list]: Same thing, but without metakeys (if any)
@@ -297,7 +297,7 @@ def _get_checksum_keyterm(keyterm: str) -> dict:
 
 
 def _get_file_preferred_suffix() -> tuple:
-    """Based on ontology/core.lkg.yml + env variable LANGUAGE, build preferred
+    """Based on ontologia/core.lkg.yml + env variable LANGUAGE, build preferred
     user language
 
     Returns:

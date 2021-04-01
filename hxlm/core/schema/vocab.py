@@ -6,10 +6,10 @@ PROTIP: is possible to test this file directly with
 
 This file is meant to accept 3 categories of internal vocabularies:
 
-- ontology/core.vkg.yml (default, always): the (lastest) default vocabulary
+- ontologia/core.vkg.yml (default, always): the (lastest) default vocabulary
   inside the core of the library.
 - core_vocab_deprecated_vNNN (not implemented, but may be used): if over time
-  breaking chances do occur on the default ontology/core.vkg.yml, an file may
+  breaking chances do occur on the default ontologia/core.vkg.yml, an file may
   replace the old one
     - This approach may be the ideal to allow faster changes at cost of
       additional logic (to be used outside the core library).
@@ -76,8 +76,8 @@ from hxlm.core.hdp.util.common import (
 # """schema/core_vocab.yml is the reference vocabulary to internal commands"""
 HXLM_CORE_SCHEMA_CORE_VOCAB = os.path.dirname(os.path.dirname(os.path.dirname(
     os.path.realpath(__file__)))) + \
-    '/ontology/core.vkg.yml'
-"""ontology/core.vkg.yml is the reference vocabulary to internal commands"""
+    '/ontologia/core.vkg.yml'
+"""ontologia/core.vkg.yml is the reference vocabulary to internal commands"""
 
 VOCAB_RECURSION_LEAF = (
     'hsilo.adm0',
@@ -104,10 +104,10 @@ class ItemHVocab:
     """Class to abstract individual vocab required to hxlm.core work
 
     While at minimum implementation the ItemHVocab 'only' abstract use of
-    ontology/core.lkg.yml the implementation actually allows extend the vocab
+    ontologia/core.lkg.yml the implementation actually allows extend the vocab
     (like for an umplanned language) while requiring some minimum extra
     requeriments and making easier to know who requested change compared to
-    ontology/core.lkg.yml and how different was the new content.
+    ontologia/core.lkg.yml and how different was the new content.
 
     """
 
@@ -147,7 +147,7 @@ class ItemHVocab:
               strictly_safe: bool = True) -> bool:
         """Merge extend the current ItemHVocab in-place with a ItemHVocab
 
-        While the ontology/core.lkg.yml published on the web may have minimal
+        While the ontologia/core.lkg.yml published on the web may have minimal
         functionality to enable work with the hxlm.core, we explicitly allow
         users (or who help users to convert content from new strings) to
         customize this. Since this customization itself can become a problem

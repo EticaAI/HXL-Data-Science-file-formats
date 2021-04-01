@@ -53,8 +53,8 @@ _IS_DEBUG = bool(os.getenv('HDP_DEBUG', ''))
 # HXLM_CORE_LOCALIZATION_CORE_LOC = \
 #     os.path.dirname(os.path.realpath(__file__)) + '/core_loc.yml'
 HXLM_CORE_LOCALIZATION_CORE_LOC = os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.realpath(__file__)))) + '/ontology/core.lkg.yml'
-"""ontology/core.lkg.yml is the default reference of knowledge base
+    os.path.dirname(os.path.realpath(__file__)))) + '/ontologia/core.lkg.yml'
+"""ontologia/core.lkg.yml is the default reference of knowledge base
 for localization
 """
 
@@ -374,12 +374,12 @@ def get_localization_knowledge_graph(
 
 @lru_cache(maxsize=1)
 def get_localization_lids() -> dict:
-    """Get ontology/core.lkg.yml contents
+    """Get ontologia/core.lkg.yml contents
 
     # TODO: Allow return just LIDs or ISO codes as option
 
     Returns:
-        dict: ontology/core.lkg.yml contents
+        dict: ontologia/core.lkg.yml contents
     """
     hdp_lkg = get_localization_knowledge_graph()
 

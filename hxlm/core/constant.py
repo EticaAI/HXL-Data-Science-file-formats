@@ -16,8 +16,8 @@ HDATUM_UDHR = 'file://' + HXLM_ROOT + '/data/udhr/'
 #       (Emerson Rocha, 2021-03-23 08:48 UTC)
 # https://en.wikipedia.org/wiki/Jacob_Lorhard
 # 'He uses "Ontologia" synonymously with "Metaphysica".'
-HONTOLOGIA_LKG = 'file://' + HXLM_ROOT + '/ontology/core.lkg.yml'
-HONTOLOGIA_VKG = 'file://' + HXLM_ROOT + '/ontology/core.vkg.yml'
+HONTOLOGIA_LKG = 'file://' + HXLM_ROOT + '/ontologia/core.lkg.yml'
+HONTOLOGIA_VKG = 'file://' + HXLM_ROOT + '/ontologia/core.vkg.yml'
 
 # _HXLM_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
