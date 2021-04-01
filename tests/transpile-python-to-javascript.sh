@@ -16,6 +16,16 @@ exit
 #       to see if even an ugly code could be transpiled directly from HXLm to
 #       something that could run.
 
+
+#### Generate hxlm/ontologia/javascript files _________________________________
+# Using metapensiero.pj, this will generate the files
+pj --output hxlm/ontologia/javascript hxlm/ontologia/python/
+
+# Note: it generate all files from hxlm/ontologia/python/, including the
+#       classes, but at the moment only hxlm_bootstrapping.py is not
+#       removed from commit on git history.
+
+
 #### metapensiero/metapensiero.pj test ________________________________________
 # @see https://github.com/metapensiero/metapensiero.pj
 
