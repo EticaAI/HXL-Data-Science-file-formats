@@ -7,7 +7,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 import os
 
-from hxlm.core.hdp.datamodel import (
+from hxlm.core.hdp.data.radix import (
     HDPPolicyLoad,
     HDPLoadRecursion
 )

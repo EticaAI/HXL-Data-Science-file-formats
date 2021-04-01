@@ -4,15 +4,12 @@
 >>> import hxlm.core as HXLm
 >>> # Loading single file
 >>> hp = HXLm.HDP.project(HXLm.HDATUM_UDHR).load()
->>> isinstance(hp.okay(), HXLm.HDP.datamodel.HDPOkay)
+>>> isinstance(hp.okay(), HXLm.HDP.data.radix.HDPOkay)
 True
->>> isinstance(hp.descriptionem(), HXLm.HDP.datamodel.HDPDescriptionem)
+>>> isinstance(hp.descriptionem(), HXLm.HDP.data.radix.HDPDescriptionem)
 True
-
-
-
-## >>> hp.okay() == True
-## True
+>>> hp.okay() == True
+True
 
 #  >>> hp.info()
 #  >>> hp.info('entry_point')
@@ -52,7 +49,7 @@ from hxlm.core.io.util import (
     get_entrypoint
 )
 
-from hxlm.core.hdp.datamodel import (
+from hxlm.core.hdp.data.radix import (
     HDPDescriptionem,
     HDPPolicyLoad,
     HDPOkay,

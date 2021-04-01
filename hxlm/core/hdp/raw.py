@@ -33,7 +33,7 @@ Spanish or French.
 ...    HXLm.HDATUM_UDHR + 'udhr.lat.hdp.yml')
 >>> hdpraw = convert_resource_to_hdpraw(resource1)
 >>> hdpraw
-<class 'hxlm.core.hdp.datamodel.HDPRaw'>
+<class 'hxlm.core.hdp.data.radix.HDPRaw'>
 >>> hdpraw.failed
 False
 >>> type(hdpraw.hsilos)
@@ -52,7 +52,7 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 
 import os
 
-from hxlm.core.hdp.datamodel import HDPRaw
+from hxlm.core.hdp.data.radix import HDPRaw
 from hxlm.core.types import ResourceWrapper
 
 # os.environ["HDP_DEBUG"] = "1"

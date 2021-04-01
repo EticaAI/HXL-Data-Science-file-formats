@@ -1,4 +1,4 @@
-"""hxlm.core.hdp.datamodel is focused on data model strictly related to HDP
+"""hxlm.core.hdp.data.radix is focused on root strictly related to HDP
 
 See also:
   - hxlm/core/types.py
@@ -13,6 +13,36 @@ SPDX-License-Identifier: Unlicense OR 0BSD
 #       see https://en.wiktionary.org/wiki/medic
 # TODO: resultatum = result, temp varis to return values, etc
 #       see resultātum https://en.wiktionary.org/wiki/resultatum#Latin
+
+# >>> Lingua Latina on this document
+# "basim":
+#  > (linguam->LAT 'basim)
+#    > (ENG 'base)
+#      - https://en.wiktionary.org/wiki/basis#Latin
+# "optionem":
+#   > (linguam->LAT 'optionem)
+#     - https://en.wiktionary.org/wiki/option#English
+#     > (ENG 'option)
+#
+
+# >>>> Internal comments about latin usage, ignore this, START
+# >? ENG: 'HDP Declarative programming' ?
+#    maybe LAT 'HDP declarativa programmandi' ??
+#
+# >>> TODO: "Program"
+#   - ENG https://en.wiktionary.org/wiki/program
+#   - LAT https://en.wiktionary.org/wiki/programma#Latin
+#   - https://en.wiktionary.org/wiki/program#Ladin
+#   - Late Latin 'programma'
+# >>> TODO: "Declarative"
+#  - ENG https://en.wiktionary.org/wiki/declarative
+#    - FRA: https://en.wiktionary.org/wiki/d%C3%A9claratif#Middle_French
+#  - "Declare"
+#    - FRA https://en.wiktionary.org/wiki/declare
+# >>> TODO: etc...
+# - Debug messages, convert messages, etc "explain" / "explanare"
+#   - https://en.wiktionary.org/wiki/explain
+# >>>> Internal comments about latin usage, ignore this, END
 
 from dataclasses import dataclass, field, InitVar
 
@@ -37,6 +67,28 @@ from hxlm.core.constant import (
     HONTOLOGIA_LKG,
     HONTOLOGIA_VKG
 )
+
+# @dataclass
+# class BasimHDPOptionemBasim:
+#     """
+
+#     Trivia:
+#       - "Optionem" <= ENG option
+#         - https://en.wiktionary.org/wiki/option#English
+#       - "Basim" <= ENG base
+#         - https://en.wiktionary.org/wiki/option#English
+
+#     Raises:
+#         NotImplementedError: [description]
+
+#     Returns:
+#         [type]: [description]
+#     """
+
+
+__all__ = [
+    'HDPDescriptionem', 'HDPPolicyLoad', 'HDPOkay', 'HSiloWrapper', 'HDPRaw'
+]
 
 
 @dataclass
@@ -188,7 +240,7 @@ class HDPOkay:
         #           hp = HXLm.HDP.project(HXLm.HDATUM_UDHR).load()
         #           hp.okay() is True
         #       To return bool instead of compare the HDPOkay itself
-        print(other)
+        # print(other)
         if isinstance(other, bool):
             return self.okay == other
 

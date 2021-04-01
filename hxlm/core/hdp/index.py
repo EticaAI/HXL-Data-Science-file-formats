@@ -56,7 +56,7 @@ from hxlm.core.types import (
 )
 
 
-from hxlm.core.hdp.datamodel import (
+from hxlm.core.hdp.data.radix import (
     HDPIndex
 )
 
