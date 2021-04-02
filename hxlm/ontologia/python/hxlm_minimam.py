@@ -25,7 +25,7 @@ License: Public Domain
 
 # def factum_to_sexpr(factum: Factum) -> str:
 
-hxlm_MKG = {
+HXLM_MKG = {
     'ENG': {
         'vkg.attr.factum': 'Fact',
         'vkg.attr.descriptionem': 'Description',
@@ -91,9 +91,9 @@ def hxlm_factum_to_sexpr(factum, **kwargs) -> str:
 >>> f1_lang = {'descriptionem': 'Example', 'linguam': 'ENG', 'datum': [1, 2]}
 >>> hxlm_factum_to_sexpr(f1_simple)
 '(vkg.attr.factum (vkg.attr.descriptionem "Exemplum"))'
->>> hxlm_factum_to_sexpr(f1_lang, MKG=hxlm_MKG['ENG'])      # With Python
+>>> hxlm_factum_to_sexpr(f1_lang, MKG=HXLM_MKG['ENG'])      # With Python
 '(Fact (Description (ENG "Example"))(Data "[1, 2]"))'
->>> # hxlm_factum_to_sexpr(f1_lang, {MKG: hxlm_MKG['ENG']}) # With JavaScript
+>>> # hxlm_factum_to_sexpr(f1_lang, {MKG: HXLM_MKG['ENG']}) # With JavaScript
     """
     _MKG = None
     if 'MKG' in kwargs:

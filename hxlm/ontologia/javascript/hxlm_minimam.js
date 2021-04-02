@@ -1,5 +1,5 @@
 var _pj;
-var hxlm_MKG;
+var HXLM_MKG;
 function _pj_snippets(container) {
     function in_es6(left, right) {
         if (((right instanceof Array) || ((typeof right) === "string"))) {
@@ -38,7 +38,7 @@ pj --output hxlm/ontologia/javascript hxlm/ontologia/python/
 Note: metapensiero.pj actually have _more_ features than what is used.
 
 License: Public Domain*/
-hxlm_MKG = {"ENG": {"vkg.attr.factum": "Fact", "vkg.attr.descriptionem": "Description", "vkg.attr.fontem": "Source", "vkg.attr.datum": "Data"}, "LAT": {"vkg.attr.factum": "Factum", "vkg.attr.descriptionem": "Descriptionem", "vkg.attr.fontem": "Fontem", "vkg.attr.datum": "Datum"}};
+HXLM_MKG = {"ENG": {"vkg.attr.factum": "Fact", "vkg.attr.descriptionem": "Description", "vkg.attr.fontem": "Source", "vkg.attr.datum": "Data"}, "LAT": {"vkg.attr.factum": "Factum", "vkg.attr.descriptionem": "Descriptionem", "vkg.attr.fontem": "Fontem", "vkg.attr.datum": "Datum"}};
 /*Minimal Knowledge Graph.
 TODO: This should be get from JSON or something*/
 function _s(key, mkg = null) {
@@ -88,9 +88,9 @@ function hxlm_factum_to_sexpr(factum, kwargs = {}) {
     >>> f1_lang = {'descriptionem': 'Example', 'linguam': 'ENG', 'datum': [1, 2]}
     >>> hxlm_factum_to_sexpr(f1_simple)
     '(vkg.attr.factum (vkg.attr.descriptionem "Exemplum"))'
-    >>> hxlm_factum_to_sexpr(f1_lang, MKG=hxlm_MKG['ENG'])      # With Python
+    >>> hxlm_factum_to_sexpr(f1_lang, MKG=HXLM_MKG['ENG'])      # With Python
     '(Fact (Description (ENG "Example"))(Data "[1, 2]"))'
-    >>> # hxlm_factum_to_sexpr(f1_lang, {MKG: hxlm_MKG['ENG']}) # With JavaScript
+    >>> # hxlm_factum_to_sexpr(f1_lang, {MKG: HXLM_MKG['ENG']}) # With JavaScript
     */
     var _MKG, resultatum;
     _MKG = null;
