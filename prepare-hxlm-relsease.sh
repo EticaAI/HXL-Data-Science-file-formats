@@ -63,10 +63,13 @@ cd "$ROOTDIR" || exit
 
 cd hxlm-js/ || exit
 
-# First file, >
-sha384sum --tag bootstrapper/hdp-minimam.mjs > hxlm-js.sum
+# First file, clean old checksums
+rm hxlm-js.sum
 
-# The rest, append, >>
+# The rest, append
+sha384sum --tag bootstrapper/hdp-aux.js > hxlm-js.sum
+
+sha384sum --tag bootstrapper/hdp-minimam.mjs >> hxlm-js.sum
 sha384sum --tag bootstrapper/hdplisp.js >> hxlm-js.sum
 
 ## Check the hashes
