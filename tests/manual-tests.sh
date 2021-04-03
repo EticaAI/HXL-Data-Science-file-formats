@@ -20,6 +20,32 @@ pip3 install hug
 # If you plan to use ngrok to proxy for external world, use something like
 sudo snap install ngrok
 
+#### Build JSON Knowledge Graph from YAML ______________________________________
+
+### Installation of requisites -------------------------------------------------
+# @see https://kislyuk.github.io/yq/
+sudo apt install jq
+pip3 install jq yq
+
+### Filter YAML (useful if need to build subsets) ------------------------------
+
+## Filter groups, like .attr.datum from core.vkg.yml
+
+# cat hxlm/ontologia/core.vkg.yml | yq .attr.datum
+yq .attr.datum < hxlm/ontologia/core.vkg.yml
+#  This will output json
+
+yq .attr.datum --yaml-output < hxlm/ontologia/core.vkg.yml
+# This will output YAML
+
+### YAML to JSON ---------------------------------------------------------------
+
+# Generate hxlm/ontologia/json/core.vkg.json
+yq < hxlm/ontologia/core.vkg.yml > hxlm/ontologia/json/core.vkg.json
+
+# Generate hxlm/ontologia/json/core.lkg.json
+yq < hxlm/ontologia/core.lkg.yml > hxlm/ontologia/json/core.lkg.json
+
 #### localization ______________________________________________________________
 
 ### Enviroment checks ----------------------------------------------------------

@@ -16,7 +16,11 @@ corrections.
 
 - [Knowledge Graph](#knowledge-graph)
     - [Localization Knowledge Graph](#localization-knowledge-graph)
+        - [core.lkg.yml](#corelkgyml)
+        - [json/core.lkg.json](#jsoncorelkgjson)
     - [Vocabulary Knowledge Graph](#vocabulary-knowledge-graph)
+        - [core.vkg.yml](#corevkgyml)
+        - [json/core.vkg.json](#jsoncorevkgjson)
 - [JSON Schema](#json-schema)
     - [Latin](#latin)
     - [Other natural languages](#other-natural-languages)
@@ -33,11 +37,35 @@ corrections.
 
 > [Knowledge graph on Wikipedia](https://en.wikipedia.org/wiki/Knowledge_graph)
 
+Note: contents of [hxlm/ontologia/json/](hxlm/ontologia/json/) are generated
+from hxlm/ontologia/ *.yml files with exception of
+`hxlm/ontologia/hdp.json-schema.json` that is not _yet_ automated
+
 ### Localization Knowledge Graph
+
+#### core.lkg.yml
 - [core.lkg.yml](core.lkg.yml)
 
+#### json/core.lkg.json
+- [json/core.lkg.json](json/core.lkg.json)
+
+```bash
+# Generate hxlm/ontologia/json/core.vkg.json
+yq < hxlm/ontologia/core.vkg.yml > hxlm/ontologia/json/core.vkg.json
+```
+
 ### Vocabulary Knowledge Graph
+#### core.vkg.yml
 - [core.vkg.yml](core.vkg.yml)
+
+#### json/core.vkg.json
+
+- [json/core.vkg.json](json/core.vkg.json)
+
+```bash
+# Generate hxlm/ontologia/json/core.lkg.json
+yq < hxlm/ontologia/core.lkg.yml > hxlm/ontologia/json/core.lkg.json
+```
 
 ## JSON Schema
 
