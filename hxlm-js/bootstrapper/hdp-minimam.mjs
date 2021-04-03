@@ -1,5 +1,8 @@
 // console.log('bootstrapper/hdp-minimam.mjs')
 
+// TODO: extract some parts created on this another project here
+//       - https://github.com/fititnt/ais-ethics-tags/blob/master/assets
+//         /js/ais-ethics-tags.js
 
 // TODO: learn modern javascript, without transpile all the things. To read:
 //       - https://blog.rocketseat.com.br/as-melhores-features-do-es6-es7-e-es8/
@@ -22,34 +25,28 @@
 
 // let HDP_DEBUG = true
 
-/**
- * @example <caption>Minimal usage with javascript</caption>
- * <!doctype html>
- * <html>
- * <body>
- * <script>
- *   const HXLM_LKG="../hxlm/ontologia/json/core.lkg.json"
- *   const HXLM_VKG="../hxlm/ontologia/json/core.vkg.json"
- * </script>
- * <script src="./bootstrapper/hdp-minimam.mjs"></script>
- * <script>
- * HDPMiniman.explanare()
- * </script>
- * </body>
- * </html>
- */
+
 class HDPMiniman {
+    _DEBUG = false
     FONTEM_LKG = null
     FONTEM_VKG = null
     ONTOLOGIA_LKG = null
     ONTOLOGIA_VKG = null
+
     // constructor(ONTOLOGIA_LKG, ONTOLOGIA_VKG) {
+
+    /**
+     *
+     * @param res   Object  {'LKG': "/path/lkg.json", 'VKG': "/path/vkg.json"}
+     */
     constructor(res) {
         // console.log(res)
 
-        if (HDP_DEBUG) {
-            console.log('HDPMiniman: HDP_DEBUG == true')
+        if (typeof HDP_DEBUG !== 'undefined') {
+            self._DEBUG = HDP_DEBUG
+            console.log('HDPMiniman HDP_DEBUG !== undefined', HDP_DEBUG)
         }
+
 
         if (res && res.LKG) {
             self.FONTEM_LKG = res.LKG
@@ -79,7 +76,7 @@ class HDPMiniman {
             insecurum: null, // insecurum: true,
             factum: '(qdp->ENG "Not tested")',
         })
-        HDP_DEBUG && console.log('_securum', resultatum)
+        self._DEBUG && console.log('_securum', resultatum)
         return resultatum
     }
 
@@ -226,29 +223,35 @@ class HDPMiniman {
      * - "index"
      *   - https://en.wiktionary.org/wiki/index#Latin
      */
-    explanare(index) {
-        let resultatum = new Object()
-        // let vkg_ = this._get_lkg()
-        // console.log('vkg_', vkg_)
-        resultatum.FONTEM_LKG = self.FONTEM_LKG
-        resultatum.FONTEM_VKG = self.FONTEM_VKG
-        // resultatum.ONTOLOGIA_LKG = vkg_
+    async explanare(index) {
 
-        resultatum.ONTOLOGIA_LKG = self.ONTOLOGIA_LKG || this._get_lkg()
-
-        // if (!self.ONTOLOGIA_LKG) {
-        //     resultatum.ONTOLOGIA_LKG = this._get_lkg()
-        // } else {
-
-        // }
-
-        resultatum.ONTOLOGIA_LKG = self.ONTOLOGIA_LKG
-        resultatum.ONTOLOGIA_VKG = self.ONTOLOGIA_VKG
-        // resultatum.push('FONTEM_ONTOLOGIA_VKG', self.FONTEM_ONTOLOGIA_VKG)
-        if (index) {
-            return resultatum[index]
+        // Without options, we will return quick/sumrized information
+        if(!index) {
+            let resultatum = new Object()
+            resultatum.FONTEM_LKG = self.FONTEM_LKG
+            resultatum.FONTEM_VKG = self.FONTEM_VKG
+            return resultatum
         }
-        return resultatum
+        if (index == 'LKG') {
+            return this._get_lkg()
+        }
+        if (index == 'VKG') {
+            return this._get_vkg()
+        }
+
+        // Unknow index
+        throw ("index [" + index + "] ⊄ HDPMiniman explanare()")
+
+
+        // // resultatum.ONTOLOGIA_LKG = vkg_
+
+        // resultatum.ONTOLOGIA_LKG = self.ONTOLOGIA_LKG || this._get_lkg()
+        // resultatum.ONTOLOGIA_VKG = self.ONTOLOGIA_VKG || this._get_vkg()
+
+        // if (index) {
+        //     return resultatum[index]
+        // }
+        // return resultatum
     }
 }
 // let hdp = new HDPMiniman()

@@ -26,13 +26,25 @@
 // let HDP_DEBUG = true
 bootstrapping = HDPMiniman.bootstrapping()
 hdp = new HDPMiniman(bootstrapping)
-hdp.explanare()
+aux = new HDPAux()
 
-// Wait a bit for promises be resolved...
-hdp.explanare()
+// This return an quick overview
+hdp.explanare().then(console.log)
+
+// Return the Localization Knowledge Graph, when ready
+hdp.explanare('LKG').then(console.log)
+
+// Return the Vocabulary Knowledge Graph, when ready
+hdp.explanare('VKG').then(console.log)
+
+
+aux.console_html()
 </code>
       </pre>
         <h3>console.log</h3>
+        <div class="hdp-console-items">
+
+        </div>
         <pre><code class="lang-json" id="hdp-explanare">
 
 </code>
@@ -46,7 +58,7 @@ hdp.explanare()
 
 </code>
       </pre>
-      -->
+        -->
     </div>
 
     <!-- JQuery, Boostrap -->
@@ -66,14 +78,30 @@ hdp.explanare()
     <script src="./bootstrapper/hdp-minimam.mjs"></script>
 
     <script>
-        let HDP_DEBUG = true
+        // let HDP_DEBUG = true
         bootstrapping = HDPMiniman.bootstrapping()
         hdp = new HDPMiniman(bootstrapping)
-        console.log(hdp.explanare())
-        HDPAux.dump_to_html(hdp.explanare(), '#hdp-explanare')
-        setTimeout(function () {
-            HDPAux.dump_to_html(hdp.explanare(), '#hdp-explanare-2')
-        }, 3000)
+        aux = new HDPAux()
+
+
+        hdp.explanare('LKG').then(console.log)
+
+        // This return an quick overview
+        hdp.explanare().then(console.log)
+
+        // Return the Localization Knowledge Graph, when ready
+        hdp.explanare('LKG').then(console.log)
+
+        // Return the Vocabulary Knowledge Graph, when ready
+        hdp.explanare('VKG').then(console.log)
+
+        // hdp.explanare().then(console.log).then(aux.console_html)
+        // aux.console_html()
+
+        // HDPAux.dump_to_html(hdp.explanare(), '#hdp-explanare')
+        // setTimeout(function () {
+        //     HDPAux.dump_to_html(hdp.explanare(), '#hdp-explanare-2')
+        // }, 3000)
     </script>
 
 </body>
