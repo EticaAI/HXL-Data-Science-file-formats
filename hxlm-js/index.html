@@ -17,15 +17,19 @@
 
 <body>
     <h1>hxlm-js</h1>
-    <p><mark>(qdp->ENG "Open the console log of your browser!")</mark></p>
+    <p><mark>(qdp->eng "Open the console log of your browser!")</mark></p>
 
     <h2>HDPMiniman</h2>
     <div>
         <h3>JavaScript</h3>
         <pre><code class="lang-javascript">
+// let HDP_DEBUG = true
 bootstrapping = HDPMiniman.bootstrapping()
 hdp = new HDPMiniman(bootstrapping)
-console.log(hdp.explanare())
+hdp.explanare()
+
+// Wait a bit for promises be resolved...
+hdp.explanare()
 </code>
       </pre>
         <h3>console.log</h3>
@@ -33,6 +37,16 @@ console.log(hdp.explanare())
 
 </code>
       </pre>
+        <pre><code class="lang-json" id="hdp-explanare-2">
+
+</code>
+     <!--
+      </pre>
+        <pre><code class="lang-json" id="hdp-explanare-3">
+
+</code>
+      </pre>
+      -->
     </div>
 
     <!-- JQuery, Boostrap -->
@@ -52,10 +66,14 @@ console.log(hdp.explanare())
     <script src="./bootstrapper/hdp-minimam.mjs"></script>
 
     <script>
+        let HDP_DEBUG = true
         bootstrapping = HDPMiniman.bootstrapping()
         hdp = new HDPMiniman(bootstrapping)
         console.log(hdp.explanare())
         HDPAux.dump_to_html(hdp.explanare(), '#hdp-explanare')
+        setTimeout(function () {
+            HDPAux.dump_to_html(hdp.explanare(), '#hdp-explanare-2')
+        }, 3000)
     </script>
 
 </body>

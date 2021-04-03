@@ -1,4 +1,4 @@
-console.log('hdp-aux.js')
+// console.log('hdp-aux.js')
 
 class HDPAux {
     static dump_to_html(res, selector) {

@@ -1,4 +1,4 @@
-console.log('bootstrapper/hdp-minimam.mjs')
+// console.log('bootstrapper/hdp-minimam.mjs')
 
 
 // TODO: learn modern javascript, without transpile all the things. To read:
@@ -16,13 +16,11 @@ console.log('bootstrapper/hdp-minimam.mjs')
 //       - https://www.w3.org/TR/WebCryptoAPI/#SubtleCrypto-method-verify
 //       - https://www.w3.org/TR/WebCryptoAPI/#algorithm-overview
 
-// class App {
-//     static log() {
-//         console.log('Hey');
-//     }
-// }
+// TODO: crypto stuff:
+//       - https://github.com/openpgpjs/openpgpjs#security-recommendations
+//       - https://github.com/openpgpjs/openpgpjs/wiki/Cure53-security-audit
 
-// App.log();
+// let HDP_DEBUG = true
 
 /**
  * @example <caption>Minimal usage with javascript</caption>
@@ -47,37 +45,102 @@ class HDPMiniman {
     ONTOLOGIA_VKG = null
     // constructor(ONTOLOGIA_LKG, ONTOLOGIA_VKG) {
     constructor(res) {
-        console.log(res)
+        // console.log(res)
+
+        if (HDP_DEBUG) {
+            console.log('HDPMiniman: HDP_DEBUG == true')
+        }
+
         if (res && res.LKG) {
             self.FONTEM_LKG = res.LKG
-            // self.ONTOLOGIA_LKG = await fetch(self.FONTEM_LKG)
-            // self.ONTOLOGIA_LKG = fetch(self.FONTEM_LKG)
-            fetch(self.FONTEM_LKG).then(function (response) {
-                var contentType = response.headers.get("content-type");
-                if (contentType && contentType.indexOf("application/json") !== -1) {
-                    return response.json().then(function (json) {
-                        self.ONTOLOGIA_LKG = json
-                        console.log(self.ONTOLOGIA_LKG)
-                    });
-                } else {
-                    console.log("Problem with res.VKG");
-                }
-            });
+            this._initium_lkg()
         }
         if (res && res.VKG) {
             self.FONTEM_VKG = res.VKG
-            fetch(self.FONTEM_VKG).then(function (response) {
-                var contentType = response.headers.get("content-type");
-                if (contentType && contentType.indexOf("application/json") !== -1) {
-                    return response.json().then(function (json) {
-                        self.ONTOLOGIA_VKG = json
-                        console.log(self.ONTOLOGIA_VKG)
-                    });
-                } else {
-                    console.log("Problem with res.VKG");
-                }
-            });
+            this._initium_vkg()
         }
+    }
+
+    /**
+     * Sēcūrum?
+     *
+     * Trivia:
+     * - "sēcūrum"
+     *   - https://en.wiktionary.org/wiki/securus
+     * @param res 
+     */
+    _securum(res, modus) {
+        // TODO: this function is an placeholder for a FULL integrity check
+        //       (think of validate GPG et al) as build in functionality.
+        //       Without this, is recomended for the user both trust HTTPS
+        //       or rely on additional checks outside HDPMiniman
+        let resultatum = new Object({
+            securum: null,
+            insecurum: null, // insecurum: true,
+            factum: '(qdp->ENG "Not tested")',
+        })
+        HDP_DEBUG && console.log('_securum', resultatum)
+        return resultatum
+    }
+
+    /**
+     * Initium Localization Knowledge Graph 
+     *
+     * Trivia:
+     * - https://en.wiktionary.org/wiki/initium
+     */
+    _initium_lkg() {
+        let this_ = this
+        fetch(self.FONTEM_LKG).then(async function (response) {
+            var contentType = response.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                const json = await response.json()
+                const sec = this_._securum(json, 'LKG')
+                if (!sec.insecurum) {
+                    self.ONTOLOGIA_LKG = json
+                    // console.log(self.ONTOLOGIA_LKG)
+                    return json
+                } else {
+                    console.log('_initium_lkg ¬ securum', sec,
+                        self.FONTEM_LKG, json)
+                    alert('¬ securum', JSON.stringify([sec]))
+                    return false
+                }
+            } else {
+                console.log("Problem with res.VKG");
+                return false
+            }
+        });
+    }
+
+    /**
+     * Initium Vocabulary Knowledge Graph 
+     *
+     * Trivia:
+     * - https://en.wiktionary.org/wiki/initium
+     */
+    _initium_vkg() {
+        let this_ = this
+        fetch(self.FONTEM_VKG).then(async function (response) {
+            var contentType = response.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                const json = await response.json()
+                const sec = this_._securum(json, 'VKG')
+                if (!sec.insecurum) {
+                    self.ONTOLOGIA_VKG = json
+                    // console.log(self.ONTOLOGIA_VKG)
+                    return json
+                } else {
+                    console.log('_initium_vkg ¬ securum', sec,
+                        json, self.FONTEM_VKG)
+                    alert('¬ securum', JSON.stringify([sec]))
+                    return false
+                }
+            } else {
+                console.log("Error res.VKG");
+                return false
+            }
+        });
     }
 
     /**
@@ -120,6 +183,21 @@ class HDPMiniman {
         // });
     }
 
+    async _get_lkg() {
+        if (self.ONTOLOGIA_LKG) {
+            return self.ONTOLOGIA_LKG
+        } else {
+            return this._initium_lkg()
+        }
+    }
+    async _get_vkg() {
+        if (self.ONTOLOGIA_VKG) {
+            return self.ONTOLOGIA_VKG
+        } else {
+            return this._initium_vkg()
+        }
+    }
+
     /**
      * Linguam recōnstrūctiōnem
      * 
@@ -145,14 +223,31 @@ class HDPMiniman {
      * - "explanare":
      *   - explano: https://en.wiktionary.org/wiki/explano#Latin
      *   - explanare: https://en.wiktionary.org/wiki/explanare#Latin
+     * - "index"
+     *   - https://en.wiktionary.org/wiki/index#Latin
      */
-    explanare() {
+    explanare(index) {
         let resultatum = new Object()
+        // let vkg_ = this._get_lkg()
+        // console.log('vkg_', vkg_)
         resultatum.FONTEM_LKG = self.FONTEM_LKG
         resultatum.FONTEM_VKG = self.FONTEM_VKG
+        // resultatum.ONTOLOGIA_LKG = vkg_
+
+        resultatum.ONTOLOGIA_LKG = self.ONTOLOGIA_LKG || this._get_lkg()
+
+        // if (!self.ONTOLOGIA_LKG) {
+        //     resultatum.ONTOLOGIA_LKG = this._get_lkg()
+        // } else {
+
+        // }
+
         resultatum.ONTOLOGIA_LKG = self.ONTOLOGIA_LKG
         resultatum.ONTOLOGIA_VKG = self.ONTOLOGIA_VKG
         // resultatum.push('FONTEM_ONTOLOGIA_VKG', self.FONTEM_ONTOLOGIA_VKG)
+        if (index) {
+            return resultatum[index]
+        }
         return resultatum
     }
 }
