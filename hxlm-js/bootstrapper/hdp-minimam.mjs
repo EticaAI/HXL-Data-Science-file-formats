@@ -10,6 +10,12 @@ console.log('bootstrapper/hdp-minimam.mjs')
 //       - https://google.github.io/styleguide/jsguide.html
 //       (Emerson Rocha, 2021-04-03 12:57 UTC)
 
+// TODO: More stuff to do a quick look
+//       - https://tools.ietf.org/html/rfc7517
+//       - https://www.w3.org/TR/WebCryptoAPI/#dfn-JsonWebKey
+//       - https://www.w3.org/TR/WebCryptoAPI/#SubtleCrypto-method-verify
+//       - https://www.w3.org/TR/WebCryptoAPI/#algorithm-overview
+
 // class App {
 //     static log() {
 //         console.log('Hey');
@@ -39,29 +45,59 @@ class HDPMiniman {
     FONTEM_VKG = null
     // constructor(ONTOLOGIA_LKG, ONTOLOGIA_VKG) {
     constructor(res) {
+        console.log(res)
         if (res && res.LKG) {
             self.FONTEM_LKG = res.LKG
         }
         if (res && res.VKG) {
             self.FONTEM_VKG = res.VKG
         }
+        // if (res && res.LKG) {
+        //     self.HXLM_LKG = res.LKG
+        // } else if (HXLM_LKG) {
+        //     self.FONTEM_LKG = HXLM_LKG
+        // }
+        // if (res && res.VKG) {
+        //     self.HXLM_VKG = res.VKG
+        // } else if (HXLM_VKG) {
+        //     self.FONTEM_VKG = HXLM_VKG
+        // }
     }
 
+    /**
+     * Bootstrapping linguam
+     *
+     * Trivia
+     * - "bootstrapping":
+     *   - linguistics: https://en.wikipedia.org/wiki/Bootstrapping_(linguistics)
+     * - "linguam"
+     *   - https://en.wiktionary.org/wiki/lingua#Latin
+     */
+    static bootstrapping() {
+        let resultatum = new Object({
+          LKG: "../hxlm/ontologia/json/core.lkg.json",
+          VKG: "../hxlm/ontologia/json/core.vkg.json"
+        })
+        // resultatum.FONTEM_LKG = self.FONTEM_LKG
+        // resultatum.FONTEM_VKG = self.FONTEM_VKG
+        // resultatum.push('FONTEM_ONTOLOGIA_VKG', self.FONTEM_ONTOLOGIA_VKG)
+        return resultatum
+    }
     /**
      * Trivia
      * - "explanare":
      *   - explano: https://en.wiktionary.org/wiki/explano#Latin
      *   - explanare: https://en.wiktionary.org/wiki/explanare#Latin
      */
-    static explanare() {
+    explanare() {
         let resultatum = new Object()
-        resultatum.FONTEM_LKG =  self.FONTEM_LKG
-        resultatum.FONTEM_VKG =  self.FONTEM_VKG
+        resultatum.FONTEM_LKG = self.FONTEM_LKG
+        resultatum.FONTEM_VKG = self.FONTEM_VKG
         // resultatum.push('FONTEM_ONTOLOGIA_VKG', self.FONTEM_ONTOLOGIA_VKG)
         return resultatum
     }
 }
-// let hdp = HDPMiniman()
+// let hdp = new HDPMiniman()
 
 // hdp.explanare();
 
