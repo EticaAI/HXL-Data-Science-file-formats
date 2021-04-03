@@ -65,6 +65,9 @@
 
 ```
 
+Note: Remove `\` from `\{\{` and `\}\}` if this document is renderized with
+them.
+
 - **HDP internationalized vocab**: No token
   - Description:
     - No token means an word that is perfectly valid HDP vocab that should be
@@ -85,11 +88,11 @@
   - Notes:
     - Reserved undocumented token.
 - **HDP vocab with digitaly signed values**: `{` <sup>prefix</sup>,
-  `{{` <sup>prefix</sup> , `}` <sup>suffix</sup>, `}}` <sup>suffix</sup>
+  `\{\{` <sup>prefix</sup> , `}` <sup>suffix</sup>, `\}\}` <sup>suffix</sup>
   - Description:
     - Token to explicitly mention that the content of this key are digitally
       signed
-    - Removing the [`{`, `{{`, `}}`, `}`], the resulting term must be
+    - Removing the [`{`, `\{\{`, `\}\}`, `}`], the resulting term must be
       perfectly valid HDP vocab that should be able to be translated to EVERY
       know natural language enabled by as it is.
   - Notes:
@@ -102,7 +105,7 @@
       - Maybe this with [`(!(` term-here `))`] this notation could be good
         enough?
   - Examples:
-    - `{{datum}}`<sub><em>linguam: LAT</em></sub> <sup>contents digitally
+    - `\{\{datum\}\}`<sub><em>linguam: LAT</em></sub> <sup>contents digitally
       signed and recently verified</sup>
     - `{?{datum}?}`<sub><em>linguam: LAT</em></sub> <sup>contents digitally
       signed, but not verified yet or this computer can't do automated
