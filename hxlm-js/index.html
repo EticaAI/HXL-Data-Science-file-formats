@@ -20,6 +20,7 @@ fVALfR36zO6XtPjvwVRa0RO7PCKmsx2gDZjOJnlUS4duKFRmrjI=
 -->
 <html lang="la">
 <!-- Lingua Latina -->
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -34,16 +35,20 @@ fVALfR36zO6XtPjvwVRa0RO7PCKmsx2gDZjOJnlUS4duKFRmrjI=
 </head>
 
 <body>
-    <h1>hxlm-js</h1>
-    <p><mark>(qdp->eng "Open the console log of your browser!")</mark></p>
+    <main class="container">
+        <h1>hxlm-js</h1>
+        <p><mark>(qdp->eng "Open the console log of your browser!")</mark></p>
 
-    <h2>HDPMiniman</h2>
-    <div>
-        <h3>JavaScript</h3>
-        <pre><code class="lang-javascript">
+        <h2>HDPMiniman</h2>
+        <div>
+            <h3>JavaScript</h3>
+            <pre><code class="lang-javascript">
 // let HDP_DEBUG = true
 bootstrapping = HDPMiniman.bootstrapping()
 hdp = new HDPMiniman(bootstrapping)
+
+// Output the current version of this library
+console.log("HDP Miniman version:", hdp.version)
 
 // This return an quick overview
 hdp.explanare().then(console.log).catch(console.error)
@@ -53,30 +58,15 @@ hdp.explanare('LKG').then(console.log).catch(console.error)
 
 // Return the Vocabulary Knowledge Graph, when ready
 hdp.explanare('VKG').then(console.log).catch(console.error)
-
-
 </code>
-      </pre>
-        <h3>console.log</h3>
-        <div class="hdp-console-items">
-            <p>old content</p>
+</pre>
+            <h3>console.log</h3>
+            <div class="hdp-console-items">
+
+            </div>
         </div>
-        <pre><code class="lang-json" id="hdp-explanare">
 
-</code>
-      </pre>
-        <pre><code class="lang-json" id="hdp-explanare-2">
-
-</code>
-     <!--
-      </pre>
-        <pre><code class="lang-json" id="hdp-explanare-3">
-
-</code>
-      </pre>
-        -->
-    </div>
-
+    </main>
     <!-- JQuery, Boostrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -95,9 +85,14 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
 
     <script>
 
+        // ---- User demo on the page, START ----
+
         // let HDP_DEBUG = true
         bootstrapping = HDPMiniman.bootstrapping()
         hdp = new HDPMiniman(bootstrapping)
+
+        // Output the current version of this library
+        console.log("HDP Miniman version:", hdp.version)
 
         // This return an quick overview
         hdp.explanare().then(console.log).catch(console.error)
@@ -108,11 +103,35 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
         // Return the Vocabulary Knowledge Graph, when ready
         hdp.explanare('VKG').then(console.log).catch(console.error)
 
-        // Here is where we, in fact, show the results on the page
-        hdp.explanare('LKG').then(HDPAux.console_html).catch(console.error)
-        hdp.explanare('VKG').then(HDPAux.console_html).catch(console.error)
+        // ---- User demo on the page, END ----
 
-        
+    </script>
+
+
+    <script>
+
+        // These blocks are not part of the tutorial, but are used to
+        // create the interfaces for who do not know how to use the console.log
+
+        // Here is where we, in fact, show the results on the page
+        HDPAux.console_html(
+            ["HDP Miniman version:",
+                hdp.version],
+            'lang-json',
+            '<code>console.log("HDP Miniman version:", hdp.version)</code>',
+            true // This means that the code should show instead of be colapsed
+        )
+
+        hdp.explanare('LKG').then(function (data) {
+            HDPAux.console_html(data, 'lang-json', "<code>hdp.explanare('LKG').then(console.log).catch(console.error)</code>")
+        }).catch(console.error)
+
+        hdp.explanare('VKG').then(function (data) {
+            HDPAux.console_html(data, 'lang-json', "<code>hdp.explanare('VKG').then(console.log).catch(console.error)</code>")
+        }).catch(console.error)
+
+
+
         // hdp.explanare('VKG').then(function(content) {
         //     console.log('teste123', content)
         //     HDPAux.console_html(content)

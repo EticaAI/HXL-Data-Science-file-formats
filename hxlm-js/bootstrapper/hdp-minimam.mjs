@@ -27,6 +27,7 @@
 
 
 class HDPMiniman {
+    version = "0.8.5"
     _DEBUG = false
     FONTEM_LKG = null
     FONTEM_VKG = null
