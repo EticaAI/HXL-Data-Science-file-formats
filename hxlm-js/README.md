@@ -1,5 +1,19 @@
 # EticaAI/HXL-Data-Science-file-formats/hxlm-js
 
+<!--
+Notes to self: when working on localhost, the url is hxlm-js/index-src.html
+               (http://git.workspace.localhost/EticaAI/HXL-Data-Science-file-formats/hxlm-js/index-src.html)
+               not hxlm-js/index.html. To build that page, the
+               ./prepare-hxlm-relsease.sh needs to be executed to create
+               the hashes of the javascripts and etc.
+
+@TODO: automate the generation of SRI Hash (https://www.srihash.org/) without
+       need to go to that site or something. The bash version do output
+       SHA-384, but SRI are not as good
+
+-->
+
+
 This folders contains a subset of HXLm.HDP and, at some extend, HXLm.lisp.
 While this may not be a full implementation of the python interface, this
 _at least_ help to not make

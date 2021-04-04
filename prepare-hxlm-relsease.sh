@@ -109,5 +109,29 @@ sha384sum --tag bootstrapper/hdplisp.js >> hxlm-js.sum
 ## Check the hashes
 sha384sum --check hxlm-js.sum
 
+echo "> SRI Hash Generator (https://www.srihash.org/)"
+echo "@TODO: automate better. At the moment these hashes need to be written on"
+echo "       the hxlm-js/index-src.html before using the page_signer to"
+echo "       generate the hxlm-js/index.html"
+echo ""
+
+sri_hdp_aux="$(openssl dgst -sha384 -binary bootstrapper/hdp-aux.js | openssl base64 -A)"
+echo "<script src=\"./bootstrapper/hdp-aux.js\" integrity=\"sha384-${sri_hdp_aux}\" crossorigin=\"anonymous\"></script>"
+
+sri_hdp_miniman="$(openssl dgst -sha384 -binary bootstrapper/hdp-minimam.mjs | openssl base64 -A)"
+echo "<script src=\"./bootstrapper/hdp-minimam.mjs\" integrity=\"sha384-${sri_hdp_miniman}\" crossorigin=\"anonymous\"></script>"
+
+sri_hdplisp="$(openssl dgst -sha384 -binary bootstrapper/hdplisp.js | openssl base64 -A)"
+echo "<script src=\"./bootstrapper/hdplisp.js\" integrity=\"sha384-${sri_hdplisp}\" crossorigin=\"anonymous\"></script>"
+
+# echo "bootstrapper/hdp-aux.js"
+# openssl dgst -sha384 -binary bootstrapper/hdp-aux.js | openssl base64 -A
+# echo ""
+
+# echo "bootstrapper/hdp-minimam.js"
+# openssl dgst -sha384 -binary bootstrapper/hdp-minimam.js | openssl base64 -A
+# echo ""
+
+
 #### Additional commands _______________________________________________________
 # cd "$ROOTDIR"
