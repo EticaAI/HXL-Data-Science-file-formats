@@ -45,10 +45,16 @@ fVALfR36zO6XtPjvwVRa0RO7PCKmsx2gDZjOJnlUS4duKFRmrjI=
             <pre><code class="lang-javascript">
 // let HDP_DEBUG = true
 bootstrapping = HDPMiniman.bootstrapping()
-hdp = new HDPMiniman(bootstrapping)
+ego = HDPAux.quis_sum()
+
+// HDP Language _bootstrapping_ based on you (_ego_)
+hdp = new HDPMiniman(bootstrapping, ego)
 
 // Output the current version of this library
 console.log("HDP Miniman version:", hdp.version)
+
+// Output what we can automate for you
+console.log("HDPMiniman.EGO :", hdp.EGO)
 
 // This return an quick overview
 hdp.explanare().then(console.log).catch(console.error)
@@ -66,7 +72,35 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
             </div>
         </div>
 
+        <footer lang="en">
+            <h2>About</h2>
+            <p>
+                See project at <a href="https://github.com/EticaAI/HXL-Data-Science-file-formats">
+                    https://github.com/EticaAI/HXL-Data-Science-file-formats</a>.
+            </p>
+            <p>
+                Part of this code is based on
+                <a href="https://tags.etica.ai/">https://tags.etica.ai/</a>.
+            </p>
+            <h2>License</h2>
+            <p>
+                The <a href="https://github.com/EticaAI">EticaAI</a> has
+                dedicated the work to the
+                <a href="/EticaAI/HXL-Data-Science-file-formats/blob/main/UNLICENSE">public domain</a>
+                by waiving all of their rights to the work worldwide
+                under copyright law, including all related and neighboring
+                rights, to the extent
+                allowed by law. You can copy, modify, distribute and perform
+                the work, even for commercial purposes, all without asking
+                permission.
+            </p>
+        </footer>
     </main>
+
+    <!--
+        After here is the logic part of this page.
+    -->
+
     <!-- JQuery, Boostrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -89,10 +123,16 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
 
         // let HDP_DEBUG = true
         bootstrapping = HDPMiniman.bootstrapping()
-        hdp = new HDPMiniman(bootstrapping)
+        ego = HDPAux.quis_sum()
+
+        // HDP Language _bootstrapping_ based on you (_ego_)
+        hdp = new HDPMiniman(bootstrapping, ego)
 
         // Output the current version of this library
         console.log("HDP Miniman version:", hdp.version)
+
+        // Output what we can automate for you
+        console.log("HDPMiniman.EGO :", hdp.EGO)
 
         // This return an quick overview
         hdp.explanare().then(console.log).catch(console.error)
@@ -119,6 +159,14 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
                 hdp.version],
             'lang-json',
             '<code>console.log("HDP Miniman version:", hdp.version)</code>',
+            true // This means that the code should show instead of be colapsed
+        )
+
+        HDPAux.console_html(
+            ["HDPMiniman.EGO :",
+                hdp.EGO],
+            'lang-json',
+            '<code>console.log("HDPMiniman.EGO :", hdp.EGO)</code>',
             true // This means that the code should show instead of be colapsed
         )
 

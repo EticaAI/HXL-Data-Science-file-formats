@@ -29,18 +29,39 @@
 class HDPMiniman {
     version = "0.8.5"
     _DEBUG = false
-    FONTEM_LKG = null
-    FONTEM_VKG = null
-    ONTOLOGIA_LKG = null
-    ONTOLOGIA_VKG = null
-
-    // constructor(ONTOLOGIA_LKG, ONTOLOGIA_VKG) {
 
     /**
-     *
-     * @param res   Object  {'LKG': "/path/lkg.json", 'VKG': "/path/vkg.json"}
+     * @typedef  {Object} EGO Current user context
+     * @example  {'meaLinguam': 'pt', meaLinguamEtAlii: ['pt'], meaLinguamEtAliiFontem: ['pt_BR']}
      */
-    constructor(res) {
+    EGO = null
+
+    /**
+     * @typedef  {String}  FONTEM_LKG  Path to JSON LKG
+     */
+    FONTEM_LKG = null
+
+    /**
+     * @typedef  {String}  FONTEM_VKG  Path to JSON VKG
+     */
+    FONTEM_VKG = null
+
+    /**
+     * @typedef  {Object}  ONTOLOGIA_LKG  Parsed result of FONTEM_LKG
+     */
+    ONTOLOGIA_LKG = null
+
+    /**
+     * @typedef  {Object}  ONTOLOGIA_VKG  Parsed result of FONTEM_VKG
+     */
+    ONTOLOGIA_VKG = null
+
+    /**
+     * 
+     * @param res {Object}  {'LKG': "/path/lkg.json", 'VKG': "/path/vkg.json"}
+     * @param ego {Object}  Current user context
+     */
+    constructor(res, ego) {
         // console.log(res)
 
         if (typeof HDP_DEBUG !== 'undefined') {
@@ -48,6 +69,9 @@ class HDPMiniman {
             console.log('HDPMiniman HDP_DEBUG !== undefined', HDP_DEBUG)
         }
 
+        this.EGO = ego
+
+        // console.log('this.EGO', ego, this.EGO)
 
         if (res && res.LKG) {
             self.FONTEM_LKG = res.LKG
@@ -235,8 +259,8 @@ class HDPMiniman {
         let topself = self
         let topthis = this
         // console.log('explanare, self._DEBUG', self._DEBUG)
-        if (self._DEBUG){
-                console.log('explanare', {
+        if (self._DEBUG) {
+            console.log('explanare', {
                 'FONTEM_LKG': topself.FONTEM_LKG,
                 'FONTEM_VKG': topself.FONTEM_VKG,
                 'ONTOLOGIA_LKG': topself.ONTOLOGIA_LKG,
@@ -292,4 +316,3 @@ class HDPMiniman {
 // let hdp = new HDPMiniman()
 
 // hdp.explanare();
-
