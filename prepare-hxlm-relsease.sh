@@ -79,5 +79,35 @@ sha384sum --tag bootstrapper/hdplisp.js >> hxlm-js.sum
 ## Check the hashes
 sha384sum --check hxlm-js.sum
 
+#### webext-signed-pages _______________________________________________________
+# @see https://github.com/tasn/webext-signed-pages
+cd "$ROOTDIR"
+
+echo "webext-signed-pages page-signer.js ..."
+
+if [ ! -d "$ROOTDIR/temp/" ]; then
+    echo "mkdir $ROOTDIR/temp/ ..."
+    mkdir "$ROOTDIR/temp/"
+else
+    echo "OK $ROOTDIR/temp/"
+fi
+if [ ! -d "$ROOTDIR/temp/webext-signed-pages" ]; then
+    git clone https://github.com/tasn/webext-signed-pages.git "$ROOTDIR/temp/webext-signed-pages"
+    npm install minimize
+else
+    echo "OK $ROOTDIR/temp/webext-signed-pages"
+fi
+
+# mkdir "$ROOTDIR/temp/"
+# git clone https://github.com/tasn/webext-signed-pages.git "$ROOTDIR/temp/webext-signed-pages"
+# npm install minimize
+page_signer="${ROOTDIR}/temp/webext-signed-pages/page-signer.js"
+
+echo "GPG sign of hxlm-js/index.html ..."
+echo "You will be asked to allow GPG sign your smartcard on this moment"
+echo "${page_signer}" "${ROOTDIR}/hxlm-js/index.html" "${ROOTDIR}/hxlm-js/index-signed.html"
+
+"${page_signer}" "${ROOTDIR}/hxlm-js/index.html" "${ROOTDIR}/hxlm-js/index-signed.html"
+
 #### Additional commands _______________________________________________________
 # cd "$ROOTDIR"

@@ -14,6 +14,11 @@ build/
 .vscode
 .benchmarks
 
+# Used only for builds done on the developer machine
+package-lock.json
+node_modules/
+hxlm-js/index-signed.html
+
 hxlm/data/baseline/hfile/UNLICENSE
 
 # hxlmeta souce storages
