@@ -70,9 +70,3 @@ Pubkey:
 Contents from https://www.fititnt.org/gpg/rocha.pub
 
 -->
-
-<!--
-
-Debug GPGs public keys
-
--->

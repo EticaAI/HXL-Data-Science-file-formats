@@ -90,7 +90,7 @@ class HDPMiniman {
         let topself = self
         let topthis = this
         // console.log('_initium_lkg', self.FONTEM_LKG, topself.FONTEM_LKG)
-        fetch(self.FONTEM_LKG).then(async function (response) {
+        return fetch(self.FONTEM_LKG).then(async function (response) {
             var contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const json = await response.json()
@@ -123,7 +123,7 @@ class HDPMiniman {
     async _initium_vkg() {
         let topself = self
         let topthis = this
-        fetch(self.FONTEM_VKG).then(async function (response) {
+        return fetch(self.FONTEM_VKG).then(async function (response) {
             var contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const json = await response.json()
