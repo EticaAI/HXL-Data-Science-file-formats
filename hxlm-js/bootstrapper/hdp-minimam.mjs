@@ -74,7 +74,7 @@ class HDPMiniman {
         let resultatum = new Object({
             securum: null,
             insecurum: null, // insecurum: true,
-            factum: '(qdp->ENG "Not tested")',
+            factum: '(qdp->ENG "Complex tests not implemented yet")',
         })
         self._DEBUG && console.log('_securum', resultatum)
         return resultatum
@@ -86,15 +86,19 @@ class HDPMiniman {
      * Trivia:
      * - https://en.wiktionary.org/wiki/initium
      */
-    _initium_lkg() {
-        let this_ = this
+    async _initium_lkg() {
+        let topself = self
+        let topthis = this
+        // console.log('_initium_lkg', self.FONTEM_LKG, topself.FONTEM_LKG)
         fetch(self.FONTEM_LKG).then(async function (response) {
             var contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const json = await response.json()
-                const sec = this_._securum(json, 'LKG')
+                const sec = topthis._securum(json, 'LKG')
                 if (!sec.insecurum) {
-                    self.ONTOLOGIA_LKG = json
+                    // Remove either topself or topthis from here
+                    topself.ONTOLOGIA_LKG = json
+                    topthis.ONTOLOGIA_LKG = json
                     // console.log(self.ONTOLOGIA_LKG)
                     return json
                 } else {
@@ -116,15 +120,18 @@ class HDPMiniman {
      * Trivia:
      * - https://en.wiktionary.org/wiki/initium
      */
-    _initium_vkg() {
-        let this_ = this
+    async _initium_vkg() {
+        let topself = self
+        let topthis = this
         fetch(self.FONTEM_VKG).then(async function (response) {
             var contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const json = await response.json()
-                const sec = this_._securum(json, 'VKG')
+                const sec = topthis._securum(json, 'VKG')
                 if (!sec.insecurum) {
-                    self.ONTOLOGIA_VKG = json
+                    // Remove either topself or topthis from here
+                    topself.ONTOLOGIA_VKG = json
+                    topthis.ONTOLOGIA_VKG = json
                     // console.log(self.ONTOLOGIA_VKG)
                     return json
                 } else {
@@ -224,19 +231,46 @@ class HDPMiniman {
      *   - https://en.wiktionary.org/wiki/index#Latin
      */
     async explanare(index) {
+        let topself = self
+        let topthis = this
+        // console.log('explanare, self._DEBUG', self._DEBUG)
+        if (self._DEBUG){
+                console.log('explanare', {
+                'FONTEM_LKG': topself.FONTEM_LKG,
+                'FONTEM_VKG': topself.FONTEM_VKG,
+                'ONTOLOGIA_LKG': topself.ONTOLOGIA_LKG,
+                //'ONTOLOGIA_LKG2': topthis.ONTOLOGIA_LKG,
+                'ONTOLOGIA_VKG': topself.ONTOLOGIA_VKG,
+                //'ONTOLOGIA_VKG2': topthis.ONTOLOGIA_VKG
+            })
+        }
+
+        // console.log()
 
         // Without options, we will return quick/sumrized information
-        if(!index) {
+        if (!index) {
             let resultatum = new Object()
-            resultatum.FONTEM_LKG = self.FONTEM_LKG
-            resultatum.FONTEM_VKG = self.FONTEM_VKG
-            return resultatum
+            resultatum.FONTEM_LKG = topself.FONTEM_LKG
+            resultatum.FONTEM_VKG = topself.FONTEM_VKG
+            resultatum.LKG = topself.ONTOLOGIA_LKG || 'explanare("LKG") ...'
+            resultatum.VKG = topself.ONTOLOGIA_VKG || 'explanare("VKG") ...'
+            // resultatum.VKG = 'explanare("VKG") ...'
+            // return resultatum
+            return new Promise(function (resolve, reject) {
+                resolve(resultatum)
+                // reject('teste teste reject')
+                // setTimeout(function(){
+                //   resolve(['comedy', 'drama', 'action'])
+                // }, 2000);
+            });
         }
         if (index == 'LKG') {
-            return this._get_lkg()
+            return this._initium_lkg()
+            // return this._get_lkg()
         }
         if (index == 'VKG') {
-            return this._get_vkg()
+            return this._initium_vkg()
+            // return this._get_vkg()
         }
 
         // Unknow index

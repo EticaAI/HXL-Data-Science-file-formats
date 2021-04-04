@@ -26,24 +26,22 @@
 // let HDP_DEBUG = true
 bootstrapping = HDPMiniman.bootstrapping()
 hdp = new HDPMiniman(bootstrapping)
-aux = new HDPAux()
 
 // This return an quick overview
-hdp.explanare().then(console.log)
+hdp.explanare().then(console.log).catch(console.error)
 
 // Return the Localization Knowledge Graph, when ready
-hdp.explanare('LKG').then(console.log)
+hdp.explanare('LKG').then(console.log).catch(console.error)
 
 // Return the Vocabulary Knowledge Graph, when ready
-hdp.explanare('VKG').then(console.log)
+hdp.explanare('VKG').then(console.log).catch(console.error)
 
 
-aux.console_html()
 </code>
       </pre>
         <h3>console.log</h3>
         <div class="hdp-console-items">
-
+            <p>old content</p>
         </div>
         <pre><code class="lang-json" id="hdp-explanare">
 
@@ -78,24 +76,56 @@ aux.console_html()
     <script src="./bootstrapper/hdp-minimam.mjs"></script>
 
     <script>
+
         // let HDP_DEBUG = true
         bootstrapping = HDPMiniman.bootstrapping()
         hdp = new HDPMiniman(bootstrapping)
-        aux = new HDPAux()
-
-
-        hdp.explanare('LKG').then(console.log)
 
         // This return an quick overview
-        hdp.explanare().then(console.log)
+        hdp.explanare().then(console.log).catch(console.error)
 
         // Return the Localization Knowledge Graph, when ready
-        hdp.explanare('LKG').then(console.log)
+        hdp.explanare('LKG').then(console.log).catch(console.error)
 
         // Return the Vocabulary Knowledge Graph, when ready
-        hdp.explanare('VKG').then(console.log)
+        hdp.explanare('VKG').then(console.log).catch(console.error)
 
-        // hdp.explanare().then(console.log).then(aux.console_html)
+        // Here is where we, in fact, show the results on the page
+        hdp.explanare('LKG').then(HDPAux.console_html).catch(console.error)
+        hdp.explanare('VKG').then(HDPAux.console_html).catch(console.error)
+
+        
+        // hdp.explanare('VKG').then(function(content) {
+        //     console.log('teste123', content)
+        //     HDPAux.console_html(content)
+        // }, function(onerror) {
+        //     console.error('teste123', onerror)
+        // }).catch(console.error)
+
+
+        // // let HDP_DEBUG = true
+        // bootstrapping = HDPMiniman.bootstrapping()
+        // hdp = new HDPMiniman(bootstrapping)
+        // // aux = new HDPAux()
+
+
+        // hdp.explanare('LKG').then(console.log)
+
+        // // This return an quick overview
+        // hdp.explanare().then(console.log).catch(console.error)
+        // hdp.explanare().then(console.log).then(HDPAux.dump_to_html).catch(console.error)
+
+        // Return the Localization Knowledge Graph, when ready
+        // hdp.explanare('LKG').then(console.log)
+
+        // Return the Vocabulary Knowledge Graph, when ready
+        // hdp.explanare('VKG').then(console.log)
+
+        //hdp.explanare('VKG').then(console.log).then(HDPAux.console_html)
+        // hdp.explanare('VKG').then(console.log).then(function(result) {
+        //     // console.log('oioioi', result)
+        //     HDPAux.console_html(result)
+        // }).catch(alert)
         // aux.console_html()
 
         // HDPAux.dump_to_html(hdp.explanare(), '#hdp-explanare')

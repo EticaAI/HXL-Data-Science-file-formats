@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2129,SC2164
 #===============================================================================
 #
 #          FILE:  prepare-hxlm-relsease.sh
@@ -57,18 +58,21 @@ sha384sum --check core.vkg.json.sum
 
 ### hxlm-js/ -------------------------------------------------------------------
 echo "> > hxlm-js"
-cd "$ROOTDIR" || exit
+cd "$ROOTDIR"
 
 ## Create the hashes
 
-cd hxlm-js/ || exit
+cd hxlm-js/
 
 # First file, clean old checksums
 rm hxlm-js.sum
 
-# The rest, append
-sha384sum --tag bootstrapper/hdp-aux.js > hxlm-js.sum
 
+# Initialize
+sha384sum --tag index.html > hxlm-js.sum
+
+# The rest, append
+sha384sum --tag bootstrapper/hdp-aux.js >> hxlm-js.sum
 sha384sum --tag bootstrapper/hdp-minimam.mjs >> hxlm-js.sum
 sha384sum --tag bootstrapper/hdplisp.js >> hxlm-js.sum
 
@@ -76,4 +80,4 @@ sha384sum --tag bootstrapper/hdplisp.js >> hxlm-js.sum
 sha384sum --check hxlm-js.sum
 
 #### Additional commands _______________________________________________________
-# cd "$ROOTDIR" || exit
+# cd "$ROOTDIR"
