@@ -25,6 +25,11 @@
 
 // let HDP_DEBUG = true
 
+// import { HDPAux } from './hdp-aux.mjs'
+// import { HDPi18n } from './hdp-i18n.mjs'
+import { HDPL10n } from './hdp-l10n.mjs'
+import { HDPLisp } from './hdplisp.mjs'
+
 class HDPMiniman {
     version = "0.8.5"
     _DEBUG = false
@@ -316,4 +321,5 @@ class HDPMiniman {
 
 // hdp.explanare();
 
-export default HDPMiniman
+// export { HDPMiniman, HDPAux, HDPLisp }
+export { HDPMiniman, HDPL10n, HDPLisp }

@@ -1,7 +1,4 @@
-console.log('bootstrapper/hdplisp.js (draft)')
-
-export { HDPLisp }
-
+// console.log('bootstrapper/hdplisp.mjs (draft)')
 
 /**
  * Placeholder
@@ -9,3 +6,5 @@ export { HDPLisp }
 class HDPLisp {
     version = "0.8.5"
 }
+
+export { HDPLisp }

@@ -25,13 +25,11 @@
         <h2>HDPMiniman</h2>
         <div>
             <h3>JavaScript</h3>
-            <pre><code class="lang-javascript">
-import HDPMiniman from './bootstrapper/hdp-minimam.mjs'
-import HDPAux from './bootstrapper/hdp-aux.mjs'
+            <pre><code class="lang-javascript">// let HDP_DEBUG = true
+import { HDPMiniman, HDPL10n, HDPLisp } from './bootstrapper/hdp-minimam.mjs'
 
-// let HDP_DEBUG = true
 let bootstrapping = HDPMiniman.bootstrapping()
-let ego = HDPAux.quis_sum()
+let ego = HDPL10n.quis_sum()
 
 // HDP Language _bootstrapping_ based on you (_ego_)
 let hdp = new HDPMiniman(bootstrapping, ego)
@@ -120,12 +118,11 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
 
         // ---- User demo on the page, START ----
 
-        import HDPMiniman from './bootstrapper/hdp-minimam.mjs'
-        import HDPAux from './bootstrapper/hdp-aux.mjs'
+        import { HDPMiniman, HDPL10n, HDPLisp } from './bootstrapper/hdp-minimam.mjs'
 
         // let HDP_DEBUG = true
         let bootstrapping = HDPMiniman.bootstrapping()
-        let ego = HDPAux.quis_sum()
+        let ego = HDPL10n.quis_sum()
 
         // HDP Language _bootstrapping_ based on you (_ego_)
         let hdp = new HDPMiniman(bootstrapping, ego)
@@ -150,6 +147,9 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
 
         // These blocks are not part of the tutorial, but are used to
         // create the interfaces for who do not know how to use the console.log
+
+        import { HDPAux } from './bootstrapper/hdp-aux.mjs'
+        import { HDPi18n } from './bootstrapper/hdp-i18n.mjs'
 
         // Here is where we, in fact, show the results on the page
         HDPAux.console_html(
