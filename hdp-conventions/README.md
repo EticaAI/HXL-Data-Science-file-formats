@@ -21,6 +21,8 @@
     - [Conventions for identifiers (key names)](#conventions-for-identifiers-key-names)
         - [Tokens meaning on keys](#tokens-meaning-on-keys)
             - [The `<< >>`, `<<! !>>`, , `<<!! !!>>`, , `<<!!! !!!>>`](#the----------)
+- [Collaborative work](#collaborative-work)
+- [Security considerations](#security-considerations)
 
 <!-- /TOC -->
 
@@ -151,6 +153,13 @@ them.
       - [`(`, `((`, `)`, `))`] are not recommended for generic comments
 -->
 
+## Collaborative work
+
+See [collaborative-work.md](collaborative-work.md)
+
+## Security considerations
+
+See [security-considerations.md](security-considerations.md)
 
 <!--
 
