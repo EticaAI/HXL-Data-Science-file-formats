@@ -45,31 +45,47 @@ yq < hxlm/ontologia/core.lkg.yml > hxlm/ontologia/json/core.lkg.json
 # @see https://github.com/tasn/webext-signed-pages
 cd "$ROOTDIR"
 
-echo "webext-signed-pages page-signer.js ..."
+do_page_signer()
+{
+    echo "webext-signed-pages page-signer.js ..."
 
-if [ ! -d "$ROOTDIR/temp/" ]; then
-    echo "mkdir $ROOTDIR/temp/ ..."
-    mkdir "$ROOTDIR/temp/"
-else
-    echo "OK $ROOTDIR/temp/"
-fi
-if [ ! -d "$ROOTDIR/temp/webext-signed-pages" ]; then
-    git clone https://github.com/tasn/webext-signed-pages.git "$ROOTDIR/temp/webext-signed-pages"
-    npm install minimize
-else
-    echo "OK $ROOTDIR/temp/webext-signed-pages"
-fi
+    if [ ! -d "$ROOTDIR/temp/" ]; then
+        echo "mkdir $ROOTDIR/temp/ ..."
+        mkdir "$ROOTDIR/temp/"
+    else
+        echo "OK $ROOTDIR/temp/"
+    fi
+    if [ ! -d "$ROOTDIR/temp/webext-signed-pages" ]; then
+        git clone https://github.com/tasn/webext-signed-pages.git "$ROOTDIR/temp/webext-signed-pages"
+        npm install minimize
+    else
+        echo "OK $ROOTDIR/temp/webext-signed-pages"
+    fi
 
-# mkdir "$ROOTDIR/temp/"
-# git clone https://github.com/tasn/webext-signed-pages.git "$ROOTDIR/temp/webext-signed-pages"
-# npm install minimize
-page_signer="${ROOTDIR}/temp/webext-signed-pages/page-signer.js"
+    # mkdir "$ROOTDIR/temp/"
+    # git clone https://github.com/tasn/webext-signed-pages.git "$ROOTDIR/temp/webext-signed-pages"
+    # npm install minimize
+    page_signer="${ROOTDIR}/temp/webext-signed-pages/page-signer.js"
 
-echo "GPG sign of hxlm-js/index.html from hxlm-js/index-src.html ..."
-echo "You will be asked to allow GPG sign your smartcard on this moment"
-echo "${page_signer}" "${ROOTDIR}/hxlm-js/index-src.html" "${ROOTDIR}/hxlm-js/index.html"
+    echo "GPG sign of hxlm-js/index.html from hxlm-js/index-src.html ..."
+    echo "You will be asked to allow GPG sign your smartcard on this moment"
+    echo "${page_signer}" "${ROOTDIR}/hxlm-js/index-src.html" "${ROOTDIR}/hxlm-js/index.html"
 
-"${page_signer}" "${ROOTDIR}/hxlm-js/index-src.html" "${ROOTDIR}/hxlm-js/index.html"
+    "${page_signer}" "${ROOTDIR}/hxlm-js/index-src.html" "${ROOTDIR}/hxlm-js/index.html"
+}
+
+# TODO: calculate the SRIHashs and put on index.html
+do_simply_copy()
+{
+    echo "do_simply_copy..."
+    ts="$(date +"%T")"
+    cp "$ROOTDIR/hxlm-js/index.html" "$ROOTDIR/hxlm-js/index.$ts.old.html"
+    cp "$ROOTDIR/hxlm-js/index-src.html" "$ROOTDIR/hxlm-js/index.html"
+}
+
+echo "page_signer (full GPG sign) disabled at the moment"
+do_simply_copy
+
 
 #### SHA-384 ___________________________________________________________________
 echo "> SHA-384"
@@ -102,9 +118,10 @@ sha384sum --tag index.html > hxlm-js.sum
 
 # The rest, append
 sha384sum --tag index-src.html > hxlm-js.sum
-sha384sum --tag bootstrapper/hdp-aux.js >> hxlm-js.sum
+sha384sum --tag bootstrapper/hdp-aux.mjs >> hxlm-js.sum
 sha384sum --tag bootstrapper/hdp-minimam.mjs >> hxlm-js.sum
-sha384sum --tag bootstrapper/hdplisp.js >> hxlm-js.sum
+sha384sum --tag bootstrapper/hdplisp.mjs >> hxlm-js.sum
+sha384sum --tag bootstrapper/testum.mjs >> hxlm-js.sum
 
 ## Check the hashes
 sha384sum --check hxlm-js.sum
@@ -115,13 +132,13 @@ echo "       the hxlm-js/index-src.html before using the page_signer to"
 echo "       generate the hxlm-js/index.html"
 echo ""
 
-sri_hdp_aux="$(openssl dgst -sha384 -binary bootstrapper/hdp-aux.js | openssl base64 -A)"
+sri_hdp_aux="$(openssl dgst -sha384 -binary bootstrapper/hdp-aux.mjs | openssl base64 -A)"
 echo "<script src=\"./bootstrapper/hdp-aux.js\" integrity=\"sha384-${sri_hdp_aux}\" crossorigin=\"anonymous\"></script>"
 
 sri_hdp_miniman="$(openssl dgst -sha384 -binary bootstrapper/hdp-minimam.mjs | openssl base64 -A)"
 echo "<script src=\"./bootstrapper/hdp-minimam.mjs\" integrity=\"sha384-${sri_hdp_miniman}\" crossorigin=\"anonymous\"></script>"
 
-sri_hdplisp="$(openssl dgst -sha384 -binary bootstrapper/hdplisp.js | openssl base64 -A)"
+sri_hdplisp="$(openssl dgst -sha384 -binary bootstrapper/hdplisp.mjs | openssl base64 -A)"
 echo "<script src=\"./bootstrapper/hdplisp.js\" integrity=\"sha384-${sri_hdplisp}\" crossorigin=\"anonymous\"></script>"
 
 # echo "bootstrapper/hdp-aux.js"

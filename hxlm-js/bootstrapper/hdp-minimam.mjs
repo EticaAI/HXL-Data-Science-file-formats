@@ -25,7 +25,6 @@
 
 // let HDP_DEBUG = true
 
-
 class HDPMiniman {
     version = "0.8.5"
     _DEBUG = false
@@ -316,3 +315,5 @@ class HDPMiniman {
 // let hdp = new HDPMiniman()
 
 // hdp.explanare();
+
+export default HDPMiniman

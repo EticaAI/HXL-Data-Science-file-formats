@@ -113,7 +113,6 @@ class AuxHDPExplanare(AbstAux):
       -  trivium: latin of 'a crossroads or fork where three roads meet'
     """
 
-    # TODO: hide this field when user is calling HDPOkay
     _hdpdescriptionem: AuxHDPDesc = field(repr=False)
     """A HDPDescriptionem with full details of the project"""
 

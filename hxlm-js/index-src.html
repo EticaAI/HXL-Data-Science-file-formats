@@ -26,12 +26,15 @@
         <div>
             <h3>JavaScript</h3>
             <pre><code class="lang-javascript">
+import HDPMiniman from './bootstrapper/hdp-minimam.mjs'
+import HDPAux from './bootstrapper/hdp-aux.mjs'
+
 // let HDP_DEBUG = true
-bootstrapping = HDPMiniman.bootstrapping()
-ego = HDPAux.quis_sum()
+let bootstrapping = HDPMiniman.bootstrapping()
+let ego = HDPAux.quis_sum()
 
 // HDP Language _bootstrapping_ based on you (_ego_)
-hdp = new HDPMiniman(bootstrapping, ego)
+let hdp = new HDPMiniman(bootstrapping, ego)
 
 // Output the current version of this library
 console.log("HDP Miniman version:", hdp.version)
@@ -99,30 +102,33 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
 
     <!-- HDP starts here -->
 
-    <script src="./bootstrapper/hdplisp.js"
+    <!-- <script type="module" src="./bootstrapper/hdplisp.mjs"
         integrity="sha384-K+ebNn/mNcpSojthY66j7ymqK7rftZW7ppYZiXf9uwYsFDjNOTTLLqVX1u1H04Wt"
         crossorigin="anonymous"></script>
-    <script src="./bootstrapper/hdp-aux.js"
+    <script type="module" src="./bootstrapper/hdp-aux.mjs"
         integrity="sha384-/RcYUP706aO1AnObKcce+rsp1lf+tTeJla9YW846mnFSgE9CIqHvs8+k7LY3wRFW"
         crossorigin="anonymous"></script>
-    <script src="./bootstrapper/hdp-minimam.mjs"
+    <script type="module" src="./bootstrapper/hdp-minimam.mjs"
         integrity="sha384-GZjZp+CbKvyD8T8iqJhCFVgGZCYvudU988w0IQbmjj2MRWfXd1TCSiIulO2MQHky"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
 
-    <!-- <script src="./bootstrapper/hdplisp.js"></script> -->
-    <!-- <script src="./bootstrapper/hdp-aux.js"></script> -->
-    <!-- <script src="./bootstrapper/hdp-minimam.mjs"></script> -->
+    <script type="module" src="./bootstrapper/hdplisp.mjs" data-srihash-hdplisp crossorigin="anonymous"></script>
+    <script type="module" src="./bootstrapper/hdp-aux.mjs" data-srihash-hdplisp crossorigin="anonymous"></script>
+    <script type="module" src="./bootstrapper/hdp-minimam.mjs" data-srihash-hdplisp crossorigin="anonymous"></script>
 
-    <script>
+    <script type="module">
 
         // ---- User demo on the page, START ----
 
+        import HDPMiniman from './bootstrapper/hdp-minimam.mjs'
+        import HDPAux from './bootstrapper/hdp-aux.mjs'
+
         // let HDP_DEBUG = true
-        bootstrapping = HDPMiniman.bootstrapping()
-        ego = HDPAux.quis_sum()
+        let bootstrapping = HDPMiniman.bootstrapping()
+        let ego = HDPAux.quis_sum()
 
         // HDP Language _bootstrapping_ based on you (_ego_)
-        hdp = new HDPMiniman(bootstrapping, ego)
+        let hdp = new HDPMiniman(bootstrapping, ego)
 
         // Output the current version of this library
         console.log("HDP Miniman version:", hdp.version)
@@ -141,10 +147,6 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
 
         // ---- User demo on the page, END ----
 
-    </script>
-
-
-    <script>
 
         // These blocks are not part of the tutorial, but are used to
         // create the interfaces for who do not know how to use the console.log

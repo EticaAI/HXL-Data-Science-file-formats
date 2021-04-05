@@ -11,7 +11,7 @@ True
 >>> hp.okay() == True
 True
 
-# >>> hp.okay()
+>>> hp.okay()
 
 #  >>> hp.info()
 #  >>> hp.info('entry_point')

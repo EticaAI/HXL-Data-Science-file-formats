@@ -13,6 +13,7 @@
 
 // TODO: look at https://en.wikipedia.org/wiki/Semantic_bootstrapping
 
+
 class HDPAux {
 
     _DEBUG = false
@@ -112,3 +113,5 @@ class HDPAux {
         return resultatum
     }
 }
+
+export default HDPAux
