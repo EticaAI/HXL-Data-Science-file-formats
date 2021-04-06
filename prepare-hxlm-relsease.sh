@@ -118,9 +118,9 @@ sha384sum --tag index.html > hxlm-js.sum
 
 # The rest, append
 sha384sum --tag index-src.html > hxlm-js.sum
-sha384sum --tag bootstrapper/hdp-aux.mjs >> hxlm-js.sum
-sha384sum --tag bootstrapper/hdp-minimam.mjs >> hxlm-js.sum
-sha384sum --tag bootstrapper/hdplisp.mjs >> hxlm-js.sum
+sha384sum --tag bootstrapper/hdpb-aux.mjs >> hxlm-js.sum
+sha384sum --tag bootstrapper/hdpb-minimam.mjs >> hxlm-js.sum
+sha384sum --tag bootstrapper/hdpb-lisp.mjs >> hxlm-js.sum
 sha384sum --tag bootstrapper/testum.mjs >> hxlm-js.sum
 
 ## Check the hashes

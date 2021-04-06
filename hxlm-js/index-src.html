@@ -22,23 +22,24 @@
         <h1>hxlm-js</h1>
         <p><mark>(qdp->eng "Open the console log of your browser!")</mark></p>
 
-        <h2>HDPMiniman</h2>
+        <h2>HDPbMiniman</h2>
         <div>
             <h3>JavaScript</h3>
             <pre><code class="lang-javascript">// let HDP_DEBUG = true
-import { HDPMiniman, HDPL10n, HDPLisp } from './bootstrapper/hdp-minimam.mjs'
+import { HDPbMiniman, HDPbL10n, HDPbLisp } from './bootstrapper/hdpb-minimam.mjs'
 
-let bootstrapping = HDPMiniman.bootstrapping()
-let ego = HDPL10n.quis_sum()
+// let HDP_DEBUG = true
+let bootstrapping = HDPbMiniman.bootstrapping()
+let ego = HDPbL10n.quis_sum()
 
 // HDP Language _bootstrapping_ based on you (_ego_)
-let hdp = new HDPMiniman(bootstrapping, ego)
+let hdp = new HDPbMiniman(bootstrapping, ego)
 
 // Output the current version of this library
 console.log("HDP Miniman version:", hdp.version)
 
 // Output what we can automate for you
-console.log("HDPMiniman.EGO :", hdp.EGO)
+console.log("HDPbMiniman.EGO :", hdp.EGO)
 
 // This return an quick overview
 hdp.explanare().then(console.log).catch(console.error)
@@ -110,28 +111,28 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
         integrity="sha384-GZjZp+CbKvyD8T8iqJhCFVgGZCYvudU988w0IQbmjj2MRWfXd1TCSiIulO2MQHky"
         crossorigin="anonymous"></script> -->
 
-    <script type="module" src="./bootstrapper/hdplisp.mjs" data-srihash-hdplisp crossorigin="anonymous"></script>
-    <script type="module" src="./bootstrapper/hdp-aux.mjs" data-srihash-hdplisp crossorigin="anonymous"></script>
-    <script type="module" src="./bootstrapper/hdp-minimam.mjs" data-srihash-hdplisp crossorigin="anonymous"></script>
+    <!-- <script type="module" src="./bootstrapper/hdplisp.mjs" data-srihash-hdplisp crossorigin="anonymous"></script> -->
+    <!-- <script type="module" src="./bootstrapper/hdp-aux.mjs" data-srihash-hdplisp crossorigin="anonymous"></script> -->
+    <!-- <script type="module" src="./bootstrapper/hdp-minimam.mjs" data-srihash-hdplisp crossorigin="anonymous"></script> -->
 
     <script type="module">
 
         // ---- User demo on the page, START ----
 
-        import { HDPMiniman, HDPL10n, HDPLisp } from './bootstrapper/hdp-minimam.mjs'
+        import { HDPbMiniman, HDPbL10n, HDPbLisp } from './bootstrapper/hdpb-minimam.mjs'
 
         // let HDP_DEBUG = true
-        let bootstrapping = HDPMiniman.bootstrapping()
-        let ego = HDPL10n.quis_sum()
+        let bootstrapping = HDPbMiniman.bootstrapping()
+        let ego = HDPbL10n.quis_sum()
 
         // HDP Language _bootstrapping_ based on you (_ego_)
-        let hdp = new HDPMiniman(bootstrapping, ego)
+        let hdp = new HDPbMiniman(bootstrapping, ego)
 
         // Output the current version of this library
         console.log("HDP Miniman version:", hdp.version)
 
         // Output what we can automate for you
-        console.log("HDPMiniman.EGO :", hdp.EGO)
+        console.log("HDPbMiniman.EGO :", hdp.EGO)
 
         // This return an quick overview
         hdp.explanare().then(console.log).catch(console.error)
@@ -148,32 +149,32 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
         // These blocks are not part of the tutorial, but are used to
         // create the interfaces for who do not know how to use the console.log
 
-        import { HDPAux } from './bootstrapper/hdp-aux.mjs'
-        import { HDPi18n } from './bootstrapper/hdp-i18n.mjs'
+        import { HDPbAux } from './bootstrapper/hdpb-aux.mjs'
+        import { HDPbi18n } from './bootstrapper/hdpb-i18n.mjs'
 
         // Here is where we, in fact, show the results on the page
-        HDPAux.console_html(
+        HDPbAux.console_html(
             ["HDP Miniman version:",
                 hdp.version],
             'lang-json',
-            '<code>console.log("HDP Miniman version:", hdp.version)</code>',
+            '<code>console.log("HDPb Miniman version:", hdp.version)</code>',
             true // This means that the code should show instead of be colapsed
         )
 
-        HDPAux.console_html(
-            ["HDPMiniman.EGO :",
+        HDPbAux.console_html(
+            ["HDPbMiniman.EGO :",
                 hdp.EGO],
             'lang-json',
-            '<code>console.log("HDPMiniman.EGO :", hdp.EGO)</code>',
+            '<code>console.log("HDPbMiniman.EGO :", hdp.EGO)</code>',
             true // This means that the code should show instead of be colapsed
         )
 
         hdp.explanare('LKG').then(function (data) {
-            HDPAux.console_html(data, 'lang-json', "<code>hdp.explanare('LKG').then(console.log).catch(console.error)</code>")
+            HDPbAux.console_html(data, 'lang-json', "<code>hdp.explanare('LKG').then(console.log).catch(console.error)</code>")
         }).catch(console.error)
 
         hdp.explanare('VKG').then(function (data) {
-            HDPAux.console_html(data, 'lang-json', "<code>hdp.explanare('VKG').then(console.log).catch(console.error)</code>")
+            HDPbAux.console_html(data, 'lang-json', "<code>hdp.explanare('VKG').then(console.log).catch(console.error)</code>")
         }).catch(console.error)
     </script>
 

@@ -27,10 +27,10 @@
 
 // import { HDPAux } from './hdp-aux.mjs'
 // import { HDPi18n } from './hdp-i18n.mjs'
-import { HDPL10n } from './hdp-l10n.mjs'
-import { HDPLisp } from './hdplisp.mjs'
+import { HDPbL10n } from './hdpb-l10n.mjs'
+import { HDPbLisp } from './hdpb-lisp.mjs'
 
-class HDPMiniman {
+class HDPbMiniman {
     version = "0.8.5"
     _DEBUG = false
 
@@ -70,7 +70,7 @@ class HDPMiniman {
 
         if (typeof HDP_DEBUG !== 'undefined') {
             self._DEBUG = HDP_DEBUG
-            console.log('HDPMiniman HDP_DEBUG !== undefined', HDP_DEBUG)
+            console.log('HDPbMiniman HDP_DEBUG !== undefined', HDP_DEBUG)
         }
 
         this.EGO = ego
@@ -99,7 +99,7 @@ class HDPMiniman {
         // TODO: this function is an placeholder for a FULL integrity check
         //       (think of validate GPG et al) as build in functionality.
         //       Without this, is recomended for the user both trust HTTPS
-        //       or rely on additional checks outside HDPMiniman
+        //       or rely on additional checks outside HDPbMiniman
         let resultatum = new Object({
             securum: null,
             insecurum: null, // insecurum: true,
@@ -303,7 +303,7 @@ class HDPMiniman {
         }
 
         // Unknow index
-        throw ("index [" + index + "] ⊄ HDPMiniman explanare()")
+        throw ("index [" + index + "] ⊄ HDPbMiniman explanare()")
 
 
         // // resultatum.ONTOLOGIA_LKG = vkg_
@@ -317,9 +317,9 @@ class HDPMiniman {
         // return resultatum
     }
 }
-// let hdp = new HDPMiniman()
+// let hdp = new HDPbMiniman()
 
 // hdp.explanare();
 
-// export { HDPMiniman, HDPAux, HDPLisp }
-export { HDPMiniman, HDPL10n, HDPLisp }
+// export { HDPbMiniman, HDPAux, HDPbLisp }
+export { HDPbMiniman, HDPbL10n, HDPbLisp }

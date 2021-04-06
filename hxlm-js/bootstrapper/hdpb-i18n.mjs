@@ -7,10 +7,10 @@
  *   - i18n with lowercase "i"
  *   - L10n with UPPERCASE "L"
  */
-class HDPi18n {
+class HDPbi18n {
     // TODO: add to HDPi18n features that to 'test' if l10n is working that is
     //       meant to be availible even on final deriverable, so people could
     //       still do some minimum testing (Emerson Rocha, 2021-04-05 15:21 UTC)
 }
 
-export { HDPi18n }
+export { HDPbi18n }

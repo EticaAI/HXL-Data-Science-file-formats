@@ -1,7 +1,7 @@
 /**
  * @license      Public Domain
  * @author       Emerson Rocha <rocha(at)ieee.org>
- * @description  HDPAux is not actually part of the HDP conventions, but
+ * @description  HDPbAux is not actually part of the HDP conventions, but
  *               contains some code to help with interface.
  * @created      2021
  *
@@ -14,7 +14,7 @@
 // TODO: look at https://en.wikipedia.org/wiki/Semantic_bootstrapping
 
 
-class HDPAux {
+class HDPbAux {
 
     _DEBUG = false
 
@@ -49,7 +49,7 @@ class HDPAux {
     }
 
     /**
-     * HDPAux helper to print help code on screen
+     * HDPbAux helper to print help code on screen
      *
      * @param {Object} res       Thing to output
      * @param {String} lang      An programming language class (see highlightjs.org)
@@ -59,12 +59,12 @@ class HDPAux {
     static console_html(res, lang, namen, visibile) {
         // console.log('console_html started', res)
         // console.log('console_html', self._console_html_wrapper, self._console_html_template())
-        // let wrapper_qss = HDPAux._hdp_console_items_selector
-        let wrapper_el = document.querySelector(HDPAux._console_QS)
+        // let wrapper_qss = HDPbAux._hdp_console_items_selector
+        let wrapper_el = document.querySelector(HDPbAux._console_QS)
         // console.log('console_html wrapper_el', wrapper_el)
         let lang_ = lang || 'lang-json';
         let namen_ = namen || 'log-' + (new Date().toISOString())
-        let output = HDPAux._console_html_template(
+        let output = HDPbAux._console_html_template(
             JSON.stringify(res, null, 2),
             lang_,
             namen_,
@@ -80,12 +80,12 @@ class HDPAux {
                 hljs.highlightAll()
             }
         } else {
-            console.error('HDPAux.console_html [' +
-                HDPAux._console_QS + '] not found');
-            console.log('HDPAux.console_html fallback', res);
+            console.error('HDPbAux.console_html [' +
+                HDPbAux._console_QS + '] not found');
+            console.log('HDPbAux.console_html fallback', res);
         }
         // this_._DEBUG && console.log('console_html out', out)
     }
 }
 
-export { HDPAux }
+export { HDPbAux }

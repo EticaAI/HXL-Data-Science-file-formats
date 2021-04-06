@@ -1,13 +1,13 @@
 // console.log('bootstrapper/hdp-l10n.mjs (draft)')
 
 /**
- * HDPL10n Placeholder
+ * HDPbL10n
  *
  * Trivia:
  *   - i18n with lowercase "i"
  *   - L10n with UPPERCASE "L"
  */
-class HDPL10n {
+class HDPbL10n {
 
     /**
      * Who I am
@@ -22,6 +22,10 @@ class HDPL10n {
      * @returns {Object}
      */
     static quis_sum() {
+        // TODO: navigator.languages does not work when running with NodeJS.
+        //       we should at least make it not break hard
+        //       (Emerson Rocha, 2021-04-06 00:05 UTC)
+
         let resultatum = {};
         resultatum.meaLinguam = navigator.language || navigator.userLanguage;
         resultatum.meaLinguamEtAliiFontem = navigator.languages || [resultatum.meaLinguam];
@@ -36,4 +40,4 @@ class HDPL10n {
     }
 }
 
-export { HDPL10n }
+export { HDPbL10n }

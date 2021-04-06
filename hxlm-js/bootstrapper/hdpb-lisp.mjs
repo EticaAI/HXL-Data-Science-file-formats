@@ -3,8 +3,8 @@
 /**
  * Placeholder
  */
-class HDPLisp {
+class HDPbLisp {
     version = "0.8.5"
 }
 
-export { HDPLisp }
+export { HDPbLisp }
