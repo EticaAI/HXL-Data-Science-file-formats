@@ -24,3 +24,14 @@ console.log('')
 let example2 = '(+ 1 (- 3 1 ) (+ 1 1 ))'
 console.log('example2', example2)
 console.log(HDPbLisp.just_testing_parser2(example2))
+
+
+// https://stackoverflow.com/questions/21397316/split-javascript-string-into-array-of-codepoints-taking-into-account-surrogat
+
+let example_str1 = '(⚕️ "hospital")'
+console.log('example_str1', example_str1)
+console.log(HDPbLisp.just_testing_parser2(example_str1))
+console.log('')
+let example_str2 = '(🇧🇷 (⚕️ "hospital"))'
+console.log('example_str2', example_str2)
+console.log(HDPbLisp.just_testing_parser2(example_str2))
