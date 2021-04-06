@@ -22,16 +22,20 @@ function normalize_input(sxpr) {
 
 function tokenize_input(sxpr) {
     // TODO: deal with strings in spaces
-    sxpr = sxpr.replace('[', '(').replace('{', '('); // {} are aliases to ()
-    sxpr = sxpr.replace(']', ')').replace('}', ')'); // [] are aliases to ()
-    sxpr = sxpr.replace('(', ' ( ').replace(')', ' ) ')
+    sxpr = sxpr.replace(/\[/g, '(').replace(/\{/g, '('); // {} are aliases to ()
+    sxpr = sxpr.replace(/\]/g, ')').replace(/\}/g, ')'); // [] are aliases to ()
+    sxpr = sxpr.replace(/\(/g, ' ( ').replace(/\)/g, ' ) ')
+    // console.log('oioioi antes, ', sxpr)
     sxpr = sxpr.split(' ')
+
+    // console.log('oioioi, ', sxpr)
 
     // First and last items of array will be empty string ''. Clean here
     // TODO: test more this
     let cleaned = sxpr.filter((v) => v != '')
     // console.log('sxpr', sxpr)
     // console.log('cleaned', cleaned)
+    // return sxpr
     return cleaned
 }
 
@@ -74,44 +78,51 @@ function parse(sxpr) {
 
 }
 
-// const _HDP_DEBUG = typeof(HDP_DEBUG) !== 'undefined' && HDP_DEBUG || false
-const _HDP_DEBUG = typeof(HDP_DEBUG) !== 'undefined' && HDP_DEBUG || true
+const _HDP_DEBUG = typeof(HDP_DEBUG) !== 'undefined' && HDP_DEBUG || false
+// const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || true
 
 /**
  * Initial version based on a ported version from http://norvig.com/lispy.html
  */
-function parse_recursive_ltr(sxpr_token, deep) {
+function parse_recursive_ltr(tokens, deep) {
     let deep_ = (deep && (deep + 1) || 1)
+    let prefix_ = "> ".repeat(deep_)
 
 
-    _HDP_DEBUG && console.log("\n", '> > parse_recursive_ltr', sxpr_token, deep)
-    // console.log('sxpr_token', sxpr_token, typeof sxpr_token, sxpr_token.length)
+    _HDP_DEBUG && console.log("\n" + prefix_ + 'parse_recursive_ltr', deep, tokens)
+    // console.log('tokens', tokens, typeof tokens, tokens.length)
     // console.log('++++'.length)
-    // if (!sxpr_token || sxpr_token.length === 0) {
-    if (!sxpr_token) {
-        let type_ = typeof sxpr_token
-        let value_ = String(sxpr_token)
+    // if (!tokens || tokens.length === 0) {
+    // if (!tokens) {
+    if (!tokens || tokens.length === 0) {
+        let type_ = typeof tokens
+        let value_ = String(tokens)
         throw new Error("EOF ? typeof [" + type_ + '] raw [' + value_ + ']')
     }
 
     // let deep_ = (deep && (deep + 1) || 1)
 
-    let token = sxpr_token.shift()
+    let token = tokens.shift()
+    _HDP_DEBUG && console.log(prefix_ + '... token', token)
     // console.log('>>> token', token, deep_)
 
     if (token === '(') {
-        _HDP_DEBUG && console.log('    ... start')
-        let partial = []
-        // console.log('>. ',  sxpr_token[0])
-        while (sxpr_token[0] !== ')') {
-            partial.push(parse_recursive_ltr(sxpr_token, deep_))
-            // console.log('sxpr_token.shift', sxpr_token.shift())
-            if (typeof sxpr_token.shift() === 'undefined') {
-                break
-            }
+        _HDP_DEBUG && console.log(prefix_ + '... start')
+        let L = []
+        // console.log('>. ',  tokens[0])
+        while (tokens[0] !== ')') {
+            L.push(parse_recursive_ltr(tokens, deep_))
+            _HDP_DEBUG && console.log('... while ... tokens', tokens)
+            // console.log('tokens.shift', tokens.shift())
+            _HDP_DEBUG && console.log(prefix_ + '... looping, L now: ', L, ', tokens:', tokens)
+            // if (typeof tokens.shift() === 'undefined') {
+            //     _HDP_DEBUG && console.log(prefix_ + '... break')
+            //     break
+            // }
         }
-        sxpr_token.shift()  // pop ), if any
-        return partial
+        _HDP_DEBUG && console.log('... end while ... tokens', tokens)
+        tokens.shift()  // pop ), if any
+        return L
     } else if (token === ')') {
         throw new Error(") ?")
     } else {
@@ -120,13 +131,13 @@ function parse_recursive_ltr(sxpr_token, deep) {
 }
 
 function atom(token) {
-    _HDP_DEBUG && console.log('atom', token)
+    // _HDP_DEBUG && console.log('atom', token)
     if (Number.isNaN(token) || (token === '+') || (token === '-')) {
         // return String.toString(token)
-        _HDP_DEBUG && console.log('      ... not numeric, symbol')
+        _HDP_DEBUG && console.log('atom => not numeric, symbol', token)
         return token
     } else {
-        _HDP_DEBUG && console.log('      ... numeric')
+        _HDP_DEBUG && console.log('atom => numeric', token)
         return Number(token)
         // if (Number.i(token)) {
         //     return String.toString(token)
@@ -159,12 +170,12 @@ class HDPbLisp {
         return sxpr_norm.split(' ')
     }
     static just_testing_parser3(sxpr) {
-        console.log('> just_testing_parser3', sxpr)
+        // console.log('just_testing_parser3', sxpr)
         let sxpr_norm = normalize_input(sxpr)
         let sxpr_tokens = tokenize_input(sxpr_norm)
-        console.log('sxpr_tokens', sxpr_tokens)
+        // console.log('sxpr_tokens', sxpr_tokens)
         let parsed = parse_recursive_ltr(sxpr_tokens)
-        console.log('parsed', parsed)
+        // console.log('parsed', parsed)
         return parsed
     }
 }
