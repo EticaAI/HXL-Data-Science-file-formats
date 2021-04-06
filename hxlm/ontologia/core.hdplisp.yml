@@ -1,0 +1,16 @@
+# ontologia/core.hdplisp.yml
+
+# CONS, CAR, CDR, QUOTE, ATOM, EQ, LAMBDA, COND, (mais READ e PRINT)
+
+
+b:
+  ATOM:
+  CAR:
+  CDR:
+  COND:
+  CONS:
+  EQ:
+  LAMBDA:
+  PRINT:
+  QUOTE:
+  READ:
