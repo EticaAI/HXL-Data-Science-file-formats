@@ -9,7 +9,7 @@ console.log('example_nil', example_nil)
 console.log(HDPbLisp.just_testing_parser2(example_nil))
 console.log('')
 console.log('')
-let example1 = '( + 1 1 )'
+let example1 = '(+ 1 2 3)'
 console.log('example1', example1)
 console.log(HDPbLisp.just_testing_parser2(example1))
 console.log('')
