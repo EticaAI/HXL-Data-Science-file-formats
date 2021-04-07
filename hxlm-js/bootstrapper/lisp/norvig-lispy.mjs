@@ -11,6 +11,15 @@
  *     - http://norvig.com/lispy.html
  *  - '(An ((Even Better) Lisp) Interpreter (in Python))'
  *     - http://norvig.com/lispy2.html
+ *  - GitHub search by 'lispy' and JavaScript code
+ *     - https://github.com/search?l=JavaScript&q=lispy
+ *     - Some results
+ *       - https://github.com/burtonjb/LispyJS
+ *       - https://github.com/kawakami-o3/yaLispy/blob/master/JavaScript/lisp.js
+ *       - https://github.com/njlr/mathematical
+ *       - https://github.com/breeze4/lispyjs/tree/master/src
+ *       - https://github.com/Shimin-Zhang/JS-Lispy
+ *       - https://github.com/z5h/zb-lisp
  *
  * License of this file
  *   Peter Norvig does not have a clear license, neither most of dozens of
@@ -29,6 +38,78 @@
 
 const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || false
 // const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || true
+
+
+function atom(token) {
+    // _HDP_DEBUG && console.log('atom', token)
+    if (Number.isNaN(token) || (token === '+') || (token === '-')) {
+        // return String.toString(token)
+        _HDP_DEBUG && console.log('atom => not numeric, symbol', token)
+        return token
+    } else {
+        _HDP_DEBUG && console.log('atom => numeric', token)
+        return Number(token)
+    }
+}
+
+/**
+ * http://norvig.com/lispy.html
+ */
+function evaluate(sxpr, env) {
+    // "Evaluate an expression in an environment."
+    // if isinstance(x, Symbol):        # variable reference
+    //     return env[x]
+    // elif isinstance(x, Number):      # constant number
+    //     return x
+    // elif x[0] == 'if':               # conditional
+    //     (_, test, conseq, alt) = x
+    //     exp = (conseq if eval(test, env) else alt)
+    //     return eval(exp, env)
+    // elif x[0] == 'define':           # definition
+    //     (_, symbol, exp) = x
+    //     env[symbol] = eval(exp, env)
+    // else:                            # procedure call
+    //     proc = eval(x[0], env)
+    //     args = [eval(arg, env) for arg in x[1:]]
+    //     return proc(*args)
+}
+
+function standard_env() {
+    // def standard_env() -> Env:
+    // "An environment with some Scheme standard procedures."
+    // env = Env()
+    // env.update(vars(math)) # sin, cos, sqrt, pi, ...
+    // env.update({
+    //     '+': op.add, '-': op.sub, '*': op.mul, '/': op.truediv,
+    //     '>': op.gt, '<': op.lt, '>=': op.ge, '<=': op.le, '=': op.eq,
+    //     'abs': abs,
+    //     'append': op.add,
+    //     'apply': lambda proc, args: proc(* args),
+    //     'begin': lambda * x: x[-1],
+    //     'car': lambda x: x[0],
+    //     'cdr': lambda x: x[1:],
+    //     'cons': lambda x, y: [x] + y,
+    //     'eq?': op.is_,
+    //     'expt': pow,
+    //     'equal?': op.eq,
+    //     'length': len,
+    //     'list': lambda * x: List(x),
+    //     'list?': lambda x: isinstance(x, List),
+    //     'map': map,
+    //     'max': max,
+    //     'min': min,
+    //     'not': op.not_,
+    //     'null?': lambda x: x == [],
+    //     'number?': lambda x: isinstance(x, Number),
+    //     'print': print,
+    //     'procedure?': callable,
+    //     'round': round,
+    //     'symbol?': lambda x: isinstance(x, Symbol),
+    // })
+    // return env
+}
+
+
 
 /**
  * Initial version based on a ported version from http://norvig.com/lispy.html
@@ -77,43 +158,6 @@ function parse_recursive_ltr(tokens, deep) {
     } else {
         return atom(token)
     }
-}
-
-function atom(token) {
-    // _HDP_DEBUG && console.log('atom', token)
-    if (Number.isNaN(token) || (token === '+') || (token === '-')) {
-        // return String.toString(token)
-        _HDP_DEBUG && console.log('atom => not numeric, symbol', token)
-        return token
-    } else {
-        _HDP_DEBUG && console.log('atom => numeric', token)
-        return Number(token)
-        // if (Number.i(token)) {
-        //     return String.toString(token)
-        // }
-    }
-    // if (Number.isInteger(token)) {
-    //     parseInt(token)
-    // }
-}
-
-function tokenize_input(sxpr) {
-    // TODO: deal with strings in spaces
-    sxpr = sxpr.replace(/\[/g, '(').replace(/\{/g, '('); // {} are aliases to ()
-    sxpr = sxpr.replace(/\]/g, ')').replace(/\}/g, ')'); // [] are aliases to ()
-    sxpr = sxpr.replace(/\(/g, ' ( ').replace(/\)/g, ' ) ')
-    // console.log('oioioi antes, ', sxpr)
-    sxpr = sxpr.split(' ')
-
-    // console.log('oioioi, ', sxpr)
-
-    // First and last items of array will be empty string ''. Clean here
-    // TODO: test more this
-    let cleaned = sxpr.filter((v) => v != '')
-    // console.log('sxpr', sxpr)
-    // console.log('cleaned', cleaned)
-    // return sxpr
-    return cleaned
 }
 
 // export { atom, parse_recursive_ltr }
