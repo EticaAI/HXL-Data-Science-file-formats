@@ -28,7 +28,7 @@
 // import { HDPAux } from './hdp-aux.mjs'
 // import { HDPi18n } from './hdp-i18n.mjs'
 import { HDPbL10n } from './hdpb-l10n.mjs'
-import { HDPbLisp } from './hdpb-lisp.mjs'
+import { HDPbLisp } from './lisp/hdpb-lisp.mjs'
 
 class HDPbMiniman {
     version = "0.8.5"
