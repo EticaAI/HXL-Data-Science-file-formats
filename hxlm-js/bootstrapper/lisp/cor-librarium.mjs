@@ -43,7 +43,35 @@ const MathematicamLibrarium = {
             resultatum -= arguments[i];
         }
         return resultatum;
-    }
+    },
+    // TODO: this is a draft. Obviously need revision
+    '*': function () {
+        if (!arguments || arguments.length == 0) {
+            // Error message from LISP-1.5-Programmers-Manual.pdf
+            // TODO: we need to define error messages
+            throw new SyntaxError('CONDITION NOT SATISFIED IN COMPILED FUNCTION');
+        }
+        if (arguments.length == 1) return arguments[0];
+        let resultatum = 0;
+        for (let i = 0; i < arguments.length; i++) {
+            resultatum *= arguments[i];
+        }
+        return resultatum;
+    },
+    // TODO: this is a draft. Obviously need revision
+    '/': function () {
+        if (!arguments || arguments.length == 0) {
+            // Error message from LISP-1.5-Programmers-Manual.pdf
+            // TODO: we need to define error messages
+            throw new SyntaxError('CONDITION NOT SATISFIED IN COMPILED FUNCTION');
+        }
+        if (arguments.length == 1) return arguments[0];
+        let resultatum = 0;
+        for (let i = 0; i < arguments.length; i++) {
+            resultatum /= arguments[i];
+        }
+        return resultatum;
+    },
 }
 
 // b:
@@ -107,6 +135,16 @@ const HDPbLispCorLibrarium = {
     // Trivia: 'subtractiōnem': https://en.wiktionary.org/wiki/subtractio#Latin
     'subtractionem': MathematicamLibrarium['-'],
     'lat->subtractionem': MathematicamLibrarium['-'],
+
+    '*': MathematicamLibrarium['*'],
+    // Trivia: 'multiplicātiōnem': https://en.wiktionary.org/wiki/multiplicatio#Latin
+    'multiplicationem': MathematicamLibrarium['*'],
+    'lat->multiplicationem': MathematicamLibrarium['*'],
+
+    '/': MathematicamLibrarium['/'],
+    // Trivia: 'dīvīsiōnem': https://en.wiktionary.org/wiki/divisio#Latin
+    'divisionem': MathematicamLibrarium['/'],
+    'lat->divisionem': MathematicamLibrarium['/'],
 
     // TODO: find good names in Latin for Lisp bare dictionary
     'ATOM': LISPLibrarium['LISP->ATOM'],

@@ -41,14 +41,7 @@ let example1 = '(+ 1 2 3 4 5 6 7 8 9)'
 let example1_lat = '(summam 1 2 3 4 5 6 7 8 9)'
 let example2 = '(+ 1 (- 3 1 ) (+ 1 1 ))'
 
-// let example_str2 = '(🇧🇷 (⚕️ "hospital"))'
-// console.log('_____example1', example1)
-// console.log(HDPbLisp.just_testing_parser3(example1))
-// console.log('')
-// console.log('')
-// console.log('')
-// console.log('_____example2', example2)
-// console.log(HDPbLisp.just_testing_parser3(example2))
+
 console.log('_____example1 ast', example1)
 console.log(HDPbLisp.ast(example1))
 console.log('_____example1 evaluate', example1)

@@ -15,6 +15,50 @@ b:
   READ:
   "+":
   "-":
+
+#### f: fūnctiōnem ____________________________________________________________
+# Trivia:
+# - 'f'
+#   - 'fūnctiōnem'
+#     - https://en.wiktionary.org/wiki/functio#Latin
+
+f:
+  # Trivia:
+  # - 'dīvīsiōnem'
+  #   - https://en.wiktionary.org/wiki/divisio#Latin
+  divisionem:
+    Latn:
+      id: divisionem
+    Zmth:
+      id: "/"
+
+  # Trivia:
+  # - 'multiplicātiōnem'
+  #   - https://en.wiktionary.org/wiki/multiplicatio#Latin
+  multiplicationem:
+    Latn:
+      id: multiplicationem
+    Zmth:
+      id: "*"
+
+  # Trivia:
+  # - 'subtractiōnem':
+  #   - https://en.wiktionary.org/wiki/subtractio#Latin
+  subtractionem:
+    Latn:
+      id: subtractionem
+    Zmth:
+      id: "-"
+
+  # Trivia:
+  # - 'summam'
+  #   - https://en.wiktionary.org/wiki/summa#Latin
+  summam:
+    Latn:
+      id: summam
+    Zmth:
+      id: "+"
+#### TODOs ____________________________________________________________________
 ###
 # https://en.wikipedia.org/wiki/ISO_15924
 
