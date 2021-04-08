@@ -36,6 +36,9 @@ ROOTDIR="$(pwd)"
 echo "> YAML to JSON"
 
 # Generate hxlm/ontologia/json/core.vkg.json
+yq < hxlm/ontologia/cor.hdplisp.yml > hxlm/ontologia/json/cor.hdplisp.json
+
+# Generate hxlm/ontologia/json/core.vkg.json
 yq < hxlm/ontologia/core.vkg.yml > hxlm/ontologia/json/core.vkg.json
 
 # Generate hxlm/ontologia/json/core.lkg.json
@@ -95,10 +98,12 @@ echo "> > hxlm/ontologia"
 ## Create the hashes
 
 cd hxlm/ontologia/json/ || exit
+sha384sum --tag cor.hdplisp.json > cor.hdplisp.json.sum
 sha384sum --tag core.lkg.json > core.lkg.json.sum
 sha384sum --tag core.vkg.json > core.vkg.json.sum
 
 ## Check the hashes
+sha384sum --check cor.hdplisp.json.sum
 sha384sum --check core.lkg.json.sum
 sha384sum --check core.vkg.json.sum
 

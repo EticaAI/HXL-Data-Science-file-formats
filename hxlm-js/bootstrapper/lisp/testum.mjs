@@ -41,7 +41,6 @@ let example1 = '(+ 1 2 3 4 5 6 7 8 9)'
 let example1_lat = '(summam 1 2 3 4 5 6 7 8 9)'
 let example2 = '(+ 1 (- 3 1 ) (+ 1 1 ))'
 
-
 console.log('_____example1 ast', example1)
 console.log(HDPbLisp.ast(example1))
 console.log('_____example1 evaluate', example1)
@@ -61,6 +60,15 @@ console.log('_____example2 ast', example2)
 console.log(HDPbLisp.ast(example2))
 console.log('evaluate')
 console.log(HDPbLisp.evaluate(example2))
+console.log('')
+
+console.log('_____', '(identicum? ' + example2 + ' ' + example2 + ')')
+console.log(HDPbLisp.evaluate('(identicum? ' + example2 + ' ' + example2 + ')'))
+console.log('_____', '(identicum? ' + example1 + ' ' + example2 + ')')
+console.log(HDPbLisp.evaluate('(identicum? ' + example1 + ' ' + example2 + ')'))
+console.log('')
+console.log('_____', '(non-identicum? ' + example1 + ' ' + example2 + ')')
+console.log(HDPbLisp.evaluate('(non-identicum? ' + example1 + ' ' + example2 + ')'))
 console.log('')
 
 // console.log(HDPbLisp.ast(example1_lat))

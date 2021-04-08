@@ -19,7 +19,7 @@
  */
 const MathematicamLibrarium = {
     '+': function () {
-        if (!arguments || arguments.length == 0) {
+        if (!arguments || arguments.length === 0) {
             // Error message from LISP-1.5-Programmers-Manual.pdf
             // TODO: we need to define error messages
             throw new SyntaxError('CONDITION NOT SATISFIED IN COMPILED FUNCTION');
@@ -32,7 +32,7 @@ const MathematicamLibrarium = {
         return resultatum;
     },
     '-': function () {
-        if (!arguments || arguments.length == 0) {
+        if (!arguments || arguments.length === 0) {
             // Error message from LISP-1.5-Programmers-Manual.pdf
             // TODO: we need to define error messages
             throw new SyntaxError('CONDITION NOT SATISFIED IN COMPILED FUNCTION');
@@ -46,7 +46,7 @@ const MathematicamLibrarium = {
     },
     // TODO: this is a draft. Obviously need revision
     '*': function () {
-        if (!arguments || arguments.length == 0) {
+        if (!arguments || arguments.length === 0) {
             // Error message from LISP-1.5-Programmers-Manual.pdf
             // TODO: we need to define error messages
             throw new SyntaxError('CONDITION NOT SATISFIED IN COMPILED FUNCTION');
@@ -60,7 +60,7 @@ const MathematicamLibrarium = {
     },
     // TODO: this is a draft. Obviously need revision
     '/': function () {
-        if (!arguments || arguments.length == 0) {
+        if (!arguments || arguments.length === 0) {
             // Error message from LISP-1.5-Programmers-Manual.pdf
             // TODO: we need to define error messages
             throw new SyntaxError('CONDITION NOT SATISFIED IN COMPILED FUNCTION');
@@ -71,6 +71,32 @@ const MathematicamLibrarium = {
             resultatum /= arguments[i];
         }
         return resultatum;
+    },
+    // TODO: this is a draft. Obviously need revision
+    '≡': function () {
+        // https://www.compart.com/en/unicode/U+2261
+        //  - Unicode Character “≡” (U+2261)
+        // https://en.wikipedia.org/wiki/Lambda_calculus
+        // https://en.wiktionary.org/wiki/%E2%89%A1
+        if (!arguments || arguments.length !== 2) {
+            // Error message from LISP-1.5-Programmers-Manual.pdf
+            // TODO: we need to define error messages
+            throw new SyntaxError('CONDITION NOT SATISFIED IN COMPILED FUNCTION');
+        }
+        return arguments[0] === arguments[1]
+    },
+    // TODO: this is a draft. Obviously need revision
+    '≢': function () {
+        // https://www.compart.com/en/unicode/U+2262
+        //  - Unicode Character “≡” (U+2261)
+        // https://en.wikipedia.org/wiki/Lambda_calculus
+        // https://en.wiktionary.org/wiki/%E2%89%A2
+        if (!arguments || arguments.length !== 2) {
+            // Error message from LISP-1.5-Programmers-Manual.pdf
+            // TODO: we need to define error messages
+            throw new SyntaxError('CONDITION NOT SATISFIED IN COMPILED FUNCTION');
+        }
+        return arguments[0] !== arguments[1]
     },
 }
 
@@ -129,22 +155,32 @@ const HDPbLispCorLibrarium = {
     '+': MathematicamLibrarium['+'],
     // Trivia: 'summam': https://en.wiktionary.org/wiki/summa#Latin
     'summam': MathematicamLibrarium['+'],
-    'lat->summam': MathematicamLibrarium['+'],
+    // 'lat->summam': MathematicamLibrarium['+'],
 
     '-': MathematicamLibrarium['-'],
     // Trivia: 'subtractiōnem': https://en.wiktionary.org/wiki/subtractio#Latin
     'subtractionem': MathematicamLibrarium['-'],
-    'lat->subtractionem': MathematicamLibrarium['-'],
+    // 'lat->subtractionem': MathematicamLibrarium['-'],
 
     '*': MathematicamLibrarium['*'],
     // Trivia: 'multiplicātiōnem': https://en.wiktionary.org/wiki/multiplicatio#Latin
     'multiplicationem': MathematicamLibrarium['*'],
-    'lat->multiplicationem': MathematicamLibrarium['*'],
+    // 'lat->multiplicationem': MathematicamLibrarium['*'],
 
     '/': MathematicamLibrarium['/'],
     // Trivia: 'dīvīsiōnem': https://en.wiktionary.org/wiki/divisio#Latin
     'divisionem': MathematicamLibrarium['/'],
-    'lat->divisionem': MathematicamLibrarium['/'],
+    // 'lat->divisionem': MathematicamLibrarium['/'],
+
+    '≡': MathematicamLibrarium['≡'],
+    // Trivia: 'īdenticum': https://en.wiktionary.org/wiki/identicus#Latin
+    'identicum?': MathematicamLibrarium['≡'],
+    // 'lat->identicum?': MathematicamLibrarium['≡'],
+
+    '≢': MathematicamLibrarium['≢'],
+    // Trivia: 'īdenticum': https://en.wiktionary.org/wiki/identicus#Latin
+    'non-identicum?': MathematicamLibrarium['≢'],
+    // 'lat->non-identicum?': MathematicamLibrarium['≢'],
 
     // TODO: find good names in Latin for Lisp bare dictionary
     'ATOM': LISPLibrarium['LISP->ATOM'],

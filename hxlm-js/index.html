@@ -57,6 +57,15 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
             </div>
         </div>
 
+        <aside>
+            <h2>Other quick links</h2>
+            <p>
+                <ul>
+                    <li><a href="testum.html">testum.html</a>,  (not yet fully autmated tests; both for browser and NodeJS enviroment)</li>
+                </ul>
+            </p>
+        </aside>
+
         <footer lang="en">
             <h2>About</h2>
             <p>
@@ -145,12 +154,19 @@ hdp.explanare('VKG').then(console.log).catch(console.error)
 
         // ---- User demo on the page, END ----
 
-
-        // These blocks are not part of the tutorial, but are used to
-        // create the interfaces for who do not know how to use the console.log
-
         import { HDPbAux } from './bootstrapper/hdpb-aux.mjs'
         import { HDPbi18n } from './bootstrapper/hdpb-i18n.mjs'
+
+        // Chromium Dev Tools console log (if users are trying on this page)
+        // would not expose HDPbMiniman, HDPbLisp. But we can allow this:
+        window.HDPbMiniman = HDPbMiniman
+        window.HDPbL10n = HDPbL10n
+        window.HDPbLisp = HDPbLisp
+        window.HDPbAux = HDPbAux
+        window.HDPbi18n = HDPbi18n
+
+        // Trick to allow users interact with import modules on this page
+        // via console log (they are not exposed on Chromium dev tools)
 
         // Here is where we, in fact, show the results on the page
         HDPbAux.console_html(
