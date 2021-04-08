@@ -57,9 +57,10 @@ console.log('_____example2 ast_rtl', example2)
 console.log(HDPbLisp.ast_rtl(example2))
 console.log('_____example2 ast', example2)
 console.log(HDPbLisp.ast(example2))
+console.log('evaluate')
+console.log(HDPbLisp.evaluate(example2))
 console.log('')
-console.log('')
-console.log('')
+
 
 // console.log('example_str2', example_str2)
 // console.log(HDPbLisp.just_testing_parser3(example_str2))

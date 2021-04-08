@@ -1,3 +1,9 @@
+/**
+ * @see https://github.com/informatimago/lisp-1-5/blob/master/LISP-1.5-Programmers-Manual.pdf
+ * @see http://www.softwarepreservation.org/projects/LISP/lisp15_family
+ */
+
+
 // console.log('bootstrapper/lisp/hdplisp.mjs (draft)')
 
 // b:
@@ -13,7 +19,7 @@
 //   READ:
 
 
-import { parse_recursive_ltr } from './norvig-lispy.mjs'
+import { parse_recursive_ltr, evaluate } from './norvig-lispy.mjs'
 import { tokenize_input, normalize_input } from './util.mjs'
 
 const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || false
@@ -99,6 +105,12 @@ class HDPbLisp {
 
         // TODO: ast_rtl
         return this.ast_ltr(sxpr, optionem)
+    }
+
+    static evaluate(sxpr, optionem){
+        let parsed = this.ast(sxpr, optionem)
+        let resultatum = evaluate(parsed)
+        return resultatum
     }
 
     /**

@@ -56,6 +56,13 @@ function atom(token) {
  * http://norvig.com/lispy.html
  */
 function evaluate(sxpr, env) {
+    if (typeof sxpr === 'string') {
+        console.log('evaluate', sxpr)
+    } else {
+        console.log('nop')
+    }
+
+
     // "Evaluate an expression in an environment."
     // if isinstance(x, Symbol):        # variable reference
     //     return env[x]
@@ -161,4 +168,4 @@ function parse_recursive_ltr(tokens, deep) {
 }
 
 // export { atom, parse_recursive_ltr }
-export { parse_recursive_ltr }
+export { parse_recursive_ltr, evaluate }
