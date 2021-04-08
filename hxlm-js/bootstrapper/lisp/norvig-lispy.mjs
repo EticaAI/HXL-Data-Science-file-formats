@@ -39,6 +39,14 @@
 const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || false
 // const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || true
 
+import { HDPbLispCorLibrarium } from './cor-librarium.mjs'
+const CorLibrarium = HDPbLispCorLibrarium
+
+// Trivia: cōnsuētūdinem, https://en.wiktionary.org/wiki/consuetudo#Latin
+const ConsuetudinemLibrarium = Object({
+
+})
+
 
 function atom(token) {
     // _HDP_DEBUG && console.log('atom', token)
@@ -55,11 +63,61 @@ function atom(token) {
 /**
  * http://norvig.com/lispy.html
  */
-function evaluate(sxpr, env) {
-    if (typeof sxpr === 'string') {
-        console.log('evaluate', sxpr)
+function evaluate(ast_sxpr, env, builtin) {
+    _HDP_DEBUG && console.log('evaluate args', typeof ast_sxpr, ast_sxpr, builtin)
+
+    let env_ = env || { ...CorLibrarium, ...ConsuetudinemLibrarium };
+    _HDP_DEBUG && console.log('evaluate env_', env_)
+
+    let builtin_ = builtin || Object({
+        'define': 'define',
+        'if': 'if',
+        'quote': 'quote'
+    });
+    _HDP_DEBUG && console.log('evaluate builtin_', builtin_)
+
+    if (typeof ast_sxpr === 'number') {
+        return ast_sxpr
+    }
+
+    // TODO: this may be a pointer, not a raw string. Fix it
+    // if (typeof ast_sxpr === 'string') {
+    //     return ast_sxpr
+    // }
+
+    if (Array.isArray(ast_sxpr)) {
+        // let resultatum = ast_sxpr.map(function(item) {
+        //     return evaluate(item, )
+        // })
+
+        if (ast_sxpr[0] === builtin_['define']) {
+            throw new EvalError(builtin_['define'] + ' not implemented... yet');
+        }
+        if (ast_sxpr[0] === builtin_['if']) {
+            throw new EvalError(builtin_['if'] + ' not implemented... yet');
+        }
+        if (ast_sxpr[0] === builtin_['quote']) {
+            throw new EvalError(builtin_['quote'] + ' not implemented... yet');
+        }
+
+        // The typical drill
+
+        let resultatum = ast_sxpr.map(function(item) {
+            return evaluate(item, env_)
+        })
+
+        let actum = resultatum.shift()
+        _HDP_DEBUG && console.log('actum', typeof actum, actum)
+        let evaluated = actum.apply(null, resultatum);
+        _HDP_DEBUG && console.log('evaluated', evaluated)
+        return evaluated
+    }
+
+    if (typeof ast_sxpr === 'string') {
+        _HDP_DEBUG && console.log('evaluate ast_sxpr === string', ast_sxpr, env_[ast_sxpr], env_)
+        return env_[ast_sxpr]
     } else {
-        console.log('nop')
+        _HDP_DEBUG && console.log('nop')
     }
 
 
