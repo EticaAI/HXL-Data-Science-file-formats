@@ -21,6 +21,7 @@
 # - https://en.wikipedia.org/wiki/Non-English-based_programming_languages
 #   - https://metacpan.org/pod/distribution/Lingua-Romana-Perligata
 #     /lib/Lingua/Romana/Perligata.pm
+# - https://github.com/github/linguist/blob/master/samples/Record%20Jar/filenames/language-subtag-registry.txt
 
 ### File suffixes, and other default internals _________________________________
 
