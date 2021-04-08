@@ -113,35 +113,35 @@ class HDPbLisp {
         return resultatum
     }
 
-    /**
-     * @deprecated to be removed
-     */
-    static just_testing_parser(sxpr) {
-        let sxpr_norm = normalize_input(sxpr)
-        return sxpr_norm.split(' ')
-    }
+    // /**
+    //  * @deprecated to be removed
+    //  */
+    // static just_testing_parser(sxpr) {
+    //     let sxpr_norm = normalize_input(sxpr)
+    //     return sxpr_norm.split(' ')
+    // }
 
-    /**
-     * @deprecated to be removed
-     */
-    static just_testing_parser2(sxpr) {
-        let sxpr_norm = normalize_input(sxpr)
-        parse(sxpr_norm)
-        return sxpr_norm.split(' ')
-    }
+    // /**
+    //  * @deprecated to be removed
+    //  */
+    // static just_testing_parser2(sxpr) {
+    //     let sxpr_norm = normalize_input(sxpr)
+    //     parse(sxpr_norm)
+    //     return sxpr_norm.split(' ')
+    // }
 
-    /**
-     * @deprecated to be removed
-     */
-    static just_testing_parser3(sxpr) {
-        // console.log('just_testing_parser3', sxpr)
-        let sxpr_norm = normalize_input(sxpr)
-        let sxpr_tokens = tokenize_input(sxpr_norm)
-        // console.log('sxpr_tokens', sxpr_tokens)
-        let parsed = parse_recursive_ltr(sxpr_tokens)
-        // console.log('parsed', parsed)
-        return parsed
-    }
+    // /**
+    //  * @deprecated to be removed
+    //  */
+    // static just_testing_parser3(sxpr) {
+    //     // console.log('just_testing_parser3', sxpr)
+    //     let sxpr_norm = normalize_input(sxpr)
+    //     let sxpr_tokens = tokenize_input(sxpr_norm)
+    //     // console.log('sxpr_tokens', sxpr_tokens)
+    //     let parsed = parse_recursive_ltr(sxpr_tokens)
+    //     // console.log('parsed', parsed)
+    //     return parsed
+    // }
 }
 
 export { HDPbLisp }

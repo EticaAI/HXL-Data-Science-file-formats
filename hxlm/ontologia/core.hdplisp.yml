@@ -2,7 +2,6 @@
 
 # CONS, CAR, CDR, QUOTE, ATOM, EQ, LAMBDA, COND, (mais READ e PRINT)
 
-
 b:
   ATOM:
   CAR:
@@ -14,3 +13,25 @@ b:
   PRINT:
   QUOTE:
   READ:
+  "+":
+  "-":
+###
+# https://en.wikipedia.org/wiki/ISO_15924
+
+# Codes
+#   Latn Latin left-to-righ Latin 1.0 1,374
+#        See also: Latin script in Unicode
+#        https://en.wikipedia.org/wiki/Latin_script_in_Unicode
+#
+
+# Special codes
+# Zmth 995: Mathematical notation
+# Zsye 993: Emoji
+
+### Zmth
+# https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols#Latin_letters
+# https://en.wikipedia.org/wiki/Mathematical_operators_and_symbols_in_Unicode
+
+### Zsye 993: Emoji
+# Zsye 993: Emoji
+# https://en.wikipedia.org/wiki/Emoji

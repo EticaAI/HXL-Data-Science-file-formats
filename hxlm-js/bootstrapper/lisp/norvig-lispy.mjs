@@ -49,15 +49,22 @@ const ConsuetudinemLibrarium = Object({
 
 
 function atom(token) {
-    // _HDP_DEBUG && console.log('atom', token)
-    if (Number.isNaN(token) || (token === '+') || (token === '-')) {
-        // return String.toString(token)
-        _HDP_DEBUG && console.log('atom => not numeric, symbol', token)
-        return token
-    } else {
-        _HDP_DEBUG && console.log('atom => numeric', token)
+    _HDP_DEBUG && console.log('atomzzz', token, Number.isNaN(token))
+
+    if (!isNaN(token)) {
         return Number(token)
+    } else {
+        return token
     }
+
+    // if (Number.isNaN(token) || (token === '+') || (token === '-')) {
+    //     // return String.toString(token)
+    //     _HDP_DEBUG && console.log('atom => not numeric, symbol', token)
+    //     return token
+    // } else {
+    //     _HDP_DEBUG && console.log('atom => numeric', token)
+    //     return Number(token)
+    // }
 }
 
 /**
@@ -102,9 +109,10 @@ function evaluate(ast_sxpr, env, builtin) {
 
         // The typical drill
 
-        let resultatum = ast_sxpr.map(function(item) {
+        let resultatum = ast_sxpr.map(function (item) {
             return evaluate(item, env_)
         })
+        _HDP_DEBUG && console.log('resultatum', typeof resultatum, resultatum, ast_sxpr)
 
         let actum = resultatum.shift()
         _HDP_DEBUG && console.log('actum', typeof actum, actum)
