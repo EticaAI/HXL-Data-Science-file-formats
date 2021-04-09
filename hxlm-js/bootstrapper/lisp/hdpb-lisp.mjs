@@ -33,8 +33,8 @@ const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || false
 const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 // const isNode = !isBrowser
 
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+// import { createRequire } from 'module';
+// const require = createRequire(import.meta.url);
 
 // if (!isBrowser) {
 //     import { createRequire } from 'module';
