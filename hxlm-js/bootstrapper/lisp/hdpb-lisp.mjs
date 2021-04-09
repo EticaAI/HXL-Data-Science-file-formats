@@ -155,6 +155,7 @@ class HDPbLisp {
 /**
  * @example
  *   const LispVM1 = new HDLbLispMachinamSimulatum()
+ *   LispVM1.evaluate('(+ 1 2 )')
  */
 class HDLbLispMachinamSimulatum {
 
@@ -172,7 +173,13 @@ class HDLbLispMachinamSimulatum {
 
 
         if (typeof optionem !== 'undefined' && optionem.librarium) {
-            this.librarium = optionem.librarium
+
+            // TODO: while we do not document that this is a safe method to
+            //       do deep copy without changing the upper level, we should
+            //       at least when initializing a new VM, do a copy of entire
+            //       first level
+            this.librarium = Object.assign({}, optionem.librarium)
+            // this.librarium = optionem.librarium
         } else {
             this.librarium = this.corLibrarium()
         }
@@ -186,12 +193,17 @@ class HDLbLispMachinamSimulatum {
         return HDPbLispCorLibrarium
     }
 
-    // evaluate(sxpr) {
-    //     const Object({
+    evaluate(sxpr) {
+        // const Object({
 
-    //     })
-    //     HDPbLisp.evaluate(sxpr)
-    // }
+        // })
+        HDPbLisp.evaluate(sxpr)
+        const ast_sxpr = HDPbLisp.ast(sxpr)
+        // import { evaluate } from './norvig-lispy.mjs'
+        const resultatum = evaluate(ast_sxpr, this.librarium, this.constructum)
+
+        return resultatum
+    }
 }
 
 export { HDPbLisp, HDLbLispMachinamSimulatum }

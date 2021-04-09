@@ -87,6 +87,10 @@ function evaluate(ast_sxpr, env, constructum) {
         return ast_sxpr
     }
 
+    if (typeof ast_sxpr === 'string') {
+        return env_[ast_sxpr]
+    }
+
     // TODO: this may be a pointer, not a raw string. Fix it
     // if (typeof ast_sxpr === 'string') {
     //     return ast_sxpr
@@ -98,7 +102,24 @@ function evaluate(ast_sxpr, env, constructum) {
         // })
 
         if (ast_sxpr[0] === constructum_['LISP->define']) {
-            throw new EvalError(constructum_['LISP->define'] + ' not implemented... yet');
+
+            console.log('define ast_sxpr', ast_sxpr, ast_sxpr[2])
+
+            // const resultatum = evaluate(ast_sxpr[2], env_)
+            const resultatum = ast_sxpr[2]
+            env_[ast_sxpr[1]] = resultatum
+
+            // _HDP_DEBUG && console.log('define ' , ast_sxpr[1] , resultatum)
+            console.log('DEBUG: define ' , ast_sxpr[1] , ast_sxpr[2], resultatum)
+
+            // For now alwats when defining we will show the messages
+            console.log(constructum_['LISP->define'] + ' ' + ast_sxpr[1] , resultatum)
+            return resultatum
+            // elif x[0] == 'define':           # definition
+            //     (_, symbol, exp) = x
+            //     env[symbol] = eval(exp, env)
+
+            // throw new EvalError(constructum_['LISP->define'] + ' not implemented... yet');
         }
         if (ast_sxpr[0] === constructum_['LISP->if']) {
             throw new EvalError(constructum_['LISP->if'] + ' not implemented... yet');
@@ -121,12 +142,12 @@ function evaluate(ast_sxpr, env, constructum) {
         return evaluated
     }
 
-    if (typeof ast_sxpr === 'string') {
-        _HDP_DEBUG && console.log('evaluate ast_sxpr === string', ast_sxpr, env_[ast_sxpr], env_)
-        return env_[ast_sxpr]
-    } else {
-        _HDP_DEBUG && console.log('nop')
-    }
+    // if (typeof ast_sxpr === 'string') {
+    //     _HDP_DEBUG && console.log('evaluate ast_sxpr === string', ast_sxpr, env_[ast_sxpr], env_)
+    //     return env_[ast_sxpr]
+    // } else {
+    //     _HDP_DEBUG && console.log('nop')
+    // }
 
 
     // "Evaluate an expression in an environment."

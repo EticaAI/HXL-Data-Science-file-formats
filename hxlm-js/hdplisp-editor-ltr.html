@@ -27,11 +27,20 @@
 
         // Bootstraping HDPLisp ________________________________________________
         // import { HDPbMiniman, HDPbL10n, HDPbLisp } from './bootstrapper/hdpb-minimam.mjs'
+        import { HDPbL10n } from './bootstrapper/hdpb-minimam.mjs'
         import { HDLbLispMachinamSimulatum } from './bootstrapper/lisp/hdpb-lisp.mjs'
+
+        const ego = HDPbL10n.quis_sum()
+        const LispVM1 = new HDLbLispMachinamSimulatum()
+
+        let defn_ego = '(define ego ' + ego.meaLinguam + ')'
+
+        LispVM1.evaluate(defn_ego)
+        console.log('LispVM1.librarium', defn_ego, LispVM1.librarium)
 
         // Debug, expose term on browser
         window.HDLbLispMachinamSimulatum = HDLbLispMachinamSimulatum
-
+        window.LispVM1 = LispVM1
 
         // Terminal ____________________________________________________________
         const term = new Terminal()
