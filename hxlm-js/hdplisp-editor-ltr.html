@@ -25,6 +25,15 @@
         // import { FitAddon } from FitAddon
         // import { Terminal } from 'xterm';
 
+        // Bootstraping HDPLisp ________________________________________________
+        // import { HDPbMiniman, HDPbL10n, HDPbLisp } from './bootstrapper/hdpb-minimam.mjs'
+        import { HDLbLispMachinamSimulatum } from './bootstrapper/lisp/hdpb-lisp.mjs'
+
+        // Debug, expose term on browser
+        window.HDLbLispMachinamSimulatum = HDLbLispMachinamSimulatum
+
+
+        // Terminal ____________________________________________________________
         const term = new Terminal()
 
         term.setOption('theme', {

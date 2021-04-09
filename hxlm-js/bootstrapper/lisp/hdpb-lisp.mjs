@@ -23,6 +23,14 @@
 import { parse_recursive_ltr, evaluate } from './norvig-lispy.mjs'
 import { tokenize_input, normalize_input } from './util.mjs'
 
+import { HDPbLispCorLibrarium } from './cor-librarium.mjs'
+// const CorLibrarium = HDPbLispCorLibrarium
+
+// // Trivia: cōnsuētūdinem, https://en.wiktionary.org/wiki/consuetudo#Latin
+// const ConsuetudinemLibrarium = Object({
+
+// })
+
 const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || false
 // const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || true
 
@@ -122,41 +130,11 @@ class HDPbLisp {
         return this.ast_ltr(sxpr, optionem)
     }
 
-    static evaluate(sxpr, optionem){
+    static evaluate(sxpr, optionem) {
         let parsed = this.ast(sxpr, optionem)
         let resultatum = evaluate(parsed)
         return resultatum
     }
-
-    // /**
-    //  * @deprecated to be removed
-    //  */
-    // static just_testing_parser(sxpr) {
-    //     let sxpr_norm = normalize_input(sxpr)
-    //     return sxpr_norm.split(' ')
-    // }
-
-    // /**
-    //  * @deprecated to be removed
-    //  */
-    // static just_testing_parser2(sxpr) {
-    //     let sxpr_norm = normalize_input(sxpr)
-    //     parse(sxpr_norm)
-    //     return sxpr_norm.split(' ')
-    // }
-
-    // /**
-    //  * @deprecated to be removed
-    //  */
-    // static just_testing_parser3(sxpr) {
-    //     // console.log('just_testing_parser3', sxpr)
-    //     let sxpr_norm = normalize_input(sxpr)
-    //     let sxpr_tokens = tokenize_input(sxpr_norm)
-    //     // console.log('sxpr_tokens', sxpr_tokens)
-    //     let parsed = parse_recursive_ltr(sxpr_tokens)
-    //     // console.log('parsed', parsed)
-    //     return parsed
-    // }
 
     /**
      * https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop
@@ -173,4 +151,47 @@ class HDPbLisp {
     }
 }
 
-export { HDPbLisp }
+
+/**
+ * @example
+ *   const LispVM1 = new HDLbLispMachinamSimulatum()
+ */
+class HDLbLispMachinamSimulatum {
+
+    // Trivia: librārium, https://en.wiktionary.org/wiki/librarium#Latin
+    librarium = null
+
+    // Trivia: cōnstrūctum, https://en.wiktionary.org/wiki/constructus#Latin
+    constructum = Object({
+        'LISP->define': 'define',
+        'LISP->if': 'if',
+        'LISP->quote': 'quote'
+    });
+
+    constructor(optionem) {
+
+
+        if (typeof optionem !== 'undefined' && optionem.librarium) {
+            this.librarium = optionem.librarium
+        } else {
+            this.librarium = this.corLibrarium()
+        }
+        // // Trivia: cōnsuētūdinem, https://en.wiktionary.org/wiki/consuetudo#Latin
+        // const ConsuetudinemLibrarium = Object({
+
+        // })
+    }
+
+    corLibrarium() {
+        return HDPbLispCorLibrarium
+    }
+
+    // evaluate(sxpr) {
+    //     const Object({
+
+    //     })
+    //     HDPbLisp.evaluate(sxpr)
+    // }
+}
+
+export { HDPbLisp, HDLbLispMachinamSimulatum }

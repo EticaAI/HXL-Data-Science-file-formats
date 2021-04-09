@@ -49,7 +49,7 @@ const ConsuetudinemLibrarium = Object({
 
 
 function atom(token) {
-    _HDP_DEBUG && console.log('atomzzz', token, Number.isNaN(token))
+    // _HDP_DEBUG && console.log('atomzzz', token, Number.isNaN(token))
 
     if (!isNaN(token)) {
         return Number(token)
@@ -70,18 +70,18 @@ function atom(token) {
 /**
  * http://norvig.com/lispy.html
  */
-function evaluate(ast_sxpr, env, builtin) {
-    _HDP_DEBUG && console.log('evaluate args', typeof ast_sxpr, ast_sxpr, builtin)
+function evaluate(ast_sxpr, env, constructum) {
+    _HDP_DEBUG && console.log('evaluate args', typeof ast_sxpr, ast_sxpr, constructum)
 
     let env_ = env || { ...CorLibrarium, ...ConsuetudinemLibrarium };
     _HDP_DEBUG && console.log('evaluate env_', env_)
 
-    let builtin_ = builtin || Object({
-        'define': 'define',
-        'if': 'if',
-        'quote': 'quote'
+    let constructum_ = constructum || Object({
+        'LISP->define': 'define',
+        'LISP->if': 'if',
+        'LISP->quote': 'quote'
     });
-    _HDP_DEBUG && console.log('evaluate builtin_', builtin_)
+    _HDP_DEBUG && console.log('evaluate builtin_', constructum_)
 
     if (typeof ast_sxpr === 'number') {
         return ast_sxpr
@@ -97,14 +97,14 @@ function evaluate(ast_sxpr, env, builtin) {
         //     return evaluate(item, )
         // })
 
-        if (ast_sxpr[0] === builtin_['define']) {
-            throw new EvalError(builtin_['define'] + ' not implemented... yet');
+        if (ast_sxpr[0] === constructum_['LISP->define']) {
+            throw new EvalError(constructum_['LISP->define'] + ' not implemented... yet');
         }
-        if (ast_sxpr[0] === builtin_['if']) {
-            throw new EvalError(builtin_['if'] + ' not implemented... yet');
+        if (ast_sxpr[0] === constructum_['LISP->if']) {
+            throw new EvalError(constructum_['LISP->if'] + ' not implemented... yet');
         }
-        if (ast_sxpr[0] === builtin_['quote']) {
-            throw new EvalError(builtin_['quote'] + ' not implemented... yet');
+        if (ast_sxpr[0] === constructum_['LISP->quote']) {
+            throw new EvalError(constructum_['LISP->quote'] + ' not implemented... yet');
         }
 
         // The typical drill
