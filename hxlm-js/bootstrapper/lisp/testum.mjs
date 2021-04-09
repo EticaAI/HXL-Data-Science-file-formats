@@ -71,6 +71,8 @@ console.log('_____', '(non-identicum? ' + example1 + ' ' + example2 + ')')
 console.log(HDPbLisp.evaluate('(non-identicum? ' + example1 + ' ' + example2 + ')'))
 console.log('')
 
+console.log('')
+HDPbLisp.REPL()
 // console.log(HDPbLisp.ast(example1_lat))
 // console.log('example_str2', example_str2)
 // console.log(HDPbLisp.just_testing_parser3(example_str2))

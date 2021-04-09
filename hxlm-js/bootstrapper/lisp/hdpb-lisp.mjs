@@ -26,9 +26,23 @@ import { tokenize_input, normalize_input } from './util.mjs'
 const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || false
 // const _HDP_DEBUG = typeof (HDP_DEBUG) !== 'undefined' && HDP_DEBUG || true
 
-/**
- * Placeholder
- */
+
+// https://stackoverflow.com/questions/34550890/how-to-detect-if-script-is-running-in-browser-or-in-node-js/48536927
+// https://github.com/flexdinesh/browser-or-node
+// https://github.com/jsdom/jsdom
+const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined';
+// const isNode = !isBrowser
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+// if (!isBrowser) {
+//     import { createRequire } from 'module';
+//     const require = createRequire(import.meta.url);
+//     const NodeREPL = require('repl');
+// }
+
+
 class HDPbLisp {
     version = "0.8.5"
 
@@ -143,6 +157,20 @@ class HDPbLisp {
     //     // console.log('parsed', parsed)
     //     return parsed
     // }
+
+    /**
+     * https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop
+     * https://davidwells.io/snippets/forcing-async-functions-to-sync-in-node
+     */
+    static REPL() {
+        if (!isBrowser) {
+            // https://nodejs.org/api/repl.html
+            // Unsafe, and also break when looking via brower
+            // @see https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/18#issuecomment-816866000
+            const msg = 'message';
+            require('repl').start('HDPLisp> ')
+        }
+    }
 }
 
 export { HDPbLisp }
