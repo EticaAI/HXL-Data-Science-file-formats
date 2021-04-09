@@ -316,6 +316,21 @@ class HDPbMiniman {
         // }
         // return resultatum
     }
+
+    /**
+     * (draft) HDPLisp virtual machine
+     *
+     * Trivia:
+     * - 'māchinam':
+     *   - https://en.wiktionary.org/wiki/machina#Latin
+     * - 'simulātum':
+     *   - https://en.wiktionary.org/wiki/simulatus#Latin
+     */
+    async machinam_simulatum() {
+        // Error message from LISP-1.5-Programmers-Manual.pdf
+        // TODO: we need to define error messages
+        throw new Error('FUNCTION OBJECT HAS NO DEFINITION- APPLY');
+    }
 }
 // let hdp = new HDPbMiniman()
 
