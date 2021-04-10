@@ -53,7 +53,7 @@ const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'u
 
 
 class HDPbLisp {
-    version = "0.8.5"
+    version = "0.8.6"
 
 
     /**

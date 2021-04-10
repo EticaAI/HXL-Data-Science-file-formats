@@ -31,7 +31,7 @@ import { HDPbL10n } from './hdpb-l10n.mjs'
 import { HDPbLisp } from './lisp/hdpb-lisp.mjs'
 
 class HDPbMiniman {
-    version = "0.8.5"
+    version = "0.8.6"
     _DEBUG = false
 
     /**

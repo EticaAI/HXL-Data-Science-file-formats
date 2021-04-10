@@ -1,0 +1,1 @@
+// Maybe for short term, we do this? https://github.com/dj51d/setuptools-node

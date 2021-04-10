@@ -5,3 +5,7 @@
 // Ada:
 //   Strong data type
 //    - https://learn.adacore.com/courses/intro-to-ada/chapters/strongly_typed_language.html
+
+// 	contractum
+//  - https://wiki.c2.com/?StronglyTyped
+//  - https://en.wiktionary.org/wiki/contractus#Latin
