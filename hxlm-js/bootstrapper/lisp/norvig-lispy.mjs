@@ -79,7 +79,7 @@ function evaluate(ast_sxpr, env, constructum) {
     let constructum_ = constructum || Object({
         'LISP->define': 'define',
         'LISP->if': 'if',
-        'LISP->quote': 'quote'
+        'LISP->quote': 'QUOTE'
     });
     _HDP_DEBUG && console.log('evaluate builtin_', constructum_)
 
@@ -88,6 +88,11 @@ function evaluate(ast_sxpr, env, constructum) {
     }
 
     if (typeof ast_sxpr === 'string') {
+        if (typeof env['symbolum'] !== 'undefined') {
+            if (typeof env_[ast_sxpr][ast_sxpr] !== 'undefined') {
+                return env_[ast_sxpr][ast_sxpr]
+            }
+        }
         return env_[ast_sxpr]
     }
 
@@ -125,7 +130,8 @@ function evaluate(ast_sxpr, env, constructum) {
             throw new EvalError(constructum_['LISP->if'] + ' not implemented... yet');
         }
         if (ast_sxpr[0] === constructum_['LISP->quote']) {
-            throw new EvalError(constructum_['LISP->quote'] + ' not implemented... yet');
+            return ast_sxpr[1]
+            // throw new EvalError(constructum_['LISP->quote'] + ' not implemented... yet');
         }
 
         // The typical drill

@@ -33,9 +33,11 @@
         const ego = HDPbL10n.quis_sum()
         const LispVM1 = new HDLbLispMachinamSimulatum()
 
-        let defn_ego = '(define ego ' + ego.meaLinguam + ')'
+        let defn_ego = '(define ego QUOTE(' + ego.meaLinguam + '))'
+        let defn_ego2 = '(define ego2 \'(' + ego.meaLinguam + '))'
 
         LispVM1.evaluate(defn_ego)
+        LispVM1.evaluate(defn_ego2)
         console.log('LispVM1.librarium', defn_ego, LispVM1.librarium)
 
         // Debug, expose term on browser

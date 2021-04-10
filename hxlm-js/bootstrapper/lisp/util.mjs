@@ -19,7 +19,11 @@ function tokenize_input(sxpr) {
     // TODO: deal with strings in spaces
     sxpr = sxpr.replace(/\[/g, '(').replace(/\{/g, '('); // {} are aliases to ()
     sxpr = sxpr.replace(/\]/g, ')').replace(/\}/g, ')'); // [] are aliases to ()
+
+    // sxpr = sxpr.replace("'(", "QUOTE(")
+
     sxpr = sxpr.replace(/\(/g, ' ( ').replace(/\)/g, ' ) ')
+
     // console.log('oioioi antes, ', sxpr)
     sxpr = sxpr.split(' ')
 

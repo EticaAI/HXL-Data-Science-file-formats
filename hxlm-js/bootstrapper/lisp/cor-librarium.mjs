@@ -121,12 +121,18 @@ const LISPLibrarium = {
     'LISP->CAR': function () {
         // Error message from LISP-1.5-Programmers-Manual.pdf
         // TODO: we need to define error messages
-        throw new SyntaxError('FUNCTION OBJECT HAS NO DEFINITION- APPLY');
+        // throw new SyntaxError('FUNCTION OBJECT HAS NO DEFINITION- APPLY');
+
+        // TODO: needs testing
+        return arguments[0]
     },
     'LISP->CDR': function () {
         // Error message from LISP-1.5-Programmers-Manual.pdf
         // TODO: we need to define error messages
-        throw new SyntaxError('FUNCTION OBJECT HAS NO DEFINITION- APPLY');
+        // throw new SyntaxError('FUNCTION OBJECT HAS NO DEFINITION- APPLY');
+
+        // TODO: needs testing
+        return arguments[0].slice(1)
     },
     'LISP->COND': function () {
         // Error message from LISP-1.5-Programmers-Manual.pdf

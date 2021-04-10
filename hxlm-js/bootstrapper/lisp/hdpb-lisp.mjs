@@ -4,6 +4,7 @@
  */
 
 
+// LISP-1 or LISP-2 ? http://ergoemacs.org/emacs/lisp1_vs_lisp2.html
 // console.log('bootstrapper/lisp/hdplisp.mjs (draft)')
 
 // b:
@@ -161,6 +162,15 @@ class HDLbLispMachinamSimulatum {
 
     // Trivia: librārium, https://en.wiktionary.org/wiki/librarium#Latin
     librarium = null
+    // @example
+    // librarium = {
+    //    '+': function(a, b) {return "..."}, 
+    //    '-': function(a, b) {return "..."},
+    //    symbolum: {
+    //        'sym1': "my value",
+    //        'sym3': "my value"
+    //}
+    //
 
     // Trivia: cōnstrūctum, https://en.wiktionary.org/wiki/constructus#Latin
     constructum = Object({
@@ -178,6 +188,8 @@ class HDLbLispMachinamSimulatum {
             //       do deep copy without changing the upper level, we should
             //       at least when initializing a new VM, do a copy of entire
             //       first level
+            //
+            // TODO: do a deep copy for optionem.librarium.symbolum
             this.librarium = Object.assign({}, optionem.librarium)
             // this.librarium = optionem.librarium
         } else {
@@ -190,6 +202,11 @@ class HDLbLispMachinamSimulatum {
     }
 
     corLibrarium() {
+
+        let resultum = HDPbLispCorLibrarium
+        resultum['symbolum'] = Object()
+        // https://en.wiktionary.org/wiki/symbolum#Latin
+
         return HDPbLispCorLibrarium
     }
 
