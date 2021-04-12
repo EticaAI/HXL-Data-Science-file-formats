@@ -12,6 +12,11 @@
 - [Implementation reference](#implementation-reference)
     - [Proofs of Concept](#proofs-of-concept)
     - [prototype](#prototype)
+- [IDEs support](#ides-support)
+        - [HDPLisp with .rkt extension on DrRacket](#hdplisp-with-rkt-extension-on-drracket)
+        - [HDPLisp with .rkt extension on VSCode](#hdplisp-with-rkt-extension-on-vscode)
+        - [magic-racket](#magic-racket)
+            - [Workarounds](#workarounds)
 
 <!-- /TOC -->
 
@@ -140,3 +145,26 @@ enviroment like Lisp/Scheme/Racket/Clojure._
 
 ## prototype
 - [prototype/](prototype/)
+
+# IDEs support
+
+### HDPLisp with .rkt extension on DrRacket
+It works.
+
+### HDPLisp with .rkt extension on VSCode
+
+### magic-racket
+
+- <https://github.com/Eugleo/magic-racket/>
+- <https://marketplace.visualstudio.com/items?itemName=evzen-wybitul.magic-racket>
+
+#### Workarounds
+> Note to self: Follow this topic <https://github.com/Eugleo/magic-racket/issues/13>
+  Since we're using S-expressions, it should be possible
+  (Emerson Rocha, 2021-04-12 23:40 UTC)
+
+The Eugleo/magic-racket works for Racket files using `#lang racket`, but we're
+starting to use `#lang hdpl/linguam/lat-Latn` et al.
+
+One way to temporary disable is with `"magic-racket.lsp.enabled": false` on
+VSCode configurations.

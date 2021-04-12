@@ -30,7 +30,7 @@
 
 (require "linguam/lat-Latn.rkt")
 
-(provide salve-mundi)
+; (provide salve-mundi)
 
 (module+ test
   ;; Any code in this `test` submodule runs when this file is run using DrRacket
@@ -53,3 +53,22 @@
     [("-n" "--name") name "Who to say hello to" (set-box! who name)]
     #:args ()
     (printf "hello ~a~n" (unbox who))))
+
+
+;; @see https://docs.racket-lang.org/guide/language-collection.html
+(module reader racket
+  (require syntax/strip-context)
+ 
+  (provide (rename-out [literal-read read]
+                       [literal-read-syntax read-syntax]))
+ 
+  (define (literal-read in)
+    (syntax->datum
+     (literal-read-syntax #f in)))
+ 
+  (define (literal-read-syntax src in)
+    (with-syntax ([str (port->string in)])
+      (strip-context
+       #'(module anything racket
+           (provide data)
+           (define data 'str))))))
