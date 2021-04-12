@@ -1,3 +1,3 @@
-hdp-toolchain
+hdpl
 =============
 README text here.

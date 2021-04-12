@@ -1,4 +1,4 @@
-# hdpl-conventions/prototype/hdp-toolchain/commune
+# hdpl-conventions/prototype/hdpl/commune
 
 This package contains features common to usage. In practice this means mostly
 mathematical operations and/or ways to, based on an already working language,

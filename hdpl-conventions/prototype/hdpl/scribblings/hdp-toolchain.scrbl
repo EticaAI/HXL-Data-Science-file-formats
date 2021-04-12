@@ -1,10 +1,10 @@
 #lang scribble/manual
-@require[@for-label[hdp-toolchain
+@require[@for-label[hdpl
                     racket/base]]
 
-@title{hdp-toolchain}
+@title{hdpl}
 @author{fititnt}
 
-@defmodule[hdp-toolchain]
+@defmodule[hdpl]
 
 Package Description Here

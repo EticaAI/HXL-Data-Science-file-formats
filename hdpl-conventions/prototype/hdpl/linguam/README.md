@@ -1,4 +1,4 @@
-# hdpl-conventions/prototype/hdp-toolchain/linguam
+# hdpl-conventions/prototype/hdpl/linguam
 
 
 ## ISOs

@@ -1,6 +1,5 @@
 #lang racket
 
-(require hdp-toolchain)
+(require hdpl)
 
-
-(print salve-mundi)
+; ‏(define salve-mundi3 (list-ref '("مرحبا!" "مهلا!") (random 2)))

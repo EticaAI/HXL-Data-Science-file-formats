@@ -1,4 +1,7 @@
 #lang racket/base
+;; Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
+;; License: Public Domain / BSD Zero Clause License
+;; SPDX-License-Identifier: Unlicense OR 0BSD
 
 (module+ test
   (require rackunit))
@@ -27,7 +30,7 @@
 
 (require "linguam/lat-Latn.rkt")
 
-(provide hello-world)
+(provide salve-mundi)
 
 (module+ test
   ;; Any code in this `test` submodule runs when this file is run using DrRacket

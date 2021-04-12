@@ -16,9 +16,9 @@ jobs:
           distribution: full
           variant: ${{ matrix.racket-variant }}
           version: ${{ matrix.racket-version }}
-      - name: Installing hdp-toolchain and its dependencies
-        run: raco pkg install --no-docs --auto --name hdp-toolchain
-      - name: Compiling hdp-toolchain and building its docs
-        run: raco setup --check-pkg-deps --unused-pkg-deps hdp-toolchain
-      - name: Testing hdp-toolchain
-        run: raco test -x -p hdp-toolchain
+      - name: Installing hdpl and its dependencies
+        run: raco pkg install --no-docs --auto --name hdpl
+      - name: Compiling hdpl and building its docs
+        run: raco setup --check-pkg-deps --unused-pkg-deps hdpl
+      - name: Testing hdpl
+        run: raco test -x -p hdpl
