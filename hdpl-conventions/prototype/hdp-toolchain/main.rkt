@@ -25,7 +25,9 @@
 
 ;; Code here
 
+(require "linguam/lat-Latn.rkt")
 
+(provide hello-world)
 
 (module+ test
   ;; Any code in this `test` submodule runs when this file is run using DrRacket
