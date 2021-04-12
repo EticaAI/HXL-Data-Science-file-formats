@@ -3,4 +3,4 @@
 (require hdp-toolchain)
 
 
-(print salve-mundi)
+(print hello-world)

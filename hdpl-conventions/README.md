@@ -1,5 +1,23 @@
 # HDPLisp conventions (early draft)
 
+---
+<!-- TOC -->
+
+- [HDPLisp conventions (early draft)](#hdplisp-conventions-early-draft)
+    - [High level goals](#high-level-goals)
+        - [Internationalization and localization as core feature](#internationalization-and-localization-as-core-feature)
+        - [Internationalized auditability core feature](#internationalized-auditability-core-feature)
+        - [Cultural neutrality as core feature](#cultural-neutrality-as-core-feature)
+        - [(draft) Implementation decisions](#draft-implementation-decisions)
+- [Implementation reference](#implementation-reference)
+    - [Proofs of Concept](#proofs-of-concept)
+    - [prototype](#prototype)
+
+<!-- /TOC -->
+
+---
+
+
 Compared to other Lisps, the HDPLisp is more likely to be an interpreted Lisp
 that is focused and able to be converted from natural languages and then
 be executed either on platforms that process HPD files. This is why the
@@ -112,3 +130,13 @@ enviroment like Lisp/Scheme/Racket/Clojure._
 
 > To document, cite and/or remove this draft:
 > - https://clojure.org/reference/lisps
+
+
+# Implementation reference
+
+## Proofs of Concept
+
+- [proof-of-concept/](proof-of-concept/)
+
+## prototype
+- [prototype/](prototype/)

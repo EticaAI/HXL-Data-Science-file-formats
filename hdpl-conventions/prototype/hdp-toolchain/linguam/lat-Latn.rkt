@@ -1,8 +1,12 @@
 #lang racket
 
-(provide hello-world)
+(provide salve-mundi)
 
+;; - lat
+;;   - https://iso639-3.sil.org/code/lat
+;;   - https://en.wikipedia.org/wiki/ISO_639-3
+;; - Latn
+;;   - https://en.wikipedia.org/wiki/ISO_15924
+;;   - https://en.wikipedia.org/wiki/Latin_alphabet
 
-;; @see https://omniglot.com/language/phrases/latin.php
-; (define salutation (list-ref '("Hi" "Hello") (random 2)))
-(define hello-world (list-ref '("Heus!" "Salve!" "Ave!") (random 3)))
+(define salve-mundi (list-ref '("Heus!" "Salve!" "Ave!") (random 3)))
