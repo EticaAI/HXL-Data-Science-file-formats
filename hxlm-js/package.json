@@ -1,6 +1,6 @@
 {
   "name": "hdp-toolchain",
-  "version": "0.8.6",
+  "version": "0.9.0",
   "description": "HDP Declarative Programming (working draft), JavaScript port",
   "main": "index.js",
   "repository": "https://github.com/EticaAI/HXL-Data-Science-file-formats",
