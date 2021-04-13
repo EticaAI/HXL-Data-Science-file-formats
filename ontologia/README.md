@@ -1,4 +1,8 @@
-# The heart of the HXLm ontologies
+# The heart of the HXLm, HDP and HDPLisp ontologies
+
+> **Protip: if you cannot make local cache from the
+  [GitHub repository](https://github.com/EticaAI/HXL-Data-Science-file-formats)
+  the <https://hdp.etica.ai/ontologia/> is an public end point.**
 
 When feasible, even if it make harder to do initial implementation or be
 _a bit less efficient_ than use dedicated _"advanced"_ strategies with
@@ -14,16 +18,28 @@ corrections.
 
 <!-- TOC depthFrom:2 -->
 
-- [Knowledge Graph](#knowledge-graph)
+- [Knowledge Graph and JSON Schemas](#knowledge-graph-and-json-schemas)
     - [Localization Knowledge Graph](#localization-knowledge-graph)
         - [core.lkg.yml](#corelkgyml)
         - [json/core.lkg.json](#jsoncorelkgjson)
     - [Vocabulary Knowledge Graph](#vocabulary-knowledge-graph)
         - [core.vkg.yml](#corevkgyml)
         - [json/core.vkg.json](#jsoncorevkgjson)
-- [JSON Schema](#json-schema)
-    - [Latin](#latin)
-    - [Other natural languages](#other-natural-languages)
+    - [JSON Schema](#json-schema)
+        - [Latin](#latin)
+        - [Other natural languages](#other-natural-languages)
+- [Exchange Codes and terms](#exchange-codes-and-terms)
+    - [Prebuild tables](#prebuild-tables)
+        - [Language codes](#language-codes)
+        - [Writting system codes](#writting-system-codes)
+        - [Location codes](#location-codes)
+            - [Location codes at adm0](#location-codes-at-adm0)
+            - [Location at adm1, adm2, adm3, adm4, adm5](#location-at-adm1-adm2-adm3-adm4-adm5)
+    - [ISO tables](#iso-tables)
+        - [ISO 639-3](#iso-639-3)
+        - [ISO 3166](#iso-3166)
+            - [ISO 3166 country/territory codes](#iso-3166-countryterritory-codes)
+        - [ISO 15924](#iso-15924)
 - [Platform dependent ontologies](#platform-dependent-ontologies)
     - [Python Data classes](#python-data-classes)
     - [Other programming languages](#other-programming-languages)
@@ -33,7 +49,7 @@ corrections.
 
 ---
 
-## Knowledge Graph
+## Knowledge Graph and JSON Schemas
 
 > [Knowledge graph on Wikipedia](https://en.wikipedia.org/wiki/Knowledge_graph)
 
@@ -67,7 +83,7 @@ yq < ontologia/core.vkg.yml > ontologia/json/core.vkg.json
 yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 ```
 
-## JSON Schema
+### JSON Schema
 
 > - [JSON Schema Specification](https://json-schema.org/specification.html)
 > - Using JSON Schemas to validate/help create HDP files
@@ -75,13 +91,89 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 >    - _Note: other code editors are likely to have equivalent alternatives_
 
 
-### Latin
+#### Latin
 
 - [hdp.json-schema.json](hdp.json-schema.json)
 
-### Other natural languages
+#### Other natural languages
 
 > TODO: explain more about it  (Emerson Rocha, 2021-03 09:46 UTC)
+
+## Exchange Codes and terms
+
+### Prebuild tables
+
+#### Language codes
+
+- [codicem/codicem.linguam.hxl.csv](codicem/codicem.linguam.hxl.csv)
+
+#### Writting system codes
+
+- [codicem/codicem.scriptum.hxl.csv](codicem/codicem.scriptum.hxl.csv)
+
+#### Location codes
+
+##### Location codes at adm0
+
+- [codicem/codicem.locum.hxl.csv](codicem/codicem.locum.hxl.csv)
+
+##### Location at adm1, adm2, adm3, adm4, adm5
+
+> TODO: we should both explain how to obtain these without use HDPLisp (Emerson Rocha, 2021-04-13 22:28 UTC)
+
+### ISO tables
+
+#### ISO 639-3
+- Cached local file: [iso/iso.639-3.hxl.csv](iso/iso.639-3.hxl.csv)
+- Official/Recommended source from ISO organization:
+  - Search site: <https://iso639-3.sil.org/>
+  - Download tables: <https://iso639-3.sil.org/code_tables/download_tables>
+
+#### ISO 3166
+
+> TODO: work around how to get at least some subdivisions (Emerson Rocha, 2021-04-13 23:55 UTC)
+
+##### ISO 3166 country/territory codes
+
+- Cached local file: [iso/iso.3166.hxl.csv](iso/iso.3166.hxl.csv)
+- Official/Recommended source from ISO organization:
+  - `¯\_(ツ)_/¯`
+- Alternatives to official/recommended source:
+  - Wikipedia: https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+  - UN OCHA: https://vocabulary.unocha.org/
+
+<!--
+- https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+-->
+
+#### ISO 15924
+- Cached local file: [iso/iso.15924.hxl.csv](iso/iso.15924.hxl.csv)
+- Live Updated version from HXL-Proxy
+  - [Preview](https://proxy.hxlstandard.org/data?dest=data_edit&filter01=select&filter-label01=%23vocab%2Bcode%2Bv_iso15924%2Bnumber+not+empty&select-query01-01=%23vocab%2Bcode%2Bv_iso15924%2Bnumber%3E0&strip-headers=on&tagger-match-all=on&tagger-01-header=%23+code&tagger-01-tag=%23vocab%2Bcode%2Bv_iso15924%2Btext&tagger-02-header=ndeg&tagger-02-tag=%23vocab%2Bcode%2Bv_iso15924%2Bnumber&tagger-03-header=english+name&tagger-03-tag=%23vocab%2Bname%2Bi_eng&tagger-04-header=nom+francais&tagger-04-tag=%23vocab%2Bname%2Bi_fra&tagger-05-header=pva&tagger-05-tag=%23meta%2Bproperty_value_aliases&tagger-06-header=unicode+version&tagger-06-tag=%23meta%2Bunicode_version&tagger-07-header=date&tagger-07-tag=%23date&header-row=5&url=https%3A%2F%2Funicode.org%2Fiso15924%2Fiso15924.txt)
+  - [CSV download](https://proxy.hxlstandard.org/data.csv?dest=data_edit&filter01=select&filter-label01=%23vocab%2Bcode%2Bv_iso15924%2Bnumber+not+empty&select-query01-01=%23vocab%2Bcode%2Bv_iso15924%2Bnumber%3E0&strip-headers=on&tagger-match-all=on&tagger-01-header=%23+code&tagger-01-tag=%23vocab%2Bcode%2Bv_iso15924%2Btext&tagger-02-header=ndeg&tagger-02-tag=%23vocab%2Bcode%2Bv_iso15924%2Bnumber&tagger-03-header=english+name&tagger-03-tag=%23vocab%2Bname%2Bi_eng&tagger-04-header=nom+francais&tagger-04-tag=%23vocab%2Bname%2Bi_fra&tagger-05-header=pva&tagger-05-tag=%23meta%2Bproperty_value_aliases&tagger-06-header=unicode+version&tagger-06-tag=%23meta%2Bunicode_version&tagger-07-header=date&tagger-07-tag=%23date&header-row=5&url=https%3A%2F%2Funicode.org%2Fiso15924%2Fiso15924.txt)
+- Official/Recommended source from ISO organization:
+  - Home page: https://unicode.org/iso15924/
+  - Search online: https://unicode.org/iso15924/iso15924-codes.html
+  - Changes: https://unicode.org/iso15924/codechanges.html
+  - ttps://unicode.org/iso15924/iso15924.txt
+  - http://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt
+- Alternatives to official/recommended source:
+  - Wikipedia: https://en.wikipedia.org/wiki/ISO_15924
+
+<!--
+#ISO 15924
+#vocab+code+v_iso15924+text
+#vocab+code+v_iso15924+number
+#vocab+name+i_eng
+#vocab+name+i_fra
+#meta+property_value_aliases
+#meta+unicode_version
+#date
+
+#vocab+id+v_iso6393_3letter,#vocab+code+v_iso3692_3letter+z_bibliographic,#vocab+code+v_iso3692_3letter+z_terminology,#vocab+code+v_iso6391,#status,#vocab+type,#vocab+name,#description+comment+i_en
+
+-->
+
 
 ## Platform dependent ontologies
 
