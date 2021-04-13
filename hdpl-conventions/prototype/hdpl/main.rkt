@@ -28,7 +28,7 @@
 
 ;; Code here
 
-(require "radix.rkt")
+; (require "radix.rkt")
 ; (require "linguam/lat-Latn.rkt")
 ; (require "linguam/mis-Qaaa.rkt")
 
