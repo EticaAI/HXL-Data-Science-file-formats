@@ -35,14 +35,14 @@ ROOTDIR="$(pwd)"
 ### YAML to JSON ---------------------------------------------------------------
 echo "> YAML to JSON"
 
-# Generate hxlm/ontologia/json/core.vkg.json
-yq < hxlm/ontologia/cor.hdplisp.yml > hxlm/ontologia/json/cor.hdplisp.json
+# Generate ontologia/json/core.vkg.json
+yq < ontologia/cor.hdplisp.yml > ontologia/json/cor.hdplisp.json
 
-# Generate hxlm/ontologia/json/core.vkg.json
-yq < hxlm/ontologia/core.vkg.yml > hxlm/ontologia/json/core.vkg.json
+# Generate ontologia/json/core.vkg.json
+yq < ontologia/core.vkg.yml > ontologia/json/core.vkg.json
 
-# Generate hxlm/ontologia/json/core.lkg.json
-yq < hxlm/ontologia/core.lkg.yml > hxlm/ontologia/json/core.lkg.json
+# Generate ontologia/json/core.lkg.json
+yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 
 #### webext-signed-pages _______________________________________________________
 # @see https://github.com/tasn/webext-signed-pages
@@ -93,11 +93,11 @@ do_simply_copy
 #### SHA-384 ___________________________________________________________________
 echo "> SHA-384"
 
-### hxlm/ontologia -------------------------------------------------------------
-echo "> > hxlm/ontologia"
+### ontologia -------------------------------------------------------------
+echo "> > ontologia"
 ## Create the hashes
 
-cd hxlm/ontologia/json/ || exit
+cd ontologia/json/ || exit
 sha384sum --tag cor.hdplisp.json > cor.hdplisp.json.sum
 sha384sum --tag core.lkg.json > core.lkg.json.sum
 sha384sum --tag core.vkg.json > core.vkg.json.sum
@@ -170,9 +170,9 @@ sha384sum --check hxlm-js.sum
 # ln -s ../../ontologia/URNData.ebnf ./URNData.ebnf
 
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia/json || exit
-# ln -s ../../ontologia/json/cor.hdplisp.json ./cor.hdplisp.json
-# ln -s ../../ontologia/json/cor.hdplisp.json.sum ./cor.hdplisp.json.sum
-# ln -s ../../ontologia/json/core.lkg.json ./core.lkg.json
-# ln -s ../../ontologia/json/core.lkg.json.sum ./core.lkg.json.sum
-# ln -s ../../ontologia/json/core.vkg.json ./core.vkg.json
-# ln -s ../../ontologia/json/core.vkg.json.sum ./core.vkg.json.sum
+# ln -s ../../../ontologia/json/cor.hdplisp.json ./cor.hdplisp.json
+# ln -s ../../../ontologia/json/cor.hdplisp.json.sum ./cor.hdplisp.json.sum
+# ln -s ../../../ontologia/json/core.lkg.json ./core.lkg.json
+# ln -s ../../../ontologia/json/core.lkg.json.sum ./core.lkg.json.sum
+# ln -s ../../../ontologia/json/core.vkg.json ./core.vkg.json
+# ln -s ../../../ontologia/json/core.vkg.json.sum ./core.vkg.json.sum

@@ -37,9 +37,9 @@ corrections.
 
 > [Knowledge graph on Wikipedia](https://en.wikipedia.org/wiki/Knowledge_graph)
 
-Note: contents of [hxlm/ontologia/json/](hxlm/ontologia/json/) are generated
-from hxlm/ontologia/ *.yml files with exception of
-`hxlm/ontologia/hdp.json-schema.json` that is not _yet_ automated
+Note: contents of [ontologia/json/](ontologia/json/) are generated
+from ontologia/ *.yml files with exception of
+`ontologia/hdp.json-schema.json` that is not _yet_ automated
 
 ### Localization Knowledge Graph
 
@@ -50,8 +50,8 @@ from hxlm/ontologia/ *.yml files with exception of
 - [json/core.lkg.json](json/core.lkg.json)
 
 ```bash
-# Generate hxlm/ontologia/json/core.vkg.json
-yq < hxlm/ontologia/core.vkg.yml > hxlm/ontologia/json/core.vkg.json
+# Generate ontologia/json/core.vkg.json
+yq < ontologia/core.vkg.yml > ontologia/json/core.vkg.json
 ```
 
 ### Vocabulary Knowledge Graph
@@ -63,8 +63,8 @@ yq < hxlm/ontologia/core.vkg.yml > hxlm/ontologia/json/core.vkg.json
 - [json/core.vkg.json](json/core.vkg.json)
 
 ```bash
-# Generate hxlm/ontologia/json/core.lkg.json
-yq < hxlm/ontologia/core.lkg.yml > hxlm/ontologia/json/core.lkg.json
+# Generate ontologia/json/core.lkg.json
+yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 ```
 
 ## JSON Schema
@@ -87,7 +87,7 @@ yq < hxlm/ontologia/core.lkg.yml > hxlm/ontologia/json/core.lkg.json
 
 ### Python Data classes
 
-- [hxlm/ontologia/python](python)
+- [ontologia/python](python)
 
 **Protip: even if you are not a python programmer, but is debugging some HXLm
 implementation (or want to undestand more how the objects are related) this
