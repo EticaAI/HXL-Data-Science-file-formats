@@ -28,8 +28,9 @@
 
 ;; Code here
 
-(require "linguam/lat-Latn.rkt")
-(require "linguam/mis-Qaaa.rkt")
+(require "radix.rkt")
+; (require "linguam/lat-Latn.rkt")
+; (require "linguam/mis-Qaaa.rkt")
 
 ; (provide salve-mundi)
 
