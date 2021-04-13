@@ -176,3 +176,13 @@ sha384sum --check hxlm-js.sum
 # ln -s ../../../ontologia/json/core.lkg.json.sum ./core.lkg.json.sum
 # ln -s ../../../ontologia/json/core.vkg.json ./core.vkg.json
 # ln -s ../../../ontologia/json/core.vkg.json.sum ./core.vkg.json.sum
+
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline/hdataset/lang || exit
+# mv /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline/hdataset/lang/lang.csv /workspace/git/EticaAI/HXL-Data-Science-file-formats/ontologia/codicem-linguam.hxl.csv
+# mv /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/data/baseline/hdataset/place/place.csv /workspace/git/EticaAI/HXL-Data-Science-file-formats/ontologia/codicem/codicem-locum.hxl.csv
+
+# ln -s ../../../../../ontologia/codicem/codicem.locum.hxl.csv ./place.csv
+# ln -s ../../../../../ontologia/codicem/codicem.linguam.hxl.csv ./lang.csv
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/ontologia/iso || exit
+# ln -s ../codicem/codicem.linguam.hxl.csv ./iso.639-3.hxl.csv
+# ln -s ../codicem/codicem.locum.hxl.csv ./iso.3166.hxl.csv
