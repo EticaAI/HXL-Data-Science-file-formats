@@ -13,7 +13,10 @@ build/
 !tests/files/output/.gitkeep
 .vscode
 .benchmarks
+
+# DrRacket use these ones
 *~
+\#*\#*\#
 
 
 # Used only for builds done on the developer machine

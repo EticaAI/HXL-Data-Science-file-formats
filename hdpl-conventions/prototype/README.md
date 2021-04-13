@@ -12,10 +12,18 @@ TODO:
 
 
 ```bash
+cd hdpl-conventions/prototype/
+
+## Create raw project
 raco pkg new hdpl
+
+## Install/Reinstall from local path
 raco pkg install --link ./hdpl/
 
+## See docs
 raco docs hdpl
-# raco pkg remove hdpl
+
+## remove the package
+raco pkg remove hdpl
 
 ```
