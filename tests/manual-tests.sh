@@ -5,9 +5,25 @@ exit
 
 #### Automated tests __________________________________________________________
 
-## tox
+### tox ------------------------------------------------------------------------
 # @see https://tox.readthedocs.io/en/latest/
 tox
+
+### GitHub actions local debug (nektos/act) ------------------------------------
+# @see https://github.com/nektos/act
+act
+# sudo act
+
+## Extra commands for debug and delete all images
+## (DO NOT use these if you use docker for anything else)
+# List all containers (include stopped)
+#    sudo docker ps -a
+# Show all local images
+#    sudo docker image ls
+# Stop running conteiners
+#    sudo docker stop $(sudo docker ps -a -q)
+# Delete all stoppend conteiners
+#    sudo docker rm $(sudo docker ps -a -q)
 
 ## doctest
 # @see https://docs.python.org/3/library/doctest.html
@@ -19,6 +35,7 @@ pip3 install hug
 
 # If you plan to use ngrok to proxy for external world, use something like
 sudo snap install ngrok
+
 
 #### Build JSON Knowledge Graph from YAML ______________________________________
 
