@@ -19,6 +19,40 @@ b:
   "*":
   "/":
 
+## This is an draft of what neutral name could be used
+# b:
+#   ATOM:
+#     _*_
+#   CAR:
+#     _^_ (How this will behave on Right-to-left languages when compose like CADR _^~_ & CDAR _~^_ ?)
+#   CDR:
+#     _~_ (How this will behave on Right-to-left languages when compose like CADR _^~_ & CDAR _~^_ ?)
+#   COND:
+#     _?_
+#   CONS:
+#     _*_
+#   EQ:
+#     _=_
+#   LAMBDA:
+#     _λ_   (Not ideal, is an alphabed for an writting system)
+#     ___   (3 _ seems anonymous enough and is neutral)
+#   PRINT:
+#     _:_
+#   QUOTE:
+#     _"_
+#   READ:
+#     ???  (TODO: think about)
+#   DEFINE, DEF, DEFN, etc:
+#     _#_
+#   L:
+#     _ISO369-3_ltr-text
+#     rtl-text_ISO369-3_
+#           (Note: non-Latin alphabets may need some work to discover how to use term for them)
+#   "+":
+#   "-":
+#   "*":
+#   "/":
+
 #### f: fūnctiōnem ____________________________________________________________
 # Trivia:
 # - 'f'
