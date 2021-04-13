@@ -157,3 +157,22 @@ sha384sum --check hxlm-js.sum
 
 #### Additional commands _______________________________________________________
 # cd "$ROOTDIR"
+
+
+### Preparing symlinks
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia || exit
+# ln -s ../../ontologia/README.md ./README.md
+# ln -s ../../ontologia/cor.hdplisp.yml ./cor.hdplisp.yml
+# ln -s ../../ontologia/core.lkg.yml ./core.lkg.yml
+# ln -s ../../ontologia/core.urn.yml ./core.urn.yml
+# ln -s ../../ontologia/core.vkg.yml ./core.vkg.yml
+# ln -s ../../ontologia/hdp.json-schema.json ./hdp.json-schema.json
+# ln -s ../../ontologia/URNData.ebnf ./URNData.ebnf
+
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia/json || exit
+# ln -s ../../ontologia/json/cor.hdplisp.json ./cor.hdplisp.json
+# ln -s ../../ontologia/json/cor.hdplisp.json.sum ./cor.hdplisp.json.sum
+# ln -s ../../ontologia/json/core.lkg.json ./core.lkg.json
+# ln -s ../../ontologia/json/core.lkg.json.sum ./core.lkg.json.sum
+# ln -s ../../ontologia/json/core.vkg.json ./core.vkg.json
+# ln -s ../../ontologia/json/core.vkg.json.sum ./core.vkg.json.sum

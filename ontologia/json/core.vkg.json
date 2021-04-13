@@ -1,0 +1,953 @@
+{
+  "root": {
+    "hcompliance": {
+      "id": "HC",
+      "ARA": {
+        "id": "hcompliance"
+      },
+      "ENG": {
+        "id": "acceptable-use-policy"
+      },
+      "FRA": {
+        "id": "politique-dutilisation-acceptable"
+      },
+      "SPA": {
+        "id": "politica-de-uso-aceptable"
+      },
+      "LAT": {
+        "id": "hcompliance"
+      },
+      "POR": {
+        "id": "politica-de-utilizacao-aceitavel"
+      },
+      "QAA": {
+        "id": "q4672374"
+      },
+      "RUS": {
+        "id": "условия-использования"
+      },
+      "ZHO": {
+        "id": "可接受使用策略"
+      },
+      "ZXX": {
+        "id": "hcompliance"
+      },
+      "QDP": {
+        "id": "hcompliance"
+      }
+    },
+    "hdatum": {
+      "id": "HD",
+      "ARA": {
+        "id": "مجموعة-بيانات"
+      },
+      "ENG": {
+        "id": "data-set"
+      },
+      "FRA": {
+        "id": "jeux-de-donnees"
+      },
+      "SPA": {
+        "id": "conjunto-de-datos"
+      },
+      "LAT": {
+        "id": "hdatum",
+        "id_alts": [
+          "datum",
+          "hdatum"
+        ]
+      },
+      "POR": {
+        "id": "conjunto-de-dados"
+      },
+      "QAA": {
+        "id": "q1172284"
+      },
+      "RUS": {
+        "id": "Ирисы-Фишера"
+      },
+      "ZHO": {
+        "id": "数据集"
+      },
+      "QDP": {
+        "id": "hdatum"
+      }
+    },
+    "hfilum": {
+      "id": "HF",
+      "ARA": {
+        "id": "ملف-حاسوب"
+      },
+      "ENG": {
+        "id": "computer-file"
+      },
+      "FRA": {
+        "id": "fichier-informatique"
+      },
+      "SPA": {
+        "id": "archivo"
+      },
+      "LAT": {
+        "id": "hfilum",
+        "id_alts": [
+          "filum"
+        ]
+      },
+      "POR": {
+        "id": "arquivo-de-computador"
+      },
+      "QAA": {
+        "id": "q82753"
+      },
+      "RUS": {
+        "id": "Файл"
+      },
+      "ZHO": {
+        "id": "電腦檔案"
+      },
+      "QDP": {
+        "id": "hfilum"
+      }
+    },
+    "htransformare": {
+      "id": "HT",
+      "ARA": {
+        "id": "تحويل-البيانات"
+      },
+      "ENG": {
+        "id": "data-transformation",
+        "descriptionem": "process which converts a set of data values from the data format of a source data system into the data format of a destination data system"
+      },
+      "FRA": {
+        "id": "transformation-de-donnees"
+      },
+      "SPA": {
+        "id": "transformacion-de-datos",
+        "descriptionem": "Acción de transformar o transformarse."
+      },
+      "LAT": {
+        "id": "htransformare",
+        "id_alts": [
+          "transformare"
+        ]
+      },
+      "POR": {
+        "id": "transformacao-de-dados"
+      },
+      "QAA": {
+        "id": "q4272815",
+        "descriptionem": "process which converts a set of data values from the data format of a source data system into the data format of a destination data system"
+      },
+      "RUS": {
+        "id": "трансформация-данных",
+        "descriptionem": "совокупность техник преобразования данных для их переноса между различными базами данных"
+      },
+      "ZHO": {
+        "id": "数据变换",
+        "id_alts": [
+          "转型"
+        ]
+      },
+      "QDP": {
+        "id": "htransformare",
+        "descriptionem": "process which converts a set of data values from the data format of a source data system into the data format of a destination data system"
+      }
+    },
+    "hsilo": {
+      "id": "HS",
+      "ARA": {
+        "id": "صومعة"
+      },
+      "ENG": {
+        "id": "silo"
+      },
+      "FRA": {
+        "id": "silo"
+      },
+      "SPA": {
+        "id": "silo"
+      },
+      "LAT": {
+        "id": "hsilo",
+        "id_alts": [
+          "silo"
+        ]
+      },
+      "POR": {
+        "id": "silo"
+      },
+      "QAA": {
+        "id": "q213643"
+      },
+      "RUS": {
+        "id": "силосная",
+        "id_alts": [
+          "silo"
+        ]
+      },
+      "ZHO": {
+        "id": "筒仓"
+      },
+      "QDP": {
+        "id": "hsilo"
+      }
+    }
+  },
+  "attr": {
+    "adm0": {
+      "ARA": {
+        "id": "بلد"
+      },
+      "ENG": {
+        "id": "country"
+      },
+      "FRA": {
+        "id": "pays"
+      },
+      "SPA": {
+        "id": "pais"
+      },
+      "LAT": {
+        "id": "patriam"
+      },
+      "POR": {
+        "id": "pais"
+      },
+      "QAA": {
+        "id": "q6256"
+      },
+      "RUS": {
+        "id": "страна"
+      },
+      "ZHO": {
+        "id": "国家"
+      },
+      "QDP": {
+        "id": "adm0"
+      }
+    },
+    "datum": {
+      "ARA": {
+        "id": "بيانات"
+      },
+      "ENG": {
+        "id": "data"
+      },
+      "FRA": {
+        "id": "donnee"
+      },
+      "SPA": {
+        "id": "dato"
+      },
+      "LAT": {
+        "id": "datum"
+      },
+      "POR": {
+        "id": "dados"
+      },
+      "QAA": {
+        "id": "q42848"
+      },
+      "RUS": {
+        "id": "данные"
+      },
+      "ZHO": {
+        "id": "数据"
+      },
+      "QDP": {
+        "id": "datum"
+      }
+    },
+    "descriptionem": {
+      "ARA": {
+        "id": "وصف"
+      },
+      "ENG": {
+        "id": "description"
+      },
+      "FRA": {
+        "id": "description"
+      },
+      "SPA": {
+        "id": "descripcion"
+      },
+      "LAT": {
+        "id": "descriptionem"
+      },
+      "POR": {
+        "id": "descricao"
+      },
+      "QAA": {
+        "id": "q1200750"
+      },
+      "RUS": {
+        "id": "описание"
+      },
+      "ZHO": {
+        "id": "描述"
+      },
+      "QDP": {
+        "id": "descriptionem"
+      }
+    },
+    "exemplum": {
+      "ARA": {
+        "id": "مثال"
+      },
+      "ENG": {
+        "id": "example"
+      },
+      "FRA": {
+        "id": "exemple"
+      },
+      "SPA": {
+        "id": "ejemplo"
+      },
+      "LAT": {
+        "id": "exemplum"
+      },
+      "POR": {
+        "id": "exemplo"
+      },
+      "QAA": {
+        "id": "q14944328"
+      },
+      "RUS": {
+        "id": "пример"
+      },
+      "ZHO": {
+        "id": "例子"
+      },
+      "QDP": {
+        "id": "exemplum"
+      }
+    },
+    "falsum": {
+      "ARA": {
+        "id": "ليس",
+        "id_alts": [
+          "لا"
+        ]
+      },
+      "ENG": {
+        "id": "not",
+        "descriptionem": "Untrue, false, negation",
+        "id_alts": [
+          "no",
+          "false",
+          "untrue"
+        ]
+      },
+      "FRA": {
+        "id": "ne",
+        "id_alts": [
+          "non"
+        ]
+      },
+      "SPA": {
+        "id": "no",
+        "id_alts": [
+          "falso"
+        ]
+      },
+      "LAT": {
+        "id": "falsum",
+        "id_alts": [
+          "non"
+        ]
+      },
+      "POR": {
+        "id": "nao",
+        "descriptionem": "Negação, falso, oposto de verdadeiro.",
+        "id_alts": [
+          "falso"
+        ]
+      },
+      "QAA": {
+        "id": "q5432619"
+      },
+      "RUS": {
+        "id": "нет"
+      },
+      "ZHO": {
+        "id": "不",
+        "id_alts": [
+          "不是",
+          "不是"
+        ]
+      },
+      "QDP": {
+        "id": "falsum",
+        "descriptionem": "reference to not truly, untrue. (mostly to be used with command line interface)",
+        "id_alts": [
+          "non",
+          "false",
+          "untrue",
+          false,
+          "⊥",
+          "¬"
+        ]
+      }
+    },
+    "fontem": {
+      "ARA": {
+        "id": "مصدر"
+      },
+      "ENG": {
+        "id": "source"
+      },
+      "FRA": {
+        "id": "source"
+      },
+      "SPA": {
+        "id": "fuente"
+      },
+      "LAT": {
+        "id": "fontem"
+      },
+      "POR": {
+        "id": "fonte"
+      },
+      "QAA": {
+        "id": "q224772"
+      },
+      "RUS": {
+        "id": "источник"
+      },
+      "ZHO": {
+        "id": "來源"
+      },
+      "QDP": {
+        "id": "fontem"
+      }
+    },
+    "grupum": {
+      "ARA": {
+        "id": "مجموعة",
+        "descriptionem": "عناصر ذات أي طبيعة ينظر إليها كمجموعة"
+      },
+      "ENG": {
+        "id": "group",
+        "descriptionem": "Well-defined collection of discrete entities who choose or are assigned to be part of a collective whole"
+      },
+      "FRA": {
+        "id": "groupe",
+        "descriptionem": "regroupement d'entités ayant des caractéristiques semblables"
+      },
+      "SPA": {
+        "id": "grupo",
+        "descriptionem": "conjunto de cosas o personas"
+      },
+      "LAT": {
+        "id": "grupum"
+      },
+      "POR": {
+        "id": "grupo",
+        "descriptionem": "múltiplos elementos (coisas, pessoas, etc.) de mesma natureza considerados formadores de um conjunto"
+      },
+      "QAA": {
+        "id": "q16887380",
+        "descriptionem": "well-defined collection of discrete entities who choose or are assigned to be part of a collective whole"
+      },
+      "RUS": {
+        "id": "группа",
+        "descriptionem": "объединение сущностей с общими свойствами"
+      },
+      "ZHO": {
+        "id": "組"
+      },
+      "QDP": {
+        "id": "grupum",
+        "descriptionem": "One way to group colletions (hsilos).While the tags allow use at any level, this attribute should be explicity named at top level."
+      }
+    },
+    "id": {
+      "ARA": {
+        "id": "المعرف"
+      },
+      "ENG": {
+        "id": "identifier"
+      },
+      "FRA": {
+        "id": "identifiant"
+      },
+      "SPA": {
+        "id": "identificador"
+      },
+      "LAT": {
+        "id": "id"
+      },
+      "POR": {
+        "id": "identificador"
+      },
+      "QAA": {
+        "id": "q853614"
+      },
+      "RUS": {
+        "id": "идентификатор"
+      },
+      "ZHO": {
+        "id": "標識符"
+      },
+      "QDP": {
+        "id": "id"
+      }
+    },
+    "iri": {
+      "ARA": {
+        "id": "iri"
+      },
+      "ENG": {
+        "id": "iri"
+      },
+      "FRA": {
+        "id": "iri"
+      },
+      "SPA": {
+        "id": "iri"
+      },
+      "LAT": {
+        "id": "iri"
+      },
+      "POR": {
+        "id": "iri"
+      },
+      "QAA": {
+        "id": "q424583"
+      },
+      "RUS": {
+        "id": "iri"
+      },
+      "ZHO": {
+        "id": "iri"
+      },
+      "QDP": {
+        "id": "iri"
+      }
+    },
+    "linguam": {
+      "ARA": {
+        "id": "لغة"
+      },
+      "ENG": {
+        "id": "language"
+      },
+      "FRA": {
+        "id": "idiome"
+      },
+      "SPA": {
+        "id": "idioma"
+      },
+      "LAT": {
+        "id": "linguam"
+      },
+      "POR": {
+        "id": "idioma"
+      },
+      "QAA": {
+        "id": "q315"
+      },
+      "RUS": {
+        "id": "язык"
+      },
+      "ZHO": {
+        "id": "语言"
+      },
+      "QDP": {
+        "id": "linguam"
+      }
+    },
+    "locum": {
+      "ARA": {
+        "id": "موقع"
+      },
+      "ENG": {
+        "id": "location",
+        "descriptionem": "location of physical or non-physical object in space"
+      },
+      "FRA": {
+        "id": "lieu",
+        "descriptionem": "position dans l'espace où se situe ou se produit une entité par rapport à une autre entité"
+      },
+      "SPA": {
+        "id": "localizacion",
+        "descriptionem": "ubicación del objeto físico o no físico en el espacio"
+      },
+      "LAT": {
+        "id": "locum"
+      },
+      "POR": {
+        "id": "localizacao",
+        "descriptionem": "localização de um objeto (físico ou abstrato)"
+      },
+      "QAA": {
+        "id": "q17334923",
+        "descriptionem": "location of physical or non-physical object in space"
+      },
+      "RUS": {
+        "id": "местонахождение",
+        "descriptionem": "местоположение вымышленного или реального объекта в трёхмерном пространстве"
+      },
+      "ZHO": {
+        "id": "位置"
+      },
+      "QDP": {
+        "id": "locum"
+      }
+    },
+    "meta": {
+      "ARA": {
+        "id": "بيانات-وصفية"
+      },
+      "ENG": {
+        "id": "metadata"
+      },
+      "FRA": {
+        "id": "metadonnee"
+      },
+      "SPA": {
+        "id": "metadato"
+      },
+      "LAT": {
+        "id": "meta"
+      },
+      "POR": {
+        "id": "metadado"
+      },
+      "QAA": {
+        "id": "q180160"
+      },
+      "RUS": {
+        "id": "метаданные"
+      },
+      "ZHO": {
+        "id": "元数据"
+      },
+      "QDP": {
+        "id": "meta"
+      }
+    },
+    "nomen": {
+      "ARA": {
+        "id": "اسم"
+      },
+      "ENG": {
+        "id": "name"
+      },
+      "FRA": {
+        "id": "nom"
+      },
+      "SPA": {
+        "id": "nombre"
+      },
+      "LAT": {
+        "id": "nomen"
+      },
+      "POR": {
+        "id": "nome"
+      },
+      "QAA": {
+        "id": "q82799"
+      },
+      "RUS": {
+        "id": "имя"
+      },
+      "ZHO": {
+        "id": "名称",
+        "id_alts": [
+          "名字"
+        ]
+      },
+      "QDP": {
+        "id": "nomen"
+      }
+    },
+    "objectivum": {
+      "ARA": {
+        "id": "هدف"
+      },
+      "ENG": {
+        "id": "objective",
+        "descriptionem": "a thing aimed at or sought; a goal."
+      },
+      "FRA": {
+        "id": "objectif"
+      },
+      "SPA": {
+        "id": "objetivo",
+        "descriptionem": "En el sentido de causa final, o sea relativo a los fines o propósitos de algún objeto o algún ser o alguna institución o alguna organización, o bien literalmente, a la doctrina filosófica de las causas finales, o bien a la atribución de una finalidad u objetivo a un proceso concreto o a una estructura institucional."
+      },
+      "LAT": {
+        "id": "objectivum",
+        "descriptionem": ""
+      },
+      "POR": {
+        "id": "objetivo",
+        "descriptionem": "fim; propósito; alvo; finalidade; intuito"
+      },
+      "QAA": {
+        "id": "q341954"
+      },
+      "RUS": {
+        "id": "цель",
+        "descriptionem": ""
+      },
+      "ZHO": {
+        "id": "目的"
+      },
+      "QDP": {
+        "id": "objectivum",
+        "descriptionem": "a thing aimed at or sought; a goal."
+      }
+    },
+    "okay": {
+      "ARA": {
+        "id": "أوكي",
+        "descriptionem": "اوكي أو OK (الصيغ الإملائية التي تشمل okay وOK وok) هي كلمة إنجليزية أمريكية تشير إلى الموافقة أو القبول أو الاتفاق أو الإقرار أو علامة اللامبالاة. كثيرا ما يستخدم OK كلفظ دخيل في لغات أخرى. وقد وصفت بأنها أكثر الكلمات المنطوقة أو المكتوبة على كوكب الأرض."
+      },
+      "ENG": {
+        "id": "ok",
+        "descriptionem": "OK (spelling variations include okay, O.K., and ok) is an English word (originally American English) denoting approval, acceptance, agreement, assent, acknowledgment, or a sign of indifference. OK is frequently used as a loanword in other languages. It has been described as the most frequently spoken or written word on the planet.[1] The origins of the word are disputed."
+      },
+      "FRA": {
+        "id": "ok",
+        "descriptionem": "OK /ɔkɛ/ (/oke/ au Québec) est une expression abrégée de l'anglais américain qui désigne l'approbation, l'acceptation, l'accord, l'assentiment, la reconnaissance ou un signe d'indifférence. Son équivalent en français est « d'accord », « correct »"
+      },
+      "SPA": {
+        "id": "ok",
+        "descriptionem": "La locución O. K., ok, okay y en español okey2​3​ proviene del inglés estadounidense y se usa como equivalente a «de acuerdo», «está bien» o para indicar conformidad, comúnmente utilizada en Hispanoamérica, no así en España, lugar en el que predomina la interjección: vale.4​ Se usa como adjetivo y adverbio.",
+        "id_alts": [
+          ""
+        ]
+      },
+      "LAT": {
+        "id": "okay",
+        "descriptionem": "Okay sive litteris compendiariis o.k., saepe modo ok est verbum celebre Anglicum Americanum. Interea etiam in multis aliis linguis in usu est et “ita”, “ita est”, “recte” et similia significat. Verbum etiam quaestio esse potest: okay? id est “itane?”"
+      },
+      "POR": {
+        "id": "ok",
+        "descriptionem": "\"O.K.\" é uma palavra do inglês americano de origem desconhecida e etimologia muito discutida. Equivale à expressão \"Está bem!\", e suas derivações, no português. É descrita como uma das expressões mais escritas e faladas no planeta."
+      },
+      "QAA": {
+        "id": "q217844"
+      },
+      "RUS": {
+        "id": "окей",
+        "descriptionem": "Окей (англ. Okay; произносится оу ке́й; сокращённо обозначается Ok, O.k.; в русском написании «о’кей», «окей», O’key является неправильным написанием) — американское общеупотребительное выражение, ставшее международным, означающее согласие; «ладно»; «да»; «всё в порядке; хорошо; правильно». Из Америки распространилось по всему миру. Это выражение используют для одобрения или подтверждения чего-либо; в качестве прилагательного это может означать «модный, престижный, относящийся к высшему классу»; и, кроме того, данное выражение используют в качестве междометия: «есть!, идёт!, ладно!, хорошо!»."
+      },
+      "ZHO": {
+        "id": "ok",
+        "descriptionem": "OK（又作okay、O.K.）是一个英语口语词，但也常见于其他语言的口语。英语中意思是对、好、可以、行的意思。OK表示赞同、许可、同意，即英文中yes的含义，而不作为表达好坏程度的副词使用。"
+      },
+      "QDP": {
+        "id": "okay"
+      }
+    },
+    "tag": {
+      "ARA": {
+        "id": "وسم"
+      },
+      "ENG": {
+        "id": "tag"
+      },
+      "FRA": {
+        "id": "tag"
+      },
+      "SPA": {
+        "id": "etiqueta"
+      },
+      "LAT": {
+        "id": "tag"
+      },
+      "POR": {
+        "id": "etiqueta"
+      },
+      "QAA": {
+        "id": "q658349"
+      },
+      "RUS": {
+        "id": "тег"
+      },
+      "ZHO": {
+        "id": "标签"
+      },
+      "QDP": {
+        "id": "tag"
+      }
+    },
+    "tempus": {
+      "ARA": {
+        "id": "زمن",
+        "descriptionem": "البعد الذي يمكن فيه ترتيب الأحداث من الماضي إلى الحاضر وفي المستقبل"
+      },
+      "ENG": {
+        "id": "time",
+        "descriptionem": "dimension in which events can be ordered from the past through the present into the future"
+      },
+      "FRA": {
+        "id": "temps",
+        "descriptionem": "dimension dans laquelle les événements peuvent être ordonnés du passé au présent, vers le futur"
+      },
+      "SPA": {
+        "id": "tiempo"
+      },
+      "LAT": {
+        "id": "tempus",
+        "descriptionem": ""
+      },
+      "POR": {
+        "id": "tempo",
+        "descriptionem": ""
+      },
+      "QAA": {
+        "id": "q11471",
+        "descriptionem": "dimension in which events can be ordered from the past through the present into the future"
+      },
+      "RUS": {
+        "id": "время",
+        "descriptionem": "форма протекания физических и психических процессов"
+      },
+      "ZHO": {
+        "id": "时间"
+      },
+      "QDP": {
+        "id": "tempus",
+        "descriptionem": "dimension in which events can be ordered from the past through the present into the future"
+      }
+    },
+    "urn": {
+      "ARA": {
+        "id": "urn"
+      },
+      "ENG": {
+        "id": "urn"
+      },
+      "FRA": {
+        "id": "urn"
+      },
+      "SPA": {
+        "id": "urn"
+      },
+      "LAT": {
+        "id": "urn"
+      },
+      "POR": {
+        "id": "urn"
+      },
+      "QAA": {
+        "id": "q76497"
+      },
+      "RUS": {
+        "id": "urn"
+      },
+      "ZHO": {
+        "id": "urn"
+      },
+      "QDP": {
+        "id": "urn"
+      }
+    },
+    "verum": {
+      "ARA": {
+        "id": "نعم",
+        "id_alts": [
+          "صحيح"
+        ]
+      },
+      "ENG": {
+        "id": "yes",
+        "descriptionem": "truly, true, fact, reality.",
+        "id_alts": [
+          "true"
+        ]
+      },
+      "FRA": {
+        "id": "oui",
+        "id_alts": [
+          "quais",
+          "verite"
+        ]
+      },
+      "SPA": {
+        "id": "si",
+        "id_alts": [
+          "verdad"
+        ]
+      },
+      "LAT": {
+        "id": "verum",
+        "id_alts": [
+          "verus",
+          "⊤"
+        ]
+      },
+      "POR": {
+        "id": "sim",
+        "descriptionem": "Sim, verdade, verdadeiro, fato.",
+        "id_alts": [
+          "verdade"
+        ]
+      },
+      "QAA": {
+        "id": "q3311695",
+        "descriptionem": "statement which is true regardless of the truth or falsity of its constituent parts"
+      },
+      "RUS": {
+        "id": "да",
+        "descriptionem": "И́стина — гносеологическая характеристика мышления в его отношении к своему предмету. Мысль называется истинной (или истиной), если она соответствует предмету",
+        "id_alts": [
+          "истина"
+        ]
+      },
+      "ZHO": {
+        "id": "是的"
+      },
+      "QDP": {
+        "id": "verum",
+        "descriptionem": "reference to truly, true, fact, reality. (mostly to be used with command line interface)",
+        "id_alts": [
+          "true",
+          true
+        ]
+      }
+    }
+  },
+  "numerum": {
+    "_1_": {
+      "binary": {
+        "id": "1"
+      },
+      "Grek": {
+        "id": "α",
+        "id_alts": [
+          "Α"
+        ]
+      },
+      "system": {
+        "id": 1
+      }
+    },
+    "_2_": {
+      "binary": {
+        "id": "10"
+      },
+      "Grek": {
+        "id": "β",
+        "id_alts": [
+          "Β"
+        ]
+      },
+      "system": {
+        "id": 2
+      }
+    },
+    "_last_": {
+      "Grek": {
+        "id": "ω",
+        "id_alts": [
+          "Ω"
+        ]
+      }
+    }
+  }
+}

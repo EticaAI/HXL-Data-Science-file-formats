@@ -1,0 +1,148 @@
+# ontologia/cor.hdplisp.yml
+
+# CONS, CAR, CDR, QUOTE, ATOM, EQ, LAMBDA, COND, (mais READ e PRINT)
+
+b:
+  ATOM:
+  CAR:
+  CDR:
+  COND:
+  CONS:
+  EQ:
+  LAMBDA:
+  PRINT:
+  QUOTE:
+  READ:
+  L:
+  "+":
+  "-":
+  "*":
+  "/":
+
+## This is an draft of what neutral name could be used
+# b:
+#   ATOM:
+#     _*_
+#   CAR:
+#     _^_ (How this will behave on Right-to-left languages when compose like CADR _^~_ & CDAR _~^_ ?)
+#   CDR:
+#     _~_ (How this will behave on Right-to-left languages when compose like CADR _^~_ & CDAR _~^_ ?)
+#   COND:
+#     _?_
+#   CONS:
+#     _*_
+#   EQ:
+#     _=_
+#   LAMBDA:
+#     _λ_   (Not ideal, is an alphabed for an writting system)
+#     ___   (3 _ seems anonymous enough and is neutral)
+#   PRINT:
+#     _:_
+#   QUOTE:
+#     _"_
+#   READ:
+#     ???  (TODO: think about)
+#   DEFINE, DEF, DEFN, etc:
+#     _#_
+#   L:
+#     _ISO369-3_ltr-text
+#     rtl-text_ISO369-3_
+#           (Note: non-Latin alphabets may need some work to discover how to use term for them)
+#   "+":
+#   "-":
+#   "*":
+#   "/":
+
+#### f: fūnctiōnem ____________________________________________________________
+# Trivia:
+# - 'f'
+#   - 'fūnctiōnem'
+#     - https://en.wiktionary.org/wiki/functio#Latin
+
+f:
+  # Trivia:
+  # - 'dīvīsiōnem'
+  #   - https://en.wiktionary.org/wiki/divisio#Latin
+  divisionem:
+    Latn:
+      id: divisionem
+    Zmth:
+      id: "/"
+
+  # TODO: implement concept of _almost identicum_ (like (idem? 1 "1") )
+  # Trivia:
+  # - 'idem'
+  #   - https://en.wiktionary.org/wiki/idem#Latin
+  idem?:
+    Latn:
+      id: THIS-IS-A-DRAFT
+    Zmth:
+      id: "THIS-IS-A-DRAFT"
+
+  # Trivia:
+  # - 'īdenticum'
+  #   - https://en.wiktionary.org/wiki/identicus#Latin
+  identicum?:
+    Latn:
+      id: identicum?
+    Zmth:
+      id: "≡"
+
+  # Trivia:
+  # - 'non'
+  #   - https://en.wiktionary.org/wiki/non#Latin
+  # - 'īdenticum'
+  #   - https://en.wiktionary.org/wiki/identicus#Latin
+  non-identicum?:
+    Latn:
+      id: non-identicum?
+    Zmth:
+      id: "≢"
+
+  # Trivia:
+  # - 'multiplicātiōnem'
+  #   - https://en.wiktionary.org/wiki/multiplicatio#Latin
+  multiplicationem:
+    Latn:
+      id: multiplicationem
+    Zmth:
+      id: "*"
+
+  # Trivia:
+  # - 'subtractiōnem':
+  #   - https://en.wiktionary.org/wiki/subtractio#Latin
+  subtractionem:
+    Latn:
+      id: subtractionem
+    Zmth:
+      id: "-"
+
+  # Trivia:
+  # - 'summam'
+  #   - https://en.wiktionary.org/wiki/summa#Latin
+  summam:
+    Latn:
+      id: summam
+    Zmth:
+      id: "+"
+#### TODOs ____________________________________________________________________
+###
+# https://en.wikipedia.org/wiki/ISO_15924
+
+# Codes
+#   Latn Latin left-to-righ Latin 1.0 1,374
+#        See also: Latin script in Unicode
+#        https://en.wikipedia.org/wiki/Latin_script_in_Unicode
+#
+
+# Special codes
+# Zmth 995: Mathematical notation
+# Zsye 993: Emoji
+
+### Zmth
+# https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols#Latin_letters
+# https://en.wikipedia.org/wiki/Mathematical_operators_and_symbols_in_Unicode
+
+### Zsye 993: Emoji
+# Zsye 993: Emoji
+# https://en.wikipedia.org/wiki/Emoji
