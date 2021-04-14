@@ -23,9 +23,36 @@
 #      REVISION:  ---
 #===============================================================================
 
-
 # Download 13.0
 DIR="$(pwd)"
-CACHE="${DIR}/cache"
+# CACHE="${DIR}/cache"
 
-echo "$CACHE"
+# echo "$CACHE"
+
+echo "See UNICODE CHARACTER DATABASE report; http://www.unicode.org/reports/tr44/"
+
+echo "Building local cache for unicode.org/Public/13.0.0/ ..."
+
+if [ ! -f "./13.0.0/ReadMe.txt" ]; then
+    curl -o ./13.0.0/ReadMe.txt https://www.unicode.org/Public/13.0.0/ReadMe.txt
+fi
+
+if [ ! -f "./13.0.0/charts/Readme.txt" ]; then
+    curl -o ./13.0.0/charts/Readme.txt https://www.unicode.org/Public/13.0.0/charts/Readme.txt
+fi
+
+echo "13.0.0/charts/CodeCharts.pdf is over 110 MB (and font license);; it will be commited on Git history"
+
+if [ ! -f "./13.0.0/charts/CodeCharts.pdf" ]; then
+    curl -o ./13.0.0/charts/CodeCharts.pdf https://www.unicode.org/Public/13.0.0/charts/CodeCharts.pdf
+else
+    echo "./13.0.0/charts/CodeCharts.pdf already cached"
+fi
+
+echo "13.0.0/charts/RSIndex.pdf is over 40 MB (and font license); it will be commited on Git history."
+
+if [ ! -f "./13.0.0/charts/RSIndex.pdf" ]; then
+    curl -o ./13.0.0/charts/RSIndex.pdf https://www.unicode.org/Public/13.0.0/charts/RSIndex.pdf
+else
+    echo "./13.0.0/charts/RSIndex.pdf already cached"
+fi
