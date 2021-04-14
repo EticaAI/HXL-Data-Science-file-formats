@@ -1310,6 +1310,13 @@ attr:
 # Some implementations, like the implicit checksums, the default 'checking tags'
 # are symbols that represent some sort of order.
 
+# NOTE: this already have previous work related to numeric system, see
+#       - https://github.com/unicode-org/cldr-json/blob/master/cldr-json/cldr-core/supplemental/numberingSystems.json
+#       - https://github.com/unicode-org/cldr/blob/master/common/bcp47/number.xml
+#       - https://github.com/unicode-org/cldr/blob/master/common/rbnf/pt_PT.xml
+#       - https://github.com/unicode-org/cldr/blob/master/common/annotations/pt_PT.xml
+#         - This can be used to aid on text to speech for characters
+
 # https://en.wikipedia.org/wiki/List_of_numbers_in_various_languages
 # https://en.wikipedia.org/wiki/List_of_numbers_in_various_languages
 # https://en.wiktionary.org/wiki/numerus#Latin

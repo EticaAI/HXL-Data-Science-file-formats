@@ -4,6 +4,7 @@
 >
 > - http://www.unicode.org/reports/tr51/ (UNICODE EMOJI)
   - <http://www.unicode.org/reports/tr9/> (UNICODE BIDIRECTIONAL ALGORITHM)
+  - <http://unicode.org/reports/tr35/> (UNICODE LOCALE DATA MARKUP LANGUAGE (LDML))
 
 ## Language frontents for unicode parsing
 

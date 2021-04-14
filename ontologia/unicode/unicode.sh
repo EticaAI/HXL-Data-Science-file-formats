@@ -24,7 +24,7 @@
 #===============================================================================
 
 # Download 13.0
-DIR="$(pwd)"
+# DIR="$(pwd)"
 # CACHE="${DIR}/cache"
 
 # echo "$CACHE"
@@ -55,4 +55,19 @@ if [ ! -f "./13.0.0/charts/RSIndex.pdf" ]; then
     curl -o ./13.0.0/charts/RSIndex.pdf https://www.unicode.org/Public/13.0.0/charts/RSIndex.pdf
 else
     echo "./13.0.0/charts/RSIndex.pdf already cached"
+fi
+
+echo "Local copy of https://github.com/unicode-org/cldr ..."
+
+if [ ! -d "./cldr/unicode-org-cldr/" ]; then
+    git clone --depth 1 https://github.com/unicode-org/cldr.git ./cldr/unicode-org-cldr/
+else
+    echo "./cldr/unicode-org-cldr/ already cached"
+fi
+echo "Local copy of https://github.com/unicode-org/cldr ..."
+
+if [ ! -d "./cldr/unicode-org-cldr-json/" ]; then
+    git clone --depth 1 https://github.com/unicode-org/cldr-json.git ./cldr/unicode-org-cldr-json/
+else
+    echo "./cldr/unicode-org-cldr-json/ already cached"
 fi
