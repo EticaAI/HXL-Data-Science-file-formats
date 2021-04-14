@@ -155,8 +155,8 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
   - Home page: https://unicode.org/iso15924/
   - Search online: https://unicode.org/iso15924/iso15924-codes.html
   - Changes: https://unicode.org/iso15924/codechanges.html
-  - ttps://unicode.org/iso15924/iso15924.txt
-  - http://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt
+  - Download: https://unicode.org/iso15924/iso15924.txt
+  - Download: https://www.unicode.org/Public/UCD/latest/ucd/PropertyValueAliases.txt
 - Alternatives to official/recommended source:
   - Wikipedia: https://en.wikipedia.org/wiki/ISO_15924
 
