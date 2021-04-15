@@ -5,7 +5,9 @@
 
 (define collection "hdpl")
 (define deps '("base"))
-(define build-deps '("scribble-lib" "racket-doc" "rackunit-lib"))
+
+; TODO: remove temporary dependencies that would not be required later
+(define build-deps '("scribble-lib" "racket-doc" "rackunit-lib", "data-frame", "csv-reading"))
 (define scribblings '(("scribblings/hdpl.scrbl" ())))
 (define pkg-desc "HDP Declarative Programming (working draft)")
 (define version "0.9.0")

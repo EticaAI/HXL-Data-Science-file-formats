@@ -44,6 +44,9 @@ yq < ontologia/core.vkg.yml > ontologia/json/core.vkg.json
 # Generate ontologia/json/core.lkg.json
 yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 
+# Generate ontologia/servitium.hdplisp.yml
+yq < ontologia/servitium.hdplisp.yml > ontologia/json/servitium.hdplisp.json
+
 #### webext-signed-pages _______________________________________________________
 # @see https://github.com/tasn/webext-signed-pages
 cd "$ROOTDIR"
@@ -101,11 +104,13 @@ cd ontologia/json/ || exit
 sha384sum --tag cor.hdplisp.json > cor.hdplisp.json.sum
 sha384sum --tag core.lkg.json > core.lkg.json.sum
 sha384sum --tag core.vkg.json > core.vkg.json.sum
+sha384sum --tag servitium.hdplisp.json > servitium.hdplisp.json.sum
 
 ## Check the hashes
 sha384sum --check cor.hdplisp.json.sum
 sha384sum --check core.lkg.json.sum
 sha384sum --check core.vkg.json.sum
+sha384sum --check servitium.hdplisp.json.sum
 
 ### hxlm-js/ -------------------------------------------------------------------
 echo "> > hxlm-js"
@@ -187,7 +192,7 @@ sha384sum --check hxlm-js.sum
 # ln -s ../codicem/codicem.linguam.hxl.csv ./iso.639-3.hxl.csv
 # ln -s ../codicem/codicem.locum.hxl.csv ./iso.3166.hxl.csv
 
-# ln -s ../../../../../ontologia/README.md hdpl-conventions/prototype/hdpl/ontologia/README.md
+# ln -s ../../../../ontologia/README.md hdpl-conventions/prototype/hdpl/ontologia/README.md
 
 # ln -s ../../../../../ontologia/codicem/codicem.linguam.hxl.csv hdpl-conventions/prototype/hdpl/ontologia/codicem/codicem.linguam.hxl.csv
 # ln -s ../../../../../ontologia/codicem/codicem.locum.hxl.csv hdpl-conventions/prototype/hdpl/ontologia/codicem/codicem.locum.hxl.csv

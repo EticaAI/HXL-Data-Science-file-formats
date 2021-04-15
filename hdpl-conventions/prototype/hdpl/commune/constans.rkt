@@ -8,6 +8,8 @@
 ;; - "cōnstāns"
 ;;   - https://en.wiktionary.org/wiki/constans#Latin
 
+ (require csv-reading)
+ (require data-frame)
 
 ;; org.ocha.vocabulary->adm0
 ; https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596
@@ -28,3 +30,36 @@
 
 
 (provide Constans->PS->adm0 Constans->Scriptum Constans->Linguam)
+
+
+;;; Temporary code
+; (require csv-reading)
+
+; (define make-food-csv-reader
+;   (make-csv-reader-maker
+;    '((separator-chars            #\|)
+;      (strip-leading-whitespace?  . #t)
+;      (strip-trailing-whitespace? . #t))))
+
+
+;; TODO: maybe cache things like this https://docs.racket-lang.org/memo/index.html
+
+(define CodicemLinguam (df-read/csv "ontologia/codicem/codicem.linguam.hxl.csv"))
+; (define CodicemLinguam (csv->list (open-input-file "ontologia/codicem/codicem.numerum.hxl.csv")))
+(define CodicemLocum (df-read/csv "ontologia/codicem/codicem.locum.hxl.csv"))
+(define CodicemNumerum (df-read/csv "ontologia/codicem/codicem.numerum.hxl.csv"))
+(define CodicemScriptum (df-read/csv "ontologia/codicem/codicem.scriptum.hxl.csv"))
+
+
+; (writeln "CodicemLinguam")
+(df-describe CodicemLinguam)
+(write CodicemLinguam)
+
+(writeln "CodicemLocum")
+(df-describe CodicemLocum)
+
+(writeln "CodicemNumerum")
+(df-describe CodicemNumerum)
+
+(writeln "CodicemScriptum")
+(df-describe CodicemScriptum)

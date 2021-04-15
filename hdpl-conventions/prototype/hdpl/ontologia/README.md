@@ -1,1 +1,1 @@
-../../../../../ontologia/README.md
+../../../../ontologia/README.md
