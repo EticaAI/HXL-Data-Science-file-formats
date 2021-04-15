@@ -3,6 +3,13 @@
 ;; License: Public Domain / BSD Zero Clause License
 ;; SPDX-License-Identifier: Unlicense OR 0BSD
 
+;; TODO: implement lazy evaluation on relevant parts
+;        https://docs.racket-lang.org/reference/Delayed_Evaluation.html
+;        but see also
+;        - https://stackoverflow.com/questions/42012842/racket-lazy-evaluation-within-some-scope
+;        - https://docs.racket-lang.org/reference/streams.html?q=tsreams  
+;        - https://docs.racket-lang.org/reference/streams.html?q=tsreams  
+
 (module+ test
   (require rackunit))
 

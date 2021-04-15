@@ -14,4 +14,5 @@
 (require json)
 (provide LKGDictionarium)
 
-(define LKGDictionarium (read-json (open-input-file "ontologia/json/core.lkg.json")))
+(define LKGDictionarium 
+  (read-json (open-input-file "ontologia/json/core.lkg.json")))

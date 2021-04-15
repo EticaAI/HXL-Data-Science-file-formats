@@ -13,10 +13,10 @@
 ;;; New beta API ---------------------------------------------------------------
 
 (define (org.ocha.cod->ab optionem)
-  (write "TODO: org.ocha.cod->ab (administrative boundary)"))
+  (writeln "TODO: org.ocha.cod->ab (administrative boundary)"))
 
 (define (org.ocha.cod->ps optionem)
-  (write "TODO: org.ocha.cod->ps (population statistics)"))
+  (writeln "TODO: org.ocha.cod->ps (population statistics)"))
 
 ;;; This return a full XLSX spreadsheet XLSX
 ; https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/bgd/versions/current/XLSX/1
