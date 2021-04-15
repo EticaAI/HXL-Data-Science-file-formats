@@ -20,6 +20,9 @@ raco pkg new hdpl
 ## Install/Reinstall from local path
 raco pkg install --link ./hdpl/
 
+
+raco pkg update --link ./hdpl/
+
 ## See docs
 raco docs hdpl
 
