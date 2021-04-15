@@ -14,6 +14,7 @@
 
 ;; TODO: considere this as option to implement lazy evaluation
 ;;       http://matt.might.net/articles/implementing-laziness/
+;;       http://people.cs.aau.dk/~normark/prog3-03/html/notes/eval-order_themes-delay-stream-section.html
 
 (require net/url)
 (require racket/promise)
@@ -23,7 +24,9 @@
   ServitumDictionarium
   ; GeoboundariesOrgServitumDictionarium
 ; )
-  servitium-org-geoboundaries)
+  servitium-org-geoboundaries
+  servitium-org-geoboundaries->patriam
+  )
 
 
 ;; http://matt.might.net/articles/implementing-laziness/
@@ -63,8 +66,8 @@
   GeoboundariesOrgServitumDictionarium)
 
 ; List of ISO3 country codes
-(define servitium-org-geoboundaries->patriam
-  "TODO: servitium-org-geoboundaries->patriam?")
+(define [servitium-org-geoboundaries->patriam patriam]
+  (lazy "TODO: servitium-org-geoboundaries->patriam"))
 
 ; Does this country have any information?
 (define servitium-org-geoboundaries->patriam?

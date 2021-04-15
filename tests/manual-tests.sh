@@ -423,12 +423,12 @@ clojure -X tests/grammar/instaparse-abnf_test.cljc
 # namespaced packages when doing local development. So this trick is how Rocha
 # do: a bunch of symlinks
 
-mv /home/fititnt/.local/lib/python3.8/site-packages/hxlm /home/fititnt/.local/lib/python3.8/site-packages/hxlm-old
-ln -s /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm  /home/fititnt/.local/lib/python3.8/site-packages/hxlm
-ln -s /workspace/git/EticaAI/hxlm-compliance-bra-eticaai/hxlm/compliance /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/compliance
-ln -s /workspace/git/EticaAI/hxlm-crypto-eticaai/hxlm/crypto /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/crypto
-ln -s /workspace/git/EticaAI/hxlm-crypto-eticaai/hxlm/plugin/xe_cryptoexample /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/plugin/xe_cryptoexample
+# mv /home/fititnt/.local/lib/python3.8/site-packages/hxlm /home/fititnt/.local/lib/python3.8/site-packages/hxlm-old
+# ln -s /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm  /home/fititnt/.local/lib/python3.8/site-packages/hxlm
+# ln -s /workspace/git/EticaAI/hxlm-compliance-bra-eticaai/hxlm/compliance /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/compliance
+# ln -s /workspace/git/EticaAI/hxlm-crypto-eticaai/hxlm/crypto /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/crypto
+# ln -s /workspace/git/EticaAI/hxlm-crypto-eticaai/hxlm/plugin/xe_cryptoexample /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/plugin/xe_cryptoexample
 
 
-### On termux
-pip install git+https://github.comEticaAI/HXL-Data-Science-file-formats.git#egg=hxlm-base-eticaai
+# ### On termux
+# pip install git+https://github.comEticaAI/HXL-Data-Science-file-formats.git#egg=hxlm-base-eticaai
