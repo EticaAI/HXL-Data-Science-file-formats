@@ -202,3 +202,4 @@ sha384sum --check hxlm-js.sum
 # ln -s ../../../../../ontologia/json/cor.hdplisp.json hdpl-conventions/prototype/hdpl/ontologia/json/cor.hdplisp.json
 # ln -s ../../../../../ontologia/json/core.lkg.json hdpl-conventions/prototype/hdpl/ontologia/json/core.lkg.json
 # ln -s ../../../../../ontologia/json/core.vkg.json hdpl-conventions/prototype/hdpl/ontologia/json/core.vkg.json
+# ln -s ../../../../../ontologia/json/servitium.hdplisp.json hdpl-conventions/prototype/hdpl/ontologia/json/servitium.hdplisp.json
