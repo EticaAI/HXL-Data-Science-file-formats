@@ -186,3 +186,14 @@ sha384sum --check hxlm-js.sum
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/ontologia/iso || exit
 # ln -s ../codicem/codicem.linguam.hxl.csv ./iso.639-3.hxl.csv
 # ln -s ../codicem/codicem.locum.hxl.csv ./iso.3166.hxl.csv
+
+# ln -s ../../../../../ontologia/README.md hdpl-conventions/prototype/hdpl/ontologia/README.md
+
+# ln -s ../../../../../ontologia/codicem/codicem.linguam.hxl.csv hdpl-conventions/prototype/hdpl/ontologia/codicem/codicem.linguam.hxl.csv
+# ln -s ../../../../../ontologia/codicem/codicem.locum.hxl.csv hdpl-conventions/prototype/hdpl/ontologia/codicem/codicem.locum.hxl.csv
+# ln -s ../../../../../ontologia/codicem/codicem.numerum.hxl.csv hdpl-conventions/prototype/hdpl/ontologia/codicem/codicem.numerum.hxl.csv
+# ln -s ../../../../../ontologia/codicem/codicem.scriptum.hxl.csv hdpl-conventions/prototype/hdpl/ontologia/codicem/codicem.scriptum.hxl.csv
+
+# ln -s ../../../../../ontologia/json/cor.hdplisp.json hdpl-conventions/prototype/hdpl/ontologia/json/cor.hdplisp.json
+# ln -s ../../../../../ontologia/json/core.lkg.json hdpl-conventions/prototype/hdpl/ontologia/json/core.lkg.json
+# ln -s ../../../../../ontologia/json/core.vkg.json hdpl-conventions/prototype/hdpl/ontologia/json/core.vkg.json
