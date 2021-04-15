@@ -4,7 +4,13 @@
 >
 > - http://www.unicode.org/reports/tr51/ (UNICODE EMOJI)
   - <http://www.unicode.org/reports/tr9/> (UNICODE BIDIRECTIONAL ALGORITHM)
-  - <http://unicode.org/reports/tr35/> (UNICODE LOCALE DATA MARKUP LANGUAGE (LDML))
+  - <s><http://unicode.org/reports/tr35/> (UNICODE LOCALE DATA MARKUP LANGUAGE (LDML), Part 1, Core)</s>
+    - <https://unicode.org/reports/tr35/tr35-general.html> (Part 2: General (display names & transforms, etc.))
+    - <s><https://unicode.org/reports/tr35/tr35-numbers.html> (Part 3: Numbers (number & currency formatting))</s>
+    - <https://unicode.org/reports/tr35/tr35-dates.html> (Part 4: Dates (date, time, time zone formatting))
+    - <https://unicode.org/reports/tr35/tr35-collation.html> (Part 5: Collation (sorting, searching, grouping))
+    - <https://unicode.org/reports/tr35/tr35-info.html> (Part 6: Supplemental (supplemental data))
+    - <https://unicode.org/reports/tr35/tr35-keyboards.html> (Part 7: Keyboards (keyboard mappings))
 
 ## Language frontents for unicode parsing
 
@@ -47,6 +53,8 @@ http://www.unicode.org/reports/), these are a few ones:
   - <http://www.unicode.org/reports/tr44/>
 - Unicode® Standard Annex #24 UNICODE SCRIPT PROPERTY
   - <http://www.unicode.org/reports/tr24/>
+- UNICODE LOCALE DATA MARKUP LANGUAGE (LDML)
+  <http://unicode.org/reports/tr35/> (Part 1, Core)
 
 
 #### Some very quick notes

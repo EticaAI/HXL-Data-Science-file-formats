@@ -1,0 +1,4 @@
+#meta+name,#meta +wikipedia +url,#meta +wikidata +code,#meta +unicode +url,#meta +unicode_range,#meta +unicode_cldr +id,#meta +unicode_cldr +type,#vocab +v_lat_numerum_0,#vocab +v_lat_numerum_1,#vocab +v_lat_numerum_2,#vocab +v_lat_numerum_3,#vocab +v_lat_numerum_4,#vocab +v_lat_numerum_5,#vocab +v_lat_numerum_6,#vocab +v_lat_numerum_7,#vocab +v_lat_numerum_8,#vocab +v_lat_numerum_9
+ASCII,https://en.wikipedia.org/wiki/ASCII,Q8815,,,,,0,1,2,3,4,5,6,7,8,9
+ISO15924:Telu,https://en.wikipedia.org/wiki/Telugu_script#Numerals,,https://www.unicode.org/charts/PDF/U0C00.pdf,0C00–0C7F,telu,numeric,౦,౧,౨,౩,౪,౫,౬,౭,౮,౯
+draft-ignore-001,https://en.wikipedia.org/wiki/Arabic_numerals,,,,,,,,,,,,,,,
