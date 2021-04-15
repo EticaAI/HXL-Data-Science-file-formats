@@ -32,6 +32,7 @@ corrections.
     - [Prebuild tables](#prebuild-tables)
         - [Language codes](#language-codes)
         - [Writting system codes](#writting-system-codes)
+        - [Numbers (draft)](#numbers-draft)
         - [Location codes](#location-codes)
             - [Location codes at adm0](#location-codes-at-adm0)
             - [Location at adm1, adm2, adm3, adm4, adm5](#location-at-adm1-adm2-adm3-adm4-adm5)
@@ -110,6 +111,10 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 #### Writting system codes
 
 - [codicem/codicem.scriptum.hxl.csv](codicem/codicem.scriptum.hxl.csv)
+
+#### Numbers (draft)
+
+- [codicem/codicem.numerum.hxl.csv](codicem/codicem.numerum.hxl.csv)
 
 #### Location codes
 
