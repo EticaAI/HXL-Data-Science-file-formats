@@ -4,9 +4,13 @@
 ;; License: Public Domain / BSD Zero Clause License
 ;; SPDX-License-Identifier: Unlicense OR 0BSD
 
+; (require net/url)
+; (require json)
 
 (provide org.ocha.cod->ab org.ocha.cod->ps)
 
+
+;;; New beta API ---------------------------------------------------------------
 
 (define (org.ocha.cod->ab optionem)
   (write "TODO: org.ocha.cod->ab (administrative boundary)"))
@@ -14,15 +18,18 @@
 (define (org.ocha.cod->ps optionem)
   (write "TODO: org.ocha.cod->ps (population statistics)"))
 
-
-
 ;;; This return a full XLSX spreadsheet XLSX
 ; https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/bgd/versions/current/XLSX/1
 
 
 ;;; shows those countries with population statistics datasets
 ; https://beta.itos.uga.edu/CODV2API/api/v1/Themes/Population%20Statistics
-; > {"theme_name":"Population Statistics","comment":null,"countries":["ton","bgd","tha","ssd","ecu"],"Total":0}   
+; > {"theme_name":"Population Statistics","comment":null,"countries":["ton","bgd","tha","ssd","ecu"],"Total":0}  
+
+
+;;; Public API -----------------------------------------------------------------
+; https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External
+ 
 
 
 ;(define (extract str)

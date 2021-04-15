@@ -1,5 +1,11 @@
 # hdpl/systema/README.md
 
+Note: the Racket modules inside hdpl/systema are the _more low level_
+functionality of HDPLisp and as such may contain redundancies (for example
+more than one option to return a query) and also are not translated on user
+language.
+
+
 - Trivia:
   - "systēma"
     - https://en.wiktionary.org/wiki/systema#Latin
