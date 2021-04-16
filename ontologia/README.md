@@ -107,14 +107,41 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 #### Language codes
 
 - [codicem/codicem.linguam.hxl.csv](codicem/codicem.linguam.hxl.csv)
+- [HXL-CPLP/forum#38: HXL-CPLP-Vocab_Linguam (ISO 639-3 et al)](https://github.com/HXL-CPLP/forum/issues/38)
+
+
+
+> TODO: add also the macrolanguages mapping https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3-macrolanguages.tab
+
+<!--
+
+From [https://iso639-3.sil.org/code_tables/download_tables](https://iso639-3.sil.org/code_tables/download_tables):
+
+```sql
+CREATE TABLE [ISO_639-3] (
+         Id      char(3) NOT NULL,  -- The three-letter 639-3 identifier
+         Part2B  char(3) NULL,      -- Equivalent 639-2 identifier of the bibliographic applications 
+                                    -- code set, if there is one
+         Part2T  char(3) NULL,      -- Equivalent 639-2 identifier of the terminology applications code 
+                                    -- set, if there is one
+         Part1   char(2) NULL,      -- Equivalent 639-1 identifier, if there is one    
+         Scope   char(1) NOT NULL,  -- I(ndividual), M(acrolanguage), S(pecial)
+         Type    char(1) NOT NULL,  -- A(ncient), C(onstructed),  
+                                    -- E(xtinct), H(istorical), L(iving), S(pecial)
+         Ref_Name   varchar(150) NOT NULL,   -- Reference language name 
+         Comment    varchar(150) NULL)       -- Comment relating to one or more of the columns
+```
+-->
 
 #### Writting system codes
 
 - [codicem/codicem.scriptum.hxl.csv](codicem/codicem.scriptum.hxl.csv)
+- [HXL-CPLP/forum#54: HXL-CPLP-Vocab_Scriptum (ISO 15924 et al)](https://github.com/HXL-CPLP/forum/issues/54)
 
 #### Numbers (draft)
 
 - [codicem/codicem.numerum.hxl.csv](codicem/codicem.numerum.hxl.csv)
+- [HXL-CPLP/forum#38: HXL-CPLP-Vocab_Numerum](https://github.com/HXL-CPLP/forum/issues/53)
 
 #### Location codes
 
