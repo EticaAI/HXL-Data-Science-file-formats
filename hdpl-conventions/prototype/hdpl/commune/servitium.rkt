@@ -1,4 +1,5 @@
-#lang lazy
+#lang racket
+;#lang lazy
 ; #lang racket
 ;; File: hdpl/commune/servitium.rkt
 ;; Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
@@ -7,10 +8,13 @@
 ;;
 ;; Trivia
 ;; - "servitium"
-;;  - https://en.wiktionary.org/wiki/servitium#Latin
+;;    - https://en.wiktionary.org/wiki/servitium#Latin
 ;; - "dictiōnārium"
-;;  - https://en.wiktionary.org/wiki/dictionarium#Latin
-
+;;    - https://en.wiktionary.org/wiki/dictionarium#Latin
+;; - "indicem"
+;;    - https://en.wiktionary.org/wiki/index#Latin
+;; - "praecīsiōnem"
+;;    - https://en.wiktionary.org/wiki/praecisio#Latin
 
 ;; TODO: considere this as option to implement lazy evaluation
 ;;       http://matt.might.net/articles/implementing-laziness/
@@ -21,31 +25,21 @@
 
 (require json)
 (provide
-  ServitumDictionarium
-  ; GeoboundariesOrgServitumDictionarium
-; )
-  servitium-org-geoboundaries
-  servitium-org-geoboundaries->patriam
-  )
+ ServitumDictionarium
+ ; GeoboundariesOrgServitumDictionarium
+ ; )
+ servitium/org-geoboundaries
+ servitium/org-geoboundaries->patriam
+ servitium/org-geoboundaries->index
+ )
 
 
-;; http://matt.might.net/articles/implementing-laziness/
-; (define-syntax (define/by-need stx)
-;   (syntax-case stx ()
-;     [(_ (f v ...) body ...)
-;      (with-syntax ([($f) (generate-temporaries #'(f))])
-;        #'(begin
-;            (define-syntax f
-;              (syntax-rules ()
-;                [(_ arg (... ...))
-;                 ($f (delay arg) (... ...))]))
-;            (define ($f v ...)
-;              (let-syntax ([v (lambda (stx*)
-;                                (syntax-case stx* ()
-;                                  [(_ arg (... ...)) 
-;                                   #'((force v) arg (... ...))]
-;                                  [_ #'(force v)]))] ...)
-;                body ...))))]))
+
+;; Simple local helper
+(define [hash-have-this-key? hash key val]
+  (and
+   [hash-has-key? hash key]
+   [equal? (hash-ref hash key) val]))
 
 
 (define ServitumDictionarium
@@ -57,29 +51,51 @@
 
 (define GeoboundariesOrgServitumDictionarium
   (lazy
-    (read-json
-      (get-pure-port (string->url "https://www.geoboundaries.org/gbRequest.html?ISO=ALL")))))
+   (read-json
+    (get-pure-port (string->url "https://www.geoboundaries.org/gbRequest.html?ISO=ALL")))))
 
 
 ; Return list raw list of values
-(define servitium-org-geoboundaries
+(define servitium/org-geoboundaries
   GeoboundariesOrgServitumDictionarium)
 
+
+
+(define [servitium/org-geoboundaries->index patriam [praecisionem empty] ]
+  ; Note: uses GeoboundariesOrgServitumDictionarium
+
+  ; TODO: implement also ADM level praecisionem
+
+  ; local function iter:
+  (define [iter lst resultum]
+    (cond
+      [(empty? lst) resultum]
+      [else 
+       (iter (rest lst)
+             (cond
+               [(hash-have-this-key? (first lst) 'boundaryISO patriam) (cons resultum (first lst))]
+               [else resultum]
+               ))]))
+
+  ; body calls iter:
+  (iter (force GeoboundariesOrgServitumDictionarium) '()))
+
+
 ; List of ISO3 country codes
-(define [servitium-org-geoboundaries->patriam patriam]
-  (lazy "TODO: servitium-org-geoboundaries->patriam"))
+(define [servitium/org-geoboundaries->patriam patriam]
+  (lazy "TODO: servitium/org-geoboundaries->patriam"))
 
 ; Does this country have any information?
-(define servitium-org-geoboundaries->patriam?
-  "TODO: servitium-org-geoboundaries->patriam?")
+(define servitium/org-geoboundaries->patriam?
+  "TODO: servitium/org-geoboundaries->patriam?")
 
 ; Does this country have an adm1 level? (Note: all that do exist, have at least adm0)
-(define servitium-org-geoboundaries->patriam-adm1?
-  "TODO: servitium-org-geoboundaries->patriam-adm1?")
+(define servitium/org-geoboundaries->patriam-adm1?
+  "TODO: servitium/org-geoboundaries->patriam-adm1?")
 
 ; Does this country have an adm2 level? (Note: all that do exist, have at least adm0)
-(define servitium-org-geoboundaries->patriam-adm2?
-  "TODO: servitium-org-geoboundaries->patriam-adm2?")
+(define servitium/org-geoboundaries->patriam-adm2?
+  "TODO: servitium/org-geoboundaries->patriam-adm2?")
 
 ; TODO: other levels
 
