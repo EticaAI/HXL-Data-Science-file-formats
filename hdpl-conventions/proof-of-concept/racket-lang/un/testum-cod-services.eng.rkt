@@ -56,8 +56,8 @@
 
 
 (map (lambda (i)
-         (string-append i "!"))
-       (list "peanuts" "popcorn" "crackerjack"))
+       (string-append i "!"))
+     (list "peanuts" "popcorn" "crackerjack"))
 
 
 (filter string? (list "a" "b" 6))
@@ -91,8 +91,8 @@
   ; local function iter:
   (define (iter lst len)
     (cond
-     [(empty? lst) len]
-     [else (iter (rest lst) (+ len 1))]))
+      [(empty? lst) len]
+      [else (iter (rest lst) (+ len 1))]))
   ; body of my-length calls iter:
   (iter lst 0))
 
@@ -129,13 +129,91 @@
 ;  (iter lst empty))
 
 (for/list ([i '(1 2 3)]
-             [j "abc"]
-             #:when (odd? i)
-             [k #(#t #f)])
-    (list i j k))
+           [j "abc"]
+           #:when (odd? i)
+           [k #(#t #f)])
+  (list i j k))
 
 
 
 
 (for/hash ([i '(1 2 3)])
-    (values i (number->string i)))
+  (values i (number->string i)))
+
+;; @NlightNFotis: "A small naive implementation of map, filter and reduce in racket, implemented by myself."
+; https://gist.github.com/NlightNFotis/b662a0368b5eea68ebfde1e4e4fb9787
+
+
+(define  [hash-have-this-key? hash key val]
+  ;  (print hash))
+  ;  (hash-keys hash))
+
+  (and
+   [hash-has-key? hash key]
+   [equal? (hash-ref hash key) val]))
+;   [eq? (hash-ref hash key) val]))
+;   [hash-has-key? hash (quote key)]
+;   [eq? (hash-ref hash (quote key)) val]))
+
+
+
+(first Example1)
+(first (hash-keys (first Example1)))
+'boundaryISO
+
+(hash-have-this-key? (first Example1) 'boundaryISO "AFG")
+
+;; Note to self: hash keys are symbols, but values tend to be string/number
+
+
+(define [servitium-org-geoboundaries->patriam_test patriam]
+  ; uses external Example1
+
+;  ; local function iter: (almost there...)
+;  (define [iter lst resultum]
+;    (cond
+;      [(empty? lst) resultum]
+;      [else (iter (rest lst) (cons resultum 1))]))
+  
+
+  ; local function iter: (almost there...)
+  (define [iter lst resultum]
+    (cond
+      [(empty? lst) resultum]
+      [else (iter (rest lst) (
+                              cond
+                               [(hash-have-this-key? (first lst) 'boundaryISO patriam) (cons resultum (first lst))]
+                               [else resultum]
+
+                               ))]))
+
+  ; body calls iter:
+  (iter Example1 '()))
+
+(println "testing AFG...")
+(servitium-org-geoboundaries->patriam_test "AFG")
+
+(println "testing BRA...")
+(servitium-org-geoboundaries->patriam_test "BRA")
+
+
+
+(println "testing non-existent like XPTO...")
+(servitium-org-geoboundaries->patriam_test "XPTO")
+;(servitium-org-geoboundaries->patriam_test "BRA222")
+
+;(define [servitium-org-geoboundaries->patriam_test patriam]
+;  (for/fold ([acc '()]
+;             [seen '()]
+;             #:result (reverse acc))
+;            ([x (in-list Example1)])
+;    (cond
+;      [(hash-ref seen patriam #f)
+;       (values acc seen)]
+;      [else (values (cons patriam acc)
+;                    (hash-set seen patriam #t))]))
+;  )
+;
+;
+;(servitium-org-geoboundaries->patriam_test "AFG")
+;(servitium-org-geoboundaries->patriam_test "BRA222")
