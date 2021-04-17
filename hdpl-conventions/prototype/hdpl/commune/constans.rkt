@@ -8,9 +8,9 @@
 ;; - "cōnstāns"
 ;;   - https://en.wiktionary.org/wiki/constans#Latin
 
- (require csv-reading)
- (require data-frame)
- (require hdpl/commune/structuram)
+(require csv-reading)
+(require data-frame)
+(require hdpl/commune/structuram)
 
 ;; org.ocha.vocabulary->adm0
 ; https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596
@@ -68,8 +68,11 @@
 
 ; (csv->sxml (open-input-file "ontologia/codicem/codicem.numerum.hxl.csv"))
 
+
+;; https://rosettacode.org/wiki/CSV_data_manipulation#Racket
+
 ;; Example of how to print line by line an CSV
 (csv-for-each
   (lambda(x)
       (writeln(string-join x)))
-  (make-csv-reader (open-input-file "ontologia/codicem/codicem.numerum.hxl.csv")))
+  (make-csv-reader (open-input-file "ontologia/codicem/codicem.linguam.hxl.csv")))
