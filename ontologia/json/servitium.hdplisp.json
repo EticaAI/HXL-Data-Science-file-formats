@@ -2,6 +2,8 @@
   "servitium": {
     "mappam": {
       "_to-document_": [
+        "https://www.geoboundaries.org/api.html",
+        "https://www.geoboundaries.org/gbRequest.html?ISO=ALL",
         "https://gadm.org/",
         "https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External",
         "https://beta.itos.uga.edu/CODV2API/",

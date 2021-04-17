@@ -53,6 +53,45 @@ b:
 #   "*":
 #   "/":
 
+#### DT _______________________________________________________________________
+# Trivia:
+# - 'datum'
+#   - https://en.wiktionary.org/wiki/datum#Latin
+# - 'typum'
+#   - https://en.wiktionary.org/wiki/typus#Latin
+# TODO: i'm not sure if Datum Typum is a good term (Emerson Rocha, 2021-04-17 16:51 UTC)
+
+dt:
+
+  nullum:
+    eng-Latn:
+      # Trivia: 'null', https://en.wiktionary.org/wiki/null
+      id: null
+    lat-Latn:
+      # Trivia: 'nūllum', https://en.wiktionary.org/wiki/nullus#Latin
+      id: nullum
+    Zmth:
+      # https://en.wiktionary.org/wiki/%E2%90%80
+      # Unicode Character “␀” (U+2400)
+      # TODO: I'm not sure if this is a good math simbol for 'absense of any'
+      id: "␀"
+
+  numerum:
+    lat-Latn:
+      # Trivia: 'numerum', https://en.wiktionary.org/wiki/numerus#Latin
+      id: numerum
+
+  vacuum:
+    # Trivia: 'vacuum', https://en.wiktionary.org/wiki/vacuus#Latin
+    lat-Latn:
+      id: vacuum
+    Zmth:
+      # https://en.wiktionary.org/wiki/%E2%88%85
+      # Unicode Character “∅” (U+2205)
+      id: "∅"
+
+# TODO: add at least Racket data types https://docs.racket-lang.org/guide/datatypes.html
+
 #### f: fūnctiōnem ____________________________________________________________
 # Trivia:
 # - 'f'

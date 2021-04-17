@@ -16,6 +16,32 @@
     "*": null,
     "/": null
   },
+  "dt": {
+    "nullum": {
+      "eng-Latn": {
+        "id": null
+      },
+      "lat-Latn": {
+        "id": "nullum"
+      },
+      "Zmth": {
+        "id": "␀"
+      }
+    },
+    "numerum": {
+      "lat-Latn": {
+        "id": "numerum"
+      }
+    },
+    "vacuum": {
+      "lat-Latn": {
+        "id": "vacuum"
+      },
+      "Zmth": {
+        "id": "∅"
+      }
+    }
+  },
   "f": {
     "divisionem": {
       "Latn": {
