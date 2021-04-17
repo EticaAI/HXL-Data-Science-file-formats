@@ -10,6 +10,7 @@
 
  (require csv-reading)
  (require data-frame)
+ (require hdpl/commune/structuram)
 
 ;; org.ocha.vocabulary->adm0
 ; https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596
@@ -44,22 +45,31 @@
 
 ;; TODO: maybe cache things like this https://docs.racket-lang.org/memo/index.html
 
-(define CodicemLinguam (df-read/csv "ontologia/codicem/codicem.linguam.hxl.csv"))
-; (define CodicemLinguam (csv->list (open-input-file "ontologia/codicem/codicem.numerum.hxl.csv")))
-(define CodicemLocum (df-read/csv "ontologia/codicem/codicem.locum.hxl.csv"))
-(define CodicemNumerum (df-read/csv "ontologia/codicem/codicem.numerum.hxl.csv"))
-(define CodicemScriptum (df-read/csv "ontologia/codicem/codicem.scriptum.hxl.csv"))
+; (define CodicemLinguam (df-read/csv "ontologia/codicem/codicem.linguam.hxl.csv"))
+; ; (define CodicemLinguam (csv->list (open-input-file "ontologia/codicem/codicem.numerum.hxl.csv")))
+; (define CodicemLocum (df-read/csv "ontologia/codicem/codicem.locum.hxl.csv"))
+; (define CodicemNumerum (df-read/csv "ontologia/codicem/codicem.numerum.hxl.csv"))
+; (define CodicemScriptum (df-read/csv "ontologia/codicem/codicem.scriptum.hxl.csv"))
 
 
-; (writeln "CodicemLinguam")
-(df-describe CodicemLinguam)
-(write CodicemLinguam)
+; ; (writeln "CodicemLinguam")
+; (df-describe CodicemLinguam)
+; (write CodicemLinguam)
 
-(writeln "CodicemLocum")
-(df-describe CodicemLocum)
+; (writeln "CodicemLocum")
+; (df-describe CodicemLocum)
 
-(writeln "CodicemNumerum")
-(df-describe CodicemNumerum)
+; (writeln "CodicemNumerum")
+; (df-describe CodicemNumerum)
 
-(writeln "CodicemScriptum")
-(df-describe CodicemScriptum)
+; (writeln "CodicemScriptum")
+; (df-describe CodicemScriptum)
+
+
+; (csv->sxml (open-input-file "ontologia/codicem/codicem.numerum.hxl.csv"))
+
+;; Example of how to print line by line an CSV
+(csv-for-each
+  (lambda(x)
+      (writeln(string-join x)))
+  (make-csv-reader (open-input-file "ontologia/codicem/codicem.numerum.hxl.csv")))

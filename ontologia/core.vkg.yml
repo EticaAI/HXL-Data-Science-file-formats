@@ -169,6 +169,11 @@ root:
       #      Doublet of date
       # - https://en.wiktionary.org/wiki/datum#Latin
       #   > datum n (genitive datī); second declension gift, present
+      #
+      # TODO: maybe change the latin form to datum plus
+      #         - https://en.wiktionary.org/wiki/coniunctus#Latin
+      #         - https://en.wiktionary.org/wiki/collectio#Latin
+      #       (Emerson Rocha, 2021-04-17 20:02 UTC)
       id: 'hdatum'
       id_alts:
         - "datum"

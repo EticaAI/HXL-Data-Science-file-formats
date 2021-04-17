@@ -19,6 +19,10 @@
 ;;    - https://en.wiktionary.org/wiki/versio#Latin
 ;; - "dactylum"
 ;;    - https://en.wiktionary.org/wiki/dactylus#Latin
+;; - "collēctiōnem"
+;;    - https://en.wiktionary.org/wiki/collectio#Latin
+;; - "coniūnctum"
+;;    - https://en.wiktionary.org/wiki/coniunctus#Latin
 
 ; @see - https://docs.racket-lang.org/reference/structutils.html
 ; @see - https://beautifulracket.com/explainer/data-structures.html
@@ -65,6 +69,17 @@
 ; hdpl-conventions/prototype/hdpl/ontologia/codicem/codicem.locum.hxl.csv
 ; (struct CodicemLocum (TODO))
 
+;; An data struct that have pointer for several structs related to Linguam
+(struct ConiunctumLinguam (CodicemLinguamCollectionem)
+  #:guard (struct-guard/c (or/c list? empty?))
+  )
+
+;; An data struct that have pointer for several structs related to Striptum
+(struct ConiunctumScriptum (CodicemScriptumCollectionem)
+  #:guard (struct-guard/c (or/c list? empty?))
+  )
+
+
 ;; Example of creating the struct
 (CodicemLinguam 'arb empty empty empty 'I 'L "Standard Arabic")
 
@@ -73,3 +88,4 @@
 
 ; Access specific item
 (CodicemScriptum-iso15924 (CodicemScriptum 'Kpel 436 "Kpelle" "kpèllé" empty empty '2016-12-05))
+
