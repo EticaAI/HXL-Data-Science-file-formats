@@ -1,5 +1,5 @@
 #lang racket
-;; File: hdpl/systema/libhxl-minimum.rkt
+;; File: hdpl/libhxl/libhxl-minimum.rkt
 ;; Author: 2021, Emerson Rocha (Etica.AI) <rocha@ieee.org>
 ;; License: Public Domain / BSD Zero Clause License
 ;; SPDX-License-Identifier: Unlicense OR 0BSD
@@ -7,10 +7,15 @@
 ;; HXLStandard do not (at the moment) have underlining implementation on Racket
 ;; so this file mostly is a very simple port of minimum functionality.
 
+;; See also
+;; - https://docs.racket-lang.org/rackunit/
+
 ;; Projects that do use CSV
 ; - https://docs.racket-lang.org/csv-reading
 ; - https://docs.racket-lang.org/data-frame/
 ;   - https://github.com/alex-hhh/data-frame/blob/master/private/csv.rkt
+
+; racket hdpl/libhxl/libhxl-minimum.rkt
 
 
 ;; https://docs.racket-lang.org/csv-reading/index.html
@@ -56,3 +61,12 @@
   (make-csv-reader (open-input-file "ontologia/codicem/codicem.numerum.hxl.csv")))
 
 ;; See https://rosettacode.org/wiki/CSV_data_manipulation#Racket
+
+;; https://docs.racket-lang.org/guide/Module_Syntax.html
+; https://github.com/HXLStandard/hxl-cookbook/
+; https://raw.githubusercontent.com/HXLStandard/hxl-cookbook/master/docs/examples/filtering-rows-01.csv
+; Province, Organisation, Cluster
+; #adm1, #org, #sector
+; Coast Province, Org A, WASH
+; Plains Province, Org B, WASH
+; Mountains Province, Org A, WASH
