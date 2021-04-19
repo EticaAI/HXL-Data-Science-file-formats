@@ -163,6 +163,26 @@ sha384sum --check hxlm-js.sum
 #### Additional commands _______________________________________________________
 # cd "$ROOTDIR"
 
+#### pypi ______________________________________________________________________
+### Upload, register step-------------------------------------------------------
+
+## @see https://packaging.python.org/tutorials/packaging-projects/
+# python3 -m pip install --upgrade build
+# python3 -m build
+## Note: create token a save on $HOME/.pypirc
+##       the instructions will be from
+#        - https://test.pypi.org/manage/account/token/
+#        - https://pypi.org/manage/account/token/
+
+## Test server
+# python3 -m twine upload --repository testpypi dist/*
+# >> https://test.pypi.org/project/hdp-toolchain/0.8.7/
+
+## Production server
+# python3 -m twine upload --repository pypi dist/*
+# >> View at: https://pypi.org/project/hdp-toolchain/0.8.7/
+
+### Upload, typical ------------------------------------------------------------
 
 ### Preparing symlinks
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia || exit
