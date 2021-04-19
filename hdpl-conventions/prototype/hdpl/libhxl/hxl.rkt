@@ -42,7 +42,7 @@
 
 ; var dataset = hxl.wrap(rawData);
 
-(define hxl->wrap '())
+(define hxl->wrap csv->sxml)
 
 ;; https://docs.racket-lang.org/csv-reading/index.html
 (define hxl->list csv->list)
@@ -56,4 +56,6 @@
 
 ;; TODO: implement some more specialize sxml for HXL
 ; @see https://en.wikipedia.org/wiki/SXML
+;; https://docs.racket-lang.org/sxml/index.html
+;; https://github.com/jbclements/sxml/blob/master/sxml/sxpath.rkt
 (define hxl->sxml csv->sxml)

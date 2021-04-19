@@ -7,7 +7,8 @@
 
 ; TODO: remove temporary dependencies that would not be required later
 ; (define deps '("base" "lazy" "data-frame" "csv-reading" "rackunit-lib"))
-(define deps '("base" "data-frame" "csv-reading" "rackunit-lib"))
+; (define deps '("base" "data-frame" "csv-reading" "rackunit-lib"))
+(define deps '("base" "data-frame" "csv-reading" "rackunit-lib" "sxml"))
 (define build-deps '("scribble-lib" "racket-doc" "rackunit-lib"))
 (define scribblings '(("scribblings/hdpl.scrbl" ())))
 (define pkg-desc "HDP Declarative Programming (working draft)")
