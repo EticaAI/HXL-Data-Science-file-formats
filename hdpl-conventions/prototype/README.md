@@ -31,6 +31,14 @@ raco pkg remove hdpl
 
 ```
 
+### Prepare deploy
+
+```bash
+# prepare to deploy
+
+raco setup --check-pkg-deps --unused-pkg-deps hdpl
+```
+
 ### Create shareable executable from library
 > See also:
 > - https://stackoverflow.com/questions/62972086/racket-scheme-compile-to-single-binary-no-dependencies-ffi-and-static-linking

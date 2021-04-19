@@ -13,16 +13,47 @@
 ;;   - JavaScript
 ;;     - https://github.com/HXLStandard/libhxl-js
 
+ (require csv-reading)
 
-(define (my-+ a b)
-  (if (zero? a)
-      b
-      (my-+ (sub1 a) (add1 b))))
+ (provide hxl->wrap hxl->list hxl-map hxl-for-each hxl->sxml)
+
+; (define (my-+ a b)
+;   (if (zero? a)
+;       b
+;       (my-+ (sub1 a) (add1 b))))
  
-(define (my-* a b)
-  (if (zero? a)
-      b
-      (my-* (sub1 a) (my-+ b b))))
+; (define (my-* a b)
+;   (if (zero? a)
+;       b
+;       (my-* (sub1 a) (my-+ b b))))
  
-(provide my-+
-         my-*)
+; (provide my-+
+;          my-*)
+
+;; https://github.com/HXLStandard/libhxl-js#create-a-dataset-from-array-data
+; var rawData = [
+;     [ "Organisation", "Cluster", "Province" ],
+;     [ "#org", "#sector", "#adm1" ],
+;     [ "Org A", "WASH", "Coastal Province" ],
+;     [ "Org B", "Health", "Mountain Province" ],
+;     [ "Org C", "Education", "Coastal Province" ],
+;     [ "Org A", "WASH", "Plains Province" ],
+; ];
+
+; var dataset = hxl.wrap(rawData);
+
+(define hxl->wrap '())
+
+;; https://docs.racket-lang.org/csv-reading/index.html
+(define hxl->list csv->list)
+
+;; https://docs.racket-lang.org/csv-reading/index.html
+(define hxl-map csv-map)
+
+;; https://docs.racket-lang.org/csv-reading/index.html
+(define hxl-for-each csv-for-each)
+
+
+;; TODO: implement some more specialize sxml for HXL
+; @see https://en.wikipedia.org/wiki/SXML
+(define hxl->sxml csv->sxml)
