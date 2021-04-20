@@ -8,7 +8,15 @@
 #                 urnresolver urn:data:xz:hxl:standard:core:hashtag
 #                 urnresolver urn:data:xz:hxl:standard:core:attribute
 #                 urnresolver urn:data:xz:eticaai:pcode:br
-#                 hxlquickimport $(urnresolver urn:data:xz:eticaai:pcode:br)
+#
+#                 ## Using as part os another command
+#                 hxlquickimport "$(urnresolver urn:data:xz:eticaai:pcode:br)"
+#
+#                 ## Know URN list (without complex/recursive resolving)
+#                 urnresolver --urn-list
+#
+#                 ## Resolve something know at random
+#                 urnresolver --urn-list | sort -R | urnresolver
 #
 #   DESCRIPTION:  urnresolver uses hxlm.core to resolve Uniform Resource Name
 #                 (URI) to Uniform Resource Identifier (URI)
@@ -24,9 +32,9 @@
 #       COMPANY:  Etica.AI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.7.3
+#       VERSION:  v1.1.0
 #       CREATED:  2021-03-05 15:37 UTC v0.7.3 started (based on hxl2example)
-#      REVISION:  ---
+#      REVISION:  2021-04-20 06:21 UTC v1.1.0 added --urn-list
 # ==============================================================================
 
 # ./hxlm/core/bin/urnresolver.py urn:data:un:locode
@@ -164,6 +172,23 @@ class URNResolver:
         )
 
         parser.add_argument(
+            '--urn-list',
+            help='List all know URNs (without recursion/complex remote calls)',
+            metavar='urn_list',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        # parser.add_argument(
+        #     '--urn-list-pattern',
+        #     help='List know URNs by pattern',
+        #     metavar='urn_list_pattern',
+        #     action='append',
+        #     type=str
+        # )
+
+        parser.add_argument(
             '--no-urn-user-defaults',
             help='Disable load urnresolver URN indexes from ' +
             '~/.config/hxlm/urn/.',
@@ -200,17 +225,18 @@ class URNResolver:
         #                      --urn-file tests/urnresolver/all-in-same-dir/)
         #
 
-        if 'debug' in args and args.debug:
-            print('DEBUG: CLI args [[', args, ']]')
+        # if sys.stdin.isatty():
+        #     print('urnresolver --help')
+        #     return self.EXIT_ERROR
 
-        # print('args', args)
+        # if 'debug' in args and args.debug:
+        #     print('DEBUG: CLI args [[', args, ']]')
 
-        urn_string = args.infile
-
-        urn_item = HUrn.cast_urn(urn=urn_string)
-        urn_item.prepare()
+        # print('args.infile', args.infile, stdin)
 
         urnrslr_options = []
+
+        # return "fin"
 
         if 'urn_index_local' in args and args.urn_index_local \
                 and len(args.urn_index_local) > 0:
@@ -266,8 +292,45 @@ class URNResolver:
                     urnrslr_options.append(item_)
             # urnrslr_options = get_urn_resolver_local(urnrslvr_def)
 
+        if 'urn_list' in args and args.urn_list is True:
+            # print('urn_list')
+            if urnrslr_options and len(urnrslr_options) > 0:
+                matches = []
+                for item in urnrslr_options:
+                    print(item['urn'])
+
+            return self.EXIT_OK
+
+        urn_string = args.infile
+
+        if urn_string:
+            urn_item = HUrn.cast_urn(urn=urn_string)
+            urn_item.prepare()
+        else:
+            data = sys.stdin.readlines()
+            if len(data) > 0:
+                urn_string = str(data[0]).rstrip()
+
+                # print('urn_string', urn_string)
+
+                urn_item = HUrn.cast_urn(urn=urn_string)
+                urn_item.prepare()
+
+            else:
+                urn_item = None
+            # print ("Counted", len(data), "lines.")
+            # print('data', data)
+
+            # # let's try take the first line from stdin
+            # for line in sys.stdin:
+            #     print(line, )
+
+            # urn_item = None
+
         if 'debug' in args and args.debug:
             print('')
+            print('DEBUG: stdin [[', stdin, ']]')
+            print('DEBUG: stdin.read() [[', stdin.read(), ']]')
             print('DEBUG: urnrslr_options [[', urnrslr_options, ']]')
             print('')
             print('DEBUG: urn_item [[', urn_item, ']]')
@@ -303,7 +366,7 @@ class URNResolver:
         #     print('about base_paths', urn_item.about('base_paths'))
         #     print('about object_names', urn_item.about('object_names'))
 
-        stderr.write("ERROR: urn [" + urn_string +
+        stderr.write("ERROR: urn [" + str(urn_string) +
                      "] strict match not found \n")
         return self.EXIT_ERROR
 

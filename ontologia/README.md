@@ -2,6 +2,8 @@
 
 > **Protip: if you cannot make local cache from the
   [GitHub repository](https://github.com/EticaAI/HXL-Data-Science-file-formats)
+  or install the
+  [Python Pypy package hdp-toolchain](https://pypi.org/project/hdp-toolchain/)
   the <https://hdp.etica.ai/ontologia/> is an public end point.**
 
 When feasible, even if it make harder to do initial implementation or be
