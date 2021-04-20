@@ -15,6 +15,12 @@
 #                 ## Know URN list (without complex/recursive resolving)
 #                 urnresolver --urn-list
 #
+#                 ## Same as --urn-list, but filter results (accept multiple)
+#                 urnresolver --urn-list-filter un --urn-list-filter br
+
+#                 ## Same as --urn-list-pattern, but python regexes
+#                 urnresolver --urn-list-pattern "un|br" --urn-list-pattern "b"
+#
 #                 ## Resolve something know at random
 #                 urnresolver --urn-list | sort -R | urnresolver
 #
@@ -35,6 +41,8 @@
 #       VERSION:  v1.1.0
 #       CREATED:  2021-03-05 15:37 UTC v0.7.3 started (based on hxl2example)
 #      REVISION:  2021-04-20 06:21 UTC v1.1.0 added --urn-list
+#                 2021-04-20 07:27 URC v1.2.0 added --urn-list-filter &
+#                                                   --urn-list-pattern
 # ==============================================================================
 
 # ./hxlm/core/bin/urnresolver.py urn:data:un:locode
@@ -86,6 +94,7 @@ import logging
 import argparse
 # import tempfile
 from pathlib import Path
+import re
 
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
@@ -180,13 +189,21 @@ class URNResolver:
             default=False
         )
 
-        # parser.add_argument(
-        #     '--urn-list-pattern',
-        #     help='List know URNs by pattern',
-        #     metavar='urn_list_pattern',
-        #     action='append',
-        #     type=str
-        # )
+        parser.add_argument(
+            '--urn-list-filter',
+            help='List know URNs by filter (simple string match)',
+            metavar='urn_list_filter',
+            action='append',
+            type=str
+        )
+
+        parser.add_argument(
+            '--urn-list-pattern',
+            help='List know URNs by pattern (accepts python regex)',
+            metavar='urn_list_pattern',
+            action='append',
+            type=str
+        )
 
         parser.add_argument(
             '--no-urn-user-defaults',
@@ -292,6 +309,49 @@ class URNResolver:
                     urnrslr_options.append(item_)
             # urnrslr_options = get_urn_resolver_local(urnrslvr_def)
 
+        # urnresolver --urn-list-filter un --urn-list-filter br
+        if 'urn_list_filter' in args and args.urn_list_filter:
+            # print('urn_list_filter', args.urn_list_filter)
+            if urnrslr_options and len(urnrslr_options) > 0:
+                matches = []
+                for item in urnrslr_options:
+                    for sitem in args.urn_list_filter:
+                        if item['urn'].find(sitem) > -1:
+                            matches.append(item['urn'])
+
+                matches = set(matches)
+                for result in matches:
+                    print(result)
+
+            return self.EXIT_OK
+
+        # print('args.urn_list_pattern', args.urn_list_pattern)
+
+        # urnresolver --urn-list-pattern something
+        if 'urn_list_pattern' in args and args.urn_list_pattern:
+            # print('urn_list_pattern', args.urn_list_pattern)
+            cptterns = []
+
+            for lptn in args.urn_list_pattern:
+                # print('urn_list_pattern lptn', lptn)
+                cptterns.append(re.compile(lptn))
+
+            if urnrslr_options and len(urnrslr_options) > 0:
+                matches = []
+                for item in urnrslr_options:
+                    for cptn in cptterns:
+
+                        # print('cptn', cptn, item['urn'])
+                        if cptn.search(item['urn']):
+                            matches.append(item['urn'])
+
+                matches = set(matches)
+                for result in matches:
+                    print(result)
+
+            return self.EXIT_OK
+
+        # urnresolver --urn-list
         if 'urn_list' in args and args.urn_list is True:
             # print('urn_list')
             if urnrslr_options and len(urnrslr_options) > 0:
@@ -352,19 +412,6 @@ class URNResolver:
             if len(matches) > 0:
                 print(matches[0]['source'][0])
                 return self.EXIT_OK
-
-        # if 'debug' in args and args.debug:
-        #     # valt = HUrnUtil.get_urn_vault_local_info('un', 'locode')
-        #     # HUrnUtil.debug_local_data('un', 'locode')
-        #     # HUrnUtil.get_urn_vault_local_info(urn_item)
-
-        #     # print('valt', valt)
-        #     # print('args', args)
-        #     print('args.infile', args.infile)
-        #     print('urn_item', urn_item)
-        #     print('about', urn_item.about())
-        #     print('about base_paths', urn_item.about('base_paths'))
-        #     print('about object_names', urn_item.about('object_names'))
 
         stderr.write("ERROR: urn [" + str(urn_string) +
                      "] strict match not found \n")
