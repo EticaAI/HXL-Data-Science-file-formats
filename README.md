@@ -18,6 +18,9 @@ exported from HXL (The Humanitarian Exchange Language)**
                 - [Why use URN to identify resources is more than naming convention](#why-use-urn-to-identify-resources-is-more-than-naming-convention)
                 - [Security (and privacy) considerations (for `URN:DATA`)](#security-and-privacy-considerations-for-urndata)
                 - [Disclaimer (for `URN:DATA`)](#disclaimer-for-urndata)
+            - [1.1.3 Ontologia](#113-ontologia)
+                - [Why: focus on abstract complexity for users AND allow reuse by other projects](#why-focus-on-abstract-complexity-for-users-and-allow-reuse-by-other-projects)
+                - [Distribution channels](#distribution-channels)
         - [1.2 `HXL2` Command line tools](#12-hxl2-command-line-tools)
             - [1.2.1 `hxl2example`: create your own exporter/importer](#121-hxl2example-create-your-own-exporterimporter)
             - [1.2.2 `hxl2tab`: tab format, focused for compatibility with Orange Data Mining](#122-hxl2tab-tab-format-focused-for-compatibility-with-orange-data-mining)
@@ -121,6 +124,45 @@ cooperate directly with this project) explicitly release both software and
 drafted 'how to Implement' under public domain-like licenses. Under
 _ideal circumstances_ `data global namespace` (the ZZ on
 `urn:data:ZZ:example`) may have more specific rules
+
+
+##### 1.1.3 Ontologia
+
+> **See [ontologia/ontologia](ontologia/ontologia)**
+
+> "In computer science and information science, an ontology encompasses a
+  representation, formal naming and definition of the categories, properties
+  and relations between the concepts, data and entities that substantiate one,
+  many, or all domains of discourse. More simply, an ontology is a way of
+  showing the properties of a subject area and how they are related, by
+  defining a set of concepts and categories that represent the subject."
+  -- [Wikipedia: Ontology (information science)](https://en.wikipedia.org/wiki/Ontology_(information_science)
+
+The contents from [ontologia/ontologia](ontologia/ontologia) both contain some
+selected datasets and (while not 100% converted) the main parts of how
+command line tools and libraries released by this repository use.
+
+###### Why: focus on abstract complexity for users AND allow reuse by other projects
+
+When feasible, even if it make harder to do initial implementation or be
+_a bit less efficient_ than use dedicated _"advanced"_ strategies with
+state of the art tools, the internal parts of hxlm.core that deal with
+[ontology](https://en.wikipedia.org/wiki/Ontology_(information_science)) will
+be stored in this folder.
+
+This strategy is likely to make it easier for non-developers to update
+internals, like individuals interested in adding new languages or proposing
+corrections.
+
+###### Distribution channels
+
+For production usage, these files are both availible via:
+
+- Installable with [Python Pypi hdp-toolchain](https://pypi.org/project/hdp-toolchain/)
+- The GitHub repository <https://github.com/EticaAI/HXL-Data-Science-file-formats>
+- Public "CDN": GitHub hosted + CloudFlare cached endpoint at
+[https://hdp.etica.ai/ontologia/](https://hdp.etica.ai/ontologia/)
+
 
 #### 1.2 `HXL2` Command line tools
 - See folder [bin/](bin/)

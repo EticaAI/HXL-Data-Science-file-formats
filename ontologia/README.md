@@ -36,7 +36,7 @@ corrections.
         - [Location codes](#location-codes)
             - [Location codes at adm0](#location-codes-at-adm0)
             - [Location at adm1, adm2, adm3, adm4, adm5](#location-at-adm1-adm2-adm3-adm4-adm5)
-    - [ISO tables](#iso-tables)
+    - [ISO](#iso)
         - [ISO 639-3](#iso-639-3)
         - [ISO 3166](#iso-3166)
             - [ISO 3166 country/territory codes](#iso-3166-countryterritory-codes)
@@ -156,7 +156,10 @@ CREATE TABLE [ISO_639-3] (
 
 > TODO: we should both explain how to obtain these without use HDPLisp (Emerson Rocha, 2021-04-13 22:28 UTC)
 
-### ISO tables
+### ISO
+
+The files on `ontologia/iso` contain symlinks to generated resources that are
+based on then already [HXLated](https://hxlstandard.org/).
 
 #### ISO 639-3
 - Cached local file: [iso/iso.639-3.hxl.csv](iso/iso.639-3.hxl.csv)

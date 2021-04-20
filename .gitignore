@@ -14,6 +14,11 @@ build/
 .vscode
 .benchmarks
 
+# GitHub pages
+Gemfile
+Gemfile.lock
+_site
+
 # DrRacket use these ones
 *~
 \#*\#*\#
