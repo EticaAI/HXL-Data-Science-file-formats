@@ -31,10 +31,11 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.1.0
+#       VERSION:  v1.2.0
 #       CREATED:  2021-02-17 03:55 UTC
 #      REVISION:  2021-02-20 04:59 UTC v1.0.0 MVP, basic (HTTP still with bugs)
 #                 2021-02-20 23:46 UTC v1.1.0 added overview with Pandas
+#                 2021-04-20 00:59 UTC v1.2.0 installable via pip hdp-toolchain
 # ==============================================================================
 
 import sys
@@ -49,7 +50,7 @@ import re
 import hxl.converters
 import hxl.filters
 import hxl.io
-from hxl.model import Dataset
+# from hxl.model import Dataset
 
 import csv
 import tempfile
@@ -60,7 +61,7 @@ import hug
 
 # Required by HXLMetaExtras
 import pandas as pd
-import numpy as np
+# import numpy as np
 import Orange
 
 # import meta.hxltype.base
@@ -153,7 +154,7 @@ class HXLQuickMeta:
             self.original_outfile = args.outfile
             self.original_outfile_is_stdout = False
 
-        # # TODO: remove this block after MVP of HXLMetaDataset -----------------
+        # # TODO: remove this block after MVP of HXLMetaDataset ---------------
         # temp2 = tempfile.NamedTemporaryFile()
         # args.outfile = temp2.name
         # with self.hxlhelper.make_source(args, stdin) as source, \
@@ -985,7 +986,7 @@ class HXLMetaDataset(object):
         # """
         self._input = input
         # # TODO - for repeatable raw input, start a new iterator each time
-        # # TODO - need to figure out how to handle columns in a repeatable situation
+        # # TODO - need to figure out how to handle columns in a repeatable sit
         # self._iter = iter(self._input)
         # self._columns = None
         # self._source_row_number = -1 # TODO this belongs in the iterator
@@ -1003,24 +1004,6 @@ class HXLMetaDataset(object):
             # import time
             # time.sleep(30)
             print('parse_input end')
-
-        # with open(self._input, 'a') as hxlated_file:
-        #     # csv_reader = csv.reader(hxlated_file, delimiter=',')
-        #     print('parse_input hxlated_file', hxlated_file)
-        #     print('parse_input hxlated_file.name', hxlated_file.name)
-        #     csv_reader = csv.reader(hxlated_file.name)
-        #     print('parse_input csv_reader', csv_reader)
-        #     line_count = 0
-        #     # print('parse_input', new_txt)
-        #     for row in csv_reader:
-        #         print('row', row)
-        #         if line_count == 0:
-        #             print(f'Column names are {", ".join(row)}')
-        #             line_count += 1
-        #         else:
-        #             print(f'\t{row[0]} works in the {row[1]} department, and was born in {row[2]}.')
-        #             line_count += 1
-        #     print(f'Processed {line_count} lines.')
 
 
 class BooleanHXLtype:
@@ -1083,7 +1066,7 @@ class HXLMetaExtras:
             print(self.df.T)
             print('   >>> DataFrame.describe')
             print(self.df.describe())
-        except:
+        except Exception:
             print('   >>> DataFrame failed; Ignoring...')
 
         print(' ')
@@ -1384,6 +1367,13 @@ if __name__ == "__main__":
     args = hxlquickmeta.make_args_hxlquickmeta()
 
     hxlquickmeta.execute_cli(args)
+
+
+def exec_from_console_scripts():
+    hxlquickmeta_ = HXLQuickMeta()
+    args_ = hxlquickmeta_.make_args_hxlquickmeta()
+
+    hxlquickmeta_.execute_cli(args_)
 
 
 @hug.format.content_type('text/csv')

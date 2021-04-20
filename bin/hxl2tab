@@ -11,7 +11,7 @@
 #                     ngrok http 8000
 #
 #   DESCRIPTION:  Convert an already HXLated file (local, remote like Google
-#                 Docs...) to an Orange Data Mining .tag file format.
+#                 Docs...) to an Orange Data Mining .tab file format.
 #                 Works both via cli and, with hug, allow export the usability
 #                 via HTTP.
 #
@@ -26,7 +26,7 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.6
+#       VERSION:  v2.1
 #       CREATED:  2021-01-24 01:25 UTC
 #      REVISION:  2021-01-24 02:52 UTC changed from POSIX shell to python3
 #                 2021-01-24 23:54 UTC nginxlogs2csv (from Alligo) used as base
@@ -42,6 +42,7 @@
 #                    are ommited from the output .tab, but infered attributes
 #                    and base hashtags, not.
 #                 2021-02-07 18:34 UTC v2.0 build in HTTP interface with hug!
+#                 2021-04-20 00:59 UTC v2.1 installable with pip hdp-toolchain
 # ==============================================================================
 
 import sys
@@ -93,10 +94,11 @@ class HXL2Tab:
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("HXL2Tab is an example script to create other "
-                         "scripts with some bare minimum command line "
-                         "interfaces that could work to export HXL files to "
-                         "other formats."))
+            description=("HXL2Tab Convert an already HXLated file (local, "
+                         "remote like Google Docs...) to an Orange Data "
+                         "Mining .tab file format. Works both via cli and, "
+                         " with hug, allow export the usability via HTTP."
+                         ))
 
         parser.add_argument(
             "--hxlmeta",
@@ -662,7 +664,7 @@ def exec_from_console_scripts():
     hxl2tab_ = HXL2Tab()
     args_ = hxl2tab_.make_args_HXL2Tab()
 
-    hxl2tab.execute_cli(args_)
+    hxl2tab_.execute_cli(args_)
 
 
 @hug.format.content_type('text/tab-separated-value')

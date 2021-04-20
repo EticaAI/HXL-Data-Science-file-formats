@@ -47,6 +47,15 @@ def test_urnresolver_help(host):
 def test_hxl2tab_help(host):
     cmd = host.run("hxl2tab --help")
 
+
+def test_hxlquickimport_help(host):
+    cmd = host.run("hxlquickimport --help")
+
+    assert cmd.succeeded
+
+def test_hxlquickmeta_help(host):
+    cmd = host.run("hxlquickmeta --help")
+
     assert cmd.succeeded
 
 # # Returns empty:

@@ -37,10 +37,11 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.1
+#       VERSION:  v1.2
 #       CREATED: 2021-01-29 07:48 UTC
 #      REVISION: 2021-01-29 17:34 UTC v1.0
 #                2021-02-07 19:32 UTC v1.1 drafted HTTP interface with hug
+#                2021-04-20 00:59 UTC v1.2 installable with pip hdp-toolchain
 # ==============================================================================
 
 import sys
@@ -202,7 +203,7 @@ Read the documentation on https://hxlstandard.org/.
                 txt_writer.writerow(line)
                 try:
                     line = hxlated_input._get_row()
-                except:
+                except Exception:
                     line = False
 
         else:
@@ -222,7 +223,7 @@ Read the documentation on https://hxlstandard.org/.
                     txt_writer.writerow(line)
                     try:
                         line = hxlated_input._get_row()
-                    except:
+                    except Exception:
                         line = False
 
     def hxlquickimport_header(self, hxlated_header, basehashtag="#item"):
@@ -461,6 +462,13 @@ if __name__ == "__main__":
     hxlquickimport.execute_cli(args)
 
 
+def exec_from_console_scripts():
+    hxlquickimport_ = HXLQuickImport()
+    args_ = hxlquickimport_.make_args_hxlquickimport()
+
+    hxlquickimport_.execute_cli(args_)
+
+
 @hug.format.content_type('text/csv')
 def output_csv(data, response):
     if isinstance(data, dict) and 'errors' in data:
@@ -475,7 +483,8 @@ def output_csv(data, response):
 
 @hug.get('/hxlquickimport.csv', output=output_csv)
 def api_hxl2tab(source_url):
-    """hxlquickimport (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
+    """hxlquickimport
+    (@see https://github.com/EticaAI/HXL-Data-Science-file-formats)
 
     Example:
     http://localhost:8000/hxlquickimport.csv?source_url=https://docs.google.com

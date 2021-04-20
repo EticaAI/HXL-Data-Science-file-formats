@@ -227,3 +227,5 @@ sha384sum --check hxlm-js.sum
 ### Preparing symlinks, build scripts
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit
 # ln -s ../../../bin/hxl2tab hxl2tab.py
+# ln -s ../../../bin/hxlquickimport hxlquickimport.py
+# ln -s ../../../bin/hxlquickmeta hxlquickmeta.py
