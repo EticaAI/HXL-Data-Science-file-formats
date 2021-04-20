@@ -184,7 +184,7 @@ sha384sum --check hxlm-js.sum
 
 ### Upload, typical ------------------------------------------------------------
 
-### Preparing symlinks
+### Preparing symlinks, ontologia
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia || exit
 # ln -s ../../ontologia/README.md ./README.md
 # ln -s ../../ontologia/cor.hdplisp.yml ./cor.hdplisp.yml
@@ -223,3 +223,7 @@ sha384sum --check hxlm-js.sum
 # ln -s ../../../../../ontologia/json/core.lkg.json hdpl-conventions/prototype/hdpl/ontologia/json/core.lkg.json
 # ln -s ../../../../../ontologia/json/core.vkg.json hdpl-conventions/prototype/hdpl/ontologia/json/core.vkg.json
 # ln -s ../../../../../ontologia/json/servitium.hdplisp.json hdpl-conventions/prototype/hdpl/ontologia/json/servitium.hdplisp.json
+
+### Preparing symlinks, build scripts
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit
+# ln -s ../../../bin/hxl2tab hxl2tab.py

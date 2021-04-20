@@ -658,6 +658,13 @@ if __name__ == "__main__":
     hxl2tab.execute_cli(args)
 
 
+def exec_from_console_scripts():
+    hxl2tab_ = HXL2Tab()
+    args_ = hxl2tab_.make_args_HXL2Tab()
+
+    hxl2tab.execute_cli(args_)
+
+
 @hug.format.content_type('text/tab-separated-value')
 def output_tab(data, response):
     if isinstance(data, dict) and 'errors' in data:

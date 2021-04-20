@@ -43,6 +43,12 @@ def test_urnresolver_help(host):
 
     assert cmd.succeeded
 
+
+def test_hxl2tab_help(host):
+    cmd = host.run("hxl2tab --help")
+
+    assert cmd.succeeded
+
 # # Returns empty:
 # hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --non-grupum salve-mundi
 
