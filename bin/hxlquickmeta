@@ -5,8 +5,13 @@
 #
 #         USAGE:  hxlquickmeta hxlated-data.hxl my-exported-file.example
 #                 cat hxlated-data.hxl | hxlquickmeta > my-exported-file.csv
-#                 # Via web, in two different terminals, do it
+#
+#                 ### To expose proxy via web (uses hug + ngrok)
+#                 # 1.A If is a file on bin/hxlquickmeta
 #                     hug -f bin/hxlquickmeta
+#                 # 1.B If was installed with pip3 install hdp-toolchain
+#                     hug -f "$(which hxlquickmeta)"
+#                 # 2. To expose via web, on a different terminal, do this:
 #                     ngrok http 8000
 #
 #   DESCRIPTION:  hxlquickmeta output information about a local or remote

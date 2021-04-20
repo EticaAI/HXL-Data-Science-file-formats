@@ -5,7 +5,14 @@
 #
 #         USAGE:  hxlquickimport hxlated-data.csv my-exported-file.hxl
 #                 cat hxlated-data.csv | hxlquickimport > my-exported-file.hxl
-#                 hug -p 9001 -f bin/hxlquickimport
+#
+#                 ### To expose proxy via web (uses hug + ngrok)
+#                 # 1.A If is a file on bin/hxlquickimport
+#                     hug -p 9001 -f bin/hxlquickimport
+#                 # 1.B If was installed with pip3 install hdp-toolchain
+#                     hug -p 9001 -f "$(which hxlquickimport)"
+#                 # 2. To expose via web, on a different terminal, do this:
+#                     ngrok http 9001
 #
 #   DESCRIPTION:  hxlquickimport is a quick (and wrong) way to import
 #                 non-HXL dataset (like an .csv or .xlsx, but requires headers

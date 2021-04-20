@@ -180,6 +180,22 @@ instead of cli to generate the file. Uses [hug 🐨 🤗](https://github.com/hug
 
 > If you want quick expose outside localhost, try [ngrok](https://ngrok.com/).
 
+**Installation**
+
+This package can both be installed by doing a copy of
+[bin/hxl2tab](bin/hxl2tab) to a place on your executable path and
+installing dependencies manually.
+
+The automated way to your path or as part of the
+Python pypi package [hdp-toolchain](https://pypi.org/project/hdp-toolchain/)
+already with extra dependencies is:
+
+```bash
+python3 -m pip install hdp-toolchain[hxl2tab]
+
+# python3 -m pip install hdp-toolchain[full]
+```
+
 ##### 1.2.3 `hxlquickmeta`: output information about local/remote datasets (even non HXLated yet)
 - Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/6>
 - Source code: [bin/hxlquickmeta](bin/hxlquickmeta)
@@ -189,6 +205,22 @@ dataset. If the file already is HXLated, it will print even more information.
 
 v1.1.0 added support to give an overview by default, equivalent to users of
 [Python Pandas](https://github.com/pandas-dev/pandas).
+
+**Installation**
+
+This package can both be installed by doing a copy of
+[bin/hxlquickmeta](bin/hxlquickmeta) to a place on your executable path and
+installing dependencies manually.
+
+The automated way to your path or as part of the
+Python pypi package [hdp-toolchain](https://pypi.org/project/hdp-toolchain/)
+already with extra dependencies is:
+
+```bash
+python3 -m pip install hdp-toolchain[hxlquickmeta]
+
+# python3 -m pip install hdp-toolchain[full]
+```
 
 **Quick examples**
 
@@ -230,7 +262,33 @@ before on the old headers and add it as HXL attribute. **Please consider using
 the HXL-Proxy for serious usage. This quick script is more for internal
 testing**
 
+**Installation**
+
+This package can both be installed by doing a copy of
+[bin/hxlquickimport](bin/hxlquickimport) to a place on your executable path and
+installing dependencies manually.
+
+The automated way to your path or as part of the
+Python pypi package [hdp-toolchain](https://pypi.org/project/hdp-toolchain/)
+already with extra dependencies is:
+
+```bash
+python3 -m pip install hdp-toolchain[hxlquickimport]
+
+# python3 -m pip install hdp-toolchain[full]
+```
+
 #### 1.3 `URN` Command line tools
+
+**Installation**
+
+The automated way to install is using the Python pypi package
+[hdp-toolchain](https://pypi.org/project/hdp-toolchain/). urnresolver is
+installed by default.
+
+```bash
+python3 -m pip install hdp-toolchain
+```
 
 ##### 1.3.1 `urnresolver`: convert Uniform Resource Name of datasets to real IRIs (URLs)
 - Main issue: <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/13>
@@ -271,6 +329,17 @@ hxlselect "$(urnresolver urn:data:xz:hxlcplp:fod:lang)" --query '#vocab+id+v_iso
   Knowledge Graphs (YAML files that expand in memory).
   - See [hxlm/ontologia/](hxlm/ontologia/)
     - In special [ontologia/core.vkg.yml](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/ontologia/core.vkg.yml)
+
+**Installation**
+
+The automated way to install is using the Python pypi package
+[hdp-toolchain](https://pypi.org/project/hdp-toolchain/). All the relevand
+parts, including bare minimal [ontologia](ontologia), are part of the default
+installation.
+
+```bash
+python3 -m pip install hdp-toolchain
+```
 
 ##### 1.4.1 HDP conventions (The YAML/JSON file structure)
 

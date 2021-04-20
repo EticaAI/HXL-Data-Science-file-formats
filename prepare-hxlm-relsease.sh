@@ -164,7 +164,7 @@ sha384sum --check hxlm-js.sum
 # cd "$ROOTDIR"
 
 #### pypi ______________________________________________________________________
-### Upload, register step-------------------------------------------------------
+### Upload, register step ------------------------------------------------------
 
 ## @see https://packaging.python.org/tutorials/packaging-projects/
 # python3 -m pip install --upgrade build
@@ -181,6 +181,11 @@ sha384sum --check hxlm-js.sum
 ## Production server
 # python3 -m twine upload --repository pypi dist/*
 # >> View at: https://pypi.org/project/hdp-toolchain/0.8.7/
+
+### Upload, each new version ---------------------------------------------------
+# rm dist/*
+# python3 -m build
+# python3 -m twine upload --repository pypi dist/*
 
 ### Upload, typical ------------------------------------------------------------
 

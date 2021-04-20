@@ -6,8 +6,13 @@
 #         USAGE:  cat hxlated-file.csv | hxl2tab
 #                 hxl2tab hxlated-file.csv
 #                 hxl2tab hxlated-file.csv orange-data-mining-file.tab
-#                 # Via web, in two different terminals, do it
+#
+#                 ### To expose proxy via web (uses hug + ngrok)
+#                 # 1.A If is a file on bin/hxl2tab
 #                     hug -f bin/hxl2tab
+#                 # 1.B If was installed with pip3 install hdp-toolchain
+#                     hug -f "$(which hxl2tab)"
+#                 # 2. To expose via web, on a different terminal, do this:
 #                     ngrok http 8000
 #
 #   DESCRIPTION:  Convert an already HXLated file (local, remote like Google
