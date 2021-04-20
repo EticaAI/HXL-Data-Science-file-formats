@@ -18,13 +18,18 @@
 # @see https://blog.esciencecenter.nl/testing-shell-commands-from-python-2a2ec87ebf71
 # @see https://github.com/NLeSC/python-template/blob/master/tests/test_project.py
 
-import pytest
 import os
+import sys
+import pytest
 
 # import pytest.testinfra
 
 # import yaml
 
+
+# print(sys.version_info)
+# print(sys.version_info <= (3, 9))
+# print(sys.version_info == (3, 8))
 
 def test_libhxl_help(host):
     cmd = host.run("hxlspec --help")
@@ -53,10 +58,17 @@ def test_hxlquickimport_help(host):
 
     assert cmd.succeeded
 
-def test_hxlquickmeta_help(host):
-    cmd = host.run("hxlquickmeta --help")
 
-    assert cmd.succeeded
+def test_hxlquickmeta_help(host):
+    # Orange3 dependency (Qt) seems to broke hxlquickmeta on py37
+    # So is not installed. That's why the extra check.
+
+    if host.exists('hxlquickmeta') and \
+            host.package('Orange3').is_installed and \
+            host.package('pandas').is_installed:
+
+        cmd = host.run("hxlquickmeta --help")
+        assert cmd.succeeded
 
 # # Returns empty:
 # hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --non-grupum salve-mundi
