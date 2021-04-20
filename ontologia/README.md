@@ -41,6 +41,9 @@ corrections.
         - [ISO 3166](#iso-3166)
             - [ISO 3166 country/territory codes](#iso-3166-countryterritory-codes)
         - [ISO 15924](#iso-15924)
+- [URN resolver](#urn-resolver)
+    - [The `URN:DATA` specification (early draft)](#the-urndata-specification-early-draft)
+    - [Default values for the `urnresolver`](#default-values-for-the-urnresolver)
 - [Platform dependent ontologies](#platform-dependent-ontologies)
     - [Python Data classes](#python-data-classes)
     - [Other programming languages](#other-programming-languages)
@@ -206,6 +209,19 @@ CREATE TABLE [ISO_639-3] (
 
 -->
 
+## URN resolver
+
+### The `URN:DATA` specification (early draft)
+
+- [../urn-data-specification/README.md](../urn-data-specification/README.md)
+
+
+### Default values for the `urnresolver`
+
+- [urn/defallo.urn.yml](urn/defallo.urn.yml)
+
+When the command line util `urnresolver` does not have a user customized
+specified file, this is the loaded file.
 
 ## Platform dependent ontologies
 

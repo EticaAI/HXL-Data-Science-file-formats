@@ -47,6 +47,9 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 # Generate ontologia/servitium.hdplisp.yml
 yq < ontologia/servitium.hdplisp.yml > ontologia/json/servitium.hdplisp.json
 
+# Generate ontologia/servitium.hdplisp.yml
+yq < ontologia/urn/defallo.urn.yml > ontologia/json/defallo.urn.json
+
 #### webext-signed-pages _______________________________________________________
 # @see https://github.com/tasn/webext-signed-pages
 cd "$ROOTDIR"
@@ -105,12 +108,14 @@ sha384sum --tag cor.hdplisp.json > cor.hdplisp.json.sum
 sha384sum --tag core.lkg.json > core.lkg.json.sum
 sha384sum --tag core.vkg.json > core.vkg.json.sum
 sha384sum --tag servitium.hdplisp.json > servitium.hdplisp.json.sum
+sha384sum --tag defallo.urn.json > defallo.urn.json.sum
 
 ## Check the hashes
 sha384sum --check cor.hdplisp.json.sum
 sha384sum --check core.lkg.json.sum
 sha384sum --check core.vkg.json.sum
 sha384sum --check servitium.hdplisp.json.sum
+sha384sum --check defallo.urn.json.sum
 
 ### hxlm-js/ -------------------------------------------------------------------
 echo "> > hxlm-js"
@@ -228,6 +233,14 @@ sha384sum --check hxlm-js.sum
 # ln -s ../../../../../ontologia/json/core.lkg.json hdpl-conventions/prototype/hdpl/ontologia/json/core.lkg.json
 # ln -s ../../../../../ontologia/json/core.vkg.json hdpl-conventions/prototype/hdpl/ontologia/json/core.vkg.json
 # ln -s ../../../../../ontologia/json/servitium.hdplisp.json hdpl-conventions/prototype/hdpl/ontologia/json/servitium.hdplisp.json
+
+# urnresolver-default.urn.yml
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit
+# ln -s ../../../ontologia/urn/defallo.urn.yml hxlm/core/bin/urnresolver-default.urn.yml
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia/urn || exit
+# ln -s ../../../ontologia/urn/defallo.urn.yml defallo.urn.yml
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia/json || exit
+# ln -s ../../../ontologia/json/defallo.urn.json defallo.urn.json
 
 ### Preparing symlinks, build scripts
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit

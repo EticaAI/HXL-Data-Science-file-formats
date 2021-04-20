@@ -1,5 +1,14 @@
-# ontologia/core.urn.yml
+# ontologia/servitium.urn.yml
 # Files file us used for 'service discovery' (where to look for things)
+#
+# Trivia:
+# - "servitium"
+#   - https://en.wiktionary.org/wiki/servitium#Latin
+# - "URN"
+#   - "Uniform Resource Name"
+#   - https://tools.ietf.org/html/rfc8141
+#   - https://en.wikipedia.org/wiki/Uniform_Resource_Name
+
 
 urn:
   local:
