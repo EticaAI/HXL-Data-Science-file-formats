@@ -237,6 +237,7 @@ sha384sum --check hxlm-js.sum
 # urnresolver-default.urn.yml
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit
 # ln -s ../../../ontologia/urn/defallo.urn.yml hxlm/core/bin/urnresolver-default.urn.yml
+# ln -s ../../../ontologia/servitium.urn.yml servitium.urn.yml
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia/urn || exit
 # ln -s ../../../ontologia/urn/defallo.urn.yml defallo.urn.yml
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/ontologia/json || exit
@@ -247,3 +248,7 @@ sha384sum --check hxlm-js.sum
 # ln -s ../../../bin/hxl2tab hxl2tab.py
 # ln -s ../../../bin/hxlquickimport hxlquickimport.py
 # ln -s ../../../bin/hxlquickmeta hxlquickmeta.py
+
+# ln -s /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/urnprovider_local.py /workspace/bin/urnprovider-local
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit
+# ln -s ../../../ontologia/servitium.urn.yml servitium.urn.yml
