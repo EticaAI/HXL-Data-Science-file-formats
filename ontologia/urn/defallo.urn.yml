@@ -81,3 +81,23 @@
 - urn: "urn:data:xz:hxlcplp:fod:lang"
   source:
     - https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0
+
+#### COD-AB ___________________________________________________________________
+
+- urn: "urn:data:un:cod:ab:MOZ" # Too generic
+  source:
+    - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1
+    - https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM0-all.zip
+    - https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_MOZ_gpkg.zip
+
+    # https://beta.itos.uga.edu/CODV2API/Help
+    #  https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/SYR/versions/current/SHP/1
+    - https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson
+
+- urn: "urn:data:un:cod:ab:MOZ:adm1.geojson"
+  source:
+    - https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson
+    # https://beta.itos.uga.edu/CODV2API/Help
+    #  https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/SYR/versions/current/SHP/1
+    - https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson
+
