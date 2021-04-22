@@ -111,13 +111,8 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 ### Prebuild tables
 
 #### Common Operational Datasets
-> Trivia:
-> - "commūne"
->   - https://en.wiktionary.org/wiki/communis#Latin
-> - "opus"
->   - https://en.wiktionary.org/wiki/opus#Latin
-> - "datum"
->   - https://en.wiktionary.org/wiki/datum#English
+
+- [codicem/](codicem/)
 
 #### Language codes
 
