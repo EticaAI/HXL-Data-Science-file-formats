@@ -181,6 +181,16 @@ class URNResolver:
         )
 
         parser.add_argument(
+            '--all',
+            '-a',
+            help='Return all anternatives for an exact URN',
+            metavar='all',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        parser.add_argument(
             '--urn-list',
             help='List all know URNs (without recursion/complex remote calls)',
             metavar='urn_list',
@@ -410,7 +420,12 @@ class URNResolver:
                     matches.append(item)
 
             if len(matches) > 0:
-                print(matches[0]['source'][0])
+                if args.all:
+                    for sitem in matches[0]['source']:
+                        print(sitem)
+                    # print('all...')
+                else:
+                    print(matches[0]['source'][0])
                 return self.EXIT_OK
 
         stderr.write("ERROR: urn [" + str(urn_string) +
