@@ -8,7 +8,6 @@
 <!-- TOC depthFrom:2 -->
 
 - [(ignore this part) Draft](#ignore-this-part-draft)
-    - [urnresolver --urn-list](#urnresolver---urn-list)
     - [Copy from EticaAI/HXL-Data-Science-file-formats/README.md](#copy-from-eticaaihxl-data-science-file-formatsreadmemd)
                 - [Why use URN to identify resources is more than naming convention](#why-use-urn-to-identify-resources-is-more-than-naming-convention)
                 - [Diagrams](#diagrams)
@@ -19,78 +18,6 @@
 
 
 <!--
-- https://github.com/cabo/kramdown-rfc2629
-- https://pypi.org/project/xml2rfc/
-  - pip3 install xml2rfc
-
-
-cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/urn-data-specification/rfc
-kramdown-rfc2629 draft-rocha-urn-data-00.md > draft-rocha-urn-data-00.xml
-xml2rfc draft-rocha-urn-data-00.xml
-
--->
-
-<!--
-  ## Abstract
-
-> TODO: this section is a draft
-
-  ## Introduction
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## Registration Template
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## Specifications of Registration Template
-
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## General Syntax and Features of the LEX Identifier
-
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## Specific Syntax and Features of the /old/Source of Law LEX/ DATA Identifier
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## Creation of the /old/Source of Law LEX/ DATA Identifier
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## The Procedure of Uniform Names Assignment
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## Principles of the Resolution Service
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## Namespace Considerations
-
-> TODO: this section is a draft
-
-  ## Community Considerations
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## IANA Considerations
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## References
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-  ## Acknowledgements
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
--->
-
-<!--
 
 - https://tools.ietf.org/html/draft-spinosa-urn-lex-13
 -->
@@ -98,22 +25,6 @@ xml2rfc draft-rocha-urn-data-00.xml
 
 ## (ignore this part) Draft
 > This entire section is just a draft
-
-### urnresolver --urn-list
-
-Result of [urnresolver --urn-list](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/core/bin/urnresolver.py) on 2021-04-22
-
-```bash
-fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ urnresolver --urn-list
-urn:data:br:saude.gov.br:vacinacao:covid-19-vacinacao
-urn:data:xz:hxl:standard:core:hashtag
-urn:data:xz:hxl:standard:core:attribute
-urn:data:un:locode
-urn:data:un:unece:locode
-urn:data--i:un:unece:locode
-urn:data:xz:hxlcplp:fod:lang
-
-```
 
 ### Copy from EticaAI/HXL-Data-Science-file-formats/README.md
 
