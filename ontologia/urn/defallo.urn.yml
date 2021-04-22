@@ -9,6 +9,10 @@
 #    - "Uniform Resource Name"
 #    - https://tools.ietf.org/html/rfc8141
 #    - https://en.wikipedia.org/wiki/Uniform_Resource_Name
+#  - "fontem"
+#    - https://en.wiktionary.org/wiki/fons#Latin
+#  - "auxilium"
+#    - https://en.wiktionary.org/wiki/auxilium#Latin
 
 
 # TODO: Maybe even draft an bash completion based on URNs already listed on
@@ -96,6 +100,16 @@
     - https://www.geoboundaries.org/api.html
     - https://gadm.org/
 
+# urnresolver --all urn:data:xz:eticaai:cod:ab?auxilium
+# - urn: "urn:data:xz:eticaai:cod:ab?auxilium"
+#   source:
+#     - https://cod.unocha.org/
+#     - https://data.humdata.org/search?ext_cod=1
+#     - https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External
+#     - https://beta.itos.uga.edu/CODV2API/
+#     - https://www.geoboundaries.org/api.html
+#     - https://gadm.org/
+
 ### COD-AB specific results ----------------------------------------------------
 # Note: at the moment, MOZ (Mozambique) is used as reference. The results
 #       are hardcoded here, but the end result would check EVERY service and
@@ -116,7 +130,15 @@
 - urn: "urn:data:un:cod:ab:MOZ:adm1.geojson"
   source:
     - https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson
-    # https://beta.itos.uga.edu/CODV2API/Help
-    #  https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/SYR/versions/current/SHP/1
-    - https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/vectortiles/1 # Access denied
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/SYR/versions/current/Geodatabase/1 # SYR works
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/Geodatabase/1 # Access denied
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/XLSX/1 # An error has occurred.
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/SYR/versions/current/XLSX/1 # SYR Works!
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/CSV/1 # An error has occurred.
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/SYR/versions/current/CSV/1 # An error has occurred.
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/SYR/versions/current/geoJSON/1 # 404 not found
+    #    - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/SYR/versions/current/json/1 # geoJSON not works, gut json (topojson) works
+    #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/geoJSON/1 # 404 not found
 

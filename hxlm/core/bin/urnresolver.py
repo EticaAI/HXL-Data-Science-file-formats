@@ -12,6 +12,11 @@
 #                 ## Using as part os another command
 #                 hxlquickimport "$(urnresolver urn:data:xz:eticaai:pcode:br)"
 #
+#                 hxlselect #valid_vocab+default=+v_pcode \
+#                    "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)"
+#                 hxlselect --query valid_vocab+default=+v_pcode \
+#                     "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)"
+#
 #                 ## Know URN list (without complex/recursive resolving)
 #                 urnresolver --urn-list
 #

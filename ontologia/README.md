@@ -32,6 +32,7 @@ corrections.
         - [Other natural languages](#other-natural-languages)
 - [Exchange Codes and terms](#exchange-codes-and-terms)
     - [Prebuild tables](#prebuild-tables)
+        - [Common Operational Datasets](#common-operational-datasets)
         - [Language codes](#language-codes)
         - [Writting system codes](#writting-system-codes)
         - [Numbers (draft)](#numbers-draft)
@@ -108,6 +109,15 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 ## Exchange Codes and terms
 
 ### Prebuild tables
+
+#### Common Operational Datasets
+> Trivia:
+> - "commūne"
+>   - https://en.wiktionary.org/wiki/communis#Latin
+> - "opus"
+>   - https://en.wiktionary.org/wiki/opus#Latin
+> - "datum"
+>   - https://en.wiktionary.org/wiki/datum#English
 
 #### Language codes
 
