@@ -7,20 +7,6 @@
   is not trivial to keep record of most of them.
 <!-- TOC depthFrom:2 -->
 
-- [Abstract](#abstract)
-- [Introduction](#introduction)
-- [Registration Template](#registration-template)
-- [Specifications of Registration Template](#specifications-of-registration-template)
-- [General Syntax and Features of the LEX Identifier](#general-syntax-and-features-of-the-lex-identifier)
-- [Specific Syntax and Features of the /old/Source of Law LEX/ DATA Identifier](#specific-syntax-and-features-of-the-oldsource-of-law-lex-data-identifier)
-- [Creation of the /old/Source of Law LEX/ DATA Identifier](#creation-of-the-oldsource-of-law-lex-data-identifier)
-- [The Procedure of Uniform Names Assignment](#the-procedure-of-uniform-names-assignment)
-- [Principles of the Resolution Service](#principles-of-the-resolution-service)
-- [Namespace Considerations](#namespace-considerations)
-- [Community Considerations](#community-considerations)
-- [IANA Considerations](#iana-considerations)
-- [References](#references)
-- [Acknowledgements](#acknowledgements)
 - [(ignore this part) Draft](#ignore-this-part-draft)
     - [urnresolver --urn-list](#urnresolver---urn-list)
     - [Copy from EticaAI/HXL-Data-Science-file-formats/README.md](#copy-from-eticaaihxl-data-science-file-formatsreadmemd)
@@ -31,63 +17,78 @@
 
 <!-- /TOC -->
 
-## Abstract
+
+<!--
+- https://github.com/cabo/kramdown-rfc2629
+- https://pypi.org/project/xml2rfc/
+  - pip3 install xml2rfc
+
+
+cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/urn-data-specification/rfc
+kramdown-rfc2629 draft-rocha-urn-data-00.md > draft-rocha-urn-data-00.xml
+xml2rfc draft-rocha-urn-data-00.xml
+
+-->
+
+<!--
+  ## Abstract
 
 > TODO: this section is a draft
 
-## Introduction
+  ## Introduction
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## Registration Template
+  ## Registration Template
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## Specifications of Registration Template
-
-
-> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
-
-## General Syntax and Features of the LEX Identifier
+  ## Specifications of Registration Template
 
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## Specific Syntax and Features of the /old/Source of Law LEX/ DATA Identifier
+  ## General Syntax and Features of the LEX Identifier
+
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## Creation of the /old/Source of Law LEX/ DATA Identifier
+  ## Specific Syntax and Features of the /old/Source of Law LEX/ DATA Identifier
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## The Procedure of Uniform Names Assignment
+  ## Creation of the /old/Source of Law LEX/ DATA Identifier
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## Principles of the Resolution Service
+  ## The Procedure of Uniform Names Assignment
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## Namespace Considerations
+  ## Principles of the Resolution Service
+
+> TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
+
+  ## Namespace Considerations
 
 > TODO: this section is a draft
 
-## Community Considerations
+  ## Community Considerations
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## IANA Considerations
+  ## IANA Considerations
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## References
+  ## References
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
 
-## Acknowledgements
+  ## Acknowledgements
 
 > TODO: this section is a draft (Emerson Rocha, 2021-04-04 01:41 UTC)
+-->
 
 <!--
 

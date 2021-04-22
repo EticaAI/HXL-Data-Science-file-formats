@@ -19,6 +19,9 @@ Gemfile
 Gemfile.lock
 _site
 
+urn-data-specification/rfc/*.xml
+urn-data-specification/rfc/Makefile
+
 # DrRacket use these ones
 *~
 \#*\#*\#
