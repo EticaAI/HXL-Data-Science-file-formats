@@ -20,6 +20,10 @@
 <!--
 
 - https://tools.ietf.org/html/draft-spinosa-urn-lex-13
+- https://github.com/greg-hellings/dnszone
+- https://github.com/rthalley/dnspython
+- https://pypi.org/project/designate/
+  - https://docs.openstack.org/api-ref/dns/
 -->
 
 
