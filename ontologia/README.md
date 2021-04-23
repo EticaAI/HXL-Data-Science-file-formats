@@ -112,14 +112,14 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 
 #### Common Operational Datasets
 
-- [codicem/](codicem/)
+- [cod/](cod/)
+
+[![](http://img.youtube.com/vi/CFUs8S0MPIY/0.jpg)](http://www.youtube.com/watch?v=CFUs8S0MPIY "Common Operational Datasets (CODs)")
 
 #### Language codes
 
 - [codicem/codicem.linguam.hxl.csv](codicem/codicem.linguam.hxl.csv)
 - [HXL-CPLP/forum#38: HXL-CPLP-Vocab_Linguam (ISO 639-3 et al)](https://github.com/HXL-CPLP/forum/issues/38)
-
-
 
 > TODO: add also the macrolanguages mapping https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3-macrolanguages.tab
 
