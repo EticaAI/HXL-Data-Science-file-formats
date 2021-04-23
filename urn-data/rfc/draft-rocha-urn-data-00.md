@@ -121,3 +121,19 @@ Additional Information:
 Revision Information:
 
 None
+
+# Principles of the Resolution Service
+
+## (TEMP)
+
+
+```bash
+# http://urn.arpa/urn:data:xz:hxl:standard:core:hashtag
+# http://data.urn.arpa/urn:data:xz:hxl:standard:core:hashtag
+
+urnresolver --all urn:data:xz:hxl:standard:core:hashtag
+
+
+```
+
+# IANA Considerations

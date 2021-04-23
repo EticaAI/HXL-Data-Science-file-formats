@@ -1,0 +1,7 @@
+# /etc/hosts
+
+## If are testing on local computer
+127.0.0.1	data.urn.arpa
+
+## For other computers on network, assuming this one is 10.1.2.3
+# 10.1.2.3	data.urn.arpa
