@@ -21,6 +21,9 @@
 >   - https://en.wiktionary.org/wiki/populatio#Latin
 > - "administrātum"
 >   - https://en.wiktionary.org/wiki/administratus#Latin
+> - "thēsaurum"
+>   - https://en.wiktionary.org/wiki/thesaurus#Latin
+
 
 > TODO: discover term for "boundary" (https://en.wiktionary.org/wiki/boundary).
 >       We may need to force some good back-formation for this term

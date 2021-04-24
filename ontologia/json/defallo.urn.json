@@ -34,5 +34,31 @@
     "source": [
       "https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0"
     ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:cod:ab?fontem",
+    "source": [
+      "https://cod.unocha.org/",
+      "https://data.humdata.org/search?ext_cod=1",
+      "https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External",
+      "https://beta.itos.uga.edu/CODV2API/",
+      "https://www.geoboundaries.org/api.html",
+      "https://gadm.org/"
+    ]
+  },
+  {
+    "urn": "urn:data:un:cod:ab:MOZ",
+    "source": [
+      "https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1",
+      "https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM0-all.zip",
+      "https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_MOZ_gpkg.zip",
+      "https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson"
+    ]
+  },
+  {
+    "urn": "urn:data:un:cod:ab:MOZ:adm1.geojson",
+    "source": [
+      "https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson"
+    ]
   }
 ]
