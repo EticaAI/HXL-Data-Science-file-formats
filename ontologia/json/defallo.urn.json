@@ -12,27 +12,42 @@
     ]
   },
   {
-    "urn": "urn:data:un:locode",
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:linguam",
     "source": [
-      "urn:data:un:unece:locode"
-    ]
-  },
-  {
-    "urn": "urn:data:un:unece:locode",
-    "source": [
-      "urn:data--i:un:unece:locode"
-    ]
-  },
-  {
-    "urn": "urn:data--i:un:unece:locode",
-    "source": [
-      "https://unece.org/trade/uncefact/unlocode"
-    ]
-  },
-  {
-    "urn": "urn:data:xz:hxlcplp:fod:lang",
-    "source": [
+      "ontologia/codicem/codicem.linguam.hxl.csv",
       "https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:locum",
+    "source": [
+      "ontologia/codicem/codicem.locum.hxl.csv"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:numerum",
+    "source": [
+      "ontologia/codicem/codicem.numerum.hxl.csv"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:scriptum",
+    "source": [
+      "ontologia/codicem/codicem.scriptum.hxl.csv"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:cod:thesaurum",
+    "source": [
+      "ontologia/cod/thesaurum.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=1204322111"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:cod:filum-typum",
+    "source": [
+      "ontologia/cod/filum-typum.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=214068544"
     ]
   },
   {
@@ -59,6 +74,24 @@
     "urn": "urn:data:un:cod:ab:MOZ:adm1.geojson",
     "source": [
       "https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson"
+    ]
+  },
+  {
+    "urn": "urn:data:un:locode",
+    "source": [
+      "urn:data:un:unece:locode"
+    ]
+  },
+  {
+    "urn": "urn:data:un:unece:locode",
+    "source": [
+      "urn:data--i:un:unece:locode"
+    ]
+  },
+  {
+    "urn": "urn:data--i:un:unece:locode",
+    "source": [
+      "https://unece.org/trade/uncefact/unlocode"
     ]
   }
 ]

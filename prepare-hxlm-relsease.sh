@@ -32,7 +32,9 @@
 ### Data pull configurations ---------------------------------------------------
 
 # @see https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=1204322111
-ONTOLOGIA_COD_THESAURUM="https://proxy.hxlstandard.org/data.csv?dest=data_edit&filter01=select&filter-label01=%23code%2Bwikidata+not+empty&select-query01-01=%23code%2Bwikidata%3D&select-reverse01=on&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU%2Fedit%23gid%3D1204322111"
+ONTOLOGIA_COD_THESAURUM="https://proxy.hxlstandard.org/data.csv?dest=data_edit&filter01=select&filter-label01=%23code%2Bwikidata+not+empty&select-query01-01=%23code%2Bwikidata%3D&select-reverse01=on&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU%2Fedit%23gid%3D1204322111"
+ONTOLOGIA_COD_SERVITIUM_AUXILIUM_MAPPAM="https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU%2Fedit%23gid%3D1420201282"
+ONTOLOGIA_COD_SERVITIUM_AUXILIUM_POPULATIONEM_STATISTICUM="https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU%2Fedit%23gid%3D1207295802"
 
 ROOTDIR="$(pwd)"
 
@@ -43,6 +45,12 @@ ROOTDIR="$(pwd)"
 
 if true ; then
     wget -qO- "$ONTOLOGIA_COD_THESAURUM" > "${ROOTDIR}/ontologia/cod/thesaurum.hxl.csv"
+fi
+if true ; then
+    wget -qO- "$ONTOLOGIA_COD_SERVITIUM_AUXILIUM_MAPPAM" > "${ROOTDIR}/ontologia/cod/servitium-auxilium-mappam.hxl.csv"
+fi
+if true ; then
+    wget -qO- "$ONTOLOGIA_COD_SERVITIUM_AUXILIUM_POPULATIONEM_STATISTICUM" > "${ROOTDIR}/ontologia/cod/servitium-auxilium-populationem-statisticum.hxl.csv"
 fi
 
 

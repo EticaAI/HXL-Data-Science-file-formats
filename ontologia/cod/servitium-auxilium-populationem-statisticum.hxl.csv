@@ -1,0 +1,3 @@
+#meta+id,#org+name,#org+url,#x_api+name,#x_api,#x_api+alt,#x_api+doc,
+UNOCHA-COD-PS-IP,UN OCHA,https://www.unocha.org/,OCHA COD Information Portal,https://cod.unocha.org/,,https://storymaps.arcgis.com/stories/dcf6135fc0e943a9b77823bb069e2578,
+HDX-COD-AB,Centre for Humanitarian Data (UN OCHA),https://centre.humdata.org/,Humanitarian Data Exchange - CODs,https://data.humdata.org/search?ext_cod=1,https://proxy.hxlstandard.org/data/source,,"If using #x_api+alt=proxy.hxlstandard.org, click 'option 2: HDX' and filter by region."
