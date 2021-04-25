@@ -21,7 +21,9 @@
   {
     "urn": "urn:data:xz:eticaai:ontologia:codicem:locum",
     "source": [
-      "ontologia/codicem/codicem.locum.hxl.csv"
+      "ontologia/codicem/codicem.locum.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1l5Pev8zdVRS0EOPog36eipGCrckbrPC_74xhS9JRaM0/edit#gid=1260650845",
+      "https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596"
     ]
   },
   {

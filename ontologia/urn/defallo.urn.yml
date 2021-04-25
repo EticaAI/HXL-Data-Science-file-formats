@@ -73,6 +73,11 @@
 - urn: "urn:data:xz:eticaai:ontologia:codicem:locum"
   source:
     - ontologia/codicem/codicem.locum.hxl.csv
+    - https://docs.google.com/spreadsheets/d/1l5Pev8zdVRS0EOPog36eipGCrckbrPC_74xhS9JRaM0/edit#gid=1260650845
+    # Via https://vocabulary.unocha.org/
+    # Note: The OCHA 'Countries & Territories Taxonomy MVP' is almost the same
+    #       as the eticaai:ontologia:codicem:locum. So is here as alternative
+    - https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:numerum"
   source:
