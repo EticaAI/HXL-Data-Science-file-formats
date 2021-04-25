@@ -23,7 +23,12 @@
 >   - https://en.wiktionary.org/wiki/administratus#Latin
 > - "thēsaurum"
 >   - https://en.wiktionary.org/wiki/thesaurus#Latin
-
+> - "rēgulāre"
+>   - https://en.wiktionary.org/wiki/regularis#Latin
+>   - English: "regular expression"
+> - "expressiōnem"
+>   - https://en.wiktionary.org/wiki/expressio#Latin
+>   - English: "regular expression"
 
 > TODO: discover term for "boundary" (https://en.wiktionary.org/wiki/boundary).
 >       We may need to force some good back-formation for this term

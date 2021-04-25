@@ -1,21 +1,87 @@
 # Uniform Resource Name DATA, `urn:data`, early drafts.
 
-- This folder **may** have some extra information about `urn:data:` / 
-  `urn:data--i:` / `urn:data--p:` as used by the [urnresolver command line interface tool](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/core/bin/urnresolver.py)
-- The content drafted on urn-data-specification/ is not meant to be used
-  as averange explanation. _But_ do exist so many ISOs and RFCs that
-  is not trivial to keep record of most of them.
+> Note: urn-data/ is a working draft
+
+---
+
 <!-- TOC depthFrom:2 -->
 
-- [(ignore this part) Draft](#ignore-this-part-draft)
-    - [Copy from EticaAI/HXL-Data-Science-file-formats/README.md](#copy-from-eticaaihxl-data-science-file-formatsreadmemd)
-                - [Why use URN to identify resources is more than naming convention](#why-use-urn-to-identify-resources-is-more-than-naming-convention)
-                - [Diagrams](#diagrams)
-                - [Security (and privacy) considerations (for `URN:DATA`)](#security-and-privacy-considerations-for-urndata)
-                - [Disclaimer (for `URN:DATA`)](#disclaimer-for-urndata)
+- [Relevant RFCs](#relevant-rfcs)
+- [Relevant implementations/references](#relevant-implementationsreferences)
+    - [Internal notes](#internal-notes)
 
 <!-- /TOC -->
 
+---
+
+<!--
+
+cat "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:locum)" | head -n3
+hxlcut --include country+code+v_iso2 "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:locum)"
+
+hxlselect --query valid_vocab+default=+v_pcode "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:locum)"
+
+urn:data:xz:eticaai:ontologia:codicem:locum?=|$(hxlcut --include=country+code+v_iso2)
+
+cat "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:locum)" | hxlcut --include=country+code+v_iso2
+cat "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:locum)" | hxlcut --include=country+code+v_iso2,country+code+v_iso3,country+code+num+v_m49
+-->
+
+
+urn:data:xz:eticaai:ontologia:codicem:locum?=|$(hxlcut --include=country+code+v_iso2)
+
+## Relevant RFCs
+
+- **Uniform Resource Names (URNs)**
+  - https://tools.ietf.org/html/rfc8141
+- (work in progress) **"A Uniform Resource Name (URN) Namespace for
+  Sources of Law (LEX)"**
+  - https://tools.ietf.org/html/draft-spinosa-urn-lex-13
+- **Dynamic Delegation Discovery System (DDDS) Part Four: The Uniform Resource
+   Identifiers (URI) Resolution Application**
+   - https://www.rfc-editor.org/rfc/rfc3404.html
+
+
+## Relevant implementations/references
+
+- **"Regex which matches URN by rfc8141"**
+  - https://stackoverflow.com/questions/59032211/regex-which-matches-urn-by-rfc8141
+  - https://regex101.com/r/SxOh4R/1
+
+### Internal notes
+
+> q-component
+>
+> (...)
+>
+>  Consider the hypothetical example of passing parameters to an
+   application that returns weather reports from different regions or
+   for different time periods.  This could perhaps be accomplished by
+   specifying latitude and longitude coordinates and datetimes in the
+   URN's q-component, resulting in URNs such as the following.
+>
+>      urn:example:weather?=op=map&lat=39.56
+>         &lon=-104.85&datetime=1969-07-21T02:56:15Z
+>
+>   If this example resolved to an HTTP URI, the result might look like:
+>
+>      https://weatherapp.example?op=map&lat=39.56
+>         &lon=-104.85&datetime=1969-07-21T02:56:15Z
+>
+> Source: rfc8141 https://tools.ietf.org/html/rfc8141#section-2.3.2
+
+
+> 2.3.3.  f-component
+>
+> (...)
+>
+>  Consider the hypothetical example of obtaining resources that are
+   part of a larger entity (say, the chapters of a book).  Each part
+   could be specified in the f-component, resulting in URNs such as:
+>
+>   urn:example:foo-bar-baz-qux#somepart
+>
+> Source: rfc8141 https://tools.ietf.org/html/rfc8141#section-2.3.3
 
 <!--
 
@@ -25,14 +91,23 @@
 - https://pypi.org/project/designate/
   - https://docs.openstack.org/api-ref/dns/
 -->
+<!--
+
+ ## (ignore this part) Draft
 
 
-## (ignore this part) Draft
+- This folder **may** have some extra information about `urn:data:` / 
+  `urn:data--i:` / `urn:data--p:` as used by the [urnresolver command line interface tool](https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/hxlm/core/bin/urnresolver.py)
+- The content drafted on urn-data-specification/ is not meant to be used
+  as averange explanation. _But_ do exist so many ISOs and RFCs that
+  is not trivial to keep record of most of them.
+
+
 > This entire section is just a draft
 
-### Copy from EticaAI/HXL-Data-Science-file-formats/README.md
+ ### Copy from EticaAI/HXL-Data-Science-file-formats/README.md
 
-###### Why use URN to identify resources is more than naming convention
+ ###### Why use URN to identify resources is more than naming convention
 
 While find _good_ URNs conventions to be used for typical datasets used on
 humanitarian context is more complex than the
@@ -61,7 +136,7 @@ to use.
 Deeper integration with CKAN instances and/or awareness of encrypted data
 still not implemented on the current version (v0.7.3)
 
-###### Diagrams
+ ###### Diagrams
 
 - See also:
   - **Uniform Resource Names (URNs)**
@@ -71,7 +146,7 @@ still not implemented on the current version (v0.7.3)
 
 > TODO: eventually add visual diagrams here
 
-###### Security (and privacy) considerations (for `URN:DATA`)
+ ###### Security (and privacy) considerations (for `URN:DATA`)
 Since the main goal of URNs is also help with auditing and sharing of
 scripts and even how to reference "best acceptable use" of exchanced data
 (with special focus for private/sensitive), while the `URN:DATA` themselves
@@ -83,7 +158,7 @@ contraditory.
 
 TODO: add more context
 
-###### Disclaimer (for `URN:DATA`)
+ ###### Disclaimer (for `URN:DATA`)
 
 > Note: while this project, in addition to CLI tools to convert URNs to
 usable tool (_"the implementation"_), also draft the logic about how to
@@ -97,3 +172,5 @@ cooperate directly with this project) explicitly release both software and
 drafted 'how to Implement' under public domain-like licenses. Under
 _ideal circumstances_ `data global namespace` (the ZZ on
 `urn:data:ZZ:example`) may have more specific rules
+
+-->
