@@ -35,7 +35,8 @@
   {
     "urn": "urn:data:xz:eticaai:ontologia:codicem:scriptum",
     "source": [
-      "ontologia/codicem/codicem.scriptum.hxl.csv"
+      "ontologia/codicem/codicem.scriptum.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1B9lzzJC124GvUMbPT-6S9FQiIeO6pHsnHdQib-bcPkg/edit#gid=214068544"
     ]
   },
   {
@@ -73,9 +74,21 @@
     ]
   },
   {
-    "urn": "urn:data:un:cod:ab:MOZ:adm1.geojson",
+    "urn": "urn:data:un:cod:ab:MOZ:adm1.topojson",
     "source": [
       "https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson"
+    ]
+  },
+  {
+    "urn": "urn:data:un:cod:ab:MOZ:adm1.geojson",
+    "source": [
+      "https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/json/1"
+    ]
+  },
+  {
+    "urn": "urn:data:un:cod:ab:{{ISO3166-1}Alpha-3}:adm1.geojson",
+    "source": [
+      "https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/{{ISO3166-1}Alpha-3}/versions/current/json/1"
     ]
   },
   {

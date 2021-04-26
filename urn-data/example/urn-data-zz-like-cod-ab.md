@@ -40,6 +40,23 @@ hxlselect --query valid_vocab+default=+v_pcode "$(urnresolver urn:data:xz:hxl:st
 ## TODO: add more examples already using CODs
 ```
 
+```bash
+
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ urnresolver --urn-list-filter un:cod:ab
+urn:data:un:cod:ab:MOZ:adm1.geojson
+urn:data:un:cod:ab:{{ISO3166-1}Alpha-3}:adm1.geojson
+urn:data:un:cod:ab:MOZ
+urn:data:un:cod:ab:MOZ:adm1.topojson
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ urnresolver urn:data:un:cod:ab:MOZ
+https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ urnresolver urn:data:un:cod:ab:MOZ --all
+https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1
+https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM0-all.zip
+https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_MOZ_gpkg.zip
+https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson
+
+```
+
 ## TODO: remove this
 
 ```bash

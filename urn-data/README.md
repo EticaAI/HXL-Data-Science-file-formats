@@ -25,11 +25,17 @@ urn:data:xz:eticaai:ontologia:codicem:locum?=|$(hxlcut --include=country+code+v_
 
 cat "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:locum)" | hxlcut --include=country+code+v_iso2
 cat "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:locum)" | hxlcut --include=country+code+v_iso2,country+code+v_iso3,country+code+num+v_m49
--->
 
+# urn:data:xz:eticaai:ontologia:codicem:scriptum?=|$(hxlcut --include=vocab+code+v_iso15924+text)
+cat "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:scriptum)" | hxlcut --include=vocab+code+v_iso15924+text
+# urn:data:xz:eticaai:ontologia:codicem:scriptum?=|$(hxlcut --include=vocab+code+v_iso15924+number)
+cat "$(urnresolver urn:data:xz:eticaai:ontologia:codicem:scriptum)" | hxlcut --include=vocab+code+v_iso15924+text,vocab+code+v_iso15924+number
 
+#vocab+code+v_iso15924+text
 urn:data:xz:eticaai:ontologia:codicem:locum?=|$(hxlcut --include=country+code+v_iso2)
 
+
+-->
 ## Relevant RFCs
 
 - **Uniform Resource Names (URNs)**
