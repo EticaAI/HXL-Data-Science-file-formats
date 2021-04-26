@@ -43,12 +43,15 @@
 #       COMPANY:  Etica.AI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.1.0
+#       VERSION:  v1.2.1
 #       CREATED:  2021-03-05 15:37 UTC v0.7.3 started (based on hxl2example)
 #      REVISION:  2021-04-20 06:21 UTC v1.1.0 added --urn-list
-#                 2021-04-20 07:27 URC v1.2.0 added --urn-list-filter &
+#                 2021-04-20 07:27 UTC v1.2.0 added --urn-list-filter &
 #                                                   --urn-list-pattern
+#                 2021-04-26 01:41 UTC v1.2.1 added --version
 # ==============================================================================
+
+__version__ = "v1.2.1"
 
 # ./hxlm/core/bin/urnresolver.py urn:data:un:locode
 # echo $(./hxlm/core/bin/urnresolver.py urn:data:un:locode)
@@ -114,6 +117,11 @@ from hxlm.core.schema.urn.util import (
     # get_urn_resolver_remote,
     HXLM_CONFIG_BASE
 )
+
+from hxlm.core import (
+    __version__ as hxlm_version
+)
+
 from hxlm.core.constant import (
     HXLM_ROOT
 )
@@ -155,6 +163,13 @@ class URNResolver:
         parser.add_argument(
             '--debug',
             help='instead of return the result, do full debug',
+            action='store_const',
+            const=True,
+            default=False
+        )
+        parser.add_argument(
+            '--version',
+            help='Show version and exit',
             action='store_const',
             const=True,
             default=False
@@ -249,6 +264,15 @@ class URNResolver:
         called will try to convert the URN to an valid IRI.
         """
 
+        if args.version is True:
+            print('URNResolver ' + __version__)
+            print('hdp-toolchain ' + hxlm_version)
+            print('')
+            print('URN providers:')
+
+            # We will exit later, but will print what was loaded
+            # return self.EXIT_OK
+
         # Test commands:
         # urnresolver --debug urn:data:xz:hxl:standard:core:hashtag
         # urnresolver urn:data:xz:hxl:standard:core:hashtag
@@ -273,6 +297,13 @@ class URNResolver:
         if 'urn_index_local' in args and args.urn_index_local \
                 and len(args.urn_index_local) > 0:
             for file_or_path in args.urn_index_local:
+
+                if args.version is True:
+                    print('[urn_index_local[' + file_or_path + ']]')
+
+            # We will exit later, but will print what was loaded
+            # return self.EXIT_OK
+
                 opt_ = get_urn_resolver_local(file_or_path, required=True)
                 # print('opt_ >> ', opt_ , '<<')
                 # urnrslr_options.extend(opt_)
@@ -293,8 +324,12 @@ class URNResolver:
         # If user is not asking to disable load ~/.config/hxlm/urn/
         if not args.no_urn_user_defaults:
             # print(get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/'))
-            if Path(HXLM_CONFIG_BASE + '/urn/').is_dir():
-                opt_ = get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/')
+            if Path(HXLM_CONFIG_BASE + 'urn/').is_dir():
+                opt_ = get_urn_resolver_local(HXLM_CONFIG_BASE + 'urn/')
+
+                if args.version is True:
+                    print('[user_defaults[' + HXLM_CONFIG_BASE + 'urn/' + ']]')
+
                 if opt_:
                     urnrslr_options.extend(opt_)
                     # print(get_urn_resolver_local(HXLM_CONFIG_BASE + '/urn/'))
@@ -307,6 +342,9 @@ class URNResolver:
                         '/urn/]] exists. but no valid urn lists found'
                     )
             else:
+                if args.version is True:
+                    print('[user_defaults[]]')
+
                 if 'debug' in args and args.debug:
                     print(
                         'DEBUG: HXLM_CONFIG_BASE/urn/ [[' + HXLM_CONFIG_BASE +
@@ -323,6 +361,15 @@ class URNResolver:
                 if item_ not in urnrslr_options:
                     urnrslr_options.append(item_)
             # urnrslr_options = get_urn_resolver_local(urnrslvr_def)
+
+            if args.version is True:
+                print('[vendor_defaults[' + urnrslvr_def + ']]')
+
+        if args.version is True:
+            # Now we exit
+            print('[DDDS-NAPTR-Private[not-implemented]]')
+            print('[DDDS-NAPTR-Public[not-implemented]]')
+            return self.EXIT_OK
 
         # urnresolver --urn-list-filter un --urn-list-filter br
         if 'urn_list_filter' in args and args.urn_list_filter:

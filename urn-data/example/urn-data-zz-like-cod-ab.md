@@ -5,6 +5,17 @@
 
 ```bash
 
+# At the moment, the Proof of Concept is only implemented on Python.
+# Requires Python3 and Pip
+
+# @see https://pypi.org/project/hdp-toolchain/
+
+pip3 install hdp-toolchain
+```
+
+
+```bash
+
 ### This return an unique resource
 urnresolver urn:data:xz:hxl:standard:core:hashtag
 # > https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
@@ -40,20 +51,36 @@ hxlselect --query valid_vocab+default=+v_pcode "$(urnresolver urn:data:xz:hxl:st
 ## TODO: add more examples already using CODs
 ```
 
+### URNResolver v1.2.1 (hdp-toolchain v0.8.7.2) tests using CODs
+
 ```bash
 
-# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ urnresolver --urn-list-filter un:cod:ab
-urn:data:un:cod:ab:MOZ:adm1.geojson
+# urnresolver --version
+    URNResolver v1.2.1
+    hdp-toolchain v0.8.7.2
+
+    URN providers:
+    [user_defaults[/home/fititnt/.config/hxlm/urn/]]
+    [vendor_defaults[/workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/urnresolver-default.urn.yml]]
+    [DDDS-NAPTR-Private[not-implemented]]
+    [DDDS-NAPTR-Public[not-implemented]]
+
+
+# urnresolver --urn-list-filter un:cod:ab
 urn:data:un:cod:ab:{{ISO3166-1}Alpha-3}:adm1.geojson
 urn:data:un:cod:ab:MOZ
 urn:data:un:cod:ab:MOZ:adm1.topojson
-# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ urnresolver urn:data:un:cod:ab:MOZ
+urn:data:un:cod:ab:MOZ:adm1.geojson
+
+# urnresolver urn:data:un:cod:ab:MOZ
 https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1
-# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats$ urnresolver urn:data:un:cod:ab:MOZ --all
+
+# urnresolver urn:data:un:cod:ab:MOZ --all
 https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1
 https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM0-all.zip
 https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_MOZ_gpkg.zip
 https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson
+
 
 ```
 
