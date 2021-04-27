@@ -33,12 +33,13 @@ corrections.
 - [Exchange Codes and terms](#exchange-codes-and-terms)
     - [Prebuild tables](#prebuild-tables)
         - [Common Operational Datasets](#common-operational-datasets)
+        - [Human Anatomy](#human-anatomy)
         - [Language codes](#language-codes)
-        - [Writting system codes](#writting-system-codes)
-        - [Numbers (draft)](#numbers-draft)
         - [Location codes](#location-codes)
             - [Location codes at adm0](#location-codes-at-adm0)
             - [Location at adm1, adm2, adm3, adm4, adm5](#location-at-adm1-adm2-adm3-adm4-adm5)
+        - [Numbers (draft)](#numbers-draft)
+        - [Writting system codes](#writting-system-codes)
     - [ISO](#iso)
         - [ISO 639-3](#iso-639-3)
         - [ISO 3166](#iso-3166)
@@ -116,6 +117,17 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 
 [![](http://img.youtube.com/vi/CFUs8S0MPIY/0.jpg)](http://www.youtube.com/watch?v=CFUs8S0MPIY "Common Operational Datasets (CODs)")
 
+
+#### Human Anatomy
+
+- [codicem/anatomiam/](codicem/anatomiam/)
+
+> - draft!!!
+> - https://github.com/EticaAI/EticaAI-linguistic-datasets-pt/blob/main/semi-automated-guides/sparql-wikidata.md
+> - https://github.com/HXL-CPLP/forum/issues/44
+> - https://en.wiktionary.org/wiki/anatomia#Latin
+
+
 #### Language codes
 
 - [codicem/codicem.linguam.hxl.csv](codicem/codicem.linguam.hxl.csv)
@@ -143,16 +155,6 @@ CREATE TABLE [ISO_639-3] (
 ```
 -->
 
-#### Writting system codes
-
-- [codicem/codicem.scriptum.hxl.csv](codicem/codicem.scriptum.hxl.csv)
-- [HXL-CPLP/forum#54: HXL-CPLP-Vocab_Scriptum (ISO 15924 et al)](https://github.com/HXL-CPLP/forum/issues/54)
-
-#### Numbers (draft)
-
-- [codicem/codicem.numerum.hxl.csv](codicem/codicem.numerum.hxl.csv)
-- [HXL-CPLP/forum#38: HXL-CPLP-Vocab_Numerum](https://github.com/HXL-CPLP/forum/issues/53)
-
 #### Location codes
 
 ##### Location codes at adm0
@@ -162,6 +164,18 @@ CREATE TABLE [ISO_639-3] (
 ##### Location at adm1, adm2, adm3, adm4, adm5
 
 > TODO: we should both explain how to obtain these without use HDPLisp (Emerson Rocha, 2021-04-13 22:28 UTC)
+
+#### Numbers (draft)
+
+- [codicem/codicem.numerum.hxl.csv](codicem/codicem.numerum.hxl.csv)
+- [HXL-CPLP/forum#38: HXL-CPLP-Vocab_Numerum](https://github.com/HXL-CPLP/forum/issues/53)
+
+
+#### Writting system codes
+
+- [codicem/codicem.scriptum.hxl.csv](codicem/codicem.scriptum.hxl.csv)
+- [HXL-CPLP/forum#54: HXL-CPLP-Vocab_Scriptum (ISO 15924 et al)](https://github.com/HXL-CPLP/forum/issues/54)
+
 
 ### ISO
 
