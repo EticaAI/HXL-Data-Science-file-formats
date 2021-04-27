@@ -1,4 +1,3 @@
----
 # ontologia/urn/defallo.urn.yml
 #
 # Trivia:
@@ -44,7 +43,7 @@
 #
 #   About AUPs (general concept, not with this level of automation):
 #     - https://en.wikipedia.org/wiki/Acceptable_use_policy
-
+---
 
 #### HXL Standard (hxlstandard.org) ___________________________________________
 # Note: as 2021-03-07 the prefix 'xz' for hxlstandard.org is an draft and may
@@ -162,9 +161,9 @@
   source:
     - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/json/1
 
-- urn: "urn:data:un:cod:ab:{{ISO3166-1}Alpha-3}:adm1.geojson"
+- urn: "urn:data:un:cod:ab:{[[ISO3166-1]Alpha-3]}:adm1.geojson"
   source:
-    - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/{{ISO3166-1}Alpha-3}/versions/current/json/1
+    - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/{[ISO3166-1]Alpha-3}/versions/current/json/1
 
 
 #### UNECE (UN/LOCODE) ________________________________________________________

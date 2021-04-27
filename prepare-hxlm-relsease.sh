@@ -35,6 +35,8 @@
 ONTOLOGIA_COD_THESAURUM="https://proxy.hxlstandard.org/data.csv?dest=data_edit&filter01=select&filter-label01=%23code%2Bwikidata+not+empty&select-query01-01=%23code%2Bwikidata%3D&select-reverse01=on&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU%2Fedit%23gid%3D1204322111"
 ONTOLOGIA_COD_SERVITIUM_AUXILIUM_MAPPAM="https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU%2Fedit%23gid%3D1420201282"
 ONTOLOGIA_COD_SERVITIUM_AUXILIUM_POPULATIONEM_STATISTICUM="https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU%2Fedit%23gid%3D1207295802"
+
+# @see https://docs.google.com/spreadsheets/d/1MFjopmmiBMWxxYEaypbWKiWhxvsH-2UVb_u1JN8RSkQ/edit#gid=764269111
 ONTOLOGIA_URN_REGULARE_EXPRESSIONEM="https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1MFjopmmiBMWxxYEaypbWKiWhxvsH-2UVb_u1JN8RSkQ%2Fedit%23gid%3D982460844"
 
 ROOTDIR="$(pwd)"

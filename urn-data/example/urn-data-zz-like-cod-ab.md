@@ -67,7 +67,7 @@ hxlselect --query valid_vocab+default=+v_pcode "$(urnresolver urn:data:xz:hxl:st
 
 
 # urnresolver --urn-list-filter un:cod:ab
-urn:data:un:cod:ab:{{ISO3166-1}Alpha-3}:adm1.geojson
+urn:data:un:cod:ab:{[ISO3166-1]Alpha-3}:adm1.geojson
 urn:data:un:cod:ab:MOZ
 urn:data:un:cod:ab:MOZ:adm1.topojson
 urn:data:un:cod:ab:MOZ:adm1.geojson

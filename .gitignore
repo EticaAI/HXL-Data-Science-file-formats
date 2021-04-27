@@ -18,6 +18,7 @@ build/
 Gemfile
 Gemfile.lock
 _site
+_config.yml
 
 urn-data/rfc/*.xml
 urn-data/rfc/.refcache
