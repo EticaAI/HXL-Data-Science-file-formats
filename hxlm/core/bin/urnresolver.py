@@ -43,15 +43,16 @@
 #       COMPANY:  Etica.AI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.2.1
+#       VERSION:  v1.2.2
 #       CREATED:  2021-03-05 15:37 UTC v0.7.3 started (based on hxl2example)
 #      REVISION:  2021-04-20 06:21 UTC v1.1.0 added --urn-list
 #                 2021-04-20 07:27 UTC v1.2.0 added --urn-list-filter &
 #                                                   --urn-list-pattern
 #                 2021-04-26 01:41 UTC v1.2.1 added --version
+#                 2021-04-XX XX:XX UTC v1.2.2 (unreleased)
 # ==============================================================================
 
-__version__ = "v1.2.1"
+__version__ = "v1.2.2"
 
 # ./hxlm/core/bin/urnresolver.py urn:data:un:locode
 # echo $(./hxlm/core/bin/urnresolver.py urn:data:un:locode)
@@ -473,11 +474,11 @@ class URNResolver:
 
             if len(matches) > 0:
                 if args.all:
-                    for sitem in matches[0]['source']:
+                    for sitem in matches[0]['fontem']:
                         print(sitem)
                     # print('all...')
                 else:
-                    print(matches[0]['source'][0])
+                    print(matches[0]['fontem'][0])
                 return self.EXIT_OK
 
         stderr.write("ERROR: urn [" + str(urn_string) +

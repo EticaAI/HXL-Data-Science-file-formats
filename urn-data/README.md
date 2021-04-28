@@ -6,6 +6,9 @@
 
 <!-- TOC depthFrom:2 -->
 
+- [The urn.yml format](#the-urnyml-format)
+    - [Old format](#old-format)
+    - [Old format](#old-format-1)
 - [Relevant RFCs](#relevant-rfcs)
 - [Relevant implementations/references](#relevant-implementationsreferences)
     - [Internal notes](#internal-notes)
@@ -36,6 +39,85 @@ urn:data:xz:eticaai:ontologia:codicem:locum?=|$(hxlcut --include=country+code+v_
 
 
 -->
+
+## The urn.yml format
+
+
+### Old format
+
+Example 1
+```yaml
+- urn: "urn:data:xz:hxl:standard:core:hashtag"
+  descriptionem:
+    eng-Latn: HXL/CSV version of the HXL Standard core hashtags.
+  auxilium:
+    - https://data.humdata.org/dataset/hxl-core-schemas
+  fontem:
+    - ontologia/codicem/hxl/standard/core/hashtag.hxl.csv
+    - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI%2Fpub%3Fgid%3D319251406%26single%3Dtrue%26output%3Dcsv
+    - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
+
+```
+
+
+Example 2
+
+```yaml
+- urn: "urn:data:xz:eticaai:ontologia:codicem:anatomiam:terminologia-anatomica"
+  descriptionem:
+    eng-Latn: >
+      Table with code references for body parts, in special
+      Terminologia Anatomica (TA). Can be used with other ontologies and
+      to transform for a few natural languages descriptions.
+  explanandum:
+    # Good references:
+    - +v_fipat_ta2
+    - +v_fipat_ta98_id
+    - +v_fipat_ta98_latin
+    # Generic references:
+    - +v_wikidata
+    - +v_fi_yso
+    - +v_fr_universalis
+    - +v_it_bncf
+    - +v_jp_ndl
+    - +v_uberon
+    - +v_uk_britannica
+    - +v_us_jstor
+    - +v_us_mag
+    - +v_us_mesh
+    - +v_us_umls_cui
+  auxilium:
+    - https://github.com/HXL-CPLP/forum/issues/44
+    - https://www4.unifr.ch/ifaa/Public/EntryPage/TA98%20Tree/HelpPage/TA98%20Latin%20Page%20Help.pdf
+  exemplum:
+    # Since terminologia-anatomica.hxl.csv 1,8mb, we only deploy a sample
+    - ontologia/codicem/anatomiam/terminologia-anatomica-EXEMPLUM.hxl.csv
+  fontem:
+    # run ontologia/codicem/anatomiam/make.sh to get terminologia-anatomica.hxl.csv
+    # or let the urnresolver download from live URNs
+    - ontologia/codicem/anatomiam/terminologia-anatomica.hxl.csv
+    - https://proxy.hxlstandard.org/data/b02a5f/download/HXL_CPLP-FOD_medicinae-legalis_humana-corpus.csv
+    - https://docs.google.com/spreadsheets/d/10axnLpDNtAc8Bh921dz5XPXCwo0FUXRcKS6-ermiu5w/edit#gid=1622293684
+```
+
+
+### Old format
+
+```yaml
+
+# URNResolver v1.2.1
+# hdp-toolchain v0.8.7.2
+
+# @see https://data.humdata.org/dataset/hxl-core-schemas
+- urn: "urn:data:xz:hxl:standard:core:hashtag"
+  source:
+    - ontologia/codicem/hxl/standard/core/hashtag.hxl.csv
+    - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI%2Fpub%3Fgid%3D319251406%26single%3Dtrue%26output%3Dcsv
+    - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
+
+```
+
+
 ## Relevant RFCs
 
 - **Uniform Resource Names (URNs)**

@@ -12,6 +12,10 @@
 #    - https://en.wiktionary.org/wiki/fons#Latin
 #  - "auxilium"
 #    - https://en.wiktionary.org/wiki/auxilium#Latin
+#  - "dēscrīptiōnem"
+#    - https://en.wiktionary.org/wiki/descriptio#Latin
+#  - "explānandum"
+#    - https://en.wiktionary.org/wiki/explano#Latin
 
 
 # TODO: Maybe even draft an bash completion based on URNs already listed on
@@ -51,79 +55,146 @@
 #       organizations that are not strictly to an single country/territory
 #       (Emerson Rocha, 2021-03-07 02:26 UTC)
 
-# @see https://data.humdata.org/dataset/hxl-core-schemas
 - urn: "urn:data:xz:hxl:standard:core:hashtag"
-  source:
+  descriptionem:
+    eng-Latn: HXL/CSV version of the HXL Standard core hashtags.
+  auxilium:
+    - https://data.humdata.org/dataset/hxl-core-schemas
+  fontem:
     - ontologia/codicem/hxl/standard/core/hashtag.hxl.csv
     - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI%2Fpub%3Fgid%3D319251406%26single%3Dtrue%26output%3Dcsv
     - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
 
+
 - urn: "urn:data:xz:hxl:standard:core:attribute"
-  source:
+  descriptionem:
+    eng-Latn: HXL/CSV version of the HXL Standard core attributes.
+  auxilium:
+    - https://data.humdata.org/dataset/hxl-core-schemas
+  fontem:
     - ontologia/codicem/hxl/standard/core/hashtag.hxl.csv
     - https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI%2Fpub%3Fgid%3D1810309357%26single%3Dtrue%26output%3Dcsv&strip-headers=on
     - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=1810309357&single=true&output=csv
 
-# https://data.humdata.org/dataset/hxl-master-vocabulary-list
+
 - urn: "urn:data:xz:hxl:standard:master-vocabulary"
-  source:
+  descriptionem:
+    eng-Latn: >
+      Master dataset for resolving HXL "+v" attributes, first introduced in
+      release 1.1. To request new entries or changes to existing ones, please
+      send a message to the public HXL mailing list.
+  auxilium:
+    - https://data.humdata.org/dataset/hxl-master-vocabulary-list
+  fontem:
     - ontologia/codicem/hxl/standard/master-vocabulary.hxl.csv
     - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1dGPthewm3Dm5_IWBU4buJ370qJBnrVYPL3XbxZ0O-BY%2Fedit%3Fts%3D5a201f69%23gid%3D0
     - https://docs.google.com/spreadsheets/d/1dGPthewm3Dm5_IWBU4buJ370qJBnrVYPL3XbxZ0O-BY/edit?ts=5a201f69#gid=0
 
 #### HXL-CPLP _________________________________________________________________
 - urn: "urn:data:xz:hxl:cplp:hxl2tab"
-  source:
+  fontem:
     - ontologia/codicem/hxl/cplp/hxl2tab.hxl.csv
     - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY%2Fedit%23gid%3D245471857
     - https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=245471857
-
 
 #### Etica.AI / HXL-CPLP ______________________________________________________
 
 # urnresolver --urn-list-pattern "xz:eticaai"  --urn-list-pattern "xz:hxlcplp"
 
 - urn: "urn:data:xz:eticaai:ontologia:cod:thesaurum"
-  source:
+  fontem:
     - ontologia/cod/thesaurum.hxl.csv
     - https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=1204322111
 
 - urn: "urn:data:xz:eticaai:ontologia:cod:filum-typum"
-  source:
+  fontem:
     - ontologia/cod/filum-typum.hxl.csv
     - https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=214068544
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:anatomiam:terminologia-anatomica"
-  source:
-    - ontologia/codicem/anatomiam/terminologia-anatomica.hxl.csv
+  descriptionem:
+    eng-Latn: >
+      Table with code references for body parts, in special
+      Terminologia Anatomica (TA). Can be used with other ontologies and
+      to transform for a few natural languages descriptions.
+  explanandum:
+    # Good references:
+    - +v_fipat_ta2
+    - +v_fipat_ta98_id
+    - +v_fipat_ta98_latin
+    # Generic references:
+    - +v_wikidata
+    - +v_fi_yso
+    - +v_fr_universalis
+    - +v_it_bncf
+    - +v_jp_ndl
+    - +v_uberon
+    - +v_uk_britannica
+    - +v_us_jstor
+    - +v_us_mag
+    - +v_us_mesh
+    - +v_us_umls_cui
+  auxilium:
+    - https://github.com/HXL-CPLP/forum/issues/44
+    - https://www4.unifr.ch/ifaa/Public/EntryPage/TA98%20Tree/HelpPage/TA98%20Latin%20Page%20Help.pdf
+  exemplum:
+    # Since terminologia-anatomica.hxl.csv 1,8mb, we only deploy a sample
     - ontologia/codicem/anatomiam/terminologia-anatomica-EXEMPLUM.hxl.csv
+  fontem:
+    # run ontologia/codicem/anatomiam/make.sh to get terminologia-anatomica.hxl.csv
+    # or let the urnresolver download from live URNs
+    - ontologia/codicem/anatomiam/terminologia-anatomica.hxl.csv
     - https://proxy.hxlstandard.org/data/b02a5f/download/HXL_CPLP-FOD_medicinae-legalis_humana-corpus.csv
     - https://docs.google.com/spreadsheets/d/10axnLpDNtAc8Bh921dz5XPXCwo0FUXRcKS6-ermiu5w/edit#gid=1622293684
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:sexum:binarium"
-  source:
+  explanandum:
+    # Good references:
+    - +v_iso5218
+    - +v_iso5218_extended
+    - +v_fipat_ta98_latin
+  fontem:
     - ontologia/codicem/sexum/binarium.hxl.csv
     - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k%2Fedit%23gid%3D214068544
     - https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=214068544
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:sexum:hl7"
-  source:
+  descriptionem:
+    eng-Latn: >
+      Gender Coding with International Data Exchange Standards. Extracted
+      from Health Level Seven International (HL7) reference tables.
+  auxilium:
+    - https://confluence.hl7.org/display/VOC/Gender+Coding+with+International+Data+Exchange+Standards
+  explanandum:
+    # Good references:
+    - +v_iso5218
+    - +v_iso5218_extended
+    - +v_us_cdc_sex
+    - +v_un_icao_sex
+    - +v_us_NAACCR
+    - +v_us_census_sex
+  fontem:
     - ontologia/codicem/sexum/hl7.hxl.csv
     - https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=1946656528
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:sexum:non-binarium"
-  source:
+  explanandum:
+    # Good references:
+    - +lat_codices_anonyma
+    # Other references
+    - +v_iso5218_extended
+  fontem:
     - ontologia/codicem/sexum/non-binarium.hxl.csv
     - https://proxy.hxlstandard.org/data.csv?dest=data_edit&filter01=expand&filter-label01=%2Blist+split&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k%2Fedit%23gid%3D530571590
     - https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=530571590
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:linguam"
-  source:
+  fontem:
     - ontologia/codicem/codicem.linguam.hxl.csv
     - https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:locum"
-  source:
+  fontem:
     - ontologia/codicem/codicem.locum.hxl.csv
     - https://docs.google.com/spreadsheets/d/1l5Pev8zdVRS0EOPog36eipGCrckbrPC_74xhS9JRaM0/edit#gid=1260650845
     # Via https://vocabulary.unocha.org/
@@ -132,11 +203,11 @@
     - https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:numerum"
-  source:
+  fontem:
     - ontologia/codicem/codicem.numerum.hxl.csv
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:scriptum"
-  source:
+  fontem:
     - ontologia/codicem/codicem.scriptum.hxl.csv
     # See also: https://github.com/HXL-CPLP/forum/issues/54
     - https://docs.google.com/spreadsheets/d/1B9lzzJC124GvUMbPT-6S9FQiIeO6pHsnHdQib-bcPkg/edit#gid=214068544
@@ -148,7 +219,7 @@
 
 # urnresolver --all urn:data:xz:eticaai:cod:ab?fontem
 - urn: "urn:data:xz:eticaai:cod:ab?fontem"
-  source:
+  fontem:
     - https://cod.unocha.org/
     - https://data.humdata.org/search?ext_cod=1
     - https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External
@@ -158,7 +229,7 @@
 
 # urnresolver --all urn:data:xz:eticaai:cod:ab?auxilium
 # - urn: "urn:data:xz:eticaai:cod:ab?auxilium"
-#   source:
+#   fontem:
 #     - https://cod.unocha.org/
 #     - https://data.humdata.org/search?ext_cod=1
 #     - https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External
@@ -177,7 +248,7 @@
 #   - urnresolver urn:data:un:cod:ab:MOZ
 #   - urnresolver urn:data:un:cod:ab:MOZ --all
 - urn: "urn:data:un:cod:ab:MOZ" 
-  source:
+  fontem:
     - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1
     - https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM0-all.zip
     - https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_MOZ_gpkg.zip
@@ -186,7 +257,7 @@
 #   - urnresolver urn:data:un:cod:ab:MOZ:adm1.topojson
 #   - urnresolver urn:data:un:cod:ab:MOZ:adm1.topojson --all
 - urn: "urn:data:un:cod:ab:MOZ:adm1.topojson"
-  source:
+  fontem:
     - https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson
     #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1
     #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/vectortiles/1 # Access denied
@@ -201,11 +272,11 @@
     #  - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/geoJSON/1 # 404 not found
 
 - urn: "urn:data:un:cod:ab:MOZ:adm1.geojson"
-  source:
+  fontem:
     - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/json/1
 
 - urn: "urn:data:un:cod:ab:{[[ISO3166-1]Alpha-3]}:adm1.geojson"
-  source:
+  fontem:
     - https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/{[ISO3166-1]Alpha-3}/versions/current/json/1
 
 
@@ -218,13 +289,13 @@
 # urn:data:un:locode -> urn:data:un:unece:locode -> urn:data--i:un:unece:locode
 #  -> urn:data--i:un:unece:locode
 - urn: urn:data:un:locode
-  source:
+  fontem:
     - urn:data:un:unece:locode
 
 - urn: urn:data:un:unece:locode
-  source:
+  fontem:
     - urn:data--i:un:unece:locode
 
 - urn: urn:data--i:un:unece:locode
-  source:
+  fontem:
     - https://unece.org/trade/uncefact/unlocode
