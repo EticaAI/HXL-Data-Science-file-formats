@@ -1,5 +1,8 @@
 # ontologia/cod: Common Operational Datasets
 
+**Note: the folder ontologia/cod/ do not contain the CODs themselves; This is
+a taxonomy about how to parse COD files, in special COD-AB.**
+
 > This is a DRAFT! (Emerson Rocha, 2021-04-22 21:56 UTC
 
 > Trivia:

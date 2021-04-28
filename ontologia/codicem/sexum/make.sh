@@ -39,10 +39,9 @@ ONTOLOGIA_CODICEM_SEXUM_NON_BINARIUM="https://proxy.hxlstandard.org/data.csv?des
 # @see https://confluence.hl7.org/display/VOC/Gender+Coding+with+International+Data+Exchange+Standards
 # @see https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=1946656528
 # @see https://confluence.hl7.org/
+ONTOLOGIA_CODICEM_SEXUM_HL7="https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k%2Fedit%23gid%3D1946656528&filter01=expand&filter-label01=%2Blist+split&strip-headers=on"
 
 # Download terminologia-anatomica.hxl.csv (ignored by .gitignore)
 wget -qO- "$ONTOLOGIA_CODICEM_SEXUM_BINARIUM" > "${ROOTDIR}/ontologia/codicem/sexum/binarium.hxl.csv"
 wget -qO- "$ONTOLOGIA_CODICEM_SEXUM_NON_BINARIUM" > "${ROOTDIR}/ontologia/codicem/sexum/non-binarium.hxl.csv"
-
-# # Get a sample on terminologia-anatomica-EXEMPLUM.hxl.csv
-# cat "${ROOTDIR}/ontologia/codicem/anatomiam/terminologia-anatomica.hxl.csv" | head -n11 > "${ROOTDIR}/ontologia/codicem/anatomiam/terminologia-anatomica-EXEMPLUM.hxl.csv"
+wget -qO- "$ONTOLOGIA_CODICEM_SEXUM_HL7" > "${ROOTDIR}/ontologia/codicem/sexum/hl7.hxl.csv"

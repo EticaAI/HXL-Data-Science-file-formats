@@ -128,7 +128,7 @@ _ideal circumstances_ `data global namespace` (the ZZ on
 
 ##### 1.1.3 Ontologia
 
-> **See [ontologia/ontologia](ontologia/ontologia)**
+> **See [ontologia/](ontologia/)**
 
 > "In computer science and information science, an ontology encompasses a
   representation, formal naming and definition of the categories, properties
@@ -138,7 +138,7 @@ _ideal circumstances_ `data global namespace` (the ZZ on
   defining a set of concepts and categories that represent the subject."
   -- [Wikipedia: Ontology (information science)](https://en.wikipedia.org/wiki/Ontology_(information_science)
 
-The contents from [ontologia/ontologia](ontologia/ontologia) both contain some
+The contents from [ontologia/](ontologia/) both contain some
 selected datasets and (while not 100% converted) the main parts of how
 command line tools and libraries released by this repository use.
 

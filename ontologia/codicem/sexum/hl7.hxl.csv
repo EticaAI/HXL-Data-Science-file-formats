@@ -1,0 +1,22 @@
+#meta+weka_class,#item+v_iso5218+code,#item+v_iso5218_extended+code,#item+v_us_cdc_sex+code,#meta+raw_netss_ncvhs,#item+meta_rfc4112+v_xz_ecml,#item+v_un_icao_sex+code,#meta+visa_schengen,#item+v_us_naaccr,#item+v_us_census_sex+code,#meta+hl7_v3,#meta+hl7_v2,#meta+x12,#meta+astm,#meta+dicom,#meta+obis,#meta+ubif,#meta+bdt
+not known,0,0,,9,U,X,<,9,,U,U,U,,U,U,?,"U, 0"
+male,1,1,M,1,M,M,M,1,1,M,M,M,M,M,M,m,"M, 1"
+female,2,2,F,2,F,F,F,2,2,F,F,F,F,F,F,f,"W, 2"
+Both (male + female),,,,,,,,,,,,,,,B,,
+Transgender male,,3,,,,,,,,,,,FC,FC,,fc,
+Transgender female,,4,,,,,,,,,,,MC,MC,,mc,
+Transitional,,,,,,,,,,,,,,,T,,
+Not applicable,9,,,,,,,,,,N,,,,,,
+Other,,,O,,,,,3,,,O,,,121102,,,"A, 3"
+Transsexual,,,,,,,,4,,,,,,,,,
+Non-sexed,,,,,,,,,,,,N,,,,,
+Unsexable,,,,,,,,,,,,X,,121103,I,i,
+Unknown sex,,,,,,,,,,,,,U,,,,
+Male pseudohermaphrodite,,,,,,,,,,,,,MP,MP,,,
+Female pseudohermaphrodite,,,,,,,,,,,,,FP,FP,,,
+Hermaprodite,,,,,,,,,,,,,H,H,H,H,
+Simultaneous hermaphrodite,,,,,,,,,,,,,,,,sh,
+Hermaphrodite male phase,,,,,,,,,,,,,,,,Hm,
+Hermaphrodite female phase,,,,,,,,,,,,,,,,hf,
+Ambiguous,,,,,,,,,,,A,,A,121102,,a,
+Mixed sex,,,,,,,,,,,,,,,,x,

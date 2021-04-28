@@ -87,6 +87,11 @@
     - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k%2Fedit%23gid%3D214068544
     - https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=214068544
 
+- urn: "urn:data:xz:eticaai:ontologia:codicem:sexum:hl7"
+  source:
+    - ontologia/codicem/sexum/hl7.hxl.csv
+    - https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=1946656528
+
 - urn: "urn:data:xz:eticaai:ontologia:codicem:sexum:non-binarium"
   source:
     - ontologia/codicem/sexum/non-binarium.hxl.csv
