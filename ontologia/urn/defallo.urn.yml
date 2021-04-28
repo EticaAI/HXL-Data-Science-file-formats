@@ -16,6 +16,9 @@
 #    - https://en.wiktionary.org/wiki/descriptio#Latin
 #  - "explānandum"
 #    - https://en.wiktionary.org/wiki/explano#Latin
+#  - "referens"
+#    - https://en.wiktionary.org/wiki/referens#Latin
+#    - https://en.wiktionary.org/wiki/reference#English
 
 
 # TODO: Maybe even draft an bash completion based on URNs already listed on
@@ -189,11 +192,19 @@
     - https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=530571590
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:linguam"
+  explanandum:
+    - +v_iso15924
   fontem:
     - ontologia/codicem/codicem.linguam.hxl.csv
     - https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0
 
 - urn: "urn:data:xz:eticaai:ontologia:codicem:locum"
+  explanandum:
+    - country+code+v_iso2
+    - country+code+v_iso3
+    - +v_hrinfo_country
+    - +v_reliefweb # Do v_reliefweb is ONLY about countries? Or is more generic? 
+    - country+code+v_reliefweb
   fontem:
     - ontologia/codicem/codicem.locum.hxl.csv
     - https://docs.google.com/spreadsheets/d/1l5Pev8zdVRS0EOPog36eipGCrckbrPC_74xhS9JRaM0/edit#gid=1260650845

@@ -17,20 +17,28 @@
 #                 hxlselect --query valid_vocab+default=+v_pcode \
 #                     "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)"
 #
-#                 ## Explain how a query was resolved (--?)
-#                 urnresolver --? urn:data:xz:hxl:standard:core:attribute
-#
 #                 ## Know URN list (without complex/recursive resolving)
 #                 urnresolver --urn-list
 #
 #                 ## Same as --urn-list, but filter results (accept multiple)
 #                 urnresolver --urn-list-filter un --urn-list-filter br
-
+#
 #                 ## Same as --urn-list-pattern, but python regexes
 #                 urnresolver --urn-list-pattern "un|br" --urn-list-pattern "b"
 #
 #                 ## Resolve something know at random
 #                 urnresolver --urn-list | sort -R | urnresolver
+#
+#                 ## Explain how a query was resolved (-?)
+#                 urnresolver -? urn:data:xz:hxl:standard:core:attribute
+#
+#                 ## List itens that marked thenselves as reference on a
+#                 ## subject
+#                 urnresolver --urn-explanandum-list
+#
+#                 ## Print who is marked explicity as reference to something
+#                 urnresolver -?? +v_iso15924
+#                 urnresolver -?? country+code+v_iso2
 #
 #   DESCRIPTION:  urnresolver uses hxlm.core to resolve Uniform Resource Name
 #                 (URI) to Uniform Resource Identifier (URI)
@@ -46,16 +54,18 @@
 #       COMPANY:  Etica.AI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v1.2.2
+#       VERSION:  v1.2.3
 #       CREATED:  2021-03-05 15:37 UTC v0.7.3 started (based on hxl2example)
 #      REVISION:  2021-04-20 06:21 UTC v1.1.0 added --urn-list
 #                 2021-04-20 07:27 UTC v1.2.0 added --urn-list-filter &
 #                                                   --urn-list-pattern
 #                 2021-04-26 01:41 UTC v1.2.1 added --version
-#                 2021-04-28 06:13 UTC v1.2.2 added --? (explain results)
+#                 2021-04-28 06:13 UTC v1.2.2 added -? (details about URN)
+#                 2021-04-28 07:28 UTC v1.2.3 added -?? (reverse search) and
+#                                             --urn-explanandum-list
 # ==============================================================================
 
-__version__ = "v1.2.2"
+__version__ = "v1.2.3"
 
 # ./hxlm/core/bin/urnresolver.py urn:data:un:locode
 # echo $(./hxlm/core/bin/urnresolver.py urn:data:un:locode)
@@ -182,12 +192,21 @@ class URNResolver:
         parser.add_argument(
             '--explanandum',
             '-?',
-            '--?',
             help='Print explanation information about a URN',
             metavar='explanandum',
             action='store_const',
             const=True,
             default=False
+        )
+
+        parser.add_argument(
+            '--referens',
+            '-??',
+            help='Print resources are marked as explanation for a tag. ' +
+            'For example "urnresolver -?? +v_iso15924"',
+            metavar='referens',
+            type=str,
+            action='append'
         )
 
         parser.add_argument(
@@ -237,6 +256,16 @@ class URNResolver:
             '--urn-list',
             help='List all know URNs (without recursion/complex remote calls)',
             metavar='urn_list',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        parser.add_argument(
+            '--urn-explanandum-list',
+            help='List all explanandum attributes [urn<TAB>expitem]'
+            ' (hints for what a dataset explicity mark itsef as reference)',
+            metavar='urn_explanandum_list',
             action='store_const',
             const=True,
             default=False
@@ -376,7 +405,7 @@ class URNResolver:
                         'local urn references'
                     )
 
-        # If user is not asking to tisable load 'urnresolver-default.urn.yml'
+        # If user is not asking to disable load 'urnresolver-default.urn.yml'
         if not args.no_urn_vendor_defaults:
             urnrslvr_def = HXLM_ROOT + '/core/bin/' + \
                 'urnresolver-default.urn.yml'
@@ -395,7 +424,44 @@ class URNResolver:
             print('[DDDS-NAPTR-Public[not-implemented]]')
             return self.EXIT_OK
 
-        # urnresolver --urn-list-filter un --urn-list-filter br
+        # urnresolver --! +v_iso15924
+        if 'referens' in args and args.referens:
+            # print('referens', args.referens)
+            for item in urnrslr_options:
+                # print(item)
+                # if 'explanandum' in item and item.explanandum and \
+                if 'explanandum' in item and item['explanandum'] and \
+                        len(item['explanandum']) > 0:
+
+                    # TODO: implement AND (this is an OR)
+                    for exitem in item['explanandum']:
+                        if exitem in args.referens:
+                            print(item['urn'])
+                            # print(item['urn'] + "\t" + exitem)
+                        # Inverse:
+                        # print(exitem + "\t" + item['urn'])
+                    # print(item)
+
+            return self.EXIT_OK
+
+        # urnresolver --urn-explanandum-list
+        if 'urn_explanandum_list' in args and args.urn_explanandum_list:
+            # print('urn_explanandum_list', args.urn_explanandum_list)
+            for item in urnrslr_options:
+                # print(item)
+                # if 'explanandum' in item and item.explanandum and \
+                if 'explanandum' in item and item['explanandum'] and \
+                        len(item['explanandum']) > 0:
+
+                    for exitem in item['explanandum']:
+                        print(item['urn'] + "\t" + exitem)
+                        # Inverse:
+                        # print(exitem + "\t" + item['urn'])
+                    # print(item)
+
+            return self.EXIT_OK
+
+            # urnresolver --urn-list-filter un --urn-list-filter br
         if 'urn_list_filter' in args and args.urn_list_filter:
             # print('urn_list_filter', args.urn_list_filter)
             if urnrslr_options and len(urnrslr_options) > 0:
