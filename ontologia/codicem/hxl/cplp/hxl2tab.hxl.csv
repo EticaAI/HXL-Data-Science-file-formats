@@ -1,0 +1,32 @@
+#meta+status,#meta+org,#item+source+hxl_hashtag+list,#item+source+hxl_hashtag,#item+eng_bias+vt_orange_flag_weight,#item+target+orange_feature_type+vt_class,#item+target+orange_flag+vt_class,#item+target+orange_feature_name,#meta+description
+working-draft,EticaAI,,+vt_orange_type_discrete,1,discrete,,,"The vt_orange_ prefix is meant to be the most specific one. On worst case scenario, this would be the only supported convertion rule to be used."
+working-draft,EticaAI,,+vt_orange_type_continuous,1,continuous,,,
+working-draft,EticaAI,,+vt_orange_type_string,1,string,,,
+working-draft,EticaAI,,+vt_orange_type_time,1,time,,,
+working-draft,EticaAI,,+vt_orange_flag_class,1,,class,,
+working-draft,EticaAI,,+vt_orange_flag_meta,1,,meta,,
+working-draft,EticaAI,,+vt_orange_flag_weight,1,,weight,,
+working-draft,EticaAI,,+vt_orange_flag_ignore,1,,ignore,,
+working-draft,EticaAI,,+vt_orange_flag_keyvaluenotsupported,1,,key=value,,
+request-for-comments,EticaAI,,+vt_class,0.9,,class,,
+working-draft,EticaAI,,+vt_class+preferred,0.9,,class,,
+request-for-comments,EticaAI,,+vt_meta,0.9,,meta,,
+request-for-comments,EticaAI,,+vt_categorical,0.9,discrete,,,See https://en.wikipedia.org/wiki/Categorical_variable
+working-draft,HXL Working Group,,+text,0.9,string,,,
+working-draft,HXL Working Group,,+text,0.4,,meta,,
+working-draft,HXL Working Group,,+number,0.9,continuous,,,
+working-draft,HXL Working Group,,+number,-0.7,,ignore,,"Orange love numbers, don't ignore them, even if the user have to re-enable later."
+working-draft,HXL Working Group,,+number,-0.5,,meta,,Numbers unlikely to be meta. But they can be meta.
+working-draft,HXL Working Group,,+url,0.9,string,,,
+working-draft,HXL Working Group,,+url,0.7,,meta,,URls are likely to be meta
+working-draft,HXL Working Group,,+phone,0.9,string,,,
+working-draft,HXL Working Group,,+phone,0.7,,meta,,Phones are likely to be meta
+working-draft,HXL Working Group,,+date,0.9,time,,,
+working-draft,HXL Working Group,,+date,-0.6,,ignore,,"Orange also love dates. Maybe not as much as number, but likes them"
+working-draft,HXL Working Group,,+date,-0.5,,meta,,Dates are unlikely to be meta. Maybe except when '#meta +date'.
+working-draft,Informal,,+bool,0,,,,TODO: find the type
+working-draft,HXL Working Group,#meta,,0.7,,meta,,The #meta are likely to be Orange flag meta. But something like '#meta +date' may not be meta
+working-draft,HXL Working Group,#meta,,0.2,,ignore,,
+working-draft,HXL Working Group,#item,,0.1,,class,,"Item (per HXL-CPLP internal convention) have one small bias to be a classifier, in special when on a spreadsheet with only #meta and #item."
+working-draft,HXL Working Group,#item,,-0.7,,ignore,,Item (per HXL-CPLP internal convention) is unlikely to be a meta or ignore
+working-draft,HXL Working Group,#item,,-0.5,,meta,,Item (per HXL-CPLP internal convention) is unlikely to be a meta or ignore

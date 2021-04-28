@@ -54,11 +54,30 @@
 # @see https://data.humdata.org/dataset/hxl-core-schemas
 - urn: "urn:data:xz:hxl:standard:core:hashtag"
   source:
+    - ontologia/codicem/hxl/standard/core/hashtag.hxl.csv
+    - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI%2Fpub%3Fgid%3D319251406%26single%3Dtrue%26output%3Dcsv
     - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
 
 - urn: "urn:data:xz:hxl:standard:core:attribute"
   source:
+    - ontologia/codicem/hxl/standard/core/hashtag.hxl.csv
+    - https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI%2Fpub%3Fgid%3D1810309357%26single%3Dtrue%26output%3Dcsv&strip-headers=on
     - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=1810309357&single=true&output=csv
+
+# https://data.humdata.org/dataset/hxl-master-vocabulary-list
+- urn: "urn:data:xz:hxl:standard:master-vocabulary"
+  source:
+    - ontologia/codicem/hxl/standard/master-vocabulary.hxl.csv
+    - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1dGPthewm3Dm5_IWBU4buJ370qJBnrVYPL3XbxZ0O-BY%2Fedit%3Fts%3D5a201f69%23gid%3D0
+    - https://docs.google.com/spreadsheets/d/1dGPthewm3Dm5_IWBU4buJ370qJBnrVYPL3XbxZ0O-BY/edit?ts=5a201f69#gid=0
+
+#### HXL-CPLP _________________________________________________________________
+- urn: "urn:data:xz:hxl:cplp:hxl2tab"
+  source:
+    - ontologia/codicem/hxl/cplp/hxl2tab.hxl.csv
+    - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY%2Fedit%23gid%3D245471857
+    - https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=245471857
+
 
 #### Etica.AI / HXL-CPLP ______________________________________________________
 

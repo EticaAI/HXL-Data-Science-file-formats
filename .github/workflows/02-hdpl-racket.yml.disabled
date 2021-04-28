@@ -1,3 +1,8 @@
+# Note .github/workflows/02-hdpl-racket.yml was disabled on 2021-04-28 because
+#      of random timeouts of the upstream server.
+
+# TODO: enable when working with Racket files
+
 on: [push, pull_request]
 name: CI
 jobs:

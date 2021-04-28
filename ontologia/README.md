@@ -33,6 +33,8 @@ corrections.
 - [Exchange Codes and terms](#exchange-codes-and-terms)
     - [Prebuild tables](#prebuild-tables)
         - [Common Operational Datasets](#common-operational-datasets)
+        - [Gender/Sex codes](#gendersex-codes)
+        - [HXL](#hxl)
         - [Human Anatomy](#human-anatomy)
         - [Language codes](#language-codes)
         - [Location codes](#location-codes)
@@ -117,16 +119,17 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 
 [![](http://img.youtube.com/vi/CFUs8S0MPIY/0.jpg)](http://www.youtube.com/watch?v=CFUs8S0MPIY "Common Operational Datasets (CODs)")
 
+#### Gender/Sex codes
+
+- [codicem/sexum/](codicem/sexum/)
+
+#### HXL
+
+- [codicem/hxl/](codicem/hxl/)
 
 #### Human Anatomy
 
 - [codicem/anatomiam/](codicem/anatomiam/)
-
-> - draft!!!
-> - https://github.com/EticaAI/EticaAI-linguistic-datasets-pt/blob/main/semi-automated-guides/sparql-wikidata.md
-> - https://github.com/HXL-CPLP/forum/issues/44
-> - https://en.wiktionary.org/wiki/anatomia#Latin
-
 
 #### Language codes
 
