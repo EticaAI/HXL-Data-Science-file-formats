@@ -17,6 +17,9 @@
 #                 hxlselect --query valid_vocab+default=+v_pcode \
 #                     "$(urnresolver urn:data:xz:hxl:standard:core:hashtag)"
 #
+#                 ## Explain how a query was resolved (--?)
+#                 urnresolver --? urn:data:xz:hxl:standard:core:attribute
+#
 #                 ## Know URN list (without complex/recursive resolving)
 #                 urnresolver --urn-list
 #
@@ -49,7 +52,7 @@
 #                 2021-04-20 07:27 UTC v1.2.0 added --urn-list-filter &
 #                                                   --urn-list-pattern
 #                 2021-04-26 01:41 UTC v1.2.1 added --version
-#                 2021-04-XX XX:XX UTC v1.2.2 (unreleased)
+#                 2021-04-28 06:13 UTC v1.2.2 added --? (explain results)
 # ==============================================================================
 
 __version__ = "v1.2.2"
@@ -105,6 +108,8 @@ import argparse
 from pathlib import Path
 import re
 
+import json
+
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
 # Do not import hxl, to avoid circular imports
@@ -126,6 +131,12 @@ from hxlm.core import (
 from hxlm.core.constant import (
     HXLM_ROOT
 )
+
+from hxlm.core.internal.formatter import (
+    beautify
+)
+
+# import yaml
 
 # @see https://github.com/hugapi/hug
 #     pip3 install hug --upgrade
@@ -168,6 +179,17 @@ class URNResolver:
             const=True,
             default=False
         )
+        parser.add_argument(
+            '--explanandum',
+            '-?',
+            '--?',
+            help='Print explanation information about a URN',
+            metavar='explanandum',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
         parser.add_argument(
             '--version',
             help='Show version and exit',
@@ -294,6 +316,7 @@ class URNResolver:
         urnrslr_options = []
 
         # return "fin"
+        # print('args', args)
 
         if 'urn_index_local' in args and args.urn_index_local \
                 and len(args.urn_index_local) > 0:
@@ -377,10 +400,21 @@ class URNResolver:
             # print('urn_list_filter', args.urn_list_filter)
             if urnrslr_options and len(urnrslr_options) > 0:
                 matches = []
+                expl_items = []
                 for item in urnrslr_options:
                     for sitem in args.urn_list_filter:
                         if item['urn'].find(sitem) > -1:
                             matches.append(item['urn'])
+
+                            # TODO: deal with duplicate items
+                            expl_items.append(item)
+
+                # urnresolver --? --urn-list-filter un --urn-list-filter br
+                if args.explanandum:
+                    # print(matches)
+                    print(beautify(json.dumps(expl_items,
+                                              indent=4), 'json'))
+                    return self.EXIT_ERROR
 
                 matches = set(matches)
                 for result in matches:
@@ -401,6 +435,7 @@ class URNResolver:
 
             if urnrslr_options and len(urnrslr_options) > 0:
                 matches = []
+                expl_items = []
                 for item in urnrslr_options:
                     for cptn in cptterns:
 
@@ -408,7 +443,18 @@ class URNResolver:
                         if cptn.search(item['urn']):
                             matches.append(item['urn'])
 
+                            # TODO: deal with duplicate items
+                            expl_items.append(item)
+
                 matches = set(matches)
+
+                # urnresolver --? --urn-list-pattern un --urn-list-pattern br
+                if args.explanandum:
+                    # print(matches)
+                    print(beautify(json.dumps(expl_items,
+                                              indent=4), 'json'))
+                    return self.EXIT_ERROR
+
                 for result in matches:
                     print(result)
 
@@ -418,6 +464,13 @@ class URNResolver:
         if 'urn_list' in args and args.urn_list is True:
             # print('urn_list')
             if urnrslr_options and len(urnrslr_options) > 0:
+
+                # urnresolver --? urn:data:zz:example
+                if args.explanandum:
+                    print(beautify(json.dumps(urnrslr_options,
+                                              indent=4), 'json'))
+                    return self.EXIT_ERROR
+
                 matches = []
                 for item in urnrslr_options:
                     print(item['urn'])
@@ -471,6 +524,19 @@ class URNResolver:
                 if item['urn'] == urn_string:
                     # print('great')
                     matches.append(item)
+
+            # urnresolver --? urn:data:zz:example
+            if args.explanandum:
+                if len(matches) > 0:
+                    # print(matches)
+                    # beautify(str(matches), 'json', terminal)
+                    # print('oi1')
+                    print(beautify(json.dumps(matches, indent=4), 'json'))
+                    # print('oi2')
+                else:
+                    if 'debug' in args and args.debug:
+                        print("no matches")
+                return self.EXIT_ERROR
 
             if len(matches) > 0:
                 if args.all:
