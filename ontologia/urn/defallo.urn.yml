@@ -64,6 +64,35 @@
 
 # urnresolver --urn-list-pattern "xz:eticaai"  --urn-list-pattern "xz:hxlcplp"
 
+- urn: "urn:data:xz:eticaai:ontologia:cod:thesaurum"
+  source:
+    - ontologia/cod/thesaurum.hxl.csv
+    - https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=1204322111
+
+- urn: "urn:data:xz:eticaai:ontologia:cod:filum-typum"
+  source:
+    - ontologia/cod/filum-typum.hxl.csv
+    - https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=214068544
+
+- urn: "urn:data:xz:eticaai:ontologia:codicem:anatomiam:terminologia-anatomica"
+  source:
+    - ontologia/codicem/anatomiam/terminologia-anatomica.hxl.csv
+    - ontologia/codicem/anatomiam/terminologia-anatomica-EXEMPLUM.hxl.csv
+    - https://proxy.hxlstandard.org/data/b02a5f/download/HXL_CPLP-FOD_medicinae-legalis_humana-corpus.csv
+    - https://docs.google.com/spreadsheets/d/10axnLpDNtAc8Bh921dz5XPXCwo0FUXRcKS6-ermiu5w/edit#gid=1622293684
+
+- urn: "urn:data:xz:eticaai:ontologia:codicem:sexum:binarium"
+  source:
+    - ontologia/codicem/sexum/binarium.hxl.csv
+    - https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k%2Fedit%23gid%3D214068544
+    - https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=214068544
+
+- urn: "urn:data:xz:eticaai:ontologia:codicem:sexum:non-binarium"
+  source:
+    - ontologia/codicem/sexum/non-binarium.hxl.csv
+    - https://proxy.hxlstandard.org/data.csv?dest=data_edit&filter01=expand&filter-label01=%2Blist+split&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k%2Fedit%23gid%3D530571590
+    - https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=530571590
+
 - urn: "urn:data:xz:eticaai:ontologia:codicem:linguam"
   source:
     - ontologia/codicem/codicem.linguam.hxl.csv
@@ -87,16 +116,6 @@
     - ontologia/codicem/codicem.scriptum.hxl.csv
     # See also: https://github.com/HXL-CPLP/forum/issues/54
     - https://docs.google.com/spreadsheets/d/1B9lzzJC124GvUMbPT-6S9FQiIeO6pHsnHdQib-bcPkg/edit#gid=214068544
-
-- urn: "urn:data:xz:eticaai:ontologia:cod:thesaurum"
-  source:
-    - ontologia/cod/thesaurum.hxl.csv
-    - https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=1204322111
-
-- urn: "urn:data:xz:eticaai:ontologia:cod:filum-typum"
-  source:
-    - ontologia/cod/filum-typum.hxl.csv
-    - https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=214068544
 
 
 #### COD-AB ____________________________________________________________________
