@@ -10,6 +10,8 @@
 #    - https://en.wikipedia.org/wiki/Uniform_Resource_Name
 #  - "fontem"
 #    - https://en.wiktionary.org/wiki/fons#Latin
+#  - "synōnymum"
+#    - https://en.wiktionary.org/wiki/synonymum#Latin
 #  - "auxilium"
 #    - https://en.wiktionary.org/wiki/auxilium#Latin
 #  - "dēscrīptiōnem"
@@ -297,16 +299,21 @@
 
 
 ### UN/LOCODE -----------------------------------------------------------------
-# urn:data:un:locode -> urn:data:un:unece:locode -> urn:data--i:un:unece:locode
-#  -> urn:data--i:un:unece:locode
 - urn: urn:data:un:locode
-  fontem:
-    - urn:data:un:unece:locode
+  synonymum: urn:data:un:unece:locode
 
 - urn: urn:data:un:unece:locode
+  auxilium:
+    - https://unece.org/trade/cefact/UNLOCODE-Download
+    - https://github.com/HXL-CPLP/forum/issues/57
   fontem:
-    - urn:data--i:un:unece:locode
+    - ontologia/codicem/locum/un-locode.hxl.csv
 
-- urn: urn:data--i:un:unece:locode
-  fontem:
-    - https://unece.org/trade/uncefact/unlocode
+
+# - urn: urn:data:un:unece:unlocode
+#   fontem:
+#     - urn:data--i:un:unece:locode
+
+# - urn: urn:data--i:un:unece:locode
+#   fontem:
+#     - https://unece.org/trade/uncefact/unlocode
