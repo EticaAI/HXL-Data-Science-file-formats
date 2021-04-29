@@ -307,7 +307,37 @@
     - https://unece.org/trade/cefact/UNLOCODE-Download
     - https://github.com/HXL-CPLP/forum/issues/57
   fontem:
-    - ontologia/codicem/locum/un-locode.hxl.csv
+    # - ontologia/codicem/locum/un-locode.hxl.csv
+    - urn:data:un:unece:locode/code-list
+
+- urn: urn:data:un:unece:locode/code-list
+  exemplum:
+    - ontologia/codicem/locum/un-locode/code-list-EXEMPLUM.hxl.csv
+  fontem:
+    - ontologia/codicem/locum/un-locode/code-list.hxl.csv
+    - https://github.com/datasets/un-locode/raw/master/data/code-list.csv
+    # TODO: setup the proxy with ideal keywords. This one was not ready
+    - https://proxy.hxlstandard.org/data/tagger?dest=data_view&url=https%3A%2F%2Fgithub.com%2Fdatasets%2Fun-locode%2Fraw%2Fmaster%2Fdata%2Fcode-list.csv
+
+- urn: urn:data:un:unece:locode/country-codes
+  fontem:
+    - ontologia/codicem/locum/un-locode/country-codes.hxl.csv
+    - https://hdp.etica.ai/ontologia/codicem/locum/un-locode/country-codes.hxl.csv
+
+- urn: urn:data:un:unece:locode/function-classifiers
+  fontem:
+    - ontologia/codicem/locum/un-locode/function-classifiers.hxl.csv
+    - https://hdp.etica.ai/ontologia/codicem/locum/un-locode/function-classifiers.hxl.csv
+
+- urn: urn:data:un:unece:locode/status-indicators
+  fontem:
+    - ontologia/codicem/locum/un-locode/status-indicators.hxl.csv
+    - https://hdp.etica.ai/ontologia/codicem/locum/un-locode/status-indicators.hxl.csv
+
+- urn: urn:data:un:unece:locode/subdivision-codes
+  fontem:
+    - ontologia/codicem/locum/un-locode/subdivision-codes.hxl.csv
+    - https://hdp.etica.ai/ontologia/codicem/locum/un-locode/subdivision-codes.hxl.csv
 
 
 # - urn: urn:data:un:unece:unlocode
