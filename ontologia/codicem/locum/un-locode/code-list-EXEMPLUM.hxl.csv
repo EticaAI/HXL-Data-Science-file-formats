@@ -1,0 +1,10 @@
+Change,Country,Location,Name,NameWoDiacritics,Subdivision,Status,Function,Date,IATA,Coordinates,Remarks
+,AD,ALV,Andorra la Vella,Andorra la Vella,,AI,--34-6--,0601,,4230N 00131E,
+,AD,CAN,Canillo,Canillo,,RL,--3-----,0307,,4234N 00135E,
+,AD,ENC,Encamp,Encamp,,RL,--3-----,0307,,4232N 00134E,
+,AD,ESC,Escaldes-Engordany,Escaldes-Engordany,,RL,--3-----,0307,,4231N 00133E,
+,AD,EAC,Escàs,Escas,04,RL,--3-----,1407,,4233N 00131E,
+,AD,FMO,La Farga de Moles,La Farga de Moles,,RQ,--3----B,0307,,,
+,AD,LMA,La Massana,La Massana,,RL,--3-----,0307,,4234N 00129E,
+,AD,ORD,Ordino,Ordino,,RL,--3-----,0307,,4233N 00131E,
+,AD,PAS,Pas de la Casa,Pas de la Casa,,RL,--3----B,0307,,4233N 00144E,
