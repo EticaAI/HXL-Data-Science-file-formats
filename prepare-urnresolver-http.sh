@@ -83,3 +83,31 @@
 #    /home/urneticaai/opt/python-3.9.4/bin/python3
 # python3 --version
 #    Python 3.9.4
+# which pip3
+#    /home/urneticaai/opt/python-3.9.4/bin/pip3
+
+# python3 -m pip install --upgrade pip
+
+## @see https://help.dreamhost.com/hc/en-us/articles/216137717-Python-overview
+## @see https://help.dreamhost.com/hc/en-us/articles/215769578-Passenger-overview
+## @see https://help.dreamhost.com/hc/en-us/articles/216385637-How-do-I-enable-Passenger-on-my-domain-
+# https://uwsgi-docs.readthedocs.io/en/latest/tutorials/dreamhost.html
+
+## Installing hdp-toolchain
+# python3 -m pip install --upgrade hdp-toolchain
+
+#### Framework (if use any) ____________________________________________________
+# https://github.com/the-benchmarker/web-frameworks
+#    - 87	python (3.9)	falcon (3.0)	72 561.68	80 688.49	82 140.99
+#    - 100	python (3.9)	bottle (0.12)	59 473.70	63 308.93	63 999.63
+#    - 104	python (3.9)	pyramid (2.0)	49 791.90	53 429.87	53 536.96
+#    - 111	python (3.9)	hug (2.6)	48 227.19	51 875.27	51 585.28
+#    - 114	python (3.9)	asgineer (0.8)	44 676.42	49 682.77	51 786.11
+#    - 115	python (3.9)	apidaora (0.28)	44 578.72	50 726.73	51 123.79
+#    - 155	python (3.9)	flask (1.1)	22 827.79	25 334.55	25 693.82
+#    - 188	python (3.9)	cherrypy (18.6)	10 030.38	10 129.65	9 185.60
+#    - 191	python (3.9)	tornado (6.1)	8 533.08	8 554.34	8 427.08
+#    - 193	python (3.9)	django (3.2)	7 814.19	7 703.61	7 453.86
+# Humm...
+# Maybe https://github.com/falconry/falcon? even hug (thats is fast and we
+# already use for ad-hoc expose the scripts) uses python falcon.
