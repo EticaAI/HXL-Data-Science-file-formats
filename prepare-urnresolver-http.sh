@@ -86,13 +86,22 @@
 # which pip3
 #    /home/urneticaai/opt/python-3.9.4/bin/pip3
 
-# python3 -m pip install --upgrade pip
+# python3 -m pip install virtualenv
+# source venv/bin/activate
+#    (venv) [culver]$
+
+# $ (venv) python3 -m pip install --upgrade pip
+# $ (venv) python3 -m pip install --upgrade hdp-toolchain
+# $ (venv) python3 -m pip install falcon
+# $ (venv) python3 -m pip install requests
 
 ## @see https://help.dreamhost.com/hc/en-us/articles/216137717-Python-overview
 ## @see https://help.dreamhost.com/hc/en-us/articles/215769578-Passenger-overview
 ## @see https://help.dreamhost.com/hc/en-us/articles/216385637-How-do-I-enable-Passenger-on-my-domain-
-# https://uwsgi-docs.readthedocs.io/en/latest/tutorials/dreamhost.html
+## @see https://uwsgi-docs.readthedocs.io/en/latest/tutorials/dreamhost.html
+## @see https://hpincket.com/falcon-framework-api-on-dreamhosts-passenger-wsgi.html
 
+# virtualenv venv
 ## Installing hdp-toolchain
 # python3 -m pip install --upgrade hdp-toolchain
 
