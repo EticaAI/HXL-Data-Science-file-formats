@@ -11,11 +11,12 @@
 
 
 ```bash
-cd urn-data/urn-resolver-http || exit
+# cd urn-data/urn-resolver-http || exit
 
-rsync --archive --verbose passenger_wsgi.py urneticaai@urn-real-ips.etica.ai:/home/urneticaai/urn.etica.ai/passenger_wsgi.py
-rsync --archive --verbose things.py urneticaai@urn-real-ips.etica.ai:/home/urneticaai/urn.etica.ai/things.py
+# rsync --archive --verbose passenger_wsgi.py urneticaai@urn-real-ips.etica.ai:/home/urneticaai/urn.etica.ai/passenger_wsgi.py
+# rsync --archive --verbose things.py urneticaai@urn-real-ips.etica.ai:/home/urneticaai/urn.etica.ai/things.py
 
+rsync --archive --verbose urn-data/urn-resolver-http/ urneticaai@urn-real-ips.etica.ai:/home/urneticaai/urn.etica.ai/
 
 ```
 
@@ -27,8 +28,13 @@ source venv/bin/activate
 (venv) $ touch /home/urneticaai/tmp/restart.txt
 (venv) $ tail logs/urn.etica.ai/http/error.log
 
+## Logs
+tail -f /home/urneticaai/logs/urn.etica.ai/http/error.log
+tail -f /home/urneticaai/logs/urn.etica.ai/http/access.log
+
 # @see https://help.dreamhost.com/hc/en-us/articles/215317698-Django-troubleshooting
 (venv) $ pkill python3
 (venv) $ touch /home/urneticaai/urn.etica.ai/passenger_wsgi.py
 (venv) $ touch /home/urneticaai/tmp/restart.txt
+(venv) $ touch /home/urneticaai/urn.etica.ai/tmp/restart.txt
 ```

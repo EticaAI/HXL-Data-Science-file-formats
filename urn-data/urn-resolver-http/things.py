@@ -13,3 +13,4 @@ class ThingsResource:
                      'above me and the moral law within me.\n'
                      '\n'
                      '    ~ Immanuel Kant\n\n')
+
