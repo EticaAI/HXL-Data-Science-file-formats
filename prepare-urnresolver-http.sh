@@ -47,3 +47,39 @@
 # Then, we defined
 #     urn-real-ips.etica.ai A     69.163.219.57
 #     urn.etica.ai          CNAME urn-real-ips.etica.ai  (Cloudflare proxy)
+
+#### Shortcuts _________________________________________________________________
+# ssh urneticaai@urn-real-ips.etica.ai
+
+#### Initial setup _____________________________________________________________
+# ssh urneticaai@urn-real-ips.etica.ai
+# echo "https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/13" > /home/urneticaai/urn.etica.ai/public/index.html
+# curl https://urn.etica.ai
+#   https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/13
+# python3 --version
+#   Python 3.6.9
+## Current version of python3 on Dreamhost is a bit old, lets use a custom
+## @see https://help.dreamhost.com/hc/en-us/articles/115000702772-Installing-a-custom-version-of-Python-3
+# cd ~
+# mkdir tmp
+# cd tmp
+# wget https://www.python.org/ftp/python/3.9.4/Python-3.9.4.tgz
+# tar zxvf Python-3.9.4.tgz 
+# cd Python-3.9.4
+# ./configure --prefix=$HOME/opt/python-3.9.4
+#    (...)
+#    If you want a release build with all stable optimizations active (PGO, etc),
+#    please run ./configure --enable-optimizations
+#    (...)
+#    (Rocha note: ok, lets enable that instead of use Dreamhost commands)
+# ./configure --prefix=$HOME/opt/python-3.9.4 --enable-optimizations
+# make
+# make install
+# cd ~
+# vi .bash_profile
+#    export PATH=$HOME/opt/python-3.9.4/bin:$PATH
+# . ~/.bash_profile
+# which python3
+#    /home/urneticaai/opt/python-3.9.4/bin/python3
+# python3 --version
+#    Python 3.9.4
