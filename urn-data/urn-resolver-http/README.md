@@ -38,3 +38,17 @@ tail -f /home/urneticaai/logs/urn.etica.ai/http/access.log
 (venv) $ touch /home/urneticaai/tmp/restart.txt
 (venv) $ touch /home/urneticaai/urn.etica.ai/tmp/restart.txt
 ```
+
+```bash
+
+# Noop; Dreamhost do not allow direct access after be aware that cloudflare is serving
+
+curl --insecure -I https://urn.etica.ai/things --resolve urn.etica.ai:69.163.219.57
+# curl --insecure -I https://urn.etica.ai/things --resolve urn.etica.ai:443:69.163.219.57
+
+## Disable cloudflare temporary
+
+sudo vim /etc/hosts
+# 69.163.219.57   urn.etica.ai
+curl --insecure -I https://urn.etica.ai/things
+```

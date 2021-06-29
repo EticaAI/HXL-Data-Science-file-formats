@@ -3,4 +3,9 @@
 # https://help.dreamhost.com/hc/en-us/articles/216635268-Passenger-troubleshooting
 # PassengerPython /home/urneticaai/venv/bin/python3 # This would point to python (that is python2.7)
 PassengerPython /home/urneticaai/opt/python-3.9.4/bin/python3.9
-PassengerFriendlyErrorPages on
+# PassengerFriendlyErrorPages on
+
+# Hide/Remove the Passenger Headers
+Header always unset "X-Powered-By"
+Header always unset "X-Runtime"
+Header always unset "vary"

@@ -50,7 +50,7 @@ class ThingsResource:
 
         resp.delete_header('vary')
 
-        resp.body = ('\nTwo things awe me most, the starry sky '
+        resp.text = ('\nTwo things awe me most, the starry sky '
                      'above me and the moral law within me.\n'
                      '\n'
                      '    ~ Immanuel Kant\n\n')
