@@ -32,6 +32,11 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.4.1 HDP conventions (The YAML/JSON file structure)](#141-hdp-conventions-the-yamljson-file-structure)
             - [1.4.2 `hdpcli` (command line interface)](#142-hdpcli-command-line-interface)
             - [1.4.3 `HXLm.HDP` (python library subpackage) usage](#143-hxlmhdp-python-library-subpackage-usage)
+        - [1.5 `HXLTM` HXL Trānslātiōnem Memoriam](#15-hxltm-hxl-trānslātiōnem-memoriam)
+            - [1.5.1 TMX](#151-tmx)
+            - [1.5.2 XLIFF](#152-xliff)
+            - [1.5.3 CSV, reference format (multilingual)](#153-csv-reference-format-multilingual)
+            - [1.5.4 CSV, source + target format (bilingual)](#154-csv-source--target-format-bilingual)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -408,6 +413,40 @@ python3 -m pip install hdp-toolchain
   - Folder `HXL-CPLP-Publico/Datasets/EticaAI-Data/EticaAI-Data_HXL-Data-Science-file-formats/HDP-playbooks`
     - https://drive.google.com/drive/u/1/folders/1Zs-hw6y2ZHMgYXjGY1QbhrXn2UmheUEO
 
+
+#### 1.5 `HXLTM` HXL Trānslātiōnem Memoriam
+> This is a early draft.
+
+- Standard: **Translation Memory eXchange (TMX) v1.4b**
+  - https://www.gala-global.org/lisa-oscar-standards
+  - https://en.wikipedia.org/wiki/Translation_Memory_eXchange
+  - Example of usages
+    - https://cloud.google.com/translate/automl/docs/prepare
+    - https://mymemory.translated.net/doc/from-empty-tm.php
+    - https://site.matecat.com/faq/translation-memory/
+- Issues:
+  - **HXL-CPLP/forum/issues/**
+    - [**_HXL-CPLP/forum/issues/58: Convenção de tags HXL em conjunto de dados para armazenar Memória de Tradução (eng: HXL translation memory TM) \#58_**](https://github.com/HXL-CPLP/forum/issues/58)
+  - **HXL-CPLP/Auxilium-Humanitarium-API**
+    - **[HXL-CPLP/Auxilium-Humanitarium-API: [Hapi versão Alpha] Fluxo de trabalho de de traduções até geração do Hapi (do website, dos schemas e das OpenAPI)](https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/13)**
+    - **[HXL-CPLP/Auxilium-Humanitarium-API: [MVP] Exportar de formato "HXL TM" (eng: HXL translation memory) para um ou mais formatos já usados por softwares de localização](https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16)**
+  - **EticaAI/HXL-Data-Science-file-formats**
+    - _**hxltm2xliff: HXL Trānslātiōnem Memoriam -> XLIFF Version 2.1 #19**_
+- Test projects
+  - https://github.com/UNMigration/HTCDS
+  - https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422
+
+##### 1.5.1 TMX
+> TODO: document minimal usage
+
+##### 1.5.2 XLIFF
+> TODO: document minimal usage
+
+##### 1.5.3 CSV, reference format (multilingual)
+> TODO: document minimal usage
+
+##### 1.5.4 CSV, source + target format (bilingual)
+> TODO: document minimal usage
 
 ### 2. Reasons behind
 
