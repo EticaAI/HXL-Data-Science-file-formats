@@ -32,11 +32,17 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.4.1 HDP conventions (The YAML/JSON file structure)](#141-hdp-conventions-the-yamljson-file-structure)
             - [1.4.2 `hdpcli` (command line interface)](#142-hdpcli-command-line-interface)
             - [1.4.3 `HXLm.HDP` (python library subpackage) usage](#143-hxlmhdp-python-library-subpackage-usage)
-        - [1.5 `HXLTM` HXL Trānslātiōnem Memoriam](#15-hxltm-hxl-trānslātiōnem-memoriam)
-            - [1.5.1 TMX](#151-tmx)
-            - [1.5.2 XLIFF](#152-xliff)
+        - [1.5 `hxltmcli` HXL Trānslātiōnem Memoriam](#15-hxltmcli-hxl-trānslātiōnem-memoriam)
+            - [1.5.1 TMX: Translation Memory eXchange v1.4b](#151-tmx-translation-memory-exchange-v14b)
+            - [1.5.2 XLIFF: XML Localization Interchange File Format v2.1](#152-xliff-xml-localization-interchange-file-format-v21)
+                - [1.5.2.1 HXLTM supported features of XLIFF](#1521-hxltm-supported-features-of-xliff)
+            - [1.5.3 Google Sheets](#153-google-sheets)
+            - [1.5.4 Microsoft Excel](#154-microsoft-excel)
             - [1.5.3 CSV, reference format (multilingual)](#153-csv-reference-format-multilingual)
             - [1.5.4 CSV, source + target format (bilingual)](#154-csv-source--target-format-bilingual)
+            - [1.5.6 PO, TBX, SRX](#156-po-tbx-srx)
+            - [1.5.5 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories](#155-notable-alternatives-to-hxl-tm-and-hxltmcli-to-manage-translation-memories)
+                - [1.5.5.1 Okapi Framework](#1551-okapi-framework)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -414,9 +420,12 @@ python3 -m pip install hdp-toolchain
     - https://drive.google.com/drive/u/1/folders/1Zs-hw6y2ZHMgYXjGY1QbhrXn2UmheUEO
 
 
-#### 1.5 `HXLTM` HXL Trānslātiōnem Memoriam
+#### 1.5 `hxltmcli` HXL Trānslātiōnem Memoriam
 > This is a early draft.
 
+> TODO: see also <https://github.com/idimitriadis0/TranslateOnLinux/blob/master/TranslateOnLinux.md>
+
+<!--
 - Standard: **Translation Memory eXchange (TMX) v1.4b**
   - https://www.gala-global.org/lisa-oscar-standards
   - https://en.wikipedia.org/wiki/Translation_Memory_eXchange
@@ -435,18 +444,115 @@ python3 -m pip install hdp-toolchain
 - Test projects
   - https://github.com/UNMigration/HTCDS
   - https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422
+-->
 
-##### 1.5.1 TMX
+---
+
+**`hxltmcli` installation**
+```bash
+# hxltmcli is installed with the hdp-toolchain, no extras required.
+# @see https://pypi.org/project/hdp-toolchain/
+pip install hdp-toolchain
+
+hxltmcli --help
+
+```
+---
+
+##### 1.5.1 TMX: Translation Memory eXchange v1.4b
+- Wikipedia: <https://en.wikipedia.org/wiki/Translation_Memory_eXchange>
+- Specification:<https://www.gala-global.org/tmx-14b>
+- Relevant GitHub issues:
+  - https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/20
+  - https://github.com/HXL-CPLP/forum/issues/58
+  - https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16
+
 > TODO: document minimal usage
 
-##### 1.5.2 XLIFF
+##### 1.5.2 XLIFF: XML Localization Interchange File Format v2.1
+- Wikipedia: <https://en.wikipedia.org/wiki/XLIFF>
+- Specification:<http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html>
+- Relevant GitHub issues:
+  - https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/19
+  - https://github.com/HXL-CPLP/forum/issues/58
+  - https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16
+
 > TODO: document minimal usage
+
+###### 1.5.2.1 HXLTM supported features of XLIFF
+
+> TODO: improve documentation of features HXLTM support export to XLIFF
+
+##### 1.5.3 Google Sheets
+The `hxltmcli` supports read directly from Google Sheets (no extra plugins
+required).
+
+**Read HXL TM data saved on Google Sheets**
+
+```bash
+hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422
+```
+
+**Write HXL TM data on Google Sheets**
+
+Writting to Google Sheets is possible by using external tool to import the
+CSV versions.
+
+> TODO: document some external cli script that allow upload CSV to Google 
+> Sheets.
+
+##### 1.5.4 Microsoft Excel
+
+**Read HXL TM data saved on Excel**
+
+The `hxltmcli` supports read directly from Microsoft Excel (no extra plugins
+required).
+
+```bash
+# The HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx is a downloaded version of
+# the Google Sheets entire groups of HXL TMs on 2021-06-29. New versions are
+# likely to be a different number than --sheet 6
+hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx
+```
+
+**Write HXL TM data on Microsoft Excel**
+
+Writting to Microsoft Excel is possible by using external tool to import the
+CSV versions.
+
+> TODO: document some external cli script that allow safe the CSV versions to
+> Microsoft Excel.
 
 ##### 1.5.3 CSV, reference format (multilingual)
 > TODO: document minimal usage
 
 ##### 1.5.4 CSV, source + target format (bilingual)
 > TODO: document minimal usage
+
+##### 1.5.6 PO, TBX, SRX
+> About PO files: <https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html>
+> See also: <https://okapiframework.org/wiki/index.php/Open_Standards>
+
+`hxltmcli` does not import or export **PO** files directly. Okapi Framework can be
+used to export XLIFF created by  `hxltmcli`.
+
+`hxltmcli` does not import or export **TBX** and **SRX** files directly. It's
+not clear if possible to use any external to import/export from already
+supported formats (like TMX and XLIFF) creted by `hxltmcli` without
+implementing this feature directly on `hxltmcli`.
+
+> TODO: we could consider supporting TBX (see https://en.wikipedia.org/wiki/TermBase_eXchange)
+> since IATE seems to export glossaries on this format. See also
+> <https://termcoord.eu/iate/download-iate-tbx/>.
+
+##### 1.5.5 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories
+
+###### 1.5.5.1 Okapi Framework
+
+> TODO: this is a draft. Improve it.
+
+- https://okapiframework.org/
+  - http://okapiframework.org/wiki/index.php?title=Tikal
 
 ### 2. Reasons behind
 

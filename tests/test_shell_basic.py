@@ -42,6 +42,11 @@ def test_hdpcli_help(host):
 
     assert cmd.succeeded
 
+def test_hxltmcli_help(host):
+    cmd = host.run("hxltmcli --help")
+
+    assert cmd.succeeded
+
 
 def test_urnresolver_help(host):
     cmd = host.run("urnresolver --help")
