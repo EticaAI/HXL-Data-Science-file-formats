@@ -40,9 +40,10 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.5.4 Microsoft Excel](#154-microsoft-excel)
             - [1.5.3 CSV, reference format (multilingual)](#153-csv-reference-format-multilingual)
             - [1.5.4 CSV, source + target format (bilingual)](#154-csv-source--target-format-bilingual)
-            - [1.5.6 PO, TBX, SRX](#156-po-tbx-srx)
-            - [1.5.5 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories](#155-notable-alternatives-to-hxl-tm-and-hxltmcli-to-manage-translation-memories)
-                - [1.5.5.1 Okapi Framework](#1551-okapi-framework)
+            - [1.5.6 UTX](#156-utx)
+            - [1.5.7 PO, TBX, SRX](#157-po-tbx-srx)
+            - [1.5.7 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories](#157-notable-alternatives-to-hxl-tm-and-hxltmcli-to-manage-translation-memories)
+                - [1.5.7.1 Okapi Framework](#1571-okapi-framework)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -529,9 +530,18 @@ CSV versions.
 ##### 1.5.4 CSV, source + target format (bilingual)
 > TODO: document minimal usage
 
-##### 1.5.6 PO, TBX, SRX
-> About PO files: <https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html>
-> See also: <https://okapiframework.org/wiki/index.php/Open_Standards>
+##### 1.5.6 UTX
+- https://aamt.info/english/utx/
+- Specification: <https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf>
+
+> TODO: maybe implement exporting to UTX (it's not complex than already done
+> with CSV)
+
+##### 1.5.7 PO, TBX, SRX
+> - About PO files: <https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html>
+> - TBX:
+>   - <http://www.ttt.org/oscarStandards/tbx/>
+>     - TBX-Basic <http://www.ttt.org/oscarStandards/tbx/tbx-basic.html>
 
 `hxltmcli` does not import or export **PO** files directly. Okapi Framework can be
 used to export XLIFF created by  `hxltmcli`.
@@ -545,9 +555,35 @@ implementing this feature directly on `hxltmcli`.
 > since IATE seems to export glossaries on this format. See also
 > <https://termcoord.eu/iate/download-iate-tbx/>.
 
-##### 1.5.5 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories
+<!--
+Notes to self:
+- Here have some sample spreadsheets with examples used on how a existing tool
+  is able to convert glossaries to TBX-Min, See
+  - https://www.tbxinfo.net/tbx-tools-v2/spreadsheet-glossary-converter/
+    - https://www.tbxinfo.net/wp-content/uploads/2016/05/sampleSpreadsheets.zip
+    - https://www.tbxinfo.net/wp-content/uploads/2016/06/Spreadsheet-to-TBX-Min-Tutorial.pdf
+- TBX software https://www.tbxconvert.gevterm.net/tbx_supported_software.html
 
-###### 1.5.5.1 Okapi Framework
+From http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf:
+
+  There are only two mandatory data categories in TBX-Basic: term, and language.
+  Several of the remaining data categories, including definition, context, part of speech, and subject
+  field are very important and should be included in a terminology whenever possible. The most
+  important non-mandatory data category is part of speech.
+
+OmegaT (testar TBX)
+- sudo snap install omegat-cat
+
+Testando Vitaal:
+- Vide https://github.com/HXL-CPLP/forum/issues/58#issuecomment-872610790
+-->
+
+##### 1.5.7 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories
+<!--
+> - See also: <https://okapiframework.org/wiki/index.php/Open_Standards>
+-->
+
+###### 1.5.7.1 Okapi Framework
 
 > TODO: this is a draft. Improve it.
 
