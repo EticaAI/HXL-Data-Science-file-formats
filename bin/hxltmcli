@@ -123,7 +123,8 @@ class HXLTMCLI:
             '--archivum-extensionem',
             help='File extension. .xlf, .csv or .tmx',
             action='store',
-            default='.xlf',
+            # default='.xlf',
+            default=None,
             nargs='?'
         )
 
@@ -210,20 +211,54 @@ class HXLTMCLI:
                 # print('tmx!')
                 self.hxltm2tmx(args.outfile, self.original_outfile,
                                self.original_outfile_is_stdout, args)
-            else:
-                # self.hxl2tab(args.outfile, self.original_outfile,
-                #              self.original_outfile_is_stdout, args)
-
+            elif args.archivum_extensionem == '.xliff' or args.archivum_extensionem == '.xlf':
+                # print('xliff!')
                 self.hxltm2csv(args.outfile, temp_csv4xliff.name,
                                False, args)
                 self.hxltm2xliff(temp_csv4xliff.name, self.original_outfile,
                                  self.original_outfile_is_stdout, args)
+            else:
+                # self.hxl2tab(args.outfile, self.original_outfile,
+                #              self.original_outfile_is_stdout, args)
+
+                # self.hxltm2csv(args.outfile, temp_csv4xliff.name,
+                #                False, args)
+                # print('noop')
+                self.hxltm2noop(args.outfile, self.original_outfile,
+                                self.original_outfile_is_stdout)
 
         finally:
             temp.close()
             temp_csv4xliff.close()
 
         return self.EXIT_OK
+
+    def hxltm2noop(self, hxlated_input, tab_output, is_stdout):
+        """
+        hxltm2noop only export whatever the initial HXL input was.
+
+        Requires that the input must be a valid HXLated file
+        """
+
+        with open(hxlated_input, 'r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+
+            if is_stdout:
+                # txt_writer = csv.writer(sys.stdout, delimiter='\t')
+                txt_writer = csv.writer(sys.stdout)
+                # txt_writer.writerow(header_new)
+                for line in csv_reader:
+                    txt_writer.writerow(line)
+            else:
+
+                tab_output_cleanup = open(tab_output, 'w')
+                tab_output_cleanup.truncate()
+                tab_output_cleanup.close()
+
+                with open(tab_output, 'a') as new_txt:
+                    txt_writer = csv.writer(new_txt)
+                    for line in csv_reader:
+                        txt_writer.writerow(line)
 
     def hxltm2csv(self, hxlated_input, tab_output, is_stdout, args):
         """

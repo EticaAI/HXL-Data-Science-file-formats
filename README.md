@@ -458,6 +458,26 @@ pip install hdp-toolchain
 hxltmcli --help
 
 ```
+
+**Advanced filter with HXL cli tools**
+- See **https://github.com/HXLStandard/libhxl-python/wiki/HXL-cookbook**
+
+```bash
+# libhxl already is installed with hdp-toolchain
+
+hxlselect --help
+#    Filter rows in a HXL dataset. (...)
+hxlcut --help
+#    Cut columns from a HXL dataset.
+
+## Examples with HXL TM (used before pass data to hxltmcli)
+hxlcut --exclude item+i_la+i_lat+is_Latn --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx | hxltmcli
+# Excludes Latin before pass to hxltmcli, from Microsoft Excel
+
+hxlcut --exclude item+i_la+i_lat+is_Latn https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422 | hxltmcli
+# Excludes Latin before pass to hxltmcli, from Google Sheets
+
+```
 ---
 
 ##### 1.5.1 TMX: Translation Memory eXchange v1.4b
@@ -492,6 +512,14 @@ required).
 
 ```bash
 hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422
+#    (will print out contents of Google Sheets, without exporting to other formats)
+
+hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422 | grep UN_codicem_anglicum_IOM_HTCDS_nomen
+#    UN_codicem_anglicum_IOM_HTCDS_nomen,,,,13,1,UN,UN,codicem_anglicum,IOM,HTCDS,,,nomen,,,,,,,,,,,,,,∅,∅,Padrão de Dados de Casos de Tráfico Humano,∅,Revisão de texto requerida,Human Trafficking Case Data Standard,∅,∅,,∅,∅,,∅,∅,,∅,∅,,∅,∅
+
+hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422 schemam-un-htcds.tm.hxl.csv
+#    (Instead of print to stdout, save the contents to a single CSV file)
+
 ```
 
 **Write HXL TM data on Google Sheets**
@@ -514,6 +542,13 @@ required).
 # the Google Sheets entire groups of HXL TMs on 2021-06-29. New versions are
 # likely to be a different number than --sheet 6
 hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx
+#    (will print out contents of --sheet 6, without exporting to other formats)
+
+hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx | grep UN_codicem_anglicum_IOM_HTCDS_nomen
+#    UN_codicem_anglicum_IOM_HTCDS_nomen,,,,13,1,UN,UN,codicem_anglicum,IOM,HTCDS,,,nomen,,,,,,,,,,,,,,∅,∅,Padrão de Dados de Casos de Tráfico Humano,∅,Revisão de texto requerida,Human Trafficking Case Data Standard,∅,∅,,∅,∅,,∅,∅,,∅,∅,,∅,∅
+
+hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx schemam-un-htcds.tm.hxl.csv
+#    (Instead of print to stdout, save the contents to a single CSV file)
 ```
 
 **Write HXL TM data on Microsoft Excel**
