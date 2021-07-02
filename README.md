@@ -33,17 +33,23 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.4.2 `hdpcli` (command line interface)](#142-hdpcli-command-line-interface)
             - [1.4.3 `HXLm.HDP` (python library subpackage) usage](#143-hxlmhdp-python-library-subpackage-usage)
         - [1.5 `hxltmcli` HXL Trānslātiōnem Memoriam](#15-hxltmcli-hxl-trānslātiōnem-memoriam)
-            - [1.5.1 TMX: Translation Memory eXchange v1.4b](#151-tmx-translation-memory-exchange-v14b)
-            - [1.5.2 XLIFF: XML Localization Interchange File Format v2.1](#152-xliff-xml-localization-interchange-file-format-v21)
-                - [1.5.2.1 HXLTM supported features of XLIFF](#1521-hxltm-supported-features-of-xliff)
-            - [1.5.3 Google Sheets](#153-google-sheets)
-            - [1.5.4 Microsoft Excel](#154-microsoft-excel)
-            - [1.5.3 CSV, reference format (multilingual)](#153-csv-reference-format-multilingual)
-            - [1.5.4 CSV, source + target format (bilingual)](#154-csv-source--target-format-bilingual)
-            - [1.5.6 UTX](#156-utx)
-            - [1.5.7 PO, TBX, SRX](#157-po-tbx-srx)
-            - [1.5.7 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories](#157-notable-alternatives-to-hxl-tm-and-hxltmcli-to-manage-translation-memories)
-                - [1.5.7.1 Okapi Framework](#1571-okapi-framework)
+            - [1.5.1 Common `hxltm` FAQ](#151-common-hxltm-faq)
+                - [1.5.1.1 `hxltmcli` installation](#1511-hxltmcli-installation)
+                - [1.5.1.2 Save entire Translations Memory on Excel files](#1512-save-entire-translations-memory-on-excel-files)
+                - [1.5.1.3 Advanced filter with HXL cli tools](#1513-advanced-filter-with-hxl-cli-tools)
+                - [1.5.1.4 Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)](#1514-advanced-filter-with-hxl-proxy-integration-with-google-sheets-and-csvxlsxetc-avalible-on-web)
+            - [1.5.2 TMX: Translation Memory eXchange v1.4b](#152-tmx-translation-memory-exchange-v14b)
+            - [1.5.3 XLIFF: XML Localization Interchange File Format v2.1](#153-xliff-xml-localization-interchange-file-format-v21)
+                - [1.5.3.1 HXLTM supported features of XLIFF](#1531-hxltm-supported-features-of-xliff)
+            - [1.5.4 Google Sheets](#154-google-sheets)
+            - [1.5.5 Microsoft Excel](#155-microsoft-excel)
+            - [1.5.6 CSV](#156-csv)
+                - [1.5.6.1 CSV reference format (multilingual)](#1561-csv-reference-format-multilingual)
+                - [1.5.6.2 CSV source + target format (bilingual)](#1562-csv-source--target-format-bilingual)
+            - [1.5.7 UTX](#157-utx)
+            - [1.5.8 PO, TBX, SRX](#158-po-tbx-srx)
+            - [1.5.9 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories](#159-notable-alternatives-to-hxl-tm-and-hxltmcli-to-manage-translation-memories)
+                - [1.5.9.1 Okapi Framework](#1591-okapi-framework)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -422,7 +428,12 @@ python3 -m pip install hdp-toolchain
 
 
 #### 1.5 `hxltmcli` HXL Trānslātiōnem Memoriam
-> This is a early draft.
+The _Humanitarian Exchange Language Trānslātiōnem Memoriam_
+(abbreviation: "HXLTM") is an HXLated valid HXL tabular format by
+[HXL-CPLP](https://github.com/HXL-CPLP) to store community contributed
+translations and glossaries. The `hxltmcli` public domain python cli tool allow
+reuse by others interested in export HXLTM files to common formats used by
+professional translators.
 
 > TODO: see also <https://github.com/idimitriadis0/TranslateOnLinux/blob/master/TranslateOnLinux.md>
 
@@ -447,9 +458,15 @@ python3 -m pip install hdp-toolchain
   - https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422
 -->
 
----
+##### 1.5.1 Common `hxltm` FAQ
 
-**`hxltmcli` installation**
+###### 1.5.1.1 `hxltmcli` installation
+
+`hxltmcli` uses Python 3. While is possible to just copy the `hxltmcli` file
+and install manually dependencies, like the
+[HXLStandard/libhxl-python](https://github.com/HXLStandard/libhxl-python),
+you can install with the [hdp-toolchain](https://pypi.org/project/hdp-toolchain/).
+
 ```bash
 # hxltmcli is installed with the hdp-toolchain, no extras required.
 # @see https://pypi.org/project/hdp-toolchain/
@@ -459,8 +476,16 @@ hxltmcli --help
 
 ```
 
-**Advanced filter with HXL cli tools**
+###### 1.5.1.2 Save entire Translations Memory on Excel files
+
+> TODO: explain.
+
+###### 1.5.1.3 Advanced filter with HXL cli tools
 - See **https://github.com/HXLStandard/libhxl-python/wiki/HXL-cookbook**
+
+Since a HXLTM (before export) is a valid HXL file, advanced seleting is
+possible by, instead of `hxltmcli input.hxl.csv output.hxl.csv` use
+`hxlcut input.hxl.csv --exclude (...) | hxltmclioutput.hxl.csv`.
 
 ```bash
 # libhxl already is installed with hdp-toolchain
@@ -478,9 +503,33 @@ hxlcut --exclude item+i_la+i_lat+is_Latn https://docs.google.com/spreadsheets/d/
 # Excludes Latin before pass to hxltmcli, from Google Sheets
 
 ```
----
+###### 1.5.1.4 Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)
 
-##### 1.5.1 TMX: Translation Memory eXchange v1.4b
+In special if you are contributing for either tools for HXL, testing this tool
+or helping in production (e.g. real time disaster response) please consider
+usage of the public HXL-Proxy on https://proxy.hxlstandard.org/.
+
+Most advanced features of the libhxl cli tools are availible via HXL-proxy.
+
+**Note about heavy usage: use cache**
+Both https://hapi.etica.ai/ and https://github.com/HXL-CPLP/Auxilium-Humanitarium-API
+(and some links used on this documentation) may use the HXL-Proxy default
+1 hour cache disabled. This is necessary because the HXL-proxy is used to build
+static content based on latest translations.
+
+It's a good practice if you are not only testing, but deployng in production,
+to not disable HXL-Proxy cache (it's the default option if not copy and pasting
+HXL-CPLP/Auxilium-Humanitarium-API internal build script links).
+
+Also, even if you do not use the HXL-Proxy (but is using `hxltm` directly to
+your own Google Spreadsheets) if you keep doing too much calls in short time
+eventually the Google Docs may raise 400 errors since `hxltm` are not
+authenticated requests. **Our recomendations on this case is:**
+
+1. **download the entire Spreadsheet as .xlsx file and process the .xlsx file locally.**
+2. **Download individual sheets as CSV files and save locally (this consumes less CPU than process .xlsx)**
+
+##### 1.5.2 TMX: Translation Memory eXchange v1.4b
 - Wikipedia: <https://en.wikipedia.org/wiki/Translation_Memory_eXchange>
 - Specification:<https://www.gala-global.org/tmx-14b>
 - Relevant GitHub issues:
@@ -490,7 +539,7 @@ hxlcut --exclude item+i_la+i_lat+is_Latn https://docs.google.com/spreadsheets/d/
 
 > TODO: document minimal usage
 
-##### 1.5.2 XLIFF: XML Localization Interchange File Format v2.1
+##### 1.5.3 XLIFF: XML Localization Interchange File Format v2.1
 - Wikipedia: <https://en.wikipedia.org/wiki/XLIFF>
 - Specification:<http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html>
 - Relevant GitHub issues:
@@ -500,11 +549,11 @@ hxlcut --exclude item+i_la+i_lat+is_Latn https://docs.google.com/spreadsheets/d/
 
 > TODO: document minimal usage
 
-###### 1.5.2.1 HXLTM supported features of XLIFF
+###### 1.5.3.1 HXLTM supported features of XLIFF
 
 > TODO: improve documentation of features HXLTM support export to XLIFF
 
-##### 1.5.3 Google Sheets
+##### 1.5.4 Google Sheets
 The `hxltmcli` supports read directly from Google Sheets (no extra plugins
 required).
 
@@ -530,7 +579,7 @@ CSV versions.
 > TODO: document some external cli script that allow upload CSV to Google 
 > Sheets.
 
-##### 1.5.4 Microsoft Excel
+##### 1.5.5 Microsoft Excel
 
 **Read HXL TM data saved on Excel**
 
@@ -559,20 +608,22 @@ CSV versions.
 > TODO: document some external cli script that allow safe the CSV versions to
 > Microsoft Excel.
 
-##### 1.5.3 CSV, reference format (multilingual)
+##### 1.5.6 CSV
+
+###### 1.5.6.1 CSV reference format (multilingual)
 > TODO: document minimal usage
 
-##### 1.5.4 CSV, source + target format (bilingual)
+###### 1.5.6.2 CSV source + target format (bilingual)
 > TODO: document minimal usage
 
-##### 1.5.6 UTX
+##### 1.5.7 UTX
 - https://aamt.info/english/utx/
 - Specification: <https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf>
 
 > TODO: maybe implement exporting to UTX (it's not complex than already done
 > with CSV)
 
-##### 1.5.7 PO, TBX, SRX
+##### 1.5.8 PO, TBX, SRX
 > - About PO files: <https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html>
 > - TBX:
 >   - <http://www.ttt.org/oscarStandards/tbx/>
@@ -613,12 +664,12 @@ Testando Vitaal:
 - Vide https://github.com/HXL-CPLP/forum/issues/58#issuecomment-872610790
 -->
 
-##### 1.5.7 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories
+##### 1.5.9 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories
 <!--
 > - See also: <https://okapiframework.org/wiki/index.php/Open_Standards>
 -->
 
-###### 1.5.7.1 Okapi Framework
+###### 1.5.9.1 Okapi Framework
 
 > TODO: this is a draft. Improve it.
 
