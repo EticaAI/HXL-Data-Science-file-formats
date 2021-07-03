@@ -428,6 +428,9 @@ python3 -m pip install hdp-toolchain
 
 
 #### 1.5 `hxltmcli` HXL Trānslātiōnem Memoriam
+
+<a id="HXLTM" href="#HXLTM">§ HXLTM</a>
+
 The _Humanitarian Exchange Language Trānslātiōnem Memoriam_
 (abbreviation: "HXLTM") is an HXLated valid HXL tabular format by
 [HXL-CPLP](https://github.com/HXL-CPLP) to store community contributed
@@ -530,6 +533,9 @@ authenticated requests. **Our recomendations on this case is:**
 2. **Download individual sheets as CSV files and save locally (this consumes less CPU than process .xlsx)**
 
 ##### 1.5.2 TMX: Translation Memory eXchange v1.4b
+
+<a id="HXLTM-TMX" href="#HXLTM-TMX">§ HXLTM-TMX</a>
+
 - Wikipedia: <https://en.wikipedia.org/wiki/Translation_Memory_eXchange>
 - Specification:<https://www.gala-global.org/tmx-14b>
 - Relevant GitHub issues:
@@ -540,6 +546,9 @@ authenticated requests. **Our recomendations on this case is:**
 > TODO: document minimal usage
 
 ##### 1.5.3 XLIFF: XML Localization Interchange File Format v2.1
+
+<a id="HXLTM-XLIFF" href="#HXLTM-XLIFF">§ HXLTM-XLIFF</a>
+
 - Wikipedia: <https://en.wikipedia.org/wiki/XLIFF>
 - Specification:<http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html>
 - Relevant GitHub issues:
@@ -581,6 +590,8 @@ CSV versions.
 
 ##### 1.5.5 Microsoft Excel
 
+<a id="HXLTM-XLSX" href="#HXLTM-XLSX">§ HXLTM-XLSX</a>
+
 **Read HXL TM data saved on Excel**
 
 The `hxltmcli` supports read directly from Microsoft Excel (no extra plugins
@@ -610,6 +621,8 @@ CSV versions.
 
 ##### 1.5.6 CSV
 
+<a id="HXLTM-CSV" href="#HXLTM-CSV">§ HXLTM-CSV</a>
+
 ###### 1.5.6.1 CSV reference format (multilingual)
 > TODO: document minimal usage
 
@@ -617,6 +630,9 @@ CSV versions.
 > TODO: document minimal usage
 
 ##### 1.5.7 UTX
+
+<a id="HXLTM-UTX" href="#HXLTM-UTX">§ HXLTM-UTX</a>
+
 - https://aamt.info/english/utx/
 - Specification: <https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf>
 

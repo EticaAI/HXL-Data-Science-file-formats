@@ -41,7 +41,7 @@
 
 # @see https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1181688279
 # Hapi_L10N="https://proxy.hxlstandard.org/data/download/L10n_hxl_csv.csv?dest=data_edit&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4%2Fedit%23gid%3D1181688279"
-hxltm_linguam="https://proxy.hxlstandard.org/data/download/hxltm-linguam_tm_hxl.csv?dest=data_edit&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8%2Fedit%23gid%3D1241276648"
+hxltm_exemplum_linguam="https://proxy.hxlstandard.org/data/download/hxltm-exemplum-linguam_tm_hxl.csv?dest=data_edit&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8%2Fedit%23gid%3D1241276648"
 
 ROOTDIR="$(pwd)"
 
@@ -55,9 +55,16 @@ ROOTDIR="$(pwd)"
 if true ; then
     echo ''
     echo "hxltm_linguam"
-    echo "   Fontem: [$hxltm_linguam]"
-    echo "   Filum:  [${ROOTDIR}/tests/hxltm/hxltm-linguam.tm.hxl.csv]"
-    wget -qO- "$hxltm_linguam" > "${ROOTDIR}/tests/hxltm/hxltm-linguam.tm.hxl.csv"
+    echo "   Fontem:   [$hxltm_exemplum_linguam]"
+    echo "   Archīvum: [${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv]"
+    wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
+
+    echo "   Hotfix: add BOM"
+    # In very specific cases, libhxl may have trouble with discovering the
+    # CSV char and try to decode files, but python may fail.
+    # One brute force way to make it work is add BOM to file
+    # https://stackoverflow.com/questions/3127436/adding-bom-to-utf-8-files
+    sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' "${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
 fi
 
 exit 0
