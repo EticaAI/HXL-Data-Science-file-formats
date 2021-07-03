@@ -83,6 +83,9 @@ yq < ontologia/servitium.hdplisp.yml > ontologia/json/servitium.hdplisp.json
 # Generate ontologia/servitium.hdplisp.yml
 yq < ontologia/urn/defallo.urn.yml > ontologia/json/defallo.urn.json
 
+# Generate ontologia/servitium.hdplisp.yml
+yq < ontologia/cor.hxltm.yml > ontologia/json/cor.hxltm.json
+
 #### webext-signed-pages _______________________________________________________
 # @see https://github.com/tasn/webext-signed-pages
 cd "$ROOTDIR"
@@ -142,6 +145,7 @@ sha384sum --tag core.lkg.json > core.lkg.json.sum
 sha384sum --tag core.vkg.json > core.vkg.json.sum
 sha384sum --tag servitium.hdplisp.json > servitium.hdplisp.json.sum
 sha384sum --tag defallo.urn.json > defallo.urn.json.sum
+sha384sum --tag cor.hxltm.json > cor.hxltm.json.sum
 
 ## Check the hashes
 sha384sum --check cor.hdplisp.json.sum
@@ -149,6 +153,7 @@ sha384sum --check core.lkg.json.sum
 sha384sum --check core.vkg.json.sum
 sha384sum --check servitium.hdplisp.json.sum
 sha384sum --check defallo.urn.json.sum
+sha384sum --check cor.hxltm.json.sum
 
 ### hxlm-js/ -------------------------------------------------------------------
 echo "> > hxlm-js"

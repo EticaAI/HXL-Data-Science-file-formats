@@ -591,6 +591,9 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx
   - https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/19
   - https://github.com/HXL-CPLP/forum/issues/58
   - https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16
+- **Extra links**
+  - Okapi about XLIFF: <https://okapiframework.org/wiki/index.php/XLIFF>
+
 
 ```bash
 ## The next 2 examples are equivalent: will print to stdout the result
@@ -603,6 +606,13 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --archivum-extensionem=.xlf
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.xlf --archivum-extensionem=.xlf
 #    (Instead of print to stdout, save the contents to a single CSV file)
 ```
+
+**Extras: VSCode XLIFF extension**
+Check also this VSCode extension
+<https://marketplace.visualstudio.com/items?itemName=rvanbekkum.xliff-sync>.
+While we do not checked yet, it seems to allow "merge" new translations from
+a different XLIFF file to another one.
+
 
 ###### 1.5.3.1 HXLTM supported features of XLIFF
 

@@ -1,0 +1,15 @@
+# @ARCHĪVUM       ontologia/cor.hxltm.yml
+# @DĒSCRĪPTIŌNEM  HXL Trānslātiōnem Memoriam (HXLTM)
+#
+# Trivia:
+# - "HXL"
+#   - https://hxlstandard.org/
+# - "Trānslātiōnem Memoriam"
+#   - https://www.wikidata.org/wiki/Q333761
+# - "HXL Trānslātiōnem Memoriam"
+#   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
+# - "cor"
+#   - https://en.wiktionary.org/wiki/cor#Latin
+
+hxltm:
+  - fiat lux!
