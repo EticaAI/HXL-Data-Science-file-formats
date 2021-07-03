@@ -58,13 +58,6 @@ if true ; then
     echo "   Fontem:   [$hxltm_exemplum_linguam]"
     echo "   Archīvum: [${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv]"
     wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
-
-    echo "   Hotfix: add BOM"
-    # In very specific cases, libhxl may have trouble with discovering the
-    # CSV char and try to decode files, but python may fail.
-    # One brute force way to make it work is add BOM to file
-    # https://stackoverflow.com/questions/3127436/adding-bom-to-utf-8-files
-    sed -i '1s/^\(\xef\xbb\xbf\)\?/\xef\xbb\xbf/' "${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
 fi
 
 exit 0

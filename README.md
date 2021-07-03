@@ -44,7 +44,7 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.5.4 Google Sheets](#154-google-sheets)
             - [1.5.5 Microsoft Excel](#155-microsoft-excel)
             - [1.5.6 CSV](#156-csv)
-                - [1.5.6.1 CSV reference format (multilingual)](#1561-csv-reference-format-multilingual)
+                - [1.5.6.1 CSV reference format, HXLated CSV (multilingual)](#1561-csv-reference-format-hxlated-csv-multilingual)
                 - [1.5.6.2 CSV source + target format (bilingual)](#1562-csv-source--target-format-bilingual)
             - [1.5.7 UTX](#157-utx)
             - [1.5.8 PO, TBX, SRX](#158-po-tbx-srx)
@@ -484,6 +484,9 @@ hxltmcli --help
 > TODO: explain.
 
 ###### 1.5.1.3 Advanced filter with HXL cli tools
+
+<a id="HXLTM-libhxl-cli-tools" href="#HXLTM-libhxl-cli-tools">§ HXLTM-libhxl-cli-tools</a>
+
 - See **https://github.com/HXLStandard/libhxl-python/wiki/HXL-cookbook**
 
 Since a HXLTM (before export) is a valid HXL file, advanced seleting is
@@ -507,6 +510,8 @@ hxlcut --exclude item+i_la+i_lat+is_Latn https://docs.google.com/spreadsheets/d/
 
 ```
 ###### 1.5.1.4 Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)
+
+<a id="HXLTM-HXL-Proxy" href="#HXLTM-HXL-Proxy">§ HXLTM-HXL-Proxy</a>
 
 In special if you are contributing for either tools for HXL, testing this tool
 or helping in production (e.g. real time disaster response) please consider
@@ -618,13 +623,40 @@ CSV versions.
 
 > TODO: document some external cli script that allow safe the CSV versions to
 > Microsoft Excel.
+> See
+> - https://unix.stackexchange.com/questions/23726/convert-a-xlsx-ms-excel-file-to-csv-on-command-line-with-semicolon-separated
+> - https://github.com/unoconv/unoconv
+
 
 ##### 1.5.6 CSV
 
 <a id="HXLTM-CSV" href="#HXLTM-CSV">§ HXLTM-CSV</a>
 
-###### 1.5.6.1 CSV reference format (multilingual)
-> TODO: document minimal usage
+###### 1.5.6.1 CSV reference format, HXLated CSV (multilingual)
+The default output of `hxltmcli` already is output an valid HXLated CSV without
+data changes changes (with notable exception of normalize HXL hashtags, like
+convert `#item +i_ar +i_arb +is_Arab` to `#item+i_ar+i_arb+is_arab`).
+
+
+Test data: [tests/hxltm/](tests/hxltm/)
+
+```bash
+## Both commands are equivalent
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv
+#    (will print out contents of hxltm-exemplum-linguam.tm.hxl.csv)
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli
+#    (will print out contents of hxltm-exemplum-linguam.tm.hxl.csv)
+
+hxltmcli hxltmcli hxltm-exemplum-linguam.tm.hxl.csv output-file.tm.hxl.csv
+#    (Instead of print to stdout, save the contents to a single CSV file)
+```
+
+**PROTIP**: You can chain several `hxltmcli` commands (ideally, the last
+command to export) or the first command to import from something that already
+is not HXL should be `hxltmcli`, but for advanced processing, see
+<a href="#HXLTM-libhxl-cli-tools">HXLTM-libhxl-cli-tools</a>.
 
 ###### 1.5.6.2 CSV source + target format (bilingual)
 > TODO: document minimal usage
