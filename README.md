@@ -36,8 +36,9 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.5.1 Common `hxltm` FAQ](#151-common-hxltm-faq)
                 - [1.5.1.1 `hxltmcli` installation](#1511-hxltmcli-installation)
                 - [1.5.1.2 Save entire Translations Memory on Excel files](#1512-save-entire-translations-memory-on-excel-files)
-                - [1.5.1.3 Advanced filter with HXL cli tools](#1513-advanced-filter-with-hxl-cli-tools)
-                - [1.5.1.4 Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)](#1514-advanced-filter-with-hxl-proxy-integration-with-google-sheets-and-csvxlsxetc-avalible-on-web)
+                - [1.5.1.3 Example data](#1513-example-data)
+                - [1.5.1.4 Advanced filter with HXL cli tools](#1514-advanced-filter-with-hxl-cli-tools)
+                - [1.5.1.5 Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)](#1515-advanced-filter-with-hxl-proxy-integration-with-google-sheets-and-csvxlsxetc-avalible-on-web)
             - [1.5.2 TMX: Translation Memory eXchange v1.4b](#152-tmx-translation-memory-exchange-v14b)
             - [1.5.3 XLIFF: XML Localization Interchange File Format v2.1](#153-xliff-xml-localization-interchange-file-format-v21)
                 - [1.5.3.1 HXLTM supported features of XLIFF](#1531-hxltm-supported-features-of-xliff)
@@ -481,9 +482,23 @@ hxltmcli --help
 
 ###### 1.5.1.2 Save entire Translations Memory on Excel files
 
-> TODO: explain.
+###### 1.5.1.3 Example data
 
-###### 1.5.1.3 Advanced filter with HXL cli tools
+- `HXLTM-Exemplum`: Generic test files:
+  - Input files: [tests/hxltm/](/tests/hxltm/)
+    - Live spreadsheet: <https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/edit#gid=0>
+  - Output files: [tests/hxltm/resultatum/](tests/hxltm/resultatum/)
+- Production files:
+  - `HXL-CPLP-Vocab_Auxilium-Humanitarium-API`: Hapi project
+    - GitHub:
+      - https://github.com/HXL-CPLP/Auxilium-Humanitarium-API
+    - Live Spreadsheet:
+      - <https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486>
+      - Note: the project may eventually use other sources of data (and this
+        link here may eventually not be up to date)
+
+
+###### 1.5.1.4 Advanced filter with HXL cli tools
 
 <a id="HXLTM-libhxl-cli-tools" href="#HXLTM-libhxl-cli-tools">§ HXLTM-libhxl-cli-tools</a>
 
@@ -509,7 +524,7 @@ hxlcut --exclude item+i_la+i_lat+is_Latn https://docs.google.com/spreadsheets/d/
 # Excludes Latin before pass to hxltmcli, from Google Sheets
 
 ```
-###### 1.5.1.4 Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)
+###### 1.5.1.5 Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)
 
 <a id="HXLTM-HXL-Proxy" href="#HXLTM-HXL-Proxy">§ HXLTM-HXL-Proxy</a>
 
@@ -541,27 +556,53 @@ authenticated requests. **Our recomendations on this case is:**
 
 <a id="HXLTM-TMX" href="#HXLTM-TMX">§ HXLTM-TMX</a>
 
-- Wikipedia: <https://en.wikipedia.org/wiki/Translation_Memory_eXchange>
-- Specification:<https://www.gala-global.org/tmx-14b>
-- Relevant GitHub issues:
+- **Wikipedia**: <https://en.wikipedia.org/wiki/Translation_Memory_eXchange>
+- **Specification**:
+  - <https://www.gala-global.org/tmx-14b>
+  - <https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards>
+- **TMX 1.4b DTD**
+  - <https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd>
+- **Relevant GitHub issues**:
   - https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/20
   - https://github.com/HXL-CPLP/forum/issues/58
   - https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16
 
-> TODO: document minimal usage
+
+```bash
+## The next 2 examples are equivalent: will print to stdout the result
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --archivum-extensionem=.tmx
+#    (will print out TMX result of input HXLTM file)
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --archivum-extensionem=.tmx
+#    (will print out TMX result of input HXLTM file)
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --archivum-extensionem=.tmx
+#    (Instead of print to stdout, save the contents to a single CSV file)
+```
 
 ##### 1.5.3 XLIFF: XML Localization Interchange File Format v2.1
 
 <a id="HXLTM-XLIFF" href="#HXLTM-XLIFF">§ HXLTM-XLIFF</a>
 
-- Wikipedia: <https://en.wikipedia.org/wiki/XLIFF>
-- Specification:<http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html>
-- Relevant GitHub issues:
+- **Wikipedia**: <https://en.wikipedia.org/wiki/XLIFF>
+- **Specification**:
+  - <http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html>
+- **Relevant GitHub issues**:
   - https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/19
   - https://github.com/HXL-CPLP/forum/issues/58
   - https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16
 
-> TODO: document minimal usage
+```bash
+## The next 2 examples are equivalent: will print to stdout the result
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --archivum-extensionem=.xlf
+#    (will print out TMX result of input HXLTM file)
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --archivum-extensionem=.xlf
+#    (will print out TMX result of input HXLTM file)
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.xlf --archivum-extensionem=.xlf
+#    (Instead of print to stdout, save the contents to a single CSV file)
+```
 
 ###### 1.5.3.1 HXLTM supported features of XLIFF
 
@@ -619,14 +660,23 @@ hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx schemam-un-htcd
 **Write HXL TM data on Microsoft Excel**
 
 Writting to Microsoft Excel is possible by using external tool to import the
-CSV versions.
+CSV versions. Here is just one example, but you are free to use alternatives.
 
-> TODO: document some external cli script that allow safe the CSV versions to
-> Microsoft Excel.
-> See
-> - https://unix.stackexchange.com/questions/23726/convert-a-xlsx-ms-excel-file-to-csv-on-command-line-with-semicolon-separated
-> - https://github.com/unoconv/unoconv
+Example using [unoconv](https://github.com/unoconv/unoconv). Tested with
+Ubuntu 20.04 LTS and LibreOffice 6.4.
 
+```bash
+# One recommendedy way to install unoconv is via operational system packages
+# not with pip.
+sudo apt install unoconv
+
+# Test data at EticaAI/HXL-Data-Science-file-formats/tests/hxltm/
+unoconv --format xlsx hxltm-exemplum-linguam.tm.hxl.csv
+
+# Note: in our tests, unoconv may have exporting bugs with unicode, see
+# @see https://github.com/unoconv/unoconv/issues/271
+
+```
 
 ##### 1.5.6 CSV
 
@@ -638,18 +688,15 @@ data changes changes (with notable exception of normalize HXL hashtags, like
 convert `#item +i_ar +i_arb +is_Arab` to `#item+i_ar+i_arb+is_arab`).
 
 
-Test data: [tests/hxltm/](tests/hxltm/)
-
 ```bash
-## Both commands are equivalent
-
+## The next 2 examples are equivalent: will print to stdout the result
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv
 #    (will print out contents of hxltm-exemplum-linguam.tm.hxl.csv)
 
 cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli
 #    (will print out contents of hxltm-exemplum-linguam.tm.hxl.csv)
 
-hxltmcli hxltmcli hxltm-exemplum-linguam.tm.hxl.csv output-file.tm.hxl.csv
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv output-file.tm.hxl.csv
 #    (Instead of print to stdout, save the contents to a single CSV file)
 ```
 

@@ -35,6 +35,9 @@ HXLTM_EXEMPLUM_XLSX_GSHEETS="https://docs.google.com/spreadsheets/d/1isOgjeRJw__
 HXLTM_EXEMPLUM_LINGUAM_LOCAL="hxltm-exemplum-linguam.tm.hxl.csv"
 HXLTM_EXEMPLUM_LINGUAM_GSHEETS="https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/edit#gid=1241276648"
 
+HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL="resultatum/hxltm-exemplum-linguam.tmx"
+HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL="resultatum/hxltm-exemplum-linguam.xlf"
+
 #### Init tests and chechs _____________________________________________________
 cd "$ROOTDIR/tests/hxltm" || exit
 
@@ -49,15 +52,23 @@ fi
 #### main ______________________________________________________________________
 
 printf "\n\n\n\tTESTUM 001 HXLTM_EXEMPLUM_LINGUAM_GSHEETS\n\n"
-echo hxltmcli $HXLTM_EXEMPLUM_LINGUAM_GSHEETS
-hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_GSHEETS"
+echo "hxltmcli $HXLTM_EXEMPLUM_LINGUAM_GSHEETS | grep L10N_ego_codicem"
+hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_GSHEETS" | grep L10N_ego_codicem
 
 printf "\n\n\n\tTESTUM 002 HXLTM_EXEMPLUM_LINGUAM_LOCAL\n\n"
-echo hxltmcli $HXLTM_EXEMPLUM_LINGUAM_LOCAL
-hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL"
+echo "hxltmcli $HXLTM_EXEMPLUM_LINGUAM_LOCAL | grep L10N_ego_codicem"
+hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" | grep L10N_ego_codicem
 
 printf "\n\n\n\tTESTUM 003 HXLTM_EXEMPLUM_XLSX_LOCAL\n\n"
-echo hxltmcli --sheet 2 "$HXLTM_EXEMPLUM_XLSX_LOCAL"
-hxltmcli --sheet 2 "$HXLTM_EXEMPLUM_XLSX_LOCAL"
+echo "hxltmcli --sheet 2 $HXLTM_EXEMPLUM_XLSX_LOCAL | grep L10N_ego_codicem" 
+hxltmcli --sheet 2 "$HXLTM_EXEMPLUM_XLSX_LOCAL" | grep L10N_ego_codicem
+
+printf "\n\n\n\tTESTUM 004 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL\n\n"
+echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --archivum-extensionem=.tmx
+hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --archivum-extensionem=.tmx
+
+printf "\n\n\n\tTESTUM 005 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL\n\n"
+echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --archivum-extensionem=.xlf
+hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --archivum-extensionem=.xlf
 
 exit 0
