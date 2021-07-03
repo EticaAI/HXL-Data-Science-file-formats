@@ -2,6 +2,9 @@
 **[Proof of concept] Common file formats used for Data Science
 exported from HXL (The Humanitarian Exchange Language)**
 
+[![Site](https://img.shields.io/badge/Site-hdp.etica.ai-blue)](https://hdp.etica.ai)
+[![EticaAI/HXL-Data-Science-file-formats](https://img.shields.io/badge/GitHub-EticaAI%2FHXL--Data--Science--file--formats-lightgrey?logo=github&style=social)](https://github.com/EticaAI/HXL-Data-Science-file-formats)
+[![Python Package: hdp-toolchain](https://img.shields.io/badge/python%20package-hdp--toolchain-brightgreen)](https://pypi.org/project/hdp-toolchain/)
 [![Standard HXL](https://img.shields.io/badge/Standard-HXL-%23F26459)](https://hxlstandard.org/)
 ![License](https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats)
 [![Google Drive](https://img.shields.io/badge/Google%20Drive-Folder-yellowgreen)](https://drive.google.com/drive/u/1/folders/1qyTPaDgm7Ca-62blkdQjUox47WWKRwD3)
@@ -32,7 +35,7 @@ exported from HXL (The Humanitarian Exchange Language)**
             - [1.4.1 HDP conventions (The YAML/JSON file structure)](#141-hdp-conventions-the-yamljson-file-structure)
             - [1.4.2 `hdpcli` (command line interface)](#142-hdpcli-command-line-interface)
             - [1.4.3 `HXLm.HDP` (python library subpackage) usage](#143-hxlmhdp-python-library-subpackage-usage)
-        - [1.5 `hxltmcli` HXL Trānslātiōnem Memoriam](#15-hxltmcli-hxl-trānslātiōnem-memoriam)
+        - [1.5 `HXLTM` HXL Trānslātiōnem Memoriam](#15-hxltm-hxl-trānslātiōnem-memoriam)
             - [1.5.1 Common `hxltm` FAQ](#151-common-hxltm-faq)
                 - [1.5.1.1 `hxltmcli` installation](#1511-hxltmcli-installation)
                 - [1.5.1.2 Save entire Translations Memory on Excel files](#1512-save-entire-translations-memory-on-excel-files)
@@ -428,7 +431,8 @@ python3 -m pip install hdp-toolchain
     - https://drive.google.com/drive/u/1/folders/1Zs-hw6y2ZHMgYXjGY1QbhrXn2UmheUEO
 
 
-#### 1.5 `hxltmcli` HXL Trānslātiōnem Memoriam
+<!-- #### 1.5 `hxltmcli` HXL Trānslātiōnem Memoriam -->
+#### 1.5 `HXLTM` HXL Trānslātiōnem Memoriam
 
 <a id="HXLTM" href="#HXLTM">§ HXLTM</a>
 
@@ -439,9 +443,10 @@ translations and glossaries. The `hxltmcli` public domain python cli tool allow
 reuse by others interested in export HXLTM files to common formats used by
 professional translators.
 
+<!--
+
 > TODO: see also <https://github.com/idimitriadis0/TranslateOnLinux/blob/master/TranslateOnLinux.md>
 
-<!--
 - Standard: **Translation Memory eXchange (TMX) v1.4b**
   - https://www.gala-global.org/lisa-oscar-standards
   - https://en.wikipedia.org/wiki/Translation_Memory_eXchange

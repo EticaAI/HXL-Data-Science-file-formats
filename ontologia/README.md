@@ -28,6 +28,7 @@ corrections.
         - [core.vkg.yml](#corevkgyml)
         - [json/core.vkg.json](#jsoncorevkgjson)
     - [JSON Schema](#json-schema)
+    - [HXLTM](#hxltm)
         - [Latin](#latin)
         - [Other natural languages](#other-natural-languages)
 - [Exchange Codes and terms](#exchange-codes-and-terms)
@@ -100,6 +101,13 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 >    - [VSCode YAML extension](https://github.com/redhat-developer/vscode-yaml)
 >    - _Note: other code editors are likely to have equivalent alternatives_
 
+
+### HXLTM
+
+- <https://hdp.etica.ai/#HXLTM>
+- Ontologia:
+  - YAML: [cor.hxltm.yml](cor.hxltm.yml)
+  - JSON: [json/cor.hxltm.json](json/cor.hxltm.json)
 
 #### Latin
 
@@ -201,8 +209,8 @@ based on then already [HXLated](https://hxlstandard.org/).
 - Official/Recommended source from ISO organization:
   - `¯\_(ツ)_/¯`
 - Alternatives to official/recommended source:
-  - Wikipedia: https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
-  - UN OCHA: https://vocabulary.unocha.org/
+  - Wikipedia: <https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes>
+  - UN OCHA: <https://vocabulary.unocha.org/>
 
 <!--
 - https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes

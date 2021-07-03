@@ -290,3 +290,7 @@ sha384sum --check hxlm-js.sum
 # ln -s /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/urnprovider_local.py /workspace/bin/urnprovider-local
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit
 # ln -s ../../../ontologia/servitium.urn.yml servitium.urn.yml
+
+# cor.hxltm.yml
+# cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit
+# ln -s ../../../ontologia/cor.hxltm.yml hxlm/core/bin/cor.hxltm.yml
