@@ -85,8 +85,8 @@ HXLM_CONFIG_BASE = os.getenv(
     'HXLM_CONFIG_BASE', _HOME + '/.config/hxlm/')
 # ~/.config/hxlm/cor.hxltm.yml
 # This can be customized with enviroment variable HXLM_CONFIG_BASE
-HXLTM_SCRIPT_DIR = Path(__file__).parent.resolve()
-HXLTM_RUNNING_DIR = Path().resolve()
+HXLTM_SCRIPT_DIR = str(Path(__file__).parent.resolve())
+HXLTM_RUNNING_DIR = str(Path().resolve())
 
 
 class HXLTMCLI:
@@ -105,6 +105,7 @@ class HXLTMCLI:
         """
         self.hxlhelper = None
         self.args = None
+        self.conf = {}
 
         # Posix exit codes
         self.EXIT_OK = 0
@@ -133,6 +134,26 @@ class HXLTMCLI:
         )
 
         parser.add_argument(
+            '--fontem-linguam',
+            help='(For bilingual operations) Source natural language ' +
+            '(use if not autodetected). ' +
+            'Must be like {ISO 639-3}-{ISO 15924}. Example: lat-Latn',
+            action='store',
+            default='lat-Latn',
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--objectivum-linguam',
+            help='(For bilingual operations) Target natural language ' +
+            '(use if not autodetected). ' +
+            'Must be like {ISO 639-3}-{ISO 15924}. Example: arb-Arab',
+            action='store',
+            default='arb-Arab',
+            nargs='?'
+        )
+
+        parser.add_argument(
             '--archivum-extensionem',
             help='File extension. .xlf, .csv or .tmx',
             action='store',
@@ -141,31 +162,29 @@ class HXLTMCLI:
             nargs='?'
         )
 
+        # https://hdp.etica.ai/ontologia/cor.hxltm.yml
         parser.add_argument(
-            '--fontem-linguam',
-            help='Source language (use if not autodetected). ' +
-            'Must be like {ISO 639-3}-{ISO 15924}. Example: por-Latn',
+            '--archivum-configurationem',
+            help='Path to custom configuration file (The cor.hxltm.yml)',
             action='store',
-            default='lat-Latn',
-            nargs='?'
-        )
-
-        parser.add_argument(
-            '--objectivum-linguam',
-            help='XLiff Target language (use if not autodetected). ' +
-            'Must be like {ISO 639-3}-{ISO 15924}. Example: eng-Latn',
-            action='store',
-            default='arb-Arab',
-            nargs='?'
-        )
-
-        parser.add_argument(
-            "--hxlmeta",
-            help="Don't print output, just the hxlmeta of the input",
-            action='store_const',
             const=True,
-            metavar='hxlmeta',
-            default=False
+            default=None,
+            nargs='?'
+        )
+        parser.add_argument(
+            '--silentium',
+            help='Silence warnings? Try to not generate any warning. ' +
+            'May generate invalid output',
+            const=True,
+            default=False,
+            nargs='?'
+        )
+        parser.add_argument(
+            '--venandum-insectum-est',
+            help='Enable debug? Extra information for program debugging',
+            const=True,
+            default=False,
+            nargs='?'
         )
 
         self.args = parser.parse_args()
@@ -186,6 +205,15 @@ class HXLTMCLI:
         #                      show_tags=not args.strip_tags)
 
         # return self.EXIT_OK
+
+        self.conf = HXLTMUtil.load_hxltm_options(
+            args.archivum_configurationem,
+            args.venandum_insectum_est
+        )
+
+        archivum_extensionem = None
+        if args.archivum_extensionem is not None:
+            archivum_extensionem = args.archivum_extensionem
 
         # If the user specified an output file, we will save on
         # self.original_outfile. The args.outfile will be used for temporary
@@ -209,23 +237,16 @@ class HXLTMCLI:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
-            if args.hxlmeta:
-                print('TODO: hxlmeta')
-                # print('output.output', output.output)
-                # print('source', source)
-                # # print('source.columns', source.headers())
-                # hxlmeta = HXLMeta(local_hxl_file=output.output.name)
-                # hxlmeta.debuginfo()
-            elif args.archivum_extensionem == '.csv':
+            if archivum_extensionem == '.csv':
                 # print('CSV!')
                 self.hxltm2csv(args.outfile, self.original_outfile,
                                self.original_outfile_is_stdout, args)
-            elif args.archivum_extensionem == '.tmx':
+            elif archivum_extensionem == '.tmx':
                 # print('tmx!')
                 self.hxltm2tmx(args.outfile, self.original_outfile,
                                self.original_outfile_is_stdout, args)
-            elif args.archivum_extensionem == '.xliff' or \
-                    args.archivum_extensionem == '.xlf':
+            elif archivum_extensionem == '.xliff' or \
+                    archivum_extensionem == '.xlf':
                 # print('xliff!')
                 self.hxltm2csv(args.outfile, temp_csv4xliff.name,
                                False, args)
@@ -789,29 +810,50 @@ class HXLTMUtil:
         return '+i_' + iso6393 + '+is_' + iso115924
 
     @staticmethod
-    def load_hxltm_options(custom_file_option=None):
-        if custom_file_option is not None or Path(custom_file_option).exists:
-            return HXLTMUtil._load_hxltm_options_from_file(custom_file_option)
-        else:
-            RuntimeWarning(
-                "Configuration file not found [" + custom_file_option + "]")
+    def load_hxltm_options(custom_file_option=None, is_debug=False):
+        """[summary]
 
-        if Path(HXLTM_RUNNING_DIR + '/cor.hxltm.yml').exists:
-            return HXLTMUtil._load_hxltm_options_from_file(
-                HXLTM_RUNNING_DIR + '/cor.hxltm.yml')
+        Args:
+            custom_file_option ([str], optional): Custom options.
+                    Defaults to None.
+            is_debug (bool, optional): Is debug enabled? Defaults to False.
 
-        if Path(HXLM_CONFIG_BASE + '/cor.hxltm.yml').exists:
-            return HXLTMUtil._load_hxltm_options_from_file(
-                HXLM_CONFIG_BASE + '/cor.hxltm.yml')
+        Returns:
+            [Dict]: Dictionary of cor.hxltm.yml contents
+        """
+        # pylint: disable=using-constant-test
+        if is_debug:
+            print('load_hxltm_options')
+            print('HXLM_CONFIG_BASE', HXLM_CONFIG_BASE)
+            print('HXLTM_SCRIPT_DIR', HXLTM_SCRIPT_DIR)
+            print('HXLTM_RUNNING_DIR', HXLTM_RUNNING_DIR)
 
-        if Path(HXLTM_SCRIPT_DIR + '/cor.hxltm.yml').exists:
-            return HXLTMUtil._load_hxltm_options_from_file(
-                HXLTM_SCRIPT_DIR + '/cor.hxltm.yml')
+        if custom_file_option is not None:
+            if Path(custom_file_option).exists():
+                return HXLTMUtil._load_hxltm_options_file(
+                    custom_file_option, is_debug)
+            RuntimeWarning("Configuration file not found [" +
+                           custom_file_option + "]")
 
-        RuntimeWarning("ERROR: no cor.hxltm.yml found.")
+        if Path(HXLTM_RUNNING_DIR + '/cor.hxltm.yml').exists():
+            return HXLTMUtil._load_hxltm_options_file(
+                HXLTM_RUNNING_DIR + '/cor.hxltm.yml', is_debug)
+
+        if Path(HXLM_CONFIG_BASE + '/cor.hxltm.yml').exists():
+            return HXLTMUtil._load_hxltm_options_file(
+                HXLM_CONFIG_BASE + '/cor.hxltm.yml', is_debug)
+
+        if Path(HXLTM_SCRIPT_DIR + '/cor.hxltm.yml').exists():
+            return HXLTMUtil._load_hxltm_options_file(
+                HXLTM_SCRIPT_DIR + '/cor.hxltm.yml', is_debug)
+
+        RuntimeWarning("ERROR: no cor.hxltm.yml found (not even default one).")
 
     @staticmethod
-    def _load_hxltm_options_from_file(file):
+    def _load_hxltm_options_file(file, is_debug=False):
+        if is_debug:
+            print('_load_hxltm_options_file: [' + file + ']')
+
         with open(file, "r") as read_file:
             data = yaml.safe_load(read_file)
             return data
