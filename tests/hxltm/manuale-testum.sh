@@ -82,9 +82,11 @@ hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLI
 #     hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv
 #     hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli
 ## ... --JSON-kv
-#     hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn -o por-Latn --JSON-kv
 #     hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --JSON-kv
-#
+#     hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --JSON-kv > resultatum/json/pt.csv
+## ... --CSV-3
+#     hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --CSV-3
+#     hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --CSV-3 > resultatum/csv-3-exemplum.csv
 
 # To revert only one file that keeps changing even with same input
 # git checkout -- tests/hxltm/resultatum/hxltm-exemplum-linguam.tmx

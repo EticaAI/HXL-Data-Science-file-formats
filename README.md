@@ -724,6 +724,20 @@ is not HXL should be `hxltmcli`, but for advanced processing, see
 ###### 1.5.6.2 CSV source + target format (bilingual)
 > TODO: document minimal usage
 
+```bash
+# This is a draft.
+# Tests from ./tests/hxltm/manuale-testum.sh
+
+## CSV-3
+fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats/tests/hxltm$ hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --CSV-3 > resultatum/csv-3-exemplum.csv
+
+## JSON-kv
+hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --JSON-kv
+
+hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --JSON-kv > resultatum/json-kv/pt.json
+
+```
+
 ##### 1.5.7 UTX
 
 <a id="HXLTM-UTX" href="#HXLTM-UTX">§ HXLTM-UTX</a>

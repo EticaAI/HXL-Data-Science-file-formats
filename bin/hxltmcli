@@ -442,11 +442,11 @@ class HXLTMCLI:
             elif self.objectivum_typum == 'CSV-3':
                 # raise NotImplementedError('CSV-3 not implemented yet')
                 self.hxltm2csv3(args.outfile, self.original_outfile,
-                               self.original_outfile_is_stdout, args)
+                                self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'JSON-kv':
                 self.hxltm2jsonkv(args.outfile, self.original_outfile,
-                               self.original_outfile_is_stdout, args)
+                                  self.original_outfile_is_stdout, args)
                 # raise NotImplementedError('JSON-kv not implemented yet')
 
             elif self.objectivum_typum == 'XLIFF2':
@@ -554,10 +554,9 @@ class HXLTMCLI:
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
-
     def hxl2tab(self, hxlated_input, tab_output, is_stdout, args):
         """
-        (deprecated hxl2tab) 
+        (deprecated hxl2tab)
         """
 
         with open(hxlated_input, 'r') as csv_file:
@@ -590,8 +589,8 @@ class HXLTMCLI:
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
-    def hxltm2csv3(self, hxlated_input, tmx_output, is_stdout, args):
-        """[summary]
+    def hxltm2csv3(self, hxlated_input, file_output, is_stdout, args):
+        """Convert HXLTM to output 'CSV-3'
 
         Args:
             hxlated_input ([str]): Path to HXLated CSV
@@ -600,19 +599,47 @@ class HXLTMCLI:
             args ([type]): python argparse
         """
 
-        print('TODO hxltm2csv3')
+        # fon_ling = HXLTMUtil.linguam_2_hxlattrs(args.fontem_linguam)
+        fon_bcp47 = HXLTMUtil.bcp47_from_linguam(args.fontem_linguam)
+        # obj_ling = HXLTMUtil.linguam_2_hxlattrs(args.objectivum_linguam)
+        obj_bcp47 = HXLTMUtil.bcp47_from_linguam(args.objectivum_linguam)
 
-        # csvfile = open('file.csv', 'r')
-        # jsonfile = open('file.json', 'w')
+        data_started = False
+        fon_index = None
+        obj_index = None
+        meta_index = None
+        datum = []
+        with open(hxlated_input, 'r') as csvfile:
+            lines = csv.reader(csvfile)
+            for row in lines:
+                if not data_started:
+                    if row[0].startswith('#'):
+                        fon_index = 0
+                        obj_index = 1
+                        meta_index = 2
+                        # TODO: get exact row IDs without hardcoded
+                        data_started = True
+                        datum.append([fon_bcp47, obj_bcp47, ''])
+                    continue
+                datum.append([row[fon_index], row[obj_index], row[meta_index]])
+                # print(', '.join(row))
 
-        # fieldnames = ("FirstName","LastName","IDNumber","Message")
-        # reader = csv.DictReader( csvfile, fieldnames)
-        # for row in reader:
-        #     json.dump(row, jsonfile)
-        #     jsonfile.write('\n')
+        if is_stdout:
+            txt_writer = csv.writer(sys.stdout)
+            for line in datum:
+                txt_writer.writerow(line)
+        else:
+            old_file = open(file_output, 'w')
+            old_file.truncate()
+            old_file.close()
 
-    def hxltm2jsonkv(self, hxlated_input, tmx_output, is_stdout, args):
-        """[summary]
+            with open(file_output, 'a') as new_txt:
+                txt_writer = csv.writer(new_txt)
+                for line in datum:
+                    txt_writer.writerow(line)
+
+    def hxltm2jsonkv(self, hxlated_input, file_output, is_stdout, args):
+        """Convert HXLTM to output 'JSON-kv'
 
         Args:
             hxlated_input ([str]): Path to HXLated CSV
@@ -621,26 +648,50 @@ class HXLTMCLI:
             args ([type]): python argparse
         """
 
-        fon_ling = HXLTMUtil.linguam_2_hxlattrs(args.fontem_linguam)
-        fon_bcp47 = HXLTMUtil.bcp47_from_hxlattrs(args.fontem_linguam)
-        obj_ling = HXLTMUtil.linguam_2_hxlattrs(args.objectivum_linguam)
-        obj_bcp47 = HXLTMUtil.bcp47_from_hxlattrs(args.objectivum_linguam)
+        # fon_ling = HXLTMUtil.linguam_2_hxlattrs(args.fontem_linguam)
+        # fon_bcp47 = HXLTMUtil.bcp47_from_linguam(args.fontem_linguam)
+        # obj_ling = HXLTMUtil.linguam_2_hxlattrs(args.objectivum_linguam)
+        # obj_bcp47 = HXLTMUtil.bcp47_from_linguam(args.objectivum_linguam)
 
-        print('TODO hxltm2jsonkv')
-        print('fon_ling', fon_ling)
-        print('fon_bcp47', fon_bcp47)
-        print('obj_ling', obj_ling)
-        print('obj_bcp47', obj_bcp47)
+        data_started = False
+        fon_index = None
+        obj_index = None
+        # meta_index = None
+        datum = {}
+        with open(hxlated_input, 'r') as csvfile:
+            lines = csv.reader(csvfile)
+            for row in lines:
+                if not data_started:
+                    if row[0].startswith('#'):
+                        fon_index = 0
+                        obj_index = 1
+                        # meta_index = 2
+                        # TODO: get exact row IDs without hardcoded
+                        data_started = True
+                        # datum.append([fon_bcp47, obj_bcp47, ''])
+                    continue
+                datum[row[fon_index]] = row[obj_index]
+                # print(', '.join(row))
+        json_out = json.dumps(
+            datum, indent=4, sort_keys=True, ensure_ascii=False)
 
-        # csvfile = open('file.csv', 'r')
-        # jsonfile = open('file.json', 'w')
+        if is_stdout:
+            # print(json_out)
+            for line in json_out.split("\n"):
+                print(line)
+                # sys.stdout.write(line + "\n")
 
-        # fieldnames = ("FirstName","LastName","IDNumber","Message")
-        # reader = csv.DictReader( csvfile, fieldnames)
-        # for row in reader:
-        #     json.dump(row, jsonfile)
-        #     jsonfile.write('\n')
-        
+        else:
+            old_file = open(file_output, 'w')
+            old_file.truncate()
+            old_file.close()
+
+            # TODO: test this part better.
+            with open(file_output, 'a') as new_txt:
+                new_txt.write(json_out)
+                # txt_writer = csv.writer(new_txt)
+                # for line in datum:
+                #     txt_writer.writerow(line)
 
     def hxltm2tmx(self, hxlated_input, tmx_output, is_stdout, args):
         """
@@ -975,6 +1026,31 @@ class HXLTMUtil:
         return ''
 
     @staticmethod
+    def bcp47_from_linguam(linguam):
+        """From am linguam with hint about BCP47, get the BCP47 code
+        Returns empty if no hint exist
+
+        Example:
+            >>> HXLTMUtil.bcp47_from_hxlattrs('por-Latn')
+            ''
+            >>> HXLTMUtil.bcp47_from_linguam('por-Latn@pt')
+            'pt'
+            >>> HXLTMUtil.bcp47_from_linguam('por-Latn@pt-BR')
+            'pt-BR'
+
+        Args:
+            linguam ([String]): A linguam code
+
+        Returns:
+            [String]: HXL Attributes
+        """
+        if linguam.find('@') > -1:
+            _linguam, bcp47 = list(linguam.split('@'))
+            return bcp47
+
+        return ''
+
+    @staticmethod
     def hxllangattrs_list_from_item(item):
         """hxllangattrs_list_from_item get only the raw attr string part
         that is repeated severa times and mean the same logical group.
@@ -1099,7 +1175,6 @@ class HXLTMUtil:
         iso6391, _adm = list(bcp47.split('-'))
 
         return '+i_' + iso6391 + '+i_' + iso6393 + '+is_' + iso115924
-
 
     @staticmethod
     def load_hxltm_options(custom_file_option=None, is_debug=False):
