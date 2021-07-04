@@ -293,4 +293,4 @@ sha384sum --check hxlm-js.sum
 
 # cor.hxltm.yml
 # cd /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin || exit
-# ln -s ../../../ontologia/cor.hxltm.yml hxlm/core/bin/cor.hxltm.yml
+# ln -s ../../../ontologia/cor.hxltm.yml cor.hxltm.yml

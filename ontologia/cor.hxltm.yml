@@ -10,6 +10,94 @@
 #   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
 # - "cor"
 #   - https://en.wiktionary.org/wiki/cor#Latin
+# - "archīvum"
+#   - https://en.wiktionary.org/wiki/archivum
+# - "typum"
+#   - https://en.wiktionary.org/wiki/typus#Latin
+# - "fōrmātum"
+#   - https://en.wiktionary.org/wiki/formatus#Latin
+# - "fontem"
+#   - https://en.wiktionary.org/wiki/fons#Latin
+# - "extēnsiōnem"
+#   - https://en.wiktionary.org/wiki/extensio#Latin
 
 hxltm:
   - fiat lux!
+
+
+fontem_archivum_extensionem:
+  .tm.hxl.csv: HXLTM
+  .hxl.csv: HXLTM
+  .csv: HXLTM
+  .tmx: TMX
+  .utx: UTX
+  .tbx: TBX-Basic
+  .xlf: XLIFF2
+  .xlf2: XLIFF2
+  .xliff: XLIFF2
+
+formatum:
+  #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
+  HXLTM:
+    archivum_extensionem: .tm.hxl.csv
+    normam:
+      - https://github.com/HXL-CPLP/forum/issues/58
+    situs_interretialis:
+      referens_officinale:
+        - https://hdp.etica.ai/#HXLTM
+
+  #### TBX-Basic: TermBase eXchange (TBX) Basic ________________________________
+  TBX-Basic:
+    archivum_extensionem: .tbx
+    normam:
+      - http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+    situs_interretialis:
+      referens_officinale:
+        - http://www.terminorgs.net/TBX-Basic.html
+
+  #### TMX: TermBase eXchange (TBX) Basic ______________________________________
+  TMX:
+    archivum_extensionem: .tmx
+    normam:
+      - https://www.gala-global.org/tmx-14b
+      - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd
+    situs_interretialis:
+      referens_officinale:
+        - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+
+  #### UTX: Universal Terminology eXchange _____________________________________
+  UTX:
+    archivum_extensionem: .utx
+    situs_interretialis:
+      referens_officinale:
+        - http://www.aamt.info/english/utx/
+      vicipaedia:
+        - https://en.wikipedia.org/wiki/Universal_Terminology_eXchange
+    normam:
+      - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
+      - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx
+    exemplum:
+      - https://aamt.info/english/download/#UTX_Glossaries
+      - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
+
+  #### XLIFF1: Universal Terminology eXchange v1.2 _____________________________
+  XLIFF1:
+    archivum_extensionem: .xlf
+    situs_interretialis:
+      referens_officinale:
+        - https://www.oasis-open.org/committees/xliff/
+      vicipaedia:
+        - https://en.wikipedia.org/wiki/XLIFF
+    normam:
+      - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
+
+  #### XLIFF2: Universal Terminology eXchange v2.1 _____________________________
+  XLIFF2:
+    archivum_extensionem: .xlf
+    situs_interretialis:
+      referens_officinale:
+        - https://www.oasis-open.org/committees/xliff/
+      vicipaedia:
+        - https://en.wikipedia.org/wiki/XLIFF
+    normam:
+      - https://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html

@@ -71,4 +71,7 @@ printf "\n\n\n\tTESTUM 005 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL\n\n"
 echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --archivum-extensionem=.xlf
 hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --archivum-extensionem=.xlf
 
+# To revert only one file that keeps changing even with same input
+# git checkout -- tests/hxltm/resultatum/hxltm-exemplum-linguam.tmx
+
 exit 0
