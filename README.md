@@ -52,8 +52,9 @@ exported from HXL (The Humanitarian Exchange Language)**
                 - [1.5.6.2 CSV source + target format (bilingual)](#1562-csv-source--target-format-bilingual)
             - [1.5.7 UTX](#157-utx)
             - [1.5.8 PO, TBX, SRX](#158-po-tbx-srx)
-            - [1.5.9 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories](#159-notable-alternatives-to-hxl-tm-and-hxltmcli-to-manage-translation-memories)
+            - [1.5.9 Notable alternatives to HXL TM and `hxltmcli`](#159-notable-alternatives-to-hxl-tm-and-hxltmcli)
                 - [1.5.9.1 Okapi Framework](#1591-okapi-framework)
+                - [1.5.9.2 Translate Toolkit](#1592-translate-toolkit)
     - [2. Reasons behind](#2-reasons-behind)
         - [2.1 Why?](#21-why)
         - [2.2 How?](#22-how)
@@ -774,10 +775,22 @@ Testando Vitaal:
 - Vide https://github.com/HXL-CPLP/forum/issues/58#issuecomment-872610790
 -->
 
-##### 1.5.9 Notable alternatives to HXL TM and `hxltmcli` to manage Translation Memories
+##### 1.5.9 Notable alternatives to HXL TM and `hxltmcli`
 <!--
 > - See also: <https://okapiframework.org/wiki/index.php/Open_Standards>
 -->
+
+> **Note**: all alternatives here tend to be very optimized **but only for mono
+or bilingual localization files**.
+>
+> Some have advanced features, like merge/compare/update two different files
+> (like 2 XLIFFs) seems to be documented for some of them. They also sometimes
+> have exporters for multilingual formats, like UTX, TBX TMX, but often they
+> still only work with maximum of 2 languages.
+>
+> One approach with `hxltmcli` would both focus on HXL and conversion for
+> formats that existing tools don't do well, but this also means we do not
+> waste time to create more exporters for mono or bilinguam files.
 
 ###### 1.5.9.1 Okapi Framework
 
@@ -785,6 +798,70 @@ Testando Vitaal:
 
 - https://okapiframework.org/
   - http://okapiframework.org/wiki/index.php?title=Tikal
+
+###### 1.5.9.2 Translate Toolkit
+
+<a id="translate-toolkit" href="#translate-toolkit">§ Translate Toolkit</a>
+
+**Options from Translate Toolkit**
+
+From https://github.com/translate/translate:
+
+```bash
+### Installation----------------------------------------------------------------
+# @see https://github.com/translate/translate
+pip install translate-toolkit
+# Install with XML support
+# pip install translate-toolkit[XML]
+
+# Install all optional dependencies
+pip install translate-toolkit[all]
+
+### Converters -----------------------------------------------------------------
+oo2po    - convert between OpenOffice.org GSI files and PO
+oo2xliff - convert between OpenOffice.org GSI files and XLIFF
+moz2po   - convert between Mozilla files and PO
+csv2po   - convert PO format to CSV for editing in a spreadsheet program
+php2po   - PHP localisable string arrays converter.
+ts2po    - convert Qt Linguist (.ts) files to PO
+txt2po   - convert simple text files to PO
+html2po  - convert HTML to PO (beta)
+xliff2po - XLIFF (XML Localisation Interchange File Format) converter
+prop2po  - convert Java .properties files to PO
+po2wordfast - Wordfast Translation Memory converter
+po2tmx   - TMX (Translation Memory Exchange) converter
+pot2po   - PO file initialiser
+csv2tbx  - Create TBX (TermBase eXchange) files from Comma Separated
+           Value (CSV) files
+ini2po   - convert .ini files to to PO
+ical2po  - Convert iCalendar files (*.ics) to PO
+sub2po   - Convert many subtitle files to PO
+resx2po  - convert .Net Resource (.resx) files to PO
+
+### Tools (Quality Assurance): -------------------------------------------------
+pofilter - run any of the 40+ checks on your PO files
+pomerge  - merge corrected translations from pofilter back into
+           your existing PO files.
+poconflicts - identify conflicting use of terms
+porestructure - restructures po files according to poconflict directives
+pogrep   - find words in PO files
+
+### Tools (Other): -------------------------------------------------------------
+pocompile - create a Gettext MO files from PO or XLIFF files
+pocount   - count translatable file formats (PO, XLIFF)
+podebug   - Create comment in your PO files msgstr which can
+            then be used to quickly track down mistranslations
+            as the comments appear in the application.
+posegment - Break a PO or XLIFF files into sentence segments,
+            useful for creating a segmented translation memory.
+poswap    - uses a translation of another language that you
+            would rather use than English as source language
+poterminology - analyse PO or POT files to build a list of
+                frequently occurring words and phrases
+```
+
+Without need to install the packages, you can check online documentation at
+<http://docs.translatehouse.org/projects/translate-toolkit/en/latest/commands/index.html>.
 
 ### 2. Reasons behind
 

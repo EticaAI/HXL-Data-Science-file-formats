@@ -24,7 +24,9 @@
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
   .hxl.csv: HXLTM
+  "[a-z]{2}.csv": CSV-3 # Not implemented yet
   .csv: HXLTM
+  .json: JSON-kv
   .tmx: TMX
   .utx: UTX
   .tbx: TBX-Basic
@@ -33,6 +35,14 @@ fontem_archivum_extensionem:
   .xliff: XLIFF2
 
 formatum:
+  #### CSV-3: Source + Target + Comment (draft) _______________________________
+  CSV-3:
+    archivum_extensionem: .csv
+    normam:
+      - https://site.matecat.com/support/managing-language-resources/add-glossary/
+    situs_interretialis:
+      referens_officinale: []
+
   #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
   HXLTM:
     archivum_extensionem: .tm.hxl.csv
@@ -41,6 +51,18 @@ formatum:
     situs_interretialis:
       referens_officinale:
         - https://hdp.etica.ai/#HXLTM
+
+  #### JSON-kv: JSON key: val; id/source -> target _____________________________
+  JSON-kv:
+    archivum_extensionem: .json
+    normam:
+      # Not sure where to find some place to 'explain' this format
+      - https://angular.io/guide/i18n#change-the-source-language-file-location
+      - https://www.i18next.com/misc/json-format
+    situs_interretialis:
+      referens_officinale: []
+    exemplum:
+      - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
 
   #### TBX-Basic: TermBase eXchange (TBX) Basic ________________________________
   TBX-Basic:
@@ -97,3 +119,21 @@ formatum:
         - https://en.wikipedia.org/wiki/XLIFF
     normam:
       - https://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html
+
+  #### YAML: (draft) ___________________________________________________________
+  YAML:
+    archivum_extensionem: .yml
+    normam:
+      # Not sure where to find some place to 'explain' this format
+      - https://guides.rubyonrails.org/i18n.html
+    situs_interretialis:
+      referens_officinale:
+        - https://guides.rubyonrails.org/i18n.html
+    exemplum:
+      - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+
+#### TO DOs ____________________________________________________________________
+# - https://site.matecat.com/support/managing-language-resources/add-glossary/
+# - http://docs.translatehouse.org/projects/translate-toolkit/en/latest/commands/csv2tbx.html
+# - https://github.com/lokalise/i18n-ally
+#   - https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally

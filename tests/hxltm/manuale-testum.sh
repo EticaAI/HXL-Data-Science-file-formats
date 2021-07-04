@@ -28,6 +28,9 @@
 #### Variables ________________________________________________________________
 ROOTDIR="$(pwd)"
 
+# For HXLTM-Exemplum
+# @see https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/edit#gid=0
+
 HXLTM_EXEMPLUM_XLSX_LOCAL="HXLTM-Exemplum.xlsx"
 HXLTM_EXEMPLUM_XLSX_GSHEETS="https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/export?format=xlsx"
 

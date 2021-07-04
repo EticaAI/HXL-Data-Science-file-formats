@@ -253,13 +253,35 @@ class HXLTMCLI:
         )
 
         parser.add_argument(
-            '--archivum-extensionem',
-            help='File extension. .xlf, .csv or .tmx',
-            action='store',
-            # default='.xlf',
-            default=None,
-            nargs='?'
+            '--objectivum-CSV-3', '--CSV-3',
+            help='(Not implemented yet) ' +
+            'Export to Bilingual CSV with BCP47 headers (source to target)' +
+            ' plus comments on last column ',
+            dest='objectivum_typum',
+            action='append_const',
+            const='CSV-3'
         )
+
+        parser.add_argument(
+            '--objectivum-JSON-kv', '--JSON-kv',
+            help='(Not implemented yet) ' +
+            'Export to Bilingual JSON. Keys are ID (if available) or source '
+            'natural language. Values are target language. '
+            'No comments are exported. Monolingual/Bilingual',
+            dest='objectivum_typum',
+            action='append_const',
+            const='JSON-kv'
+        )
+
+        # # deprecated
+        # parser.add_argument(
+        #     '--archivum-extensionem',
+        #     help='File extension. .xlf, .csv or .tmx',
+        #     action='store',
+        #     # default='.xlf',
+        #     default=None,
+        #     nargs='?'
+        # )
 
         # --crudum-fontem-linguam-hxlattrs is a draft. Not 100% implemented
         parser.add_argument(
@@ -361,10 +383,6 @@ class HXLTMCLI:
             args.venandum_insectum_est
         )
 
-        # archivum_extensionem = None
-        # if args.archivum_extensionem is not None:
-        #     archivum_extensionem = args.archivum_extensionem
-
         # If the user specified an output file, we will save on
         # self.original_outfile. The args.outfile will be used for temporary
         # output
@@ -411,6 +429,12 @@ class HXLTMCLI:
 
             elif self.objectivum_typum == 'XLIFF1':
                 raise NotImplementedError('XLIFF1 not implemented')
+
+            elif self.objectivum_typum == 'CSV-3':
+                raise NotImplementedError('CSV-3 not implemented yet')
+
+            elif self.objectivum_typum == 'JSON-kv':
+                raise NotImplementedError('JSON-kv not implemented yet')
 
             elif self.objectivum_typum == 'XLIFF2':
                 # print('XLIFF2')
