@@ -575,13 +575,13 @@ authenticated requests. **Our recomendations on this case is:**
 
 ```bash
 ## The next 2 examples are equivalent: will print to stdout the result
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --archivum-extensionem=.tmx
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --TMX
 #    (will print out TMX result of input HXLTM file)
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --archivum-extensionem=.tmx
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --TMX
 #    (will print out TMX result of input HXLTM file)
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --archivum-extensionem=.tmx
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --TMX
 #    (Instead of print to stdout, save the contents to a single CSV file)
 ```
 
@@ -602,13 +602,13 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx
 
 ```bash
 ## The next 2 examples are equivalent: will print to stdout the result
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --archivum-extensionem=.xlf
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --XLIFF
 #    (will print out TMX result of input HXLTM file)
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --archivum-extensionem=.xlf
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --XLIFF
 #    (will print out TMX result of input HXLTM file)
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.xlf --archivum-extensionem=.xlf
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.xlf --XLIFF
 #    (Instead of print to stdout, save the contents to a single CSV file)
 ```
 

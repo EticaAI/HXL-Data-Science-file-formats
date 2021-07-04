@@ -64,12 +64,12 @@ echo "hxltmcli --sheet 2 $HXLTM_EXEMPLUM_XLSX_LOCAL | grep L10N_ego_codicem"
 hxltmcli --sheet 2 "$HXLTM_EXEMPLUM_XLSX_LOCAL" | grep L10N_ego_codicem
 
 printf "\n\n\n\tTESTUM 004 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL\n\n"
-echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --archivum-extensionem=.tmx
-hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --archivum-extensionem=.tmx
+echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --objectivum-TMX
+hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --objectivum-TMX
 
 printf "\n\n\n\tTESTUM 005 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL\n\n"
-echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --archivum-extensionem=.xlf
-hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --archivum-extensionem=.xlf
+echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF
+hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF
 
 # To revert only one file that keeps changing even with same input
 # git checkout -- tests/hxltm/resultatum/hxltm-exemplum-linguam.tmx

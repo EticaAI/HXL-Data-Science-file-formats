@@ -27,8 +27,8 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.8.1
-#       CREATED: 2021-06-27 19:50 UTC v0.5, de github.com/EticaAI
+#       VERSION:  v0.8.2
+#       CREATED:  2021-06-27 19:50 UTC v0.5, de github.com/EticaAI
 #                     /HXL-Data-Science-file-formats/blob/main/bin/hxl2example
 #      REVISION:  2021-06-27 21:16 UTC v0.6 de hxl2tab
 #      REVISION:  2021-06-27 23:53 UTC v0.7 --archivum-extensionem=.csv
@@ -37,6 +37,7 @@
 #                 2021-06-29 23:16 UTC v0.8.1 hxltm2xliff renamed to hxltmcli;
 #                      Moved from github.com/HXL-CPLP/Auxilium-Humanitarium-API
 #                       to github.com/EticaAI/HXL-Data-Science-file-formats
+#                 2021-07-04 04:35 UTC v0.8.2 Configurations on cor.hxltm.yml
 # ==============================================================================
 
 # Tests
@@ -54,8 +55,9 @@
 #    --archivum-extensionem=.tmx
 # python3 -m doctest ./_systema/programma/hxltmcli.py
 
-__VERSION__ = "v0.8.1"
+__VERSION__ = "v0.8.2"
 
+# from re import S
 import sys
 import os
 import logging
@@ -82,10 +84,22 @@ _HOME = str(Path.home())
 
 # TODO: clean up redundancy from hxlm/core/schema/urn/util.py
 HXLM_CONFIG_BASE = os.getenv(
-    'HXLM_CONFIG_BASE', _HOME + '/.config/hxlm/')
+    'HXLM_CONFIG_BASE', _HOME + '/.config/hxlm')
 # ~/.config/hxlm/cor.hxltm.yml
 # This can be customized with enviroment variable HXLM_CONFIG_BASE
-HXLTM_SCRIPT_DIR = str(Path(__file__).parent.resolve())
+
+
+# Since hpd-toolchain is not a hard requeriment, we first try to load
+# hdp-toolchain lib, but if hxltmcli is a standalone script with
+# only libhxl, yaml, etc installed, we tolerate it
+try:
+    from hxlm.core.constant import (
+        HXLM_ROOT
+    )
+    HXLTM_SCRIPT_DIR = HXLM_ROOT + '/core/bin'
+except ImportError:
+    HXLTM_SCRIPT_DIR = str(Path(__file__).parent.resolve())
+
 HXLTM_RUNNING_DIR = str(Path().resolve())
 
 
@@ -106,7 +120,8 @@ class HXLTMCLI:
         self.hxlhelper = None
         self.args = None
         self.conf = {}
-        self.objectivum_archivum = None
+        self.objectivum_typum = None
+        self.errors = []
 
         # Posix exit codes
         self.EXIT_OK = 0
@@ -115,6 +130,27 @@ class HXLTMCLI:
 
         self.original_outfile = None
         self.original_outfile_is_stdout = True
+
+    def _objectivum_typum_from_outfile(self, outfile):
+        """Uses cor.hxltm.yml fontem_archivum_extensionem to detect output
+        format without user need to explicitly inform the option.
+
+        This is not used if the result is stdout
+
+        Args:
+            outfile ([str]): Path string of output file
+
+        Returns:
+            [str]: A valid cor.hxltm.yml formatum
+        """
+        outfile_lower = outfile.lower()
+
+        if self.conf and self.conf['fontem_archivum_extensionem']:
+            for key in self.conf['fontem_archivum_extensionem']:
+                if outfile_lower.endswith(key):
+                    return self.conf['fontem_archivum_extensionem'][key]
+
+        return 'INCOGNITUM'
 
     def make_args_hxltmcli(self):
 
@@ -157,8 +193,8 @@ class HXLTMCLI:
         parser.add_argument(
             '--objectivum-HXLTM', '--HXLTM',
             help='Save output as HXLTM (default). Multilingual.',
-            # metavar='objectivum_archivum',
-            dest='objectivum_archivum',
+            # metavar='objectivum_typum',
+            dest='objectivum_typum',
             action='append_const',
             const='HXLTM'
         )
@@ -167,8 +203,8 @@ class HXLTMCLI:
             '--objectivum-TMX', '--TMX',
             help='Export to Translation Memory eXchange (TMX) v1.4b. ' +
             ' Multilingual.',
-            # metavar='objectivum_archivum',
-            dest='objectivum_archivum',
+            # metavar='objectivum_typum',
+            dest='objectivum_typum',
             action='append_const',
             const='TMX'
         )
@@ -178,8 +214,8 @@ class HXLTMCLI:
             help='(Planned, but not implemented yet) ' +
             'Export to Term Base eXchange (TBX). ' +
             ' Multilingual.',
-            # metavar='objectivum_archivum',
-            dest='objectivum_archivum',
+            # metavar='objectivum_typum',
+            dest='objectivum_typum',
             action='append_const',
             const='TBX-Basic'
         )
@@ -189,8 +225,8 @@ class HXLTMCLI:
             help='(Planned, but not implemented yet) ' +
             'Export to Universal Terminology eXchange (UTX). ' +
             ' Multilingual.',
-            # metavar='objectivum_archivum',
-            dest='objectivum_archivum',
+            # metavar='objectivum_typum',
+            dest='objectivum_typum',
             action='append_const',
             const='UTX'
         )
@@ -200,7 +236,7 @@ class HXLTMCLI:
             help='Export to XLIFF (XML Localization Interchange File Format)' +
             ' v2.1. ' +
             '(mono or bi-lingual support only as per XLIFF specification)',
-            dest='objectivum_archivum',
+            dest='objectivum_typum',
             action='append_const',
             const='XLIFF2'
         )
@@ -211,7 +247,7 @@ class HXLTMCLI:
             'Export to XLIFF (XML Localization Interchange ' +
             'File Format) v1.2, an obsolete format for lazy developers who ' +
             'don\'t implemented XLIFF 2 (released in 2014) yet.',
-            dest='objectivum_archivum',
+            dest='objectivum_typum',
             action='append_const',
             const='XLIFF1'
         )
@@ -325,15 +361,9 @@ class HXLTMCLI:
             args.venandum_insectum_est
         )
 
-        archivum_extensionem = None
-        if args.archivum_extensionem is not None:
-            archivum_extensionem = args.archivum_extensionem
-
-        # print(args)
-        # print(args.objectivum_archivum)
-        if args.objectivum_archivum:
-            if len(args.objectivum_archivum) > 1:
-                raise RuntimeError("More than 1 output format. see --help")
+        # archivum_extensionem = None
+        # if args.archivum_extensionem is not None:
+        #     archivum_extensionem = args.archivum_extensionem
 
         # If the user specified an output file, we will save on
         # self.original_outfile. The args.outfile will be used for temporary
@@ -341,6 +371,13 @@ class HXLTMCLI:
         if args.outfile:
             self.original_outfile = args.outfile
             self.original_outfile_is_stdout = False
+            self.objectivum_typum = self._objectivum_typum_from_outfile(
+                self.original_outfile)
+
+        if args.objectivum_typum:
+            if len(args.objectivum_typum) > 1:
+                raise RuntimeError("More than 1 output format. see --help")
+            self.objectivum_typum = args.objectivum_typum[0]
 
         try:
             temp = tempfile.NamedTemporaryFile()
@@ -357,22 +394,46 @@ class HXLTMCLI:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
-            if archivum_extensionem == '.csv':
-                # print('CSV!')
-                self.hxltm2csv(args.outfile, self.original_outfile,
-                               self.original_outfile_is_stdout, args)
-            elif archivum_extensionem == '.tmx':
-                # print('tmx!')
+            # if archivum_extensionem == '.csv':
+            #     # print('CSV!')
+            #     self.hxltm2csv(args.outfile, self.original_outfile,
+            #                    self.original_outfile_is_stdout, args)
+            if self.objectivum_typum == 'TMX':
+                # print('TMX')
                 self.hxltm2tmx(args.outfile, self.original_outfile,
                                self.original_outfile_is_stdout, args)
-            elif archivum_extensionem == '.xliff' or \
-                    archivum_extensionem == '.xlf':
-                # print('xliff!')
+
+            elif self.objectivum_typum == 'TBX-Basic':
+                raise NotImplementedError('TBX-Basic not implemented yet')
+
+            elif self.objectivum_typum == 'UTX':
+                raise NotImplementedError('UTX not implemented yet')
+
+            elif self.objectivum_typum == 'XLIFF1':
+                raise NotImplementedError('XLIFF1 not implemented')
+
+            elif self.objectivum_typum == 'XLIFF2':
+                # print('XLIFF2')
                 self.hxltm2csv(args.outfile, temp_csv4xliff.name,
                                False, args)
                 self.hxltm2xliff(temp_csv4xliff.name, self.original_outfile,
                                  self.original_outfile_is_stdout, args)
+
+            elif self.objectivum_typum == 'HXLTM':
+                # print('HXLTM')
+                self.hxltm2noop(args.outfile, self.original_outfile,
+                                self.original_outfile_is_stdout)
+
+            elif self.objectivum_typum == 'INCOGNITUM':
+                # print('INCOGNITUM')
+                raise ValueError(
+                    'INCOGNITUM (objetive file output based on extension) ' +
+                    'failed do decide what you want. Check --help and ' +
+                    'manually select an output format, like --TMX'
+                )
             else:
+                # print('default / unknow option result')
+                # Here maybe error?
                 # self.hxl2tab(args.outfile, self.original_outfile,
                 #              self.original_outfile_is_stdout, args)
 
@@ -627,7 +688,11 @@ class HXLTMCLI:
                     resultatum.append(
                         '          <!-- ERROR source ' + unit_id +
                         ', ' + xsource + '-->')
-                    print('ERROR:', unit_id, xsource)
+                    if not args.silentium:
+                        print('ERROR:', unit_id, xsource)
+                        # TODO: make exit status code warn about this
+                        #       so other scripts can deal with bad output
+                        #       when --silentium is not used
                     # continue
                 else:
                     resultatum.append('          <source>' +
@@ -931,7 +996,7 @@ class HXLTMUtil:
 
     @staticmethod
     def load_hxltm_options(custom_file_option=None, is_debug=False):
-        """[summary]
+        """Load options from cor.hxltm.yml
 
         Args:
             custom_file_option ([str], optional): Custom options.
@@ -952,8 +1017,8 @@ class HXLTMUtil:
             if Path(custom_file_option).exists():
                 return HXLTMUtil._load_hxltm_options_file(
                     custom_file_option, is_debug)
-            RuntimeWarning("Configuration file not found [" +
-                           custom_file_option + "]")
+            raise RuntimeError("Configuration file not found [" +
+                               custom_file_option + "]")
 
         if Path(HXLTM_RUNNING_DIR + '/cor.hxltm.yml').exists():
             return HXLTMUtil._load_hxltm_options_file(
@@ -966,8 +1031,10 @@ class HXLTMUtil:
         if Path(HXLTM_SCRIPT_DIR + '/cor.hxltm.yml').exists():
             return HXLTMUtil._load_hxltm_options_file(
                 HXLTM_SCRIPT_DIR + '/cor.hxltm.yml', is_debug)
+        print('oioioi')
 
-        RuntimeWarning("ERROR: no cor.hxltm.yml found (not even default one).")
+        raise RuntimeError(
+            "ERROR: no cor.hxltm.yml found (not even default one).")
 
     @staticmethod
     def _load_hxltm_options_file(file, is_debug=False):

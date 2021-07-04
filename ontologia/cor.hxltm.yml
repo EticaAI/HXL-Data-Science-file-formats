@@ -21,10 +21,6 @@
 # - "extēnsiōnem"
 #   - https://en.wiktionary.org/wiki/extensio#Latin
 
-hxltm:
-  - fiat lux!
-
-
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
   .hxl.csv: HXLTM
