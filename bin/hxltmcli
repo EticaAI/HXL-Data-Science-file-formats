@@ -60,9 +60,12 @@ import sys
 import os
 import logging
 import argparse
+from pathlib import Path
 
 import csv
 import tempfile
+
+import yaml
 
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
@@ -74,6 +77,16 @@ import hxl.io
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
+
+_HOME = str(Path.home())
+
+# TODO: clean up redundancy from hxlm/core/schema/urn/util.py
+HXLM_CONFIG_BASE = os.getenv(
+    'HXLM_CONFIG_BASE', _HOME + '/.config/hxlm/')
+# ~/.config/hxlm/cor.hxltm.yml
+# This can be customized with enviroment variable HXLM_CONFIG_BASE
+HXLTM_SCRIPT_DIR = Path(__file__).parent.resolve()
+HXLTM_RUNNING_DIR = Path().resolve()
 
 
 class HXLTMCLI:
@@ -211,7 +224,8 @@ class HXLTMCLI:
                 # print('tmx!')
                 self.hxltm2tmx(args.outfile, self.original_outfile,
                                self.original_outfile_is_stdout, args)
-            elif args.archivum_extensionem == '.xliff' or args.archivum_extensionem == '.xlf':
+            elif args.archivum_extensionem == '.xliff' or \
+                    args.archivum_extensionem == '.xlf':
                 # print('xliff!')
                 self.hxltm2csv(args.outfile, temp_csv4xliff.name,
                                False, args)
@@ -773,6 +787,34 @@ class HXLTMUtil:
         """
         iso6393, iso115924 = list(linguam.lower().split('-'))
         return '+i_' + iso6393 + '+is_' + iso115924
+
+    @staticmethod
+    def load_hxltm_options(custom_file_option=None):
+        if custom_file_option is not None or Path(custom_file_option).exists:
+            return HXLTMUtil._load_hxltm_options_from_file(custom_file_option)
+        else:
+            RuntimeWarning(
+                "Configuration file not found [" + custom_file_option + "]")
+
+        if Path(HXLTM_RUNNING_DIR + '/cor.hxltm.yml').exists:
+            return HXLTMUtil._load_hxltm_options_from_file(
+                HXLTM_RUNNING_DIR + '/cor.hxltm.yml')
+
+        if Path(HXLM_CONFIG_BASE + '/cor.hxltm.yml').exists:
+            return HXLTMUtil._load_hxltm_options_from_file(
+                HXLM_CONFIG_BASE + '/cor.hxltm.yml')
+
+        if Path(HXLTM_SCRIPT_DIR + '/cor.hxltm.yml').exists:
+            return HXLTMUtil._load_hxltm_options_from_file(
+                HXLTM_SCRIPT_DIR + '/cor.hxltm.yml')
+
+        RuntimeWarning("ERROR: no cor.hxltm.yml found.")
+
+    @staticmethod
+    def _load_hxltm_options_from_file(file):
+        with open(file, "r") as read_file:
+            data = yaml.safe_load(read_file)
+            return data
 
     @staticmethod
     def xliff_item_relevant_options(item):

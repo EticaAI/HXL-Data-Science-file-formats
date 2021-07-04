@@ -28,9 +28,9 @@ corrections.
         - [core.vkg.yml](#corevkgyml)
         - [json/core.vkg.json](#jsoncorevkgjson)
     - [JSON Schema](#json-schema)
-    - [HXLTM](#hxltm)
         - [Latin](#latin)
         - [Other natural languages](#other-natural-languages)
+    - [HXLTM](#hxltm)
 - [Exchange Codes and terms](#exchange-codes-and-terms)
     - [Prebuild tables](#prebuild-tables)
         - [Common Operational Datasets](#common-operational-datasets)
@@ -102,13 +102,6 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 >    - _Note: other code editors are likely to have equivalent alternatives_
 
 
-### HXLTM
-
-- <https://hdp.etica.ai/#HXLTM>
-- Ontologia:
-  - YAML: [cor.hxltm.yml](cor.hxltm.yml)
-  - JSON: [json/cor.hxltm.json](json/cor.hxltm.json)
-
 #### Latin
 
 - [hdp.json-schema.json](hdp.json-schema.json)
@@ -116,6 +109,13 @@ yq < ontologia/core.lkg.yml > ontologia/json/core.lkg.json
 #### Other natural languages
 
 > TODO: explain more about it  (Emerson Rocha, 2021-03 09:46 UTC)
+
+### HXLTM
+
+- <https://hdp.etica.ai/#HXLTM>
+- Ontologia:
+  - YAML: [cor.hxltm.yml](cor.hxltm.yml)
+  - JSON: [json/cor.hxltm.json](json/cor.hxltm.json)
 
 ## Exchange Codes and terms
 
