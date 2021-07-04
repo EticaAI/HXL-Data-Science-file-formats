@@ -136,7 +136,7 @@ class HXLTMCLI:
         parser.add_argument(
             '--fontem-linguam',
             help='(For bilingual operations) Source natural language ' +
-            '(use if not autodetected). ' +
+            '(use if not auto detected). ' +
             'Must be like {ISO 639-3}-{ISO 15924}. Example: lat-Latn',
             action='store',
             default='lat-Latn',
@@ -146,11 +146,59 @@ class HXLTMCLI:
         parser.add_argument(
             '--objectivum-linguam',
             help='(For bilingual operations) Target natural language ' +
-            '(use if not autodetected). ' +
+            '(use if not auto detected). ' +
             'Must be like {ISO 639-3}-{ISO 15924}. Example: arb-Arab',
             action='store',
             default='arb-Arab',
             nargs='?'
+        )
+
+        parser.add_argument(
+            '--objectivum-HXLTM', '--HXLTM',
+            help='Save output as HXLTM (default). Multilingual.',
+            # metavar='objectivum_archivum',
+            dest='objectivum_archivum',
+            action='append_const',
+            const='HXLTM'
+        )
+
+        parser.add_argument(
+            '--objectivum-TMX', '--TMX',
+            help='Export to Translation Memory eXchange (TMX) v1.4b',
+            # metavar='objectivum_archivum',
+            dest='objectivum_archivum',
+            action='append_const',
+            const='TMX'
+        )
+
+        parser.add_argument(
+            '--objectivum-TBX-Basic', '--TBX-Basic',
+            help='(Planned, but not implemented yet) ' +
+            'Export to Term Base eXchange (TBX)',
+            # metavar='objectivum_archivum',
+            dest='objectivum_archivum',
+            action='append_const',
+            const='TBX-Basic'
+        )
+
+        parser.add_argument(
+            '--objectivum-XLIFF', '--XLIFF', '--XLIFF2',
+            help='Export to XLIFF (XML Localization Interchange File Format)' +
+            ' v2.1 (mono or bi-lingual support only)',
+            dest='objectivum_archivum',
+            action='append_const',
+            const='XLIFF2'
+        )
+
+        parser.add_argument(
+            '--objectivum-XLIFF-obsoletum', '--XLIFF-obsoletum', '--XLIFF1',
+            help='(Not implemented) ' +
+            'Export to XLIFF (XML Localization Interchange ' +
+            'File Format) v1.2, an obsolete format for lazy developers who ' +
+            'don\'t implemented XLIFF 2 (released in 2014) yet.',
+            dest='objectivum_archivum',
+            action='append_const',
+            const='XLIFF1'
         )
 
         parser.add_argument(
@@ -162,29 +210,80 @@ class HXLTMCLI:
             nargs='?'
         )
 
+        # --crudum-fontem-linguam-hxlattrs is a draft. Not 100% implemented
+        parser.add_argument(
+            '--crudum-fontem-linguam-hxlattrs', '--fon-hxlattrs',
+            help='(Advanced override for --fontem-linguam). ' +
+            'Explicit HXL Attributes for source language. ' +
+            'Example: "+i_la+i_lat+is_latn"',
+            metavar='fon_hxlattrs',
+            action='store',
+            default=None,
+            nargs='?'
+        )
+
+        # --crudum-fontem-linguam-bcp47 is a draft. Not 100% implemented
+        parser.add_argument(
+            '--crudum-fontem-linguam-bcp47', '--fon-bcp47',
+            help='(Advanced override for --fontem-linguam). ' +
+            'Explicit IETF BCP 47 language tag for source language. ' +
+            'Example: "la"',
+            metavar='fon_bcp47',
+            action='store',
+            default=None,
+            nargs='?'
+        )
+
+        # --crudum-objectivum-linguam-hxlattrs is a draft. Not 100% implemented
+        parser.add_argument(
+            '--crudum-objectivum-linguam-hxlattrs', '--obj-hxlattrs',
+            help='(Advanced override for --objectivum-linguam). ' +
+            'Explicit HXL Attributes for target language. ' +
+            'Example: "+i_ar+i_arb+is_arab"',
+            metavar='obj_hxlattrs',
+            action='store',
+            default=None,
+            nargs='?'
+        )
+
+        # --crudum-objectivum-linguam-bcp47 is a draft. Not 100% implemented
+        parser.add_argument(
+            '--crudum-objectivum-linguam-bcp47', '--obj-bcp47',
+            help='(Advanced override for --objectivum-linguam). ' +
+            'Explicit IETF BCP 47 language tag for target language. ' +
+            'Example: "ar"',
+            metavar='obj_bcp47',
+            action='store',
+            default=None,
+            nargs='?'
+        )
+
         # https://hdp.etica.ai/ontologia/cor.hxltm.yml
         parser.add_argument(
             '--archivum-configurationem',
             help='Path to custom configuration file (The cor.hxltm.yml)',
-            action='store',
+            action='store_const',
             const=True,
-            default=None,
-            nargs='?'
+            default=None
         )
+
         parser.add_argument(
             '--silentium',
             help='Silence warnings? Try to not generate any warning. ' +
             'May generate invalid output',
+            action='store_const',
             const=True,
-            default=False,
-            nargs='?'
+            default=False
         )
+
         parser.add_argument(
-            '--venandum-insectum-est',
+            # '--venandum-insectum-est, --debug',
+            '--venandum-insectum-est', '--debug',
             help='Enable debug? Extra information for program debugging',
+            metavar="venandum_insectum_est",
+            action='store_const',
             const=True,
-            default=False,
-            nargs='?'
+            default=False
         )
 
         self.args = parser.parse_args()
@@ -214,6 +313,9 @@ class HXLTMCLI:
         archivum_extensionem = None
         if args.archivum_extensionem is not None:
             archivum_extensionem = args.archivum_extensionem
+
+        print(args)
+        print(args.objectivum_archivum)
 
         # If the user specified an output file, we will save on
         # self.original_outfile. The args.outfile will be used for temporary
