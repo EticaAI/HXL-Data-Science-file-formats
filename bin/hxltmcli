@@ -54,6 +54,8 @@
 #    _hxltm/schemam-un-htcds-5items.tmx --fontem-linguam=eng-Latn \
 #    --archivum-extensionem=.tmx
 # python3 -m doctest ./_systema/programma/hxltmcli.py
+# python3 -m doctest bin/hxltmcli
+# python3 -m doctest hxlm/core/bin/hxltmcli.py
 
 __VERSION__ = "v0.8.2"
 
@@ -67,6 +69,7 @@ from pathlib import Path
 import csv
 import tempfile
 
+import json
 import yaml
 
 # @see https://github.com/HXLStandard/libhxl-python
@@ -170,21 +173,27 @@ class HXLTMCLI:
             )
         )
 
+        # TODO: implement example using index number (not language) as
+        #       for very simple cases (mostly for who is learning
+        #       or doing very few languages) know the number is easier
         parser.add_argument(
-            '--fontem-linguam',
+            '--fontem-linguam', '-f',
             help='(For bilingual operations) Source natural language ' +
             '(use if not auto detected). ' +
             'Must be like {ISO 639-3}-{ISO 15924}. Example: lat-Latn',
+            # dest='fontem_linguam',
+            metavar='fontem_linguam',
             action='store',
             default='lat-Latn',
             nargs='?'
         )
 
         parser.add_argument(
-            '--objectivum-linguam',
+            '--objectivum-linguam', '-o',
             help='(For bilingual operations) Target natural language ' +
             '(use if not auto detected). ' +
             'Must be like {ISO 639-3}-{ISO 15924}. Example: arb-Arab',
+            metavar='objectivum_linguam',
             action='store',
             default='arb-Arab',
             nargs='?'
@@ -431,10 +440,14 @@ class HXLTMCLI:
                 raise NotImplementedError('XLIFF1 not implemented')
 
             elif self.objectivum_typum == 'CSV-3':
-                raise NotImplementedError('CSV-3 not implemented yet')
+                # raise NotImplementedError('CSV-3 not implemented yet')
+                self.hxltm2csv3(args.outfile, self.original_outfile,
+                               self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'JSON-kv':
-                raise NotImplementedError('JSON-kv not implemented yet')
+                self.hxltm2jsonkv(args.outfile, self.original_outfile,
+                               self.original_outfile_is_stdout, args)
+                # raise NotImplementedError('JSON-kv not implemented yet')
 
             elif self.objectivum_typum == 'XLIFF2':
                 # print('XLIFF2')
@@ -541,9 +554,10 @@ class HXLTMCLI:
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
+
     def hxl2tab(self, hxlated_input, tab_output, is_stdout, args):
         """
-        hxl2tab is  is the main method to de facto make the conversion.
+        (deprecated hxl2tab) 
         """
 
         with open(hxlated_input, 'r') as csv_file:
@@ -575,6 +589,58 @@ class HXLTMCLI:
                     txt_writer.writerow(header_new)
                     for line in csv_reader:
                         txt_writer.writerow(line)
+
+    def hxltm2csv3(self, hxlated_input, tmx_output, is_stdout, args):
+        """[summary]
+
+        Args:
+            hxlated_input ([str]): Path to HXLated CSV
+            tmx_output ([str]): Path to file to write output (if not stdout)
+            is_stdout (bool): Flag to tell the output is stdout
+            args ([type]): python argparse
+        """
+
+        print('TODO hxltm2csv3')
+
+        # csvfile = open('file.csv', 'r')
+        # jsonfile = open('file.json', 'w')
+
+        # fieldnames = ("FirstName","LastName","IDNumber","Message")
+        # reader = csv.DictReader( csvfile, fieldnames)
+        # for row in reader:
+        #     json.dump(row, jsonfile)
+        #     jsonfile.write('\n')
+
+    def hxltm2jsonkv(self, hxlated_input, tmx_output, is_stdout, args):
+        """[summary]
+
+        Args:
+            hxlated_input ([str]): Path to HXLated CSV
+            tmx_output ([str]): Path to file to write output (if not stdout)
+            is_stdout (bool): Flag to tell the output is stdout
+            args ([type]): python argparse
+        """
+
+        fon_ling = HXLTMUtil.linguam_2_hxlattrs(args.fontem_linguam)
+        fon_bcp47 = HXLTMUtil.bcp47_from_hxlattrs(args.fontem_linguam)
+        obj_ling = HXLTMUtil.linguam_2_hxlattrs(args.objectivum_linguam)
+        obj_bcp47 = HXLTMUtil.bcp47_from_hxlattrs(args.objectivum_linguam)
+
+        print('TODO hxltm2jsonkv')
+        print('fon_ling', fon_ling)
+        print('fon_bcp47', fon_bcp47)
+        print('obj_ling', obj_ling)
+        print('obj_bcp47', obj_bcp47)
+
+        # csvfile = open('file.csv', 'r')
+        # jsonfile = open('file.json', 'w')
+
+        # fieldnames = ("FirstName","LastName","IDNumber","Message")
+        # reader = csv.DictReader( csvfile, fieldnames)
+        # for row in reader:
+        #     json.dump(row, jsonfile)
+        #     jsonfile.write('\n')
+        
 
     def hxltm2tmx(self, hxlated_input, tmx_output, is_stdout, args):
         """
@@ -1006,6 +1072,10 @@ class HXLTMUtil:
         Example:
             >>> HXLTMUtil.linguam_2_hxlattrs('por-Latn')
             '+i_por+is_latn'
+            >>> HXLTMUtil.linguam_2_hxlattrs('por-Latn@pt')
+            '+i_pt+i_por+is_latn'
+            >>> HXLTMUtil.linguam_2_hxlattrs('por-Latn@pt-BR')
+            '+i_pt+i_por+is_latn'
             >>> HXLTMUtil.linguam_2_hxlattrs('arb-Arab')
             '+i_arb+is_arab'
 
@@ -1015,8 +1085,21 @@ class HXLTMUtil:
         Returns:
             [String]: HXL Attributes
         """
-        iso6393, iso115924 = list(linguam.lower().split('-'))
-        return '+i_' + iso6393 + '+is_' + iso115924
+        if linguam.find('@') == -1:
+            iso6393, iso115924 = list(linguam.lower().split('-'))
+            return '+i_' + iso6393 + '+is_' + iso115924
+
+        linguam, bcp47 = list(linguam.lower().split('@'))
+        iso6393, iso115924 = list(linguam.split('-'))
+
+        if bcp47.find('-') == -1:
+            return '+i_' + bcp47 + '+i_' + iso6393 + '+is_' + iso115924
+
+        # TODO: decide how to express country with hashtags
+        iso6391, _adm = list(bcp47.split('-'))
+
+        return '+i_' + iso6391 + '+i_' + iso6393 + '+is_' + iso115924
+
 
     @staticmethod
     def load_hxltm_options(custom_file_option=None, is_debug=False):

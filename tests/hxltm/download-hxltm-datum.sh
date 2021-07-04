@@ -43,6 +43,14 @@
 # Hapi_L10N="https://proxy.hxlstandard.org/data/download/L10n_hxl_csv.csv?dest=data_edit&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4%2Fedit%23gid%3D1181688279"
 hxltm_exemplum_linguam="https://proxy.hxlstandard.org/data/download/hxltm-exemplum-linguam_tm_hxl.csv?dest=data_edit&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8%2Fedit%23gid%3D1241276648"
 
+# hxltm-exemplum-glossarium-minimum.tm.hxl
+hxltm_exemplum_glossarium_minimum="https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/export?format=csv&gid=453212251"
+
+# TODO: hxltm-exemplum-glossarium.tm.hxl
+
+# csv-3-exemplum
+csv_3_exemplum="https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/export?format=csv&gid=800942839"
+
 ROOTDIR="$(pwd)"
 
 #### DATA PULL _________________________________________________________________
@@ -58,6 +66,22 @@ if true ; then
     echo "   Fontem:   [$hxltm_exemplum_linguam]"
     echo "   Archīvum: [${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv]"
     wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
+fi
+
+if true ; then
+    echo ''
+    echo "hxltm_exemplum_glossarium_minimum"
+    echo "   Fontem:   [$hxltm_exemplum_glossarium_minimum]"
+    echo "   Archīvum: [${ROOTDIR}/tests/hxltm/hxltm-exemplum-glossarium-minimum.tm.hxl.csv]"
+    wget -qO- "$hxltm_exemplum_glossarium_minimum" > "${ROOTDIR}/tests/hxltm/hxltm-exemplum-glossarium-minimum.tm.hxl.csv"
+fi
+
+if true ; then
+    echo ''
+    echo "csv_3_exemplum"
+    echo "   Fontem:   [$csv_3_exemplum]"
+    echo "   Archīvum: [${ROOTDIR}/tests/hxltm/csv-3-exemplum.csv]"
+    wget -qO- "$csv_3_exemplum" > "${ROOTDIR}/tests/hxltm/csv-3-exemplum.csv"
 fi
 
 exit 0

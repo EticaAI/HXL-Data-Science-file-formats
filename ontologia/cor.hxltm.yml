@@ -24,7 +24,6 @@
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
   .hxl.csv: HXLTM
-  "[a-z]{2}.csv": CSV-3 # Not implemented yet
   .csv: HXLTM
   .json: JSON-kv
   .tmx: TMX
@@ -33,6 +32,9 @@ fontem_archivum_extensionem:
   .xlf: XLIFF2
   .xlf2: XLIFF2
   .xliff: XLIFF2
+
+fontem_archivum_extensionem_regex:
+  "[a-z]{2}.csv": CSV-3 # Not implemented yet
 
 formatum:
   #### CSV-3: Source + Target + Comment (draft) _______________________________
@@ -137,3 +139,5 @@ formatum:
 # - http://docs.translatehouse.org/projects/translate-toolkit/en/latest/commands/csv2tbx.html
 # - https://github.com/lokalise/i18n-ally
 #   - https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally
+# - Which characters need to be escaped when using Bash?
+#   - https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash
