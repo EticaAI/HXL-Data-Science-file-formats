@@ -258,9 +258,7 @@
         }
       }
     },
-    "glossarium": {
-      "definitionem": null
-    },
+    "glossarium": null,
     "extensionem": {
       "conceptum": {
         "codicem": {
@@ -311,6 +309,19 @@
         }
       }
     },
-    "tm": null
+    "tm": {
+      "conceptum": {
+        "translationem": {
+          "directionem": {
+            "__HXL": "#meta +conceptum +translationem +directionem",
+            "__id": "ontologia.tm.conceptum.translationem.directionem",
+            "_UTX": {
+              "_nomen": "Translation direction",
+              "_descriptionem": "The direction of translation from one language to another\n(translation direction) can be unidirectional, bidirectional, or\nmultidirectional. This information can be specified with\n\"3.2.14 directionality property.\"\n\nA unidirectional glossary is a glossary whose translation\ndirection is primarily one-way, i.e. from the source language to\nthe target language.\n\n> Example: unidirectional bilingual Japanese-English UTX glossary\n\n- Source language: Japanese, target language: English\n- Primary translation direction: Japanese to English\n- Note: Some terms in a unidirectional glossary may be exported\n  and used in the reverse direction in an ad-hoc manner.\n  This operation is called reverse-exporting. In this case, the\n  source language becomes the target language, and vice versa.\n  A reverse-exported unidirectional glossary may contain problems\n  because the consequence of the reversal may not be thoroughly\n  examined when compared with a full bidirectional glossary.\n\nA bidirectional glossary is a glossary that is designed to be\nused in two-way translation. Terms in one language can be\ntranslated into another, and vice versa.\n\n> Example: bidirectional bilingual Japanese-English UTX glossary\n>\n> - Language 1: Japanese, language 2: English\n> - Translation direction: Japanese ⇔ English\n\n> Example: bidirectional multilingual English-French-German\n> glossary\n>\n> - Language 1: English, language 2: French, language 3: German\n> - Translation direction: English ⇔ French, English ⇔ German\n    (but not French ⇔ German)\n\nA multidirectional glossary is a type of multilingual glossary\nthat is designed to be used in any combination of languages in the\nglossary.\n\n> Example: multidirectional multilingual English-Japanese-Chinese\n> glossary\n>\n> - Language 1: English, language 2: Japanese, language 3: Chinese\n> - Translation direction: any combination of the above\n"
+            }
+          }
+        }
+      }
+    }
   }
 }
