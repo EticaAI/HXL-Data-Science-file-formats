@@ -149,10 +149,17 @@
           "__id": "ontologia.commune.conceptum.dominium",
           "_TBX": {
             "_id": "DC-489",
-            "_desc": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
+            "_descriptionem": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
             "_nomen": "Subject field",
             "_level": "Concept",
             "_xml": "<descrip type='subjectField'>"
+          },
+          "_TMX": {
+            "_descriptionem": "Property - The <prop> element is used to define the various\nproperties of the parent element (or of the document when\n<prop> is used in the <header> element).\nThese properties are not defined by the standard.\nIt is the responsibility of each tool provider to publish the\ntypes and values of the properties it uses.\nIf the tool exports unpublished properties types, their\nvalues should begin with the prefix \"x-\".\n\nExample:\n<prop type=\"user-defined\">name:domain value:Computer science</prop>\n<prop type=\"x-domain\">Computer science</prop> \n"
+          },
+          "_UTX": {
+            "_nomen": "domain property",
+            "_descriptionem": "The domain property is a text string that indicates the domain of\nthe glossary. This property is used when you need to group multiple\nglossaries into a domain. If you use glossary IDs as domain names,\nthe domain property is not necessary.\nExample\n  domain: Aerospace\n"
           }
         },
         "meta": {
@@ -167,8 +174,12 @@
           "_TBX": {
             "_id": "DC-1823",
             "_nomen": "Term",
-            "_desc": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
+            "_descriptionem": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
             "_xml": "<term>"
+          },
+          "_UTX": {
+            "_nomen": "Term",
+            "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
           }
         },
         "contextum": {
@@ -177,7 +188,7 @@
             "__id": "ontologia.commune.rem.contextum.__linguam__",
             "_TBX": {
               "_id": "DC-149",
-              "_desc": "A sample sentence that contains the term.",
+              "_descriptionem": "A sample sentence that contains the term.",
               "_xml": "<descrip type='context'>"
             }
           }
@@ -188,7 +199,7 @@
             "__id": "ontologia.commune.rem.definitionem.__linguam__",
             "_TBX": {
               "_id": "DC-168",
-              "_desc": null,
+              "_descriptionem": null,
               "_nomen": "Definition",
               "_level": "Concept, Language",
               "_xml": "<descrip type='definition'>"
@@ -201,7 +212,7 @@
             "__id": "ontologia.commune.rem.genus.__linguam__",
             "_TBX": {
               "_id": "DC-245",
-              "_desc": "Picklist, with permissible values as follows:\n  • masculine\n  • feminine\n  • neuter\n  • other\n",
+              "_descriptionem": "Picklist, with permissible values as follows:\n  • masculine\n  • feminine\n  • neuter\n  • other\n",
               "_nomen": "Gender",
               "_level": "Term",
               "_xml": "<termNote type='grammaticalGender'>"
@@ -214,7 +225,7 @@
             "__id": "ontologia.commune.rem.notam.__linguam__",
             "_TBX": {
               "_id": "DC-382",
-              "_desc": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
+              "_descriptionem": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
               "_nomen": "Note",
               "_level": "Concept, Language, Term",
               "_xml": "<note>"
@@ -228,7 +239,7 @@
             "_TBX": {
               "_id": "DC-396",
               "_nomen": "Part of speech",
-              "_desc": "Content type picklist\nPermissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nnoun         www.isocat.org/datcat/DC-1333\nverb         www.isocat.org/datcat/DC-1424\nadjective    www.isocat.org/datcat/DC-1230\nadverb       www.isocat.org/datcat/DC-1232\nproperNoun   www.isocat.org/datcat/DC-384\nother        www.isocat.org/datcat/DC-4336\n\nIn TBX-Default, the data type for part of speech is plainText.\nTBX-Basic's use of picklist is in compliance with TBX-Default\nbecause picklist is more constrained than plainText.\n\nThe other value can be used for terms of the phrase type.\n",
+              "_descriptionem": "Content type picklist\nPermissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nnoun         www.isocat.org/datcat/DC-1333\nverb         www.isocat.org/datcat/DC-1424\nadjective    www.isocat.org/datcat/DC-1230\nadverb       www.isocat.org/datcat/DC-1232\nproperNoun   www.isocat.org/datcat/DC-384\nother        www.isocat.org/datcat/DC-4336\n\nIn TBX-Default, the data type for part of speech is plainText.\nTBX-Basic's use of picklist is in compliance with TBX-Default\nbecause picklist is more constrained than plainText.\n\nThe other value can be used for terms of the phrase type.\n",
               "_xml": "<termNote type='partOfSpeech'>"
             }
           }
@@ -241,7 +252,7 @@
               "_id": "DC-2677",
               "_nomen": "Term type",
               "_xml": "<termNote type='termType'>",
-              "_desc": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
+              "_descriptionem": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
             }
           }
         }
@@ -249,6 +260,56 @@
     },
     "glossarium": {
       "definitionem": null
+    },
+    "extensionem": {
+      "conceptum": {
+        "codicem": {
+          "iate": {
+            "__HXL": "#meta +conceptum +codicem +iate",
+            "__id": "ontologia.extensionem.conceptum.codicem.iate",
+            "_url": "https://iate.europa.eu/fields-explained",
+            "_compactum": {
+              "_id": "ontologia.commune.conceptum.meta",
+              "_JSONPath": "codicem.iate",
+              "_exemplum": {
+                "codicem": {
+                  "iate": 787725
+                }
+              }
+            }
+          },
+          "unterm": {
+            "__HXL": "#meta +conceptum +codicem +unterm",
+            "__id": "ontologia.extensionem.conceptum.codicem.unterm",
+            "_url": "https://iate.europa.eu/fields-explained",
+            "_url_rem": "https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{rem}}",
+            "_compactum": {
+              "_id": "ontologia.commune.conceptum.meta",
+              "_JSONPath": "codicem.unterm",
+              "_exemplum": {
+                "codicem": {
+                  "unterm": "5f40d95f1d17bf8c85256a01000080af"
+                }
+              }
+            }
+          },
+          "wikidata": {
+            "__HXL": "#meta +conceptum +codicem +wikidata",
+            "__id": "ontologia.extensionem.conceptum.codicem.wikidata",
+            "_url": "https://www.wikidata.org/",
+            "_url_rem": "https://www.wikidata.org/wiki/{{rem}}",
+            "_compactum": {
+              "_id": "ontologia.commune.conceptum.meta",
+              "_JSONPath": "codicem.wikidata",
+              "_exemplum": {
+                "codicem": {
+                  "wikidata": "Q1"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "tm": null
   }
