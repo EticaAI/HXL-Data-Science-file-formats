@@ -10,6 +10,10 @@
 #   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
 # - "cor"
 #   - https://en.wiktionary.org/wiki/cor#Latin
+# - "ontologia"
+#   - https://la.wikipedia.org/wiki/Ontologia
+# - "glōssārium"
+#   - https://en.wiktionary.org/wiki/glossarium#Latin
 # - "archīvum"
 #   - https://en.wiktionary.org/wiki/archivum
 # - "typum"
@@ -20,6 +24,10 @@
 #   - https://en.wiktionary.org/wiki/fons#Latin
 # - "extēnsiōnem"
 #   - https://en.wiktionary.org/wiki/extensio#Latin
+# - "commūne"
+#   - https://en.wiktionary.org/wiki/communis#Latin
+# - "alternātīvum"
+#   - https://en.wiktionary.org/wiki/alternativus#Latin
 
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
@@ -133,6 +141,70 @@ formatum:
         - https://guides.rubyonrails.org/i18n.html
     exemplum:
       - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+
+ontologia:
+
+  # Trivia: commūne, https://en.wiktionary.org/wiki/conceptus#Latin
+  commune:
+    # Trivia: conceptum, https://en.wiktionary.org/wiki/conceptus#Latin
+    conceptum:
+      # Trivia: cōdicem, https://en.wiktionary.org/wiki/codex#Latin
+      codicem:
+        __HXL: '#item +conceptum +codicem'
+        alternativum:
+          HXL: '#item +conceptum +codicem +alternativum +list'
+    # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
+    rem:
+      linguam:
+         # Exemplum: '#item +rem +i_en +i_eng +is_Latn'
+        __HXL: '#item +rem {{linguam}}'
+        _TBX:
+          _id: DC-1823
+          _nomen: Term
+          _desc: |
+            Refers to a location in the corpus—such as a software application
+            user interface, product packaging, oran industrial process—where
+            the term frequently occurs'A sample sentence that contains
+            the term.
+          _xml: '<term>'
+      # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
+      contextum:
+        linguam:
+          __HXL: '#item +rem +contextum {{linguam}}'
+          _TBX:
+            _id: DC-149
+            _desc: 'A sample sentence that contains the term.'
+      typum:
+        linguam:
+          __HXL: '#item +rem +typum {{linguam}}'
+          _TBX:
+            _id: DC-2677
+            _nomen: Term type
+            _xml: '<termNote type="termType">'
+            _desc: |
+              Permissible values and their ISOcat PIDs are as follows:
+              Value        ISOcat PID
+              fullForm     www.isocat.org/datcat/DC-321
+              acronym      www.isocat.org/datcat/DC-334
+              abbreviation www.isocat.org/datcat/DC-331
+              shortForm    www.isocat.org/datcat/DC-332
+              variant      www.isocat.org/datcat/DC-330
+              phrase       www.isocat.org/datcat/DC-339
+
+
+  # Trivia: glōssārium, https://en.wiktionary.org/wiki/glossarium
+  glossarium:
+    # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
+    definitionem:
+  tm:
+
+## TBX Basic 3.1 (http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf)
+#  5 Mandatory data categories
+#  There are only two mandatory data categories in TBX-Basic: term, and language.
+#  Several of the remaining data categories, including definition, context, part of speech, and subject
+#  field are very important and should be included in a terminology whenever possible. The most
+#  important non-mandatory data category is part of speech
+
 
 #### TO DOs ____________________________________________________________________
 # - https://site.matecat.com/support/managing-language-resources/add-glossary/
