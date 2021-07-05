@@ -1,11 +1,9 @@
 {
-  "hxltm": [
-    "fiat lux!"
-  ],
   "fontem_archivum_extensionem": {
     ".tm.hxl.csv": "HXLTM",
     ".hxl.csv": "HXLTM",
     ".csv": "HXLTM",
+    ".json": "JSON-kv",
     ".tmx": "TMX",
     ".utx": "UTX",
     ".tbx": "TBX-Basic",
@@ -13,7 +11,19 @@
     ".xlf2": "XLIFF2",
     ".xliff": "XLIFF2"
   },
+  "fontem_archivum_extensionem_regex": {
+    "[a-z]{2}.csv": "CSV-3"
+  },
   "formatum": {
+    "CSV-3": {
+      "archivum_extensionem": ".csv",
+      "normam": [
+        "https://site.matecat.com/support/managing-language-resources/add-glossary/"
+      ],
+      "situs_interretialis": {
+        "referens_officinale": []
+      }
+    },
     "HXLTM": {
       "archivum_extensionem": ".tm.hxl.csv",
       "normam": [
@@ -24,6 +34,19 @@
           "https://hdp.etica.ai/#HXLTM"
         ]
       }
+    },
+    "JSON-kv": {
+      "archivum_extensionem": ".json",
+      "normam": [
+        "https://angular.io/guide/i18n#change-the-source-language-file-location",
+        "https://www.i18next.com/misc/json-format"
+      ],
+      "situs_interretialis": {
+        "referens_officinale": []
+      },
+      "exemplum": [
+        "https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json"
+      ]
     },
     "TBX-Basic": {
       "archivum_extensionem": ".tbx",
@@ -94,6 +117,139 @@
       "normam": [
         "https://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html"
       ]
+    },
+    "YAML": {
+      "archivum_extensionem": ".yml",
+      "normam": [
+        "https://guides.rubyonrails.org/i18n.html"
+      ],
+      "situs_interretialis": {
+        "referens_officinale": [
+          "https://guides.rubyonrails.org/i18n.html"
+        ]
+      },
+      "exemplum": [
+        "https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json"
+      ]
     }
+  },
+  "ontologia": {
+    "commune": {
+      "conceptum": {
+        "codicem": {
+          "__HXL": "#item +conceptum +codicem",
+          "__id": "ontologia.commune.conceptum.codicem",
+          "alternativum": {
+            "__HXL": "#meta +conceptum +codicem +alternativum",
+            "__id": "ontologia.commune.conceptum.codicem.alternativum"
+          }
+        },
+        "dominium": {
+          "__HXL": "#item +conceptum +dominium",
+          "__id": "ontologia.commune.conceptum.dominium",
+          "_TBX": {
+            "_id": "DC-489",
+            "_desc": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
+            "_nomen": "Subject field",
+            "_level": "Concept",
+            "_xml": "<descrip type='subjectField'>"
+          }
+        },
+        "meta": {
+          "__HXL": "#meta +conceptum",
+          "__id": "ontologia.commune.conceptum.meta"
+        }
+      },
+      "rem": {
+        "__linguam__": {
+          "__HXL": "#item +rem __linguam__",
+          "__id": "ontologia.commune.rem.__linguam__",
+          "_TBX": {
+            "_id": "DC-1823",
+            "_nomen": "Term",
+            "_desc": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
+            "_xml": "<term>"
+          }
+        },
+        "contextum": {
+          "__linguam__": {
+            "__HXL": "#item +rem +contextum __linguam__",
+            "__id": "ontologia.commune.rem.contextum.__linguam__",
+            "_TBX": {
+              "_id": "DC-149",
+              "_desc": "A sample sentence that contains the term.",
+              "_xml": "<descrip type='context'>"
+            }
+          }
+        },
+        "definitionem": {
+          "__linguam__": {
+            "__HXL": "#item +rem +definitionem __linguam__",
+            "__id": "ontologia.commune.rem.definitionem.__linguam__",
+            "_TBX": {
+              "_id": "DC-168",
+              "_desc": null,
+              "_nomen": "Definition",
+              "_level": "Concept, Language",
+              "_xml": "<descrip type='definition'>"
+            }
+          }
+        },
+        "genus": {
+          "__linguam__": {
+            "__HXL": "#item +rem +genus __linguam__",
+            "__id": "ontologia.commune.rem.genus.__linguam__",
+            "_TBX": {
+              "_id": "DC-245",
+              "_desc": "Picklist, with permissible values as follows:\n  • masculine\n  • feminine\n  • neuter\n  • other\n",
+              "_nomen": "Gender",
+              "_level": "Term",
+              "_xml": "<termNote type='grammaticalGender'>"
+            }
+          }
+        },
+        "notam": {
+          "__linguam__": {
+            "__HXL": "#item +rem +notam __linguam__",
+            "__id": "ontologia.commune.rem.notam.__linguam__",
+            "_TBX": {
+              "_id": "DC-382",
+              "_desc": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
+              "_nomen": "Note",
+              "_level": "Concept, Language, Term",
+              "_xml": "<note>"
+            }
+          }
+        },
+        "partem_orationis": {
+          "__linguam__": {
+            "__HXL": "#item +rem +partem_orationis __linguam__",
+            "__id": "ontologia.commune.rem.partem_orationis.__linguam__",
+            "_TBX": {
+              "_id": "DC-396",
+              "_nomen": "Part of speech",
+              "_desc": "Content type picklist\nPermissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nnoun         www.isocat.org/datcat/DC-1333\nverb         www.isocat.org/datcat/DC-1424\nadjective    www.isocat.org/datcat/DC-1230\nadverb       www.isocat.org/datcat/DC-1232\nproperNoun   www.isocat.org/datcat/DC-384\nother        www.isocat.org/datcat/DC-4336\n\nIn TBX-Default, the data type for part of speech is plainText.\nTBX-Basic's use of picklist is in compliance with TBX-Default\nbecause picklist is more constrained than plainText.\n\nThe other value can be used for terms of the phrase type.\n",
+              "_xml": "<termNote type='partOfSpeech'>"
+            }
+          }
+        },
+        "typum": {
+          "__linguam__": {
+            "__HXL": "#item +rem +typum __linguam__",
+            "__id": "ontologia.commune.rem.typum.__linguam__",
+            "_TBX": {
+              "_id": "DC-2677",
+              "_nomen": "Term type",
+              "_xml": "<termNote type='termType'>",
+              "_desc": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
+            }
+          }
+        }
+      }
+    },
+    "glossarium": {
+      "definitionem": null
+    },
+    "tm": null
   }
 }

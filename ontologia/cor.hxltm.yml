@@ -151,13 +151,40 @@ ontologia:
       # Trivia: cōdicem, https://en.wiktionary.org/wiki/codex#Latin
       codicem:
         __HXL: '#item +conceptum +codicem'
+        __id: ontologia.commune.conceptum.codicem
         alternativum:
-          HXL: '#item +conceptum +codicem +alternativum +list'
+          __HXL: '#meta +conceptum +codicem +alternativum' # meta, not item
+          __id: ontologia.commune.conceptum.codicem.alternativum
+          # '#item +conceptum +codicem +alternativum +list' # Always a list
+
+      dominium:
+        __HXL: '#item +conceptum +dominium' # Always a list
+        __id: ontologia.commune.conceptum.dominium
+        _TBX:
+          _id: DC-489
+          _desc: |
+            Refers to a location in the corpus—such as a software application
+            user interface, product packaging, oran industrial process—where
+            the term frequently occurs'A sample sentence that contains
+            the term.
+          _nomen: Subject field
+          _level: Concept
+          _xml: <descrip type='subjectField'>
+
+      meta:
+        __HXL: '#meta +conceptum'
+        __id: ontologia.commune.conceptum.meta
+        # Note: this field is unlikely to show as it is on spreadsheets
+        #       edited by humans, but is a catch-all for metatada related
+        #       to concept that does not have specialized field.
+        # Recommended data type: JSON
+
     # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
     rem:
-      linguam:
+      __linguam__:
          # Exemplum: '#item +rem +i_en +i_eng +is_Latn'
-        __HXL: '#item +rem {{linguam}}'
+        __HXL: '#item +rem __linguam__'
+        __id: ontologia.commune.rem.__linguam__
         _TBX:
           _id: DC-1823
           _nomen: Term
@@ -167,20 +194,96 @@ ontologia:
             the term frequently occurs'A sample sentence that contains
             the term.
           _xml: '<term>'
+
       # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
       contextum:
-        linguam:
-          __HXL: '#item +rem +contextum {{linguam}}'
+        __linguam__:
+          __HXL: '#item +rem +contextum __linguam__'
+          __id: ontologia.commune.rem.contextum.__linguam__
           _TBX:
             _id: DC-149
-            _desc: 'A sample sentence that contains the term.'
+            _desc: A sample sentence that contains the term.
+            _xml: <descrip type='context'>
+
+      # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
+      definitionem:
+        __linguam__:
+          __HXL: '#item +rem +definitionem __linguam__'
+          __id: ontologia.commune.rem.definitionem.__linguam__
+          _TBX:
+            _id: DC-168
+            _desc:
+            _nomen: Definition
+            _level: Concept, Language
+            _xml: <descrip type='definition'>
+
+      # Trivia: genus, https://en.wiktionary.org/wiki/genus#Latin
+      genus:
+        __linguam__:
+          __HXL: '#item +rem +genus __linguam__'
+          __id: ontologia.commune.rem.genus.__linguam__
+          _TBX:
+            _id: DC-245
+            _desc: |
+              Picklist, with permissible values as follows:
+                • masculine
+                • feminine
+                • neuter
+                • other
+            _nomen: Gender
+            _level: Term
+            _xml: <termNote type='grammaticalGender'>
+
+      # Trivia, notam, https://en.wiktionary.org/wiki/nota#Latin
+      notam:
+        __linguam__:
+          __HXL: '#item +rem +notam __linguam__'
+          __id: ontologia.commune.rem.notam.__linguam__
+          _TBX:
+            _id: DC-382
+            _desc: |
+              Any kind of note, such as a usage note, explanation,
+              or instruction
+            _nomen: Note
+            _level: Concept, Language, Term
+            _xml: <note>
+
+      # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
+      partem_orationis:
+        __linguam__:
+          __HXL: '#item +rem +partem_orationis __linguam__'
+          __id: ontologia.commune.rem.partem_orationis.__linguam__
+          _TBX:
+            _id: DC-396
+            _nomen: Part of speech
+            _desc: |
+              Content type picklist
+              Permissible values and their ISOcat PIDs are as follows:
+              Value        ISOcat PID
+              noun         www.isocat.org/datcat/DC-1333
+              verb         www.isocat.org/datcat/DC-1424
+              adjective    www.isocat.org/datcat/DC-1230
+              adverb       www.isocat.org/datcat/DC-1232
+              properNoun   www.isocat.org/datcat/DC-384
+              other        www.isocat.org/datcat/DC-4336
+
+              In TBX-Default, the data type for part of speech is plainText.
+              TBX-Basic's use of picklist is in compliance with TBX-Default
+              because picklist is more constrained than plainText.
+
+              The other value can be used for terms of the phrase type.
+            _xml: <termNote type='partOfSpeech'>
+
+      # TODO: TBXBasic 6.17 Subject field, <descrip type="subjectField">
+
       typum:
-        linguam:
-          __HXL: '#item +rem +typum {{linguam}}'
+        __linguam__:
+          __HXL: '#item +rem +typum __linguam__'
+          __id: ontologia.commune.rem.typum.__linguam__
           _TBX:
             _id: DC-2677
             _nomen: Term type
-            _xml: '<termNote type="termType">'
+            _xml: <termNote type='termType'>
             _desc: |
               Permissible values and their ISOcat PIDs are as follows:
               Value        ISOcat PID
