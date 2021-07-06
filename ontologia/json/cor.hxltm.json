@@ -59,6 +59,17 @@
         ]
       }
     },
+    "TBX-2008": {
+      "archivum_extensionem": ".tbx",
+      "normam": [
+        "https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf"
+      ],
+      "situs_interretialis": {
+        "referens_officinale": [
+          "https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards"
+        ]
+      }
+    },
     "TMX": {
       "archivum_extensionem": ".tmx",
       "normam": [
@@ -136,6 +147,18 @@
   "ontologia": {
     "commune": {
       "conceptum": {
+        "accuratum": {
+          "__HXL": "#status +conceptum +accuratum",
+          "__id": "ontologia.commune.conceptum.accuratum",
+          "__valorem_typum": "numerum",
+          "__valorem_maximum": 10,
+          "__valorem_minimum": 0,
+          "_TBX": {
+            "_nomen": "reliabilityCode",
+            "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
+            "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
+          }
+        },
         "codicem": {
           "__HXL": "#item +conceptum +codicem",
           "__id": "ontologia.commune.conceptum.codicem",
@@ -155,7 +178,7 @@
             "_xml": "<descrip type='subjectField'>"
           },
           "_TMX": {
-            "_descriptionem": "Property - The <prop> element is used to define the various\nproperties of the parent element (or of the document when\n<prop> is used in the <header> element).\nThese properties are not defined by the standard.\nIt is the responsibility of each tool provider to publish the\ntypes and values of the properties it uses.\nIf the tool exports unpublished properties types, their\nvalues should begin with the prefix \"x-\".\n\nExample:\n<prop type=\"user-defined\">name:domain value:Computer science</prop>\n<prop type=\"x-domain\">Computer science</prop> \n"
+            "_descriptionem": "Property - The <prop> element is used to define the various\nproperties of the parent element (or of the document when\n<prop> is used in the <header> element).\nThese properties are not defined by the standard.\nIt is the responsibility of each tool provider to publish the\ntypes and values of the properties it uses.\nIf the tool exports unpublished properties types, their\nvalues should begin with the prefix \"x-\".\n\nExample:\n<prop type='user-defined'>name:domain value:Computer science</prop>\n<prop type='x-domain'>Computer science</prop> \n"
           },
           "_UTX": {
             "_nomen": "domain property",
@@ -189,6 +212,18 @@
             "_nomen": "Term",
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
           },
+          "accuratum": {
+            "__HXL": "#status +rem +accuratum __linguam__",
+            "__id": "ontologia.commune.rem.accuratum.__linguam__",
+            "__valorem_typum": "numerum",
+            "__valorem_maximum": 10,
+            "__valorem_minimum": 0,
+            "_TBX": {
+              "_nomen": "reliabilityCode",
+              "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
+              "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
+            }
+          },
           "compactum_json": {
             "__HXL": "#meta +json +rem __linguam__",
             "__id": "ontologia.commune.rem.__linguam__.compactum_json"
@@ -210,6 +245,18 @@
           "_UTX": {
             "_nomen": "Term",
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          },
+          "accuratum": {
+            "__HXL": "#status +rem +accuratum __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.accuratum.__linguam_de_imperium__",
+            "__valorem_typum": "numerum",
+            "__valorem_maximum": 10,
+            "__valorem_minimum": 0,
+            "_TBX": {
+              "_nomen": "reliabilityCode",
+              "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
+              "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
+            }
           },
           "compactum_json": {
             "__HXL": "#meta +json +rem __linguam_de_imperium__",

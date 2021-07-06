@@ -84,6 +84,16 @@ formatum:
       referens_officinale:
         - http://www.terminorgs.net/TBX-Basic.html
 
+  #### Term Base eXchange (TBX) 2008 CC-BY License _____________________________
+  # Term Base eXchange (TBX) (identical to ISO 30042:2008)
+  TBX-2008:
+    archivum_extensionem: .tbx
+    normam:
+      - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+    situs_interretialis:
+      referens_officinale:
+        - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+
   #### TMX: TermBase eXchange (TBX) Basic ______________________________________
   TMX:
     archivum_extensionem: .tmx
@@ -151,17 +161,38 @@ formatum:
 # Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
 ontologia:
 
-  # TODO:
-  # - IATE reliability, https://en.wiktionary.org/wiki/reliability
-  #   - https://www.wordhippo.com/what-is/the/latin-word-for-c5e8cfa79b53d0af31274005b8c357a9acc7b02c.html
-  #   - https://en.wiktionary.org/wiki/fidelis
-  #   - https://en.wiktionary.org/wiki/certus
-  #   - accūrātum, https://en.wiktionary.org/wiki/accuratus
-
   # Trivia: commūne, https://en.wiktionary.org/wiki/conceptus#Latin
   commune:
     # Trivia: conceptum, https://en.wiktionary.org/wiki/conceptus#Latin
     conceptum:
+
+      # Trivia:
+      # - accūrātum, https://en.wiktionary.org/wiki/accuratus
+      #   - reliabilityCode, https://iate.europa.eu/fields-explained
+      #   - reliabilityCode, https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+      accuratum:
+        __HXL: '#status +conceptum +accuratum'
+        __id: ontologia.commune.conceptum.accuratum
+        # Trivia:
+        # - computātrum, https://en.wiktionary.org/wiki/computatrum#Latin
+        # - valōrem, https://en.wiktionary.org/wiki/valor#Latin
+        # - typum, https://en.wiktionary.org/wiki/typus#Latin
+        # - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+        # - maximum, https://en.wiktionary.org/wiki/maximus#Latin
+        # - minimum, https://en.wiktionary.org/wiki/minimus#Latin
+        __valorem_typum: numerum
+        __valorem_maximum: 10
+        __valorem_minimum: 0
+        _TBX: &referens_ontologia-commune-conceptum-accuratum-_TBX
+          # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+          _nomen: reliabilityCode
+          _descriptionem: |
+            A code assigned to a data-category or record indicating accuracy
+            and/or completeness. The content of the <descrip> element when it
+            has a type attribute value of 'reliabilityCode' shall be a value
+            from 1 (least reliable) to 10 (most reliable).
+          _xml: <descrip type='reliabilityCode'>__valorem__</descrip>
+
       # Trivia: cōdicem, https://en.wiktionary.org/wiki/codex#Latin
       codicem:
         __HXL: '#item +conceptum +codicem'
@@ -199,8 +230,8 @@ ontologia:
             values should begin with the prefix "x-".
 
             Example:
-            <prop type="user-defined">name:domain value:Computer science</prop>
-            <prop type="x-domain">Computer science</prop> 
+            <prop type='user-defined'>name:domain value:Computer science</prop>
+            <prop type='x-domain'>Computer science</prop> 
         _UTX:
           _nomen: domain property
           _descriptionem: |
@@ -253,6 +284,14 @@ ontologia:
 
             Note: Term definitions are optional in a UTX glossary.
 
+        accuratum:
+          __HXL: '#status +rem +accuratum __linguam__'
+          __id: ontologia.commune.rem.accuratum.__linguam__
+          __valorem_typum: numerum
+          __valorem_maximum: 10
+          __valorem_minimum: 0
+          _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
+
         compactum_json:
           __HXL: '#meta +json +rem __linguam__'
           __id: ontologia.commune.rem.__linguam__.compactum_json
@@ -271,6 +310,14 @@ ontologia:
         __id: ontologia.commune.rem.__linguam_de_imperium__
         _TBX: *referens_ontologia-commune-rem-__linguam__-_TBX
         _UTX: *referens_ontologia-commune-rem-__linguam__-_UTX
+
+        accuratum:
+          __HXL: '#status +rem +accuratum __linguam_de_imperium__'
+          __id: ontologia.commune.rem.accuratum.__linguam_de_imperium__
+          __valorem_typum: numerum
+          __valorem_maximum: 10
+          __valorem_minimum: 0
+          _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
 
         compactum_json:
           __HXL: '#meta +json +rem __linguam_de_imperium__'
@@ -581,6 +628,33 @@ ontologia:
 # - ontologia, https://la.wikipedia.org/wiki/Ontologia
 # - aliud, https://en.wiktionary.org/wiki/alius#Latin, https://en.wiktionary.org/wiki/alias#English
 ontologia_aliud:
+
+  # # TODO:
+  # # - IATE reliability, https://en.wiktionary.org/wiki/reliability
+  # #   - https://www.wordhippo.com/what-is/the/latin-word-for-c5e8cfa79b53d0af31274005b8c357a9acc7b02c.html
+  # #   - https://en.wiktionary.org/wiki/fidelis
+  # #   - https://en.wiktionary.org/wiki/certus
+  # #   - accūrātum, https://en.wiktionary.org/wiki/accuratus
+  # # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+  # # @see https://iate.europa.eu/fields-explained
+
+  # # Trivia:
+  # # - accūrātum, https://en.wiktionary.org/wiki/accuratus
+  # #   - reliabilityCode, https://iate.europa.eu/fields-explained
+  # #   - reliabilityCode, https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+  # accuratum:
+  #   __HXL: '#meta +conceptum +accuratum'
+  #   __id: ontologia.commune.conceptum.accuratum
+  #   # Trivia:
+  #   # - computātrum, https://en.wiktionary.org/wiki/computatrum#Latin
+  #   # - valōrem, https://en.wiktionary.org/wiki/valor#Latin
+  #   # - typum, https://en.wiktionary.org/wiki/typus#Latin
+  #   # - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+  #   # - maximum, https://en.wiktionary.org/wiki/maximus#Latin
+  #   # - minimum, https://en.wiktionary.org/wiki/minimus#Latin
+  #   __valorem_typum: numerum
+  #   __valorem_maximum: 10
+  #   __valorem_minimum: 0
 
   # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
   partem_orationis:
