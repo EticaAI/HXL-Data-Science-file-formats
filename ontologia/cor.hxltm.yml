@@ -142,6 +142,10 @@ formatum:
     exemplum:
       - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
 
+   #### XLSX, Google Sheets ____________________________________________________
+   # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
+   # @see https://support.google.com/drive/answer/37603
+
 ontologia:
 
   # TODO:
@@ -214,11 +218,12 @@ ontologia:
 
     # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
     rem:
+      # Trivia: linguam, https://en.wiktionary.org/wiki/lingua#Latin
       __linguam__:
          # Exemplum: '#item +rem +i_en +i_eng +is_Latn'
         __HXL: '#item +rem __linguam__'
         __id: ontologia.commune.rem.__linguam__
-        _TBX:
+        _TBX: &referens_ontologia-commune-rem-__linguam__-_TBX
           _id: DC-1823
           _nomen: Term
           _descriptionem: |
@@ -227,7 +232,7 @@ ontologia:
             the term frequently occurs'A sample sentence that contains
             the term.
           _xml: '<term>'
-        _UTX:
+        _UTX: &referens_ontologia-commune-rem-__linguam__-_UTX
           _nomen: Term
           _descriptionem: |
             A term is a headword of either the source or target language(s).
@@ -237,34 +242,55 @@ ontologia:
 
             Note: Term definitions are optional in a UTX glossary.
 
+      # Trivia: 
+      # - linguam, https://en.wiktionary.org/wiki/lingua#Latin
+      # - dē, https://en.wiktionary.org/wiki/de#Latin
+      # - imperium, https://en.wiktionary.org/wiki/imperium#Latin
+      __linguam_de_imperium__:
+         # Exemplum: '#item +rem +i_en +i_eng +is_Latn +TODO_THINK_ABOUT_HXLTAG'
+        __HXL: '#item +rem __linguam_de_imperium__'
+        __id: ontologia.commune.rem.__linguam_de_imperium__
+        _TBX: *referens_ontologia-commune-rem-__linguam__-_TBX
+        _UTX: *referens_ontologia-commune-rem-__linguam__-_UTX
+
       # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
       contextum:
         __linguam__:
           __HXL: '#item +rem +contextum __linguam__'
           __id: ontologia.commune.rem.contextum.__linguam__
-          _TBX:
+          _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
             _id: DC-149
             _descriptionem: A sample sentence that contains the term.
             _xml: <descrip type='context'>
+
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +contextum __linguam_de_imperium__'
+          __id: ontologia.commune.rem.contextum.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-contextum-__linguam__-_TBX
 
       # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
       definitionem:
         __linguam__:
           __HXL: '#item +rem +definitionem __linguam__'
           __id: ontologia.commune.rem.definitionem.__linguam__
-          _TBX:
+          _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
             _id: DC-168
             _descriptionem:
             _nomen: Definition
             _level: Concept, Language
             _xml: <descrip type='definition'>
 
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +definitionem __linguam_de_imperium__'
+          __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+
       # Trivia: genus, https://en.wiktionary.org/wiki/genus#Latin
       genus:
         __linguam__:
           __HXL: '#item +rem +genus __linguam__'
           __id: ontologia.commune.rem.genus.__linguam__
-          _TBX:
+          _TBX: &referens_ontologia-commune-rem-genus-__linguam__-_TBX
             _id: DC-245
             _descriptionem: |
               Picklist, with permissible values as follows:
@@ -276,12 +302,17 @@ ontologia:
             _level: Term
             _xml: <termNote type='grammaticalGender'>
 
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +genus __linguam_de_imperium__'
+          __id: ontologia.commune.rem.genus.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-genus-__linguam__-_TBX
+
       # Trivia, notam, https://en.wiktionary.org/wiki/nota#Latin
       notam:
         __linguam__:
           __HXL: '#item +rem +notam __linguam__'
           __id: ontologia.commune.rem.notam.__linguam__
-          _TBX:
+          _TBX: &referens_ontologia-commune-rem-notam-__linguam__-_TBX
             _id: DC-382
             _descriptionem: |
               Any kind of note, such as a usage note, explanation,
@@ -290,12 +321,17 @@ ontologia:
             _level: Concept, Language, Term
             _xml: <note>
 
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +notam __linguam_de_imperium__'
+          __id: ontologia.commune.rem.notam.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-notam-__linguam__-_TBX
+
       # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
       partem_orationis:
         __linguam__:
           __HXL: '#item +rem +partem_orationis __linguam__'
           __id: ontologia.commune.rem.partem_orationis.__linguam__
-          _TBX:
+          _TBX: &referens_ontologia-commune-rem-partem_orationis-__linguam__-_TBX
             _id: DC-396
             _nomen: Part of speech
             _descriptionem: |
@@ -316,13 +352,18 @@ ontologia:
               The other value can be used for terms of the phrase type.
             _xml: <termNote type='partOfSpeech'>
 
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +partem_orationis __linguam_de_imperium__'
+          __id: ontologia.commune.rem.partem_orationis.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-partem_orationis-__linguam__-_TBX
+
       # TODO: TBXBasic 6.17 Subject field, <descrip type="subjectField">
 
       typum:
         __linguam__:
           __HXL: '#item +rem +typum __linguam__'
           __id: ontologia.commune.rem.typum.__linguam__
-          _TBX:
+          _TBX: &referens_ontologia-commune-rem-typum-__linguam__-_TBX
             _id: DC-2677
             _nomen: Term type
             _xml: <termNote type='termType'>
@@ -336,6 +377,10 @@ ontologia:
               variant      www.isocat.org/datcat/DC-330
               phrase       www.isocat.org/datcat/DC-339
 
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +typum __linguam_de_imperium__'
+          __id: ontologia.commune.rem.typum.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-typum-__linguam__-_TBX
 
   # Trivia: glōssārium, https://en.wiktionary.org/wiki/glossarium
   glossarium:
@@ -399,7 +444,13 @@ ontologia:
         directionem:
           __HXL: '#meta +conceptum +translationem +directionem'
           __id: ontologia.tm.conceptum.translationem.directionem
-          _UTX:
+          _compactum:
+            #meta +conceptum
+            _id: ontologia.commune.conceptum.meta
+            _JSONPath: translationem.directionem
+            _exemplum:
+              {"translationem": {"directionem": ""}}
+          _UTX: &referens_ontologia-commune-conceptum-meta-_UTX
             _nomen: Translation direction
             _descriptionem: |
               The direction of translation from one language to another
@@ -448,6 +499,38 @@ ontologia:
               >
               > - Language 1: English, language 2: Japanese, language 3: Chinese
               > - Translation direction: any combination of the above
+
+    # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
+    rem:
+
+      # Trivia: trānslātiōnem, https://en.wiktionary.org/wiki/translatio#Latin
+      translationem:
+
+        # Trivia: dīrēctiōnem, https://en.wiktionary.org/wiki/directio#Latin
+        directionem:
+
+          __linguam__:
+            # Exemplum: '#meta +rem +translationem +directionem +i_en +i_eng +is_Latn'
+            __HXL: '#meta +rem +translationem +directionem __linguam__'
+            __id: ontologia.tm.rem.translationem.directionem.__linguam__
+            _compactum:
+              #meta +rem __linguam__
+              _id: ontologia.commune.rem.meta.__linguam__
+              _JSONPath: translationem.directionem
+              _exemplum:
+                {"translationem": {"directionem": ""}}
+            _UTX: *referens_ontologia-commune-conceptum-meta-_UTX
+
+          __linguam_de_imperium__:
+            __HXL: '#item +rem +translationem +directionem __linguam_de_imperium__'
+            __id: ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__
+            _compactum:
+              #meta +rem __linguam_de_imperium__
+              _id: ontologia.commune.rem.meta.__linguam_de_imperium__
+              _JSONPath: translationem.directionem
+              _exemplum:
+                {"translationem": {"directionem": ""}}
+            _UTX: *referens_ontologia-commune-conceptum-meta-_UTX
 
 ## TBX Basic 3.1 (http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf)
 #  5 Mandatory data categories

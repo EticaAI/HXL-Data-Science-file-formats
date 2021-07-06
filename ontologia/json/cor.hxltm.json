@@ -182,10 +182,33 @@
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
           }
         },
+        "__linguam_de_imperium__": {
+          "__HXL": "#item +rem __linguam_de_imperium__",
+          "__id": "ontologia.commune.rem.__linguam_de_imperium__",
+          "_TBX": {
+            "_id": "DC-1823",
+            "_nomen": "Term",
+            "_descriptionem": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
+            "_xml": "<term>"
+          },
+          "_UTX": {
+            "_nomen": "Term",
+            "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          }
+        },
         "contextum": {
           "__linguam__": {
             "__HXL": "#item +rem +contextum __linguam__",
             "__id": "ontologia.commune.rem.contextum.__linguam__",
+            "_TBX": {
+              "_id": "DC-149",
+              "_descriptionem": "A sample sentence that contains the term.",
+              "_xml": "<descrip type='context'>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +contextum __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.contextum.__linguam_de_imperium__",
             "_TBX": {
               "_id": "DC-149",
               "_descriptionem": "A sample sentence that contains the term.",
@@ -197,6 +220,17 @@
           "__linguam__": {
             "__HXL": "#item +rem +definitionem __linguam__",
             "__id": "ontologia.commune.rem.definitionem.__linguam__",
+            "_TBX": {
+              "_id": "DC-168",
+              "_descriptionem": null,
+              "_nomen": "Definition",
+              "_level": "Concept, Language",
+              "_xml": "<descrip type='definition'>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +definitionem __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.definitionem.__linguam_de_imperium__",
             "_TBX": {
               "_id": "DC-168",
               "_descriptionem": null,
@@ -217,12 +251,34 @@
               "_level": "Term",
               "_xml": "<termNote type='grammaticalGender'>"
             }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +genus __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.genus.__linguam_de_imperium__",
+            "_TBX": {
+              "_id": "DC-245",
+              "_descriptionem": "Picklist, with permissible values as follows:\n  • masculine\n  • feminine\n  • neuter\n  • other\n",
+              "_nomen": "Gender",
+              "_level": "Term",
+              "_xml": "<termNote type='grammaticalGender'>"
+            }
           }
         },
         "notam": {
           "__linguam__": {
             "__HXL": "#item +rem +notam __linguam__",
             "__id": "ontologia.commune.rem.notam.__linguam__",
+            "_TBX": {
+              "_id": "DC-382",
+              "_descriptionem": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
+              "_nomen": "Note",
+              "_level": "Concept, Language, Term",
+              "_xml": "<note>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +notam __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.notam.__linguam_de_imperium__",
             "_TBX": {
               "_id": "DC-382",
               "_descriptionem": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
@@ -242,12 +298,32 @@
               "_descriptionem": "Content type picklist\nPermissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nnoun         www.isocat.org/datcat/DC-1333\nverb         www.isocat.org/datcat/DC-1424\nadjective    www.isocat.org/datcat/DC-1230\nadverb       www.isocat.org/datcat/DC-1232\nproperNoun   www.isocat.org/datcat/DC-384\nother        www.isocat.org/datcat/DC-4336\n\nIn TBX-Default, the data type for part of speech is plainText.\nTBX-Basic's use of picklist is in compliance with TBX-Default\nbecause picklist is more constrained than plainText.\n\nThe other value can be used for terms of the phrase type.\n",
               "_xml": "<termNote type='partOfSpeech'>"
             }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +partem_orationis __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.partem_orationis.__linguam_de_imperium__",
+            "_TBX": {
+              "_id": "DC-396",
+              "_nomen": "Part of speech",
+              "_descriptionem": "Content type picklist\nPermissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nnoun         www.isocat.org/datcat/DC-1333\nverb         www.isocat.org/datcat/DC-1424\nadjective    www.isocat.org/datcat/DC-1230\nadverb       www.isocat.org/datcat/DC-1232\nproperNoun   www.isocat.org/datcat/DC-384\nother        www.isocat.org/datcat/DC-4336\n\nIn TBX-Default, the data type for part of speech is plainText.\nTBX-Basic's use of picklist is in compliance with TBX-Default\nbecause picklist is more constrained than plainText.\n\nThe other value can be used for terms of the phrase type.\n",
+              "_xml": "<termNote type='partOfSpeech'>"
+            }
           }
         },
         "typum": {
           "__linguam__": {
             "__HXL": "#item +rem +typum __linguam__",
             "__id": "ontologia.commune.rem.typum.__linguam__",
+            "_TBX": {
+              "_id": "DC-2677",
+              "_nomen": "Term type",
+              "_xml": "<termNote type='termType'>",
+              "_descriptionem": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +typum __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.typum.__linguam_de_imperium__",
             "_TBX": {
               "_id": "DC-2677",
               "_nomen": "Term type",
@@ -315,9 +391,58 @@
           "directionem": {
             "__HXL": "#meta +conceptum +translationem +directionem",
             "__id": "ontologia.tm.conceptum.translationem.directionem",
+            "_compactum": {
+              "_id": "ontologia.commune.conceptum.meta",
+              "_JSONPath": "translationem.directionem",
+              "_exemplum": {
+                "translationem": {
+                  "directionem": ""
+                }
+              }
+            },
             "_UTX": {
               "_nomen": "Translation direction",
               "_descriptionem": "The direction of translation from one language to another\n(translation direction) can be unidirectional, bidirectional, or\nmultidirectional. This information can be specified with\n\"3.2.14 directionality property.\"\n\nA unidirectional glossary is a glossary whose translation\ndirection is primarily one-way, i.e. from the source language to\nthe target language.\n\n> Example: unidirectional bilingual Japanese-English UTX glossary\n\n- Source language: Japanese, target language: English\n- Primary translation direction: Japanese to English\n- Note: Some terms in a unidirectional glossary may be exported\n  and used in the reverse direction in an ad-hoc manner.\n  This operation is called reverse-exporting. In this case, the\n  source language becomes the target language, and vice versa.\n  A reverse-exported unidirectional glossary may contain problems\n  because the consequence of the reversal may not be thoroughly\n  examined when compared with a full bidirectional glossary.\n\nA bidirectional glossary is a glossary that is designed to be\nused in two-way translation. Terms in one language can be\ntranslated into another, and vice versa.\n\n> Example: bidirectional bilingual Japanese-English UTX glossary\n>\n> - Language 1: Japanese, language 2: English\n> - Translation direction: Japanese ⇔ English\n\n> Example: bidirectional multilingual English-French-German\n> glossary\n>\n> - Language 1: English, language 2: French, language 3: German\n> - Translation direction: English ⇔ French, English ⇔ German\n    (but not French ⇔ German)\n\nA multidirectional glossary is a type of multilingual glossary\nthat is designed to be used in any combination of languages in the\nglossary.\n\n> Example: multidirectional multilingual English-Japanese-Chinese\n> glossary\n>\n> - Language 1: English, language 2: Japanese, language 3: Chinese\n> - Translation direction: any combination of the above\n"
+            }
+          }
+        }
+      },
+      "rem": {
+        "translationem": {
+          "directionem": {
+            "__linguam__": {
+              "__HXL": "#meta +rem +translationem +directionem __linguam__",
+              "__id": "ontologia.tm.rem.translationem.directionem.__linguam__",
+              "_compactum": {
+                "_id": "ontologia.commune.rem.meta.__linguam__",
+                "_JSONPath": "translationem.directionem",
+                "_exemplum": {
+                  "translationem": {
+                    "directionem": ""
+                  }
+                }
+              },
+              "_UTX": {
+                "_nomen": "Translation direction",
+                "_descriptionem": "The direction of translation from one language to another\n(translation direction) can be unidirectional, bidirectional, or\nmultidirectional. This information can be specified with\n\"3.2.14 directionality property.\"\n\nA unidirectional glossary is a glossary whose translation\ndirection is primarily one-way, i.e. from the source language to\nthe target language.\n\n> Example: unidirectional bilingual Japanese-English UTX glossary\n\n- Source language: Japanese, target language: English\n- Primary translation direction: Japanese to English\n- Note: Some terms in a unidirectional glossary may be exported\n  and used in the reverse direction in an ad-hoc manner.\n  This operation is called reverse-exporting. In this case, the\n  source language becomes the target language, and vice versa.\n  A reverse-exported unidirectional glossary may contain problems\n  because the consequence of the reversal may not be thoroughly\n  examined when compared with a full bidirectional glossary.\n\nA bidirectional glossary is a glossary that is designed to be\nused in two-way translation. Terms in one language can be\ntranslated into another, and vice versa.\n\n> Example: bidirectional bilingual Japanese-English UTX glossary\n>\n> - Language 1: Japanese, language 2: English\n> - Translation direction: Japanese ⇔ English\n\n> Example: bidirectional multilingual English-French-German\n> glossary\n>\n> - Language 1: English, language 2: French, language 3: German\n> - Translation direction: English ⇔ French, English ⇔ German\n    (but not French ⇔ German)\n\nA multidirectional glossary is a type of multilingual glossary\nthat is designed to be used in any combination of languages in the\nglossary.\n\n> Example: multidirectional multilingual English-Japanese-Chinese\n> glossary\n>\n> - Language 1: English, language 2: Japanese, language 3: Chinese\n> - Translation direction: any combination of the above\n"
+              }
+            },
+            "__linguam_de_imperium__": {
+              "__HXL": "#item +rem +translationem +directionem __linguam_de_imperium__",
+              "__id": "ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__",
+              "_compactum": {
+                "_id": "ontologia.commune.rem.meta.__linguam_de_imperium__",
+                "_JSONPath": "translationem.directionem",
+                "_exemplum": {
+                  "translationem": {
+                    "directionem": ""
+                  }
+                }
+              },
+              "_UTX": {
+                "_nomen": "Translation direction",
+                "_descriptionem": "The direction of translation from one language to another\n(translation direction) can be unidirectional, bidirectional, or\nmultidirectional. This information can be specified with\n\"3.2.14 directionality property.\"\n\nA unidirectional glossary is a glossary whose translation\ndirection is primarily one-way, i.e. from the source language to\nthe target language.\n\n> Example: unidirectional bilingual Japanese-English UTX glossary\n\n- Source language: Japanese, target language: English\n- Primary translation direction: Japanese to English\n- Note: Some terms in a unidirectional glossary may be exported\n  and used in the reverse direction in an ad-hoc manner.\n  This operation is called reverse-exporting. In this case, the\n  source language becomes the target language, and vice versa.\n  A reverse-exported unidirectional glossary may contain problems\n  because the consequence of the reversal may not be thoroughly\n  examined when compared with a full bidirectional glossary.\n\nA bidirectional glossary is a glossary that is designed to be\nused in two-way translation. Terms in one language can be\ntranslated into another, and vice versa.\n\n> Example: bidirectional bilingual Japanese-English UTX glossary\n>\n> - Language 1: Japanese, language 2: English\n> - Translation direction: Japanese ⇔ English\n\n> Example: bidirectional multilingual English-French-German\n> glossary\n>\n> - Language 1: English, language 2: French, language 3: German\n> - Translation direction: English ⇔ French, English ⇔ German\n    (but not French ⇔ German)\n\nA multidirectional glossary is a type of multilingual glossary\nthat is designed to be used in any combination of languages in the\nglossary.\n\n> Example: multidirectional multilingual English-Japanese-Chinese\n> glossary\n>\n> - Language 1: English, language 2: Japanese, language 3: Chinese\n> - Translation direction: any combination of the above\n"
+              }
             }
           }
         }
