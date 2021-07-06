@@ -129,7 +129,7 @@ formatum:
       vicipaedia:
         - https://en.wikipedia.org/wiki/XLIFF
     normam:
-      - https://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html
+      - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
 
   #### YAML: (draft) ___________________________________________________________
   YAML:
@@ -621,11 +621,20 @@ ontologia_aliud:
 
   # Trivia:
   # - rem, https://en.wiktionary.org/wiki/res#Latin
+  # - trānslātiōnem, https://en.wiktionary.org/wiki/translatio#Latin
   # - status
   #   - HXL hashtag #status, https://hxlstandard.org/standard/1-1final/dictionary/#tag_status
   #   - statum, https://en.wiktionary.org/wiki/status#Latin
 
+  # translationem_status:
   rem_status:
+
+    ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
+    # 3.1 7 Additional information about data categories
+    # The term type data category is optional. When a term has no term type
+    # value, it is assumed to be an ordinary entry term that is not an
+    # abbreviation or a variant of another term or an abbreviation of
+    # another full form term.
     TBX_preferred:
       _codicem: DC-72
       _codicem_isocat: preferredTerm‐admn‐sts
@@ -647,6 +656,39 @@ ontologia_aliud:
         The term is no longer used, usually because a more modern term has
         replaced it.
 
+    ### Universal Terminology eXchange UTX 1.20 --------------------------------
+    # The term status field indicates the status of a term.
+    # There are 7 statuses: blank, provisional, approved, non-standard,
+    # forbidden, rejected, or obsolete. Only a glossary administrator and a
+    # delegate can change the value of a term status.
+    # Note: If a glossary does not have a term status field, all entries
+    # are considered to be approved.
+    # (...)
+    # 5. Advanced concepts
+    # 5.1 Single term status and per-language term status
+    #   There are two methods of applying term status: single term status and
+    #   per-language term status. A glossary can use either of these to
+    #   indicate the term status.
+    # 5.1.1 Single term status
+    #
+    #   (...)
+    #
+    # 5.1.2 Per-language term status
+    #   Per-language term status specifies the term status of a term for a
+    #   particular language rather than a pair of two languages. For example,
+    #   if it is used in a bilingual unidirectional glossary, it requires two
+    #   term status columns, one for the source language, and one for the
+    #   target language.
+    #
+    #   If a language tag is not specified, the term status is treated as
+    #   single term status (UTX 1.11 style).
+    #   Note: Per-language term status is introduced in UTX 1.20 to handle
+    #   bilingual bidirectional glossaries and multilingual glossaries.
+    #
+    # 5.1.3 Term status behaviors for an MT dictionary
+    #
+    #   (...)
+    #
     UTX_provisional:
       _descriptionem: |
         The term status "provisional" indicates that a target term is
@@ -727,10 +769,50 @@ ontologia_aliud:
         at a later time.
       _nomen: obsolete
 
+    ### XML Localization Interchange File Format XLIFF 2.1 ---------------------
+    # @see https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html#state
+    # @see http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#substate
+    #
+    # State - indicates the state of the translation of a segment.
+    #
+    # Value description: The value MUST be set to one of the following values:
+    #
+    #   initial - indicates the segment is in its initial state.
+    #   translated - indicates the segment has been translated.
+    #   reviewed - indicates the segment has been reviewed.
+    #   final - indicates the segment is finalized and ready to be used.
+    #
+    # The 4 defined states constitute a simple linear state machine that
+    # advances in the above given order. No particular workflow or process is
+    # prescribed, except that the three states more advanced than the default
+    # initial assume the existence of a Translation within the segment.
+    # One can further specify the state of the Translation using the subState
+    # attribute.
+    #
+    #  Default value: initial
+
+    XLIFF_initial:
+      _descriptionem: indicates the segment is in its initial state
+      _nomen: initial
+
+    XLIFF_translated:
+      _descriptionem: indicates the segment has been translated
+      _nomen: translated
+
+    XLIFF_reviewed:
+      _descriptionem: indicates the segment has been reviewed
+      _nomen: reviewed
+
+    XLIFF_final:
+      _descriptionem: indicates the segment is finalized and ready to be used
+      _nomen: final
+
   # Trivia:
   # - rem, https://en.wiktionary.org/wiki/res#Latin
   # - typum, https://en.wiktionary.org/wiki/typus#Latin
   rem_typum:
+
+    ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
     TBX_fullForm:
       _codicem: DC-321
     TBX_acronym:
@@ -744,7 +826,7 @@ ontologia_aliud:
     TBX_phrase:
       _codicem: DC-339
 
-    # UTX 1.20:
+    ### Universal Terminology eXchange UTX 1.20 --------------------------------
     #   4.4.2 sentence and special characters
     #   sentence is a special pos field item that indicates that the "term"
     #   is a sentence.

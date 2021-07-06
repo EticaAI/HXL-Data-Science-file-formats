@@ -115,7 +115,7 @@
         ]
       },
       "normam": [
-        "https://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html"
+        "https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html"
       ]
     },
     "YAML": {
@@ -583,6 +583,22 @@
       "UTX_obsolete": {
         "_descriptionem": "The term status \"obsolete\" indicates that a term was previously used,\nbut should no longer be used. Obsolete terms can be kept in the\nglossary for record keeping, moved into a separate list, or deleted\nat a later time.\n",
         "_nomen": "obsolete"
+      },
+      "XLIFF_initial": {
+        "_descriptionem": "indicates the segment is in its initial state",
+        "_nomen": "initial"
+      },
+      "XLIFF_translated": {
+        "_descriptionem": "indicates the segment has been translated",
+        "_nomen": "translated"
+      },
+      "XLIFF_reviewed": {
+        "_descriptionem": "indicates the segment has been reviewed",
+        "_nomen": "reviewed"
+      },
+      "XLIFF_final": {
+        "_descriptionem": "indicates the segment is finalized and ready to be used",
+        "_nomen": "final"
       }
     },
     "rem_typum": {
