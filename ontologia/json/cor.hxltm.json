@@ -490,5 +490,120 @@
         }
       }
     }
+  },
+  "ontologia_aliud": {
+    "partem_orationis": {
+      "TBX_noun": {
+        "_codicem": "DC-1333"
+      },
+      "TBX_verb": {
+        "_codicem": "DC-1424"
+      },
+      "TBX_adjective": {
+        "_codicem": "DC-1230"
+      },
+      "TBX_adverb": {
+        "_codicem": "DC-1232"
+      },
+      "TBX_properNoun": {
+        "_codicem": "DC-384"
+      },
+      "TBX_other": {
+        "_codicem": "DC-4336"
+      },
+      "UTX_noun": {
+        "_nomen": "Noun"
+      },
+      "UTX_properNoun": {
+        "_nomen": "Proper noun"
+      },
+      "UTX_verb": {
+        "_nomen": "Verb"
+      },
+      "UTX_vt": {
+        "_nomen": "Transitive verb"
+      },
+      "UTX_vi": {
+        "_nomen": "Intransitive verb"
+      },
+      "UTX_adjective": {
+        "_nomen": "Adjective"
+      },
+      "UTX_prenominal": {
+        "_nomen": "Prenominal"
+      },
+      "UTX_adverb": {
+        "_nomen": "Adverb"
+      },
+      "UTX_sentence": {
+        "_nomen": "Sentence"
+      }
+    },
+    "rem_status": {
+      "TBX_preferred": {
+        "_codicem": "DC-72",
+        "_codicem_isocat": "preferredTerm‐admn‐sts",
+        "_descriptionem": "The term that, among a set   of synonymous terms, is most recommended\nfor use.\n"
+      },
+      "TBX_admitted": {
+        "_codicem": "DC-73",
+        "_codicem_isocat": "admittedTerm‐admn‐sts",
+        "_descriptionem": "The term is acceptable for use"
+      },
+      "TBX_notRecommended": {
+        "_codicem": "DC-74",
+        "_codicem_isocat": "deprecatedTerm‐admn‐sts",
+        "_descriptionem": "The term should not be used."
+      },
+      "TBX_obsolete": {
+        "_codicem": "DC-75",
+        "_codicem_isocat": "supersededTerm‐admn‐sts",
+        "_descriptionem": "The term is no longer used, usually because a more modern term has\nreplaced it.\n"
+      },
+      "UTX_provisional": {
+        "_descriptionem": "The term status \"provisional\" indicates that a target term is\nproposed by a contributor but not yet authorized by the glossary\nadministrator. As provisional status is temporary, the glossary\nadministrator should promptly decide the term status such as\n\"approved.\"\nNote: The glossary administrator may also choose to exclude (delete)\nthe term from the glossary, or move it to another glossary\n",
+        "_nomen": "provisional"
+      },
+      "UTX_approved": {
+        "_descriptionem": "The term status \"approved\" indicates that an entry has been approved\nfor the particular glossary (domain) by the glossary administrator.\nAn approved status indicates that the term must be used with the\nhighest priority, whenever applicable. If a term has synonyms or\nalternative spellings, such as \"plugin\" and \"plugin,\" only one of\nthese should have approved status.\n\nAn approved term in one language is paired with another approved term\nin another language. If the parts of speech of these multiple entries\nare different, then they are different terms. For example, \"plot\"\ncan be a noun and a verb, and each can have approved status.\n",
+        "_nomen": "approved"
+      },
+      "UTX_non-standard": {
+        "_descriptionem": "The term status \"non-standard\" indicates one or more terms that are\nless-preferred within a group of synonyms or alternative spellings.\n\nNote: The glossary administrator decides whether the term is\nless-preferred or not for a particular glossary. Therefore, this\nstatus could vary in different glossaries, or with a different\nglossary administrator.\n",
+        "_nomen": "non-standard"
+      },
+      "UTX_forbidden": {
+        "_descriptionem": "The term status \"forbidden\" indicates that a term must not be used.\nA term is marked as forbidden not only for being inappropriate as a\ntranslation, but also if it is inappropriate within the context of the\nend-result document.\n\nA forbidden term, unlike a non-standard term, should not be provided\nas a translation candidate.\n\nNote: A term is “forbidden” because it is inappropriate from\nlinguistic, social, terminological, branding, or other viewpoints.\n\nUp to UTX 1.11, only a target term could be indicated as forbidden.\nUTX 1.20 allows any term (including a source term) to be indicated a\nforbidden.\n\nForbidden terms can be exported from a UTX glossary for terminological\nchecking. Based on this information, a function of a translation tool\nor a dedicated terminological checker can ascertain whether\ntranslation files contain any undesirable terms.\n",
+        "_nomen": "forbidden"
+      },
+      "UTX_rejected": {
+        "_descriptionem": "The term status \"rejected\" indicates that a term is not appropriate\nfor inclusion in a glossary. Rejected terms can be kept in the glossary\nfor record keeping, moved into a separate list, or deleted at a\nlater time.\n",
+        "_nomen": "rejected"
+      },
+      "UTX_obsolete": {
+        "_descriptionem": "The term status \"obsolete\" indicates that a term was previously used,\nbut should no longer be used. Obsolete terms can be kept in the\nglossary for record keeping, moved into a separate list, or deleted\nat a later time.\n",
+        "_nomen": "obsolete"
+      }
+    },
+    "rem_typum": {
+      "TBX_fullForm": {
+        "_codicem": "DC-321"
+      },
+      "TBX_acronym": {
+        "_codicem": "DC-334"
+      },
+      "TBX_abbreviation": {
+        "_codicem": "DC-331"
+      },
+      "TBX_shortForm": {
+        "_codicem": "DC-332"
+      },
+      "TBX_variant": {
+        "_codicem": "DC-330"
+      },
+      "TBX_phrase": {
+        "_codicem": "DC-339"
+      }
+    }
   }
 }
