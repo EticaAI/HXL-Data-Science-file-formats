@@ -93,6 +93,18 @@ formatum:
     situs_interretialis:
       referens_officinale:
         - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+      _temporarium:
+        - https://www.termbases.eu/
+        - http://www.tbxinfo.net/
+        # - https://github.com/byutrg/TBX-Spec
+        - https://byutrg.github.io/TBX-Implementor/
+        - https://github.com/byutrg/baseterm
+        - https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide
+    # - https://www.tbxinfo.net/tbx-dialects/
+    #    - Convert existing spreadsheet based glossaries into TBX format
+    #      (see our tutorial and sample spreadsheets).
+    #      - https://www.tbxinfo.net/wp-content/uploads/2016/06/Spreadsheet-to-TBX-Min-Tutorial.pdf
+    #      - https://www.tbxinfo.net/wp-content/uploads/2016/05/sampleSpreadsheets.zip
 
   #### TMX: TermBase eXchange (TBX) Basic ______________________________________
   TMX:
@@ -173,16 +185,10 @@ ontologia:
       accuratum:
         __HXL: '#status +conceptum +accuratum'
         __id: ontologia.commune.conceptum.accuratum
-        # Trivia:
-        # - computātrum, https://en.wiktionary.org/wiki/computatrum#Latin
-        # - valōrem, https://en.wiktionary.org/wiki/valor#Latin
-        # - typum, https://en.wiktionary.org/wiki/typus#Latin
-        # - numerum, https://en.wiktionary.org/wiki/numerus#Latin
-        # - maximum, https://en.wiktionary.org/wiki/maximus#Latin
-        # - minimum, https://en.wiktionary.org/wiki/minimus#Latin
-        __valorem_typum: numerum
+        __valorem_optionem: "ontologia_aliud.accuratum"
         __valorem_maximum: 10
         __valorem_minimum: 0
+        __valorem_typum: numerum
         _TBX: &referens_ontologia-commune-conceptum-accuratum-_TBX
           # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
           _nomen: reliabilityCode
@@ -287,9 +293,10 @@ ontologia:
         accuratum:
           __HXL: '#status +rem +accuratum __linguam__'
           __id: ontologia.commune.rem.accuratum.__linguam__
-          __valorem_typum: numerum
+          __valorem_optionem: "ontologia_aliud.accuratum"
           __valorem_maximum: 10
           __valorem_minimum: 0
+          __valorem_typum: numerum
           _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
 
         compactum_json:
@@ -314,9 +321,10 @@ ontologia:
         accuratum:
           __HXL: '#status +rem +accuratum __linguam_de_imperium__'
           __id: ontologia.commune.rem.accuratum.__linguam_de_imperium__
-          __valorem_typum: numerum
+          __valorem_optionem: "ontologia_aliud.accuratum"
           __valorem_maximum: 10
           __valorem_minimum: 0
+          __valorem_typum: numerum
           _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
 
         compactum_json:
@@ -629,32 +637,108 @@ ontologia:
 # - aliud, https://en.wiktionary.org/wiki/alius#Latin, https://en.wiktionary.org/wiki/alias#English
 ontologia_aliud:
 
-  # # TODO:
-  # # - IATE reliability, https://en.wiktionary.org/wiki/reliability
-  # #   - https://www.wordhippo.com/what-is/the/latin-word-for-c5e8cfa79b53d0af31274005b8c357a9acc7b02c.html
-  # #   - https://en.wiktionary.org/wiki/fidelis
-  # #   - https://en.wiktionary.org/wiki/certus
-  # #   - accūrātum, https://en.wiktionary.org/wiki/accuratus
-  # # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
-  # # @see https://iate.europa.eu/fields-explained
+  # Trivia:
+  # - accūrātum, https://en.wiktionary.org/wiki/accuratus
+  #   - reliabilityCode, https://iate.europa.eu/fields-explained
+  #   - reliabilityCode, https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+  #
+  # Term Base eXchange (TBX) 2008 CC-BY License ................................
+  # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+  #
+  # reliabilityCode:
+  #   A code assigned to a data-category or record indicating accuracy and/or
+  #   completeness. The content of the <descrip> element when it has a type
+  #   attribute value of 'reliabilityCode' shall be a value from 1
+  #   (least reliable) to 10 (most reliable).
+  #
+  # Interactive Terminology for Europe (IATE) ..................................
+  # @see https://iate.europa.eu/fields-explained
+  #
+  # Reliability code
+  #  IATE uses four codes to indicate the reliability of terms:
+  #
+  # Nº Code  Description      Explanation
+  #
+  # 1   ★    Reliability     Automatically assigned to terms entered by
+  #          not verified    non-native speakers. Also, all lookup forms have
+  #                         a reliability of one.
+  #
+  # 6  ★★    Minimum         Automatically assigned to terms entered or updated
+  #          reliability     by native speakers.
+  #
+  # 9  ★★★  Reliable        Manually assigned by a terminologist following a
+  #                         reliability assessment. Reliable termsshould
+  #                         satisfy at least one of the following criteria:
+  #                           - having been obtained from a trusted source;
+  #                           - having been agreed on by a representative
+  #                             body of same-language terminologists;
+  #                           - being the common designation of the concept
+  #                             in its field.
+  #
+  # 10 ★★★★ Very reliable   Manually assigned following a reliability
+  #                         assessment. Very reliable terms are:
+  #                           - well-established and widely accepted by
+  #                             experts as the correct designation, or
+  #                           - confirmed by a trusted and authoritative
+  #                             source, in particular a reliable written
+  #                             source.
+  accuratum:
+    "_":
+      # blank value expressed by '_' have some defaults when exported
+      _IATE_valorem_codicem: "★★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered or updated by native speakers.
+      _IATE_valorem_nomen: "Minimum reliability"
+      _IATE_valorem_numerum: 6
+    "1":
+      _IATE_valorem_codicem: "★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered by non-native speakers.
+        Also, all lookup forms have a reliability of one.
+      _IATE_valorem_nomen: "Reliability not verified"
+      _IATE_valorem_numerum: 1
+    "2": {}
+    "3": {}
+    "4": {}
+    "5": {}
+    "6":
+      _IATE_valorem_codicem: "★★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered or updated by native speakers.
+      _IATE_valorem_nomen: "Minimum reliability"
+      _IATE_valorem_numerum: 6
+    "7": {}
+    "8": {}
+    "9":
+      _IATE_valorem_codicem: "★★★"
+      _IATE_valorem_descriptionem: |
+        Manually assigned by a terminologist following a reliability
+        assessment. Reliable terms should satisfy at least one of the
+        following criteria:
 
-  # # Trivia:
-  # # - accūrātum, https://en.wiktionary.org/wiki/accuratus
-  # #   - reliabilityCode, https://iate.europa.eu/fields-explained
-  # #   - reliabilityCode, https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
-  # accuratum:
-  #   __HXL: '#meta +conceptum +accuratum'
-  #   __id: ontologia.commune.conceptum.accuratum
-  #   # Trivia:
-  #   # - computātrum, https://en.wiktionary.org/wiki/computatrum#Latin
-  #   # - valōrem, https://en.wiktionary.org/wiki/valor#Latin
-  #   # - typum, https://en.wiktionary.org/wiki/typus#Latin
-  #   # - numerum, https://en.wiktionary.org/wiki/numerus#Latin
-  #   # - maximum, https://en.wiktionary.org/wiki/maximus#Latin
-  #   # - minimum, https://en.wiktionary.org/wiki/minimus#Latin
-  #   __valorem_typum: numerum
-  #   __valorem_maximum: 10
-  #   __valorem_minimum: 0
+          - having been obtained from a trusted source;
+          - having been agreed on by a representative body of same-language
+            terminologists;
+          - being the common designation of the concept in its field.
+
+        N.B. This code was automatically assigned to many entries, regardless
+        of their previous validation status, following the merger of existing
+        databases to create IATE. Therefore some entries marked as ‘reliable’
+        are not necessarily so.
+      _IATE_valorem_nomen: "Reliable"
+      _IATE_valorem_numerum: 9
+    "10":
+      _IATE_valorem_codicem: "★★★★"
+      _IATE_valorem_descriptionem: |
+        Manually assigned following a reliability assessment.
+        Very reliable terms are:
+
+        - well-established and widely accepted by experts as the correct
+          designation, or
+        - confirmed by a trusted and authoritative source, in particular a
+          reliable written source.
+      _IATE_valorem_nomen: "Very reliable"
+      _IATE_valorem_numerum: 10
 
   # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
   partem_orationis:

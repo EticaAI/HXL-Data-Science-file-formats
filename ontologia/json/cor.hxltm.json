@@ -67,6 +67,13 @@
       "situs_interretialis": {
         "referens_officinale": [
           "https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards"
+        ],
+        "_temporarium": [
+          "https://www.termbases.eu/",
+          "http://www.tbxinfo.net/",
+          "https://byutrg.github.io/TBX-Implementor/",
+          "https://github.com/byutrg/baseterm",
+          "https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide"
         ]
       }
     },
@@ -150,9 +157,10 @@
         "accuratum": {
           "__HXL": "#status +conceptum +accuratum",
           "__id": "ontologia.commune.conceptum.accuratum",
-          "__valorem_typum": "numerum",
+          "__valorem_optionem": "ontologia_aliud.accuratum",
           "__valorem_maximum": 10,
           "__valorem_minimum": 0,
+          "__valorem_typum": "numerum",
           "_TBX": {
             "_nomen": "reliabilityCode",
             "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
@@ -215,9 +223,10 @@
           "accuratum": {
             "__HXL": "#status +rem +accuratum __linguam__",
             "__id": "ontologia.commune.rem.accuratum.__linguam__",
-            "__valorem_typum": "numerum",
+            "__valorem_optionem": "ontologia_aliud.accuratum",
             "__valorem_maximum": 10,
             "__valorem_minimum": 0,
+            "__valorem_typum": "numerum",
             "_TBX": {
               "_nomen": "reliabilityCode",
               "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
@@ -249,9 +258,10 @@
           "accuratum": {
             "__HXL": "#status +rem +accuratum __linguam_de_imperium__",
             "__id": "ontologia.commune.rem.accuratum.__linguam_de_imperium__",
-            "__valorem_typum": "numerum",
+            "__valorem_optionem": "ontologia_aliud.accuratum",
             "__valorem_maximum": 10,
             "__valorem_minimum": 0,
+            "__valorem_typum": "numerum",
             "_TBX": {
               "_nomen": "reliabilityCode",
               "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
@@ -539,6 +549,44 @@
     }
   },
   "ontologia_aliud": {
+    "accuratum": {
+      "_": {
+        "_IATE_valorem_codicem": "★★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered or updated by native speakers.\n",
+        "_IATE_valorem_nomen": "Minimum reliability",
+        "_IATE_valorem_numerum": 6
+      },
+      "1": {
+        "_IATE_valorem_codicem": "★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered by non-native speakers.\nAlso, all lookup forms have a reliability of one.\n",
+        "_IATE_valorem_nomen": "Reliability not verified",
+        "_IATE_valorem_numerum": 1
+      },
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {},
+      "6": {
+        "_IATE_valorem_codicem": "★★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered or updated by native speakers.\n",
+        "_IATE_valorem_nomen": "Minimum reliability",
+        "_IATE_valorem_numerum": 6
+      },
+      "7": {},
+      "8": {},
+      "9": {
+        "_IATE_valorem_codicem": "★★★",
+        "_IATE_valorem_descriptionem": "Manually assigned by a terminologist following a reliability\nassessment. Reliable terms should satisfy at least one of the\nfollowing criteria:\n\n  - having been obtained from a trusted source;\n  - having been agreed on by a representative body of same-language\n    terminologists;\n  - being the common designation of the concept in its field.\n\nN.B. This code was automatically assigned to many entries, regardless\nof their previous validation status, following the merger of existing\ndatabases to create IATE. Therefore some entries marked as ‘reliable’\nare not necessarily so.\n",
+        "_IATE_valorem_nomen": "Reliable",
+        "_IATE_valorem_numerum": 9
+      },
+      "10": {
+        "_IATE_valorem_codicem": "★★★★",
+        "_IATE_valorem_descriptionem": "Manually assigned following a reliability assessment.\nVery reliable terms are:\n\n- well-established and widely accepted by experts as the correct\n  designation, or\n- confirmed by a trusted and authoritative source, in particular a\n  reliable written source.\n",
+        "_IATE_valorem_nomen": "Very reliable",
+        "_IATE_valorem_numerum": 10
+      }
+    },
     "partem_orationis": {
       "TBX_noun": {
         "_codicem": "DC-1333"
