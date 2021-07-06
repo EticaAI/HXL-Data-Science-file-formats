@@ -162,6 +162,14 @@
             "_descriptionem": "The domain property is a text string that indicates the domain of\nthe glossary. This property is used when you need to group multiple\nglossaries into a domain. If you use glossary IDs as domain names,\nthe domain property is not necessary.\nExample\n  domain: Aerospace\n"
           }
         },
+        "compactum_json": {
+          "__HXL": "#meta +json +conceptum",
+          "__id": "ontologia.commune.conceptum.compactum_json"
+        },
+        "compactum_textum": {
+          "__HXL": "#meta +textum +conceptum",
+          "__id": "ontologia.commune.conceptum.compactum_textum"
+        },
         "meta": {
           "__HXL": "#meta +conceptum",
           "__id": "ontologia.commune.conceptum.meta"
@@ -180,6 +188,14 @@
           "_UTX": {
             "_nomen": "Term",
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          },
+          "compactum_json": {
+            "__HXL": "#meta +json +rem __linguam__",
+            "__id": "ontologia.commune.rem.__linguam__.compactum_json"
+          },
+          "compactum_textum": {
+            "__HXL": "#meta +textum +rem __linguam__",
+            "__id": "ontologia.commune.rem.__linguam__.compactum_textum"
           }
         },
         "__linguam_de_imperium__": {
@@ -194,6 +210,14 @@
           "_UTX": {
             "_nomen": "Term",
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          },
+          "compactum_json": {
+            "__HXL": "#meta +json +rem __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_json"
+          },
+          "compactum_textum": {
+            "__HXL": "#meta +textum +rem __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_textum"
           }
         },
         "contextum": {
@@ -342,14 +366,20 @@
             "__HXL": "#meta +conceptum +codicem +iate",
             "__id": "ontologia.extensionem.conceptum.codicem.iate",
             "_url": "https://iate.europa.eu/fields-explained",
-            "_compactum": {
-              "_id": "ontologia.commune.conceptum.meta",
+            "_compactum_json": {
+              "_id": "ontologia.commune.conceptum.compactum_json",
               "_JSONPath": "codicem.iate",
               "_exemplum": {
                 "codicem": {
                   "iate": 787725
                 }
               }
+            },
+            "_compactum_textum": {
+              "_id": "ontologia.commune.conceptum.compactum_textum",
+              "_praefixum": "IATE",
+              "_suffixum": "",
+              "_exemplum": "IATE787725"
             }
           },
           "unterm": {
@@ -357,14 +387,20 @@
             "__id": "ontologia.extensionem.conceptum.codicem.unterm",
             "_url": "https://iate.europa.eu/fields-explained",
             "_url_rem": "https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{rem}}",
-            "_compactum": {
-              "_id": "ontologia.commune.conceptum.meta",
+            "_compactum_json": {
+              "_id": "ontologia.commune.conceptum.compactum_json",
               "_JSONPath": "codicem.unterm",
               "_exemplum": {
                 "codicem": {
                   "unterm": "5f40d95f1d17bf8c85256a01000080af"
                 }
               }
+            },
+            "_compactum_textum": {
+              "_id": "ontologia.commune.conceptum.compactum_textum",
+              "_praefixum": "UNTERM",
+              "_suffixum": "",
+              "_exemplum": "UNTERM5f40d95f1d17bf8c85256a01000080af"
             }
           },
           "wikidata": {
@@ -372,14 +408,20 @@
             "__id": "ontologia.extensionem.conceptum.codicem.wikidata",
             "_url": "https://www.wikidata.org/",
             "_url_rem": "https://www.wikidata.org/wiki/{{rem}}",
-            "_compactum": {
-              "_id": "ontologia.commune.conceptum.meta",
+            "_compactum_json": {
+              "_id": "ontologia.commune.conceptum.compactum_json",
               "_JSONPath": "codicem.wikidata",
               "_exemplum": {
                 "codicem": {
                   "wikidata": "Q1"
                 }
               }
+            },
+            "_compactum_textum": {
+              "_id": "ontologia.commune.conceptum.compactum_textum",
+              "_praefixum": "Q",
+              "_suffixum": "",
+              "_exemplum": "Q1"
             }
           }
         }
@@ -391,12 +433,12 @@
           "directionem": {
             "__HXL": "#meta +conceptum +translationem +directionem",
             "__id": "ontologia.tm.conceptum.translationem.directionem",
-            "_compactum": {
-              "_id": "ontologia.commune.conceptum.meta",
+            "_compactum_json": {
+              "_id": "ontologia.commune.conceptum.compactum_json",
               "_JSONPath": "translationem.directionem",
               "_exemplum": {
                 "translationem": {
-                  "directionem": ""
+                  "directionem": []
                 }
               }
             },
@@ -413,12 +455,12 @@
             "__linguam__": {
               "__HXL": "#meta +rem +translationem +directionem __linguam__",
               "__id": "ontologia.tm.rem.translationem.directionem.__linguam__",
-              "_compactum": {
-                "_id": "ontologia.commune.rem.meta.__linguam__",
+              "_compactum_json": {
+                "_id": "ontologia.commune.rem.__linguam__.compactum_json",
                 "_JSONPath": "translationem.directionem",
                 "_exemplum": {
                   "translationem": {
-                    "directionem": ""
+                    "directionem": []
                   }
                 }
               },
@@ -430,8 +472,8 @@
             "__linguam_de_imperium__": {
               "__HXL": "#item +rem +translationem +directionem __linguam_de_imperium__",
               "__id": "ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__",
-              "_compactum": {
-                "_id": "ontologia.commune.rem.meta.__linguam_de_imperium__",
+              "_compactum_json": {
+                "_id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_json",
                 "_JSONPath": "translationem.directionem",
                 "_exemplum": {
                   "translationem": {

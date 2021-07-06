@@ -1,5 +1,6 @@
 # @ARCHIVUM       ontologia/cor.hxltm.yml
 # @DESCRIPTIONEM  HXL Trānslātiōnem Memoriam (HXLTM)
+# @LICENTIAM      Dominium publicum
 #
 # Trivia:
 # - "HXL"
@@ -208,6 +209,14 @@ ontologia:
             Example
               domain: Aerospace
 
+      compactum_json:
+        __HXL: '#meta +json +conceptum'
+        __id: ontologia.commune.conceptum.compactum_json
+
+      compactum_textum:
+        __HXL: '#meta +textum +conceptum'
+        __id: ontologia.commune.conceptum.compactum_textum
+
       meta:
         __HXL: '#meta +conceptum'
         __id: ontologia.commune.conceptum.meta
@@ -242,6 +251,14 @@ ontologia:
 
             Note: Term definitions are optional in a UTX glossary.
 
+        compactum_json:
+          __HXL: '#meta +json +rem __linguam__'
+          __id: ontologia.commune.rem.__linguam__.compactum_json
+
+        compactum_textum:
+          __HXL: '#meta +textum +rem __linguam__'
+          __id: ontologia.commune.rem.__linguam__.compactum_textum
+
       # Trivia: 
       # - linguam, https://en.wiktionary.org/wiki/lingua#Latin
       # - dē, https://en.wiktionary.org/wiki/de#Latin
@@ -252,6 +269,14 @@ ontologia:
         __id: ontologia.commune.rem.__linguam_de_imperium__
         _TBX: *referens_ontologia-commune-rem-__linguam__-_TBX
         _UTX: *referens_ontologia-commune-rem-__linguam__-_UTX
+
+        compactum_json:
+          __HXL: '#meta +json +rem __linguam_de_imperium__'
+          __id: ontologia.commune.rem.__linguam_de_imperium__.compactum_json
+
+        compactum_textum:
+          __HXL: '#meta +textum +rem __linguam_de_imperium__'
+          __id: ontologia.commune.rem.__linguam_de_imperium__.compactum_textum
 
       # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
       contextum:
@@ -397,36 +422,54 @@ ontologia:
           __id: ontologia.extensionem.conceptum.codicem.iate
           _url: https://iate.europa.eu/fields-explained
           # _url_rem: ' ???? '
-          _compactum:
-            #meta +conceptum
-            _id: ontologia.commune.conceptum.meta
+          _compactum_json:
+            #meta +json +conceptum
+            _id: ontologia.commune.conceptum.compactum_json
             _JSONPath: codicem.iate
             _exemplum:
               {"codicem": {"iate": 787725}}
+          _compactum_textum:
+            #meta +textum +conceptum
+             _id: ontologia.commune.conceptum.compactum_textum
+             _praefixum: "IATE"
+             _suffixum: ""
+             _exemplum: IATE787725
 
         unterm:
           __HXL: '#meta +conceptum +codicem +unterm'
           __id: ontologia.extensionem.conceptum.codicem.unterm
           _url: https://iate.europa.eu/fields-explained
           _url_rem: 'https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{rem}}'
-          _compactum:
-            _id: ontologia.commune.conceptum.meta
+          _compactum_json:
+            _id: ontologia.commune.conceptum.compactum_json
             _JSONPath: codicem.unterm
-            # #meta +conceptum
+            # #meta +json +conceptum
             _exemplum:             
               {"codicem": {"unterm": "5f40d95f1d17bf8c85256a01000080af"}}
+          _compactum_textum:
+            #meta +textum +conceptum
+             _id: ontologia.commune.conceptum.compactum_textum
+             _praefixum: "UNTERM"
+             _suffixum: ""
+             _exemplum: UNTERM5f40d95f1d17bf8c85256a01000080af
 
         wikidata:
           __HXL: '#meta +conceptum +codicem +wikidata'
           __id: ontologia.extensionem.conceptum.codicem.wikidata
           _url: https://www.wikidata.org/
           _url_rem: 'https://www.wikidata.org/wiki/{{rem}}'
-          _compactum:
-            #meta +conceptum
-            _id: ontologia.commune.conceptum.meta
+          _compactum_json:
+            #meta +json +conceptum
+            _id: ontologia.commune.conceptum.compactum_json
             _JSONPath: codicem.wikidata
             _exemplum:
               {"codicem": {"wikidata": "Q1"}}
+          _compactum_textum:
+            #meta +textum +conceptum
+             _id: ontologia.commune.conceptum.compactum_textum
+             _praefixum: "Q"
+             _suffixum: ""
+             _exemplum: Q1
   
   # Trivia: https://www.wikidata.org/wiki/Q333761
   tm:
@@ -444,12 +487,12 @@ ontologia:
         directionem:
           __HXL: '#meta +conceptum +translationem +directionem'
           __id: ontologia.tm.conceptum.translationem.directionem
-          _compactum:
-            #meta +conceptum
-            _id: ontologia.commune.conceptum.meta
+          _compactum_json:
+            #meta +json +conceptum
+            _id: ontologia.commune.conceptum.compactum_json
             _JSONPath: translationem.directionem
             _exemplum:
-              {"translationem": {"directionem": ""}}
+              {"translationem": {"directionem": []}}
           _UTX: &referens_ontologia-commune-conceptum-meta-_UTX
             _nomen: Translation direction
             _descriptionem: |
@@ -513,20 +556,20 @@ ontologia:
             # Exemplum: '#meta +rem +translationem +directionem +i_en +i_eng +is_Latn'
             __HXL: '#meta +rem +translationem +directionem __linguam__'
             __id: ontologia.tm.rem.translationem.directionem.__linguam__
-            _compactum:
-              #meta +rem __linguam__
-              _id: ontologia.commune.rem.meta.__linguam__
+            _compactum_json:
+              #meta +json +rem __linguam__
+              _id: ontologia.commune.rem.__linguam__.compactum_json
               _JSONPath: translationem.directionem
               _exemplum:
-                {"translationem": {"directionem": ""}}
+                {"translationem": {"directionem": []}}
             _UTX: *referens_ontologia-commune-conceptum-meta-_UTX
 
           __linguam_de_imperium__:
             __HXL: '#item +rem +translationem +directionem __linguam_de_imperium__'
             __id: ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__
-            _compactum:
-              #meta +rem __linguam_de_imperium__
-              _id: ontologia.commune.rem.meta.__linguam_de_imperium__
+            _compactum_json:
+              #meta +json +rem __linguam_de_imperium__
+              _id: ontologia.commune.rem.__linguam_de_imperium__.compactum_json
               _JSONPath: translationem.directionem
               _exemplum:
                 {"translationem": {"directionem": ""}}
