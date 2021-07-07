@@ -194,16 +194,22 @@
           }
         },
         "compactum_json": {
-          "__HXL": "#meta +json +conceptum",
+          "__HXL": "#meta +conceptum +json",
           "__id": "ontologia.commune.conceptum.compactum_json"
         },
         "compactum_textum": {
-          "__HXL": "#meta +textum +conceptum",
+          "__HXL": "#meta +conceptum +textum",
           "__id": "ontologia.commune.conceptum.compactum_textum"
         },
-        "meta": {
-          "__HXL": "#meta +conceptum",
-          "__id": "ontologia.commune.conceptum.meta"
+        "typum": {
+          "__HXL": "#item +conceptum +typum",
+          "__id": "ontologia.commune.conceptum.typum",
+          "_TBX": {
+            "_id": "DC-2677",
+            "_nomen": "Term type",
+            "_xml": "<termNote type='termType'>",
+            "_descriptionem": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
+          }
         }
       },
       "rem": {
@@ -222,7 +228,7 @@
           },
           "accuratum": {
             "__HXL": "#status +rem +accuratum __linguam__",
-            "__id": "ontologia.commune.rem.accuratum.__linguam__",
+            "__id": "ontologia.commune.rem.__linguam__.accuratum",
             "__valorem_optionem": "ontologia_aliud.accuratum",
             "__valorem_maximum": 10,
             "__valorem_minimum": 0,
@@ -234,12 +240,22 @@
             }
           },
           "compactum_json": {
-            "__HXL": "#meta +json +rem __linguam__",
+            "__HXL": "#meta +rem +json __linguam__",
             "__id": "ontologia.commune.rem.__linguam__.compactum_json"
           },
           "compactum_textum": {
-            "__HXL": "#meta +textum +rem __linguam__",
+            "__HXL": "#meta +rem +textum __linguam__",
             "__id": "ontologia.commune.rem.__linguam__.compactum_textum"
+          },
+          "status": {
+            "compactum_json": {
+              "__HXL": "#status +rem +json __linguam__",
+              "__id": "ontologia.commune.rem.__linguam__.status.compactum_json"
+            },
+            "compactum_textum": {
+              "__HXL": "#status +rem +textum __linguam__",
+              "__id": "ontologia.commune.rem.__linguam__.status.compactum_textum"
+            }
           }
         },
         "__linguam_de_imperium__": {
@@ -269,12 +285,22 @@
             }
           },
           "compactum_json": {
-            "__HXL": "#meta +json +rem __linguam_de_imperium__",
+            "__HXL": "#meta +rem +json __linguam_de_imperium__",
             "__id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_json"
           },
           "compactum_textum": {
-            "__HXL": "#meta +textum +rem __linguam_de_imperium__",
+            "__HXL": "#meta +rem +textum __linguam_de_imperium__",
             "__id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_textum"
+          },
+          "status": {
+            "compactum_json": {
+              "__HXL": "#status +rem +json __linguam_de_imperium__",
+              "__id": "ontologia.commune.rem.__linguam_de_imperium__.status.compactum_json"
+            },
+            "compactum_textum": {
+              "__HXL": "#status +rem +textum __linguam_de_imperium__",
+              "__id": "ontologia.commune.rem.__linguam_de_imperium__.status.compactum_textum"
+            }
           }
         },
         "contextum": {
@@ -345,10 +371,11 @@
             }
           }
         },
-        "notam": {
+        "annotationem": {
           "__linguam__": {
-            "__HXL": "#item +rem +notam __linguam__",
-            "__id": "ontologia.commune.rem.notam.__linguam__",
+            "__HXL": "#meta +rem +annotationem __linguam__",
+            "__id": "ontologia.commune.rem.annotationem.__linguam__",
+            "__valorem_typum": "textum",
             "_TBX": {
               "_id": "DC-382",
               "_descriptionem": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
@@ -358,8 +385,9 @@
             }
           },
           "__linguam_de_imperium__": {
-            "__HXL": "#item +rem +notam __linguam_de_imperium__",
-            "__id": "ontologia.commune.rem.notam.__linguam_de_imperium__",
+            "__HXL": "#meta +rem +annotationem __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.annotationem.__linguam_de_imperium__",
+            "__valorem_typum": "textum",
             "_TBX": {
               "_id": "DC-382",
               "_descriptionem": "Any kind of note, such as a usage note, explanation,\nor instruction\n",
@@ -388,28 +416,6 @@
               "_nomen": "Part of speech",
               "_descriptionem": "Content type picklist\nPermissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nnoun         www.isocat.org/datcat/DC-1333\nverb         www.isocat.org/datcat/DC-1424\nadjective    www.isocat.org/datcat/DC-1230\nadverb       www.isocat.org/datcat/DC-1232\nproperNoun   www.isocat.org/datcat/DC-384\nother        www.isocat.org/datcat/DC-4336\n\nIn TBX-Default, the data type for part of speech is plainText.\nTBX-Basic's use of picklist is in compliance with TBX-Default\nbecause picklist is more constrained than plainText.\n\nThe other value can be used for terms of the phrase type.\n",
               "_xml": "<termNote type='partOfSpeech'>"
-            }
-          }
-        },
-        "typum": {
-          "__linguam__": {
-            "__HXL": "#item +rem +typum __linguam__",
-            "__id": "ontologia.commune.rem.typum.__linguam__",
-            "_TBX": {
-              "_id": "DC-2677",
-              "_nomen": "Term type",
-              "_xml": "<termNote type='termType'>",
-              "_descriptionem": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
-            }
-          },
-          "__linguam_de_imperium__": {
-            "__HXL": "#item +rem +typum __linguam_de_imperium__",
-            "__id": "ontologia.commune.rem.typum.__linguam_de_imperium__",
-            "_TBX": {
-              "_id": "DC-2677",
-              "_nomen": "Term type",
-              "_xml": "<termNote type='termType'>",
-              "_descriptionem": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
             }
           }
         }

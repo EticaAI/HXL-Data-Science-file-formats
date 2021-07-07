@@ -105,6 +105,7 @@ formatum:
     #      (see our tutorial and sample spreadsheets).
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/06/Spreadsheet-to-TBX-Min-Tutorial.pdf
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/05/sampleSpreadsheets.zip
+    # - https://multilingual.com/issues/july-aug-2019/tbx-version-3-published-at-iso/
 
   #### TMX: TermBase eXchange (TBX) Basic ______________________________________
   TMX:
@@ -153,6 +154,10 @@ formatum:
     normam:
       - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
 
+  # "TBX Mapping with XLIFF v2.0 and Higher Version 1.0"
+  # - https://tools.oasis-open.org/version-control/browse/wsvn/xliff-omos/trunk/XLIFF-TBX/xliff-tbx-v1.0.pdf
+  # - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.863.1277&rep=rep1&type=pdf
+
   #### YAML: (draft) ___________________________________________________________
   YAML:
     archivum_extensionem: .yml
@@ -168,7 +173,6 @@ formatum:
    #### XLSX, Google Sheets ____________________________________________________
    # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
    # @see https://support.google.com/drive/answer/37603
-
 
 # Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
 ontologia:
@@ -249,20 +253,39 @@ ontologia:
               domain: Aerospace
 
       compactum_json:
-        __HXL: '#meta +json +conceptum'
+        __HXL: '#meta +conceptum +json'
         __id: ontologia.commune.conceptum.compactum_json
 
       compactum_textum:
-        __HXL: '#meta +textum +conceptum'
+        __HXL: '#meta +conceptum +textum'
         __id: ontologia.commune.conceptum.compactum_textum
 
-      meta:
-        __HXL: '#meta +conceptum'
-        __id: ontologia.commune.conceptum.meta
-        # Note: this field is unlikely to show as it is on spreadsheets
-        #       edited by humans, but is a catch-all for metatada related
-        #       to concept that does not have specialized field.
-        # Recommended data type: JSON
+      # meta:
+      #   __HXL: '#meta +conceptum'
+      #   __id: ontologia.commune.conceptum.meta
+      #   # Note: this field is unlikely to show as it is on spreadsheets
+      #   #       edited by humans, but is a catch-all for metatada related
+      #   #       to concept that does not have specialized field.
+      #   # Recommended data type: JSON
+
+      # TODO: TBXBasic 6.17 Subject field, <descrip type="subjectField">
+      # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
+      typum:
+        __HXL: '#item +conceptum +typum'
+        __id: ontologia.commune.conceptum.typum
+        _TBX: &referens_ontologia-commune-rem-typum-__linguam__-_TBX
+          _id: DC-2677
+          _nomen: Term type
+          _xml: <termNote type='termType'>
+          _descriptionem: |
+            Permissible values and their ISOcat PIDs are as follows:
+            Value        ISOcat PID
+            fullForm     www.isocat.org/datcat/DC-321
+            acronym      www.isocat.org/datcat/DC-334
+            abbreviation www.isocat.org/datcat/DC-331
+            shortForm    www.isocat.org/datcat/DC-332
+            variant      www.isocat.org/datcat/DC-330
+            phrase       www.isocat.org/datcat/DC-339
 
     # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
     rem:
@@ -292,20 +315,37 @@ ontologia:
 
         accuratum:
           __HXL: '#status +rem +accuratum __linguam__'
-          __id: ontologia.commune.rem.accuratum.__linguam__
+          __id: ontologia.commune.rem.__linguam__.accuratum
           __valorem_optionem: "ontologia_aliud.accuratum"
           __valorem_maximum: 10
           __valorem_minimum: 0
           __valorem_typum: numerum
           _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
 
+        # # Trivia: annotātiōnem, https://en.wiktionary.org/wiki/annotatio#Latin
+        # annotationem:
+        #   __HXL: '#meta +rem +annotationem __linguam__'
+        #   __id: ontologia.commune.rem.annotationem.__linguam__
+        #   __valorem_typum: textum # annotationem Always free text
+
         compactum_json:
-          __HXL: '#meta +json +rem __linguam__'
+          __HXL: '#meta +rem +json __linguam__'
           __id: ontologia.commune.rem.__linguam__.compactum_json
 
         compactum_textum:
-          __HXL: '#meta +textum +rem __linguam__'
+          __HXL: '#meta +rem +textum __linguam__'
           __id: ontologia.commune.rem.__linguam__.compactum_textum
+
+        # - status
+        #   - HXL hashtag #status, https://hxlstandard.org/standard/1-1final/dictionary/#tag_status
+        #   - statum, https://en.wiktionary.org/wiki/status#Latin
+        status:
+          compactum_json:
+            __HXL: '#status +rem +json __linguam__'
+            __id: ontologia.commune.rem.__linguam__.status.compactum_json
+          compactum_textum:
+            __HXL: '#status +rem +textum __linguam__'
+            __id: ontologia.commune.rem.__linguam__.status.compactum_textum
 
       # Trivia: 
       # - linguam, https://en.wiktionary.org/wiki/lingua#Latin
@@ -327,13 +367,26 @@ ontologia:
           __valorem_typum: numerum
           _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
 
+        # annotationem:
+        #   __HXL: '#meta +rem +annotationem __linguam_de_imperium__'
+        #   __id: ontologia.commune.rem.annotationem.__linguam_de_imperium__
+        #   __valorem_typum: textum # annotationem Always free text
+
         compactum_json:
-          __HXL: '#meta +json +rem __linguam_de_imperium__'
+          __HXL: '#meta +rem +json __linguam_de_imperium__'
           __id: ontologia.commune.rem.__linguam_de_imperium__.compactum_json
 
         compactum_textum:
-          __HXL: '#meta +textum +rem __linguam_de_imperium__'
+          __HXL: '#meta +rem +textum __linguam_de_imperium__'
           __id: ontologia.commune.rem.__linguam_de_imperium__.compactum_textum
+
+        status:
+          compactum_json:
+            __HXL: '#status +rem +json __linguam_de_imperium__'
+            __id: ontologia.commune.rem.__linguam_de_imperium__.status.compactum_json
+          compactum_textum:
+            __HXL: '#status +rem +textum __linguam_de_imperium__'
+            __id: ontologia.commune.rem.__linguam_de_imperium__.status.compactum_textum
 
       # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
       contextum:
@@ -389,12 +442,13 @@ ontologia:
           __id: ontologia.commune.rem.genus.__linguam_de_imperium__
           _TBX: *referens_ontologia-commune-rem-genus-__linguam__-_TBX
 
-      # Trivia, notam, https://en.wiktionary.org/wiki/nota#Latin
-      notam:
+      # Trivia: annotātiōnem, https://en.wiktionary.org/wiki/annotatio#Latin
+      annotationem:
         __linguam__:
-          __HXL: '#item +rem +notam __linguam__'
-          __id: ontologia.commune.rem.notam.__linguam__
-          _TBX: &referens_ontologia-commune-rem-notam-__linguam__-_TBX
+          __HXL: '#meta +rem +annotationem __linguam__'
+          __id: ontologia.commune.rem.annotationem.__linguam__
+          __valorem_typum: textum # annotationem Always free text
+          _TBX: &referens_ontologia-commune-rem-annotationem-__linguam__-_TBX
             _id: DC-382
             _descriptionem: |
               Any kind of note, such as a usage note, explanation,
@@ -404,9 +458,10 @@ ontologia:
             _xml: <note>
 
         __linguam_de_imperium__:
-          __HXL: '#item +rem +notam __linguam_de_imperium__'
-          __id: ontologia.commune.rem.notam.__linguam_de_imperium__
-          _TBX: *referens_ontologia-commune-rem-notam-__linguam__-_TBX
+          __HXL: '#meta +rem +annotationem __linguam_de_imperium__'
+          __id: ontologia.commune.rem.annotationem.__linguam_de_imperium__
+          __valorem_typum: textum # annotationem Always free text
+          _TBX: *referens_ontologia-commune-rem-annotationem-__linguam__-_TBX
 
       # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
       partem_orationis:
@@ -439,30 +494,30 @@ ontologia:
           __id: ontologia.commune.rem.partem_orationis.__linguam_de_imperium__
           _TBX: *referens_ontologia-commune-rem-partem_orationis-__linguam__-_TBX
 
-      # TODO: TBXBasic 6.17 Subject field, <descrip type="subjectField">
-      # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
-      typum:
-        __linguam__:
-          __HXL: '#item +rem +typum __linguam__'
-          __id: ontologia.commune.rem.typum.__linguam__
-          _TBX: &referens_ontologia-commune-rem-typum-__linguam__-_TBX
-            _id: DC-2677
-            _nomen: Term type
-            _xml: <termNote type='termType'>
-            _descriptionem: |
-              Permissible values and their ISOcat PIDs are as follows:
-              Value        ISOcat PID
-              fullForm     www.isocat.org/datcat/DC-321
-              acronym      www.isocat.org/datcat/DC-334
-              abbreviation www.isocat.org/datcat/DC-331
-              shortForm    www.isocat.org/datcat/DC-332
-              variant      www.isocat.org/datcat/DC-330
-              phrase       www.isocat.org/datcat/DC-339
+      # # TODO: TBXBasic 6.17 Subject field, <descrip type="subjectField">
+      # # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
+      # typum:
+      #   __linguam__:
+      #     __HXL: '#item +rem +typum __linguam__'
+      #     __id: ontologia.commune.rem.typum.__linguam__
+      #     _TBX: &referens_ontologia-commune-rem-typum-__linguam__-_TBX
+      #       _id: DC-2677
+      #       _nomen: Term type
+      #       _xml: <termNote type='termType'>
+      #       _descriptionem: |
+      #         Permissible values and their ISOcat PIDs are as follows:
+      #         Value        ISOcat PID
+      #         fullForm     www.isocat.org/datcat/DC-321
+      #         acronym      www.isocat.org/datcat/DC-334
+      #         abbreviation www.isocat.org/datcat/DC-331
+      #         shortForm    www.isocat.org/datcat/DC-332
+      #         variant      www.isocat.org/datcat/DC-330
+      #         phrase       www.isocat.org/datcat/DC-339
 
-        __linguam_de_imperium__:
-          __HXL: '#item +rem +typum __linguam_de_imperium__'
-          __id: ontologia.commune.rem.typum.__linguam_de_imperium__
-          _TBX: *referens_ontologia-commune-rem-typum-__linguam__-_TBX
+      #   __linguam_de_imperium__:
+      #     __HXL: '#item +rem +typum __linguam_de_imperium__'
+      #     __id: ontologia.commune.rem.typum.__linguam_de_imperium__
+      #     _TBX: *referens_ontologia-commune-rem-typum-__linguam__-_TBX
 
   # Trivia: glōssārium, https://en.wiktionary.org/wiki/glossarium
   glossarium:
