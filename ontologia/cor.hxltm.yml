@@ -30,6 +30,10 @@
 # - "alternātīvum"
 #   - https://en.wiktionary.org/wiki/alternativus#Latin
 
+# TODO: plurals
+# - https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+# - https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html#Translating-plural-forms
+
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
   .hxl.csv: HXLTM
