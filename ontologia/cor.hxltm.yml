@@ -207,10 +207,25 @@ ontologia:
       codicem:
         __HXL: '#item +conceptum +codicem'
         __id: ontologia.commune.conceptum.codicem
+
+        # Trivia: dēprecātum, https://en.wiktionary.org/wiki/deprecatus#Latin
+        deprecatum:
+          __HXL: '#meta +conceptum +codicem +deprecatum'
+          __id: ontologia.commune.conceptum.codicem.deprecatum
+          __valorem_typum: compactum_textum
+            - exemplum_codicem_a|exemplum_codicem_b|123456
+
+        # Trivia: alternātīvum, https://en.wiktionary.org/wiki/alternativus#Latin
         alternativum:
-          __HXL: '#meta +conceptum +codicem +alternativum' # meta, not item
+          __HXL: '#meta +conceptum +codicem +alternativum'
           __id: ontologia.commune.conceptum.codicem.alternativum
-          # '#item +conceptum +codicem +alternativum +list' # Always a list
+          __valorem_typum: compactum_textum
+          _exemplum:
+            - Q1065|UNTERM5f40d95f1d17bf8c85256a01000080af|IATE787725
+            # ontologia.extensionem.conceptum.codicem.iate
+            # ontologia.extensionem.conceptum.codicem.unterm
+            # ontologia.extensionem.conceptum.codicem.wikidata
+            # (...)
 
       dominium:
         __HXL: '#item +conceptum +dominium' # Always a list
@@ -256,9 +271,10 @@ ontologia:
         __HXL: '#meta +conceptum +json'
         __id: ontologia.commune.conceptum.compactum_json
 
-      compactum_textum:
-        __HXL: '#meta +conceptum +textum'
-        __id: ontologia.commune.conceptum.compactum_textum
+      # # Better not provide a generic compactum_textum for conceptum
+      # compactum_textum:
+      #   __HXL: '#meta +conceptum +textum'
+      #   __id: ontologia.commune.conceptum.compactum_textum
 
       # meta:
       #   __HXL: '#meta +conceptum'
@@ -560,53 +576,54 @@ ontologia:
           _url: https://iate.europa.eu/fields-explained
           # _url_rem: ' ???? '
           _compactum_json:
-            #meta +json +conceptum
-            _id: ontologia.commune.conceptum.compactum_json
-            _JSONPath: codicem.iate
-            _exemplum:
-              {"codicem": {"iate": 787725}}
+            - #meta +json +conceptum
+              _id: ontologia.commune.conceptum.compactum_json
+              _JSONPath: codicem.iate
+              _exemplum:
+                {"codicem": {"iate": 787725}}
           _compactum_textum:
-            #item +conceptum +codicem
-             _id: ontologia.commune.conceptum.compactum_textum
-             _praefixum: "IATE"
-             _suffixum: ""
-             _exemplum: IATE787725
+            - #meta +conceptum +codicem +alternativum
+              _id: ontologia.commune.conceptum.codicem.alternativum
+              _praefixum: "IATE"
+              _suffixum: ""
+              _exemplum:
+                - IATE787725
 
         unterm:
           __HXL: '#meta +conceptum +codicem +unterm'
           __id: ontologia.extensionem.conceptum.codicem.unterm
           _url: https://iate.europa.eu/fields-explained
-          _url_rem: 'https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{rem}}'
+          _url_rem: 'https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{valorem}}'
           _compactum_json:
-            _id: ontologia.commune.conceptum.compactum_json
-            _JSONPath: codicem.unterm
-            # #meta +json +conceptum
-            _exemplum:             
-              {"codicem": {"unterm": "5f40d95f1d17bf8c85256a01000080af"}}
+            - _id: ontologia.commune.conceptum.compactum_json
+              _JSONPath: codicem.unterm
+              #meta +conceptum +json
+              _exemplum:             
+                {"codicem": {"unterm": "5f40d95f1d17bf8c85256a01000080af"}}
           _compactum_textum:
-            #meta +textum +conceptum
-             _id: ontologia.commune.conceptum.compactum_textum
-             _praefixum: "UNTERM"
-             _suffixum: ""
-             _exemplum: UNTERM5f40d95f1d17bf8c85256a01000080af
+               #meta +conceptum +codicem +alternativum
+             - _id: ontologia.commune.conceptum.codicem.alternativum
+               _praefixum: "UNTERM"
+               _suffixum: ""
+               _exemplum: UNTERM5f40d95f1d17bf8c85256a01000080af
 
         wikidata:
           __HXL: '#meta +conceptum +codicem +wikidata'
           __id: ontologia.extensionem.conceptum.codicem.wikidata
           _url: https://www.wikidata.org/
-          _url_rem: 'https://www.wikidata.org/wiki/{{rem}}'
+          _url_rem: 'https://www.wikidata.org/wiki/{{valorem}}'
           _compactum_json:
-            #meta +json +conceptum
-            _id: ontologia.commune.conceptum.compactum_json
-            _JSONPath: codicem.wikidata
-            _exemplum:
-              {"codicem": {"wikidata": "Q1"}}
+            - #meta +json +conceptum
+              _id: ontologia.commune.conceptum.compactum_json
+              _JSONPath: codicem.wikidata
+              _exemplum:
+                {"codicem": {"wikidata": "Q1065"}}
           _compactum_textum:
-            #meta +textum +conceptum
-             _id: ontologia.commune.conceptum.compactum_textum
-             _praefixum: "Q"
-             _suffixum: ""
-             _exemplum: Q1
+            - #meta +conceptum +codicem +alternativum
+              _id: ontologia.commune.conceptum.codicem.alternativum
+              _praefixum: "Q"
+              _suffixum: ""
+              _exemplum: Q1065
   
   # Trivia: https://www.wikidata.org/wiki/Q333761
   tm:
@@ -716,26 +733,74 @@ ontologia:
   # - ontologia, https://la.wikipedia.org/wiki/Ontologia
   # - datum, https://en.wiktionary.org/wiki/datum#Latin
   # - typum, https://en.wiktionary.org/wiki/typus#Latin
+  # - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
   # - normam, https://en.wiktionary.org/wiki/norma#Latin
   # - digitum, https://en.wiktionary.org/wiki/digitus#Latin
   #  - digit, https://en.wiktionary.org/wiki/digit#English
   #    - 'Unicode Digit' (unicode have several classes of numbers, digit is
   #       how it calls the 0 1 2 3 4 5 6 7 8 9)
+  # - textum, https://en.wiktionary.org/wiki/textus#Latin
 ontologia_datum_typum:
-  compactum_json:
-    _normam: https://www.json.org/
-  compactum_textum: {}
-  numerum:
-    _exemplum: 
-      - "123456789"
-      - "0123456789ABCDEF"
-      - "０１２３４５６７８９ＡＢＣＤＥＦ"
-  numerum_digitum:
-    _descriptionem: |
-      - https://en.wikipedia.org/wiki/Numerals_in_Unicode
-    _exemplum: 
-      - "123456789"
-  textum: {}
+  formatum:
+
+    compactum_json:
+      _normam: https://www.json.org/
+      _typum: textum
+  
+    compactum_textum:
+      _descriptionem: |
+        _[eng-Latn] Note: compactum_textum is different from textum. While textum
+        is a free form text, compactum_textum is meant to be used as human
+        editable compact form of values that could be stored on the equivalent
+        compactum_json.
+
+        Most of the time this means create controlled constants documented on
+        cor.hxltm.yml->ontologia_aliud to to represent other values. So this
+        means that compactum_textum MUST be both editable by humans and
+        parseable by computers.
+
+        Also, when more than one constant is need on compactum_textum the
+        separator is the character "|".
+
+        Whitespaces betwen start and end of a term should be ignored.
+
+        Unknow values should be ignored. Errors should only stop processing
+        if user ask for stricter or debugging mode.
+        [eng-Latn]_
+      _typum: textum
+
+    numerum:
+      _exemplum:
+        - "123456789"
+        - "0123456789ABCDEF"
+        - "０１２３４５６７８９ＡＢＣＤＥＦ"
+        - "Ⅰ 	Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ" # https://en.wikipedia.org/wiki/Numerals_in_Unicode#Roman_numerals
+        - "零 壹 貳 參 肆 伍 陸 柒 捌 玖" # https://en.wikipedia.org/wiki/Chinese_numerals
+        - "〇 一 二 三 四 五 六 七 八 九" # https://en.wikipedia.org/wiki/Chinese_numerals
+        # Several more examples at https://en.wikipedia.org/wiki/Numeral_system
+      _typum: textum
+  
+    numerum_digitum:
+      _descriptionem: |
+        - https://en.wikipedia.org/wiki/Numerals_in_Unicode
+      _exemplum: 
+        - "123456789"
+      _typum: numerum_digitum
+
+    textum:
+     _descriptionem: |
+        _[eng-Latn] Free text. This means allow even line breaks.
+        The only hard requeriment is a a format that can be represented on CSV
+        format (so means escaping characters).
+
+        DO NOT escape non US-ASCII characters. This is annoying. Fix your
+        system to accept Unicode and if necessary, only threat differently
+        control characters that are writing system neutral.
+        [eng-Latn]_
+
+  typum:
+    numerum_digitum: {}
+    textum: {}
 
 # Trivia: 
 # - ontologia, https://la.wikipedia.org/wiki/Ontologia

@@ -170,9 +170,18 @@
         "codicem": {
           "__HXL": "#item +conceptum +codicem",
           "__id": "ontologia.commune.conceptum.codicem",
+          "deprecatum": {
+            "__HXL": "#meta +conceptum +codicem +deprecatum",
+            "__id": "ontologia.commune.conceptum.codicem.deprecatum",
+            "__valorem_typum": "compactum_textum - exemplum_codicem_a|exemplum_codicem_b|123456"
+          },
           "alternativum": {
             "__HXL": "#meta +conceptum +codicem +alternativum",
-            "__id": "ontologia.commune.conceptum.codicem.alternativum"
+            "__id": "ontologia.commune.conceptum.codicem.alternativum",
+            "__valorem_typum": "compactum_textum",
+            "_exemplum": [
+              "Q1065|UNTERM5f40d95f1d17bf8c85256a01000080af|IATE787725"
+            ]
           }
         },
         "dominium": {
@@ -196,10 +205,6 @@
         "compactum_json": {
           "__HXL": "#meta +conceptum +json",
           "__id": "ontologia.commune.conceptum.compactum_json"
-        },
-        "compactum_textum": {
-          "__HXL": "#meta +conceptum +textum",
-          "__id": "ontologia.commune.conceptum.compactum_textum"
         },
         "typum": {
           "__HXL": "#item +conceptum +typum",
@@ -430,63 +435,77 @@
             "__HXL": "#meta +conceptum +codicem +iate",
             "__id": "ontologia.extensionem.conceptum.codicem.iate",
             "_url": "https://iate.europa.eu/fields-explained",
-            "_compactum_json": {
-              "_id": "ontologia.commune.conceptum.compactum_json",
-              "_JSONPath": "codicem.iate",
-              "_exemplum": {
-                "codicem": {
-                  "iate": 787725
+            "_compactum_json": [
+              {
+                "_id": "ontologia.commune.conceptum.compactum_json",
+                "_JSONPath": "codicem.iate",
+                "_exemplum": {
+                  "codicem": {
+                    "iate": 787725
+                  }
                 }
               }
-            },
-            "_compactum_textum": {
-              "_id": "ontologia.commune.conceptum.compactum_textum",
-              "_praefixum": "IATE",
-              "_suffixum": "",
-              "_exemplum": "IATE787725"
-            }
+            ],
+            "_compactum_textum": [
+              {
+                "_id": "ontologia.commune.conceptum.codicem.alternativum",
+                "_praefixum": "IATE",
+                "_suffixum": "",
+                "_exemplum": [
+                  "IATE787725"
+                ]
+              }
+            ]
           },
           "unterm": {
             "__HXL": "#meta +conceptum +codicem +unterm",
             "__id": "ontologia.extensionem.conceptum.codicem.unterm",
             "_url": "https://iate.europa.eu/fields-explained",
-            "_url_rem": "https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{rem}}",
-            "_compactum_json": {
-              "_id": "ontologia.commune.conceptum.compactum_json",
-              "_JSONPath": "codicem.unterm",
-              "_exemplum": {
-                "codicem": {
-                  "unterm": "5f40d95f1d17bf8c85256a01000080af"
+            "_url_rem": "https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{valorem}}",
+            "_compactum_json": [
+              {
+                "_id": "ontologia.commune.conceptum.compactum_json",
+                "_JSONPath": "codicem.unterm",
+                "_exemplum": {
+                  "codicem": {
+                    "unterm": "5f40d95f1d17bf8c85256a01000080af"
+                  }
                 }
               }
-            },
-            "_compactum_textum": {
-              "_id": "ontologia.commune.conceptum.compactum_textum",
-              "_praefixum": "UNTERM",
-              "_suffixum": "",
-              "_exemplum": "UNTERM5f40d95f1d17bf8c85256a01000080af"
-            }
+            ],
+            "_compactum_textum": [
+              {
+                "_id": "ontologia.commune.conceptum.codicem.alternativum",
+                "_praefixum": "UNTERM",
+                "_suffixum": "",
+                "_exemplum": "UNTERM5f40d95f1d17bf8c85256a01000080af"
+              }
+            ]
           },
           "wikidata": {
             "__HXL": "#meta +conceptum +codicem +wikidata",
             "__id": "ontologia.extensionem.conceptum.codicem.wikidata",
             "_url": "https://www.wikidata.org/",
-            "_url_rem": "https://www.wikidata.org/wiki/{{rem}}",
-            "_compactum_json": {
-              "_id": "ontologia.commune.conceptum.compactum_json",
-              "_JSONPath": "codicem.wikidata",
-              "_exemplum": {
-                "codicem": {
-                  "wikidata": "Q1"
+            "_url_rem": "https://www.wikidata.org/wiki/{{valorem}}",
+            "_compactum_json": [
+              {
+                "_id": "ontologia.commune.conceptum.compactum_json",
+                "_JSONPath": "codicem.wikidata",
+                "_exemplum": {
+                  "codicem": {
+                    "wikidata": "Q1065"
+                  }
                 }
               }
-            },
-            "_compactum_textum": {
-              "_id": "ontologia.commune.conceptum.compactum_textum",
-              "_praefixum": "Q",
-              "_suffixum": "",
-              "_exemplum": "Q1"
-            }
+            ],
+            "_compactum_textum": [
+              {
+                "_id": "ontologia.commune.conceptum.codicem.alternativum",
+                "_praefixum": "Q",
+                "_suffixum": "",
+                "_exemplum": "Q1065"
+              }
+            ]
           }
         }
       }
@@ -556,24 +575,41 @@
     }
   },
   "ontologia_datum_typum": {
-    "compactum_json": {
-      "_normam": "https://www.json.org/"
+    "formatum": {
+      "compactum_json": {
+        "_normam": "https://www.json.org/",
+        "_typum": "textum"
+      },
+      "compactum_textum": {
+        "_descriptionem": "_[eng-Latn] Note: compactum_textum is different from textum. While textum\nis a free form text, compactum_textum is meant to be used as human\neditable compact form of values that could be stored on the equivalent\ncompactum_json.\n\nMost of the time this means create controlled constants documented on\ncor.hxltm.yml->ontologia_aliud to to represent other values. So this\nmeans that compactum_textum MUST be both editable by humans and\nparseable by computers.\n\nAlso, when more than one constant is need on compactum_textum the\nseparator is the character \"|\".\n\nWhitespaces betwen start and end of a term should be ignored.\n\nUnknow values should be ignored. Errors should only stop processing\nif user ask for stricter or debugging mode.\n[eng-Latn]_\n",
+        "_typum": "textum"
+      },
+      "numerum": {
+        "_exemplum": [
+          "123456789",
+          "0123456789ABCDEF",
+          "０１２３４５６７８９ＡＢＣＤＥＦ",
+          "Ⅰ \tⅡ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ",
+          "零 壹 貳 參 肆 伍 陸 柒 捌 玖",
+          "〇 一 二 三 四 五 六 七 八 九"
+        ],
+        "_typum": "textum"
+      },
+      "numerum_digitum": {
+        "_descriptionem": "- https://en.wikipedia.org/wiki/Numerals_in_Unicode\n",
+        "_exemplum": [
+          "123456789"
+        ],
+        "_typum": "numerum_digitum"
+      },
+      "textum": {
+        "_descriptionem": "_[eng-Latn] Free text. This means allow even line breaks.\nThe only hard requeriment is a a format that can be represented on CSV\nformat (so means escaping characters).\n\nDO NOT escape non US-ASCII characters. This is annoying. Fix your\nsystem to accept Unicode and if necessary, only threat differently\ncontrol characters that are writing system neutral.\n[eng-Latn]_\n"
+      }
     },
-    "compactum_textum": {},
-    "numerum": {
-      "_exemplum": [
-        "123456789",
-        "0123456789ABCDEF",
-        "０１２３４５６７８９ＡＢＣＤＥＦ"
-      ]
-    },
-    "numerum_digitum": {
-      "_descriptionem": "- https://en.wikipedia.org/wiki/Numerals_in_Unicode\n",
-      "_exemplum": [
-        "123456789"
-      ]
-    },
-    "textum": {}
+    "typum": {
+      "numerum_digitum": {},
+      "textum": {}
+    }
   },
   "ontologia_aliud": {
     "accuratum": {
