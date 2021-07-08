@@ -51,6 +51,9 @@ hxltm_exemplum_glossarium_minimum="https://docs.google.com/spreadsheets/d/1isOgj
 # csv-3-exemplum
 csv_3_exemplum="https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/export?format=csv&gid=800942839"
 
+Hapi_schemam_un_htcds="https://proxy.hxlstandard.org/data/download/schemam-un-htcds_tm_hxl.csv?dest=data_edit&filter01=cut&filter-label01=Non+%23meta&cut-exclude-tags01=%23meta&cut-skip-untagged01=on&filter02=select&filter-label02=%23status%3E-1&select-query02-01=%23status%3E-1&strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4%2Fedit%23gid%3D1292720422"
+
+
 ROOTDIR="$(pwd)"
 
 #### DATA PULL _________________________________________________________________
@@ -82,6 +85,15 @@ if true ; then
     echo "   Fontem:   [$csv_3_exemplum]"
     echo "   Archīvum: [${ROOTDIR}/tests/hxltm/csv-3-exemplum.csv]"
     wget -qO- "$csv_3_exemplum" > "${ROOTDIR}/tests/hxltm/csv-3-exemplum.csv"
+fi
+
+# .gitignore: Do not save production test files to save space outside hapi.etica.ai
+if true ; then
+    echo ''
+    echo "Hapi_schemam_un_htcds"
+    echo "   Fontem: [$Hapi_schemam_un_htcds]"
+    echo "   Filum:  [${ROOTDIR}/tests/hxltm/schemam-un-htcds.tm.hxl.csv"
+    wget -qO- "$Hapi_schemam_un_htcds" > "${ROOTDIR}/tests/hxltm/schemam-un-htcds.tm.hxl.csv"
 fi
 
 exit 0

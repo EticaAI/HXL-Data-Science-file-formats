@@ -428,12 +428,15 @@ ontologia:
       #     __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
       #     _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
 
-      # Trivia: genus, https://en.wiktionary.org/wiki/genus#Latin
-      genus:
+      # Trivia:
+      # - genus_grammaticum,
+      #   - https://la.wikipedia.org/wiki/Genus_grammaticum
+      #   - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+      genus_grammaticum:
         __linguam__:
-          __HXL: '#item +rem +genus __linguam__'
-          __id: ontologia.commune.rem.genus.__linguam__
-          _TBX: &referens_ontologia-commune-rem-genus-__linguam__-_TBX
+          __HXL: '#item +rem +genus_grammaticum __linguam__'
+          __id: ontologia.commune.rem.genus_grammaticum.__linguam__
+          _TBX: &referens_ontologia-commune-rem-genus_grammaticum-__linguam__-_TBX
             _id: DC-245
             _descriptionem: |
               Picklist, with permissible values as follows:
@@ -446,9 +449,9 @@ ontologia:
             _xml: <termNote type='grammaticalGender'>
 
         __linguam_de_imperium__:
-          __HXL: '#item +rem +genus __linguam_de_imperium__'
-          __id: ontologia.commune.rem.genus.__linguam_de_imperium__
-          _TBX: *referens_ontologia-commune-rem-genus-__linguam__-_TBX
+          __HXL: '#item +rem +genus_grammaticum __linguam_de_imperium__'
+          __id: ontologia.commune.rem.genus_grammaticum.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-genus_grammaticum-__linguam__-_TBX
 
       # Trivia: annotātiōnem, https://en.wiktionary.org/wiki/annotatio#Latin
       annotationem:
@@ -853,13 +856,32 @@ ontologia_aliud:
   #                             source, in particular a reliable written
   #                             source.
   accuratum:
-    "_":
-      # blank value expressed by '_' have some defaults when exported
+    "?":
+      # The '?' express what to do when the entire column does not exist, so
+      # is not a particular value that is missing
       _IATE_valorem_codicem: "★★"
       _IATE_valorem_descriptionem: |
         Automatically assigned to terms entered or updated by native speakers.
       _IATE_valorem_nomen: "Minimum reliability"
       _IATE_valorem_numerum: 6
+    "_":
+      # The '_' express what to do when the column do exist, but one particular
+      # value does not have any value
+      _IATE_valorem_codicem: "★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered by non-native speakers.
+        Also, all lookup forms have a reliability of one.
+      _IATE_valorem_nomen: "Reliability not verified"
+      _IATE_valorem_numerum: 1
+    "0":
+      # The '0' express when the column do exist, but one particular item
+      # evaluate to 0
+      _IATE_valorem_codicem: "★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered by non-native speakers.
+        Also, all lookup forms have a reliability of one.
+      _IATE_valorem_nomen: "Reliability not verified"
+      _IATE_valorem_numerum: 1
     "1":
       _IATE_valorem_codicem: "★"
       _IATE_valorem_descriptionem: |
@@ -1112,6 +1134,38 @@ ontologia_aliud:
 
   # translationem_status:
   rem_status:
+
+    ### Lingua Latina ---------------------------------------------------------
+    # TODO: lingua latina
+
+    # Trivia:
+    # - rem, https://en.wiktionary.org/wiki/res#Latin
+    # - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
+    lat_rem_finale:
+      _aliud: 'TBX_preferred|UTX_approved|XLIFF_final'
+
+    # Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+    lat_rem_initiale:
+      # TBX do not have valor for 'initial' but we can use accuratus for this
+      _aliud: 'UTX_provisional|XLIFF_initial'
+
+    # Trivia:
+    # - temporārium, https://en.wiktionary.org/wiki/temporarius#Latin
+    # - non, https://en.wiktionary.org/wiki/non#Latin
+    # - nātīvum, https://en.wiktionary.org/wiki/nativus#Latin
+    lat_rem_temporarium_de_non_nativum:
+      #  TBX do not have valor for 'initial' but we can use accuratus for this
+      _aliud: 'UTX_provisional|XLIFF_initial'
+
+    # Trivia:
+    # - temporārium, https://en.wiktionary.org/wiki/temporarius#Latin
+    lat_rem_temporarium:
+      #  TBX do not have valor for 'initial' but we can use accuratus for this
+      _aliud: 'UTX_provisional|XLIFF_initial'
+
+    # Trivia: vacuum, https://en.wiktionary.org/wiki/vacuus#Latin
+    lat_rem_vacuum:
+      _aliud: ''
 
     ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
     # 3.1 7 Additional information about data categories

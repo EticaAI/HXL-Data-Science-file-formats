@@ -272,6 +272,15 @@ class HXLTMCLI:
         )
 
         parser.add_argument(
+            '--objectivum-CSV-HXLated-XLIFF',
+            help='(experimental) ' +
+            'HXLated bilingual CSV (feature compatible with XLIFF)',
+            dest='objectivum_typum',
+            action='append_const',
+            const='CSV-3'
+        )
+
+        parser.add_argument(
             '--objectivum-JSON-kv', '--JSON-kv',
             help='(Not implemented yet) ' +
             'Export to Bilingual JSON. Keys are ID (if available) or source '
@@ -443,6 +452,11 @@ class HXLTMCLI:
                 # raise NotImplementedError('CSV-3 not implemented yet')
                 self.hxltm2csv3(args.outfile, self.original_outfile,
                                 self.original_outfile_is_stdout, args)
+
+            elif self.objectivum_typum == 'CSV-HXLated-XLIFF':
+                # raise NotImplementedError('CSV-3 not implemented yet')
+                self.hxltm2csv(args.outfile, self.original_outfile,
+                               self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'JSON-kv':
                 self.hxltm2jsonkv(args.outfile, self.original_outfile,
@@ -741,7 +755,14 @@ class HXLTMCLI:
         for rem in datum:
             num += 1
 
-            unit_id = rem['#item+id'] if '#item+id' in rem else num
+            # unit_id = rem['#item+id'] if '#item+id' in rem else num
+            if '#item+id' in rem:
+                unit_id = rem['#item+id']
+            elif '#item+conceptum+codicem' in rem:
+                unit_id = rem['#item+conceptum+codicem']
+            else:
+                unit_id = num
+
             resultatum.append('    <tu tuid="' + str(unit_id) + '">')
             if '#item+wikidata+code' in rem and rem['#item+wikidata+code']:
                 resultatum.append(
@@ -760,10 +781,17 @@ class HXLTMCLI:
                 # print(langattrs)
 
                 if '#item' + langattrs in rem:
+                    keylang = '#item' + langattrs
+                elif '#item+rem' + langattrs in rem:
+                    keylang = '#item+rem' + langattrs
+                else:
+                    keylang = 'no-key-found-failed'
+
+                if keylang in rem:
                     bcp47 = HXLTMUtil.bcp47_from_hxlattrs(langattrs)
                     resultatum.append('      <tuv xml:lang="' + bcp47 + '">')
                     resultatum.append(
-                        '        <seg>' + rem['#item' + langattrs] + '</seg>')
+                        '        <seg>' + rem[keylang] + '</seg>')
                     resultatum.append('      </tuv>')
 
             resultatum.append('    </tu>')
@@ -827,7 +855,7 @@ class HXLTMCLI:
             if xsource:
                 if not rem[xsource]:
                     resultatum.append(
-                        '          <!-- ERROR source ' + unit_id +
+                        '          <!-- ERROR source ' + str(unit_id) +
                         ', ' + xsource + '-->')
                     if not args.silentium:
                         print('ERROR:', unit_id, xsource)
@@ -916,7 +944,8 @@ class HXLTMCLI:
                 # This could be useful if someone is trying to translate twice
                 continue
 
-            elif hxlated_header[idx] == '#item+id':
+            elif hxlated_header[idx] == '#item+id' or \
+                    hxlated_header[idx] == '#item +conceptum +codicem':
                 hxlated_header[idx] = '#x_xliff+unit+id'
                 continue
 
@@ -929,12 +958,15 @@ class HXLTMCLI:
                 continue
 
             elif hxlated_header[idx] == '#item+wikidata+code' or \
-                    hxlated_header[idx] == '#meta+wikidata+code':
+                    hxlated_header[idx] == '#meta+wikidata+code' or \
+                    hxlated_header[idx] == \
+            '#meta+conceptum+codicem+alternativum':
                 hxlated_header[idx] = \
                     '#x_xliff+unit+note+note_category__wikidata'
                 continue
 
-            elif hxlated_header[idx] == '#item+type+lat_dominium+list':
+            elif hxlated_header[idx] == '#item+type+lat_dominium+list' or \
+                    hxlated_header[idx] == '#item+conceptum+dominium':
                 hxlated_header[idx] = '#x_xliff+group+group_0'
                 continue
 
