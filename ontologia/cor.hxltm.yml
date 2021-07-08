@@ -910,6 +910,101 @@ ontologia_aliud:
       _IATE_valorem_nomen: "Very reliable"
       _IATE_valorem_numerum: 10
 
+  genus_grammaticum:
+
+    # TODO: Several languages have more than 3 genders, but 6 are added to
+    #       latin aliases. This need improvement.
+    # @see https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+
+    ### Lingua Latina ------------------------------------------------------------
+    # > https://la.wikipedia.org/wiki/Genus_grammaticum
+    #   Genus grammaticum
+    # Genus grammaticum est aliqua proprietas sive nominis sive interdum etiam
+    # verbi. Genera circiter in quarta parte linguarum mundi distinguuntur.
+    # Divisiones principales sunt haec:
+    #
+    # - masculinum et femininum
+    #  - (e.g. Francogallice, Hispanice, Hindi-Urdu, Arabice, Hebraice)
+    # - masculinum, femininum, neutrum
+    #  - (e.g. Latine, Graece, Theodisce, Islandice, Sanscritice)
+    # - animatum, inanimatum
+    #  - (e.g. Ojibwayense et probabiliter lingua Protoindoeuropaea)
+    # - commune, neutrum (e.g. Danice, Suecice).
+
+    lat_commune:
+      _aliud: 'TBX_other'
+      _codicem: lat_commune
+      _codicem_TBX: TBX_other
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter
+
+    lat_animatum:
+      _aliud: 'TBX_other'
+      _codicem: lat_animatum
+      _codicem_TBX: TBX_other
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate
+
+    lat_femininum:
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+
+    lat_inanimatum:
+      _aliud: 'TBX_other'
+      _codicem: lat_inanimatum
+      _codicem_TBX: TBX_other
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate
+
+    lat_neutrum:
+      _aliud: 'TBX_other'
+      _codicem: lat_neutrum
+      _codicem_TBX: TBX_other
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter
+
+    lat_masculinum:
+      _aliud: 'TBX_masculine'
+      _codicem: lat_masculinum
+      _codicem_TBX: TBX_masculine
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+
+    # TODO: Lingua latina, 'More than three grammatical genders'
+    # @see https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#More_than_three_grammatical_genders
+
+
+    # Term Base eXchange (TBX) 2008 CC-BY License ................................
+    # @see http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+    # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+    #
+    # 6.8 Gender
+    #   Identifier www.isocat.org/datcat/DC-245
+    #   XML representation <termNote type="grammaticalGender">
+    #   Level Term
+    #   Content type Picklist, with permissible values as follows:
+    #     • masculine
+    #     • feminine
+    #     • neuter
+    #     • other
+    #
+    # <termNoteSpec name="grammaticalGender" datcatId="ISO12620A-020202">
+    #   <contents datatype="picklist" forTermComp="yes">
+    #    masculine feminine neuter otherGender
+    #   </contents>
+    # </termNoteSpec>
+
+    TBX_masculine:
+    TBX_feminine:
+    TBX_neuter:
+    TBX_other:
+
   # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
   partem_orationis:
 

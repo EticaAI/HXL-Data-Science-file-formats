@@ -650,6 +650,45 @@
         "_IATE_valorem_numerum": 10
       }
     },
+    "genus_grammaticum": {
+      "lat_commune": {
+        "_aliud": "TBX_other",
+        "_codicem": "lat_commune",
+        "_codicem_TBX": "TBX_other",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter\n"
+      },
+      "lat_animatum": {
+        "_aliud": "TBX_other",
+        "_codicem": "lat_animatum",
+        "_codicem_TBX": "TBX_other",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate\n"
+      },
+      "lat_femininum": {
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders\n"
+      },
+      "lat_inanimatum": {
+        "_aliud": "TBX_other",
+        "_codicem": "lat_inanimatum",
+        "_codicem_TBX": "TBX_other",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate\n"
+      },
+      "lat_neutrum": {
+        "_aliud": "TBX_other",
+        "_codicem": "lat_neutrum",
+        "_codicem_TBX": "TBX_other",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter\n"
+      },
+      "lat_masculinum": {
+        "_aliud": "TBX_masculine",
+        "_codicem": "lat_masculinum",
+        "_codicem_TBX": "TBX_masculine",
+        "_descriptionem": "- https://la.wikipedia.org/wiki/Genus_grammaticum\n- https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders\n"
+      },
+      "TBX_masculine": null,
+      "TBX_feminine": null,
+      "TBX_neuter": null,
+      "TBX_other": null
+    },
     "partem_orationis": {
       "lat_adverbium": {
         "_aliud": "TBX_adverb|UTX_adverb",
