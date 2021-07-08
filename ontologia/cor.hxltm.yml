@@ -313,40 +313,6 @@ ontologia:
 
             Note: Term definitions are optional in a UTX glossary.
 
-        accuratum:
-          __HXL: '#status +rem +accuratum __linguam__'
-          __id: ontologia.commune.rem.__linguam__.accuratum
-          __valorem_optionem: "ontologia_aliud.accuratum"
-          __valorem_maximum: 10
-          __valorem_minimum: 0
-          __valorem_typum: numerum
-          _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
-
-        # # Trivia: annotātiōnem, https://en.wiktionary.org/wiki/annotatio#Latin
-        # annotationem:
-        #   __HXL: '#meta +rem +annotationem __linguam__'
-        #   __id: ontologia.commune.rem.annotationem.__linguam__
-        #   __valorem_typum: textum # annotationem Always free text
-
-        compactum_json:
-          __HXL: '#meta +rem +json __linguam__'
-          __id: ontologia.commune.rem.__linguam__.compactum_json
-
-        compactum_textum:
-          __HXL: '#meta +rem +textum __linguam__'
-          __id: ontologia.commune.rem.__linguam__.compactum_textum
-
-        # - status
-        #   - HXL hashtag #status, https://hxlstandard.org/standard/1-1final/dictionary/#tag_status
-        #   - statum, https://en.wiktionary.org/wiki/status#Latin
-        status:
-          compactum_json:
-            __HXL: '#status +rem +json __linguam__'
-            __id: ontologia.commune.rem.__linguam__.status.compactum_json
-          compactum_textum:
-            __HXL: '#status +rem +textum __linguam__'
-            __id: ontologia.commune.rem.__linguam__.status.compactum_textum
-
       # Trivia: 
       # - linguam, https://en.wiktionary.org/wiki/lingua#Latin
       # - dē, https://en.wiktionary.org/wiki/de#Latin
@@ -358,7 +324,17 @@ ontologia:
         _TBX: *referens_ontologia-commune-rem-__linguam__-_TBX
         _UTX: *referens_ontologia-commune-rem-__linguam__-_UTX
 
-        accuratum:
+      accuratum:
+        __linguam__:
+          __HXL: '#status +rem +accuratum __linguam__'
+          __id: ontologia.commune.rem.__linguam__.accuratum
+          __valorem_optionem: "ontologia_aliud.accuratum"
+          __valorem_maximum: 10
+          __valorem_minimum: 0
+          __valorem_typum: numerum
+          _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
+
+        __linguam_de_imperium__:
           __HXL: '#status +rem +accuratum __linguam_de_imperium__'
           __id: ontologia.commune.rem.accuratum.__linguam_de_imperium__
           __valorem_optionem: "ontologia_aliud.accuratum"
@@ -367,58 +343,74 @@ ontologia:
           __valorem_typum: numerum
           _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
 
-        # annotationem:
-        #   __HXL: '#meta +rem +annotationem __linguam_de_imperium__'
-        #   __id: ontologia.commune.rem.annotationem.__linguam_de_imperium__
-        #   __valorem_typum: textum # annotationem Always free text
+      compactum_json:
+        __linguam__:
+          __HXL: '#meta +rem +json __linguam__'
+          __id: ontologia.commune.rem.compactum_json.__linguam__
+        __linguam_de_imperium__:
+          __HXL: '#meta +rem +json __linguam_de_imperium__'
+          __id: ontologia.commune.rem.compactum_json.__linguam_de_imperium__
+
+      # Note: we will NOT provide a generic #meta +rem, but will compact_json
+      # compactum_textum:
+      #   __linguam__:
+      #     __HXL: '#meta +rem +textum __linguam__'
+      #     __id: ontologia.commune.rem.compactum_textum.__linguam__
+
+        # - status
+        #   - HXL hashtag #status, https://hxlstandard.org/standard/1-1final/dictionary/#tag_status
+        #   - statum, https://en.wiktionary.org/wiki/status#Latin
+      status:
 
         compactum_json:
-          __HXL: '#meta +rem +json __linguam_de_imperium__'
-          __id: ontologia.commune.rem.__linguam_de_imperium__.compactum_json
-
-        compactum_textum:
-          __HXL: '#meta +rem +textum __linguam_de_imperium__'
-          __id: ontologia.commune.rem.__linguam_de_imperium__.compactum_textum
-
-        status:
-          compactum_json:
+          __linguam__:
+            __HXL: '#status +rem +json __linguam__'
+            __id: ontologia.commune.rem.status.compactum_json.__linguam__
+          __linguam_de_imperium__:
             __HXL: '#status +rem +json __linguam_de_imperium__'
-            __id: ontologia.commune.rem.__linguam_de_imperium__.status.compactum_json
-          compactum_textum:
+            __id: ontologia.commune.rem.compactum_json.__linguam_de_imperium__
+  
+        compactum_textum:
+          __linguam__:
+            __HXL: '#status +rem +textum __linguam__'
+            __id: ontologia.commune.rem.__linguam__.status.compactum_textum
+          __linguam_de_imperium__:
             __HXL: '#status +rem +textum __linguam_de_imperium__'
-            __id: ontologia.commune.rem.__linguam_de_imperium__.status.compactum_textum
+            __id: ontologia.commune.rem.compactum_textum.__linguam_de_imperium__
 
-      # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
-      contextum:
-        __linguam__:
-          __HXL: '#item +rem +contextum __linguam__'
-          __id: ontologia.commune.rem.contextum.__linguam__
-          _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
-            _id: DC-149
-            _descriptionem: A sample sentence that contains the term.
-            _xml: <descrip type='context'>
+      # MOVED TO ontologia.glossarium
+      # # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
+      # contextum:
+      #   __linguam__:
+      #     __HXL: '#item +rem +contextum __linguam__'
+      #     __id: ontologia.commune.rem.contextum.__linguam__
+      #     _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+      #       _id: DC-149
+      #       _descriptionem: A sample sentence that contains the term.
+      #       _xml: <descrip type='context'>
 
-        __linguam_de_imperium__:
-          __HXL: '#item +rem +contextum __linguam_de_imperium__'
-          __id: ontologia.commune.rem.contextum.__linguam_de_imperium__
-          _TBX: *referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+      #   __linguam_de_imperium__:
+      #     __HXL: '#item +rem +contextum __linguam_de_imperium__'
+      #     __id: ontologia.commune.rem.contextum.__linguam_de_imperium__
+      #     _TBX: *referens_ontologia-commune-rem-contextum-__linguam__-_TBX
 
-      # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
-      definitionem:
-        __linguam__:
-          __HXL: '#item +rem +definitionem __linguam__'
-          __id: ontologia.commune.rem.definitionem.__linguam__
-          _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
-            _id: DC-168
-            _descriptionem:
-            _nomen: Definition
-            _level: Concept, Language
-            _xml: <descrip type='definition'>
+      # MOVED TO ontologia.glossarium
+      # # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
+      # definitionem:
+      #   __linguam__:
+      #     __HXL: '#item +rem +definitionem __linguam__'
+      #     __id: ontologia.commune.rem.definitionem.__linguam__
+      #     _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+      #       _id: DC-168
+      #       _descriptionem:
+      #       _nomen: Definition
+      #       _level: Concept, Language
+      #       _xml: <descrip type='definition'>
 
-        __linguam_de_imperium__:
-          __HXL: '#item +rem +definitionem __linguam_de_imperium__'
-          __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
-          _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+      #   __linguam_de_imperium__:
+      #     __HXL: '#item +rem +definitionem __linguam_de_imperium__'
+      #     __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
+      #     _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
 
       # Trivia: genus, https://en.wiktionary.org/wiki/genus#Latin
       genus:
@@ -521,8 +513,41 @@ ontologia:
 
   # Trivia: glōssārium, https://en.wiktionary.org/wiki/glossarium
   glossarium:
-    # # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
-    # definitionem:
+
+    # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
+    rem:
+
+      # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
+      contextum:
+        __linguam__:
+          __HXL: '#item +rem +contextum __linguam__'
+          __id: ontologia.commune.rem.contextum.__linguam__
+          _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+            _id: DC-149
+            _descriptionem: A sample sentence that contains the term.
+            _xml: <descrip type='context'>
+
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +contextum __linguam_de_imperium__'
+          __id: ontologia.commune.rem.contextum.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+
+      # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
+      definitionem:
+        __linguam__:
+          __HXL: '#item +rem +definitionem __linguam__'
+          __id: ontologia.commune.rem.definitionem.__linguam__
+          _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+            _id: DC-168
+            _descriptionem:
+            _nomen: Definition
+            _level: Concept, Language
+            _xml: <descrip type='definition'>
+
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +definitionem __linguam_de_imperium__'
+          __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
 
   # Trivia: extēnsiōnem, https://en.wiktionary.org/wiki/extensio#Latin
   extensionem:
@@ -541,7 +566,7 @@ ontologia:
             _exemplum:
               {"codicem": {"iate": 787725}}
           _compactum_textum:
-            #meta +textum +conceptum
+            #item +conceptum +codicem
              _id: ontologia.commune.conceptum.compactum_textum
              _praefixum: "IATE"
              _suffixum: ""
@@ -686,6 +711,31 @@ ontologia:
               _exemplum:
                 {"translationem": {"directionem": ""}}
             _UTX: *referens_ontologia-commune-conceptum-meta-_UTX
+
+  # Trivia:
+  # - ontologia, https://la.wikipedia.org/wiki/Ontologia
+  # - datum, https://en.wiktionary.org/wiki/datum#Latin
+  # - typum, https://en.wiktionary.org/wiki/typus#Latin
+  # - normam, https://en.wiktionary.org/wiki/norma#Latin
+  # - digitum, https://en.wiktionary.org/wiki/digitus#Latin
+  #  - digit, https://en.wiktionary.org/wiki/digit#English
+  #    - 'Unicode Digit' (unicode have several classes of numbers, digit is
+  #       how it calls the 0 1 2 3 4 5 6 7 8 9)
+ontologia_datum_typum:
+  compactum_json:
+    _normam: https://www.json.org/
+  compactum_textum: {}
+  numerum:
+    _exemplum: 
+      - "123456789"
+      - "0123456789ABCDEF"
+      - "０１２３４５６７８９ＡＢＣＤＥＦ"
+  numerum_digitum:
+    _descriptionem: |
+      - https://en.wikipedia.org/wiki/Numerals_in_Unicode
+    _exemplum: 
+      - "123456789"
+  textum: {}
 
 # Trivia: 
 # - ontologia, https://la.wikipedia.org/wiki/Ontologia

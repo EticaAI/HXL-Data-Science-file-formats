@@ -225,37 +225,6 @@
           "_UTX": {
             "_nomen": "Term",
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
-          },
-          "accuratum": {
-            "__HXL": "#status +rem +accuratum __linguam__",
-            "__id": "ontologia.commune.rem.__linguam__.accuratum",
-            "__valorem_optionem": "ontologia_aliud.accuratum",
-            "__valorem_maximum": 10,
-            "__valorem_minimum": 0,
-            "__valorem_typum": "numerum",
-            "_TBX": {
-              "_nomen": "reliabilityCode",
-              "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
-              "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
-            }
-          },
-          "compactum_json": {
-            "__HXL": "#meta +rem +json __linguam__",
-            "__id": "ontologia.commune.rem.__linguam__.compactum_json"
-          },
-          "compactum_textum": {
-            "__HXL": "#meta +rem +textum __linguam__",
-            "__id": "ontologia.commune.rem.__linguam__.compactum_textum"
-          },
-          "status": {
-            "compactum_json": {
-              "__HXL": "#status +rem +json __linguam__",
-              "__id": "ontologia.commune.rem.__linguam__.status.compactum_json"
-            },
-            "compactum_textum": {
-              "__HXL": "#status +rem +textum __linguam__",
-              "__id": "ontologia.commune.rem.__linguam__.status.compactum_textum"
-            }
           }
         },
         "__linguam_de_imperium__": {
@@ -270,8 +239,23 @@
           "_UTX": {
             "_nomen": "Term",
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          }
+        },
+        "accuratum": {
+          "__linguam__": {
+            "__HXL": "#status +rem +accuratum __linguam__",
+            "__id": "ontologia.commune.rem.__linguam__.accuratum",
+            "__valorem_optionem": "ontologia_aliud.accuratum",
+            "__valorem_maximum": 10,
+            "__valorem_minimum": 0,
+            "__valorem_typum": "numerum",
+            "_TBX": {
+              "_nomen": "reliabilityCode",
+              "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
+              "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
+            }
           },
-          "accuratum": {
+          "__linguam_de_imperium__": {
             "__HXL": "#status +rem +accuratum __linguam_de_imperium__",
             "__id": "ontologia.commune.rem.accuratum.__linguam_de_imperium__",
             "__valorem_optionem": "ontologia_aliud.accuratum",
@@ -283,67 +267,37 @@
               "_descriptionem": "A code assigned to a data-category or record indicating accuracy\nand/or completeness. The content of the <descrip> element when it\nhas a type attribute value of 'reliabilityCode' shall be a value\nfrom 1 (least reliable) to 10 (most reliable).\n",
               "_xml": "<descrip type='reliabilityCode'>__valorem__</descrip>"
             }
+          }
+        },
+        "compactum_json": {
+          "__linguam__": {
+            "__HXL": "#meta +rem +json __linguam__",
+            "__id": "ontologia.commune.rem.compactum_json.__linguam__"
           },
-          "compactum_json": {
+          "__linguam_de_imperium__": {
             "__HXL": "#meta +rem +json __linguam_de_imperium__",
-            "__id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_json"
+            "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__"
+          }
+        },
+        "status": {
+          "compactum_json": {
+            "__linguam__": {
+              "__HXL": "#status +rem +json __linguam__",
+              "__id": "ontologia.commune.rem.status.compactum_json.__linguam__"
+            },
+            "__linguam_de_imperium__": {
+              "__HXL": "#status +rem +json __linguam_de_imperium__",
+              "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__"
+            }
           },
           "compactum_textum": {
-            "__HXL": "#meta +rem +textum __linguam_de_imperium__",
-            "__id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_textum"
-          },
-          "status": {
-            "compactum_json": {
-              "__HXL": "#status +rem +json __linguam_de_imperium__",
-              "__id": "ontologia.commune.rem.__linguam_de_imperium__.status.compactum_json"
+            "__linguam__": {
+              "__HXL": "#status +rem +textum __linguam__",
+              "__id": "ontologia.commune.rem.__linguam__.status.compactum_textum"
             },
-            "compactum_textum": {
+            "__linguam_de_imperium__": {
               "__HXL": "#status +rem +textum __linguam_de_imperium__",
-              "__id": "ontologia.commune.rem.__linguam_de_imperium__.status.compactum_textum"
-            }
-          }
-        },
-        "contextum": {
-          "__linguam__": {
-            "__HXL": "#item +rem +contextum __linguam__",
-            "__id": "ontologia.commune.rem.contextum.__linguam__",
-            "_TBX": {
-              "_id": "DC-149",
-              "_descriptionem": "A sample sentence that contains the term.",
-              "_xml": "<descrip type='context'>"
-            }
-          },
-          "__linguam_de_imperium__": {
-            "__HXL": "#item +rem +contextum __linguam_de_imperium__",
-            "__id": "ontologia.commune.rem.contextum.__linguam_de_imperium__",
-            "_TBX": {
-              "_id": "DC-149",
-              "_descriptionem": "A sample sentence that contains the term.",
-              "_xml": "<descrip type='context'>"
-            }
-          }
-        },
-        "definitionem": {
-          "__linguam__": {
-            "__HXL": "#item +rem +definitionem __linguam__",
-            "__id": "ontologia.commune.rem.definitionem.__linguam__",
-            "_TBX": {
-              "_id": "DC-168",
-              "_descriptionem": null,
-              "_nomen": "Definition",
-              "_level": "Concept, Language",
-              "_xml": "<descrip type='definition'>"
-            }
-          },
-          "__linguam_de_imperium__": {
-            "__HXL": "#item +rem +definitionem __linguam_de_imperium__",
-            "__id": "ontologia.commune.rem.definitionem.__linguam_de_imperium__",
-            "_TBX": {
-              "_id": "DC-168",
-              "_descriptionem": null,
-              "_nomen": "Definition",
-              "_level": "Concept, Language",
-              "_xml": "<descrip type='definition'>"
+              "__id": "ontologia.commune.rem.compactum_textum.__linguam_de_imperium__"
             }
           }
         },
@@ -421,7 +375,54 @@
         }
       }
     },
-    "glossarium": null,
+    "glossarium": {
+      "rem": {
+        "contextum": {
+          "__linguam__": {
+            "__HXL": "#item +rem +contextum __linguam__",
+            "__id": "ontologia.commune.rem.contextum.__linguam__",
+            "_TBX": {
+              "_id": "DC-149",
+              "_descriptionem": "A sample sentence that contains the term.",
+              "_xml": "<descrip type='context'>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +contextum __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.contextum.__linguam_de_imperium__",
+            "_TBX": {
+              "_id": "DC-149",
+              "_descriptionem": "A sample sentence that contains the term.",
+              "_xml": "<descrip type='context'>"
+            }
+          }
+        },
+        "definitionem": {
+          "__linguam__": {
+            "__HXL": "#item +rem +definitionem __linguam__",
+            "__id": "ontologia.commune.rem.definitionem.__linguam__",
+            "_TBX": {
+              "_id": "DC-168",
+              "_descriptionem": null,
+              "_nomen": "Definition",
+              "_level": "Concept, Language",
+              "_xml": "<descrip type='definition'>"
+            }
+          },
+          "__linguam_de_imperium__": {
+            "__HXL": "#item +rem +definitionem __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.definitionem.__linguam_de_imperium__",
+            "_TBX": {
+              "_id": "DC-168",
+              "_descriptionem": null,
+              "_nomen": "Definition",
+              "_level": "Concept, Language",
+              "_xml": "<descrip type='definition'>"
+            }
+          }
+        }
+      }
+    },
     "extensionem": {
       "conceptum": {
         "codicem": {
@@ -553,6 +554,26 @@
         }
       }
     }
+  },
+  "ontologia_datum_typum": {
+    "compactum_json": {
+      "_normam": "https://www.json.org/"
+    },
+    "compactum_textum": {},
+    "numerum": {
+      "_exemplum": [
+        "123456789",
+        "0123456789ABCDEF",
+        "０１２３４５６７８９ＡＢＣＤＥＦ"
+      ]
+    },
+    "numerum_digitum": {
+      "_descriptionem": "- https://en.wikipedia.org/wiki/Numerals_in_Unicode\n",
+      "_exemplum": [
+        "123456789"
+      ]
+    },
+    "textum": {}
   },
   "ontologia_aliud": {
     "accuratum": {
