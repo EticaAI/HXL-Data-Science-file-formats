@@ -913,6 +913,66 @@ ontologia_aliud:
   # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
   partem_orationis:
 
+    ### Lingua Latina ---------------------------------------------------------
+    # @see https://en.wikipedia.org/wiki/Latin_grammar
+    # @see https://la.wikipedia.org/wiki/Grammatica_Latina
+    # @see http://www.butte.edu/departments/cas/tipsheets/grammar/parts_of_speech.html
+    # - Charlton T. Lewis and Charles Short, A new Latin Dictionary,
+    #   New York/Oxford 1891 (1879)
+    #   - https://archive.org/details/LewisAndShortANewLatinDictionary
+
+    lat_adverbium:
+      _aliud: 'TBX_adverb|UTX_adverb'
+      _codicem: lat_nomen_adiectivum
+      _codicem_TBX: TBX_adverb
+      _codicem_UTX: UTX_adverb
+      _codicem_wikidata: Q380057 # https://www.wikidata.org/wiki/Q380057
+      _normam: https://la.wikipedia.org/wiki/Adverbium
+
+    lat_nomen_adiectivum:
+      _aliud: 'TBX_adjective|UTX_adjective'
+      _codicem: lat_nomen_adiectivum
+      _codicem_TBX: TBX_adjective
+      _codicem_UTX: UTX_adjective
+      _codicem_wikidata: Q34698 # https://www.wikidata.org/wiki/Q34698
+      _normam: https://la.wikipedia.org/wiki/Adiectivum
+
+    # substantīvum
+    lat_nomen_substantivum:
+      _aliud: 'TBX_noun|UTX_noun'
+      _codicem: lat_nomen_substantivum
+      _codicem_TBX: TBX_noun
+      _codicem_UTX: UTX_properNoun
+      _codicem_wikidata: Q1084 # https://www.wikidata.org/wiki/Q1084
+      _normam: https://la.wikipedia.org/wiki/Nomen_substantivum
+
+    lat_nomen_proprium:
+      _aliud: 'TBX_properNoun|UTX_properNoun'
+      _codicem: lat_nomen_proprium
+      _codicem_TBX: TBX_properNoun
+      _codicem_UTX: UTX_properNoun
+      _codicem_wikidata: Q147276 # https://www.wikidata.org/wiki/Q147276
+      _normam: https://la.wikipedia.org/wiki/Nomen_proprium
+
+    # TODO: UTX_prenominal, https://pt.wikipedia.org/wiki/Coloca%C3%A7%C3%A3o_pronominal
+
+    lat_verbum:
+      _aliud: 'TBX_verb|UTX_verb'
+      _codicem: lat_verbum
+      _codicem_TBX: TBX_verb
+      _codicem_UTX: UTX_verb
+      _codicem_wikidata: Q24905 # https://www.wikidata.org/wiki/Q24905
+      _normam: https://la.wikipedia.org/wiki/Verbum_(temporale)
+
+    # TODO: UTX_vt, Transitive verb, https://en.wikipedia.org/wiki/Transitive_verb
+    # TODO: UTX_vi, Transitive verb, https://en.wikipedia.org/wiki/Intransitive_verb
+
+   # sentence, maybe https://en.wiktionary.org/wiki/sententia
+   # phrasem1, https://en.wiktionary.org/wiki/phrasis#Latin
+
+    # TODO: TBX_other
+
+    ### ------------------------------------------------------------------------
     # http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
     TBX_noun:
       _codicem: DC-1333
@@ -927,6 +987,7 @@ ontologia_aliud:
     TBX_other:
       _codicem: DC-4336
 
+    ### ------------------------------------------------------------------------
     # https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
     UTX_noun:
       _nomen: Noun

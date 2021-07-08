@@ -651,6 +651,46 @@
       }
     },
     "partem_orationis": {
+      "lat_adverbium": {
+        "_aliud": "TBX_adverb|UTX_adverb",
+        "_codicem": "lat_nomen_adiectivum",
+        "_codicem_TBX": "TBX_adverb",
+        "_codicem_UTX": "UTX_adverb",
+        "_codicem_wikidata": "Q380057",
+        "_normam": "https://la.wikipedia.org/wiki/Adverbium"
+      },
+      "lat_nomen_adiectivum": {
+        "_aliud": "TBX_adjective|UTX_adjective",
+        "_codicem": "lat_nomen_adiectivum",
+        "_codicem_TBX": "TBX_adjective",
+        "_codicem_UTX": "UTX_adjective",
+        "_codicem_wikidata": "Q34698",
+        "_normam": "https://la.wikipedia.org/wiki/Adiectivum"
+      },
+      "lat_nomen_substantivum": {
+        "_aliud": "TBX_noun|UTX_noun",
+        "_codicem": "lat_nomen_substantivum",
+        "_codicem_TBX": "TBX_noun",
+        "_codicem_UTX": "UTX_properNoun",
+        "_codicem_wikidata": "Q1084",
+        "_normam": "https://la.wikipedia.org/wiki/Nomen_substantivum"
+      },
+      "lat_nomen_proprium": {
+        "_aliud": "TBX_properNoun|UTX_properNoun",
+        "_codicem": "lat_nomen_proprium",
+        "_codicem_TBX": "TBX_properNoun",
+        "_codicem_UTX": "UTX_properNoun",
+        "_codicem_wikidata": "Q147276",
+        "_normam": "https://la.wikipedia.org/wiki/Nomen_proprium"
+      },
+      "lat_verbum": {
+        "_aliud": "TBX_verb|UTX_verb",
+        "_codicem": "lat_verbum",
+        "_codicem_TBX": "TBX_verb",
+        "_codicem_UTX": "UTX_verb",
+        "_codicem_wikidata": "Q24905",
+        "_normam": "https://la.wikipedia.org/wiki/Verbum_(temporale)"
+      },
       "TBX_noun": {
         "_codicem": "DC-1333"
       },
