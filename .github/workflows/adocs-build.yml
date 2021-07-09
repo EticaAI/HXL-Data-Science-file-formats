@@ -8,7 +8,7 @@ on:
 jobs:
   adoc_build:
     runs-on: ubuntu-18.04
-    name: asciidoctor -D docs --backend=html5 -o hxltm/index.html -a toc2 hxltm/index.adoc
+    name: asciidoctor --backend=html5 -o hxltm/index.html -a toc2 hxltm/README.adoc
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -16,7 +16,7 @@ jobs:
       id: adocbuild
       uses: tonynv/asciidoctor-action@master
       with:
-          program: "asciidoctor -D docs --backend=html5 -o hxltm/index.html -a toc2 hxltm/index.adoc"
+          program: "asciidoctor --backend=html5 -o hxltm/index.html -a toc2 hxltm/README.adoc"
     - name: Print execution time
       run: echo "Time ${{ steps.adocbuild.outputs.time }}"
 
