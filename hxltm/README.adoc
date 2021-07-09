@@ -12,15 +12,20 @@ https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGri
 Drive]]
 
 The _Humanitarian Exchange Language Trānslātiōnem Memoriam_
-(abbreviation: "`HXLTM`") is an HXLated valid HXL tabular format by
-https://github.com/HXL-CPLP[HXL-CPLP] to store community contributed
-translations and glossaries.
+(abbreviation: "`HXLTM`") is an HXLated valid tabular format (stricly, a
+documented subset of https://hxlstandard.org/[HXL]) by
+https://github.com/HXL-CPLP[HXL-CPLP] with strong focus to store community
+contributed translations and glossaries while maximizing portability for
+implementers (like via use of `+hxltmcli+` to export to
+Excel, XLIFF, TMX, JSON, CSV, ...).
 
-The `+hxltmcli+` is an _(initial reference)_ of an public domain python
-cli tool allow reuse by others interested in export HXLTM files to
-common formats used by professional translators. But software developers
-interested in promote use cases of HXL are encouraged to either
-collaborate to `+hxltmcli+` or create other tools.
+____
+> *Why HXLTM was created?*
+>
+> HXLTM is, by design, focused on storage of multilingual content, while make it
+minimum compatible with average localization file formats used by software
+(TL;DR: they are mono or bilingual).
+____
 
 
 ////
@@ -51,10 +56,11 @@ collaborate to `+hxltmcli+` or create other tools.
 
 === Installation
 
-`hxltmcli` uses Python 3. While is possible to just copy the `hxltmcli` file
-and install manually dependencies, like the
-[HXLStandard/libhxl-python](https://github.com/HXLStandard/libhxl-python),
-you can install with the [hdp-toolchain](https://pypi.org/project/hdp-toolchain/).
+`+hxltmcli+` uses Python 3. While is possible to just copy the
+`+hxltmcli+` file and install manually dependencies, like the
+https://github.com/HXLStandard/libhxl-python[HXLStandard/libhxl-python],
+you can install with the
+https://pypi.org/project/hdp-toolchain/[hdp-toolchain].
 
 ```bash
 # hxltmcli is installed with the hdp-toolchain, no extras required.
@@ -66,6 +72,12 @@ hxltmcli --help
 ```
 
 == HXLTM working file formats
+
+The `+hxltmcli+` is an _(initial reference)_ of an public domain python
+cli tool allow reuse by others interested in export HXLTM files to
+common formats used by professional translators. But software developers
+interested in promote use cases of HXL are encouraged to either
+collaborate to `+hxltmcli+` or create other tools.
 
 === HXLM common dialect
 
@@ -181,9 +193,11 @@ CSV versions.
 
 === Microsoft Excel
 
+++++
 <a id="HXLTM-XLSX" href="#HXLTM-XLSX">§ HXLTM-XLSX</a>
+++++
 
-**Read HXL TM data saved on Excel**
+==== Read HXL TM data saved on Excel
 
 The `hxltmcli` supports read directly from Microsoft Excel (no extra plugins
 required).
@@ -203,7 +217,7 @@ hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx schemam-un-htcd
 #    (Instead of print to stdout, save the contents to a single CSV file)
 ----
 
-**Write HXL TM data on Microsoft Excel**
+==== Write HXL TM data on Microsoft Excel
 
 Writting to Microsoft Excel is possible by using external tool to import the
 CSV versions. Here is just one example, but you are free to use alternatives.
@@ -222,12 +236,13 @@ unoconv --format xlsx hxltm-exemplum-linguam.tm.hxl.csv
 
 # Note: in our tests, unoconv may have exporting bugs with unicode, see
 # @see https://github.com/unoconv/unoconv/issues/271
-
 ----
 
 === CSV
 
+++++
 <a id="HXLTM-CSV" href="#HXLTM-CSV">§ HXLTM-CSV</a>
+++++
 
 ==== 1.5.6.1 CSV reference format, HXLated CSV (multilingual)
 The default output of `hxltmcli` already is output an valid HXLated CSV without
@@ -419,24 +434,27 @@ Without need to install the packages, you can check online documentation at
 
 ==== Example data
 
-- `HXLTM-Exemplum`: Generic test files:
-  - Input files: [tests/hxltm/](/tests/hxltm/)
-    - Live spreadsheet: <https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/edit#gid=0>
-  - Output files: [tests/hxltm/resultatum/](tests/hxltm/resultatum/)
-- Production files:
-  - `HXL-CPLP-Vocab_Auxilium-Humanitarium-API`: Hapi project
-    - GitHub:
-      - https://github.com/HXL-CPLP/Auxilium-Humanitarium-API
-    - Live Spreadsheet:
-      - <https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486>
-      - Note: the project may eventually use other sources of data (and this
-        link here may eventually not be up to date)
+* `+HXLTM-Exemplum+`: Generic test files:
+** Input files: link:/tests/hxltm/[tests/hxltm/]
+*** Live spreadsheet:
+https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/edit#gid=0
+** Output files: tests/hxltm/resultatum/
+* Production files:
+** `+HXL-CPLP-Vocab_Auxilium-Humanitarium-API+`: Hapi project
+*** GitHub:
+**** https://github.com/HXL-CPLP/Auxilium-Humanitarium-API
+*** Live Spreadsheet:
+**** https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486
+**** Note: the project may eventually use other sources of data (and
+this link here may eventually not be up to date)
 
 === Advanced filter with HXL cli tools
 
+++++
 <a id="HXLTM-libhxl-cli-tools" href="#HXLTM-libhxl-cli-tools">§ HXLTM-libhxl-cli-tools</a>
+++++
 
-- See **https://github.com/HXLStandard/libhxl-python/wiki/HXL-cookbook**
+* See **https://github.com/HXLStandard/libhxl-python/wiki/HXL-cookbook**
 
 Since a HXLTM (before export) is a valid HXL file, advanced seleting is
 possible by, instead of `hxltmcli input.hxl.csv output.hxl.csv` use
@@ -460,8 +478,9 @@ hxlcut --exclude item+i_la+i_lat+is_Latn https://docs.google.com/spreadsheets/d/
 ----
 
 === Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)
-
+++++
 <a id="HXLTM-HXL-Proxy" href="#HXLTM-HXL-Proxy">§ HXLTM-HXL-Proxy</a>
+++++
 
 In special if you are contributing for either tools for HXL, testing this tool
 or helping in production (e.g. real time disaster response) please consider
@@ -469,7 +488,7 @@ usage of the public HXL-Proxy on https://proxy.hxlstandard.org/.
 
 Most advanced features of the libhxl cli tools are availible via HXL-proxy.
 
-**Note about heavy usage: use cache**
+==== Note about heavy usage: use cache
 Both https://hapi.etica.ai/ and https://github.com/HXL-CPLP/Auxilium-Humanitarium-API
 (and some links used on this documentation) may use the HXL-Proxy default
 1 hour cache disabled. This is necessary because the HXL-proxy is used to build
@@ -489,10 +508,11 @@ authenticated requests. **Our recomendations on this case is:**
 
 == License
 
-[![Public Domain Dedication](../img/public-domain.png)](UNLICENSE)
+link:UNLICENSE[image:../img/public-domain.png[Public Domain Dedication]]
 
-The [EticaAI](https://github.com/EticaAI) has dedicated the work to the
-[public domain](../UNLICENSE) by waiving all of their rights to the work worldwide
-under copyright law, including all related and neighboring rights, to the extent
-allowed by law. You can copy, modify, distribute and perform the work, even for
-commercial purposes, all without asking permission.
+The https://github.com/EticaAI[EticaAI] has dedicated the work to the
+link:../UNLICENSE[public domain] by waiving all of their rights to the
+work worldwide under copyright law, including all related and
+neighboring rights, to the extent allowed by law. You can copy, modify,
+distribute and perform the work, even for commercial purposes, all
+without asking permission.
