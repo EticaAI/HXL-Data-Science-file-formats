@@ -9,10 +9,8 @@
 > - https://pypi.org/project/python-i18n/
 
 <!--
-pip3 install argmark
-argmark -f /bin/hxltmcli
-argmark -f bin/hxltmcli
-argmark -f bin/hxl2tab
+- https://support.crowdin.com/supported-formats/
+- https://github.com/golang/text/blob/master/cmd/gotext/examples/extract/locales/en-US/messages.gotext.json
 -->
 
 ---
