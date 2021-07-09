@@ -1,5 +1,7 @@
 = HXLM: Humanitarian Exchange Language Trānslātiōnem Memoriam
 :toc: preamble
+:source-highlighter: highlight.js
+:highlightjs-languages: yaml
 
 https://hdp.etica.ai/hxltm[image:https://img.shields.io/badge/Site-hdp.etica.ai%2Fhxltm-blue[Site]]
 https://github.com/EticaAI/HXL-Data-Science-file-formats[image:https://img.shields.io/badge/GitHub-EticaAI%2FHXL--Data--Science--file--formats-lightgrey?logo=github&style=social[EticaAI/HXL-Data-Science-file-formats]]
@@ -22,9 +24,15 @@ Excel, XLIFF, TMX, JSON, CSV, ...).
 ____
 > *Why HXLTM was created?*
 >
-> HXLTM is, by design, focused on storage of multilingual content, while make it
-minimum compatible with average localization file formats used by software
-(TL;DR: they are mono or bilingual).
+> HXLTM is, by design, focused on storage and exchange of multilingual content,
+> while make it minimum compatible with average localization file formats used
+> by software (TL;DR: they are mono or bilingual; also tooling for bilingual
+> formats like XLIFF is great, like
+> https://www.youtube.com/watch?v=FCgOjBry6Ec[online free CAT tool, MateCat]).
+>
+> While `hxltmcli`, even early versions, already can be used as
+> non-Humanitarian general propose to exchange translations stored
+> (or entirely managed) "with Excel" or "Google Sheets", the (...TODO: continue)
 ____
 
 
@@ -62,14 +70,15 @@ https://github.com/HXLStandard/libhxl-python[HXLStandard/libhxl-python],
 you can install with the
 https://pypi.org/project/hdp-toolchain/[hdp-toolchain].
 
-```bash
+[source,bash]
+----
 # hxltmcli is installed with the hdp-toolchain, no extras required.
 # @see https://pypi.org/project/hdp-toolchain/
 pip install hdp-toolchain
 
 hxltmcli --help
 
-```
+----
 
 == HXLTM working file formats
 
@@ -505,6 +514,19 @@ authenticated requests. **Our recomendations on this case is:**
 
 1. **download the entire Spreadsheet as .xlsx file and process the .xlsx file locally.**
 2. **Download individual sheets as CSV files and save locally (this consumes less CPU than process .xlsx)**
+
+== Ontologia
+
+Ontology, YAML::
+- https://hdp.etica.ai/ontologia/cor.hxltm.yml
+
+Ontology, JSON::
+- https://hdp.etica.ai/ontologia/json/cor.hxltm.json
+
+[source,yaml]
+----
+include::../ontologia/cor.hxltm.yml[]
+----
 
 == License
 

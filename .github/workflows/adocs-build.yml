@@ -12,11 +12,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
     - name: Get build container
       id: adocbuild
       uses: tonynv/asciidoctor-action@master
       with:
           program: "asciidoctor --backend=html5 -o hxltm/index.html -a toc2 hxltm/README.adoc"
+
     - name: Print execution time
       run: echo "Time ${{ steps.adocbuild.outputs.time }}"
 
@@ -26,3 +28,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: ./
+        # We still use markdown and other things, so we will allow default
+        # jekyll to run
+        enable_jekyll: true
