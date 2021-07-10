@@ -6,9 +6,15 @@
 #         USAGE:  hxltmcli un-htcds.tm.hxl.csv un-htcds.xliff
 #                 cat un-htcds.tm.hxl.csv | hxltmcli > un-htcds.xliff
 #
-#   DESCRIPTION:  _[eng-Latn] hxltmcli is an working draft of a tool to
-#                             convert prototype of translation memory stored
-#                             with HXL to XLIFF v2.1
+#   DESCRIPTION:  _[eng-Latn] The HXLTM reference implementation in python.
+#                             While this can installed with hdp-toolchain:
+#                                 pip install hdp-toolchain
+#                             The one--big-file hxltmcli.py (along with the
+#                             cor.hxltm.yml) can be customized as single
+#                             python script. But on this case, you will need
+#                             to install at least the hard dependencies
+#                             of hxltmcli:
+#                                 pip install libhxl langcodes pyyaml
 #                 [eng-Latn]_
 #                 @see http://docs.oasis-open.org/xliff/xliff-core/v2.1
 #                      /os/xliff-core-v2.1-os.html
@@ -21,6 +27,11 @@
 #
 #  REQUIREMENTS:  - python3
 #                     - libhxl (@see https://pypi.org/project/libhxl/)
+#                       - pip3 install libhxl
+#                     - langcodes (@see https://github.com/rspeer/langcodes)
+#                       - pip3 install langcodes
+#                     - pyyaml (@see https://github.com/yaml/pyyaml)
+#                       - pip3 install pyyaml
 #          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
@@ -83,6 +94,10 @@ import yaml
 import hxl.converters
 import hxl.filters
 import hxl.io
+
+# @see https://github.com/rspeer/langcodes
+# pip3 install langcodes
+import langcodes
 
 __VERSION__ = "v0.8.2"
 
@@ -1163,8 +1178,56 @@ class HXLTMOntologia:
         )
 
 
+class HXLTMBCP47:
+    """HXLTM BCP47 auxilium programmi
+
+    _[eng-Latn] A non-dictionary aware BCP47 converter
+                Note: this on this version depends on langcodes,
+                <https://github.com/rspeer/langcodes>,
+                So you need
+                pip3 install langcodes
+    [eng-Latn]_
+
+
+    Author:
+            Emerson Rocha <rocha[at]ieee.org>
+    Creation date:
+            2021-06-09
+    """
+    def __init__(self, textum_bcp47: str):
+        """
+
+        """
+        self.crudum = textum_bcp47
+
+    @staticmethod
+    def testum(textum: str) -> str:
+        """testum est (...)
+
+
+        Example:
+            >>> HXLTMBCP47.testum('eng_US')
+            'en-US'
+            >>> HXLTMBCP47.testum('en-UK')
+            'en-GB'
+
+        Args:
+            textum (str): [description]
+
+        Returns:
+            str: [description]
+        """
+        resultatum = langcodes.standardize_tag(textum)
+        return resultatum
+
+
 class HXLTMUtil:
     """HXL Trānslātiōnem Memoriam auxilium programmi
+
+    Author:
+            Emerson Rocha <rocha[at]ieee.org>
+    Creation date:
+            2021-06-09
     """
 
     @staticmethod
