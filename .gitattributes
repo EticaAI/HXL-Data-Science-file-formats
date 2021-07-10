@@ -1,0 +1,2 @@
+# See https://github.com/github/linguist
+*.hdpl linguist-language=lisp

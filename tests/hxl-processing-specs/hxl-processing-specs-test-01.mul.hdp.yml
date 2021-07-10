@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json
+
+# How to run this file? Version tested: v0.7.4
+# @see https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/14#issuecomment-798454298
+
+# To inspect the result (pretty print)
+#     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml
+# To pipe the result direct to hxlspec (second item of array, use jq '.[1]')
+#     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml | jq '.[1]' | hxlspec
+# To pipe the result direct to hxlspec (4º item of array, use jq '.[1]')
+#     hdpcli --export-to-hxl-json-processing-specs tests/hxl-processing-specs/hxl-processing-specs-test-01.mul.hdp.yml | jq '.[3]' | hxlspec
+
+---
+# See also https://proxy.hxlstandard.org/api/from-spec.html
+# http://json-schema.org/understanding-json-schema/
+# Test schema online https://www.jsonschemavalidator.net/
+# Validate schema here: https://www.json-schema-linter.com/
+# TODO: better validate HERE https://jsonschemalint.com/#!/version/draft-07/markup/json
+
+- hsilo:
+    nomen: "test1"
+  htransformare:
+    - id: recipe1
+      _recipe:
+        - filter: with_columns
+          includes: "#vocab+id+v_iso6393_3letter,#vocab+code+v_6391,#vocab+name"
+        - filter: without_rows
+          queries: "#vocab+code+v_6391="
+      exemplum:
+        - fontem:
+            iri: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+
+- hsilo:
+    descriptionem:
+      mul: https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/
+  htransformare:
+    - id: example-processing-with-a-JSON-spec
+      _recipe:
+        - filter: count
+          patterns: "adm1+name,adm1+code"
+          aggregators:
+            - "sum(population) as Population#population"
+        - filter: clean_data
+          number: "population"
+          number_format: .0f
+      exemplum:
+        - fontem:
+            iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+            _sheet_index: 1

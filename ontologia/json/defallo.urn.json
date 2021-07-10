@@ -1,0 +1,275 @@
+[
+  {
+    "urn": "urn:data:xz:hxl:standard:core:hashtag",
+    "descriptionem": {
+      "eng-Latn": "HXL/CSV version of the HXL Standard core hashtags."
+    },
+    "auxilium": [
+      "https://data.humdata.org/dataset/hxl-core-schemas"
+    ],
+    "fontem": [
+      "ontologia/codicem/hxl/standard/core/hashtag.hxl.csv",
+      "https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI%2Fpub%3Fgid%3D319251406%26single%3Dtrue%26output%3Dcsv",
+      "https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:hxl:standard:core:attribute",
+    "descriptionem": {
+      "eng-Latn": "HXL/CSV version of the HXL Standard core attributes."
+    },
+    "auxilium": [
+      "https://data.humdata.org/dataset/hxl-core-schemas"
+    ],
+    "fontem": [
+      "ontologia/codicem/hxl/standard/core/hashtag.hxl.csv",
+      "https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI%2Fpub%3Fgid%3D1810309357%26single%3Dtrue%26output%3Dcsv&strip-headers=on",
+      "https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=1810309357&single=true&output=csv"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:hxl:standard:master-vocabulary",
+    "descriptionem": {
+      "eng-Latn": "Master dataset for resolving HXL \"+v\" attributes, first introduced in release 1.1. To request new entries or changes to existing ones, please send a message to the public HXL mailing list.\n"
+    },
+    "auxilium": [
+      "https://data.humdata.org/dataset/hxl-master-vocabulary-list"
+    ],
+    "fontem": [
+      "ontologia/codicem/hxl/standard/master-vocabulary.hxl.csv",
+      "https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1dGPthewm3Dm5_IWBU4buJ370qJBnrVYPL3XbxZ0O-BY%2Fedit%3Fts%3D5a201f69%23gid%3D0",
+      "https://docs.google.com/spreadsheets/d/1dGPthewm3Dm5_IWBU4buJ370qJBnrVYPL3XbxZ0O-BY/edit?ts=5a201f69#gid=0"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:hxl:cplp:hxl2tab",
+    "fontem": [
+      "ontologia/codicem/hxl/cplp/hxl2tab.hxl.csv",
+      "https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY%2Fedit%23gid%3D245471857",
+      "https://docs.google.com/spreadsheets/d/1vFkBSharAEg5g5K2u_iDLCBvpWWPqpzC1hcL6QpFNZY/edit#gid=245471857"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:cod:thesaurum",
+    "fontem": [
+      "ontologia/cod/thesaurum.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=1204322111"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:cod:filum-typum",
+    "fontem": [
+      "ontologia/cod/filum-typum.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1NIlLAAhvuotq5QR2vGTrCe1ZuTT_k4vhCoEB3qjo7TU/edit#gid=214068544"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:anatomiam:terminologia-anatomica",
+    "descriptionem": {
+      "eng-Latn": "Table with code references for body parts, in special Terminologia Anatomica (TA). Can be used with other ontologies and to transform for a few natural languages descriptions.\n"
+    },
+    "explanandum": [
+      "+v_fipat_ta2",
+      "+v_fipat_ta98_id",
+      "+v_fipat_ta98_latin",
+      "+v_wikidata",
+      "+v_fi_yso",
+      "+v_fr_universalis",
+      "+v_it_bncf",
+      "+v_jp_ndl",
+      "+v_uberon",
+      "+v_uk_britannica",
+      "+v_us_jstor",
+      "+v_us_mag",
+      "+v_us_mesh",
+      "+v_us_umls_cui"
+    ],
+    "auxilium": [
+      "https://github.com/HXL-CPLP/forum/issues/44",
+      "https://www4.unifr.ch/ifaa/Public/EntryPage/TA98%20Tree/HelpPage/TA98%20Latin%20Page%20Help.pdf"
+    ],
+    "exemplum": [
+      "ontologia/codicem/anatomiam/terminologia-anatomica-EXEMPLUM.hxl.csv"
+    ],
+    "fontem": [
+      "ontologia/codicem/anatomiam/terminologia-anatomica.hxl.csv",
+      "https://proxy.hxlstandard.org/data/b02a5f/download/HXL_CPLP-FOD_medicinae-legalis_humana-corpus.csv",
+      "https://docs.google.com/spreadsheets/d/10axnLpDNtAc8Bh921dz5XPXCwo0FUXRcKS6-ermiu5w/edit#gid=1622293684"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:sexum:binarium",
+    "explanandum": [
+      "+v_iso5218",
+      "+v_iso5218_extended",
+      "+v_fipat_ta98_latin"
+    ],
+    "fontem": [
+      "ontologia/codicem/sexum/binarium.hxl.csv",
+      "https://proxy.hxlstandard.org/data.csv?dest=data_edit&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k%2Fedit%23gid%3D214068544",
+      "https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=214068544"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:sexum:hl7",
+    "descriptionem": {
+      "eng-Latn": "Gender Coding with International Data Exchange Standards. Extracted from Health Level Seven International (HL7) reference tables.\n"
+    },
+    "auxilium": [
+      "https://confluence.hl7.org/display/VOC/Gender+Coding+with+International+Data+Exchange+Standards"
+    ],
+    "explanandum": [
+      "+v_iso5218",
+      "+v_iso5218_extended",
+      "+v_us_cdc_sex",
+      "+v_un_icao_sex",
+      "+v_us_NAACCR",
+      "+v_us_census_sex"
+    ],
+    "fontem": [
+      "ontologia/codicem/sexum/hl7.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=1946656528"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:sexum:non-binarium",
+    "explanandum": [
+      "+lat_codices_anonyma",
+      "+v_iso5218_extended"
+    ],
+    "fontem": [
+      "ontologia/codicem/sexum/non-binarium.hxl.csv",
+      "https://proxy.hxlstandard.org/data.csv?dest=data_edit&filter01=expand&filter-label01=%2Blist+split&strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k%2Fedit%23gid%3D530571590",
+      "https://docs.google.com/spreadsheets/d/1AvYEV8a-X9gZrxrPH0wPgoGHO8ENxWJuVA3z1RpcC5k/edit#gid=530571590"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:linguam",
+    "explanandum": [
+      "+v_iso15924"
+    ],
+    "fontem": [
+      "ontologia/codicem/codicem.linguam.hxl.csv",
+      "https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:locum",
+    "explanandum": [
+      "country+code+v_iso2",
+      "country+code+v_iso3",
+      "+v_hrinfo_country",
+      "+v_reliefweb",
+      "country+code+v_reliefweb"
+    ],
+    "fontem": [
+      "ontologia/codicem/codicem.locum.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1l5Pev8zdVRS0EOPog36eipGCrckbrPC_74xhS9JRaM0/edit#gid=1260650845",
+      "https://docs.google.com/spreadsheets/d/1NjSI2LaS3SqbgYc0HdD8oIb7lofGtiHgoKKATCpwVdY/edit#gid=1088874596"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:numerum",
+    "fontem": [
+      "ontologia/codicem/codicem.numerum.hxl.csv"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:ontologia:codicem:scriptum",
+    "fontem": [
+      "ontologia/codicem/codicem.scriptum.hxl.csv",
+      "https://docs.google.com/spreadsheets/d/1B9lzzJC124GvUMbPT-6S9FQiIeO6pHsnHdQib-bcPkg/edit#gid=214068544"
+    ]
+  },
+  {
+    "urn": "urn:data:xz:eticaai:cod:ab?fontem",
+    "fontem": [
+      "https://cod.unocha.org/",
+      "https://data.humdata.org/search?ext_cod=1",
+      "https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External",
+      "https://beta.itos.uga.edu/CODV2API/",
+      "https://www.geoboundaries.org/api.html",
+      "https://gadm.org/"
+    ]
+  },
+  {
+    "urn": "urn:data:un:cod:ab:MOZ",
+    "fontem": [
+      "https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/SHP/1",
+      "https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM0-all.zip",
+      "https://biogeo.ucdavis.edu/data/gadm3.6/gpkg/gadm36_MOZ_gpkg.zip",
+      "https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson"
+    ]
+  },
+  {
+    "urn": "urn:data:un:cod:ab:MOZ:adm1.topojson",
+    "fontem": [
+      "https://geoboundaries.org/data/geoBoundaries-3_0_0/MOZ/ADM0/geoBoundaries-3_0_0-MOZ-ADM1.geojson"
+    ]
+  },
+  {
+    "urn": "urn:data:un:cod:ab:MOZ:adm1.geojson",
+    "fontem": [
+      "https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/MOZ/versions/current/json/1"
+    ]
+  },
+  {
+    "urn": "urn:data:un:cod:ab:{[[ISO3166-1]Alpha-3]}:adm1.geojson",
+    "fontem": [
+      "https://beta.itos.uga.edu/CODV2API/api/v1/themes/cod-ab/locations/{[ISO3166-1]Alpha-3}/versions/current/json/1"
+    ]
+  },
+  {
+    "urn": "urn:data:un:locode",
+    "synonymum": "urn:data:un:unece:locode"
+  },
+  {
+    "urn": "urn:data:un:unece:locode",
+    "auxilium": [
+      "https://unece.org/trade/cefact/UNLOCODE-Download",
+      "https://github.com/HXL-CPLP/forum/issues/57"
+    ],
+    "fontem": [
+      "urn:data:un:unece:locode/code-list"
+    ]
+  },
+  {
+    "urn": "urn:data:un:unece:locode/code-list",
+    "exemplum": [
+      "ontologia/codicem/locum/un-locode/code-list-EXEMPLUM.hxl.csv"
+    ],
+    "fontem": [
+      "ontologia/codicem/locum/un-locode/code-list.hxl.csv",
+      "https://github.com/datasets/un-locode/raw/master/data/code-list.csv",
+      "https://proxy.hxlstandard.org/data/tagger?dest=data_view&url=https%3A%2F%2Fgithub.com%2Fdatasets%2Fun-locode%2Fraw%2Fmaster%2Fdata%2Fcode-list.csv"
+    ]
+  },
+  {
+    "urn": "urn:data:un:unece:locode/country-codes",
+    "fontem": [
+      "ontologia/codicem/locum/un-locode/country-codes.hxl.csv",
+      "https://hdp.etica.ai/ontologia/codicem/locum/un-locode/country-codes.hxl.csv"
+    ]
+  },
+  {
+    "urn": "urn:data:un:unece:locode/function-classifiers",
+    "fontem": [
+      "ontologia/codicem/locum/un-locode/function-classifiers.hxl.csv",
+      "https://hdp.etica.ai/ontologia/codicem/locum/un-locode/function-classifiers.hxl.csv"
+    ]
+  },
+  {
+    "urn": "urn:data:un:unece:locode/status-indicators",
+    "fontem": [
+      "ontologia/codicem/locum/un-locode/status-indicators.hxl.csv",
+      "https://hdp.etica.ai/ontologia/codicem/locum/un-locode/status-indicators.hxl.csv"
+    ]
+  },
+  {
+    "urn": "urn:data:un:unece:locode/subdivision-codes",
+    "fontem": [
+      "ontologia/codicem/locum/un-locode/subdivision-codes.hxl.csv",
+      "https://hdp.etica.ai/ontologia/codicem/locum/un-locode/subdivision-codes.hxl.csv"
+    ]
+  }
+]

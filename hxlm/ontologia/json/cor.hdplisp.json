@@ -1,0 +1,110 @@
+{
+  "b": {
+    "ATOM": null,
+    "CAR": null,
+    "CDR": null,
+    "COND": null,
+    "CONS": null,
+    "EQ": null,
+    "LAMBDA": null,
+    "PRINT": null,
+    "QUOTE": null,
+    "READ": null,
+    "L": null,
+    "+": null,
+    "-": null,
+    "*": null,
+    "/": null
+  },
+  "dt": {
+    "nullum": {
+      "eng-Latn": {
+        "id": null
+      },
+      "lat-Latn": {
+        "id": "nullum"
+      },
+      "Zmth": {
+        "id": "␀"
+      }
+    },
+    "numerum": {
+      "lat-Latn": {
+        "id": "numerum"
+      }
+    },
+    "vacuum": {
+      "lat-Latn": {
+        "id": "vacuum"
+      },
+      "Zmth": {
+        "id": "∅"
+      }
+    }
+  },
+  "f": {
+    "divisionem": {
+      "Latn": {
+        "id": "divisionem"
+      },
+      "Zmth": {
+        "id": "/"
+      }
+    },
+    "idem?": {
+      "Latn": {
+        "id": "THIS-IS-A-DRAFT"
+      },
+      "Zmth": {
+        "id": "THIS-IS-A-DRAFT"
+      }
+    },
+    "identicum?": {
+      "Latn": {
+        "id": "identicum?"
+      },
+      "Zmth": {
+        "id": "≡"
+      }
+    },
+    "non-identicum?": {
+      "Latn": {
+        "id": "non-identicum?"
+      },
+      "Zmth": {
+        "id": "≢"
+      }
+    },
+    "multiplicationem": {
+      "Latn": {
+        "id": "multiplicationem"
+      },
+      "Zmth": {
+        "id": "*"
+      }
+    },
+    "subtractionem": {
+      "Latn": {
+        "id": "subtractionem"
+      },
+      "Zmth": {
+        "id": "-"
+      }
+    },
+    "summam": {
+      "Latn": {
+        "id": "summam"
+      },
+      "Zmth": {
+        "id": "+"
+      }
+    }
+  },
+  "f+": {
+    "org.un": null,
+    "org.ocha": null,
+    "org.ocha.cod": null,
+    "org.ocha.cod.ab": null,
+    "org.ocha.cod.ps": null
+  }
+}

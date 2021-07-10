@@ -1,0 +1,89 @@
+# @see https://github.com/unicode-org/udhr
+# @see https://unicode.org/udhr/
+# @see https://unicode.org/udhr/translations.html
+
+# Example for portuguese
+#  - https://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=por
+#  - https://unicode.org/udhr/s/status_por_PT.html
+#  - https://unicode.org/udhr/d/udhr_por_PT.xml
+#  - https://unicode.org/udhr/d/udhr_por_PT.txt
+---
+- ([Lingua Latina]):
+    - salve mundi!
+    - (CRC32 'α "3839021470")
+  hsilo:
+    descriptionem:
+      ARA: "الإعلان العالمي لحقوق الإنسان"
+      ENG: Universal Declaration of Human Rights
+      FRA: Déclaration universelle des droits de l’homme
+      LAT: Declarationem Hominis Iurium Universam
+      POR: Declaração Universal dos Direitos Humanos
+      RUS: Всеобщая декларация прав человека
+      # RUS-Cyrl: Всеобщая декларация прав человека
+      SPA: Declaración Universal de Derechos Humanos
+      ZHO: 世界人权宣言
+      # ZHO-Hans: Null
+    adm0:
+      # Testing adm0, This potentially should have almost all adm0 codes here
+      - UN
+    grupum:
+      - udhr
+    tag:
+      - udhr
+
+  hdatum:
+    - id: ARA
+      descriptionem:
+        ARA: "الإعلان العالمي لحقوق الإنسان"
+      fontem:
+        - iri: https://unicode.org/udhr/d/udhr_arb.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=arz
+
+    - id: ENG
+      descriptionem:
+        ENG: Universal Declaration of Human Rights
+      fontem:
+        - iri: https://unicode.org/udhr/d/udhr_eng.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=eng
+
+    - id: FRA
+      descriptionem:
+        FRA: Déclaration universelle des droits de l’homme
+      fontem:
+        - iri: https://unicode.org/udhr/d/udhr_fra.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=frn
+
+    - id: LAT
+      descriptionem:
+        LAT: Declarationem Hominis Iurium Universam
+      fontem:
+        - iri: https://unicode.org/udhr/d/udhr_lat.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=ltn
+
+    - id: POR
+      descriptionem:
+        POR: Declaração Universal dos Direitos Humanos
+      fontem:
+        - iri: https://unicode.org/udhr/d/udhr_por_PT.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=por
+
+    - id: RUS
+      descriptionem:
+        RUS: Всеобщая декларация прав человека
+      fontem:
+        - iri: https://unicode.org/udhr/d/udhr_rus.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=rus
+
+    - id: SPA
+      descriptionem:
+        SPA: Declaración Universal de Derechos Humanos
+      fontem:
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=spn
+        - iri: https://unicode.org/udhr/d/udhr_spa.xml
+
+    - id: ZHO
+      descriptionem:
+        ZHO: "世界人权宣言"
+      fontem:
+        - iri: https://unicode.org/udhr/d/udhr_cmn_hans.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=chn

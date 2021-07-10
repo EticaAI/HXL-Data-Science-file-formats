@@ -1,0 +1,10 @@
+---
+- hsilo:
+    descriptionem:
+      ENG: "Example dataset with sample of indigenous language of Brazil"
+      POR: "Conjundo de dados de exemplo com amostra de línguas indígias do Brasil"
+  hdatum:
+    - id: indigenous-language-brazil-sample
+      # Note: load datasets from relative path not implemented yet (v0.7.5)
+      fontem:
+      - iri: "data-sample/indigenous-language-brazil-sample.hxl.csv"

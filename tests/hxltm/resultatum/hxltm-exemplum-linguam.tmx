@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+  <header creationtool="hxltm" creationtoolversion="v0.8.1" segtype="sentence" o-tmf="UTF-8" adminlang="en" srclang="en" datatype="PlainText"/>
+  <body>
+    <tu tuid="L10N_ego_summarius">
+      <prop type="wikidata">Q1</prop>
+      <prop type="meta_urls">https://github.com/HXL-CPLP/forum/issues/58|https://example.org</prop>
+      <tuv xml:lang="es">
+        <seg>Idioma español (Alfabeto latino)</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg>اللغة العربية</seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>Língua portuguesa (alfabeto latino)</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg>Slovenščina (Latinska abeceda)</seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>हिन्दी भाषा (देवनागरी लिपि)</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>English language (Latin script)</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>Lingua Latina (Abecedarium Latinum)</seg>
+      </tuv>
+    </tu>
+    <tu tuid="L10N_ego_codicem">
+      <tuv xml:lang="es">
+        <seg>spa-Latn</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg>arb-Arab</seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>por-Latn</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg>slv-Latn</seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>hin-Deva</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>eng-Latn</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>lat-Latn</seg>
+      </tuv>
+    </tu>
+    <tu tuid="L10N_ego_linguam_nomen">
+      <tuv xml:lang="es">
+        <seg>Idioma español</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg>اللغة العربية</seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>Língua portuguesa</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg>Slovenščina</seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>हिन्दी भाषा</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>English language</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>Lingua Latina</seg>
+      </tuv>
+    </tu>
+    <tu tuid="L10N_ego_scriptum_nomen">
+      <prop type="wikidata">Q19845720</prop>
+      <prop type="meta_urls">https://www.unicode.org/iso15924/</prop>
+      <tuv xml:lang="es">
+        <seg>Alfabeto latino</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg></seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>Alfabeto latino</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg>Latinska abeceda</seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>देवनागरी लिपि</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>Latin script</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>Abecedarium Latinum</seg>
+      </tuv>
+    </tu>
+    <tu tuid="L10N_ego_patriam_UN_M49_numerum">
+      <prop type="wikidata">Q7865431</prop>
+      <prop type="meta_urls">https://en.wikipedia.org/wiki/UN_M49</prop>
+      <tuv xml:lang="es">
+        <seg>001</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg>001</seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>001</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg>001</seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>001</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>001</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>001</seg>
+      </tuv>
+    </tu>
+    <tu tuid="L10N_ego_patriam_UN_P_codicem">
+      <prop type="meta_urls">https://en.wikipedia.org/wiki/Place_code</prop>
+      <tuv xml:lang="es">
+        <seg>∅</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg>∅</seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>∅</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg>∅</seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>∅</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>∅</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>∅</seg>
+      </tuv>
+    </tu>
+    <tu tuid="I18N_testum_salve_mundi_testum_I18N">
+      <prop type="wikidata">Q131303</prop>
+      <tuv xml:lang="es">
+        <seg>¡Hola mundo!</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg></seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>Olá mundo!</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg></seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>नमस्ते दुनिया</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>Hello, World!</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>Salvi mundi!</seg>
+      </tuv>
+    </tu>
+    <tu tuid="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
+      <prop type="meta_urls">https://www.iana.org/domains/reserved</prop>
+      <tuv xml:lang="es">
+        <seg>Prueba, 1, 2, 3</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg></seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>Teste, 1, 2, 3</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg></seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>परीक्षा, १, २, ३</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>Test, 1, 2, 3</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>Testum, I, II, III</seg>
+      </tuv>
+    </tu>
+    <tu tuid="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
+      <prop type="wikidata">Q3634986</prop>
+      <prop type="meta_urls">https://en.wikipedia.org/wiki/List_of_numeral_systems</prop>
+      <tuv xml:lang="es">
+        <seg>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</seg>
+      </tuv>
+      <tuv xml:lang="ar">
+        <seg></seg>
+      </tuv>
+      <tuv xml:lang="pt">
+        <seg>1, 2, 3, 4, 5, 6, 7, 8, 9, 10|ūnum, duo, tria, quattuor, quīnque, sex, septem, octō, novem, decem</seg>
+      </tuv>
+      <tuv xml:lang="sl">
+        <seg>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</seg>
+      </tuv>
+      <tuv xml:lang="hi">
+        <seg>०, १, २, ३, ४, ५, ६, ७, ८, ९</seg>
+      </tuv>
+      <tuv xml:lang="en">
+        <seg>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</seg>
+      </tuv>
+      <tuv xml:lang="la">
+        <seg>I,V, X, L, C, D, M</seg>
+      </tuv>
+    </tu>
+  </body>
+</tmx>

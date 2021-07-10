@@ -1,0 +1,628 @@
+#!/usr/bin/env python3
+# ==============================================================================
+#
+#          FILE:  hxlquickimporttab
+#
+#         USAGE:  hxlquickimporttab orange-file.tab hxlated-file.csv
+#                 cat orange-file.tab | hxlquickimporttab > hxlated-file.csv
+#
+#   DESCRIPTION:  hxlquickimporttab is an tool able to import back to CSV files
+#                 created with hxl2tab.
+#
+#       OPTIONS:  ---
+#
+#  REQUIREMENTS:  - python3
+#                     - libhxl (@see https://pypi.org/project/libhxl/)
+#          BUGS:  1. While the Orange .tab specification allow to save also the
+#                    original text heading, this script still not save the
+#                    original CSV with this (but is possible)
+#                 2. The v1.0 works with compact .tab heading, but not the
+#                    multiline version.
+#         NOTES:  ---
+#        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
+#       COMPANY:  EticaAI
+#       LICENSE:  Public Domain dedication
+#                 SPDX-License-Identifier: Unlicense
+#       VERSION:  v1.0
+#       CREATED: 2021-02-06 21:21 UTC v0.1 started (based on hxlquickimport)
+#      REVISION: 2021-02-06 23:11 UTC v0.2 hackish way to import back
+#                                   +vt_orange_flag_class, +vt_class, +vt_class
+#                                   and +vt_categorical
+#                2021-02-07 01:36 UTC v1.0 works with compact .tab heading, but
+#                                   not the multiline version.
+# ==============================================================================
+
+import sys
+import os
+import logging
+import argparse
+
+# Do not import hxl, to avoid circular imports
+import hxl.converters
+import hxl.filters
+import hxl.io
+
+import csv
+from slugify import slugify
+
+# In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
+STDIN = sys.stdin.buffer
+
+
+class HXLQuickImportTab:
+    """
+    HXLQuickImportTab is a class to export already HXLated data in the format
+    .tab.
+    """
+
+    def __init__(self):
+        """
+        Constructs all the necessary attributes for the HXLQuickImportTab
+        object.
+        """
+        self.hxlhelper = None
+        self.args = None
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
+
+    def make_args_hxlquickimporttab(self):
+
+        self.hxlhelper = HXLUtils()
+        parser = self.hxlhelper.make_args(
+            description=("""
+hxlquickimporttab is a quick (and wrong) way to import
+non-HXL dataset (like an .csv or .xlsx, but requires headers already on the
+first row) without human intervention. It will try to slugify the original
+header and add as +attributefor a base hashtag like #meta.
+The result may be an HXL with valid syntax (that can be used for automated
+testing) but most HXL powered tools would still be human review.
+
+How does it work?
+"[Max Power] Kids: there's three ways to do things; the right way,
+the wrong way and the Max Power way!
+[Bart Simpson] Isn't that the wrong way?
+[Max Power] Yeah, but faster!"
+(via https://www.youtube.com/watch?v=7P0JM3h7IQk)
+
+How to do it the right way?
+Read the documentation on https://hxlstandard.org/.
+(Tip: both HXL Postcards and the hxl-hashtag-chooser are very helpful!)
+            """))
+
+        self.args = parser.parse_args()
+        return self.args
+
+    def execute(self, args,
+                stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+        """
+        The do_example_output is the main entrypoint of HXLQuickImportTab. When
+        called will convert the HXL source to example format.
+        """
+
+        # NOTE: the next lines, in fact, only generate an csv outut. So you
+        #       can use as starting point.
+        with self.hxlhelper.make_source(args, stdin) as source:
+            self.hxlquickimporttab(source, args, True)
+
+        return self.EXIT_OK
+
+    def hxlquickimporttab(self, hxlated_input, tab_output, is_stdout):
+        """
+        hic sunt dracones
+                           (__)    )
+                           (..)   /|\\
+                          (o_o)  / | \\
+                          ___) \\/,-|,-\\|
+                        //,-/_\\ )  '  '
+                           (//,-'\\|
+                           (  ( . \\_
+                        gnv `._\\(___`.
+                             '---' _)/
+                                  `-'
+        """
+
+        header_original = hxlated_input._get_row()
+
+        header_new = self.hxlquickimporttab_header(header_original)
+
+        if not args.outfile:
+            # txt_writer = csv.writer(sys.stdout, delimiter='\t')
+            txt_writer = csv.writer(sys.stdout)
+            txt_writer.writerow(header_new)
+            # for line in hxlated_input:
+            line = hxlated_input._get_row()
+
+            while line:
+                txt_writer.writerow(line)
+                try:
+                    line = hxlated_input._get_row()
+                except:
+                    line = False
+
+        else:
+
+            tab_output_cleanup = open(args.outfile, 'w')
+            tab_output_cleanup.truncate()
+            tab_output_cleanup.close()
+
+            with open(args.outfile, 'a') as new_txt:
+                # txt_writer = csv.writer(new_txt, delimiter='\t')
+                txt_writer = csv.writer(new_txt)
+                txt_writer.writerow(header_new)
+
+                line = hxlated_input._get_row()
+
+                while line:
+                    txt_writer.writerow(line)
+                    try:
+                        line = hxlated_input._get_row()
+                    except:
+                        line = False
+
+    def hxlquickimporttab_header(self, hxlated_header, basehashtag="#item"):
+        """
+        hxlquickimporttab_header is a hackish way to convert to HXLated csv
+        one .tab file used for orange.
+
+        (NOTICE: at this version, v0.1, it still very similar to hxlquickimport
+        equilvalent; this documentation still not updated
+
+        How it works? It replaces the original header with the base
+        hashtag and then slugify the original header as attribute, so
+
+        ID_REGISTRO        -> #item+id_registro
+        NACIONALIDAD       -> #item+nacionalidad
+
+        The current version will not avoid 'conflicts' with HXL data types like
+
+        BOOL               -> #item+bool
+        number             -> #item+number
+        phone              -> #item+phone
+        """
+
+        if self.hxlquickimporttab_header_is_already_hxlated(hxlated_header):
+            return self.hxlquickimporttab_header_already_hxlated(
+                hxlated_header)
+        else:
+            return self.hxlquickimporttab_header_unknow(hxlated_header,
+                                                        basehashtag)
+
+    def hxlquickimporttab_header_unknow(self, hxlated_header,
+                                        basehashtag="#item"):
+
+        for idx, _ in enumerate(hxlated_header):
+            hxlated_header[idx] = basehashtag + '+' \
+                + slugify(hxlated_header[idx], separator="_")
+
+        return hxlated_header
+
+    def hxlquickimporttab_header_already_hxlated(self, hxlated_header):
+
+        for idx, _ in enumerate(hxlated_header):
+            pos = hxlated_header[idx].find('#')
+            hashplusattrs = hxlated_header[idx][pos:len(hxlated_header[idx])]
+            tabattrs = hxlated_header[idx][0:pos]
+            # print(pos, tabattrs, hashplusattrs)
+
+            hxlated_header[idx] = hashplusattrs + \
+                self.hxlquickimporttab_tabflags2hxlattrs(tabattrs)
+            # hxlated_header[idx] = basehashtag + '+' \
+            #     + slugify(hxlated_header[idx], separator="_")
+
+        return hxlated_header
+
+    def hxlquickimporttab_header_is_already_hxlated(self, hxlated_header):
+        """
+        Quick (but not accurate) way to do a quick check if the .tab header
+        is very likely to be an valid HXL file if converted back csv.
+
+        See https://docs.google.com/spreadsheets/d/
+        1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406
+
+        Check points:
+          - MUST have # (files created directly by orange don't have # if not
+            are not HXLated, or are HXLated, but not on compact specification)
+          - #description and #beneficiary are the longests base hashtags, but
+            tolerate #x_
+          - Base hashtags don't have '-', ' ' and (if not #x_) also not '_'
+        """
+
+        for idx, _ in enumerate(hxlated_header):
+            pos = hxlated_header[idx].find('#')
+
+            if pos == -1:
+                return False
+
+            hashplusattrs = hxlated_header[idx][pos: len(hxlated_header[idx])]
+            hashtag = hashplusattrs.split('+')
+
+            if hashtag[0].find(' ') > -1 or hashtag[0].find('-') > -1 or \
+                    (hashtag[0].find('-') > -1 and
+                        hashtag[0].find('#x_') == -1):
+                return False
+
+            if len(hashtag[0]) > 12 and hashtag[0].find('#x_') == -1:
+                return False
+
+            # print(hxlated_header[idx], hashplusattrs, hashtag, hashtag[0])
+
+        return True
+
+    def hxlquickimporttab_tabflags2hxlattrs(self, tab_one_letter_flags):
+        """
+        Add prefixes to an hxlated_header to work as typehints for Orange Data
+        Mining
+
+        TODO: do some simply check to not enforce obvious redundancy (like
+              dont add +vt_meta if the base hashtag already is #meta)
+
+        orange.biolab.si/docs/latest/reference/rst/Orange.data.formats.html:
+
+c for class feature            -> +vt_class
+i for feature to be ignored    -> +vt_orange_flag_ignore
+m for the meta attribute       -> +vt_meta
+C for continuous-typed feature -> +vt_orange_type_continuous
+D for discrete feature         -> +vt_categorical
+S for string                   -> +vt_orange_type_string (for now, just ignore)
+        """
+        hxlattrs = ''
+        if tab_one_letter_flags.find('c') > -1:
+            hxlattrs = '+vt_class'
+        elif tab_one_letter_flags.find('i') > -1:
+            hxlattrs = '+vt_orange_flag_ignore'
+        elif tab_one_letter_flags.find('m') > -1:
+            hxlattrs = '+vt_meta'
+
+        if tab_one_letter_flags.find('C') > -1:
+            hxlattrs = hxlattrs + '+vt_orange_type_continuous'
+        elif tab_one_letter_flags.find('D') > -1:
+            hxlattrs = hxlattrs + '+vt_categorical'
+        elif tab_one_letter_flags.find('S') > -1:
+            # hxlattrs = hxlattrs + '+vt_orange_type_string'
+            hxlattrs = hxlattrs + ''
+
+        return hxlattrs
+
+
+class HXLTabConverter:
+    """
+    HXLTabConverter is an class to export implement minimum functionality to
+    export/import at least the most common cases of HXLated datasets to .tab
+    format using the specification of the open source tool Orange Data Mining.
+    The current version has some hardcoded values instead of using an external
+    schema.
+
+    @see https://orange-data-mining-library.readthedocs.io/en/latest/reference/
+    data.io.html.
+
+    Author: Emerson Rocha
+    License: Public Domain
+    Version: v0.1
+    """
+
+    # @see https://orange-data-mining-library.readthedocs.io/en/latest
+    # /reference/data.io.html
+    ORANGE_REFERENCE = {
+        'orange_feature_type': {
+            'discrete': {
+                'key': "discrete",
+                'keys': ["discrete", "d"],
+                'short': "d",
+            },
+            'discrete_list': {
+                'key': "discrete_list",
+                'keys': [],
+                'short': "d",
+                'internal-comment': "not implemented"
+            },
+            'continuous': {
+                'key': "continuous",
+                'keys': ["continuous", "C"],
+                'short': "C",
+            },
+            'string': {
+                'key': "string",
+                'keys': ["string", "text", "s"],
+                'short': "s",
+            },
+            'time': {
+                'key': "time",
+                'keys': ["time", "t"],
+                'short': "t",
+            },
+            'basket': {
+                'key': "basket",
+                'keys': ["basket"],
+                'short': None,
+                'internal-comment': "not implemented"
+            }
+        },
+        'orange_flags': {
+            'class': {
+                'key': "class",
+                'keys': ["class", "c"],
+                'short': "c",
+            },
+            'meta': {
+                'key': "meta",
+                'keys': ["meta", "m"],
+                'short': "m",
+            },
+            'weight': {
+                'key': "weight",
+                'keys': ["weight", "w"],
+                'short': "w",
+                'internal-comment': "not implemented"
+            },
+            'ignore': {
+                'key': "ignore",
+                'keys': ["ignore", "i"],
+                'short': "i",
+            },
+            'custom-attributes': {
+                'key': "custom-attributes",
+                'keys': [],
+                'short': None,
+                'internal-comment': "not implemented"
+            },
+        }
+
+    }
+
+    def __init__(self):
+        """
+        Constructs all the necessary attributes for the HXLTabConverter
+        object.
+        """
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
+
+    def is_tab_file(self):
+        print("""Please just check if the file use tab as separator outside
+              this class. For sake of simplicity, the HXLTabConverter assumes
+              both exported HXL files and imported created outside would be
+              saved in tab, so no extra checks would be need for Excel or
+              CSVs""")
+
+    def is_tablike_heading(self, header_group):
+        """
+        is_tab_heading can either receive a single list of headings or an group
+        of 3 lines of headings.
+        """
+        print("TODO")
+
+    def is_tablike_heading_single(self, header_line):
+        """
+        is_tablike_heading_single ...
+        """
+        print("TODO")
+
+    def is_tablike_heading_three(self, header_group):
+        """
+        is_tablike_heading_three ...
+        """
+        print("TODO")
+
+    def is_tab_hxlated_heading(self, header_group):
+        """
+        is_tab_heading can either receive a single list of headings or an group
+        of 3 lines of headings.
+        """
+        print("TODO")
+
+
+class HXLUtils:
+    """
+    HXLUtils contains functions from the Console scripts of libhxl-python
+    (HXLStandard/libhxl-python/blob/master/hxl/scripts.py) with few changes
+    to be used as class (and have one single place to change).
+    Last update on this class was 2021-01-25.
+
+    Author: David Megginson
+    License: Public Domain
+    """
+
+    def __init__(self):
+
+        self.logger = logging.getLogger(__name__)
+
+        # Posix exit codes
+        self.EXIT_OK = 0
+        self.EXIT_ERROR = 1
+        self.EXIT_SYNTAX = 2
+
+    def make_args(self, description, hxl_output=True):
+        """Set up parser with default arguments.
+        @param description: usage description to show
+        @param hxl_output: if True (default), include options for HXL output.
+        @returns: an argument parser, partly set up.
+        """
+        parser = argparse.ArgumentParser(description=description)
+        parser.add_argument(
+            'infile',
+            help='HXL file to read (if omitted, use standard input).',
+            nargs='?'
+        )
+        if hxl_output:
+            parser.add_argument(
+                'outfile',
+                help='HXL file to write (if omitted, use standard output).',
+                nargs='?'
+            )
+        parser.add_argument(
+            '--sheet',
+            help='Select sheet from a workbook (1 is first sheet)',
+            metavar='number',
+            type=int,
+            nargs='?'
+        )
+        parser.add_argument(
+            '--selector',
+            help='JSONPath expression for starting point in JSON input',
+            metavar='path',
+            nargs='?'
+        )
+        parser.add_argument(
+            '--http-header',
+            help='Custom HTTP header to send with request',
+            metavar='header',
+            action='append'
+        )
+        if hxl_output:
+            parser.add_argument(
+                '--remove-headers',
+                help='Strip text headers from the CSV output',
+                action='store_const',
+                const=True,
+                default=False
+            )
+            parser.add_argument(
+                '--strip-tags',
+                help='Strip HXL tags from the CSV output',
+                action='store_const',
+                const=True,
+                default=False
+            )
+        parser.add_argument(
+            "--ignore-certs",
+            help="Don't verify SSL connections (useful for self-signed)",
+            action='store_const',
+            const=True,
+            default=False
+        )
+        parser.add_argument(
+            '--log',
+            help='Set minimum logging level',
+            metavar='debug|info|warning|error|critical|none',
+            choices=['debug', 'info', 'warning', 'error', 'critical'],
+            default='error'
+        )
+        return parser
+
+    def add_queries_arg(
+        self,
+        parser,
+        help='Apply only to rows matching at least one query.'
+    ):
+        parser.add_argument(
+            '-q',
+            '--query',
+            help=help,
+            metavar='<tagspec><op><value>',
+            action='append'
+        )
+        return parser
+
+    def do_common_args(self, args):
+        """Process standard args"""
+        logging.basicConfig(
+            format='%(levelname)s (%(name)s): %(message)s',
+            level=args.log.upper())
+
+    def make_source(self, args, stdin=STDIN):
+        """Create a HXL input source."""
+
+        # construct the input object
+        input = self.make_input(args, stdin)
+        return hxl.io.data(input)
+
+    def make_input(self, args, stdin=sys.stdin, url_or_filename=None):
+        """Create an input object"""
+
+        if url_or_filename is None:
+            url_or_filename = args.infile
+
+        # sheet index
+        sheet_index = args.sheet
+        if sheet_index is not None:
+            sheet_index -= 1
+
+        # JSONPath selector
+        selector = args.selector
+
+        http_headers = self.make_headers(args)
+
+        return hxl.io.make_input(
+            url_or_filename or stdin,
+            sheet_index=sheet_index,
+            selector=selector,
+            allow_local=True,
+            http_headers=http_headers,
+            verify_ssl=(not args.ignore_certs)
+        )
+
+    def make_output(self, args, stdout=sys.stdout):
+        """Create an output stream."""
+        if args.outfile:
+            return FileOutput(args.outfile)
+        else:
+            return StreamOutput(stdout)
+
+    def make_headers(self, args):
+        # get custom headers
+        header_strings = []
+        header = os.environ.get("HXL_HTTP_HEADER")
+        if header is not None:
+            header_strings.append(header)
+        if args.http_header is not None:
+            header_strings += args.http_header
+        http_headers = {}
+        for header in header_strings:
+            parts = header.partition(':')
+            http_headers[parts[0].strip()] = parts[2].strip()
+        return http_headers
+
+
+class FileOutput(object):
+    """
+    FileOutput contains is based on libhxl-python with no changes..
+    Last update on this class was 2021-01-25.
+
+    Author: David Megginson
+    License: Public Domain
+    """
+
+    def __init__(self, filename):
+        self.output = open(filename, 'w')
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, value, type, traceback):
+        self.output.close()
+
+
+class StreamOutput(object):
+    """
+    StreamOutput contains is based on libhxl-python with no changes..
+    Last update on this class was 2021-01-25.
+
+    Author: David Megginson
+    License: Public Domain
+    """
+
+    def __init__(self, output):
+        self.output = output
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, value, type, traceback):
+        pass
+
+    def write(self, s):
+        self.output.write(s)
+
+
+if __name__ == "__main__":
+
+    hxlquickimporttab = HXLQuickImportTab()
+    args = hxlquickimporttab.make_args_hxlquickimporttab()
+
+    hxlquickimporttab.execute(args)

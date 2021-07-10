@@ -1,0 +1,14 @@
+# File: .travis.yml
+# License: Public Domain / BSD Zero Clause License
+# SPDX-License-Identifier: Unlicense OR 0BSD
+#
+# Note: file tox.ini for other alternatives beyond Travis CI.
+
+# @from https://github.com/tox-dev/tox-travis
+language: python
+python:
+  - "3.7"
+  - "3.8"
+  - "3.9"
+install: pip install tox-travis
+script: tox

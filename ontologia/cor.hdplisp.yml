@@ -1,0 +1,207 @@
+# ontologia/cor.hdplisp.yml
+
+# CONS, CAR, CDR, QUOTE, ATOM, EQ, LAMBDA, COND, (mais READ e PRINT)
+
+b:
+  ATOM:
+  CAR:
+  CDR:
+  COND:
+  CONS:
+  EQ:
+  LAMBDA:
+  PRINT:
+  QUOTE:
+  READ:
+  L:
+  "+":
+  "-":
+  "*":
+  "/":
+
+## This is an draft of what neutral name could be used
+# b:
+#   ATOM:
+#     _*_
+#   CAR:
+#     _^_ (How this will behave on Right-to-left languages when compose like CADR _^~_ & CDAR _~^_ ?)
+#   CDR:
+#     _~_ (How this will behave on Right-to-left languages when compose like CADR _^~_ & CDAR _~^_ ?)
+#   COND:
+#     _?_
+#   CONS:
+#     _*_
+#   EQ:
+#     _=_
+#   LAMBDA:
+#     _λ_   (Not ideal, is an alphabed for an writting system)
+#     ___   (3 _ seems anonymous enough and is neutral)
+#   PRINT:
+#     _:_
+#   QUOTE:
+#     _"_
+#   READ:
+#     ???  (TODO: think about)
+#   DEFINE, DEF, DEFN, etc:
+#     _#_
+#   L:
+#     _ISO369-3_ltr-text
+#     rtl-text_ISO369-3_
+#           (Note: non-Latin alphabets may need some work to discover how to use term for them)
+#   "+":
+#   "-":
+#   "*":
+#   "/":
+
+#### DT _______________________________________________________________________
+# Trivia:
+# - 'datum'
+#   - https://en.wiktionary.org/wiki/datum#Latin
+# - 'typum'
+#   - https://en.wiktionary.org/wiki/typus#Latin
+# TODO: i'm not sure if Datum Typum is a good term (Emerson Rocha, 2021-04-17 16:51 UTC)
+
+dt:
+
+  nullum:
+    eng-Latn:
+      # Trivia: 'null', https://en.wiktionary.org/wiki/null
+      id: null
+    lat-Latn:
+      # Trivia: 'nūllum', https://en.wiktionary.org/wiki/nullus#Latin
+      id: nullum
+    Zmth:
+      # https://en.wiktionary.org/wiki/%E2%90%80
+      # Unicode Character “␀” (U+2400)
+      # TODO: I'm not sure if this is a good math simbol for 'absense of any'
+      id: "␀"
+
+  numerum:
+    lat-Latn:
+      # Trivia: 'numerum', https://en.wiktionary.org/wiki/numerus#Latin
+      id: numerum
+
+  vacuum:
+    # Trivia: 'vacuum', https://en.wiktionary.org/wiki/vacuus#Latin
+    lat-Latn:
+      id: vacuum
+    Zmth:
+      # https://en.wiktionary.org/wiki/%E2%88%85
+      # Unicode Character “∅” (U+2205)
+      id: "∅"
+
+# TODO: add at least Racket data types https://docs.racket-lang.org/guide/datatypes.html
+
+#### f: fūnctiōnem ____________________________________________________________
+# Trivia:
+# - 'f'
+#   - 'fūnctiōnem'
+#     - https://en.wiktionary.org/wiki/functio#Latin
+
+f:
+  # Trivia:
+  # - 'dīvīsiōnem'
+  #   - https://en.wiktionary.org/wiki/divisio#Latin
+  divisionem:
+    Latn:
+      id: divisionem
+    Zmth:
+      id: "/"
+
+  # TODO: implement concept of _almost identicum_ (like (idem? 1 "1") )
+  # Trivia:
+  # - 'idem'
+  #   - https://en.wiktionary.org/wiki/idem#Latin
+  idem?:
+    Latn:
+      id: THIS-IS-A-DRAFT
+    Zmth:
+      id: "THIS-IS-A-DRAFT"
+
+  # Trivia:
+  # - 'īdenticum'
+  #   - https://en.wiktionary.org/wiki/identicus#Latin
+  identicum?:
+    Latn:
+      id: identicum?
+    Zmth:
+      id: "≡"
+
+  # Trivia:
+  # - 'non'
+  #   - https://en.wiktionary.org/wiki/non#Latin
+  # - 'īdenticum'
+  #   - https://en.wiktionary.org/wiki/identicus#Latin
+  non-identicum?:
+    Latn:
+      id: non-identicum?
+    Zmth:
+      id: "≢"
+
+  # Trivia:
+  # - 'multiplicātiōnem'
+  #   - https://en.wiktionary.org/wiki/multiplicatio#Latin
+  multiplicationem:
+    Latn:
+      id: multiplicationem
+    Zmth:
+      id: "*"
+
+  # Trivia:
+  # - 'subtractiōnem':
+  #   - https://en.wiktionary.org/wiki/subtractio#Latin
+  subtractionem:
+    Latn:
+      id: subtractionem
+    Zmth:
+      id: "-"
+
+  # Trivia:
+  # - 'summam'
+  #   - https://en.wiktionary.org/wiki/summa#Latin
+  summam:
+    Latn:
+      id: summam
+    Zmth:
+      id: "+"
+
+
+
+f+:
+  # https://la.wikipedia.org/wiki/Nationes_Unitae
+  org.un:
+
+  # ara: https://ar.wikipedia.org/wiki/%D9%85%D9%83%D8%AA%D8%A8_%D8%A7%D9%84%D8%A3%D9%85%D9%85_%D8%A7%D9%84%D9%85%D8%AA%D8%AD%D8%AF%D8%A9_%D9%84%D8%AA%D9%86%D8%B3%D9%8A%D9%82_%D8%A7%D9%84%D8%B4%D8%A4%D9%88%D9%86_%D8%A7%D9%84%D8%A5%D9%86%D8%B3%D8%A7%D9%86%D9%8A%D8%A9
+  # eng: https://en.wikipedia.org/wiki/United_Nations_Office_for_the_Coordination_of_Humanitarian_Affairs
+  # zho: https://zh.wikipedia.org/wiki/%E8%81%AF%E5%90%88%E5%9C%8B%E4%BA%BA%E9%81%93%E4%BA%8B%E5%8B%99%E5%8D%94%E8%AA%BF%E5%BB%B3
+  # lat: https://la.wikipedia.org/wiki/Officium_Coordinationis_Rerum_Humanitariarum
+  org.ocha:
+
+  # https://cod.unocha.org/
+  # https://data.humdata.org/dashboards/cod
+  org.ocha.cod:
+
+  org.ocha.cod.ab:
+  org.ocha.cod.ps:
+
+#### TODOs ____________________________________________________________________
+###
+# https://en.wikipedia.org/wiki/ISO_15924
+
+# Codes
+#   Latn Latin left-to-righ Latin 1.0 1,374
+#        See also: Latin script in Unicode
+#        https://en.wikipedia.org/wiki/Latin_script_in_Unicode
+#
+
+# Special codes
+# Zmth 995: Mathematical notation
+# Zsye 993: Emoji
+
+### Zmth
+# https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols#Latin_letters
+# https://en.wikipedia.org/wiki/Mathematical_operators_and_symbols_in_Unicode
+
+### Zsye 993: Emoji
+# Zsye 993: Emoji
+# https://en.wikipedia.org/wiki/Emoji

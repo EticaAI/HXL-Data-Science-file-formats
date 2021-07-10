@@ -1,0 +1,23 @@
+# Both libhxl and hug are strong requeriments
+libhxl
+hug
+
+# numpy, while some programs on /bin do not require, is recommended
+numpy
+
+# When working with urnresolver. Not used by others
+cryptography
+keyring
+
+# Testing things
+pygments
+
+# SODIUM_INSTALL=system pip3 install pynacl
+
+# pyyaml
+# pip3 install pytest-benchmark
+
+# Both pandas and orange3 are used on some tests
+# TODO: make both pandas and orange3 optional
+# pandas
+# orange3

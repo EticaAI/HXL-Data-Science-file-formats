@@ -1,0 +1,72 @@
+# NOTE: The hxlm.data.baseline.baseline.hdpd.yml and
+#       hxlm.data.baseline.baseline.hdpd.yml are not 100% up-to-date with
+#       lastest HDP conventions. Part of it's features are being
+#       re-implemented with the refactoring of hxlm.core.model.hdp to
+#       hxlm.core.hdp. (Emerson Rocha, 2021-03-29 07:55 UTC)
+
+# hmeta
+# hxml.core.data.baseline
+---
+- hsilo:
+    urn: urn:x-hdp:hsilo:hxml.core.data.baseline
+  hdatum:
+    - id: place
+      desc: HXL-CPLP-FOD_countries-territories.csv
+      fontem: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+      tag:
+        - ISO 3166
+        - ISO 3166-2
+        - ISO 3166-3
+    - id: lang
+      desc: HXL-CPLP-FOD_languages
+      fontem:
+        - iri: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+      tag:
+        - ISO 639-3
+        - ISO 3692-2
+        - ISO 3692-3
+  hfile:
+    - id: TODO.txt
+    - id: UNLICENSE
+      fontem:
+        - iri: https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/UNLICENSE
+        - iri: https://raw.githubusercontent.com/HXLStandard/hxl-proxy/master/LICENSE.md
+
+  # TODO: htasks are deprecated https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/11#issuecomment-788651928
+  # htasks:
+  #   - todo: draft?
+
+  # Note: this is an early draft, so some extra abstractions may be done later (Emerson Rocha, 2021-03-01 03:45 UTC)
+  hrecipe:
+    # https://proxy.hxlstandard.org/data/edit?dest=data_edit&filter01=cut&filter-label01=with_columns&cut-include-tags01=%23vocab%2Bid%2Bv_iso6393_3letter%2C%23vocab%2Bcode%2Bv_6391%2C%23vocab%2Bname&filter02=select&filter-label02=without_rows&select-query02-01=%23vocab%2Bcode%2Bv_6391%3D&select-reverse02=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0
+    # https://proxy.hxlstandard.org/data.csv?dest=data_edit&filter01=cut&filter-label01=with_columns&cut-include-tags01=%23vocab%2Bid%2Bv_iso6393_3letter%2C%23vocab%2Bcode%2Bv_6391%2C%23vocab%2Bname&filter02=select&filter-label02=without_rows&select-query02-01=%23vocab%2Bcode%2Bv_6391%3D&select-reverse02=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0
+    - id: recipe1
+      fontem: 
+        - iri: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+          filters:
+            - filter: with_columns
+              with_columns: "#vocab+id+v_iso6393_3letter,#vocab+code+v_6391,#vocab+name"
+            - filter: without_rows
+              without_rows: "#vocab+code+v_6391="
+
+- hsilo:
+    urn: urn:x-hdp:hsilo:hxml.core.data.baseline2
+  descriptionem: testing if HMeta work with several definitions
+  hdatum:
+    - id: place2
+      descriptionem: HXL-CPLP-FOD_countries-territories2
+      fontem:
+        - iri: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+
+- hsilo:
+    urn: urn:x-hdp:hsilo:hxml.core.data.baseline3
+    descriptionem: testing if HMeta work with several definitions
+  hdatum:
+    - id: place3
+      descriptionem: HXL-CPLP-FOD_countries-territories2
+      fontem:
+        - iri: https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+
+
+# https://github.com/HXLStandard/hxl-proxy/wiki/Process-JSON-spec
+# https://github.com/HXLStandard/hxl-proxy/wiki/JSON-processing-specs

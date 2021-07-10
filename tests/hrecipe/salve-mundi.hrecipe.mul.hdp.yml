@@ -1,0 +1,65 @@
+# hdpcli tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml --objectivum-linguam RUS
+# hdpcli --export-to-hxl-json-processing-specs tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml
+# hdpcli --export-to-hxl-json-processing-specs tests/hrecipe/salve-mundi.hrecipe.mul.hdp.yml | jq '.[1]' | hxlspec
+---
+- hsilo:
+    linguam: MUL # https://iso639-3.sil.org/code/mul
+    descriptionem:
+      ENG: "Hello World!"
+      POR: "Olá Mundo!"
+    adm0:
+      - AO
+      - BR
+      - CV
+      - GQ
+      - GW
+      - MO
+      - MZ
+      - PT
+      - ST
+      - TL
+    grupum:
+      - salve-mundi
+    tag:
+      - CPLP
+  htransformare:
+    - id: example-processing-with-a-JSON-spec
+      _recipe:
+        - filter: count
+          patterns: "adm1+name,adm1+code"
+          aggregators:
+            - "sum(population) as Population#population"
+        - filter: clean_data
+          number: "population"
+          number_format: .0f
+      # iri_example:
+      #   - iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+      #     sheet_index: 1
+      exemplum:
+        # Example one
+        - fontem:
+            iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+            _sheet_index: 1
+
+        # Example two includes both an inline data
+        - fontem:
+            # Note: fontem.datum not fully implemented. But the idea here is
+            #       be able to create an ad-hoc table instead of use
+            #       external input. So help show as quick example or...
+            #       as some sort of unitary test for an HXL data processing
+            #       spec!
+            datum:
+              - ["header 1", "header 2", "header 3"]
+              - ["#item +id", "#item +name", "#item +value"]
+              - ["ACME1", "ACME Inc.", "123"]
+              - ["XPTO1", "XPTO org", "456"]
+          objectivum:
+            # Note: fontem.objectivum not fully implemented. But the idea here
+            #       is (like the fontem.datum) work as ad-hoc table, but is
+            #       really allow create some sort of unitary test for a HXL
+            #       data processing spec!
+            datum:
+              - ["header 1", "header 2", "header 3"]
+              - ["#item +id", "#item +name", "#item +value"]
+              - ["ACME1", "ACME Inc.", "123"]
+              - ["XPTO1", "XPTO org", "456"]

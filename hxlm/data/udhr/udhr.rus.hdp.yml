@@ -1,0 +1,69 @@
+---
+- ([Русский язык]):
+    - ([Lingua Latina]):
+        - udhr.lat.hpd.yml
+  силосная:
+    группа:
+      - udhr
+    описание:
+      ARA: الإعلان العالمي لحقوق الإنسان
+      ENG: Universal Declaration of Human Rights
+      FRA: Déclaration universelle des droits de l’homme
+      LAT: Declarationem Hominis Iurium Universam
+      POR: Declaração Universal dos Direitos Humanos
+      RUS: Всеобщая декларация прав человека
+      SPA: Declaración Universal de Derechos Humanos
+      ZHO: 世界人权宣言
+    страна:
+      - UN
+    тег:
+      - udhr
+  Ирисы-Фишера:
+    - идентификатор: ARA
+      источник:
+        - iri: https://unicode.org/udhr/d/udhr_arb.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=arz
+      описание:
+        ARA: الإعلان العالمي لحقوق الإنسان
+    - идентификатор: ENG
+      источник:
+        - iri: https://unicode.org/udhr/d/udhr_eng.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=eng
+      описание:
+        ENG: Universal Declaration of Human Rights
+    - идентификатор: FRA
+      источник:
+        - iri: https://unicode.org/udhr/d/udhr_fra.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=frn
+      описание:
+        FRA: Déclaration universelle des droits de l’homme
+    - идентификатор: LAT
+      источник:
+        - iri: https://unicode.org/udhr/d/udhr_lat.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=ltn
+      описание:
+        LAT: Declarationem Hominis Iurium Universam
+    - идентификатор: POR
+      источник:
+        - iri: https://unicode.org/udhr/d/udhr_por_PT.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=por
+      описание:
+        POR: Declaração Universal dos Direitos Humanos
+    - идентификатор: RUS
+      источник:
+        - iri: https://unicode.org/udhr/d/udhr_rus.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=rus
+      описание:
+        RUS: Всеобщая декларация прав человека
+    - идентификатор: SPA
+      источник:
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=spn
+        - iri: https://unicode.org/udhr/d/udhr_spa.xml
+      описание:
+        SPA: Declaración Universal de Derechos Humanos
+    - идентификатор: ZHO
+      источник:
+        - iri: https://unicode.org/udhr/d/udhr_cmn_hans.xml
+        - iri: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=chn
+      описание:
+        ZHO: 世界人权宣言

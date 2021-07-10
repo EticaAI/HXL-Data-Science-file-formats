@@ -1,0 +1,154 @@
+{
+  "fs": {
+    "hdp": {
+      "base": [
+        "lat.hdp.json",
+        "lat.hdp.yml",
+        "mul.hdp.json",
+        "mul.hdp.yml"
+      ]
+    }
+  },
+  "itkn": {
+    "comment": {
+      "start": "<<",
+      "end": ">>"
+    },
+    "internal_l1": {
+      "start": "<<!",
+      "end": "!>>"
+    }
+  },
+  "lid": {
+    "اللغة العربية الفصحى الحديثة": {
+      "lid": "ARA-Arab",
+      "klid": "اللغة العربية الفصحى الحديثة",
+      "klid_alts": [],
+      "iso6391": "AR",
+      "iso3693": "ARA",
+      "iso15924": "Arab",
+      "macro": true,
+      "q": "Q56467",
+      "udur": {
+        "ohchr_html": "http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=arz",
+        "unicode_xml": "https://unicode.org/udhr/d/udhr_arb.xml"
+      }
+    },
+    "English language": {
+      "lid": "ENG-Latn",
+      "klid": "English language",
+      "klid_alts": [
+        "English"
+      ],
+      "iso6391": "EN",
+      "iso3693": "ENG",
+      "iso15924": "Latn",
+      "macro": false,
+      "q": "Q1860",
+      "udur": {
+        "ohchr_html": "http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=eng",
+        "unicode_xml": "https://unicode.org/udhr/d/udhr_eng.xml"
+      }
+    },
+    "Langue française": {
+      "lid": "FRA-Latn",
+      "klid": "Langue française",
+      "klid_alts": [
+        "Français"
+      ],
+      "iso6391": "FR",
+      "iso3693": "FRA",
+      "iso15924": "Latn",
+      "macro": false,
+      "q": "Q150",
+      "udur": {
+        "ohchr_html": "http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=frn",
+        "unicode_xml": "https://unicode.org/udhr/d/udhr_fra.xml"
+      }
+    },
+    "Lingua Latina": {
+      "lid": "LAT-Latn",
+      "klid": "Lingua Latina",
+      "klid_alts": [],
+      "iso6391": "LA",
+      "iso3693": "LAT",
+      "iso15924": "Latn",
+      "macro": false,
+      "q": "Q397",
+      "udur": {
+        "ohchr_html": "http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=ltn",
+        "unicode_xml": "https://unicode.org/udhr/d/udhr_lat.xml"
+      }
+    },
+    "Língua portuguesa": {
+      "lid": "POR-Latn",
+      "klid": "Língua portuguesa",
+      "klid_alts": [
+        "Português"
+      ],
+      "iso6391": "PT",
+      "iso3693": "POR",
+      "iso15924": "Latn",
+      "macro": false,
+      "q": "Q5146",
+      "udur": {
+        "ohchr_html": "https://unicode.org/udhr/d/udhr_por_PT.xml",
+        "unicode_xml": "http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=por"
+      }
+    },
+    "Русский язык": {
+      "lid": "RUS-Cyrl",
+      "klid": "Русский язык",
+      "klid_alts": [],
+      "iso6391": "RU",
+      "iso3693": "RUS",
+      "iso15924": "Cyrl",
+      "macro": false,
+      "q": "Q7737",
+      "udur": {
+        "ohchr_html": "http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=rus",
+        "unicode_xml": "https://unicode.org/udhr/d/udhr_rus.xml"
+      }
+    },
+    "Idioma español": {
+      "lid": "SPA-Latn",
+      "klid": "Idioma español",
+      "klid_alts": [
+        "Español"
+      ],
+      "iso6391": "ES",
+      "iso3693": "SPA",
+      "iso15924": "Latn",
+      "macro": false,
+      "q": "Q1321",
+      "udur": {
+        "ohchr_html": "http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=spn",
+        "unicode_xml": "https://unicode.org/udhr/d/udhr_spa.xml"
+      }
+    },
+    "汉语": {
+      "lid": "ZHO-Hans",
+      "klid": "汉语",
+      "klid_alts": [],
+      "iso6391": "ZH",
+      "iso3693": "ZHO",
+      "iso15924": "Hans",
+      "macro": true,
+      "q": null,
+      "udur": {
+        "ohchr_html": "http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=chn",
+        "unicode_xml": "https://unicode.org/udhr/d/udhr_cmn_hans.xml"
+      }
+    }
+  },
+  "linguam23": {
+    "AR": "ARA",
+    "EN": "ENG",
+    "FR": "FRA",
+    "ES": "SPA",
+    "LA": "LAT",
+    "PT": "POR",
+    "RU": "RUS",
+    "ZH": "ZHO"
+  }
+}

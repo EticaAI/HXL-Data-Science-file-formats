@@ -1,0 +1,5 @@
+#meta+id,,#org+url,#x_api+name,#x_api,#x_api+alt,#x_api+doc,#meta+description
+UNOCHA-COD-AB-IP,UN OCHA,https://www.unocha.org/,OCHA COD Information Portal,https://cod.unocha.org/,,https://storymaps.arcgis.com/stories/dcf6135fc0e943a9b77823bb069e2578,
+HDX-COD-AB,Centre for Humanitarian Data|UN OCHA,https://centre.humdata.org/,Humanitarian Data Exchange - CODs,https://data.humdata.org/search?ext_cod=1,https://proxy.hxlstandard.org/data/source,,"If using #x_api+alt=proxy.hxlstandard.org, click 'option 2: HDX' and filter by region."
+UNOCHA-COD_External-v1,UN OCHA,https://www.unocha.org/,COD_External v1 (?),https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External,,https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External?f=help,
+ITOS-USAID-UNOCHA-CODv2,ITOS|USAID|UN OCHA,https://beta.itos.uga.edu/CODV2API/Home/About,COD Version 2 API (alpha),https://beta.itos.uga.edu/CODV2API/Help,,https://beta.itos.uga.edu/CODV2API/Help,

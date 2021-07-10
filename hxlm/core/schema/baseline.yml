@@ -1,0 +1,98 @@
+# FILE: hxlm.core.schema.baseline.yml
+# DESCRIPTION: while hxlm.core have these values mostly hardcoded you can use
+#              this file as reference for implementations outside python
+
+### HXLM CORE LIBRARY _________________________________________________________
+
+## When local processing is not sufficient, which HXL-proxy use? ..............
+
+# TODO: allow user change the proxy URL (e.g. if using Docker or other service)
+HXLPROXY_URL: "https://proxy.hxlstandard.org"
+
+## When storing data locally (ex.: urnresolver) ...............................
+# Example: /home/user/.config/hxlm/
+HXLM_CONFIG_BASE: "~/.config/hxlm/"
+
+# While (as version v0.7.3) not implemented even as proof of concept, this
+# directory structure draft already not just place to store data, but policy
+# about this data (that eventually could instruct if some use is authorized
+# if the user, for example, is preparing data to someone else). While it is
+# less likely that acceptable use police themselves may require a high level
+# of secrecy, we intentionally have an separate base directory for store data.
+
+
+# TODO: these variables are hardcoded on code. We need at least allow override
+#       with enviroment variables
+# ref acceptable-use-policies
+HXLM_DATA_POLICY_BASE: "~/.config/hxlm/policy/"
+# Default place to search
+HXLM_DATA_VAULT_BASE: "~/.local/var/hxlm/data/"
+# Alternative place to search
+HXLM_DATA_VAULT_BASE_ALT: ""
+ # Path active to write. Makes sense be HXLM_DATA_VAULT_(BASE|_ALT)
+HXLM_DATA_VAULT_BASE_ACTIVE: "~/.local/var/hxlm/data/"
+
+# Note: despite name "(data) vault", as long as the acceptable-usage-policies
+#       are readable (and this does not need to be machine parseable, could be
+#       just text), the human who is working to store/prepare (a equivalent
+#       to 'airline dispatcher') do not need to unencripted access to some data
+#       contents. So if someting is too sensible, even if the human is
+#       trusted to not leak data (but could be forced) people could be
+#       instructed to encrypt some types of information and only give
+#       decription access (think like send the password via private messaging)
+#       to the destinatary.
+
+# @see https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md
+
+### HXLM DATA STRUCTURE _______________________________________________________
+
+HTYPE_PRIMITIVES:
+  HTYPE_TRUE: "TRUE"
+  HTYPE_FALSE: "FALSE"
+  HTYPE_UNKNOW: "?"
+  # NOTE: Encryption is likely to be a very, VERY common case on HXLated datasets
+  #       both at column and row level (Think Encryption At Rest) ant this
+  #       actually must be well done, since just encrypt/protect the full dataset
+  #       limit valid cases. The difference betwen this and MISSING/UNKNOW
+  #       is user tools actually have partial information to decrypt.
+  # NOTE: One original data point that is decrypted by the user is converted
+  #       to whatever was the original value instead of this. This can be used
+  #       on much more than just boolean.
+  HTYPE_ENCRYPTED: "!"  # Note: the "!" different from HTYPE_UNKNOW="?" that
+                        # actually can be stored explicitly as ?, is an
+                        # pseudo representation. Encryption-aware tools could
+                        # choose to print "!" while internally have the real
+                        # value. Also, if exported tables do have "!" as value
+                        # Encryption-aware tools could still label the data as
+                        # encrypted while don't offer how to decrypt (since they
+                        # technically could not do it)
+  
+  HTYPE_MISSING: "(TODO DEFINE ME LATER)"  
+
+  # https://github.com/HXLStandard/libhxl-python/blob/master/hxl/datatypes.py#L140
+  # uses  ['y', 'yes', 't', 'true', '1']
+  # Its simmilar to old PostgreSQL
+  # https://www.postgresql.org/docs/9.1/datatype-boolean.html
+  # PostgreSQL and other databases accept a few more values
+  # https://www.postgresql.org/docs/13/datatype-boolean.html
+
+  HTYPE_TRUE_LIST:
+    - "TRUE"
+    - "true"
+    # - "on" # https://noyaml.com/  ?
+    - "1"    # Note: "1" can also means int 1
+
+  HTYPE_FALSE_LIST:
+    - "FALSE"
+    - "false"
+    # - "off" # https://noyaml.com/ ?
+    - "0"    # Note: "1" can also means int 0
+
+  HTYPE_FROM_EMPTYSTRING:
+    - "HTYPE_MISSING"
+    - "HTYPE_UNKNOW"
+    - "HTYPE_FALSE"
+
+  HTYPE_FROM_NULL:
+    - "HTYPE_UNKNOW"   # NULL/Null/None/Nil, etc are likely to be HTYPE_UNKNOW
+    - "HTYPE_MISSING"  

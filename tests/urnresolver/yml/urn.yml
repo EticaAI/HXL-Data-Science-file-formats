@@ -1,0 +1,19 @@
+---
+
+# TODO: when URNResolver start to undestand CKAN instances, also put as
+#       extra source CKAN instead of direct access Gooogle Drive
+#       (Emerson Rocha, 2021-03-06 20:01 UTC)
+
+# https://data.humdata.org/dataset/hxl-core-schemas
+- urn: "urn:data:xz:hxl:standard:core:hashtag"
+  source:
+    - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
+- urn: "urn:data:xz:hxl:standard:core:attribute"
+  source:
+    - https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=1810309357&single=true&output=csv
+- urn: "urn:data:un:locode"
+  source:
+    - urn:data:un:unece:locode
+- urn: "urn:data:xz:hxlcplp:fod:lang"
+  source:
+    - https://proxy.hxlstandard.org/data.csv?dest=data_view&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI%2Fedit%23gid%3D0

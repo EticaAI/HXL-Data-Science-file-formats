@@ -1,0 +1,28 @@
+---
+# Trivia:
+# - "servitium"
+#   - https://en.wiktionary.org/wiki/servitium#Latin
+# - "mappam"
+#   - https://en.wiktionary.org/wiki/mappa#Latin
+# - "vocābulārium"
+#   - hhttps://en.wiktionary.org/wiki/vocabularium#Latin
+# - "URN"
+#   - https://en.wikipedia.org/wiki/Uniform_Resource_Name
+#   - https://tools.ietf.org/html/rfc8141
+
+
+servitium:
+  mappam:
+    _to-document_:
+      - https://www.geoboundaries.org/api.html
+      - https://www.geoboundaries.org/gbRequest.html?ISO=ALL
+      - https://gadm.org/
+      - https://gistmaps.itos.uga.edu/arcgis/rest/services/COD_External
+      - https://beta.itos.uga.edu/CODV2API/
+      - https://github.com/SimonbJohnson/quickX3/tree/master/hxldash/static/geoms/topojson
+  URN:
+    _to-document_:
+      - https://github.com/EticaAI/HXL-Data-Science-file-formats/tree/main/urn-data-specification
+  vocabularium:
+    _to-document_:
+      - https://vocabulary.unocha.org/

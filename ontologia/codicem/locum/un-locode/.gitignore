@@ -1,0 +1,5 @@
+temp/
+stagging/
+
+# Too big, use code-list-EXEMPLUM.hxl.csv
+code-list.hxl.csv

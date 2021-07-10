@@ -1,0 +1,22 @@
+
+# cd tests/hrecipe
+# hdpcli --export-to-hxl-json-processing-specs yemen-01.hrecipe.mul.hdp.yml
+# hdpcli --export-to-hxl-json-processing-specs yemen-01.hrecipe.mul.hdp.yml | jq '.[1]'
+# hdpcli --export-to-hxl-json-processing-specs yemen-01.hrecipe.mul.hdp.yml | jq '.[1]' | hxlspec
+---
+- hsilo:
+    nomen: yemen-01.hrecipe.mul.hdp.yml
+  htransformare:
+    - id: example-processing-with-a-JSON-spec
+      _recipe:
+        - filter: count
+          patterns: "adm1+name,adm1+code"
+          aggregators:
+            - "sum(population) as Population#population"
+        - filter: clean_data
+          number: "population"
+          number_format: .0f
+      exemplum:
+        - fontem:
+            iri: https://data.humdata.org/dataset/yemen-humanitarian-needs-overview
+            _sheet_index: 1

@@ -1,0 +1,7 @@
+#meta+lat_codices_anonyma,#meta+lat_typos,#item+eng_bias+v_iso5218_extended,#item+eng_bias+lat_cis,#item+eng_bias+lat_trans,#item+eng_bias+v_iso5218_extended_1,#item+eng_bias+v_iso5218_extended_2,#item+eng_bias+v_iso5218_extended_3,#item+eng_bias+v_iso5218_extended_4,#item+eng_bias+v_iso5218_extended_9,#item+weka_class
+lat_incognitum,1,0,,,,,,,,lat_incognitum
+lat_masculum,1,1,1,0,0,,,,,lat_masculum
+lat_feminam,1,2,1,0,,0,,,,lat_feminam
+lat_trans_masculum,2,3,0,1,,,0,,,lat_trans_masculum
+lat_trans_feminam,2,4,0,1,,,,0,,lat_trans_feminam
+lat_non_binarium,1,9,?,?,,,,,?,lat_non_binarium

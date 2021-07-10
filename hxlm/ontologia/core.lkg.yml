@@ -1,0 +1,264 @@
+# hxlm.ontologia.core.lkg.yml
+# Localization Knowledge Graph
+#
+# This is an example (in fact, the default, "core") HDP LKG
+# ('HDP localization knowledge graph')
+# @see https://en.wikipedia.org/wiki/ISO_639-3
+
+# TODO: eventually try define better the terms, like knowlege base, ontology,
+#       see:
+# - https://ai.stackexchange.com/questions/21797
+#   /what-are-the-differences-between-a-knowledge-base-and-a-knowledge-graph
+# - https://arxiv.org/pdf/2003.02320.pdf
+#       (Emerson Rocha, 2021-03-19 22:19)
+
+
+# TODO: add reference to these concepts from here
+#       https://en.wikipedia.org/wiki/List_of_Unicode_characters
+#       (Emerson Rocha, 2021-03-25 08:10 UTC)
+
+# TODO: check these links
+# - https://en.wikipedia.org/wiki/Non-English-based_programming_languages
+#   - https://metacpan.org/pod/distribution/Lingua-Romana-Perligata
+#     /lib/Lingua/Romana/Perligata.pm
+# - https://github.com/github/linguist/blob/master/samples/Record%20Jar/filenames/language-subtag-registry.txt
+
+### File suffixes, and other default internals _________________________________
+
+## File suffixes ---------------------------------------------------------------
+# When using HDP, the library try to detect user languages by environment (and
+# add user preferences in order) and then will consider fs.hdp.base as default.
+fs:
+  hdp:
+    base:
+      - lat.hdp.json
+      - lat.hdp.yml
+      - mul.hdp.json
+      - mul.hdp.yml
+
+### Special internal tokens ----------------------------------------------------
+
+itkn:
+  # '<<Key Name>>: value' is one way to users 'comment' files
+  # TODO: implement regex for itkn.comment
+  comment:
+    start: '<<'
+    end: '>>'
+  internal_l1:
+    start: '<<!'
+    end: '!>>'
+  # internal_l2:
+  #   start: '<<!!'
+  #   end: '!!>>'
+  # internal_l3:
+  #   start: '<<!!!'
+  #   end: '!!!>>'
+
+#### Localization identifiers __________________________________________________
+# Alphabetic order by iso3693
+lid:
+
+  # iso3693: https://iso639-3.sil.org/
+  # iso15924: https://en.wikipedia.org/wiki/ISO_15924
+
+  ### Arab macro language, START -----------------------------------------------
+
+    # https://en.wikipedia.org/wiki/Modern_Standard_Arabic
+    # https://www.wikidata.org/wiki/Q56467
+    # https://en.wikipedia.org/wiki/Arabic_script
+    # https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
+  'اللغة العربية الفصحى الحديثة':
+    lid: ARA-Arab
+    klid: 'اللغة العربية الفصحى الحديثة'
+    klid_alts: []
+    iso6391: AR
+    iso3693: ARA
+    iso15924: Arab  # https://www.unicode.org/versions/Unicode13.0.0/ch09.pdf
+    macro: True
+    q: Q56467
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=arz
+      unicode_xml: https://unicode.org/udhr/d/udhr_arb.xml
+
+  ### Arab macro language, END -------------------------------------------------
+
+  # https://en.wikipedia.org/wiki/English_language
+  # https://www.wikidata.org/wiki/Q1860
+  English language:
+    lid: ENG-Latn
+    klid: English language
+    klid_alts: ['English']
+    iso6391: EN
+    iso3693: ENG
+    iso15924: Latn
+    macro: False
+    q: Q1860
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=eng
+      unicode_xml: https://unicode.org/udhr/d/udhr_eng.xml
+
+  # https://en.wikipedia.org/wiki/French_language
+  # https://fr.wikipedia.org/wiki/Fran%C3%A7ais
+  # https://www.wikidata.org/wiki/Q150
+  Langue française:
+    lid: FRA-Latn
+    klid: Langue française
+    klid_alts: ['Français']
+    iso6391: FR
+    iso3693: FRA
+    iso15924: Latn
+    macro: False
+    q: 'Q150'
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=frn
+      unicode_xml: https://unicode.org/udhr/d/udhr_fra.xml
+
+  # https://la.wikipedia.org/wiki/Lingua_Latina
+  # https://www.wikidata.org/wiki/Q397
+  Lingua Latina:
+    lid: LAT-Latn
+    klid: Lingua Latina
+    klid_alts: []
+    iso6391: LA
+    iso3693: LAT
+    iso15924: Latn
+    macro: False
+    q: Q397
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=ltn
+      unicode_xml: https://unicode.org/udhr/d/udhr_lat.xml
+
+  # https://pt.wikipedia.org/wiki/L%C3%ADngua_portuguesa
+  # https://www.wikidata.org/wiki/Q5146
+  Língua portuguesa:
+    lid: POR-Latn
+    klid: Língua portuguesa
+    klid_alts: ['Português']
+    iso6391: PT
+    iso3693: POR
+    iso15924: Latn
+    macro: False
+    q: Q5146
+    udur:
+      ohchr_html: https://unicode.org/udhr/d/udhr_por_PT.xml
+      unicode_xml: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=por
+
+  # https://en.wikipedia.org/wiki/Russian_language
+  # https://ru.wikipedia.org/wiki/%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9_%D1%8F%D0%B7%D1%8B%D0%BA
+  # https://www.wikidata.org/wiki/Q7737
+  # https://en.wikipedia.org/wiki/Cyrillic_script
+  Русский язык:
+    lid: RUS-Cyrl
+    klid: Русский язык
+    klid_alts: []
+    iso6391: RU
+    iso3693: RUS
+    iso15924: Cyrl  # https://en.wikipedia.org/wiki/Cyrillic_script
+    macro: False
+    q: Q7737
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=rus
+      unicode_xml: https://unicode.org/udhr/d/udhr_rus.xml
+
+  # https://es.wikipedia.org/wiki/Idioma_espa%C3%B1ol
+  # https://www.wikidata.org/wiki/Q1321
+  Idioma español:
+    lid: SPA-Latn
+    klid: Idioma español
+    klid_alts: ['Español']
+    iso6391: ES
+    iso3693: SPA
+    iso15924: Latn
+    macro: False
+    q: Q1321
+    udur:
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=spn
+      unicode_xml: https://unicode.org/udhr/d/udhr_spa.xml
+
+  ### Chinese macro language, START --------------------------------------------
+
+  # Note to native speakers:
+  #   The way HDP uses verbs is not as powerful as one full natural language.
+  #   Not only it is meant to be used in written form, but as long as the words
+  #   the primary words are not very different (or, on worst case, even if
+  #   perfect on one chinese variant, in another could sound offensive) we
+  #   actually can use less variants.
+
+  # NOTE: this link https://www.kevinhsieh.net/2019/02/27/chinese-macrolanguage/
+  #   do have a lot of comments beyond what wikipedia says. Definely we
+  #   should go beyond ' "Chinese (Simplified)" & "Chinese (Traditional)"'
+
+  # https://iso639-3.sil.org/code/zho
+  # https://en.wikipedia.org/wiki/Simplified_Chinese_characters
+  # https://en.wikipedia.org/wiki/Traditional_Chinese_characters
+  # https://en.wikipedia.org/wiki/Chinese_language
+  '汉语': # (simplified Chinese: 汉语)
+    lid: ZHO-Hans
+    klid: '汉语'
+    klid_alts: []
+    iso6391: ZH     #
+    iso3693: ZHO    # cmn is more specific
+    iso15924: Hans  # https://en.wikipedia.org/wiki/ISO_15924
+    macro: True
+    q: null      # TODO: find an wikidata code
+    udur:
+      # Chinese, Mandarin (Simplified), see
+      # https://unicode.org/udhr/translations.html
+      ohchr_html: http://www.ohchr.org/EN/UDHR/Pages/Language.aspx?LangID=chn
+      unicode_xml: https://unicode.org/udhr/d/udhr_cmn_hans.xml
+
+  # languages + writting system:
+  #    - traditional Chinese: 漢語
+  #    - pinyin: Hànyǔ
+  # ISO 15924:
+  #    - Hans
+  #    - Hant
+  #    - (...)
+
+  # cdo  Min Dong Chinese  Active
+  # cjy  Jinyu Chinese  Active
+  # cmn  Mandarin Chinese  Active
+  # cpx  Pu-Xian Chinese  Active
+  # czh  Huizhou Chinese  Active
+  # czo  Min Zhong Chinese  Active
+  # gan  Gan Chinese  Active
+  # hak  Hakka Chinese  Active
+  # hsn  Xiang Chinese  Active
+  # lzh  Literary Chinese  Active
+  # mnp  Min Bei Chinese  Active
+  # nan  Min Nan Chinese  Active
+  # wuu  Wu Chinese  Active
+  # yue  Yue Chinese  Active
+  # cnp  Northern Ping Chinese  Active
+  # csp  Southern Ping Chinese  Active
+
+
+  ### Chinese macro language, END ----------------------------------------------
+
+  # newlanguage:
+  #   id: 'newlanguage'
+  #   id_alts: []
+  #   iso6391: ZZZ    #
+  #   iso3693: ZZZ    # https://iso639-3.sil.org/
+  #   iso15924: Latn  # https://en.wikipedia.org/wiki/ISO_15924
+  #   macro: False
+  #   q: QZZZZZZZ
+
+
+linguam23:
+  # https://iso639-3.sil.org/code/ara
+  AR: 'ARA'
+  # https://iso639-3.sil.org/code/eng
+  EN: 'ENG'
+  # https://iso639-3.sil.org/code/fra
+  FR: 'FRA'
+  # https://iso639-3.sil.org/code/spa
+  ES: 'SPA'
+  # https://iso639-3.sil.org/code/lat
+  LA: 'LAT'
+  # https://iso639-3.sil.org/code/por
+  PT: 'POR'
+  # https://iso639-3.sil.org/code/rus
+  RU: 'RUS'
+  # https://iso639-3.sil.org/code/zho
+  ZH: 'ZHO'

@@ -1,0 +1,5 @@
+#meta+v_iso5218_extended+code,#meta+v_iso5218+code,#meta+v_iso5218+name+i_eng,#meta+v_iso5218+name+i_fra,#meta+v_iso5218+name+i_spa,#meta+v_iso5218+name+i_por,#item+weka_class
+0,0,not known,inconnu,desconocido,desconhecido,lat_incognitum
+1,1,male,masculin,masculino,masculino,lat_masculum
+2,2,female,féminin,femenino,feminino,lat_feminam
+9,9,not applicable,sans objet,no aplica,nenhuma resposta,lat_non_binarium

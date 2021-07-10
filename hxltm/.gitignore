@@ -1,0 +1,7 @@
+# The Github Actions use something like this
+#    asciidoctor --backend=html5 -o hxltm/index.html -a toc2 hxltm/README.adoc
+# But for local testing we use this
+#    asciidoctor --backend=html5 -o hxltm/index.htm -a toc2 hxltm/README.adoc
+
+
+*.htm

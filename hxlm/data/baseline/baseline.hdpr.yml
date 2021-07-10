@@ -1,0 +1,22 @@
+# NOTE: The hxlm.data.baseline.baseline.hdpd.yml and
+#       hxlm.data.baseline.baseline.hdpd.yml are not 100% up-to-date with
+#       lastest HDP conventions. Part of it's features are being
+#       re-implemented with the refactoring of hxlm.core.model.hdp to
+#       hxlm.core.hdp. (Emerson Rocha, 2021-03-29 07:55 UTC)
+
+# hmeta
+# hxml.core.data.baseline
+# File baseline.hdpr.yml
+---
+
+# NOTE: Compliance files, compared to any other hmeta representation, SHOULD
+#       allow end users native language including the key terms like
+#       'hcompliance', 'source', 'tags', etc. The reasoning behind this is
+#       the idea behind compliance rules is be able to be validated by
+#       local judges, administrators, etc. Right-to-left languages may
+#       need extra work (Emerson Rocha, 2021-03-01 05:08 UTC)
+
+- hmeta: hxml.core.data.baseline.hcompliance
+  __comment__: "This is an draft"
+  hcompliances:
+    - hcompliance: "hcompliance.example"

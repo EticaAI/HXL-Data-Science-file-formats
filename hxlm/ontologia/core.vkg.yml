@@ -1,0 +1,1390 @@
+# hxlm.ontologia.core.vkg.yml
+# Vocabulary Knowledge Graph
+
+# This file contains an HXLM.core internal vocabulary for the most important
+# key terms for the 6 official UN languages plus Portuguese (*).
+#
+# * Initial author speaks Portuguese and is also from the usergroup HXL-CPLP.
+#
+### Additional context ........................................................
+# Beyond the features of help to document how to process data, the hxlm has
+# drafts on how a source of data could document what can and what not with
+# the data.
+#
+# The minimum usability of this helps someone who, without automation,
+# can make quick decisions on how to process the data before sending it to
+# someone new and then how the person could use it. But the ideal usage
+# allows for automation (even intermediate human proxies don't have access
+# to data, but access to metadata is still necessary to comply with laws
+# and avoid accidental data exposition).
+#
+# Please note that, by default, all data exchange with this type of tool
+# is with restricted access and is often meant to be used for decision
+# making. The source of data may choose enforcement, even if asking for
+# help, not from people of the same country or support from people of some
+# areas (like people who are journalists). Also the source of data, if
+# already not anonymized, can actually be a simulated scenario for variables
+# missing.
+#
+### Why built in internal vocabulary? .........................................
+# The humans who de facto would give legal authorization to exchange sensitive
+# data needs to understand theirs "acceptable use policy" (hcompliance) and
+# often this means be in their native language. Without this, no matter how
+# desesperante are the situation (even if is feasible have trusted people
+# and even a workflow to acceptable anonymization) the lack of a format
+# about how data could be used makrs harder exchange data without
+# centralization (that already is likely to be overwhelmed).
+#
+###  Words not mentioned in this vocabulary?
+# While the current proof of concept doesn't implement this yet, an potential
+# strategy of allowing words that are not strictly the ones previously defined
+# is the same strategy to use as if it would be a totally new language: an
+# additional file that maps terms used to the internal ones.
+#
+# When working with HXL datasets directly, do already exist documentation
+# about how to replace terms or obvious misspellings. So it seems intuitive to
+# softwares that implement hmeta with YAML would allow similar features using
+# also YAML in special because we would allow by design additional language.
+#
+# Also, if more documents are exchanged from the same sources, this
+# intermediate conversion/translation document is likely to be reusable
+# without need to wait for the software used by others to implement your
+# customization.
+##
+# Note that, as a rule of thumb, even if the source trust who makes eventual
+# translation/conversion additional files, they should receive one copy of
+# this.
+#
+#### Right-to-left (RTL) scripts ______________________________________________
+# @see https://www.w3.org/International/questions/qa-scripts.en
+# @see https://en.wikipedia.org/wiki/Right-to-left
+# @see https://ckeditor.com/docs/ckeditor4/latest/guide/skin_sdk_rtl.html
+# @see https://forum.sublimetext.com/t/arabic-and-unicode-typing/41561/20
+# Note: Right-to-left scripts like Arabic, Persian, Urdu, Hebrew, Yiddish and
+#       others, when mixing both latin alphabet and their own seems to get
+#       visually very strange (like part of the text in one side of the code
+#       editor and the rest the opposite). I imagine that if it is technically
+#       possible it is worthwhile to allow all key terms to be in the
+#       respective language. At least that's what I would like if one of
+#       these scripts were my mother tongue.
+#       (Emerson Rocha, 2021-03-02 17:45 UTC)
+
+
+# TODO: maybe as part of the hxlm.core.schema.vocab.ItemHVocab(), if an user
+#       try to override (one very valid and expected example: add unplaned
+#       translations or corrections to new ones) the library require the user
+#       to at bare minimum also override both default name and default contact
+#       e-mail. (Emerson Rocha, 2021-03-03 15:18 UTC)
+# _meta_vocab_contact_name: Emerson Rocha
+# _meta_vocab_contact_email: rocha+corevocab@ieee.org
+
+# TODO: implement JSON-SCHEMA conditionals
+# https://json-schema.org/understanding-json-schema/reference/conditionals.html
+# https://json-schema.org/understanding-json-schema/reference/combining.html
+# https://json-schema.org/understanding-json-schema/structuring.html#structuring
+#        (Emerson Rocha, 2021-03-17 19:31 UTC)
+
+root:
+  # "In general, compliance means conforming to a rule, such as a
+  #  specification, policy, standard or law. " -- Wikipedia
+  # @see https://www.wikidata.org/wiki/Q441901 Compliance disambiguation page
+  # @see https://www.wikidata.org/wiki/Q626741 Regulatory compliance (Q626741)
+  # @see https://www.wikidata.org/wiki/Q7214489 terms of service (Q7214489)
+  # @see https://en.wikipedia.org/wiki/Regulatory_compliance
+  #
+  # Maybe the best root term would be Acceptable use policy?
+  #  "An acceptable use policy (AUP), acceptable usage policy or fair use
+  #   policy, is a set of rules applied by the owner, creator or
+  #   administrator of a network, website, or service, that restrict the
+  #   ways in which the network, website or system may be used and sets
+  #   guidelines as to how it should be used. AUP documents are written
+  #   for corporations,[1] businesses, universities,[2] schools,[3]
+  #   internet service providers (ISPs),[4] and website owners,[5] often
+  #   to reduce the potential for legal action that may be taken by a
+  #   user, and often with little prospect of enforcement." -- Wikipedia
+  #  "Acceptable use policies are an integral part of the framework of
+  #   information security policies; it is often common practice to ask
+  #   new members of an organization to sign an AUP before they are given
+  #   access to its information systems. For this reason, an AUP must be
+  #   concise and clear, while at the same time covering the most important
+  #   points about what users are, and are not, allowed to do with the IT
+  #   systems of an organization. It should refer users to the more
+  #   comprehensive security policy where relevant. It should also, and very
+  #   notably, define what sanctions will be applied if a user breaks the
+  #   AUP. Compliance with this policy should, as usual, be measured by
+  #   regular audits." -- Wikipedia
+  #
+  # @see https://en.wikipedia.org/wiki/Acceptable_use_policy
+  #
+  hcompliance:
+    id: "HC"
+    ARA:
+      id: 'hcompliance'  # TODO: still need an term
+    ENG:
+      # https://en.wikipedia.org/wiki/Acceptable_use_policy
+      id: 'acceptable-use-policy'
+    FRA:
+      id: 'politique-dutilisation-acceptable'  # TODO: review
+    SPA:
+      id: 'politica-de-uso-aceptable'  # TODO: review
+    LAT:
+      id: 'hcompliance'  # TODO
+    POR:
+      id: 'politica-de-utilizacao-aceitavel' # 'politica-de-uso' # or 'termos-e-condicoes-de-uso'
+    QAA:
+      id: 'q4672374'  # Acceptable use policy (Q4672374)
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%A3%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F_%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F
+      id: 'условия-использования' # 'Terms of service'; Still not perfect
+    ZHO:
+      # https://zh.wikipedia.org/wiki/%E6%9C%8D%E5%8B%99%E6%A2%9D%E6%AC%BE
+      id: '可接受使用策略' # Acceptable use policy (可接受使用策略)
+    ZXX:
+      id: 'hcompliance'
+    QDP:
+      id: 'hcompliance'
+
+  # https://www.wikidata.org/wiki/Q1172284
+  hdatum:
+    # - https://en.wiktionary.org/wiki/data#English
+    #   > 'data', (English) Borrowed from Latin data, nominative plural of
+    #      datum (“that is given”), neuter past participle of dō (“I give”).
+    #      Doublet of date
+    # - https://en.wiktionary.org/wiki/datum#Latin
+    #   > datum n (genitive datī); second declension gift, present
+    id: "HD"
+    ARA:
+      id: 'مجموعة-بيانات'
+    ENG:
+      id: 'data-set'
+    FRA:
+      id: 'jeux-de-donnees'
+    SPA:
+      # SPA: https://es.wikipedia.org/wiki/Conjunto_de_datos
+      id: 'conjunto-de-datos'
+    LAT:
+      # - https://en.wiktionary.org/wiki/data#English
+      #   > 'data', (English) Borrowed from Latin data, nominative plural of
+      #      datum (“that is given”), neuter past participle of dō (“I give”).
+      #      Doublet of date
+      # - https://en.wiktionary.org/wiki/datum#Latin
+      #   > datum n (genitive datī); second declension gift, present
+      #
+      # TODO: maybe change the latin form to datum plus
+      #         - https://en.wiktionary.org/wiki/coniunctus#Latin
+      #         - https://en.wiktionary.org/wiki/collectio#Latin
+      #       (Emerson Rocha, 2021-04-17 20:02 UTC)
+      id: 'hdatum'
+      id_alts:
+        - "datum"
+        - "hdatum"
+    POR:
+      id: 'conjunto-de-dados'
+    QAA:
+      # QAA: TODO: we should consider which reserved code use for Wikidata
+      id: 'q1172284'
+    RUS:
+      # RUS: Needs revision about if is a good term or not
+      #      https://ru.wikipedia.org/wiki/%D0%98%D1%80%D0%B8%D1%81%D1%8B_%D0%A4%D0%B8%D1%88%D0%B5%D1%80%D0%B0
+      id: 'Ирисы-Фишера'
+    ZHO:
+      # zha/ZHO: '数据集' term needs additional revision. No wikidata term
+      id: '数据集'
+    QDP:
+      id: 'hdatum'
+
+  # hfile: https://www.wikidata.org/wiki/Q82753
+  #        computer file | file
+  #
+  # - https://en.wiktionary.org/wiki/file#English
+  #   > "File": English -> Etymology -> From Latin fīlum (“thread”). Doublet of file.
+  # - https://en.wiktionary.org/wiki/filum#Latin
+  # # TODO: consider change to 'hfilum' (Latin: 'fīlum')
+  hfilum:
+    id: "HF"
+    ARA:
+      id: 'ملف-حاسوب'
+    ENG:
+      id: 'computer-file'
+    FRA:
+      id: 'fichier-informatique'
+    SPA:
+      id: 'archivo'
+    LAT:
+      # - https://en.wiktionary.org/wiki/file#English
+      #   > "File": English -> Etymology -> From Latin fīlum (“thread”). Doublet of file.
+      # - https://en.wiktionary.org/wiki/filum#Latin
+      # # TODO: consider change to 'hfilum' (Latin: 'fīlum')
+      # TODO: find latim term for hfile
+      id: 'hfilum'
+      id_alts:
+        - "filum"
+    POR:
+      id: 'arquivo-de-computador'
+    QAA:
+      id: 'q82753'
+    RUS:
+      id: 'Файл'
+    ZHO:
+      # zha/zho : https://zh.wikipedia.org/wiki/%E9%9B%BB%E8%85%A6%E6%AA%94%E6%A1%88
+      #           https://zh.wikipedia.org/wiki/%E6%AA%94%E6%A1%88
+      id: "電腦檔案" # Computer file
+    QDP:
+      id: hfilum
+
+  htransformare:
+    # attr.htransformare is ...
+    # TODO: review this exact usage of Latin. The trānsfōrmandum/trānsfōrmātum
+    #       variant (that could be more consistent with other latin usages)
+    #       seems more strange
+    # @see https://en.wiktionary.org/wiki/transformare#Latin
+    # @see https://en.wiktionary.org/wiki/transformo#Latin
+    # @see https://en.wikipedia.org/wiki/Data_transformation
+    # @see https://en.wikipedia.org/wiki/Data_transformation
+    id: "HT"
+    ARA:
+      # root.htransformare.ara needs revision. The raw term 'تحويل' seems to
+      # have broader (potentially bad) concept. And 'Datafication' is too
+      # specific.
+      # @see https://en.wikipedia.org/wiki/Datafication
+      # @see https://ar.wikipedia.org/wiki/%D8%AA%D8%AD%D9%88%D9%8A%D9%84_%D8%A7%D9%84%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA
+      id: 'تحويل-البيانات' # TODO: review. This means 'Datafication' in English
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    ENG:
+      # @see https://www.wikidata.org/wiki/Q4272815
+      id: 'data-transformation'
+      descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
+      # id_alts:
+      #   - ''
+    FRA:
+      # @see https://en.wiktionary.org/wiki/transformation#French
+      # @see http://www.fao.org/3/x6831f/X6831f08.htm
+      id: 'transformation-de-donnees'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    SPA:
+      # @see https://es.wikipedia.org/wiki/Transformaci%C3%B3n_de_datos (not exact match)
+      id: 'transformacion-de-datos'
+      descriptionem: 'Acción de transformar o transformarse.'
+      # id_alts:
+      #   - ''
+    LAT:
+       # @see https://en.wiktionary.org/wiki/transformare#Latin
+      # @see https://en.wiktionary.org/wiki/transformo#Latin
+      id: 'htransformare'
+      # descriptionem: ''
+      id_alts:
+        - 'transformare'
+    POR:
+      id: 'transformacao-de-dados'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    QAA:
+      # @see https://www.wikidata.org/wiki/Q4272815
+      id: 'q4272815'  # data transformation (Q4272815)
+      descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
+      # id_alts:
+      #   - ''
+    RUS:
+      # @see https://www.wikidata.org/wiki/Q4272815
+      # @see https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D0%B0%D0%BD%D1%81%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D1%8F
+      id: 'трансформация-данных'
+      descriptionem: 'совокупность техник преобразования данных для их переноса между различными базами данных'
+      # id_alts:
+      #   - ''
+    ZHO:
+      # @see https://www.wikidata.org/wiki/Q4272815
+      # @see https://en.wiktionary.org/wiki/%E8%BD%AC%E5%9E%8B
+      id: '数据变换'
+      # descriptionem: ''
+      id_alts:
+        - '转型'
+    QDP:
+      id: 'htransformare'
+      descriptionem: 'process which converts a set of data values from the data format of a source data system into the data format of a destination data system'
+      # id_alts:
+      #   - ''
+
+  hsilo:
+    # root.hsilo is the way to "group" hdatum/hfile when do exist a need.
+    # @see https://en.wikipedia.org/wiki/Information_silo
+    # @see https://www.wikidata.org/wiki/Q6031230
+    # @see https://en.wikipedia.org/wiki/Silo
+    # @see https://www.wikidata.org/wiki/Q213643
+    # On wikitionary, silo
+    # @see https://en.wiktionary.org/wiki/silo
+    id: "HS"
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D8%B5%D9%88%D9%85%D8%B9%D8%A9_%D8%BA%D9%84%D8%A7%D9%84
+      # Needs revision. 'صومعة غلال' seems, like russian 'Силосная башня', an
+      # very specific definition, and 'صومعة' seems more aligned with silo alone
+      id: 'صومعة'
+    ENG:
+      id: 'silo'
+    FRA:
+      id: 'silo'
+    SPA:
+      id: 'silo'
+    LAT:
+      # https://en.wiktionary.org/wiki/silo#Spanish
+      id: 'hsilo'
+      id_alts:
+        - 'silo'
+    POR:
+      id: 'silo'
+    QAA:
+      # We're using the generic term because is easy to translate to multiple
+      # languages than Information Silo.
+      id: 'q213643'  # silo (Q213643), structure for storing bulk materials
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BB%D0%BE%D1%81%D0%BD%D0%B0%D1%8F_%D0%B1%D0%B0%D1%88%D0%BD%D1%8F
+      # 'Силосная башня' = "silo tower"
+      # 'силосная' = 'silo' (needs revision)
+      id: 'силосная'
+      id_alts:
+        - 'silo'
+    ZHO:
+      # @see https://zh.wikipedia.org/wiki/%E7%AD%92%E4%BB%93
+      id: '筒仓'
+    QDP:
+      id: 'hsilo'
+
+attr:
+  adm0:
+    # attr.adm0 is a country/territory
+    # https://en.wikipedia.org/wiki/Administrative_division
+    # https://en.wikipedia.org/wiki/Country
+    # https://en.wikipedia.org/wiki/GADM
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D8%A8%D9%84%D8%AF
+      id: 'بلد'
+    ENG:
+      id: 'country'
+    FRA:
+      id: 'pays'
+    SPA:
+      id: 'pais'
+    LAT:
+      id: 'patriam'
+    POR:
+      id: 'pais'
+    QAA:
+      # https://www.wikidata.org/wiki/Q6256
+      id: 'q6256'  # country (Q6256)
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%B0
+      id: 'страна'
+    ZHO:
+      # https://zh.wikipedia.org/wiki/%E5%9B%BD%E5%AE%B6
+      id: '国家'
+    QDP:
+      id: 'adm0'
+
+  datum:
+    # attr.datum (English 'data') is an representation of facts. Often for
+    # inline usage (e.g. without point the data for an externa urn or iri)
+    # @see https://en.wiktionary.org/wiki/datum#Latin
+    # @see https://en.wiktionary.org/wiki/datus#Latin
+    # @see https://www.wikidata.org/wiki/Q42848
+    ARA:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'بيانات'
+    ENG:
+      id: 'data'
+    FRA:
+      # @see https://www.wikidata.org/wiki/Q42848
+      # 'donnée' -> donnee
+      id: 'donnee'
+    SPA:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'dato'
+    LAT:
+      # Q42848 uses 'data', but we're using datum since is
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'datum'
+    POR:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'dados'
+    QAA:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'q42848'
+    RUS:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: 'данные'
+    ZHO:
+      # @see https://www.wikidata.org/wiki/Q42848
+      id: '数据'
+    QDP:
+      id: 'datum'
+
+  descriptionem:
+    # attr.desc is description about current context
+    # an sort term for descriptio
+    # https://en.wikipedia.org/wiki/Description
+    # https://www.wikidata.org/wiki/Q1200750
+    # @see https://en.wiktionary.org/wiki/descriptio#Latin
+    ARA:
+      # same as attr.desc.zho, ara is likely to have several alternatives
+      id: 'وصف'
+    ENG:
+      id: 'description'
+    FRA:
+      id: 'description'
+    SPA:
+      id: 'descripcion'
+    LAT:
+      # @see https://en.wiktionary.org/wiki/descriptio
+      # dēscrīptiōnem = descriptionem
+      id: 'descriptionem'
+    POR:
+      id: 'descricao'
+    QAA:
+      id: 'q1200750'  # description (Q1200750), text for clarification;
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5
+      id: 'описание'
+    ZHO:
+      # https://baike.baidu.com/item/%E6%8F%8F%E8%BF%B0
+      # TODO: this one will need some work. Like attr.name, is likely to have
+      #       so many alternatives
+      id: '描述'  # TODO: needs revision / add more alternatives
+    QDP:
+      id: 'descriptionem'
+
+  exemplum:
+    # attr.exemplar is ...
+    # @see https://en.wiktionary.org/wiki/exemplum
+    # @see https://www.wikidata.org/wiki/Q14944328
+    ARA:
+      id: 'مثال'
+    ENG:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'example'
+    FRA:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'exemple'
+    SPA:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'ejemplo'
+    LAT:
+      # @see https://en.wiktionary.org/wiki/exemplum
+      # @see https://www.wikidata.org/wiki/Q14944328
+      id: 'exemplum'
+    POR:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'exemplo'
+    QAA:
+      # https://www.wikidata.org/wiki/Q14944328
+      id: 'q14944328'
+    RUS:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: 'пример'
+    ZHO:
+      # from https://www.wikidata.org/wiki/Q14944328
+      id: '例子'
+    QDP:
+      id: 'exemplum'
+
+  falsum:
+    # attr.falsum (opposite of attr.verum) reference to not truly, untrue.
+    # (mostly to be used with command line interface).
+    #
+    # Note: the internal dictionary will use attr.falsum (since is less likely
+    # to conflict with local laguages than 'non' word)
+    #
+    # Note, terms for 'yes'/'no' in Latin are not as easy to find. So the
+    # local languages actually use an equivalent of 'yes'/'no' instead of
+    # 'true'/false, but alternatives are allowed
+    #
+    # @see https://en.wiktionary.org/wiki/falsum
+    # @see https://en.wikipedia.org/wiki/False_(logic)
+    ARA:
+      # TODO attr.falsum.ara is likely to need revision.
+      # @see https://en.wiktionary.org/wiki/%D9%84%D9%8A%D8%B3
+      # @see https://en.wiktionary.org/wiki/%D9%84%D8%A7#Arabic
+      id: 'ليس'  # English 'not'
+      # descriptionem: ''
+      id_alts:
+        - 'لا'  # English 'no'
+    ENG:
+      id: 'not'
+      descriptionem: 'Untrue, false, negation'
+      id_alts:
+        - 'no'
+        - 'false'
+        - 'untrue'
+    FRA:
+      # @see https://en.wiktionary.org/wiki/ne#French
+      id: 'ne'
+      # descriptionem: ''
+      id_alts:
+        - 'non'
+    SPA:
+      # @see https://en.wiktionary.org/wiki/no#Spanish
+      id: 'no'
+      # descriptionem: ''
+      id_alts:
+        - 'falso'
+    LAT:
+      # @see https://en.wiktionary.org/wiki/falsum
+      # @see https://en.wiktionary.org/wiki/non#Latin
+      id: 'falsum'
+      # descriptionem: ''
+      id_alts:
+        - 'non'
+    POR:
+      id: 'nao'
+      descriptionem: 'Negação, falso, oposto de verdadeiro.'
+      id_alts:
+        - 'falso'
+    QAA:
+      # @see https://en.wikipedia.org/wiki/False_(logic)
+      # @see https://www.wikidata.org/wiki/Q5432619
+      id: 'q5432619'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    RUS:
+      # @see https://en.wiktionary.org/wiki/%D0%BD%D0%B5%D1%82#Russian
+      id: 'нет'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    ZHO:
+      # TODO: attr.falsum.zho have many variants. Even if the canonical
+      #       attr.falsum.zho.id is acceptable, some work may be need here
+      # @see https://zh.m.wiktionary.org/zh/%E4%B8%8D
+      id: '不'
+      # descriptionem: ''
+      id_alts:
+        - '不是'
+        - '不是'
+    QDP:
+      id: 'falsum'
+      descriptionem: 'reference to not truly, untrue. (mostly to be used with command line interface)'
+      id_alts:
+        - non
+        - 'false'
+        - 'untrue'
+        - False
+        - '⊥' # (logic) An arbitrary contradiction, denoted ⊥.
+        - '¬'
+
+  fontem:
+    # attr.fontem is the source of the information in the current context. Often
+    # to mention an external source. See also attr.datum for inline source of
+    # data
+    #
+    # https://en.wikipedia.org/wiki/Source
+    # https://en.wikipedia.org/wiki/Source_document
+    # @see https://en.wiktionary.org/wiki/fons#Latin
+    # @see https://www.wikidata.org/wiki/Q224772
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D9%85%D8%B5%D8%AF%D8%B1
+      id: 'مصدر'
+    ENG:
+      id: 'source'
+    FRA:
+      # https://fr.wikipedia.org/wiki/Source
+      id: 'source'
+    SPA:
+      # https://es.wikipedia.org/wiki/Source_(desambiguaci%C3%B3n)
+      id: 'fuente'
+    LAT:
+      # https://en.wiktionary.org/wiki/fons#Latin
+      id: 'fontem'
+    POR:
+      id: 'fonte'
+    QAA:
+      # https://www.wikidata.org/wiki/Q224772
+      id: 'q224772'  # Source (Q224772), Wikimedia disambiguation page
+    RUS:
+      id: 'источник' # Source
+    ZHO:
+      # https://en.wiktionary.org/wiki/%E4%BE%86%E6%BA%90
+      # (This term, 来源, is the simplified form of 來源.)
+      id: '來源'  # source; origin 
+    QDP:
+      id: 'fontem'
+
+  grupum:
+    # attr.grupum (English: group) is one way to group colletions (hsilos).
+    # While the tags allow use at any level, attr.grupum should be explicity
+    # named at top level.
+    # @see https://en.wiktionary.org/wiki/grupus#Latin
+    # @see https://www.wikidata.org/wiki/Q16887380 (well-defined collection of discrete entities who choose or are assigned to be part of a collective whole)
+    ARA:
+      # @see https://en.wiktionary.org/wiki/%D9%85%D8%AC%D9%85%D9%88%D8%B9%D8%A9
+      # @see https://www.wikidata.org/wiki/Q16887380
+      id: 'مجموعة'
+      descriptionem: 'عناصر ذات أي طبيعة ينظر إليها كمجموعة'
+    ENG:
+      # @see https://en.wiktionary.org/wiki/group#English
+      id: 'group'
+      descriptionem: 'Well-defined collection of discrete entities who choose or are assigned to be part of a collective whole'
+    FRA:
+      # @see https://en.wiktionary.org/wiki/groupe#French
+      id: 'groupe'
+      descriptionem: "regroupement d'entités ayant des caractéristiques semblables"
+    SPA:
+      # @see https://en.wiktionary.org/wiki/grupo#Spanish
+      # @see https://www.wikidata.org/wiki/Q16887380
+      id: 'grupo'
+      descriptionem: 'conjunto de cosas o personas'
+    LAT:
+      # @see https://en.wiktionary.org/wiki/grupus#Latin
+      id: 'grupum'
+      # descriptionem: ''
+    POR:
+      # @see https://en.wiktionary.org/wiki/grupo#Portuguese
+      # @see https://www.wikidata.org/wiki/Q16887380
+      id: 'grupo'
+      descriptionem: 'múltiplos elementos (coisas, pessoas, etc.) de mesma natureza considerados formadores de um conjunto'
+    QAA:
+      # @see https://www.wikidata.org/wiki/Q16887380 (well-defined collection of discrete entities who choose or are assigned to be part of a collective whole)
+      id: 'q16887380'
+      descriptionem: 'well-defined collection of discrete entities who choose or are assigned to be part of a collective whole'
+    RUS:
+      # @see https://www.wikidata.org/wiki/Q16887380
+      # @see https://ru.wikipedia.org/wiki/%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0
+      id: 'группа'
+      descriptionem: 'объединение сущностей с общими свойствами'
+    ZHO:
+      # @see https://www.wikidata.org/wiki/Q16887380
+      # @see https://en.wiktionary.org/wiki/%E7%B5%84
+      id: '組'
+      # descriptionem: ''
+    QDP:
+      id: 'grupum'
+      descriptionem: 'One way to group colletions (hsilos).While the tags allow use at any level, this attribute should be explicity named at top level.'
+
+  id:
+    # attr.id
+    # @see https://en.wikipedia.org/wiki/Identifier
+    # @see https://www.wikidata.org/wiki/Q853614
+    ARA:
+      id: 'المعرف'  # The Identifier; needs some review
+    ENG:
+      # https://en.wikipedia.org/wiki/Identifier
+      id: 'identifier'
+    FRA:
+      # https://fr.wikipedia.org/wiki/Identifiant
+      id: 'identifiant'
+    SPA:
+      # https://es.wikipedia.org/wiki/Identificador
+      id: 'identificador'
+    LAT:
+      id: 'id'  # TODO
+    POR:
+      id: 'identificador'
+    QAA:
+      id: 'q853614'  # identifier (Q853614)
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%98%D0%B4%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D1%80
+      id: 'идентификатор'
+    ZHO:
+      # https://zh.wikipedia.org/wiki/%E6%A8%99%E8%AD%98%E7%AC%A6
+      id: '標識符'
+    QDP:
+      id: 'id'
+
+# TODO: add some term for 'import (file)'; See https://en.wiktionary.org/wiki/importo#Latin
+
+  iri:
+    # attr.iri
+    # "The Internationalized Resource Identifier (IRI) is an internet protocol
+    #  standard which builds on the Uniform Resource Identifier (URI) protocol
+    #  by greatly expanding the set of permitted characters.[1][2][3] It was
+    #  defined by the Internet Engineering Task Force (IETF) in 2005 in
+    #  RFC 3987. While URIs are limited to a subset of the ASCII character
+    #  set, IRIs may additionally contain most characters from the Universal
+    #  Character Set (Unicode/ISO 10646),[4][5] including Chinese, Japanese,
+    #  Korean, and Cyrillic characters" -- Wikipedia
+    # @see https://en.wikipedia.org/wiki/Internationalized_Resource_Identifier
+    # @see https://www.wikidata.org/wiki/Q424583
+    #
+    # TODO: attr.iri needs revision. Some languages do not have equivalent yet
+    ARA:
+      id: 'iri'
+    ENG:
+      id: 'iri' # 100% OK
+    FRA:
+      id: 'iri' # 100% OK
+    SPA:
+      id: 'iri'
+    LAT:
+      id: 'iri'
+    POR:
+      # attr.iri.POR: https://pt.wikipedia.org/wiki/IRI
+      # 100% mach for portuguese
+      id: 'iri'
+    QAA:
+      id: 'q424583'  # 100% OK
+    RUS:
+      id: 'iri'
+    ZHO:
+      id: 'iri'
+    QDP:
+      id: 'iri'  # 100% OK
+
+  linguam:
+    # attr.lingua is ...
+    # @see https://en.wikipedia.org/wiki/Language
+    # @see https://www.wikidata.org/wiki/Q315
+    # @see https://en.wiktionary.org/wiki/language
+    # @see https://en.wiktionary.org/wiki/lingua#Latin
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D9%84%D8%BA%D8%A9
+      id: 'لغة'
+    ENG:
+      # https://en.wikipedia.org/wiki/Language
+      id: 'language'
+    FRA:
+      # https://fr.wikipedia.org/wiki/Idiome
+      id: 'idiome'
+    SPA:
+      # https://es.wikipedia.org/wiki/Idioma
+      # idiom (Q337968): "language or language variety; specifically, a
+      # restricted dialect used in a given historicalperiod, context etc;
+      #  neutral term between ‘language’ and ‘dialect’"
+      id: 'idioma'
+    LAT:
+      # https://la.wikipedia.org/wiki/Lingua
+      id: 'linguam'
+    POR:
+      # https://pt.wikipedia.org/wiki/idioma
+      id: 'idioma'
+    QAA:
+      id: 'q315'  # language (Q315)
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%AF%D0%B7%D1%8B%D0%BA
+      id: 'язык'
+    ZHO:
+      # https://zh.wikipedia.org/wiki/%E8%AA%9E%E8%A8%80
+      id: '语言'
+    QDP:
+      id: 'linguam'
+
+  locum:
+    # attr.locum an generic reference to place
+    # https://en.m.wiktionary.org/wiki/locum#Latin
+    # https://en.m.wiktionary.org/wiki/place
+    # https://www.wikidata.org/wiki/Property:P276 (location of the object, structure or event.)
+    # https://www.wikidata.org/wiki/Q17334923 (location of physical or non-physical object in space)
+    ARA:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      id: 'موقع'
+    ENG:
+      id: 'location'
+      descriptionem: 'location of physical or non-physical object in space'
+    FRA:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      id: 'lieu'
+      descriptionem: "position dans l'espace où se situe ou se produit une entité par rapport à une autre entité"
+    SPA:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      # 'localización' -> localizacion
+      id: 'localizacion'
+      descriptionem: 'ubicación del objeto físico o no físico en el espacio'
+    LAT:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      # @see https://www.wikidata.org/wiki/Property:P276
+      # Note: P276 uses 'situs', but we will use locum
+      id: 'locum'
+    POR:
+      # @see https://www.wikidata.org/wiki/Property:P276
+      # localização -> localizacao
+      id: 'localizacao'
+      descriptionem: 'localização de um objeto (físico ou abstrato)'
+    QAA:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      # Note: this is an P , not an Q
+      id: 'q17334923'
+      descriptionem: 'location of physical or non-physical object in space'
+    RUS:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      id: 'местонахождение'
+      descriptionem: 'местоположение вымышленного или реального объекта в трёхмерном пространстве'
+    ZHO:
+      # @see https://www.wikidata.org/wiki/Q17334923
+      id: '位置'
+    QDP:
+      id: 'locum'
+
+  meta:
+    # attr.meta is ...
+    # "Metadata is "data that provides information about other data".
+    #  In other words, it is "data about data". Many distinct types of
+    #  metadata exist, including descriptive metadata, structural metadata,
+    #  administrative metadata, reference metadata and statistical
+    #  metadata." -- Wikipedia
+    # https://en.wikipedia.org/wiki/Metadata
+    # https://www.wikidata.org/wiki/Q180160
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA_%D9%88%D8%B5%D9%81%D9%8A%D8%A9
+      id: 'بيانات-وصفية'
+    ENG:
+      id: 'metadata'
+    FRA:
+      # https://fr.wikipedia.org/wiki/M%C3%A9tadonn%C3%A9e
+      id: 'metadonnee'
+    SPA:
+      id: 'metadato'
+    LAT:
+      # https://en.wiktionary.org/wiki/metadatum
+      id: 'meta'  # TODO: check
+    POR:
+      id: 'metadado'
+    QAA:
+      id: 'q180160'  # metadata (Q180160), data about data
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%B0%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5
+      id: 'метаданные'
+    ZHO:
+      # https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE
+      id: '元数据'
+    QDP:
+      id: 'meta'
+
+  nomen:
+    # TODO: change internal name to Latin term instead of English term
+    # attr.name
+    # ara seems to uses noum.
+    # zho, as expected, may use several ones for this. We would need
+    #      alternatives to check these common terms, even if when translating
+    #      back they keep the internal one we use here.
+    # https://en.wikipedia.org/wiki/Name
+    # https://www.wikidata.org/wiki/Q82799
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D8%A7%D8%B3%D9%85
+      id: 'اسم'  #  'Substantivo' (por) 'noum' (eng)
+    ENG:
+      id: 'name'
+    FRA:
+      id: 'nom'
+    SPA:
+      id: 'nombre'
+    LAT:
+      # https://en.wiktionary.org/wiki/nomen#Latin
+      # nōmen -> nomen
+      id: 'nomen'
+    POR:
+      id: 'nome'
+    QAA:
+      # https://www.wikidata.org/wiki/Q82799
+      id: 'q82799'  # name (Q82799), word or term used for identification
+    RUS:
+      id: 'имя'
+    ZHO:
+      # https://zh.wikipedia.org/wiki/%E5%90%8D%E7%A7%B0
+      id: '名称'  # '名称' ? '名字'
+      id_alts:
+        - '名字'
+    QDP:
+      id: 'nomen'
+
+  objectivum:
+    # attr.objectivum is objective, goal, aim. Often used with command line as
+    # opposite of fontem, so
+    #    hdpli --fontem-linguam=por --objectivum-linguam=rus
+    # could means something like 'convert this thing from Portuguese to Russian'
+    #
+    # @see https://en.wiktionary.org/wiki/objectivus#Latin
+    # @see https://en.wiktionary.org/wiki/objective
+    # @see https://www.wikidata.org/wiki/Q341954 Objective (Q341954) Wikimedia disambiguation page
+    ARA:
+      # TODO: attr.obje.objectivum.ara needs revision. More than one option
+      #       'هدف' is more like english 'goal', 'aim'
+      # @see https://ar.wikipedia.org/wiki/%D9%87%D8%AF%D9%81
+      id: 'هدف'
+      # descriptionem: ''
+    ENG:
+      # @see https://en.wikipedia.org/wiki/Objective
+      # @see https://en.wikipedia.org/wiki/Goal
+      id: 'objective'
+      descriptionem: 'a thing aimed at or sought; a goal.'
+    FRA:
+      # TODO: attr.obje.objectivum.fra needs revision. More than one option
+      # @see https://fr.wikipedia.org/wiki/Objectif
+      id: 'objectif'
+      # descriptionem: 'objectif'
+    SPA:
+      # https://es.wikipedia.org/wiki/Objetivo
+      id: 'objetivo'
+      descriptionem: 'En el sentido de causa final, o sea relativo a los fines o propósitos de algún objeto o algún ser o alguna institución o alguna organización, o bien literalmente, a la doctrina filosófica de las causas finales, o bien a la atribución de una finalidad u objetivo a un proceso concreto o a una estructura institucional.'
+    LAT:
+      # @see https://en.wiktionary.org/wiki/objectivus#Latin
+      # 'objectīvum' -> 'objectivum'
+      id: 'objectivum'
+      descriptionem: ''
+    POR:
+      # @see https://pt.wiktionary.org/wiki/objetivo
+      id: 'objetivo'
+      descriptionem: 'fim; propósito; alvo; finalidade; intuito'
+    QAA:
+      # https://www.wikidata.org/wiki/Q341954 (Wikimedia disambiguation page)
+      id: 'q341954'
+      # descriptionem: ''
+    RUS:
+      # @see https://ru.wikipedia.org/wiki/%D0%A6%D0%B5%D0%BB%D1%8C
+      id: 'цель'
+      descriptionem: ''
+    ZHO:
+      # @see https://zh.m.wiktionary.org/zh-hans/%E7%9B%AE%E7%9A%84
+      id: '目的'
+      # descriptionem: ''
+    QDP:
+      id: 'objectivum'
+      descriptionem: 'a thing aimed at or sought; a goal.'
+
+  okay:
+    # attr.okay (from contemporay Latin 'Okay') can be used for special
+    # indication of a thin is correct, acceptable. It does not mean that is
+    # 100% correct, it could be 'mediocre' (in contrast with perfect or 'good')
+    # but at least is not bad.
+    #
+    # Use case: when a program is loading instructions that are not perfect,
+    # but still be able to process or recover. This is a case where attr.okay
+    # can express that, at least, is not bad
+    #
+    # "OK (spelling variations include okay, O.K., and ok) is an English word
+    #  (originally American English) denoting approval, acceptance, agreement,
+    #  assent, acknowledgment, or a sign of indifference. OK is frequently
+    #  used as a loanword in other languages. It has been described as the most
+    #  frequently spoken or written word on the planet.[1] The origins of the
+    #  word are disputed." -- https://en.wikipedia.org/wiki/OK
+    # @see https://en.wikipedia.org/wiki/OK
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D8%A3%D9%88%D9%83%D9%8A
+      id: 'أوكي'
+      descriptionem: 'اوكي أو OK (الصيغ الإملائية التي تشمل okay وOK وok) هي كلمة إنجليزية أمريكية تشير إلى الموافقة أو القبول أو الاتفاق أو الإقرار أو علامة اللامبالاة. كثيرا ما يستخدم OK كلفظ دخيل في لغات أخرى. وقد وصفت بأنها أكثر الكلمات المنطوقة أو المكتوبة على كوكب الأرض.'
+      # id_alts:
+      #   - ''
+    ENG:
+      # https://en.wikipedia.org/wiki/OK
+      id: 'ok'
+      descriptionem: 'OK (spelling variations include okay, O.K., and ok) is an English word (originally American English) denoting approval, acceptance, agreement, assent, acknowledgment, or a sign of indifference. OK is frequently used as a loanword in other languages. It has been described as the most frequently spoken or written word on the planet.[1] The origins of the word are disputed.'
+      # id_alts:
+      #   - ''
+    FRA:
+      # https://fr.wikipedia.org/wiki/OK_(expression)
+      id: 'ok'
+      descriptionem: "OK /ɔkɛ/ (/oke/ au Québec) est une expression abrégée de l'anglais américain qui désigne l'approbation, l'acceptation, l'accord, l'assentiment, la reconnaissance ou un signe d'indifférence. Son équivalent en français est « d'accord », « correct »"
+      # id_alts:
+      #   - ''
+    SPA:
+      # https://es.wikipedia.org/wiki/OK
+      id: 'ok'
+      descriptionem: 'La locución O. K., ok, okay y en español okey2​3​ proviene del inglés estadounidense y se usa como equivalente a «de acuerdo», «está bien» o para indicar conformidad, comúnmente utilizada en Hispanoamérica, no así en España, lugar en el que predomina la interjección: vale.4​ Se usa como adjetivo y adverbio.'
+      id_alts:
+        - ''
+    LAT:
+      # https://la.wikipedia.org/wiki/Okay
+      id: 'okay'
+      descriptionem: 'Okay sive litteris compendiariis o.k., saepe modo ok est verbum celebre Anglicum Americanum. Interea etiam in multis aliis linguis in usu est et “ita”, “ita est”, “recte” et similia significat. Verbum etiam quaestio esse potest: okay? id est “itane?”'
+      # id_alts:
+      #   - ''
+    POR:
+      # https://pt.wikipedia.org/wiki/OK
+      id: 'ok'
+      descriptionem: '"O.K." é uma palavra do inglês americano de origem desconhecida e etimologia muito discutida. Equivale à expressão "Está bem!", e suas derivações, no português. É descrita como uma das expressões mais escritas e faladas no planeta.'
+      # id_alts:
+      #   - ''
+    QAA:
+      # https://www.wikidata.org/wiki/Q217844
+      id: 'q217844'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%9E%D0%BA%D0%B5%D0%B9
+      id: 'окей'
+      descriptionem: 'Окей (англ. Okay; произносится оу ке́й; сокращённо обозначается Ok, O.k.; в русском написании «о’кей», «окей», O’key является неправильным написанием) — американское общеупотребительное выражение, ставшее международным, означающее согласие; «ладно»; «да»; «всё в порядке; хорошо; правильно». Из Америки распространилось по всему миру. Это выражение используют для одобрения или подтверждения чего-либо; в качестве прилагательного это может означать «модный, престижный, относящийся к высшему классу»; и, кроме того, данное выражение используют в качестве междометия: «есть!, идёт!, ладно!, хорошо!».'
+      # id_alts:
+      #   - ''
+    ZHO:
+      # https://zh.wikipedia.org/zh-cn/OK
+      id: 'ok'
+      descriptionem: 'OK（又作okay、O.K.）是一个英语口语词，但也常见于其他语言的口语。英语中意思是对、好、可以、行的意思。OK表示赞同、许可、同意，即英文中yes的含义，而不作为表达好坏程度的副词使用。'
+      # id_alts:
+      #   - ''
+    QDP:
+      id: 'okay'
+      # descriptionem: ''
+      # id_alts:
+      #   - ''
+
+  # strictum:
+  #     # attr.structus is ...
+  #     # @see https://en.wiktionary.org/wiki/strictus#Latin
+  #     ARA:
+  #       id: ''
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+  #     ENG:
+  #       id: 'strict'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     FRA:
+  #       id: 'strict'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     SPA:
+  #       # @see https://en.wiktionary.org/wiki/estricto#Spanish
+  #       id: 'estricto'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     LAT:
+  #       id: 'strictum'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     POR:
+  #       id: 'estrito'
+  #       # descriptionem: ''
+  #       # id_alts:
+  #       #   - ''
+  #     QAA:
+  #       id: ''
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+  #     RUS:
+  #       id: ''
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+  #     ZHO:
+  #       id: ''
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+  #     ZXX:
+  #       id: 'strictum'
+  #       descriptionem: ''
+  #       id_alts:
+  #         - ''
+
+  tag:
+    # attr.tag is ...
+    # @see https://en.wikipedia.org/wiki/Tag_(metadata)
+    # @see https://www.wikidata.org/wiki/Q658349
+    ARA:
+      # https://ar.wikipedia.org/wiki/%D9%88%D8%B3%D9%85_(%D8%AA%D8%B5%D9%86%D9%8A%D9%81)
+      id: 'وسم'
+    ENG:
+      id: 'tag'
+    FRA:
+      # https://fr.wikipedia.org/wiki/Tag_(m%C3%A9tadonn%C3%A9e)
+      id: 'tag'
+    SPA:
+      # https://es.wikipedia.org/wiki/Etiqueta_(metadato)
+      id: 'etiqueta'
+    LAT:
+      id: 'tag'  # TODO, using default value
+    POR:
+      # https://pt.wikipedia.org/wiki/Etiqueta_(metadados)
+      id: 'etiqueta'
+    QAA:
+      id: 'q658349'  # tag (Q658349) metadata used for classifications or adding of informations
+    RUS:
+      # https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%B3_(%D0%BC%D0%B5%D1%82%D0%B0%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5)
+      id: 'тег'
+    ZHO:
+      # https://zh.wikipedia.org/wiki/%E6%A8%99%E7%B1%A4_(%E5%85%83%E6%95%B8%E6%93%9A)
+      id: '标签' # '标签' ? '標籤' ?
+    QDP:
+      id: 'tag'
+
+  tempus:
+    # attr.newterm is ...
+    # @see https://www.wikidata.org/wiki/Q11471 time (Q11471)
+    # @see https://en.m.wiktionary.org/wiki/tempus
+    ARA:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'زمن'
+      descriptionem: 'البعد الذي يمكن فيه ترتيب الأحداث من الماضي إلى الحاضر وفي المستقبل'
+    ENG:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'time'
+      descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
+    FRA:
+      id: 'temps'
+      descriptionem: 'dimension dans laquelle les événements peuvent être ordonnés du passé au présent, vers le futur'
+    SPA:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'tiempo'
+      # descriptionem: ''
+    LAT:
+      # @see https://en.m.wiktionary.org/wiki/tempus
+      id: 'tempus'
+      descriptionem: ''
+    POR:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'tempo'
+      descriptionem: ''
+    QAA:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'q11471'
+      descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
+    RUS:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: 'время'
+      descriptionem: 'форма протекания физических и психических процессов'
+    ZHO:
+      # @see https://www.wikidata.org/wiki/Q11471
+      id: '时间'
+      # descriptionem: ''
+    QDP:
+      id: 'tempus'
+      descriptionem: 'dimension in which events can be ordered from the past through the present into the future'
+
+  urn:
+    # attr.urn:
+    #  "A Uniform Resource Name (URN) is a Uniform Resource Identifier (URI)
+    #   that uses the urn scheme. URNs are globally unique persistent
+    #   identifiers assigned within defined namespaces so they will be
+    #   available for a long period of time, even after the resource which
+    #   they identify ceases to exist or becomes unavailable.[1] " -- Wikipedia
+    # @see https://en.wikipedia.org/wiki/Uniform_Resource_Name
+    # @see https://www.wikidata.org/wiki/Q76497
+    # RFC:
+    # @see https://tools.ietf.org/html/rfc1737
+    # @see https://tools.ietf.org/html/rfc2141
+    # Lex prefix by Brazil and Itally
+    # Example: lexml.gov.br/urn/urn:lex:br:federal:lei:2008-06-19;11705
+    # @see https://en.wikipedia.org/wiki/Lex_(URN)
+    # ISO
+    # @see https://tools.ietf.org/html/rfc5141
+    #
+    # TODO: attr.urn needs revision. Some languages do not have equivalent yet
+    ARA:
+      id: 'urn'
+    ENG:
+      id: 'urn'  # 100% OK
+    FRA:
+      id: 'urn'
+    SPA:
+      id: 'urn'
+    LAT:
+      id: 'urn'
+    POR:
+      id: 'urn'
+    QAA:
+      id: 'q76497'  # 100% OK
+    RUS:
+      id: 'urn'
+    ZHO:
+      id: 'urn'
+    QDP:
+      id: 'urn'  # 100% OK
+
+  verum:
+    # attr.verum is reference to truly, true, fact, reality. (mostly to be
+    # used with command line interface)
+    # Note, terms for 'yes'/'no' in Latin are not as easy to find. So the
+    # local languages actually use an equivalent of 'yes'/'no' instead of
+    # 'true'/false, but alternatives are allowed
+    # @see https://en.wiktionary.org/wiki/verum
+    # @see https://en.wiktionary.org/wiki/verus#Latin
+    # @see https://en.wikipedia.org/wiki/Logical_truth
+    ARA:
+      # TODO: attr.verum.ara needs revision.
+      # @see https://en.wiktionary.org/wiki/%D9%86%D8%B9%D9%85
+      id: 'نعم'
+      # descriptionem: ''
+      id_alts:
+        - 'صحيح'
+    ENG:
+      # https://en.wiktionary.org/wiki/true
+      id: 'yes'
+      descriptionem: 'truly, true, fact, reality.'
+      id_alts:
+        - 'true'
+    FRA:
+      # TODO: attr.verum.rus needs revision.
+      # @see https://en.wiktionary.org/wiki/oui#French
+      id: 'oui'
+      # descriptionem: ''
+      id_alts:
+        - 'quais'
+        - 'verite'
+    SPA:
+      id: 'si'
+      # descriptionem: ''
+      id_alts:
+        - 'verdad'
+    LAT:
+       # @see https://en.wiktionary.org/wiki/verum
+      # @see https://en.wiktionary.org/wiki/verus#Latin
+      id: 'verum'
+      # descriptionem: ''
+      id_alts:
+        - 'verus'
+        - '⊤' # ⊤, U+22A4, https://en.wikipedia.org/wiki/List_of_logic_symbols
+    POR:
+      # @see https://pt.wikipedia.org/wiki/Verdade
+      id: 'sim'
+      descriptionem: 'Sim, verdade, verdadeiro, fato.'
+      id_alts:
+        - 'verdade'
+    QAA:
+      # https://www.wikidata.org/wiki/Q3311695
+      id: 'q3311695'  # logical truth (Q3311695) statement which is true regardless of the truth or falsity of its constituent parts
+      descriptionem: 'statement which is true regardless of the truth or falsity of its constituent parts'
+    RUS:
+      # TODO: attr.verum.rus needs revision.
+      # @see https://ru.wikipedia.org/wiki/%D0%98%D1%81%D1%82%D0%B8%D0%BD%D0%B0
+      id: 'да'
+      descriptionem: 'И́стина — гносеологическая характеристика мышления в его отношении к своему предмету. Мысль называется истинной (или истиной), если она соответствует предмету'
+      id_alts:
+        - 'истина'
+    ZHO:
+      # TODO: attr.verum.zho needs revision.
+      id: '是的'
+      # descriptionem: ''
+    QDP:
+      id: 'verum'
+      descriptionem: 'reference to truly, true, fact, reality. (mostly to be used with command line interface)'
+      id_alts:
+        - 'true'
+        - True
+
+  # newterm:
+  #   # attr.newterm is ...
+  #   ARA:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   ENG:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   FRA:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   SPA:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   LAT:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   POR:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   QAA:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   RUS:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   ZHO:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+  #   QDP:
+  #     id: ''
+  #     descriptionem: ''
+  #     id_alts:
+  #       - ''
+
+#### Rank, numerals, means to express ordering _________________________________
+# Some implementations, like the implicit checksums, the default 'checking tags'
+# are symbols that represent some sort of order.
+
+# NOTE: this already have previous work related to numeric system, see
+#       - https://github.com/unicode-org/cldr-json/blob/master/cldr-json/cldr-core/supplemental/numberingSystems.json
+#       - https://github.com/unicode-org/cldr/blob/master/common/bcp47/number.xml
+#       - https://github.com/unicode-org/cldr/blob/master/common/rbnf/pt_PT.xml
+#       - https://github.com/unicode-org/cldr/blob/master/common/annotations/pt_PT.xml
+#         - This can be used to aid on text to speech for characters
+
+# https://en.wikipedia.org/wiki/List_of_numbers_in_various_languages
+# https://en.wikipedia.org/wiki/List_of_numbers_in_various_languages
+# https://en.wiktionary.org/wiki/numerus#Latin
+# https://en.wikipedia.org/wiki/Latin_numerals
+# https://en.wikipedia.org/wiki/Greek_alphabet
+numerum:
+  _1_:
+    binary:
+      id: '1'
+    Grek:
+      id: α
+      id_alts:
+        - Α
+    system:
+      id: 1
+  _2_:
+    binary:
+      id: '10'
+    Grek:
+      id: β
+      id_alts:
+        - Β
+    system:
+      id: 2
+  _last_:
+    # binary:
+    #   id: '10'
+    Grek:
+      id: ω
+      id_alts:
+        - Ω
+    # system:
+    #   id: 2
+
+  # 'Grek' is from (ISO 15924), see https://en.wikipedia.org/wiki/Greek_alphabet
+  # _ZZZZ_:
+  #   binary:
+  #     id: 'ZZZZ'
+  #   Grek:
+  #     id: ZZZZ
+  #     id_alts:
+  #       - ZZZZ
+  #   system:
+  #     id: ZZZZ
+
+#### About some prefix for an Uniform Resource Name ___________________________
+# @see https://en.wikipedia.org/wiki/Uniform_Resource_Name
+# @see https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
+# Maybe we use
+#   - urn: x-hdpd:(ISO 3166-1 alpha-2):(organization-reference):reference-here
+#     - For datasets.
+#     - 'urn:x-hdpd:xz:eticaai:HXL-Data-Science-file-formats/hxlm/data/baseline/baseline.hdpd.yml'
+#   - urn: x-hdpr:(ISO 3166-1 alpha-2):(organization-reference):reference-here
+#     - For compliance/rules.
+#     - 'urn:x-hdpd:xz:eticaai:HXL-Data-Science-file-formats/hxlm/data/baseline/baseline.hdpr.yml'
+
+#### Additional notes _________________________________________________________
+### Language codes used
+## ara
+# It's a macrolanguage.
+## qaa
+# We should consider which reserved code use for Wikidata
+## zha/zho
+# Its a macrolanguage (not sure about ISO369-3 code).
+# https://iso639-3.sil.org/code/zha
+# https://iso639-3.sil.org/code/zho

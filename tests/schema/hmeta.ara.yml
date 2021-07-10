@@ -1,0 +1,8 @@
+- 'مجموعة-بيانات':
+  - 'المعرف' : place
+    'وصف': HXL-CPLP-FOD_countries-territories.csv
+    'مصدر': https://docs.google.com/spreadsheets/d/12k4BWqq5c3mV9ihQscPIwtuDa_QRB-iFohO7dXSSptI/edit#gid=0
+    'وسم':
+        - ISO 3166
+        - ISO 3166-2
+        - ISO 3166-3

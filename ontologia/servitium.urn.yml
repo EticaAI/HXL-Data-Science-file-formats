@@ -1,0 +1,24 @@
+# ontologia/servitium.urn.yml
+# Files file us used for 'service discovery' (where to look for things)
+#
+# Trivia:
+# - "servitium"
+#   - https://en.wiktionary.org/wiki/servitium#Latin
+# - "URN"
+#   - "Uniform Resource Name"
+#   - https://tools.ietf.org/html/rfc8141
+#   - https://en.wikipedia.org/wiki/Uniform_Resource_Name
+
+
+urn:
+  local:
+    # urn.local.system is an search path to look for 'system' read-access
+    # datasets. Can be used either if more than one user is sharing
+    # non-sensitive on an linux system or when building docker images
+    # See also https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
+    system:
+      - /usr/share/urn
+    user:
+      - "$HOME/.local/share/urn"  # Specific user search path
+      - "/media/urn"  # if storing data on an removable media or big SSD/HDD
+      - "/tmp/urn"  # default search path if storing on temp dir

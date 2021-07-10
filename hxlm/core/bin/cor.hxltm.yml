@@ -1,0 +1,1552 @@
+# @ARCHIVUM       ontologia/cor.hxltm.yml
+# @DESCRIPTIONEM  HXL Trānslātiōnem Memoriam (HXLTM)
+# @LICENTIAM      Dominium publicum
+#
+# Trivia:
+# - "HXL"
+#   - https://hxlstandard.org/
+# - "Trānslātiōnem Memoriam"
+#   - https://www.wikidata.org/wiki/Q333761
+# - "HXL Trānslātiōnem Memoriam"
+#   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
+# - "cor"
+#   - https://en.wiktionary.org/wiki/cor#Latin
+# - "ontologia"
+#   - https://la.wikipedia.org/wiki/Ontologia
+# - "glōssārium"
+#   - https://en.wiktionary.org/wiki/glossarium#Latin
+# - "archīvum"
+#   - https://en.wiktionary.org/wiki/archivum
+# - "typum"
+#   - https://en.wiktionary.org/wiki/typus#Latin
+# - "fōrmātum"
+#   - https://en.wiktionary.org/wiki/formatus#Latin
+# - "fontem"
+#   - https://en.wiktionary.org/wiki/fons#Latin
+# - "extēnsiōnem"
+#   - https://en.wiktionary.org/wiki/extensio#Latin
+# - "commūne"
+#   - https://en.wiktionary.org/wiki/communis#Latin
+# - "alternātīvum"
+#   - https://en.wiktionary.org/wiki/alternativus#Latin
+
+# TODO: plurals
+# - https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
+# - 
+
+fontem_archivum_extensionem:
+  .tm.hxl.csv: HXLTM
+  .xliff.hxl.csv: CSV-HXL-XLIFF
+  .hxl.csv: HXLTM
+  # .csv: CSV-3
+  .csv: HXLTM
+  .json: JSON-kv
+  .tmx: TMX
+  .utx: UTX
+  .tbx: TBX-Basic
+  .xlf: XLIFF2
+  .xlf2: XLIFF2
+  .xliff: XLIFF2
+
+fontem_archivum_extensionem_regex:
+  "[a-z]{2}.csv": CSV-3 # Not implemented yet
+
+formatum:
+  #### CSV-3: Source + Target + Comment (draft) _______________________________
+  CSV-3:
+    archivum_extensionem: .csv
+    normam:
+      - https://site.matecat.com/support/managing-language-resources/add-glossary/
+    situs_interretialis:
+      referens_officinale: []
+
+  #### CSV-HXL-XLIFF: HXLated CSV for bilingual (+ up to 5 source alt) _________
+  CSV-HXL-XLIFF:
+    archivum_extensionem: .xliff.hxl.csv
+    # archivum_extensionem: .{fontem-linguam}--{objectivum-linguam}.xliff.hxl.csv
+    exportandum_hxl_sortem:
+      - '#x_xliff +unit +id'
+      - '#x_xliff +source' # ...  __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +target' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +segment +state' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__sourcestatus' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__termtype'
+      - '#x_xliff +group +group_0'
+      - '#x_xliff +unit +note +note_category__altsource1' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt1' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt1' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource2' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt2' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt2' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource3' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt3' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt3' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource4' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt4' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt4' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource5' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt5' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt5' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__wikidata'
+      - '#x_xliff +unit +note +note_category__iate'
+      - '#x_xliff +unit +note +note_category__unterm'
+    normam:
+      - https://hdp.etica.ai/hxltm/archivum/
+    situs_interretialis:
+      referens_officinale: []
+
+  #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
+  HXLTM:
+    archivum_extensionem: .tm.hxl.csv
+    normam:
+      - https://github.com/HXL-CPLP/forum/issues/58
+    situs_interretialis:
+      referens_officinale:
+        - https://hdp.etica.ai/hxltm
+
+  #### JSON-kv: JSON key: val; id/source -> target _____________________________
+  JSON-kv:
+    archivum_extensionem: .json
+    normam:
+      # Not sure where to find some place to 'explain' this format
+      - https://angular.io/guide/i18n#change-the-source-language-file-location
+      - https://www.i18next.com/misc/json-format
+    situs_interretialis:
+      referens_officinale: []
+    exemplum:
+      - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+
+  #### TBX-Basic: TermBase eXchange (TBX) Basic ________________________________
+  TBX-Basic:
+    archivum_extensionem: .tbx
+    normam:
+      - http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+    situs_interretialis:
+      referens_officinale:
+        - http://www.terminorgs.net/TBX-Basic.html
+
+  #### Term Base eXchange (TBX) 2008 CC-BY License _____________________________
+  # Term Base eXchange (TBX) (identical to ISO 30042:2008)
+  TBX-2008:
+    archivum_extensionem: .tbx
+    normam:
+      - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+    situs_interretialis:
+      referens_officinale:
+        - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+      _temporarium:
+        - https://www.termbases.eu/
+        - http://www.tbxinfo.net/
+        # - https://github.com/byutrg/TBX-Spec
+        - https://byutrg.github.io/TBX-Implementor/
+        - https://github.com/byutrg/baseterm
+        - https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide
+    # - https://www.tbxinfo.net/tbx-dialects/
+    #    - Convert existing spreadsheet based glossaries into TBX format
+    #      (see our tutorial and sample spreadsheets).
+    #      - https://www.tbxinfo.net/wp-content/uploads/2016/06/Spreadsheet-to-TBX-Min-Tutorial.pdf
+    #      - https://www.tbxinfo.net/wp-content/uploads/2016/05/sampleSpreadsheets.zip
+    # - https://multilingual.com/issues/july-aug-2019/tbx-version-3-published-at-iso/
+
+  #### TMX: TermBase eXchange (TBX) Basic ______________________________________
+  TMX:
+    archivum_extensionem: .tmx
+    normam:
+      - https://www.gala-global.org/tmx-14b
+      - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd
+    situs_interretialis:
+      referens_officinale:
+        - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+
+  #### UTX: Universal Terminology eXchange _____________________________________
+  UTX:
+    archivum_extensionem: .utx
+    situs_interretialis:
+      referens_officinale:
+        - http://www.aamt.info/english/utx/
+      vicipaedia:
+        - https://en.wikipedia.org/wiki/Universal_Terminology_eXchange
+    normam:
+      - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
+      - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx
+    exemplum:
+      - https://aamt.info/english/download/#UTX_Glossaries
+      - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
+
+  #### XLIFF1: Universal Terminology eXchange v1.2 _____________________________
+  XLIFF1:
+    archivum_extensionem: .xlf
+    situs_interretialis:
+      referens_officinale:
+        - https://www.oasis-open.org/committees/xliff/
+      vicipaedia:
+        - https://en.wikipedia.org/wiki/XLIFF
+    normam:
+      - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
+
+  #### XLIFF2: Universal Terminology eXchange v2.1 _____________________________
+  XLIFF2:
+    archivum_extensionem: .xlf
+    situs_interretialis:
+      referens_officinale:
+        - https://www.oasis-open.org/committees/xliff/
+      vicipaedia:
+        - https://en.wikipedia.org/wiki/XLIFF
+    normam:
+      - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
+  # TODO: check XLIFF JSON 'JLIFF' 
+  #       - https://github.com/oasis-tcs/xliff-omos-jliff
+  #       - https://github.com/oasis-tcs/xliff-omos-jliff/blob/master/JLIFF-schema-draft/JLIFF-2.0/jliff-schema-2.0.json
+
+  # "TBX Mapping with XLIFF v2.0 and Higher Version 1.0"
+  # - https://tools.oasis-open.org/version-control/browse/wsvn/xliff-omos/trunk/XLIFF-TBX/xliff-tbx-v1.0.pdf
+  # - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.863.1277&rep=rep1&type=pdf
+
+  #### YAML: (draft) ___________________________________________________________
+  YAML:
+    archivum_extensionem: .yml
+    normam:
+      # Not sure where to find some place to 'explain' this format
+      - https://guides.rubyonrails.org/i18n.html
+    situs_interretialis:
+      referens_officinale:
+        - https://guides.rubyonrails.org/i18n.html
+    exemplum:
+      - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+
+   #### XLSX, Google Sheets ____________________________________________________
+   # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
+   # @see https://support.google.com/drive/answer/37603
+
+# Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
+ontologia:
+
+  # Trivia: commūne, https://en.wiktionary.org/wiki/conceptus#Latin
+  commune:
+    # Trivia: conceptum, https://en.wiktionary.org/wiki/conceptus#Latin
+    conceptum:
+
+      # Trivia:
+      # - accūrātum, https://en.wiktionary.org/wiki/accuratus
+      #   - reliabilityCode, https://iate.europa.eu/fields-explained
+      #   - reliabilityCode, https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+      accuratum:
+        __HXL: '#status +conceptum +accuratum'
+        __nomen_breve: 'conceptum_accuratum'
+        __id: ontologia.commune.conceptum.accuratum
+        __valorem_optionem: "ontologia_aliud.accuratum"
+        __valorem_maximum: 10
+        __valorem_minimum: 0
+        __valorem_typum: numerum
+        _TBX: &referens_ontologia-commune-conceptum-accuratum-_TBX
+          # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+          _nomen: reliabilityCode
+          _descriptionem: |
+            A code assigned to a data-category or record indicating accuracy
+            and/or completeness. The content of the <descrip> element when it
+            has a type attribute value of 'reliabilityCode' shall be a value
+            from 1 (least reliable) to 10 (most reliable).
+          _xml: <descrip type='reliabilityCode'>__valorem__</descrip>
+
+      # Trivia: cōdicem, https://en.wiktionary.org/wiki/codex#Latin
+      codicem:
+        __HXL: '#item +conceptum +codicem'
+        __nomen_breve: 'conceptum_codicem'
+        __id: ontologia.commune.conceptum.codicem
+        _XLIFF:
+          __HXL_bilingue: '#x_xliff +unit +id'
+
+        # Trivia: dēprecātum, https://en.wiktionary.org/wiki/deprecatus#Latin
+        deprecatum:
+          __HXL: '#meta +conceptum +codicem +deprecatum'
+          __nomen_breve: 'conceptum_codicem_deprecatum'
+          __id: ontologia.commune.conceptum.codicem.deprecatum
+          __valorem_typum: compactum_textum
+            - exemplum_codicem_a|exemplum_codicem_b|123456
+
+        # Trivia: alternātīvum, https://en.wiktionary.org/wiki/alternativus#Latin
+        alternativum:
+          __HXL: '#meta +conceptum +codicem +alternativum'
+          __nomen_breve: 'conceptum_codicem_alternativum'
+          __id: ontologia.commune.conceptum.codicem.alternativum
+          __valorem_typum: compactum_textum
+          _exemplum:
+            - Q1065|UNTERM5f40d95f1d17bf8c85256a01000080af|IATE787725
+            # ontologia.extensionem.conceptum.codicem.iate
+            # ontologia.extensionem.conceptum.codicem.unterm
+            # ontologia.extensionem.conceptum.codicem.wikidata
+            # (...)
+
+      dominium:
+        __HXL: '#item +conceptum +dominium' # Always a list
+        __nomen_breve: 'conceptum_dominium'
+        __id: ontologia.commune.conceptum.dominium
+        # See also
+        # - https://iate.europa.eu/developers
+        #  - https://iate.europa.eu/em-api/domains/_tree?pretty=true
+        _TBX:
+          _id: DC-489
+          _descriptionem: |
+            Refers to a location in the corpus—such as a software application
+            user interface, product packaging, oran industrial process—where
+            the term frequently occurs'A sample sentence that contains
+            the term.
+          _nomen: Subject field
+          _level: Concept
+          _xml: <descrip type='subjectField'>
+        _TMX:
+          _descriptionem: |
+            Property - The <prop> element is used to define the various
+            properties of the parent element (or of the document when
+            <prop> is used in the <header> element).
+            These properties are not defined by the standard.
+            It is the responsibility of each tool provider to publish the
+            types and values of the properties it uses.
+            If the tool exports unpublished properties types, their
+            values should begin with the prefix "x-".
+
+            Example:
+            <prop type='user-defined'>name:domain value:Computer science</prop>
+            <prop type='x-domain'>Computer science</prop> 
+        _UTX:
+          _nomen: domain property
+          _descriptionem: |
+            The domain property is a text string that indicates the domain of
+            the glossary. This property is used when you need to group multiple
+            glossaries into a domain. If you use glossary IDs as domain names,
+            the domain property is not necessary.
+            Example
+              domain: Aerospace
+          _XLIFF:
+            # (We will not implement deeper levels  than 0 now)
+            __HXL_bilingue: '#x_xliff +group +group_0'
+
+      compactum_json:
+        __HXL: '#meta +conceptum +json'
+        __id: ontologia.commune.conceptum.compactum_json
+
+      # # Better not provide a generic compactum_textum for conceptum
+      # compactum_textum:
+      #   __HXL: '#meta +conceptum +textum'
+      #   __id: ontologia.commune.conceptum.compactum_textum
+
+      # meta:
+      #   __HXL: '#meta +conceptum'
+      #   __id: ontologia.commune.conceptum.meta
+      #   # Note: this field is unlikely to show as it is on spreadsheets
+      #   #       edited by humans, but is a catch-all for metatada related
+      #   #       to concept that does not have specialized field.
+      #   # Recommended data type: JSON
+
+      # TODO: TBXBasic 6.17 Subject field, <descrip type="subjectField">
+      # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
+      typum:
+        __HXL: '#item +conceptum +typum'
+        __nomen_breve: 'conceptum_typum'
+        __id: ontologia.commune.conceptum.typum
+        _TBX: &referens_ontologia-commune-rem-typum-__linguam__-_TBX
+          _id: DC-2677
+          _nomen: Term type
+          _xml: <termNote type='termType'>
+          _descriptionem: |
+            Permissible values and their ISOcat PIDs are as follows:
+            Value        ISOcat PID
+            fullForm     www.isocat.org/datcat/DC-321
+            acronym      www.isocat.org/datcat/DC-334
+            abbreviation www.isocat.org/datcat/DC-331
+            shortForm    www.isocat.org/datcat/DC-332
+            variant      www.isocat.org/datcat/DC-330
+            phrase       www.isocat.org/datcat/DC-339
+        _XLIFF:
+          # temporary hashtag. Needs better naming
+          __HXL_bilingue: '#x_xliff +unit +note +note_category__termtype'
+
+    # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
+    rem:
+      # Trivia: linguam, https://en.wiktionary.org/wiki/lingua#Latin
+      __linguam__:
+         # Exemplum: '#item +rem +i_en +i_eng +is_Latn'
+        __HXL: '#item +rem __linguam__'
+        __nomen_breve: 'rem__L__'
+        __id: ontologia.commune.rem.__linguam__
+        _TBX: &referens_ontologia-commune-rem-__linguam__-_TBX
+          _id: DC-1823
+          _nomen: Term
+          _descriptionem: |
+            Refers to a location in the corpus—such as a software application
+            user interface, product packaging, oran industrial process—where
+            the term frequently occurs'A sample sentence that contains
+            the term.
+          _xml: '<term>'
+        _UTX: &referens_ontologia-commune-rem-__linguam__-_UTX
+          _nomen: Term
+          _descriptionem: |
+            A term is a headword of either the source or target language(s).
+            A term in a UTX glossary should be in the basic form of the word
+            such as a headword in a dictionary.
+            See also "7. Appendix A: UTX content guidelines."
+
+            Note: Term definitions are optional in a UTX glossary.
+        _XLIFF:
+          # __HXL_bilingue: ''
+          __HXL_fontem: '#x_xliff +source __linguam__'
+          __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__altsource1 __linguam__'
+          __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__altsource2 __linguam__'
+          __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__altsource3 __linguam__'
+          __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__altsource4 __linguam__'
+          __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__altsource5 __linguam__'
+          __HXL_objectivum: '#x_xliff +target __linguam__'
+
+      # Trivia:
+      # - linguam, https://en.wiktionary.org/wiki/lingua#Latin
+      # - dē, https://en.wiktionary.org/wiki/de#Latin
+      # - imperium, https://en.wiktionary.org/wiki/imperium#Latin
+      __linguam_de_imperium__:
+         # Exemplum: '#item +rem +i_en +i_eng +is_Latn +TODO_THINK_ABOUT_HXLTAG'
+        __HXL: '#item +rem __linguam_de_imperium__'
+        __nomen_breve: 'rem__L__'
+        __id: ontologia.commune.rem.__linguam_de_imperium__
+        _TBX: *referens_ontologia-commune-rem-__linguam__-_TBX
+        _UTX: *referens_ontologia-commune-rem-__linguam__-_UTX
+        _XLIFF:
+          # __HXL_bilingue: ''
+          __HXL_fontem: '#x_xliff +source __linguam_de_imperium__'
+          __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__altsource1 __linguam_de_imperium__'
+          __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__altsource2 __linguam_de_imperium__'
+          __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__altsource3 __linguam_de_imperium__'
+          __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__altsource4 __linguam_de_imperium__'
+          __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__altsource5 __linguam_de_imperium__'
+          __HXL_objectivum: '#x_xliff +target __linguam_de_imperium__'
+
+      accuratum:
+        __linguam__:
+          __HXL: '#status +rem +accuratum __linguam__'
+          __nomen_breve: 'rem_accuratum__L__'
+          __id: ontologia.commune.rem.__linguam__.accuratum
+          __valorem_optionem: "ontologia_aliud.accuratum"
+          __valorem_maximum: 10
+          __valorem_minimum: 0
+          __valorem_typum: numerum
+          _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
+
+        __linguam_de_imperium__:
+          __HXL: '#status +rem +accuratum __linguam_de_imperium__'
+          __nomen_breve: 'rem_accuratum__L_I__'
+          __id: ontologia.commune.rem.accuratum.__linguam_de_imperium__
+          __valorem_optionem: "ontologia_aliud.accuratum"
+          __valorem_maximum: 10
+          __valorem_minimum: 0
+          __valorem_typum: numerum
+          _TBX: *referens_ontologia-commune-conceptum-accuratum-_TBX
+
+      compactum_json:
+        __linguam__:
+          __HXL: '#meta +rem +json __linguam__'
+          __nomen_breve: 'rem_json__L__'
+          __id: ontologia.commune.rem.compactum_json.__linguam__
+        __linguam_de_imperium__:
+          __HXL: '#meta +rem +json __linguam_de_imperium__'
+          __nomen_breve: 'rem_json__L_I__'
+          __id: ontologia.commune.rem.compactum_json.__linguam_de_imperium__
+
+      # Note: we will NOT provide a generic #meta +rem, but will compact_json
+      # compactum_textum:
+      #   __linguam__:
+      #     __HXL: '#meta +rem +textum __linguam__'
+      #     __id: ontologia.commune.rem.compactum_textum.__linguam__
+
+        # - status
+        #   - HXL hashtag #status, https://hxlstandard.org/standard/1-1final/dictionary/#tag_status
+        #   - statum, https://en.wiktionary.org/wiki/status#Latin
+      status:
+
+        compactum_json:
+          __linguam__:
+            __HXL: '#status +rem +json __linguam__'
+            __id: ontologia.commune.rem.status.compactum_json.__linguam__
+          __linguam_de_imperium__:
+            __HXL: '#status +rem +json __linguam_de_imperium__'
+            __id: ontologia.commune.rem.compactum_json.__linguam_de_imperium__
+  
+        compactum_textum:
+          __linguam__:
+            __HXL: '#status +rem +textum __linguam__'
+            __id: ontologia.commune.rem.__linguam__.status.compactum_textum
+            _XLIFF:
+              # _[eng-Latn] 
+              # XLIFF assume that the source translation already 'is perfect'
+              # Something that would not be true on HXLTM use cases that allow
+              # force any language as entry. So the alternative is only mark
+              # as metadata the acuracy of the source, and the target language
+              # use as status (since previous content may already be
+              # translated)
+              # [eng-Latn]_ 
+              #
+              # __HXL_bilingue: ''
+              # TODO: better naming for __HXL_fontem
+              __HXL_fontem: '#x_xliff +unit +note +note_category__sourcestatus  __linguam__'
+              __HXL_objectivum: '#x_xliff +segment +state __linguam__'
+              # TODO: document in YAML how a program could 'transform' the text
+              #       to what XLIFF expect. We already have aliases at the
+              #       bottom of this file
+
+          __linguam_de_imperium__:
+            __HXL: '#status +rem +textum __linguam_de_imperium__'
+            __id: ontologia.commune.rem.compactum_textum.__linguam_de_imperium__
+          _XLIFF:
+            # __HXL_bilingue: ''
+            # TODO: better naming for __HXL_fontem
+            __HXL_fontem: '#x_xliff +unit +note +note_category__sourcestatus __linguam_de_imperium__'
+            __HXL_objectivum: '#x_xliff +segment +state __linguam_de_imperium__'
+
+
+      # MOVED TO ontologia.glossarium
+      # # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
+      # contextum:
+      #   __linguam__:
+      #     __HXL: '#item +rem +contextum __linguam__'
+      #     __id: ontologia.commune.rem.contextum.__linguam__
+      #     _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+      #       _id: DC-149
+      #       _descriptionem: A sample sentence that contains the term.
+      #       _xml: <descrip type='context'>
+
+      #   __linguam_de_imperium__:
+      #     __HXL: '#item +rem +contextum __linguam_de_imperium__'
+      #     __id: ontologia.commune.rem.contextum.__linguam_de_imperium__
+      #     _TBX: *referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+
+      # MOVED TO ontologia.glossarium
+      # # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
+      # definitionem:
+      #   __linguam__:
+      #     __HXL: '#item +rem +definitionem __linguam__'
+      #     __id: ontologia.commune.rem.definitionem.__linguam__
+      #     _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+      #       _id: DC-168
+      #       _descriptionem:
+      #       _nomen: Definition
+      #       _level: Concept, Language
+      #       _xml: <descrip type='definition'>
+
+      #   __linguam_de_imperium__:
+      #     __HXL: '#item +rem +definitionem __linguam_de_imperium__'
+      #     __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
+      #     _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+
+      # Trivia:
+      # - genus_grammaticum,
+      #   - https://la.wikipedia.org/wiki/Genus_grammaticum
+      #   - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+      genus_grammaticum:
+        __linguam__:
+          __HXL: '#item +rem +genus_grammaticum __linguam__'
+          __id: ontologia.commune.rem.genus_grammaticum.__linguam__
+          _TBX: &referens_ontologia-commune-rem-genus_grammaticum-__linguam__-_TBX
+            _id: DC-245
+            _descriptionem: |
+              Picklist, with permissible values as follows:
+                • masculine
+                • feminine
+                • neuter
+                • other
+            _nomen: Gender
+            _level: Term
+            _xml: <termNote type='grammaticalGender'>
+
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +genus_grammaticum __linguam_de_imperium__'
+          __id: ontologia.commune.rem.genus_grammaticum.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-genus_grammaticum-__linguam__-_TBX
+
+      # Trivia: annotātiōnem, https://en.wiktionary.org/wiki/annotatio#Latin
+      annotationem:
+        __linguam__:
+          __HXL: '#meta +rem +annotationem __linguam__'
+          __id: ontologia.commune.rem.annotationem.__linguam__
+          __valorem_typum: textum # annotationem Always free text
+          _TBX: &referens_ontologia-commune-rem-annotationem-__linguam__-_TBX
+            _id: DC-382
+            _descriptionem: |
+              Any kind of note, such as a usage note, explanation,
+              or instruction
+            _nomen: Note
+            _level: Concept, Language, Term
+            _xml: <note>
+
+        __linguam_de_imperium__:
+          __HXL: '#meta +rem +annotationem __linguam_de_imperium__'
+          __id: ontologia.commune.rem.annotationem.__linguam_de_imperium__
+          __valorem_typum: textum # annotationem Always free text
+          _TBX: *referens_ontologia-commune-rem-annotationem-__linguam__-_TBX
+
+      # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
+      partem_orationis:
+        __linguam__:
+          __HXL: '#item +rem +partem_orationis __linguam__'
+          __id: ontologia.commune.rem.partem_orationis.__linguam__
+          _TBX: &referens_ontologia-commune-rem-partem_orationis-__linguam__-_TBX
+            _id: DC-396
+            _nomen: Part of speech
+            _descriptionem: |
+              Content type picklist
+              Permissible values and their ISOcat PIDs are as follows:
+              Value        ISOcat PID
+              noun         www.isocat.org/datcat/DC-1333
+              verb         www.isocat.org/datcat/DC-1424
+              adjective    www.isocat.org/datcat/DC-1230
+              adverb       www.isocat.org/datcat/DC-1232
+              properNoun   www.isocat.org/datcat/DC-384
+              other        www.isocat.org/datcat/DC-4336
+
+              In TBX-Default, the data type for part of speech is plainText.
+              TBX-Basic's use of picklist is in compliance with TBX-Default
+              because picklist is more constrained than plainText.
+
+              The other value can be used for terms of the phrase type.
+            _xml: <termNote type='partOfSpeech'>
+
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +partem_orationis __linguam_de_imperium__'
+          __id: ontologia.commune.rem.partem_orationis.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-partem_orationis-__linguam__-_TBX
+
+      # # TODO: TBXBasic 6.17 Subject field, <descrip type="subjectField">
+      # # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
+      # typum:
+      #   __linguam__:
+      #     __HXL: '#item +rem +typum __linguam__'
+      #     __id: ontologia.commune.rem.typum.__linguam__
+      #     _TBX: &referens_ontologia-commune-rem-typum-__linguam__-_TBX
+      #       _id: DC-2677
+      #       _nomen: Term type
+      #       _xml: <termNote type='termType'>
+      #       _descriptionem: |
+      #         Permissible values and their ISOcat PIDs are as follows:
+      #         Value        ISOcat PID
+      #         fullForm     www.isocat.org/datcat/DC-321
+      #         acronym      www.isocat.org/datcat/DC-334
+      #         abbreviation www.isocat.org/datcat/DC-331
+      #         shortForm    www.isocat.org/datcat/DC-332
+      #         variant      www.isocat.org/datcat/DC-330
+      #         phrase       www.isocat.org/datcat/DC-339
+
+      #   __linguam_de_imperium__:
+      #     __HXL: '#item +rem +typum __linguam_de_imperium__'
+      #     __id: ontologia.commune.rem.typum.__linguam_de_imperium__
+      #     _TBX: *referens_ontologia-commune-rem-typum-__linguam__-_TBX
+
+  # Trivia: glōssārium, https://en.wiktionary.org/wiki/glossarium
+  glossarium:
+
+    # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
+    rem:
+
+      # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
+      contextum:
+        __linguam__:
+          __HXL: '#item +rem +contextum __linguam__'
+          __nomen_breve: 'G_rem_contextum__L__'
+          __id: ontologia.glossarium.rem.contextum.__linguam__
+          _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+            _id: DC-149
+            _descriptionem: A sample sentence that contains the term.
+            _xml: <descrip type='context'>
+          _XLIFF:
+            # __HXL_bilingue: ''
+            __HXL_fontem: '#x_xliff +unit +note +note_category__context __linguam__'
+            __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__contextalt1 __linguam__'
+            __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__contextalt2 __linguam__'
+            __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__contextalt3 __linguam__'
+            __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__contextalt4 __linguam__'
+            __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__contextalt5 __linguam__'
+            # __HXL_objectivum: ''
+
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +contextum __linguam_de_imperium__'
+          __nomen_breve: 'G_rem_contextum__L_I__'
+          __id: ontologia.commune.rem.contextum.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+          _XLIFF:
+            # __HXL_bilingue: ''
+            __HXL_fontem: '#x_xliff +unit +note +note_category__context __linguam_de_imperium__'
+            __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__contextalt1 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__contextalt2 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__contextalt3 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__contextalt4 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__contextalt5 __linguam_de_imperium__'
+            # __HXL_objectivum: ''
+
+      # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
+      definitionem:
+        __linguam__:
+          __HXL: '#item +rem +definitionem __linguam__'
+          __nomen_breve: 'G_rem_definitionem__L__'
+          __id: ontologia.glossarium.rem.definitionem.__linguam__
+          _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+            _id: DC-168
+            _descriptionem:
+            _nomen: Definition
+            _level: Concept, Language
+            _xml: <descrip type='definition'>
+          _XLIFF:
+            # __HXL_bilingue: ''
+            __HXL_fontem: '#x_xliff +unit +note +note_category__definition __linguam__'
+            __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__definitionalt1 __linguam__'
+            __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__definitionalt2 __linguam__'
+            __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__definitionalt3 __linguam__'
+            __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__definitionalt4 __linguam__'
+            __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__definitionsalt5 __linguam__'
+            # __HXL_objectivum: ''
+
+        __linguam_de_imperium__:
+          __HXL: '#item +rem +definitionem __linguam_de_imperium__'
+          __nomen_breve: 'G_rem_definitionem__L_I__'
+          __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
+          _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+          _XLIFF:
+            # __HXL_bilingue: ''
+            __HXL_fontem: '#x_xliff +unit +note +note_category__definition __linguam_de_imperium__'
+            __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__definitionalt1 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__definitionalt2 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__definitionalt3 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__definitionalt4 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__definitionsalt5 __linguam_de_imperium__'
+            # __HXL_objectivum: ''
+
+
+  # Trivia: extēnsiōnem, https://en.wiktionary.org/wiki/extensio#Latin
+  extensionem:
+    conceptum:
+      codicem:
+
+        iate:
+          __HXL: '#meta +conceptum +codicem +iate'
+          __nomen_breve: 'conceptum_codicem_iate'
+          __id: ontologia.extensionem.conceptum.codicem.iate
+          _url: https://iate.europa.eu/fields-explained
+          # _url_rem: ' ???? '
+          _compactum_json:
+            - #meta +json +conceptum
+              _id: ontologia.commune.conceptum.compactum_json
+              _JSONPath: codicem.iate
+              _exemplum:
+                {"codicem": {"iate": 787725}}
+          _compactum_textum:
+            - #meta +conceptum +codicem +alternativum
+              _id: ontologia.commune.conceptum.codicem.alternativum
+              _praefixum: "IATE"
+              _suffixum: ""
+              _exemplum:
+                - IATE787725
+          _XLIFF:
+            __HXL_bilingue: '#x_xliff +unit +note +note_category__iate'
+
+        unterm:
+          __HXL: '#meta +conceptum +codicem +unterm'
+          __nomen_breve: 'conceptum_codicem_unterm'
+          __id: ontologia.extensionem.conceptum.codicem.unterm
+          _url: https://iate.europa.eu/fields-explained
+          _url_rem: 'https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{valorem}}'
+          _compactum_json:
+            - _id: ontologia.commune.conceptum.compactum_json
+              _JSONPath: codicem.unterm
+              #meta +conceptum +json
+              _exemplum:             
+                {"codicem": {"unterm": "5f40d95f1d17bf8c85256a01000080af"}}
+          _compactum_textum:
+               #meta +conceptum +codicem +alternativum
+             - _id: ontologia.commune.conceptum.codicem.alternativum
+               _praefixum: "UNTERM"
+               _suffixum: ""
+               _exemplum: UNTERM5f40d95f1d17bf8c85256a01000080af
+          _XLIFF:
+            __HXL_bilingue: '#x_xliff +unit +note +note_category__unterm'
+
+        wikidata:
+          __HXL: '#meta +conceptum +codicem +wikidata'
+          __nomen_breve: 'conceptum_codicem_wikidata'
+          __id: ontologia.extensionem.conceptum.codicem.wikidata
+          _url: https://www.wikidata.org/
+          _url_rem: 'https://www.wikidata.org/wiki/{{valorem}}'
+          _compactum_json:
+            - #meta +json +conceptum
+              _id: ontologia.commune.conceptum.compactum_json
+              _JSONPath: codicem.wikidata
+              _exemplum:
+                {"codicem": {"wikidata": "Q1065"}}
+          _compactum_textum:
+            - #meta +conceptum +codicem +alternativum
+              _id: ontologia.commune.conceptum.codicem.alternativum
+              _praefixum: "Q"
+              _suffixum: ""
+              _exemplum: Q1065
+          _XLIFF:
+            __HXL_bilingue: '#x_xliff +unit +note +note_category__wikidata'
+  
+  # Trivia: https://www.wikidata.org/wiki/Q333761
+  tm:
+    # @see https://multifarious.filkin.com/2018/08/23/xliff-2-x-the-translators-panacea/
+    # @see https://blog.zingword.com/xliff-2-0-and-how-big-companies-are-preventing-translators-from-improving-their-lives-209e384ed8ea
+    # @see https://github.com/tingley/interoperability-now/wiki
+
+    # Trivia: conceptum, https://en.wiktionary.org/wiki/conceptus#Latin
+    conceptum:
+
+      # Trivia: trānslātiōnem, https://en.wiktionary.org/wiki/translatio#Latin
+      translationem:
+
+        # Trivia: dīrēctiōnem, https://en.wiktionary.org/wiki/directio#Latin
+        directionem:
+          __HXL: '#meta +conceptum +translationem +directionem'
+          __nomen_breve: 'TM_conceptum_translationem_directionem'
+          __id: ontologia.tm.conceptum.translationem.directionem
+          _compactum_json:
+            #meta +json +conceptum
+            _id: ontologia.commune.conceptum.compactum_json
+            _JSONPath: translationem.directionem
+            _exemplum:
+              {"translationem": {"directionem": []}}
+          _UTX: &referens_ontologia-commune-conceptum-meta-_UTX
+            _nomen: Translation direction
+            _descriptionem: |
+              The direction of translation from one language to another
+              (translation direction) can be unidirectional, bidirectional, or
+              multidirectional. This information can be specified with
+              "3.2.14 directionality property."
+
+              A unidirectional glossary is a glossary whose translation
+              direction is primarily one-way, i.e. from the source language to
+              the target language.
+
+              > Example: unidirectional bilingual Japanese-English UTX glossary
+
+              - Source language: Japanese, target language: English
+              - Primary translation direction: Japanese to English
+              - Note: Some terms in a unidirectional glossary may be exported
+                and used in the reverse direction in an ad-hoc manner.
+                This operation is called reverse-exporting. In this case, the
+                source language becomes the target language, and vice versa.
+                A reverse-exported unidirectional glossary may contain problems
+                because the consequence of the reversal may not be thoroughly
+                examined when compared with a full bidirectional glossary.
+
+              A bidirectional glossary is a glossary that is designed to be
+              used in two-way translation. Terms in one language can be
+              translated into another, and vice versa.
+
+              > Example: bidirectional bilingual Japanese-English UTX glossary
+              >
+              > - Language 1: Japanese, language 2: English
+              > - Translation direction: Japanese ⇔ English
+
+              > Example: bidirectional multilingual English-French-German
+              > glossary
+              >
+              > - Language 1: English, language 2: French, language 3: German
+              > - Translation direction: English ⇔ French, English ⇔ German
+                  (but not French ⇔ German)
+
+              A multidirectional glossary is a type of multilingual glossary
+              that is designed to be used in any combination of languages in the
+              glossary.
+
+              > Example: multidirectional multilingual English-Japanese-Chinese
+              > glossary
+              >
+              > - Language 1: English, language 2: Japanese, language 3: Chinese
+              > - Translation direction: any combination of the above
+
+    # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
+    rem:
+
+      # Trivia: trānslātiōnem, https://en.wiktionary.org/wiki/translatio#Latin
+      translationem:
+
+        # Trivia: dīrēctiōnem, https://en.wiktionary.org/wiki/directio#Latin
+        directionem:
+
+          __linguam__:
+            # Exemplum: '#meta +rem +translationem +directionem +i_en +i_eng +is_Latn'
+            __HXL: '#meta +rem +translationem +directionem __linguam__'
+            __nomen_breve: 'TM_rem_translationem_directionem__L__'
+            __id: ontologia.tm.rem.translationem.directionem.__linguam__
+            _compactum_json:
+              #meta +json +rem __linguam__
+              _id: ontologia.commune.rem.__linguam__.compactum_json
+              _JSONPath: translationem.directionem
+              _exemplum:
+                {"translationem": {"directionem": []}}
+            _UTX: *referens_ontologia-commune-conceptum-meta-_UTX
+
+          __linguam_de_imperium__:
+            __HXL: '#item +rem +translationem +directionem __linguam_de_imperium__'
+            __nomen_breve: 'TM_rem_translationem_directionem__L_I__'
+            __id: ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__
+            _compactum_json:
+              #meta +json +rem __linguam_de_imperium__
+              _id: ontologia.commune.rem.__linguam_de_imperium__.compactum_json
+              _JSONPath: translationem.directionem
+              _exemplum:
+                {"translationem": {"directionem": ""}}
+            _UTX: *referens_ontologia-commune-conceptum-meta-_UTX
+
+  # Trivia:
+  # - ontologia, https://la.wikipedia.org/wiki/Ontologia
+  # - datum, https://en.wiktionary.org/wiki/datum#Latin
+  # - typum, https://en.wiktionary.org/wiki/typus#Latin
+  # - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+  # - normam, https://en.wiktionary.org/wiki/norma#Latin
+  # - digitum, https://en.wiktionary.org/wiki/digitus#Latin
+  #  - digit, https://en.wiktionary.org/wiki/digit#English
+  #    - 'Unicode Digit' (unicode have several classes of numbers, digit is
+  #       how it calls the 0 1 2 3 4 5 6 7 8 9)
+  # - textum, https://en.wiktionary.org/wiki/textus#Latin
+ontologia_datum_typum:
+  formatum:
+
+    compactum_json:
+      _normam: https://www.json.org/
+      _typum: textum
+  
+    compactum_textum:
+      _descriptionem: |
+        _[eng-Latn] Note: compactum_textum is different from textum. While textum
+        is a free form text, compactum_textum is meant to be used as human
+        editable compact form of values that could be stored on the equivalent
+        compactum_json.
+
+        Most of the time this means create controlled constants documented on
+        cor.hxltm.yml->ontologia_aliud to to represent other values. So this
+        means that compactum_textum MUST be both editable by humans and
+        parseable by computers.
+
+        Also, when more than one constant is need on compactum_textum the
+        separator is the character "|".
+
+        Whitespaces betwen start and end of a term should be ignored.
+
+        Unknow values should be ignored. Errors should only stop processing
+        if user ask for stricter or debugging mode.
+        [eng-Latn]_
+      _typum: textum
+
+    numerum:
+      _exemplum:
+        - "123456789"
+        - "0123456789ABCDEF"
+        - "０１２３４５６７８９ＡＢＣＤＥＦ"
+        - "Ⅰ 	Ⅱ Ⅲ Ⅳ Ⅴ Ⅵ Ⅶ Ⅷ Ⅸ" # https://en.wikipedia.org/wiki/Numerals_in_Unicode#Roman_numerals
+        - "零 壹 貳 參 肆 伍 陸 柒 捌 玖" # https://en.wikipedia.org/wiki/Chinese_numerals
+        - "〇 一 二 三 四 五 六 七 八 九" # https://en.wikipedia.org/wiki/Chinese_numerals
+        # Several more examples at https://en.wikipedia.org/wiki/Numeral_system
+      _typum: textum
+  
+    numerum_digitum:
+      _descriptionem: |
+        - https://en.wikipedia.org/wiki/Numerals_in_Unicode
+      _exemplum: 
+        - "123456789"
+      _typum: numerum_digitum
+
+    textum:
+     _descriptionem: |
+        _[eng-Latn] Free text. This means allow even line breaks.
+        The only hard requeriment is a a format that can be represented on CSV
+        format (so means escaping characters).
+
+        DO NOT escape non US-ASCII characters. This is annoying. Fix your
+        system to accept Unicode and if necessary, only threat differently
+        control characters that are writing system neutral.
+        [eng-Latn]_
+
+  typum:
+    numerum_digitum: {}
+    textum: {}
+
+# Trivia: 
+# - ontologia, https://la.wikipedia.org/wiki/Ontologia
+# - aliud, https://en.wiktionary.org/wiki/alius#Latin, https://en.wiktionary.org/wiki/alias#English
+ontologia_aliud:
+
+  # Trivia:
+  # - accūrātum, https://en.wiktionary.org/wiki/accuratus
+  #   - reliabilityCode, https://iate.europa.eu/fields-explained
+  #   - reliabilityCode, https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+  #
+  # Term Base eXchange (TBX) 2008 CC-BY License ................................
+  # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+  #
+  # reliabilityCode:
+  #   A code assigned to a data-category or record indicating accuracy and/or
+  #   completeness. The content of the <descrip> element when it has a type
+  #   attribute value of 'reliabilityCode' shall be a value from 1
+  #   (least reliable) to 10 (most reliable).
+  #
+  # Interactive Terminology for Europe (IATE) ..................................
+  # @see https://iate.europa.eu/fields-explained
+  #
+  # Reliability code
+  #  IATE uses four codes to indicate the reliability of terms:
+  #
+  # Nº Code  Description      Explanation
+  #
+  # 1   ★    Reliability     Automatically assigned to terms entered by
+  #          not verified    non-native speakers. Also, all lookup forms have
+  #                         a reliability of one.
+  #
+  # 6  ★★    Minimum         Automatically assigned to terms entered or updated
+  #          reliability     by native speakers.
+  #
+  # 9  ★★★  Reliable        Manually assigned by a terminologist following a
+  #                         reliability assessment. Reliable termsshould
+  #                         satisfy at least one of the following criteria:
+  #                           - having been obtained from a trusted source;
+  #                           - having been agreed on by a representative
+  #                             body of same-language terminologists;
+  #                           - being the common designation of the concept
+  #                             in its field.
+  #
+  # 10 ★★★★ Very reliable   Manually assigned following a reliability
+  #                         assessment. Very reliable terms are:
+  #                           - well-established and widely accepted by
+  #                             experts as the correct designation, or
+  #                           - confirmed by a trusted and authoritative
+  #                             source, in particular a reliable written
+  #                             source.
+  accuratum:
+    "?":
+      # The '?' express what to do when the entire column does not exist, so
+      # is not a particular value that is missing
+      _IATE_valorem_codicem: "★★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered or updated by native speakers.
+      _IATE_valorem_nomen: "Minimum reliability"
+      _IATE_valorem_numerum: 6
+    "_":
+      # The '_' express what to do when the column do exist, but one particular
+      # value does not have any value
+      _IATE_valorem_codicem: "★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered by non-native speakers.
+        Also, all lookup forms have a reliability of one.
+      _IATE_valorem_nomen: "Reliability not verified"
+      _IATE_valorem_numerum: 1
+    "0":
+      # The '0' express when the column do exist, but one particular item
+      # evaluate to 0
+      _IATE_valorem_codicem: "★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered by non-native speakers.
+        Also, all lookup forms have a reliability of one.
+      _IATE_valorem_nomen: "Reliability not verified"
+      _IATE_valorem_numerum: 1
+    "1":
+      _IATE_valorem_codicem: "★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered by non-native speakers.
+        Also, all lookup forms have a reliability of one.
+      _IATE_valorem_nomen: "Reliability not verified"
+      _IATE_valorem_numerum: 1
+    "2": {}
+    "3": {}
+    "4": {}
+    "5": {}
+    "6":
+      _IATE_valorem_codicem: "★★"
+      _IATE_valorem_descriptionem: |
+        Automatically assigned to terms entered or updated by native speakers.
+      _IATE_valorem_nomen: "Minimum reliability"
+      _IATE_valorem_numerum: 6
+    "7": {}
+    "8": {}
+    "9":
+      _IATE_valorem_codicem: "★★★"
+      _IATE_valorem_descriptionem: |
+        Manually assigned by a terminologist following a reliability
+        assessment. Reliable terms should satisfy at least one of the
+        following criteria:
+
+          - having been obtained from a trusted source;
+          - having been agreed on by a representative body of same-language
+            terminologists;
+          - being the common designation of the concept in its field.
+
+        N.B. This code was automatically assigned to many entries, regardless
+        of their previous validation status, following the merger of existing
+        databases to create IATE. Therefore some entries marked as ‘reliable’
+        are not necessarily so.
+      _IATE_valorem_nomen: "Reliable"
+      _IATE_valorem_numerum: 9
+    "10":
+      _IATE_valorem_codicem: "★★★★"
+      _IATE_valorem_descriptionem: |
+        Manually assigned following a reliability assessment.
+        Very reliable terms are:
+
+        - well-established and widely accepted by experts as the correct
+          designation, or
+        - confirmed by a trusted and authoritative source, in particular a
+          reliable written source.
+      _IATE_valorem_nomen: "Very reliable"
+      _IATE_valorem_numerum: 10
+
+  genus_grammaticum:
+
+    # TODO: Several languages have more than 3 genders, but 6 are added to
+    #       latin aliases. This need improvement.
+    # @see https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+
+    ### Lingua Latina ------------------------------------------------------------
+    # > https://la.wikipedia.org/wiki/Genus_grammaticum
+    #   Genus grammaticum
+    # Genus grammaticum est aliqua proprietas sive nominis sive interdum etiam
+    # verbi. Genera circiter in quarta parte linguarum mundi distinguuntur.
+    # Divisiones principales sunt haec:
+    #
+    # - masculinum et femininum
+    #  - (e.g. Francogallice, Hispanice, Hindi-Urdu, Arabice, Hebraice)
+    # - masculinum, femininum, neutrum
+    #  - (e.g. Latine, Graece, Theodisce, Islandice, Sanscritice)
+    # - animatum, inanimatum
+    #  - (e.g. Ojibwayense et probabiliter lingua Protoindoeuropaea)
+    # - commune, neutrum (e.g. Danice, Suecice).
+
+    lat_commune:
+      _aliud: 'TBX_other'
+      _codicem: lat_commune
+      _codicem_TBX: TBX_other
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter
+
+    lat_animatum:
+      _aliud: 'TBX_other'
+      _codicem: lat_animatum
+      _codicem_TBX: TBX_other
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate
+
+    lat_femininum:
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+
+    lat_inanimatum:
+      _aliud: 'TBX_other'
+      _codicem: lat_inanimatum
+      _codicem_TBX: TBX_other
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate
+
+    lat_neutrum:
+      _aliud: 'TBX_other'
+      _codicem: lat_neutrum
+      _codicem_TBX: TBX_other
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter
+
+    lat_masculinum:
+      _aliud: 'TBX_masculine'
+      _codicem: lat_masculinum
+      _codicem_TBX: TBX_masculine
+      _descriptionem: |
+        - https://la.wikipedia.org/wiki/Genus_grammaticum
+        - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+
+    # TODO: Lingua latina, 'More than three grammatical genders'
+    # @see https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#More_than_three_grammatical_genders
+
+
+    # Term Base eXchange (TBX) 2008 CC-BY License ................................
+    # @see http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+    # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+    #
+    # 6.8 Gender
+    #   Identifier www.isocat.org/datcat/DC-245
+    #   XML representation <termNote type="grammaticalGender">
+    #   Level Term
+    #   Content type Picklist, with permissible values as follows:
+    #     • masculine
+    #     • feminine
+    #     • neuter
+    #     • other
+    #
+    # <termNoteSpec name="grammaticalGender" datcatId="ISO12620A-020202">
+    #   <contents datatype="picklist" forTermComp="yes">
+    #    masculine feminine neuter otherGender
+    #   </contents>
+    # </termNoteSpec>
+
+    TBX_masculine:
+    TBX_feminine:
+    TBX_neuter:
+    TBX_other:
+
+  # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
+  partem_orationis:
+
+    ### Lingua Latina ---------------------------------------------------------
+    # @see https://en.wikipedia.org/wiki/Latin_grammar
+    # @see https://la.wikipedia.org/wiki/Grammatica_Latina
+    # @see http://www.butte.edu/departments/cas/tipsheets/grammar/parts_of_speech.html
+    # - Charlton T. Lewis and Charles Short, A new Latin Dictionary,
+    #   New York/Oxford 1891 (1879)
+    #   - https://archive.org/details/LewisAndShortANewLatinDictionary
+
+    lat_adverbium:
+      _aliud: 'TBX_adverb|UTX_adverb'
+      _codicem: lat_nomen_adiectivum
+      _codicem_TBX: TBX_adverb
+      _codicem_UTX: UTX_adverb
+      _codicem_wikidata: Q380057 # https://www.wikidata.org/wiki/Q380057
+      _normam: https://la.wikipedia.org/wiki/Adverbium
+
+    lat_nomen_adiectivum:
+      _aliud: 'TBX_adjective|UTX_adjective'
+      _codicem: lat_nomen_adiectivum
+      _codicem_TBX: TBX_adjective
+      _codicem_UTX: UTX_adjective
+      _codicem_wikidata: Q34698 # https://www.wikidata.org/wiki/Q34698
+      _normam: https://la.wikipedia.org/wiki/Adiectivum
+
+    # substantīvum
+    lat_nomen_substantivum:
+      _aliud: 'TBX_noun|UTX_noun'
+      _codicem: lat_nomen_substantivum
+      _codicem_TBX: TBX_noun
+      _codicem_UTX: UTX_properNoun
+      _codicem_wikidata: Q1084 # https://www.wikidata.org/wiki/Q1084
+      _normam: https://la.wikipedia.org/wiki/Nomen_substantivum
+
+    lat_nomen_proprium:
+      _aliud: 'TBX_properNoun|UTX_properNoun'
+      _codicem: lat_nomen_proprium
+      _codicem_TBX: TBX_properNoun
+      _codicem_UTX: UTX_properNoun
+      _codicem_wikidata: Q147276 # https://www.wikidata.org/wiki/Q147276
+      _normam: https://la.wikipedia.org/wiki/Nomen_proprium
+
+    # TODO: UTX_prenominal, https://pt.wikipedia.org/wiki/Coloca%C3%A7%C3%A3o_pronominal
+
+    lat_verbum:
+      _aliud: 'TBX_verb|UTX_verb'
+      _codicem: lat_verbum
+      _codicem_TBX: TBX_verb
+      _codicem_UTX: UTX_verb
+      _codicem_wikidata: Q24905 # https://www.wikidata.org/wiki/Q24905
+      _normam: https://la.wikipedia.org/wiki/Verbum_(temporale)
+
+    # TODO: UTX_vt, Transitive verb, https://en.wikipedia.org/wiki/Transitive_verb
+    # TODO: UTX_vi, Transitive verb, https://en.wikipedia.org/wiki/Intransitive_verb
+
+   # sentence, maybe https://en.wiktionary.org/wiki/sententia
+   # phrasem1, https://en.wiktionary.org/wiki/phrasis#Latin
+
+    # TODO: TBX_other
+
+    ### ------------------------------------------------------------------------
+    # http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+    TBX_noun:
+      _codicem: DC-1333
+    TBX_verb:
+      _codicem: DC-1424
+    TBX_adjective:
+      _codicem: DC-1230
+    TBX_adverb:
+      _codicem: DC-1232
+    TBX_properNoun:
+      _codicem: DC-384
+    TBX_other:
+      _codicem: DC-4336
+
+    ### ------------------------------------------------------------------------
+    # https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
+    UTX_noun:
+      _nomen: Noun
+    UTX_properNoun:
+      _nomen: Proper noun
+    UTX_verb:
+      _nomen: Verb
+    UTX_vt:
+      _nomen: Transitive verb
+    UTX_vi:
+      _nomen: Intransitive verb
+    UTX_adjective:
+      _nomen: Adjective
+    UTX_prenominal:
+      _nomen: Prenominal
+    UTX_adverb:
+      _nomen: Adverb
+    UTX_sentence:
+      _nomen: Sentence
+
+  # Trivia:
+  # - rem, https://en.wiktionary.org/wiki/res#Latin
+  # - trānslātiōnem, https://en.wiktionary.org/wiki/translatio#Latin
+  # - status
+  #   - HXL hashtag #status, https://hxlstandard.org/standard/1-1final/dictionary/#tag_status
+  #   - statum, https://en.wiktionary.org/wiki/status#Latin
+
+  # translationem_status:
+  rem_status:
+
+    ### Lingua Latina ---------------------------------------------------------
+    # TODO: lingua latina
+
+    # Trivia:
+    # - rem, https://en.wiktionary.org/wiki/res#Latin
+    # - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
+    lat_rem_finale:
+      _aliud: 'TBX_preferred|UTX_approved|XLIFF_final'
+
+    # Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+    lat_rem_initiale:
+      # TBX do not have valor for 'initial' but we can use accuratus for this
+      _aliud: 'UTX_provisional|XLIFF_initial'
+
+    # Trivia:
+    # - temporārium, https://en.wiktionary.org/wiki/temporarius#Latin
+    # - non, https://en.wiktionary.org/wiki/non#Latin
+    # - nātīvum, https://en.wiktionary.org/wiki/nativus#Latin
+    lat_rem_temporarium_de_non_nativum:
+      #  TBX do not have valor for 'initial' but we can use accuratus for this
+      _aliud: 'UTX_provisional|XLIFF_initial'
+
+    # Trivia:
+    # - temporārium, https://en.wiktionary.org/wiki/temporarius#Latin
+    lat_rem_temporarium:
+      #  TBX do not have valor for 'initial' but we can use accuratus for this
+      _aliud: 'UTX_provisional|XLIFF_initial'
+
+    # Trivia: vacuum, https://en.wiktionary.org/wiki/vacuus#Latin
+    lat_rem_vacuum:
+      _aliud: ''
+
+    ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
+    # 3.1 7 Additional information about data categories
+    # The term type data category is optional. When a term has no term type
+    # value, it is assumed to be an ordinary entry term that is not an
+    # abbreviation or a variant of another term or an abbreviation of
+    # another full form term.
+    TBX_preferred:
+      _codicem: DC-72
+      _codicem_isocat: preferredTerm‐admn‐sts
+      _descriptionem: |
+        The term that, among a set   of synonymous terms, is most recommended
+        for use.
+    TBX_admitted:
+      _codicem: DC-73
+      _codicem_isocat: admittedTerm‐admn‐sts
+      _descriptionem: The term is acceptable for use
+    TBX_notRecommended:
+      _codicem: DC-74
+      _codicem_isocat: deprecatedTerm‐admn‐sts
+      _descriptionem: The term should not be used.
+    TBX_obsolete:
+      _codicem: DC-75
+      _codicem_isocat: supersededTerm‐admn‐sts
+      _descriptionem: |
+        The term is no longer used, usually because a more modern term has
+        replaced it.
+
+    ### Universal Terminology eXchange UTX 1.20 --------------------------------
+    # The term status field indicates the status of a term.
+    # There are 7 statuses: blank, provisional, approved, non-standard,
+    # forbidden, rejected, or obsolete. Only a glossary administrator and a
+    # delegate can change the value of a term status.
+    # Note: If a glossary does not have a term status field, all entries
+    # are considered to be approved.
+    # (...)
+    # 5. Advanced concepts
+    # 5.1 Single term status and per-language term status
+    #   There are two methods of applying term status: single term status and
+    #   per-language term status. A glossary can use either of these to
+    #   indicate the term status.
+    # 5.1.1 Single term status
+    #
+    #   (...)
+    #
+    # 5.1.2 Per-language term status
+    #   Per-language term status specifies the term status of a term for a
+    #   particular language rather than a pair of two languages. For example,
+    #   if it is used in a bilingual unidirectional glossary, it requires two
+    #   term status columns, one for the source language, and one for the
+    #   target language.
+    #
+    #   If a language tag is not specified, the term status is treated as
+    #   single term status (UTX 1.11 style).
+    #   Note: Per-language term status is introduced in UTX 1.20 to handle
+    #   bilingual bidirectional glossaries and multilingual glossaries.
+    #
+    # 5.1.3 Term status behaviors for an MT dictionary
+    #
+    #   (...)
+    #
+    UTX_provisional:
+      _descriptionem: |
+        The term status "provisional" indicates that a target term is
+        proposed by a contributor but not yet authorized by the glossary
+        administrator. As provisional status is temporary, the glossary
+        administrator should promptly decide the term status such as
+        "approved."
+        Note: The glossary administrator may also choose to exclude (delete)
+        the term from the glossary, or move it to another glossary
+      _nomen: provisional
+    UTX_approved:
+      _descriptionem: |
+        The term status "approved" indicates that an entry has been approved
+        for the particular glossary (domain) by the glossary administrator.
+        An approved status indicates that the term must be used with the
+        highest priority, whenever applicable. If a term has synonyms or
+        alternative spellings, such as "plugin" and "plugin," only one of
+        these should have approved status.
+
+        An approved term in one language is paired with another approved term
+        in another language. If the parts of speech of these multiple entries
+        are different, then they are different terms. For example, "plot"
+        can be a noun and a verb, and each can have approved status.
+      _nomen: approved
+
+      # 4.5.3 Blank term status
+      # If the term status is left blank, it is considered as approved
+      # (a change from UTX 1.11). The term status of a term paired with a
+      # non-standard, forbidden, rejected, and obsolete term (explained later)
+      # can also be blank, which implicitly indicates approved status.
+    UTX_non-standard:
+      _descriptionem: |
+        The term status "non-standard" indicates one or more terms that are
+        less-preferred within a group of synonyms or alternative spellings.
+
+        Note: The glossary administrator decides whether the term is
+        less-preferred or not for a particular glossary. Therefore, this
+        status could vary in different glossaries, or with a different
+        glossary administrator.
+      _nomen: non-standard
+
+    UTX_forbidden:
+      _descriptionem: |
+        The term status "forbidden" indicates that a term must not be used.
+        A term is marked as forbidden not only for being inappropriate as a
+        translation, but also if it is inappropriate within the context of the
+        end-result document.
+
+        A forbidden term, unlike a non-standard term, should not be provided
+        as a translation candidate.
+
+        Note: A term is “forbidden” because it is inappropriate from
+        linguistic, social, terminological, branding, or other viewpoints.
+
+        Up to UTX 1.11, only a target term could be indicated as forbidden.
+        UTX 1.20 allows any term (including a source term) to be indicated a
+        forbidden.
+
+        Forbidden terms can be exported from a UTX glossary for terminological
+        checking. Based on this information, a function of a translation tool
+        or a dedicated terminological checker can ascertain whether
+        translation files contain any undesirable terms.
+      _nomen: forbidden
+
+    UTX_rejected:
+      _descriptionem: |
+        The term status "rejected" indicates that a term is not appropriate
+        for inclusion in a glossary. Rejected terms can be kept in the glossary
+        for record keeping, moved into a separate list, or deleted at a
+        later time.
+      _nomen: rejected
+
+    UTX_obsolete:
+      _descriptionem: |
+        The term status "obsolete" indicates that a term was previously used,
+        but should no longer be used. Obsolete terms can be kept in the
+        glossary for record keeping, moved into a separate list, or deleted
+        at a later time.
+      _nomen: obsolete
+
+    ### XML Localization Interchange File Format XLIFF 2.1 ---------------------
+    # @see https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html#state
+    # @see http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html#substate
+    #
+    # State - indicates the state of the translation of a segment.
+    #
+    # Value description: The value MUST be set to one of the following values:
+    #
+    #   initial - indicates the segment is in its initial state.
+    #   translated - indicates the segment has been translated.
+    #   reviewed - indicates the segment has been reviewed.
+    #   final - indicates the segment is finalized and ready to be used.
+    #
+    # The 4 defined states constitute a simple linear state machine that
+    # advances in the above given order. No particular workflow or process is
+    # prescribed, except that the three states more advanced than the default
+    # initial assume the existence of a Translation within the segment.
+    # One can further specify the state of the Translation using the subState
+    # attribute.
+    #
+    #  Default value: initial
+
+    XLIFF_initial:
+      _descriptionem: indicates the segment is in its initial state
+      _nomen: initial
+
+    XLIFF_translated:
+      _descriptionem: indicates the segment has been translated
+      _nomen: translated
+
+    XLIFF_reviewed:
+      _descriptionem: indicates the segment has been reviewed
+      _nomen: reviewed
+
+    XLIFF_final:
+      _descriptionem: indicates the segment is finalized and ready to be used
+      _nomen: final
+
+  # Trivia:
+  # - rem, https://en.wiktionary.org/wiki/res#Latin
+  # - typum, https://en.wiktionary.org/wiki/typus#Latin
+  rem_typum:
+
+    ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
+    TBX_fullForm:
+      _codicem: DC-321
+    TBX_acronym:
+      _codicem: DC-334
+    TBX_abbreviation:
+      _codicem: DC-331
+    TBX_shortForm:
+      _codicem: DC-332
+    TBX_variant:
+      _codicem: DC-330
+    TBX_phrase:
+      _codicem: DC-339
+
+    ### Universal Terminology eXchange UTX 1.20 --------------------------------
+    #   4.4.2 sentence and special characters
+    #   sentence is a special pos field item that indicates that the "term"
+    #   is a sentence.
+    #   Note: sentence should only be used when necessary. sentence would be
+    #   used for a user interface message in the form of a sentence, for example.
+    #   Entries of pairs of translated sentences should be stored in a translation
+    #   memory format (such as TMX) rather than a glossary. When a UTX glossary is
+    #   exported for an MT system that does not treat sentence as a type of
+    #   part of speech, sentence entries can be treated as nouns.
+
+
+## TBX Basic 3.1 (http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf)
+#  5 Mandatory data categories
+#  There are only two mandatory data categories in TBX-Basic: term, and language.
+#  Several of the remaining data categories, including definition, context, part of speech, and subject
+#  field are very important and should be included in a terminology whenever possible. The most
+#  important non-mandatory data category is part of speech
+
+
+#### TO DOs ____________________________________________________________________
+# - https://site.matecat.com/support/managing-language-resources/add-glossary/
+# - http://docs.translatehouse.org/projects/translate-toolkit/en/latest/commands/csv2tbx.html
+# - https://github.com/lokalise/i18n-ally
+#   - https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally
+# - Which characters need to be escaped when using Bash?
+#   - https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash

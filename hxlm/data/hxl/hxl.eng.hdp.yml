@@ -1,0 +1,37 @@
+# @see https://hxlstandard.org/
+---
+- ([English language]):
+    - hxl.eng.hdp.yml
+  silo:
+    description:
+      ENG: The Humanitarian Exchange Language Standard datasets
+    country:
+      - XZ # Explicitly adding semi-official 'International Waters' ISO2 code
+    group:
+      - hxl-standard
+    tag:
+      - humanitarian
+      - hxl
+      - hxl-standard
+
+  data-set:
+    - id: hxl-standard-core-hashtag
+      description:
+        ENG: HXL/CSV version of the core hashtags
+      source:
+        - iri: https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=319251406&single=true&output=csv
+
+    - id: hxl-standard-core-attribute
+      description:
+        ENG: HXL/CSV version of the core attributes
+      source:
+        - iri: https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/pub?gid=1810309357&single=true&output=csv
+
+  computer-file:
+    - id: hxl-core-schema
+      description:
+        ENG: HXL core schema
+      tag:
+        - google-sheets
+      source:
+        - iri: https://docs.google.com/spreadsheets/d/1En9FlmM8PrbTWgl3UHPF_MXnJ6ziVZFhBbojSJzBdLI/edit#gid=319251406

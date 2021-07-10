@@ -1,0 +1,12 @@
+#meta+code,#meta+name+i_eng,#meta +comments,#meta +wikipedia +url,#meta +wikidata +code,#meta +unicode +url,#meta +unicode_range,#meta +unicode_cldr +id,#meta +unicode_cldr +type,#vocab +v_lat_numerum_0,#vocab +v_lat_numerum_1,#vocab +v_lat_numerum_2,#vocab +v_lat_numerum_3,#vocab +v_lat_numerum_4,#vocab +v_lat_numerum_5,#vocab +v_lat_numerum_6,#vocab +v_lat_numerum_7,#vocab +v_lat_numerum_8,#vocab +v_lat_numerum_9
+ASCII,ASCII,Note: maybe we use a more generic/neutral name?,https://en.wikipedia.org/wiki/ASCII,Q8815,,,,numeric,0,1,2,3,4,5,6,7,8,9
+Binary,Binary number,Note: this may be removed,https://en.wikipedia.org/wiki/Binary_number,Q3913,,,,,0,1,10,11,100,101,110,111,1000,1001
+BCD,Binary-coded decimal (BCD),Needs revision,https://en.wikipedia.org/wiki/Binary-coded_decimal,Q276582,,,,,0000,0001,0010,0011,0100,0101,0110,0111,1000,1001
+ISO15924:Zmth+(todo: name it 3),Octal numbers (*),Needs revision,https://en.wikipedia.org/wiki/Computer_number_format#Octal_and_hexadecimal_number_display,,,,,,0,1,2,3,4,5,6,7,10,11
+Japanese_numerals(temp-name),Japanese numerals,Needs revision,https://en.wikipedia.org/wiki/Japanese_numerals,Q1337084,,,,,零,一,二,三,四,五,六,七,八,九
+ISO15924:Telu,Telugu,,https://en.wikipedia.org/wiki/Telugu_script#Numerals,,https://www.unicode.org/charts/PDF/U0C00.pdf,0C00–0C7F,telu,numeric,౦,౧,౨,౩,౪,౫,౬,౭,౮,౯
+Korean_numerals(temp-name),Korean_numerals,Working Draft! Ignore this line,https://en.wikipedia.org/wiki/Korean_numerals,,,,,,,,,,,,,,,
+draft-ignore-001,,Working Draft! Ignore this line,https://en.wikipedia.org/wiki/Arabic_numerals,,,,,,,,,,,,,,,
+draft-ignore-002,,Working Draft! Ignore this line,https://en.wikipedia.org/wiki/Abjad_numerals,,,,,,,,,,,,,,,
+draft-ignore-003,,Working Draft! Ignore this line,,,,,arab,numeric,,,,,,,,,,
+ISO369-3:zho+ISO15924:Hant (draft),,Working Draft! Ignore this line,https://en.wikipedia.org/wiki/Chinese_numerals,,,,,,,,,,,,,,,

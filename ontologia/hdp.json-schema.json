@@ -1,0 +1,263 @@
+{
+  "$id": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdp.json-schema.json",
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "description": "JSON Schema for HDP Declarative Programming v0.8.2",
+  "$comment": "This site can be used to validate this schema https://jsonschemalint.com/#!/version/draft-07/markup/json",
+  "required": [
+    "hsilo"
+  ],
+  "fileMatch": [
+    "*.mul.hdp.yml",
+    "*.mul.hdp.json",
+    "*.lat.hdp.yml",
+    "*.lat.hdp.json",
+    "*.hdp.hdp.yml",
+    "*.hdp.hdp.json"
+  ],
+  "type": "array",
+  "items": {
+    "title": "HDP Declarative programming v0.8.2",
+    "type": "object",
+    "properties": {
+      "_import": {
+        "$ref": "#/$defs/root/_import"
+      },
+      "hdatum": {
+        "$ref": "#/$defs/root/hdatum"
+      },
+      "hfilum": {
+        "$ref": "#/$defs/root/hfilum"
+      },
+      "htransformare": {
+        "$ref": "#/$defs/root/htransformare"
+      },
+      "hsilo": {
+        "$ref": "#/$defs/root/hsilo"
+      }
+    },
+    "minProperties": 2,
+    "additionalProperties": false
+  },
+  "$defs": {
+    "attr": {
+      "adm0": {
+        "$comment": "TODO make attr.adm0 more strict than string & array",
+        "$anchor": "attr_adm0",
+        "type": ["string", "array"]
+      },
+      "datum": {
+        "$anchor": "attr_datum",
+        "type": "array"
+      },
+      "descriptionem": {
+        "$anchor": "attr_descriptionem",
+        "type": "object",
+        "minProperties": 1,
+        "$comment": "TODO: need to implement one way to enforce keys with EXACT 3 chars (ISO 369-3)"
+      },
+      "exemplum": {
+        "$anchor": "attr_exemplum",
+        "type": "array",
+        "minItems": 1
+      },
+      "fontem": {
+        "$anchor": "attr_fontem",
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "datum": {
+            "$ref": "#/$defs/attr/datum"
+          },
+          "iri": {
+            "$ref": "#/$defs/attr/iri"
+          },
+          "_sheet_index": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "grupum": {
+        "$anchor": "attr_grupum",
+        "description": "One way to group colletions (hsilos).While the tags allow use at any level, this attribute should be explicity named at top level.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "examples": [
+          "organization-name",
+          "org-code",
+          "functionality-name",
+          "default"
+        ]
+      },
+      "id": {
+        "$anchor": "attr_id",
+        "type": "string"
+      },
+      "iri": {
+        "$anchor": "attr_iri",
+        "type": "string",
+        "format": "iri"
+      },
+      "linguam": {
+        "$anchor": "attr_linguam",
+        "type": "string",
+        "maxLength": 3,
+        "minLength": 3
+      },
+      "meta": {
+        "$anchor": "attr_meta",
+        "type": "object",
+        "minProperties": 1
+      },
+      "nomen": {
+        "$anchor": "attr_nomen",
+        "type": "string"
+      },
+      "objectivum": {
+        "$anchor": "attr_objectivum",
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "datum": {
+            "$ref": "#/$defs/attr/datum"
+          },
+          "descriptionem": {
+            "$ref": "#/$defs/attr/descriptionem"
+          },
+          "iri": {
+            "$ref": "#/$defs/attr/iri"
+          },
+          "_sheet_index": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      },
+      "tag": {
+        "$anchor": "attr_tag",
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "examples": [
+          "ara",
+          "eng",
+          "fra",
+          "spa",
+          "por",
+          "qaa",
+          "rus",
+          "zho"
+        ]
+      },
+      "urn": {
+        "$anchor": "attr_urn",
+        "type": [
+          "string"
+        ]
+      }
+    },
+    "root": {
+      "_import": {
+        "$anchor": "root__import",
+        "description": "Import instructions from local or remote files",
+        "type": "array",
+        "minItems": 1
+      },
+      "hdatum": {
+        "$anchor": "root_hdatum",
+        "description": "Abstracion an data set (needs to be minimaly usable with HXL tools)",
+        "type": "array",
+        "items": {
+          "required": [
+            "id",
+            "fontem"
+          ]
+        },
+        "minItems": 1
+      },
+      "hfilum": {
+        "$anchor": "root_hfilum",
+        "description": "Abstracion to an generic file",
+        "type": "array",
+        "items": {
+          "required": [
+            "id",
+            "fontem"
+          ]
+        },
+        "minItems": 1
+      },
+      "htransformare": {
+        "$anchor": "root_htransformare",
+        "description": "Abstraction to HXL processing specs. See https://docs.google.com/presentation/d/17vXOnq2atIDnrODGLs36P1EaUvT-vXPjsc2I1q1Qc50/edit",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "_recipe"
+          ]
+        },
+        "minItems": 1
+      },
+      "hsilo": {
+        "$anchor": "root_hsilo",
+        "description": "hsilo (plus at least extra rule) are required to validate the file",
+        "type": "object",
+        "minProperties": 1,
+        "additionalProperties": false,
+        "properties": {
+          "adm0": {
+            "$ref": "#/$defs/attr/adm0"
+          },
+          "nomen": {
+            "$ref": "#/$defs/attr/nomen"
+          },
+          "linguam": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]ENG]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]FRA]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]LAT]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "[[linguam]POR]": {
+            "$ref": "#/$defs/attr/linguam"
+          },
+          "descriptionem": {
+            "$ref": "#/$defs/attr/descriptionem"
+          },
+          "grupum": {
+            "$ref": "#/$defs/attr/grupum"
+          },
+          "id": {
+            "$ref": "#/$defs/attr/id"
+          },
+          "meta": {
+            "type": "object"
+          },
+          "<<meta>>": {
+            "type": "object",
+            "description": "This input often is generated by tools (for example, to allow debug), but are not expected to be used for extra processing and can be replaced or removed without loss of information."
+          },
+          "tag": {
+            "$ref": "#/$defs/attr/tag"
+          },
+          "urn": {
+            "$ref": "#/$defs/attr/urn"
+          }
+        }
+      }
+    }
+  }
+}

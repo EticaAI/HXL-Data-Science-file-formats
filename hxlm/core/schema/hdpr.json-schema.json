@@ -1,0 +1,45 @@
+{
+  "name": "hdpr.json-schema.json",
+  "description": "JSON Schema for HXL-v1.1+metapackage-v0.7.3",
+  "fileMatch": [
+    "*.hdpr.yml"
+  ],
+  "url": "https://raw.githubusercontent.com/EticaAI/HXL-Data-Science-file-formats/main/hxlm/core/schema/hdpr.json-schema.json",
+  "hconteiner": {
+    "compliance": {
+      "type": "string",
+      "description": "Note: compliance are not stored on disk (but if enabled, can be calculated internaly). Does not make sense save this to the disk (and even could expose data)"
+    },
+    "encryption": {
+      "type": "object",
+      "description": "encryption is ... (TODO: eventually document this)",
+      "patternProperties": {
+        "^(?:@[a-zA-Z0-9_-]+\/)?[a-zA-Z0-9_-]+$": {
+          "$ref": "#/definitions/project"
+        }
+      },
+      "additionalProperties": false
+    },
+    "has_encryption": {
+      "type": "boolean",
+      "description": "If at least one hdatum explicitly have encryption.",
+      "default": false
+    }
+  },
+  "hdatums": {
+    "type": "array",
+    "description": "Each HDataset is, informally speaking, a dataset. It is an analogy for a single CSV file, Excel worksheet, or an Pandas NDframe (actually, more similar to xarray).",
+    "items": {
+      "type": "object",
+      "tags": {
+        "description": "Tags for the dataset",
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 0,
+        "uniqueItems": true
+      }
+    }
+  }
+}
