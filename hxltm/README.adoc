@@ -1,5 +1,6 @@
 = HXLM: Humanitarian Exchange Language Trānslātiōnem Memoriam
 :toc: preamble
+:icons: font
 :source-highlighter: highlight.js
 :highlightjs-languages: yaml
 
@@ -129,19 +130,49 @@ used by software (TL;DR: they are mono or bilingual).
 Unless we talk with a format like TBX (TermBase eXchange), and ignoring the
 unsung hero UTX (Universal Terminology eXchange), the current standards to
 exchange multilingual content are almost 20 years stuck on the past without
-any update (https://en.wikipedia.org/wiki/Translation_Memory_eXchange[check
-TMX and the sad fact that LISA was declared insolvent]). It's a long history.
-And the problem is not if you don't like XML-like formats instead of JSON,
-because even the XML-like standards, as 2021, still have a poor feature set.
-The thing is so bad, so bad, that people use gettext .po or bilingual JSON
-to handle multilingual translations/glossaries.
+any update (check TMX and the sad fact that LISA was declared insolvent).
+It’s a long history. And the problem is not if you don’t like XML-like formats
+instead of JSON, because even the XML-like standards, as of 2021, still have
+a poor feature set. The thing are so bad, SO BAD, that people use
+gettext .po or bilingual JSON to handle multilingual translations/glossaries.
 
-It's a long history, but not just because HXL-CPLP want to promove HXL, but
-*even if you want to coordinate people to handle translations without define
-a single source translation language (like English), there is simply no
-standard (and we mean even paid services) to let you do it.*
+It’s a long history, but not just because HXL-CPLP, as a community user group,
+would want to promote HXL (and, by the way, HXLTM is the format used on the
+HXL-CPLP/Auxilium-Humanitarium-API if you want to collaborate 😀), but even
+if you someone else want to coordinate volunteers to handle translations
+without always have to enforce a single source translation language
+(like English, as is mostly used for software localization), there is
+simply no standard (and we mean eve paid services) to let you do it.
 
-> TODO: explain more.
+> Do not attribute to malice that which is adequately explained by lack of
+  how other languages work and lack of tooling done by previous developers.
+
+On this topic, one easily observable fact is that actually most maintainers
+of software primarily written in English are not even native English speakers.
+But the lack of knowledge of how other natural languages work can play a role
+in initial decisions: it is also common, when asked for feedback, native
+speakers of other languages (that care about the issue) don’t know what do
+propose and the ones who speak up (often new to the software development)
+may tell that this is not necessary.
+
+TIP: @TODO this section still a draft. Needs to be improved later.
+
+=== The need for optional different source language for translations
+
+While `+hxltmcli+`, even early versions, already can be used as
+non-Humanitarian general propose to exchange translations stored
+(or entirely managed) "with Excel" or "Google Sheets" one of what would
+become initial goals of HXL-CPLP is a data format and minimal software
+implementation that could allow receiving collaborative suggestions
+from people who don’t know whatever would be the initial working language.
+
+If you look at the context of the HXL-CPLP/Auxilium-Humanitarium-API by
+initial working language we don’t mean English. Good source material could in
+fact be created by experts (let’s say, medical field, on a country like
+Brazil, on a subject like the Covid pandemic) and in special outside of
+software development, these experts, when do know more than their native
+language (as is Portuguese on Brazil) they could do know Spanish, or French,
+or Italian, but not English.
 
 == HXLTM working file formats
 
@@ -150,6 +181,8 @@ cli tool allow reuse by others interested in export HXLTM files to
 common formats used by professional translators. But software developers
 interested in promote use cases of HXL are encouraged to either
 collaborate to `+hxltmcli+` or create other tools.
+
+TIP: @TODO this section still a draft. Needs to be improved later.
 
 === HXLM common dialect
 
@@ -160,9 +193,8 @@ collaborate to `+hxltmcli+` or create other tools.
 * *Description*: HXLM: Humanitarian Exchange Language Trānslātiōnem
 Memoriam common dialect
 
-____
-TODO: draft this section
-____
+
+TIP: @TODO this section still a draft. Needs to be improved later.
 
 == Other file formats
 
@@ -235,7 +267,8 @@ a different XLIFF file to another one.
 
 ==== HXLTM supported features of XLIFF
 
-> TODO: improve documentation of features HXLTM support export to XLIFF
+
+TIP: @TODO improve documentation of features HXLTM support export to XLIFF
 
 === Google Sheets
 The `hxltmcli` supports read directly from Google Sheets (no extra plugins
@@ -260,8 +293,8 @@ hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0L
 Writting to Google Sheets is possible by using external tool to import the
 CSV versions.
 
-> TODO: document some external cli script that allow upload CSV to Google 
-> Sheets.
+TIP: @TODO document some external cli script that allow upload CSV to Google 
+     Sheets.
 
 === Microsoft Excel
 
@@ -271,7 +304,7 @@ CSV versions.
 
 ==== Read HXL TM data saved on Excel
 
-The `hxltmcli` supports read directly from Microsoft Excel (no extra plugins
+The `+hxltmcli+` supports read directly from Microsoft Excel (no extra plugins
 required).
 
 [source,bash]
@@ -341,7 +374,8 @@ is not HXL should be `hxltmcli`, but for advanced processing, see
 <a href="#HXLTM-libhxl-cli-tools">HXLTM-libhxl-cli-tools</a>.
 
 ==== 1.5.6.2 CSV source + target format (bilingual)
-> TODO: document minimal usage
+
+TIP: @TODO document minimal usage
 
 [source,bash]
 ----
@@ -382,9 +416,10 @@ not clear if possible to use any external to import/export from already
 supported formats (like TMX and XLIFF) creted by `hxltmcli` without
 implementing this feature directly on `hxltmcli`.
 
-> TODO: we could consider supporting TBX (see https://en.wikipedia.org/wiki/TermBase_eXchange)
-> since IATE seems to export glossaries on this format. See also
-> <https://termcoord.eu/iate/download-iate-tbx/>.
+TIP: @TODO this section still a draft. We could consider supporting TBX
+    (see https://en.wikipedia.org/wiki/TermBase_eXchange) since IATE seems to
+    export glossaries on this format. See also
+    https://termcoord.eu/iate/download-iate-tbx/
 
 ////
 Notes to self:
@@ -414,21 +449,19 @@ Testando Vitaal:
 > - See also: <https://okapiframework.org/wiki/index.php/Open_Standards>
 ////
 
-> **Note**: all alternatives here tend to be very optimized **but only for mono
-or bilingual localization files**.
->
-> Some have advanced features, like merge/compare/update two different files
-> (like 2 XLIFFs) seems to be documented for some of them. They also sometimes
-> have exporters for multilingual formats, like UTX, TBX TMX, but often they
-> still only work with maximum of 2 languages.
->
-> One approach with `hxltmcli` would both focus on HXL and conversion for
-> formats that existing tools don't do well, but this also means we do not
-> waste time to create more exporters for mono or bilinguam files.
+TIP: all alternatives here tend to be very optimized **but only for mono
+     or bilingual localization files**.
+     Some have advanced features, like merge/compare/update two different files
+     (like 2 XLIFFs) seems to be documented for some of them. They also sometimes
+     have exporters for multilingual formats, like UTX, TBX TMX, but often they
+     still only work with maximum of 2 languages.
+     One approach with `hxltmcli` would both focus on HXL and conversion for
+     formats that existing tools don't do well, but this also means we do not
+     waste time to create more exporters for mono or bilinguam files.
 
 === Okapi Framework
 
-> TODO: this is a draft. Improve it.
+TIP: @TODO this is a draft. Improve it.
 
 - https://okapiframework.org/
   - http://okapiframework.org/wiki/index.php?title=Tikal
