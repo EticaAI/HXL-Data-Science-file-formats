@@ -1260,12 +1260,26 @@ class HXLTMBCP47:
 class HXLTMLinguam:
     """HXLTM linguam auxilium programmi
 
-    Tests:
+    Testum:
         >>> HXLTMLinguam('lat-Latn@la-IT@IT')
         HXLTMLinguam()
-        >>> HXLTMLinguam('lat-Latn@la-IT@IT').__dict__
+
+        >>> HXLTMLinguam('lat-Latn@la-IT@IT').v()
         {'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', \
-'bcp47': 'la-IT', 'imperium': 'IT', 'iso6393': 'lat', 'iso115924': 'Latn'}
+'bcp47': 'la-IT', 'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', \
+'iso115924': 'Latn'}
+
+        >>> HXLTMLinguam('lat-Latn@la-IT@IT').h()
+        '+i_la+i_lat+is_latn+ii_it'
+
+        # Kalo Finnish Romani, Latin script (no ISO 2 language)
+        >>> HXLTMLinguam('rmf-Latn').v()
+        {'crudum': 'rmf-Latn', 'linguam': 'rmf-Latn', 'iso6393': 'rmf', \
+'iso115924': 'Latn'}
+
+        # Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
+        >>> HXLTMLinguam('rmf-Latn').h()
+        '+i_rmf+is_latn'
 
     """
 
@@ -1274,7 +1288,7 @@ class HXLTMLinguam:
     linguam: InitVar[str] = None     # Exemplum: lat-Latn, arb-Arab
     bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
     imperium: InitVar[str] = None    # Exemplum: IT, EG
-    iso6391: InitVar[str] = None     # Exemlum: la, ar
+    iso6391a2: InitVar[str] = None     # Exemlum: la, ar
     iso6393: InitVar[str] = None     # Exemlum: lat, arb
     iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
 
@@ -1311,16 +1325,45 @@ class HXLTMLinguam:
             #     list(self.linguam.split('-'))
         elif strictum:
             raise ValueError('HXLTMLinguam [' + self.crudum + ']')
+        else:
+            return False
+
+        if self.bcp47:
+            parts = self.bcp47.split('-')
+            if len(parts[0]) == 2:
+                self.iso6391a2 = parts[0].lower()
 
         self.iso6393, self.iso115924 = \
             list(self.linguam.split('-'))
 
         self.iso6393 = self.iso6393.lower()
         self.iso115924 = self.iso115924.capitalize()
+        self.linguam = self.iso6393 + '-' + self.iso115924
         if self.imperium:
             self.imperium = self.imperium.upper()
 
-    def v(self):
+        return True
+
+    def h(self): # pylint: disable=invalid-name
+        """HXL attribūtum
+
+        Returns:
+            [str]: textum HXL HXL attribūtum
+        """
+        resultatum = []
+
+        if self.iso6391a2:
+            resultatum.append('+i_' + self.iso6391a2)
+        if self.iso6393:
+            resultatum.append('+i_' + self.iso6393)
+        if self.iso115924:
+            resultatum.append('+is_' + self.iso115924)
+        if self.imperium:
+            resultatum.append('+ii_' + self.imperium)
+
+        return ''.join(resultatum).lower()
+
+    def v(self): # pylint: disable=invalid-name
         """Resultatum, objectīvum
 
         Returns:
