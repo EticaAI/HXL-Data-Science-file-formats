@@ -70,6 +70,8 @@ import tempfile
 from functools import reduce
 from typing import (
     Any,
+    Dict,
+    Union,
 )
 
 import json
@@ -407,6 +409,9 @@ class HXLTMCLI:
         )
 
         self.otlg = HXLTMOntologia(self.conf)
+
+        # print(self.otlg.aliud())
+        # raise RuntimeError('JUST TESTING, remove me')
 
         # If the user specified an output file, we will save on
         # self.original_outfile. The args.outfile will be used for temporary
@@ -1054,7 +1059,80 @@ class HXLTMOntologia:
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
-        pass
+        # print('TODO')
+
+    def aliud(self):
+        """
+        Trivia: aliud, https://en.wiktionary.org/wiki/alius#Latin
+        """
+        # Note: since this step is very procedural, could be converted to
+        # make infereces based on the free YAML, so others could not
+        # need to change the python code
+        resultatum = {
+            'conceptum_accuratum': self.hxlhashtag(self.de(
+                'ontologia.commune.conceptum.accuratum')),
+            'conceptum_codicem': self.hxlhashtag(self.de(
+                'ontologia.commune.conceptum.codicem')),
+            'conceptum_codicem_deprecatum': self.hxlhashtag(self.de(
+                'ontologia.commune.conceptum.codicem.deprecatum')),
+            'conceptum_codicem_alternativum': self.hxlhashtag(self.de(
+                'ontologia.commune.conceptum.codicem.alternativum')),
+            'conceptum_dominium': self.hxlhashtag(self.de(
+                'ontologia.commune.conceptum.dominium')),
+            'conceptum_typum': self.hxlhashtag(self.de(
+                'ontologia.commune.conceptum.typum')),
+            'rem__linguam__': self.hxlhashtag(self.de(
+                'ontologia.commune.rem.__linguam__')),
+            # extēnsiōnem
+            'conceptum_codicem_iate': self.hxlhashtag(self.de(
+                'ontologia.extensionem.conceptum.codicem.iate')),
+            'conceptum_codicem_unterm': self.hxlhashtag(self.de(
+                'ontologia.extensionem.conceptum.codicem.unterm')),
+            'conceptum_codicem_wikidata': self.hxlhashtag(self.de(
+                'ontologia.extensionem.conceptum.codicem.wikidata')),
+            # glossarium
+            'G_rem_contextum__linguam__': self.hxlhashtag(self.de(
+                'ontologia.glossarium.rem.contextum.__linguam__')),
+            'G_rem_contextum__linguam_de_imperium__': self.hxlhashtag(self.de(
+                'ontologia.glossarium.rem.contextum.__linguam_de_imperium__')),
+            'G_rem_definitionem__linguam__': self.hxlhashtag(self.de(
+                'ontologia.glossarium.rem.definitionem.__linguam__')),
+            'G_rem_definitionem__linguam_de_imperium__': self.hxlhashtag(self.de(  # noqa
+                'ontologia.glossarium.rem.definitionem.__linguam_de_imperium__')),  # noqa
+            # tm
+            'TM_conceptum_translationem_directionem': self.hxlhashtag(self.de(
+                'ontologia.tm.conceptum.translationem.directionem')),
+            'TM_rem_translationem_directionem__linguam__': self.hxlhashtag(self.de(  # noqa
+                'ontologia.tm.rem.translationem.directionem.__linguam__')),
+            'TM_rem_translationem_directionem__linguam_de_imperium__': self.hxlhashtag(self.de(  # noqa
+                'ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__')),  # noqa
+
+            'todo_123': self.hxlhashtag(self.de(
+                'ontologia.commune.conceptum.accuratum'))
+        }
+
+        return resultatum
+
+    def hxlhashtag(self, objectivum: Union[Dict, None], strictum=False):
+        """Get __HXL non-whitespace value from an Dict
+
+        Args:
+            objectivum ([Dict]): an object with __HXL
+            strictum (bool, optional): Raise error?. Defaults to False.
+
+        Raises:
+            RuntimeError: [description]
+
+        Returns:
+            [str]: an HXL hashtag without spaces
+        """
+        if objectivum is not None:
+            if '__HXL' in objectivum:
+                return ''.join(objectivum['__HXL'].split())
+
+        if strictum:
+            raise RuntimeError('HXLTMOntologia.hxlhashtag error')
+        return None
 
     def de(self, dotted_key: str,
            default: Any = None, fontem: dict = None) -> Any:

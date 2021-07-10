@@ -8,7 +8,7 @@
 # - "Trānslātiōnem Memoriam"
 #   - https://www.wikidata.org/wiki/Q333761
 # - "HXL Trānslātiōnem Memoriam"
-#   - https://hdp.etica.ai/hxltm/
+#   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
 # - "cor"
 #   - https://en.wiktionary.org/wiki/cor#Latin
 # - "ontologia"
@@ -32,7 +32,7 @@
 
 # TODO: plurals
 # - https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
-# - https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html#Translating-plural-forms
+# - 
 
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
@@ -544,7 +544,7 @@ ontologia:
       contextum:
         __linguam__:
           __HXL: '#item +rem +contextum __linguam__'
-          __id: ontologia.commune.rem.contextum.__linguam__
+          __id: ontologia.glossarium.rem.contextum.__linguam__
           _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
             _id: DC-149
             _descriptionem: A sample sentence that contains the term.
@@ -559,7 +559,7 @@ ontologia:
       definitionem:
         __linguam__:
           __HXL: '#item +rem +definitionem __linguam__'
-          __id: ontologia.commune.rem.definitionem.__linguam__
+          __id: ontologia.glossarium.rem.definitionem.__linguam__
           _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
             _id: DC-168
             _descriptionem:
