@@ -85,6 +85,8 @@ from typing import (
     Union,
 )
 
+from dataclasses import dataclass, InitVar
+
 import json
 import yaml
 
@@ -1185,7 +1187,7 @@ class HXLTMBCP47:
                 Note: this on this version depends on langcodes,
                 <https://github.com/rspeer/langcodes>,
                 So you need
-                pip3 install langcodes
+                    pip3 install langcodes
     [eng-Latn]_
 
 
@@ -1194,6 +1196,7 @@ class HXLTMBCP47:
     Creation date:
             2021-06-09
     """
+
     def __init__(self, textum_bcp47: str):
         """
 
@@ -1203,7 +1206,6 @@ class HXLTMBCP47:
     @staticmethod
     def testum(textum: str) -> str:
         """testum est (...)
-
 
         Example:
             >>> HXLTMBCP47.testum('eng_US')
@@ -1219,6 +1221,112 @@ class HXLTMBCP47:
         """
         resultatum = langcodes.standardize_tag(textum)
         return resultatum
+
+    @staticmethod
+    def iso6392a3(textum: str) -> str:
+        """iso6392a3, ISO 639-2 alphabētum 3 de BCP47 textum
+
+        Example:
+            >>> HXLTMBCP47.iso6392a3('eng_US')
+            'eng'
+            >>> HXLTMBCP47.iso6392a3('en-UK')
+            'eng'
+            >>> HXLTMBCP47.iso6392a3('en-UK')
+            'eng'
+            >>> HXLTMBCP47.iso6392a3('yue')
+            'yue'
+
+            # Romany [rom], https://iso639-3.sil.org/code/rom
+            >>> HXLTMBCP47.iso6392a3('rom')
+            'rom'
+
+            # >>> HXLTMBCP47.iso6392a3('zh-TW')
+            # '...'
+
+        Args:
+            textum (str): BCP47 language code string
+
+        Returns:
+            str: ISO 639-3 language code
+        """
+        L = langcodes.Language.get(textum)
+        if L.is_valid():
+            return L.to_alpha3()
+            # resultatum = L.to_alpha3()
+        return None
+
+
+@dataclass
+class HXLTMLinguam:
+    """HXLTM linguam auxilium programmi
+
+    Tests:
+        >>> HXLTMLinguam('lat-Latn@la-IT@IT')
+        HXLTMLinguam()
+        >>> HXLTMLinguam('lat-Latn@la-IT@IT').__dict__
+        {'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', \
+'bcp47': 'la-IT', 'imperium': 'IT', 'iso6393': 'lat', 'iso115924': 'Latn'}
+
+    """
+
+    # Exemplum: lat-Latn@la-IT@IT, arb-Arab@ar-EG@EG
+    crudum: InitVar[str] = None
+    linguam: InitVar[str] = None     # Exemplum: lat-Latn, arb-Arab
+    bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
+    imperium: InitVar[str] = None    # Exemplum: IT, EG
+    iso6391: InitVar[str] = None     # Exemlum: la, ar
+    iso6393: InitVar[str] = None     # Exemlum: lat, arb
+    iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
+
+    def __init__(self, linguam: str, strictum=False):
+        self.crudum = linguam
+        self.initialle(strictum)
+
+    def initialle(self, strictum: bool):
+        """
+        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+
+        if self.crudum.find('@') == -1:
+            # Non @? Est linguam.
+            self.linguam = self.crudum
+
+            # self.iso6393, self.iso115924 = \
+            #     list(self.linguam.split('-'))
+        elif self.crudum.find('@@') > -1:
+            # @@? Est linguam et imperium
+            self.linguam, self.imperium = list(self.crudum.split('@@'))
+
+            # self.iso6393, self.iso115924 = \
+            #     list(self.linguam.split('-'))
+        elif self.crudum.count('@') == 1:
+            # Unum @? Est linguam et bcp47
+            self.linguam, self.bcp47 = list(self.crudum.split('@'))
+
+        elif self.crudum.count('@') == 2:
+            # rem@rem@rem ? Est linguam, bcp47, imperium
+            self.linguam, self.bcp47, self.imperium = \
+                list(self.crudum.split('@'))
+            # self.iso6393, self.iso115924 = \
+            #     list(self.linguam.split('-'))
+        elif strictum:
+            raise ValueError('HXLTMLinguam [' + self.crudum + ']')
+
+        self.iso6393, self.iso115924 = \
+            list(self.linguam.split('-'))
+
+        self.iso6393 = self.iso6393.lower()
+        self.iso115924 = self.iso115924.capitalize()
+        if self.imperium:
+            self.imperium = self.imperium.upper()
+
+    def v(self):
+        """Resultatum, objectīvum
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        return self.__dict__
 
 
 class HXLTMUtil:
