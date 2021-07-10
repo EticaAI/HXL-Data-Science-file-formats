@@ -57,8 +57,6 @@
 # python3 -m doctest bin/hxltmcli
 # python3 -m doctest hxlm/core/bin/hxltmcli.py
 
-__VERSION__ = "v0.8.2"
-
 # from re import S
 import sys
 import os
@@ -68,6 +66,11 @@ from pathlib import Path
 
 import csv
 import tempfile
+
+from functools import reduce
+from typing import (
+    Any,
+)
 
 import json
 import yaml
@@ -79,6 +82,7 @@ import hxl.converters
 import hxl.filters
 import hxl.io
 
+__VERSION__ = "v0.8.2"
 
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
@@ -122,7 +126,8 @@ class HXLTMCLI:
         """
         self.hxlhelper = None
         self.args = None
-        self.conf = {}
+        self.conf = {}  # Crudum, raw file
+        self.otlg = None  # HXLTMOntologia object
         self.objectivum_typum = None
         self.errors = []
 
@@ -400,6 +405,8 @@ class HXLTMCLI:
             args.archivum_configurationem,
             args.venandum_insectum_est
         )
+
+        self.otlg = HXLTMOntologia(self.conf)
 
         # If the user specified an output file, we will save on
         # self.original_outfile. The args.outfile will be used for temporary
@@ -743,8 +750,8 @@ class HXLTMCLI:
         # @see https://www.gala-global.org/sites/default/files/migrated-pages
         #      /docs/tmx14%20%281%29.dtd
         resultatum.append(
-            '  <header creationtool="hxltm" creationtoolversion="'
-            + __VERSION__ + '" ' +
+            '  <header creationtool="hxltm" creationtoolversion="' +
+            __VERSION__ + '" ' +
             'segtype="sentence" o-tmf="UTF-8" ' +
             'adminlang="en" srclang="en" datatype="PlainText"/>')
         # TODO: make source and adminlang configurable
@@ -959,8 +966,7 @@ class HXLTMCLI:
 
             elif hxlated_header[idx] == '#item+wikidata+code' or \
                     hxlated_header[idx] == '#meta+wikidata+code' or \
-                    hxlated_header[idx] == \
-            '#meta+conceptum+codicem+alternativum':
+                    hxlated_header[idx] == '#meta+conceptum+codicem+alternativum':  # noqa
                 hxlated_header[idx] = \
                     '#x_xliff+unit+note+note_category__wikidata'
                 continue
@@ -1026,6 +1032,57 @@ class HXLTMCLI:
                 continue
 
         return hxlated_header
+
+
+class HXLTMOntologia:
+    """
+    _[eng-Latn] HXLTMOntologia is a python wrapper for the cor.hxltm.yml.
+    [eng-Latn]_
+
+    """
+
+    def __init__(self, ontologia):
+        """
+        _[eng-Latn] Constructs all the necessary attributes for the
+                    HXLTMOntologia object.
+        [eng-Latn]_
+        """
+        self.crudum = ontologia
+        self.initialle()
+
+    def initialle(self):
+        """
+        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+        pass
+
+    def de(self, dotted_key: str,
+           default: Any = None, fontem: dict = None) -> Any:
+        """
+        Trivia: dē, https://en.wiktionary.org/wiki/de#Latin
+
+        Examples:
+            >>> exemplum = {'a': {'a2': 123}, 'b': 456}
+            >>> otlg = HXLTMOntologia(exemplum)
+            >>> otlg.de('a.a2', fontem=exemplum)
+            123
+
+        Args:
+            dotted_key (str): Dotted key notation
+            default ([Any], optional): Value if not found. Defaults to None.
+            fontem (dict): An nested object to search
+
+        Returns:
+            [Any]: Return the result. Defaults to default
+        """
+        if fontem is None:
+            fontem = self.crudum
+
+        keys = dotted_key.split('.')
+        return reduce(
+            lambda d, key: d.get(
+                key) if d else default, keys, fontem
+        )
 
 
 class HXLTMUtil:
@@ -1245,7 +1302,7 @@ class HXLTMUtil:
         if Path(HXLTM_SCRIPT_DIR + '/cor.hxltm.yml').exists():
             return HXLTMUtil._load_hxltm_options_file(
                 HXLTM_SCRIPT_DIR + '/cor.hxltm.yml', is_debug)
-        print('oioioi')
+        # print('oioioi')
 
         raise RuntimeError(
             "ERROR: no cor.hxltm.yml found (not even default one).")
