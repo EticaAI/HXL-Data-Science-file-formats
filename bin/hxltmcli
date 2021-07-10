@@ -82,6 +82,7 @@ from functools import reduce
 from typing import (
     Any,
     Dict,
+    List,
     Union,
 )
 
@@ -1269,7 +1270,7 @@ class HXLTMLinguam:
 'bcp47': 'la-IT', 'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', \
 'iso115924': 'Latn'}
 
-        >>> HXLTMLinguam('lat-Latn@la-IT@IT').h()
+        >>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
         '+i_la+i_lat+is_latn+ii_it'
 
         # Kalo Finnish Romani, Latin script (no ISO 2 language)
@@ -1278,8 +1279,34 @@ class HXLTMLinguam:
 'iso115924': 'Latn'}
 
         # Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
-        >>> HXLTMLinguam('rmf-Latn').h()
+        >>> HXLTMLinguam('rmf-Latn').a()
         '+i_rmf+is_latn'
+
+# Private use language tags: se use similar pattern of BCP 47.
+# (https://tools.ietf.org/search/bcp47)
+>>> HXLTMLinguam('lat-Latn-x-privatum').a()
+'+i_lat+is_latn+ix_privatum'
+
+>>> HXLTMLinguam('lat-Latn-x-privatum-tag8digt').a()
+'+i_lat+is_latn+ix_privatum+ix_tag8digt'
+
+# If x-private is only on BCP, we ignore it on HXL attrs. Tools may still
+# use this for other processing (like for XLIFF), but not for generated
+# Datasets.
+>>> HXLTMLinguam(
+... 'cmn-Latn@zh-Latn-CN-variant1-a-extend1-x-wadegile-private1').a()
+'+i_zh+i_cmn+is_latn'
+
+# To force a x-private language tag, it must be on linguam (first part)
+# even if it means repeat.
+# Also, we create attributes shorted by ASCII alphabet, as BCP47 would do
+>>> HXLTMLinguam(
+... 'cmn-Latn-x-wadegile-private1@zh-CN-x-wadegile-private1').a()
+'+i_zh+i_cmn+is_latn+ix_private1+ix_wadegile'
+
+>>> HXLTMLinguam(
+... 'lat-Latn-x-caesar12-romanum1@la-IT-x-caesar12-romanum1@IT').a()
+'+i_la+i_lat+is_latn+ii_it+ix_caesar12+ix_romanum1'
 
     """
 
@@ -1291,6 +1318,9 @@ class HXLTMLinguam:
     iso6391a2: InitVar[str] = None     # Exemlum: la, ar
     iso6393: InitVar[str] = None     # Exemlum: lat, arb
     iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
+    privatum: InitVar[List[str]] = None  # Exemplum: [privatum]
+
+    # https://tools.ietf.org/search/bcp47#page-2-12
 
     def __init__(self, linguam: str, strictum=False):
         self.crudum = linguam
@@ -1301,30 +1331,54 @@ class HXLTMLinguam:
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
 
-        if self.crudum.find('@') == -1:
+        term = self.crudum
+        # Hackysh way to discover if private use is the linguam
+        # tag or if is the BCP47 x-private use tag
+        # Good example '4.4.2.  Truncation of Language Tags'
+        # at https://tools.ietf.org/search/bcp47
+        if self.crudum.find('x-') > -1:
+            # print('Do exist a private-use tag')
+            if self.crudum.find('@') > -1:
+                parts = self.crudum.split('@')
+                # print('parte1', parts)
+                if parts[0].find('x-') > -1:
+                    # _, privatumtext = parts[0].split('-x-')
+                    part0, privatumtext = parts[0].split('-x-')
+                    self.privatum = privatumtext.split('-')
+                    parts.pop(0)
+                    term = part0 + "@" + '@'.join(parts)
+                    # print('term2', term)
+                    # TODO: handle private use on linguan tag when
+                    #       also BCP47 is used
+            else:
+                part0, privatumtext = self.crudum.split('-x-')
+                self.privatum = privatumtext.split('-')
+                term = part0
+
+        if term.find('@') == -1:
             # Non @? Est linguam.
-            self.linguam = self.crudum
+            self.linguam = term
 
             # self.iso6393, self.iso115924 = \
             #     list(self.linguam.split('-'))
-        elif self.crudum.find('@@') > -1:
+        elif term.find('@@') > -1:
             # @@? Est linguam et imperium
-            self.linguam, self.imperium = list(self.crudum.split('@@'))
+            self.linguam, self.imperium = list(term.split('@@'))
 
             # self.iso6393, self.iso115924 = \
             #     list(self.linguam.split('-'))
-        elif self.crudum.count('@') == 1:
+        elif term.count('@') == 1:
             # Unum @? Est linguam et bcp47
-            self.linguam, self.bcp47 = list(self.crudum.split('@'))
+            self.linguam, self.bcp47 = list(term.split('@'))
 
-        elif self.crudum.count('@') == 2:
+        elif term.count('@') == 2:
             # rem@rem@rem ? Est linguam, bcp47, imperium
             self.linguam, self.bcp47, self.imperium = \
-                list(self.crudum.split('@'))
+                list(term.split('@'))
             # self.iso6393, self.iso115924 = \
             #     list(self.linguam.split('-'))
         elif strictum:
-            raise ValueError('HXLTMLinguam [' + self.crudum + ']')
+            raise ValueError('HXLTMLinguam [' + term + ']')
         else:
             return False
 
@@ -1342,13 +1396,29 @@ class HXLTMLinguam:
         if self.imperium:
             self.imperium = self.imperium.upper()
 
+        if self.privatum is not None and len(self.privatum) > 0:
+            # https://tools.ietf.org/search/bcp47#page-2-12
+            # '4.5.  Canonicalization of Language Tags'
+            # We short the keys
+            # privatum_est = sorted(self.imperium, key=str.upper)
+
+            # print('antes', self.imperium)
+            privatum_est = sorted(self.privatum)
+
+            # print('depois', self.privatum)
+            self.privatum = privatum_est
+
         return True
 
-    def h(self): # pylint: disable=invalid-name
+    def a(self):  # pylint: disable=invalid-name
         """HXL attribūtum
 
+        Exemplum:
+            >>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
+            '+i_la+i_lat+is_latn+ii_it'
+
         Returns:
-            [str]: textum HXL HXL attribūtum
+            [str]: textum HXL attribūtum
         """
         resultatum = []
 
@@ -1360,10 +1430,36 @@ class HXLTMLinguam:
             resultatum.append('+is_' + self.iso115924)
         if self.imperium:
             resultatum.append('+ii_' + self.imperium)
+        if self.privatum and len(self.privatum) > 0:
+            for item in self.privatum:
+                resultatum.append('+ix_' + item)
 
         return ''.join(resultatum).lower()
 
-    def v(self): # pylint: disable=invalid-name
+    def h(self, formatum: str):  # pylint: disable=invalid-name
+        """HXL hashtag de fōrmātum
+
+        Exemplum:
+>>> HXLTMLinguam('lat-Latn@la-IT@IT').h('#item+rem__linguam__')
+'#item+rem+i_la+i_lat+is_latn+ii_it'
+
+>>> HXLTMLinguam('lat-Latn-x-privatum').h('#item+rem__linguam__')
+'#item+rem+i_lat+is_latn+ix_privatum'
+
+        Returns:
+            [str]: textum HXL hashtag
+        """
+        linguam_attrs = self.a()
+
+        if formatum.find('__linguam__') > -1:
+            return formatum.replace('__linguam__', linguam_attrs)
+
+        if formatum.find('__linguam_de_imperium__') > -1:
+            return formatum.replace('__linguam_de_imperium__', linguam_attrs)
+
+        raise ValueError('HXLTMLinguam fōrmātum errōrem [' + formatum + ']')
+
+    def v(self):  # pylint: disable=invalid-name
         """Resultatum, objectīvum
 
         Returns:
