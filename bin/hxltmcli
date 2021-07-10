@@ -83,6 +83,7 @@ from typing import (
     Any,
     Dict,
     List,
+    Type,
     Union,
 )
 
@@ -1319,12 +1320,27 @@ class HXLTMLinguam:
     iso6393: InitVar[str] = None     # Exemlum: lat, arb
     iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
     privatum: InitVar[List[str]] = None  # Exemplum: [privatum]
+    vacuum: InitVar[str] = False
 
     # https://tools.ietf.org/search/bcp47#page-2-12
 
-    def __init__(self, linguam: str, strictum=False):
+    def __init__(self, linguam: str, strictum=False, vacuum=False):
+        """HXLTMLinguam initiāle
+
+        Args:
+            linguam (str): Textum linguam
+            strictum (bool, optional): Strictum est?.
+                       Trivia: https://en.wiktionary.org/wiki/strictus#Latin
+                       Defallo falsum.
+            vacuum (bool, optional): vacuum	est?
+                       Trivia: https://en.wiktionary.org/wiki/vacuus#Latin.
+                       Defallo falsum.
+        """
         self.crudum = linguam
-        self.initialle(strictum)
+        if not vacuum:
+            self.initialle(strictum)
+        else:
+            self.vacuum = vacuum
 
     def initialle(self, strictum: bool):
         """
@@ -1436,6 +1452,40 @@ class HXLTMLinguam:
 
         return ''.join(resultatum).lower()
 
+    def designo(self, clavem: str, rem: Any) -> Type['HXLTMLinguam']:
+        """Designo clavem rem
+
+        _[eng-Latn] The HXLTMLinguam.designo() can be useful for create empty
+                    languages with HXLTMLinguam('', vacuum=True) and then
+                    manually defining what attributes would like when search
+                    by hashtags
+        [eng-Latn]_
+
+       Args:
+            clavem (str): clāvem, https://en.wiktionary.org/wiki/clavis#Latin
+            rem (Any): rem, https://en.wiktionary.org/wiki/res#Latin
+
+        Returns:
+            [HXLTMLinguam]: HXLTMLinguam to allow method chaining
+
+        Exemplum:
+>>> rem_vacuum = HXLTMLinguam('', vacuum=True)
+>>> rem = rem_vacuum.designo('iso115924', 'Latn')
+>>> collectionem = [
+...    '#item+conceptum+codicem',
+...    '#item+rem+i_la+i_lat+is_latn',
+...    '#item+definitionem+i_la+i_lat+is_latn',
+...    '#item+rem+i_ar+i_arb+is_arab',
+...    '#item+definitionem+i_ar+i_arb+is_arab'
+... ]
+>>> rem.intra_collectionem_est(collectionem)
+['#item+rem+i_la+i_lat+is_latn', '#item+definitionem+i_la+i_lat+is_latn']
+
+
+        """
+        setattr(self, clavem, rem)
+        return self
+
     def h(self, formatum: str):  # pylint: disable=invalid-name
         """HXL hashtag de fōrmātum
 
@@ -1458,6 +1508,66 @@ class HXLTMLinguam:
             return formatum.replace('__linguam_de_imperium__', linguam_attrs)
 
         raise ValueError('HXLTMLinguam fōrmātum errōrem [' + formatum + ']')
+
+    def intra_collectionem_est(
+            self, collectionem: List, formatum: str = None) -> List:
+        """Intrā collēctiōnem est?
+
+        Trivia:
+        - intrā, https://en.wiktionary.org/wiki/intra#Latin
+        - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
+        - est, https://en.wiktionary.org/wiki/est#Latin
+
+
+        Args:
+            collectionem (List): List of HXL hashtags
+            formatum (str): An formatted template.
+
+        Returns:
+            [List]: List of HXL hashtags that match the search
+
+        Tests:
+
+>>> rem = HXLTMLinguam('lat-Latn@la')
+>>> collectionem = [
+...    '#item+conceptum+codicem',
+...    '#item+rem+i_la+i_lat+is_latn',
+...    '#item+definitionem+i_la+i_lat+is_latn',
+...    '#item+rem+i_ar+i_arb+is_arab',
+...    '#item+definitionem+i_ar+i_arb+is_arab'
+... ]
+
+>>> rem.intra_collectionem_est(collectionem)
+['#item+rem+i_la+i_lat+is_latn', '#item+definitionem+i_la+i_lat+is_latn']
+
+>>> rem.intra_collectionem_est(collectionem, '#item+rem__linguam__')
+['#item+rem+i_la+i_lat+is_latn']
+>>> rem.intra_collectionem_est(collectionem,'#status+rem+accuratum__linguam__')
+[]
+
+>>> rem_vacuum = HXLTMLinguam('', vacuum=True)
+>>> rem_vacuum.intra_collectionem_est(collectionem)
+['#item+conceptum+codicem', \
+'#item+rem+i_la+i_lat+is_latn', \
+'#item+definitionem+i_la+i_lat+is_latn', \
+'#item+rem+i_ar+i_arb+is_arab', \
+'#item+definitionem+i_ar+i_arb+is_arab']
+
+>>> rem_vacuum.intra_collectionem_est(collectionem, '#item+rem__linguam__')
+['#item+rem+i_la+i_lat+is_latn', '#item+rem+i_ar+i_arb+is_arab']
+
+        """
+        resultatum = []
+        if formatum:
+            indaginem = self.h(formatum)
+        else:
+            indaginem = self.a()
+
+        for rem in collectionem:
+            if rem.find(indaginem) > -1:
+                resultatum.append(rem)
+
+        return resultatum
 
     def v(self):  # pylint: disable=invalid-name
         """Resultatum, objectīvum
