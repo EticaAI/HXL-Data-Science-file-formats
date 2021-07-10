@@ -429,7 +429,7 @@ class HXLTMCLI:
 
         self.otlg = HXLTMOntologia(self.conf)
 
-        # print(self.otlg.aliud())
+        # print(self.otlg.hxl_de_aliud_nomen_breve())
         # raise RuntimeError('JUST TESTING, remove me')
 
         # If the user specified an output file, we will save on
@@ -1080,56 +1080,46 @@ class HXLTMOntologia:
         """
         # print('TODO')
 
-    def aliud(self):
-        """
-        Trivia: aliud, https://en.wiktionary.org/wiki/alius#Latin
-        """
-        # Note: since this step is very procedural, could be converted to
-        # make infereces based on the free YAML, so others could not
-        # need to change the python code
-        resultatum = {
-            'conceptum_accuratum': self.hxlhashtag(self.de(
-                'ontologia.commune.conceptum.accuratum')),
-            'conceptum_codicem': self.hxlhashtag(self.de(
-                'ontologia.commune.conceptum.codicem')),
-            'conceptum_codicem_deprecatum': self.hxlhashtag(self.de(
-                'ontologia.commune.conceptum.codicem.deprecatum')),
-            'conceptum_codicem_alternativum': self.hxlhashtag(self.de(
-                'ontologia.commune.conceptum.codicem.alternativum')),
-            'conceptum_dominium': self.hxlhashtag(self.de(
-                'ontologia.commune.conceptum.dominium')),
-            'conceptum_typum': self.hxlhashtag(self.de(
-                'ontologia.commune.conceptum.typum')),
-            'rem__linguam__': self.hxlhashtag(self.de(
-                'ontologia.commune.rem.__linguam__')),
-            # extēnsiōnem
-            'conceptum_codicem_iate': self.hxlhashtag(self.de(
-                'ontologia.extensionem.conceptum.codicem.iate')),
-            'conceptum_codicem_unterm': self.hxlhashtag(self.de(
-                'ontologia.extensionem.conceptum.codicem.unterm')),
-            'conceptum_codicem_wikidata': self.hxlhashtag(self.de(
-                'ontologia.extensionem.conceptum.codicem.wikidata')),
-            # glossarium
-            'G_rem_contextum__linguam__': self.hxlhashtag(self.de(
-                'ontologia.glossarium.rem.contextum.__linguam__')),
-            'G_rem_contextum__linguam_de_imperium__': self.hxlhashtag(self.de(
-                'ontologia.glossarium.rem.contextum.__linguam_de_imperium__')),
-            'G_rem_definitionem__linguam__': self.hxlhashtag(self.de(
-                'ontologia.glossarium.rem.definitionem.__linguam__')),
-            'G_rem_definitionem__linguam_de_imperium__': self.hxlhashtag(self.de(  # noqa
-                'ontologia.glossarium.rem.definitionem.__linguam_de_imperium__')),  # noqa
-            # tm
-            'TM_conceptum_translationem_directionem': self.hxlhashtag(self.de(
-                'ontologia.tm.conceptum.translationem.directionem')),
-            'TM_rem_translationem_directionem__linguam__': self.hxlhashtag(self.de(  # noqa
-                'ontologia.tm.rem.translationem.directionem.__linguam__')),
-            'TM_rem_translationem_directionem__linguam_de_imperium__': self.hxlhashtag(self.de(  # noqa
-                'ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__')),  # noqa
+    def hxl_de_aliud_nomen_breve(self, structum=False):
+        """HXL attribūtum de aliud nōmen breve (cor.hxltm.yml)
 
-            'todo_123': self.hxlhashtag(self.de(
-                'ontologia.commune.conceptum.accuratum'))
-        }
+        Trivia:
+        - aliud, https://en.wiktionary.org/wiki/alius#Latin
+        - nōmen, https://en.wiktionary.org/wiki/nomen#Latin
+        - breve, https://en.wiktionary.org/wiki/brevis
 
+        _[eng-Latn] For each item that have both __nomen_breve and __HXL,
+                    create a flatten dictionary (only a key and value)
+                    with the equivalent HXL hashtags.
+
+                    This approach allows pass much more control logic to the
+                    YAML file.
+        [eng-Latn]_
+
+        Returns:
+            [Dict]: Dictionary
+        """
+        resultatum = {}
+        # pylint: disable=invalid-name
+
+        def recursionem(rem):
+            # Trivia:
+            # - recursiōnem, https://en.wiktionary.org/wiki/recursio#Latin
+            for k, v in rem.items():
+                if isinstance(v, dict):
+                    recursionem(v)
+                else:
+                    if '__HXL' in rem and '__nomen_breve' in rem:
+
+                        if structum and rem['__nomen_breve'] in resultatum:
+                            # TODO: improve this message
+                            print('K [' + rem['__nomen_breve'] + ']')
+
+                        resultatum[rem['__nomen_breve']] = \
+                            ''.join(rem['__HXL'].split())
+
+        recursionem(self.crudum['ontologia'])
+        # print(resultatum)
         return resultatum
 
     def hxlhashtag(self, objectivum: Union[Dict, None], strictum=False):

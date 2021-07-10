@@ -36,7 +36,9 @@
 
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
+  .xliff.hxl.csv: CSV-HXL-XLIFF
   .hxl.csv: HXLTM
+  # .csv: CSV-3
   .csv: HXLTM
   .json: JSON-kv
   .tmx: TMX
@@ -58,6 +60,41 @@ formatum:
     situs_interretialis:
       referens_officinale: []
 
+  #### CSV-HXL-XLIFF: HXLated CSV for bilingual (+ up to 5 source alt) _________
+  CSV-HXL-XLIFF:
+    archivum_extensionem: .xliff.hxl.csv
+    # archivum_extensionem: .{fontem-linguam}--{objectivum-linguam}.xliff.hxl.csv
+    exportandum_hxl_sortem:
+      - '#x_xliff +unit +id'
+      - '#x_xliff +source' # ...  __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +target' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +segment +state' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__sourcestatus' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__termtype'
+      - '#x_xliff +group +group_0'
+      - '#x_xliff +unit +note +note_category__altsource1' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt1' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt1' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource2' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt2' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt2' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource3' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt3' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt3' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource4' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt4' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt4' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource5' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt5' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt5' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__wikidata'
+      - '#x_xliff +unit +note +note_category__iate'
+      - '#x_xliff +unit +note +note_category__unterm'
+    normam:
+      - https://hdp.etica.ai/hxltm/archivum/
+    situs_interretialis:
+      referens_officinale: []
+
   #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
   HXLTM:
     archivum_extensionem: .tm.hxl.csv
@@ -65,7 +102,7 @@ formatum:
       - https://github.com/HXL-CPLP/forum/issues/58
     situs_interretialis:
       referens_officinale:
-        - https://hdp.etica.ai/#HXLTM
+        - https://hdp.etica.ai/hxltm
 
   #### JSON-kv: JSON key: val; id/source -> target _____________________________
   JSON-kv:
@@ -157,6 +194,9 @@ formatum:
         - https://en.wikipedia.org/wiki/XLIFF
     normam:
       - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
+  # TODO: check XLIFF JSON 'JLIFF' 
+  #       - https://github.com/oasis-tcs/xliff-omos-jliff
+  #       - https://github.com/oasis-tcs/xliff-omos-jliff/blob/master/JLIFF-schema-draft/JLIFF-2.0/jliff-schema-2.0.json
 
   # "TBX Mapping with XLIFF v2.0 and Higher Version 1.0"
   # - https://tools.oasis-open.org/version-control/browse/wsvn/xliff-omos/trunk/XLIFF-TBX/xliff-tbx-v1.0.pdf
@@ -192,6 +232,7 @@ ontologia:
       #   - reliabilityCode, https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
       accuratum:
         __HXL: '#status +conceptum +accuratum'
+        __nomen_breve: 'conceptum_accuratum'
         __id: ontologia.commune.conceptum.accuratum
         __valorem_optionem: "ontologia_aliud.accuratum"
         __valorem_maximum: 10
@@ -210,11 +251,15 @@ ontologia:
       # Trivia: cōdicem, https://en.wiktionary.org/wiki/codex#Latin
       codicem:
         __HXL: '#item +conceptum +codicem'
+        __nomen_breve: 'conceptum_codicem'
         __id: ontologia.commune.conceptum.codicem
+        _XLIFF:
+          __HXL_bilingue: '#x_xliff +unit +id'
 
         # Trivia: dēprecātum, https://en.wiktionary.org/wiki/deprecatus#Latin
         deprecatum:
           __HXL: '#meta +conceptum +codicem +deprecatum'
+          __nomen_breve: 'conceptum_codicem_deprecatum'
           __id: ontologia.commune.conceptum.codicem.deprecatum
           __valorem_typum: compactum_textum
             - exemplum_codicem_a|exemplum_codicem_b|123456
@@ -222,6 +267,7 @@ ontologia:
         # Trivia: alternātīvum, https://en.wiktionary.org/wiki/alternativus#Latin
         alternativum:
           __HXL: '#meta +conceptum +codicem +alternativum'
+          __nomen_breve: 'conceptum_codicem_alternativum'
           __id: ontologia.commune.conceptum.codicem.alternativum
           __valorem_typum: compactum_textum
           _exemplum:
@@ -233,6 +279,7 @@ ontologia:
 
       dominium:
         __HXL: '#item +conceptum +dominium' # Always a list
+        __nomen_breve: 'conceptum_dominium'
         __id: ontologia.commune.conceptum.dominium
         # See also
         # - https://iate.europa.eu/developers
@@ -270,6 +317,9 @@ ontologia:
             the domain property is not necessary.
             Example
               domain: Aerospace
+          _XLIFF:
+            # (We will not implement deeper levels  than 0 now)
+            __HXL_bilingue: '#x_xliff +group +group_0'
 
       compactum_json:
         __HXL: '#meta +conceptum +json'
@@ -292,6 +342,7 @@ ontologia:
       # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
       typum:
         __HXL: '#item +conceptum +typum'
+        __nomen_breve: 'conceptum_typum'
         __id: ontologia.commune.conceptum.typum
         _TBX: &referens_ontologia-commune-rem-typum-__linguam__-_TBX
           _id: DC-2677
@@ -306,6 +357,9 @@ ontologia:
             shortForm    www.isocat.org/datcat/DC-332
             variant      www.isocat.org/datcat/DC-330
             phrase       www.isocat.org/datcat/DC-339
+        _XLIFF:
+          # temporary hashtag. Needs better naming
+          __HXL_bilingue: '#x_xliff +unit +note +note_category__termtype'
 
     # Trivia: rem, https://en.wiktionary.org/wiki/res#Latin
     rem:
@@ -313,6 +367,7 @@ ontologia:
       __linguam__:
          # Exemplum: '#item +rem +i_en +i_eng +is_Latn'
         __HXL: '#item +rem __linguam__'
+        __nomen_breve: 'rem__L__'
         __id: ontologia.commune.rem.__linguam__
         _TBX: &referens_ontologia-commune-rem-__linguam__-_TBX
           _id: DC-1823
@@ -332,21 +387,41 @@ ontologia:
             See also "7. Appendix A: UTX content guidelines."
 
             Note: Term definitions are optional in a UTX glossary.
+        _XLIFF:
+          # __HXL_bilingue: ''
+          __HXL_fontem: '#x_xliff +source __linguam__'
+          __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__altsource1 __linguam__'
+          __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__altsource2 __linguam__'
+          __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__altsource3 __linguam__'
+          __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__altsource4 __linguam__'
+          __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__altsource5 __linguam__'
+          __HXL_objectivum: '#x_xliff +target __linguam__'
 
-      # Trivia: 
+      # Trivia:
       # - linguam, https://en.wiktionary.org/wiki/lingua#Latin
       # - dē, https://en.wiktionary.org/wiki/de#Latin
       # - imperium, https://en.wiktionary.org/wiki/imperium#Latin
       __linguam_de_imperium__:
          # Exemplum: '#item +rem +i_en +i_eng +is_Latn +TODO_THINK_ABOUT_HXLTAG'
         __HXL: '#item +rem __linguam_de_imperium__'
+        __nomen_breve: 'rem__L__'
         __id: ontologia.commune.rem.__linguam_de_imperium__
         _TBX: *referens_ontologia-commune-rem-__linguam__-_TBX
         _UTX: *referens_ontologia-commune-rem-__linguam__-_UTX
+        _XLIFF:
+          # __HXL_bilingue: ''
+          __HXL_fontem: '#x_xliff +source __linguam_de_imperium__'
+          __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__altsource1 __linguam_de_imperium__'
+          __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__altsource2 __linguam_de_imperium__'
+          __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__altsource3 __linguam_de_imperium__'
+          __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__altsource4 __linguam_de_imperium__'
+          __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__altsource5 __linguam_de_imperium__'
+          __HXL_objectivum: '#x_xliff +target __linguam_de_imperium__'
 
       accuratum:
         __linguam__:
           __HXL: '#status +rem +accuratum __linguam__'
+          __nomen_breve: 'rem_accuratum__L__'
           __id: ontologia.commune.rem.__linguam__.accuratum
           __valorem_optionem: "ontologia_aliud.accuratum"
           __valorem_maximum: 10
@@ -356,6 +431,7 @@ ontologia:
 
         __linguam_de_imperium__:
           __HXL: '#status +rem +accuratum __linguam_de_imperium__'
+          __nomen_breve: 'rem_accuratum__L_I__'
           __id: ontologia.commune.rem.accuratum.__linguam_de_imperium__
           __valorem_optionem: "ontologia_aliud.accuratum"
           __valorem_maximum: 10
@@ -366,9 +442,11 @@ ontologia:
       compactum_json:
         __linguam__:
           __HXL: '#meta +rem +json __linguam__'
+          __nomen_breve: 'rem_json__L__'
           __id: ontologia.commune.rem.compactum_json.__linguam__
         __linguam_de_imperium__:
           __HXL: '#meta +rem +json __linguam_de_imperium__'
+          __nomen_breve: 'rem_json__L_I__'
           __id: ontologia.commune.rem.compactum_json.__linguam_de_imperium__
 
       # Note: we will NOT provide a generic #meta +rem, but will compact_json
@@ -394,9 +472,33 @@ ontologia:
           __linguam__:
             __HXL: '#status +rem +textum __linguam__'
             __id: ontologia.commune.rem.__linguam__.status.compactum_textum
+            _XLIFF:
+              # _[eng-Latn] 
+              # XLIFF assume that the source translation already 'is perfect'
+              # Something that would not be true on HXLTM use cases that allow
+              # force any language as entry. So the alternative is only mark
+              # as metadata the acuracy of the source, and the target language
+              # use as status (since previous content may already be
+              # translated)
+              # [eng-Latn]_ 
+              #
+              # __HXL_bilingue: ''
+              # TODO: better naming for __HXL_fontem
+              __HXL_fontem: '#x_xliff +unit +note +note_category__sourcestatus  __linguam__'
+              __HXL_objectivum: '#x_xliff +segment +state __linguam__'
+              # TODO: document in YAML how a program could 'transform' the text
+              #       to what XLIFF expect. We already have aliases at the
+              #       bottom of this file
+
           __linguam_de_imperium__:
             __HXL: '#status +rem +textum __linguam_de_imperium__'
             __id: ontologia.commune.rem.compactum_textum.__linguam_de_imperium__
+          _XLIFF:
+            # __HXL_bilingue: ''
+            # TODO: better naming for __HXL_fontem
+            __HXL_fontem: '#x_xliff +unit +note +note_category__sourcestatus __linguam_de_imperium__'
+            __HXL_objectivum: '#x_xliff +segment +state __linguam_de_imperium__'
+
 
       # MOVED TO ontologia.glossarium
       # # Trivia: contextum, https://en.wiktionary.org/wiki/contextus#Latin
@@ -544,21 +646,42 @@ ontologia:
       contextum:
         __linguam__:
           __HXL: '#item +rem +contextum __linguam__'
+          __nomen_breve: 'G_rem_contextum__L__'
           __id: ontologia.glossarium.rem.contextum.__linguam__
           _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
             _id: DC-149
             _descriptionem: A sample sentence that contains the term.
             _xml: <descrip type='context'>
+          _XLIFF:
+            # __HXL_bilingue: ''
+            __HXL_fontem: '#x_xliff +unit +note +note_category__context __linguam__'
+            __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__contextalt1 __linguam__'
+            __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__contextalt2 __linguam__'
+            __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__contextalt3 __linguam__'
+            __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__contextalt4 __linguam__'
+            __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__contextalt5 __linguam__'
+            # __HXL_objectivum: ''
 
         __linguam_de_imperium__:
           __HXL: '#item +rem +contextum __linguam_de_imperium__'
+          __nomen_breve: 'G_rem_contextum__L_I__'
           __id: ontologia.commune.rem.contextum.__linguam_de_imperium__
           _TBX: *referens_ontologia-commune-rem-contextum-__linguam__-_TBX
+          _XLIFF:
+            # __HXL_bilingue: ''
+            __HXL_fontem: '#x_xliff +unit +note +note_category__context __linguam_de_imperium__'
+            __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__contextalt1 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__contextalt2 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__contextalt3 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__contextalt4 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__contextalt5 __linguam_de_imperium__'
+            # __HXL_objectivum: ''
 
       # Trivia: dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
       definitionem:
         __linguam__:
           __HXL: '#item +rem +definitionem __linguam__'
+          __nomen_breve: 'G_rem_definitionem__L__'
           __id: ontologia.glossarium.rem.definitionem.__linguam__
           _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
             _id: DC-168
@@ -566,11 +689,31 @@ ontologia:
             _nomen: Definition
             _level: Concept, Language
             _xml: <descrip type='definition'>
+          _XLIFF:
+            # __HXL_bilingue: ''
+            __HXL_fontem: '#x_xliff +unit +note +note_category__definition __linguam__'
+            __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__definitionalt1 __linguam__'
+            __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__definitionalt2 __linguam__'
+            __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__definitionalt3 __linguam__'
+            __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__definitionalt4 __linguam__'
+            __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__definitionsalt5 __linguam__'
+            # __HXL_objectivum: ''
 
         __linguam_de_imperium__:
           __HXL: '#item +rem +definitionem __linguam_de_imperium__'
+          __nomen_breve: 'G_rem_definitionem__L_I__'
           __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
           _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
+          _XLIFF:
+            # __HXL_bilingue: ''
+            __HXL_fontem: '#x_xliff +unit +note +note_category__definition __linguam_de_imperium__'
+            __HXL_fontem_alternativum_I: '#x_xliff +unit +note +note_category__definitionalt1 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_II: '#x_xliff +unit +note +note_category__definitionalt2 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_III: '#x_xliff +unit +note +note_category__definitionalt3 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_IV: '#x_xliff +unit +note +note_category__definitionalt4 __linguam_de_imperium__'
+            __HXL_fontem_alternativum_V: '#x_xliff +unit +note +note_category__definitionsalt5 __linguam_de_imperium__'
+            # __HXL_objectivum: ''
+
 
   # Trivia: extēnsiōnem, https://en.wiktionary.org/wiki/extensio#Latin
   extensionem:
@@ -579,6 +722,7 @@ ontologia:
 
         iate:
           __HXL: '#meta +conceptum +codicem +iate'
+          __nomen_breve: 'conceptum_codicem_iate'
           __id: ontologia.extensionem.conceptum.codicem.iate
           _url: https://iate.europa.eu/fields-explained
           # _url_rem: ' ???? '
@@ -595,9 +739,12 @@ ontologia:
               _suffixum: ""
               _exemplum:
                 - IATE787725
+          _XLIFF:
+            __HXL_bilingue: '#x_xliff +unit +note +note_category__iate'
 
         unterm:
           __HXL: '#meta +conceptum +codicem +unterm'
+          __nomen_breve: 'conceptum_codicem_unterm'
           __id: ontologia.extensionem.conceptum.codicem.unterm
           _url: https://iate.europa.eu/fields-explained
           _url_rem: 'https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{valorem}}'
@@ -613,9 +760,12 @@ ontologia:
                _praefixum: "UNTERM"
                _suffixum: ""
                _exemplum: UNTERM5f40d95f1d17bf8c85256a01000080af
+          _XLIFF:
+            __HXL_bilingue: '#x_xliff +unit +note +note_category__unterm'
 
         wikidata:
           __HXL: '#meta +conceptum +codicem +wikidata'
+          __nomen_breve: 'conceptum_codicem_wikidata'
           __id: ontologia.extensionem.conceptum.codicem.wikidata
           _url: https://www.wikidata.org/
           _url_rem: 'https://www.wikidata.org/wiki/{{valorem}}'
@@ -631,6 +781,8 @@ ontologia:
               _praefixum: "Q"
               _suffixum: ""
               _exemplum: Q1065
+          _XLIFF:
+            __HXL_bilingue: '#x_xliff +unit +note +note_category__wikidata'
   
   # Trivia: https://www.wikidata.org/wiki/Q333761
   tm:
@@ -647,6 +799,7 @@ ontologia:
         # Trivia: dīrēctiōnem, https://en.wiktionary.org/wiki/directio#Latin
         directionem:
           __HXL: '#meta +conceptum +translationem +directionem'
+          __nomen_breve: 'TM_conceptum_translationem_directionem'
           __id: ontologia.tm.conceptum.translationem.directionem
           _compactum_json:
             #meta +json +conceptum
@@ -716,6 +869,7 @@ ontologia:
           __linguam__:
             # Exemplum: '#meta +rem +translationem +directionem +i_en +i_eng +is_Latn'
             __HXL: '#meta +rem +translationem +directionem __linguam__'
+            __nomen_breve: 'TM_rem_translationem_directionem__L__'
             __id: ontologia.tm.rem.translationem.directionem.__linguam__
             _compactum_json:
               #meta +json +rem __linguam__
@@ -727,6 +881,7 @@ ontologia:
 
           __linguam_de_imperium__:
             __HXL: '#item +rem +translationem +directionem __linguam_de_imperium__'
+            __nomen_breve: 'TM_rem_translationem_directionem__L_I__'
             __id: ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__
             _compactum_json:
               #meta +json +rem __linguam_de_imperium__

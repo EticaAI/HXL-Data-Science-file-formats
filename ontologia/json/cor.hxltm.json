@@ -1,6 +1,7 @@
 {
   "fontem_archivum_extensionem": {
     ".tm.hxl.csv": "HXLTM",
+    ".xliff.hxl.csv": "CSV-HXL-XLIFF",
     ".hxl.csv": "HXLTM",
     ".csv": "HXLTM",
     ".json": "JSON-kv",
@@ -24,6 +25,42 @@
         "referens_officinale": []
       }
     },
+    "CSV-HXL-XLIFF": {
+      "archivum_extensionem": ".xliff.hxl.csv",
+      "exportandum_hxl_sortem": [
+        "#x_xliff +unit +id",
+        "#x_xliff +source",
+        "#x_xliff +target",
+        "#x_xliff +segment +state",
+        "#x_xliff +unit +note +note_category__sourcestatus",
+        "#x_xliff +unit +note +note_category__termtype",
+        "#x_xliff +group +group_0",
+        "#x_xliff +unit +note +note_category__altsource1",
+        "#x_xliff +unit +note +note_category__definitionalt1",
+        "#x_xliff +unit +note +note_category__contextalt1",
+        "#x_xliff +unit +note +note_category__altsource2",
+        "#x_xliff +unit +note +note_category__definitionalt2",
+        "#x_xliff +unit +note +note_category__contextalt2",
+        "#x_xliff +unit +note +note_category__altsource3",
+        "#x_xliff +unit +note +note_category__definitionalt3",
+        "#x_xliff +unit +note +note_category__contextalt3",
+        "#x_xliff +unit +note +note_category__altsource4",
+        "#x_xliff +unit +note +note_category__definitionalt4",
+        "#x_xliff +unit +note +note_category__contextalt4",
+        "#x_xliff +unit +note +note_category__altsource5",
+        "#x_xliff +unit +note +note_category__definitionalt5",
+        "#x_xliff +unit +note +note_category__contextalt5",
+        "#x_xliff +unit +note +note_category__wikidata",
+        "#x_xliff +unit +note +note_category__iate",
+        "#x_xliff +unit +note +note_category__unterm"
+      ],
+      "normam": [
+        "https://hdp.etica.ai/hxltm/archivum/"
+      ],
+      "situs_interretialis": {
+        "referens_officinale": []
+      }
+    },
     "HXLTM": {
       "archivum_extensionem": ".tm.hxl.csv",
       "normam": [
@@ -31,7 +68,7 @@
       ],
       "situs_interretialis": {
         "referens_officinale": [
-          "https://hdp.etica.ai/#HXLTM"
+          "https://hdp.etica.ai/hxltm"
         ]
       }
     },
@@ -156,6 +193,7 @@
       "conceptum": {
         "accuratum": {
           "__HXL": "#status +conceptum +accuratum",
+          "__nomen_breve": "conceptum_accuratum",
           "__id": "ontologia.commune.conceptum.accuratum",
           "__valorem_optionem": "ontologia_aliud.accuratum",
           "__valorem_maximum": 10,
@@ -169,14 +207,20 @@
         },
         "codicem": {
           "__HXL": "#item +conceptum +codicem",
+          "__nomen_breve": "conceptum_codicem",
           "__id": "ontologia.commune.conceptum.codicem",
+          "_XLIFF": {
+            "__HXL_bilingue": "#x_xliff +unit +id"
+          },
           "deprecatum": {
             "__HXL": "#meta +conceptum +codicem +deprecatum",
+            "__nomen_breve": "conceptum_codicem_deprecatum",
             "__id": "ontologia.commune.conceptum.codicem.deprecatum",
             "__valorem_typum": "compactum_textum - exemplum_codicem_a|exemplum_codicem_b|123456"
           },
           "alternativum": {
             "__HXL": "#meta +conceptum +codicem +alternativum",
+            "__nomen_breve": "conceptum_codicem_alternativum",
             "__id": "ontologia.commune.conceptum.codicem.alternativum",
             "__valorem_typum": "compactum_textum",
             "_exemplum": [
@@ -186,6 +230,7 @@
         },
         "dominium": {
           "__HXL": "#item +conceptum +dominium",
+          "__nomen_breve": "conceptum_dominium",
           "__id": "ontologia.commune.conceptum.dominium",
           "_TBX": {
             "_id": "DC-489",
@@ -199,7 +244,10 @@
           },
           "_UTX": {
             "_nomen": "domain property",
-            "_descriptionem": "The domain property is a text string that indicates the domain of\nthe glossary. This property is used when you need to group multiple\nglossaries into a domain. If you use glossary IDs as domain names,\nthe domain property is not necessary.\nExample\n  domain: Aerospace\n"
+            "_descriptionem": "The domain property is a text string that indicates the domain of\nthe glossary. This property is used when you need to group multiple\nglossaries into a domain. If you use glossary IDs as domain names,\nthe domain property is not necessary.\nExample\n  domain: Aerospace\n",
+            "_XLIFF": {
+              "__HXL_bilingue": "#x_xliff +group +group_0"
+            }
           }
         },
         "compactum_json": {
@@ -208,18 +256,23 @@
         },
         "typum": {
           "__HXL": "#item +conceptum +typum",
+          "__nomen_breve": "conceptum_typum",
           "__id": "ontologia.commune.conceptum.typum",
           "_TBX": {
             "_id": "DC-2677",
             "_nomen": "Term type",
             "_xml": "<termNote type='termType'>",
             "_descriptionem": "Permissible values and their ISOcat PIDs are as follows:\nValue        ISOcat PID\nfullForm     www.isocat.org/datcat/DC-321\nacronym      www.isocat.org/datcat/DC-334\nabbreviation www.isocat.org/datcat/DC-331\nshortForm    www.isocat.org/datcat/DC-332\nvariant      www.isocat.org/datcat/DC-330\nphrase       www.isocat.org/datcat/DC-339\n"
+          },
+          "_XLIFF": {
+            "__HXL_bilingue": "#x_xliff +unit +note +note_category__termtype"
           }
         }
       },
       "rem": {
         "__linguam__": {
           "__HXL": "#item +rem __linguam__",
+          "__nomen_breve": "rem__L__",
           "__id": "ontologia.commune.rem.__linguam__",
           "_TBX": {
             "_id": "DC-1823",
@@ -230,10 +283,20 @@
           "_UTX": {
             "_nomen": "Term",
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          },
+          "_XLIFF": {
+            "__HXL_fontem": "#x_xliff +source __linguam__",
+            "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__altsource1 __linguam__",
+            "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__altsource2 __linguam__",
+            "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__altsource3 __linguam__",
+            "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__altsource4 __linguam__",
+            "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__altsource5 __linguam__",
+            "__HXL_objectivum": "#x_xliff +target __linguam__"
           }
         },
         "__linguam_de_imperium__": {
           "__HXL": "#item +rem __linguam_de_imperium__",
+          "__nomen_breve": "rem__L__",
           "__id": "ontologia.commune.rem.__linguam_de_imperium__",
           "_TBX": {
             "_id": "DC-1823",
@@ -244,11 +307,21 @@
           "_UTX": {
             "_nomen": "Term",
             "_descriptionem": "A term is a headword of either the source or target language(s).\nA term in a UTX glossary should be in the basic form of the word\nsuch as a headword in a dictionary.\nSee also \"7. Appendix A: UTX content guidelines.\"\n\nNote: Term definitions are optional in a UTX glossary.\n"
+          },
+          "_XLIFF": {
+            "__HXL_fontem": "#x_xliff +source __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__altsource1 __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__altsource2 __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__altsource3 __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__altsource4 __linguam_de_imperium__",
+            "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__altsource5 __linguam_de_imperium__",
+            "__HXL_objectivum": "#x_xliff +target __linguam_de_imperium__"
           }
         },
         "accuratum": {
           "__linguam__": {
             "__HXL": "#status +rem +accuratum __linguam__",
+            "__nomen_breve": "rem_accuratum__L__",
             "__id": "ontologia.commune.rem.__linguam__.accuratum",
             "__valorem_optionem": "ontologia_aliud.accuratum",
             "__valorem_maximum": 10,
@@ -262,6 +335,7 @@
           },
           "__linguam_de_imperium__": {
             "__HXL": "#status +rem +accuratum __linguam_de_imperium__",
+            "__nomen_breve": "rem_accuratum__L_I__",
             "__id": "ontologia.commune.rem.accuratum.__linguam_de_imperium__",
             "__valorem_optionem": "ontologia_aliud.accuratum",
             "__valorem_maximum": 10,
@@ -277,10 +351,12 @@
         "compactum_json": {
           "__linguam__": {
             "__HXL": "#meta +rem +json __linguam__",
+            "__nomen_breve": "rem_json__L__",
             "__id": "ontologia.commune.rem.compactum_json.__linguam__"
           },
           "__linguam_de_imperium__": {
             "__HXL": "#meta +rem +json __linguam_de_imperium__",
+            "__nomen_breve": "rem_json__L_I__",
             "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__"
           }
         },
@@ -298,18 +374,26 @@
           "compactum_textum": {
             "__linguam__": {
               "__HXL": "#status +rem +textum __linguam__",
-              "__id": "ontologia.commune.rem.__linguam__.status.compactum_textum"
+              "__id": "ontologia.commune.rem.__linguam__.status.compactum_textum",
+              "_XLIFF": {
+                "__HXL_fontem": "#x_xliff +unit +note +note_category__sourcestatus  __linguam__",
+                "__HXL_objectivum": "#x_xliff +segment +state __linguam__"
+              }
             },
             "__linguam_de_imperium__": {
               "__HXL": "#status +rem +textum __linguam_de_imperium__",
               "__id": "ontologia.commune.rem.compactum_textum.__linguam_de_imperium__"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__sourcestatus __linguam_de_imperium__",
+              "__HXL_objectivum": "#x_xliff +segment +state __linguam_de_imperium__"
             }
           }
         },
-        "genus": {
+        "genus_grammaticum": {
           "__linguam__": {
-            "__HXL": "#item +rem +genus __linguam__",
-            "__id": "ontologia.commune.rem.genus.__linguam__",
+            "__HXL": "#item +rem +genus_grammaticum __linguam__",
+            "__id": "ontologia.commune.rem.genus_grammaticum.__linguam__",
             "_TBX": {
               "_id": "DC-245",
               "_descriptionem": "Picklist, with permissible values as follows:\n  • masculine\n  • feminine\n  • neuter\n  • other\n",
@@ -319,8 +403,8 @@
             }
           },
           "__linguam_de_imperium__": {
-            "__HXL": "#item +rem +genus __linguam_de_imperium__",
-            "__id": "ontologia.commune.rem.genus.__linguam_de_imperium__",
+            "__HXL": "#item +rem +genus_grammaticum __linguam_de_imperium__",
+            "__id": "ontologia.commune.rem.genus_grammaticum.__linguam_de_imperium__",
             "_TBX": {
               "_id": "DC-245",
               "_descriptionem": "Picklist, with permissible values as follows:\n  • masculine\n  • feminine\n  • neuter\n  • other\n",
@@ -385,37 +469,65 @@
         "contextum": {
           "__linguam__": {
             "__HXL": "#item +rem +contextum __linguam__",
-            "__id": "ontologia.commune.rem.contextum.__linguam__",
+            "__nomen_breve": "G_rem_contextum__L__",
+            "__id": "ontologia.glossarium.rem.contextum.__linguam__",
             "_TBX": {
               "_id": "DC-149",
               "_descriptionem": "A sample sentence that contains the term.",
               "_xml": "<descrip type='context'>"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__context __linguam__",
+              "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__contextalt1 __linguam__",
+              "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__contextalt2 __linguam__",
+              "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__contextalt3 __linguam__",
+              "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__contextalt4 __linguam__",
+              "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__contextalt5 __linguam__"
             }
           },
           "__linguam_de_imperium__": {
             "__HXL": "#item +rem +contextum __linguam_de_imperium__",
+            "__nomen_breve": "G_rem_contextum__L_I__",
             "__id": "ontologia.commune.rem.contextum.__linguam_de_imperium__",
             "_TBX": {
               "_id": "DC-149",
               "_descriptionem": "A sample sentence that contains the term.",
               "_xml": "<descrip type='context'>"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__context __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__contextalt1 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__contextalt2 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__contextalt3 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__contextalt4 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__contextalt5 __linguam_de_imperium__"
             }
           }
         },
         "definitionem": {
           "__linguam__": {
             "__HXL": "#item +rem +definitionem __linguam__",
-            "__id": "ontologia.commune.rem.definitionem.__linguam__",
+            "__nomen_breve": "G_rem_definitionem__L__",
+            "__id": "ontologia.glossarium.rem.definitionem.__linguam__",
             "_TBX": {
               "_id": "DC-168",
               "_descriptionem": null,
               "_nomen": "Definition",
               "_level": "Concept, Language",
               "_xml": "<descrip type='definition'>"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__definition __linguam__",
+              "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__definitionalt1 __linguam__",
+              "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__definitionalt2 __linguam__",
+              "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__definitionalt3 __linguam__",
+              "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__definitionalt4 __linguam__",
+              "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__definitionsalt5 __linguam__"
             }
           },
           "__linguam_de_imperium__": {
             "__HXL": "#item +rem +definitionem __linguam_de_imperium__",
+            "__nomen_breve": "G_rem_definitionem__L_I__",
             "__id": "ontologia.commune.rem.definitionem.__linguam_de_imperium__",
             "_TBX": {
               "_id": "DC-168",
@@ -423,6 +535,14 @@
               "_nomen": "Definition",
               "_level": "Concept, Language",
               "_xml": "<descrip type='definition'>"
+            },
+            "_XLIFF": {
+              "__HXL_fontem": "#x_xliff +unit +note +note_category__definition __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_I": "#x_xliff +unit +note +note_category__definitionalt1 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_II": "#x_xliff +unit +note +note_category__definitionalt2 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_III": "#x_xliff +unit +note +note_category__definitionalt3 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_IV": "#x_xliff +unit +note +note_category__definitionalt4 __linguam_de_imperium__",
+              "__HXL_fontem_alternativum_V": "#x_xliff +unit +note +note_category__definitionsalt5 __linguam_de_imperium__"
             }
           }
         }
@@ -433,6 +553,7 @@
         "codicem": {
           "iate": {
             "__HXL": "#meta +conceptum +codicem +iate",
+            "__nomen_breve": "conceptum_codicem_iate",
             "__id": "ontologia.extensionem.conceptum.codicem.iate",
             "_url": "https://iate.europa.eu/fields-explained",
             "_compactum_json": [
@@ -455,10 +576,14 @@
                   "IATE787725"
                 ]
               }
-            ]
+            ],
+            "_XLIFF": {
+              "__HXL_bilingue": "#x_xliff +unit +note +note_category__iate"
+            }
           },
           "unterm": {
             "__HXL": "#meta +conceptum +codicem +unterm",
+            "__nomen_breve": "conceptum_codicem_unterm",
             "__id": "ontologia.extensionem.conceptum.codicem.unterm",
             "_url": "https://iate.europa.eu/fields-explained",
             "_url_rem": "https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{valorem}}",
@@ -480,10 +605,14 @@
                 "_suffixum": "",
                 "_exemplum": "UNTERM5f40d95f1d17bf8c85256a01000080af"
               }
-            ]
+            ],
+            "_XLIFF": {
+              "__HXL_bilingue": "#x_xliff +unit +note +note_category__unterm"
+            }
           },
           "wikidata": {
             "__HXL": "#meta +conceptum +codicem +wikidata",
+            "__nomen_breve": "conceptum_codicem_wikidata",
             "__id": "ontologia.extensionem.conceptum.codicem.wikidata",
             "_url": "https://www.wikidata.org/",
             "_url_rem": "https://www.wikidata.org/wiki/{{valorem}}",
@@ -505,7 +634,10 @@
                 "_suffixum": "",
                 "_exemplum": "Q1065"
               }
-            ]
+            ],
+            "_XLIFF": {
+              "__HXL_bilingue": "#x_xliff +unit +note +note_category__wikidata"
+            }
           }
         }
       }
@@ -515,6 +647,7 @@
         "translationem": {
           "directionem": {
             "__HXL": "#meta +conceptum +translationem +directionem",
+            "__nomen_breve": "TM_conceptum_translationem_directionem",
             "__id": "ontologia.tm.conceptum.translationem.directionem",
             "_compactum_json": {
               "_id": "ontologia.commune.conceptum.compactum_json",
@@ -537,6 +670,7 @@
           "directionem": {
             "__linguam__": {
               "__HXL": "#meta +rem +translationem +directionem __linguam__",
+              "__nomen_breve": "TM_rem_translationem_directionem__L__",
               "__id": "ontologia.tm.rem.translationem.directionem.__linguam__",
               "_compactum_json": {
                 "_id": "ontologia.commune.rem.__linguam__.compactum_json",
@@ -554,6 +688,7 @@
             },
             "__linguam_de_imperium__": {
               "__HXL": "#item +rem +translationem +directionem __linguam_de_imperium__",
+              "__nomen_breve": "TM_rem_translationem_directionem__L_I__",
               "__id": "ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__",
               "_compactum_json": {
                 "_id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_json",
@@ -613,11 +748,23 @@
   },
   "ontologia_aliud": {
     "accuratum": {
-      "_": {
+      "?": {
         "_IATE_valorem_codicem": "★★",
         "_IATE_valorem_descriptionem": "Automatically assigned to terms entered or updated by native speakers.\n",
         "_IATE_valorem_nomen": "Minimum reliability",
         "_IATE_valorem_numerum": 6
+      },
+      "_": {
+        "_IATE_valorem_codicem": "★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered by non-native speakers.\nAlso, all lookup forms have a reliability of one.\n",
+        "_IATE_valorem_nomen": "Reliability not verified",
+        "_IATE_valorem_numerum": 1
+      },
+      "0": {
+        "_IATE_valorem_codicem": "★",
+        "_IATE_valorem_descriptionem": "Automatically assigned to terms entered by non-native speakers.\nAlso, all lookup forms have a reliability of one.\n",
+        "_IATE_valorem_nomen": "Reliability not verified",
+        "_IATE_valorem_numerum": 1
       },
       "1": {
         "_IATE_valorem_codicem": "★",
@@ -777,6 +924,21 @@
       }
     },
     "rem_status": {
+      "lat_rem_finale": {
+        "_aliud": "TBX_preferred|UTX_approved|XLIFF_final"
+      },
+      "lat_rem_initiale": {
+        "_aliud": "UTX_provisional|XLIFF_initial"
+      },
+      "lat_rem_temporarium_de_non_nativum": {
+        "_aliud": "UTX_provisional|XLIFF_initial"
+      },
+      "lat_rem_temporarium": {
+        "_aliud": "UTX_provisional|XLIFF_initial"
+      },
+      "lat_rem_vacuum": {
+        "_aliud": ""
+      },
       "TBX_preferred": {
         "_codicem": "DC-72",
         "_codicem_isocat": "preferredTerm‐admn‐sts",
