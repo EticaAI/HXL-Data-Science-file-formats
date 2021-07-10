@@ -31,3 +31,6 @@ jobs:
         # We still use markdown and other things, so we will allow default
         # jekyll to run
         enable_jekyll: true
+        keep_files: false
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
