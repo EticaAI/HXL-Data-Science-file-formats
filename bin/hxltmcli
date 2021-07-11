@@ -154,6 +154,8 @@ class HXLTMCLI:
         self.objectivum_linguam: HXLTMLinguam = None
         self.alternativum_linguam: List[HXLTMLinguam] = []
         self.linguam: List[HXLTMLinguam] = []
+        # self.meta_archivum_fontem = {}
+        self.meta_archivum_fontem = {}
         self.errors = []
 
         # Posix exit codes
@@ -223,6 +225,65 @@ class HXLTMCLI:
         #     print('alternativum_linguam')
         #     if len(self.alternativum_linguam):
         #         for rem in
+
+    def _initiale_meta_archivum_fontem_hxlated(self, archivum: str) -> bool:
+        """Pre-populate metadata about source file
+
+        Requires already HXLated file saved on disk.
+
+        Args:
+            archivum (str): Path to an already HXLated file on disk
+
+        Returns:
+            bool: If okay.
+        """
+
+        mAF = {
+            # 'rem_I_textum_caput_est': None,
+            'rem_I_hxl_caput_est': None,
+            'rem_I': [],
+            # 'rem_II_textum_caput_est': None,
+            'rem_II_hxl_caput_est': None,
+            'rem_II': [],
+            # 'rem_III_textum_caput_est': None,
+            'rem_III_hxl_caput_est': None,
+            'rem_III': [],
+            'rem_crudum_initialle': [],
+            'rem_crudum_finale': [],
+        }
+
+        rem_crudum = []
+
+        with open(archivum) as arch:
+            rem_crudum = arch.read().splitlines()
+
+        mAF['rem_crudum_initialle'] = \
+            rem_crudum[:5]
+
+        if len(rem_crudum) > 5:
+            mAF['rem_crudum_finale'] = \
+                rem_crudum[-5:]
+
+        # @see https://docs.python.org/3/library/csv.html
+        with open(archivum, 'r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+
+            mAF['rem_I'] = next(csv_reader)
+            mAF['rem_I_hxl_caput_est'] = \
+                HXLTMUtil.hxl_hashtag_caput_est(
+                    mAF['rem_I'])
+
+            mAF['rem_II'] = next(csv_reader)
+            mAF['rem_II_hxl_caput_est'] = \
+                HXLTMUtil.hxl_hashtag_caput_est(
+                    mAF['rem_II'])
+
+            mAF['rem_III'] = next(csv_reader)
+            mAF['rem_III_hxl_caput_est'] = \
+                HXLTMUtil.hxl_hashtag_caput_est(
+                    mAF['rem_III'])
+
+        self.meta_archivum_fontem = mAF
 
     def make_args_hxltmcli(self):
 
@@ -574,6 +635,8 @@ class HXLTMCLI:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
+            self._initiale_meta_archivum_fontem_hxlated(args.outfile)
+
             if args.expertum_metadatum:
                 self.in_expertum_metadatum(args.outfile,
                                            self.original_outfile,
@@ -675,7 +738,7 @@ class HXLTMCLI:
                 'alternativum_linguam': [],
                 'linguam': []
             },
-            'archivum_fontem': {},
+            'archivum_fontem': self.meta_archivum_fontem,
             'archivum_objectivum': {},
         }
 
@@ -688,8 +751,15 @@ class HXLTMCLI:
             for rem in self.linguam:
                 resultatum['argumentum']['linguam'].append(rem.v())
 
+        if not args.venandum_insectum_est:
+            venandum_insectum_est_notitia = {
+                '__annotatianem': "optio --venandum-insectum-est requirere"
+            }
+
+            resultatum['archivum_fontem'] = venandum_insectum_est_notitia
+
         json_out = json.dumps(
-            resultatum, indent=4, sort_keys=True, ensure_ascii=False)
+            resultatum, indent=4, sort_keys=False, ensure_ascii=False)
 
         # TODO: maybe implement option to save the metadata on a different
         #       file (or allow generate the metadata even if actual result
@@ -1303,6 +1373,33 @@ class HXLTMCLI:
         return hxlated_header
 
 
+class HXLTMDatum:
+    """
+    _[eng-Latn]
+    HXLTMDatum is a python wrapper for the an HXLated HXLTM dataset.
+    One limitation (that is unlikely to be a problem) is that similar to
+    softwares like Pandas (and unlikely libhxl, that play nice with streams)
+    this class requires load all the data on the memory instead of process
+    row by row.
+    [eng-Latn]_
+
+    """
+
+    def __init__(self, archivum):
+        """
+        _[eng-Latn] Constructs all the necessary attributes for the
+                    HXLTMOntologia object.
+        [eng-Latn]_
+        """
+        self.initialle(archivum)
+
+    def initialle(self, archivum: str):
+        """
+        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+        # print('TODO')
+
+
 class HXLTMOntologia:
     """
     _[eng-Latn] HXLTMOntologia is a python wrapper for the cor.hxltm.yml.
@@ -1545,6 +1642,8 @@ class HXLTMLinguam:
 '+i_la+i_lat+is_latn+ii_it+ix_caesar12+ix_romanum1'
 
     """
+
+    # pylint disable=too-many-instance-attributes
 
     # Exemplum: lat-Latn@la-IT@IT, arb-Arab@ar-EG@EG
     crudum: InitVar[str] = None
@@ -1871,6 +1970,18 @@ class HXLTMUtil:
             return bcp47
 
         return ''
+
+    @staticmethod
+    def hxl_hashtag_caput_est(rem: List) -> bool:
+        min_limit = 50
+        total = 0
+        hashtag_like = 0
+        for item in rem:
+            total += 1
+            if item.startswith('#'):
+                hashtag_like += 1
+
+        return hashtag_like > 0 and (total / hashtag_like * 100) > min_limit
 
     @staticmethod
     def hxllangattrs_list_from_item(item):
