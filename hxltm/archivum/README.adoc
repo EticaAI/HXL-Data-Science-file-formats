@@ -46,6 +46,13 @@ TIP: For advanced hackers or (people helping others in middle of urgency and
 include::../../ontologia/cor.hxltm.yml[tag=formatum_HXLTM]
 ----
 
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM_CSV]
+----
+
 [#CSV-HXL-XLIFF]
 === `+CSV-HXL-XLIFF+`:
 ==== HXLated bilingual CSV (+ up to 5 source alt) for XLIFF
@@ -55,6 +62,12 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_HXLTM]
 include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-HXL-XLIFF]
 ----
 
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
+----
 
 [#HXLTM-archivum-exportandum]
 == HXLTM exported formats
@@ -66,6 +79,13 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-HXL-XLIFF]
 [source,yaml]
 ----
 include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-3]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-3]
 ----
 
 [#GSheets]
@@ -102,6 +122,13 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_TBX-Basim]
 [source,yaml]
 ----
 include::../../ontologia/cor.hxltm.yml[tag=formatum_TMX]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TMX]
 ----
 
 [#UTX]
