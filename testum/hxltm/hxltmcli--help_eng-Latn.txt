@@ -2,13 +2,16 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--http-header header] [--remove-headers] [--strip-tags]
                 [--ignore-certs]
                 [--log debug|info|warning|error|critical|none]
-                [--fontem-linguam [fontem_linguam]]
+                [--expertum-metadatum] [--fontem-linguam [fontem_linguam]]
                 [--objectivum-linguam [objectivum_linguam]]
+                [--alternativum-linguam [alternativum_linguam]]
+                [--linguam [linguam]] [--non-linguam [non_linguam]]
                 [--objectivum-HXLTM] [--objectivum-TMX]
-                [--objectivum-TBX-Basic] [--objectivum-UTX]
+                [--objectivum-TBX-Basim] [--objectivum-UTX]
                 [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
                 [--objectivum-CSV-3] [--objectivum-CSV-HXL-XLIFF]
                 [--objectivum-JSON-kv]
+                [--crudum-objectivum-caput [fon_hxlattrs]]
                 [--crudum-fontem-linguam-hxlattrs [fon_hxlattrs]]
                 [--crudum-fontem-linguam-bcp47 [fon_bcp47]]
                 [--crudum-objectivum-linguam-hxlattrs [obj_hxlattrs]]
@@ -34,25 +37,47 @@ optional arguments:
   --ignore-certs        Don't verify SSL connections (useful for self-signed)
   --log debug|info|warning|error|critical|none
                         Set minimum logging level
-  --fontem-linguam [fontem_linguam], -f [fontem_linguam]
+  --expertum-metadatum  (Expert mode) Return metadata of the operation in JSON
+                        format instead of generate the output. Good for
+                        debugging.
+  --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
                         (For bilingual operations) Source natural language
-                        (use if not auto detected). Must be like {ISO
-                        639-3}-{ISO 15924}. Example: lat-Latn
-  --objectivum-linguam [objectivum_linguam], -o [objectivum_linguam]
+                        (use if not auto-detected). Must be like {ISO
+                        639-3}-{ISO 15924}. Example: lat-Latn. Accept a single
+                        value.
+  --objectivum-linguam [objectivum_linguam], -OL [objectivum_linguam]
                         (For bilingual operations) Target natural language
-                        (use if not auto detected). Must be like {ISO
-                        639-3}-{ISO 15924}. Example: arb-Arab
+                        (use if not auto-detected). Must be like {ISO
+                        639-3}-{ISO 15924}. Example: arb-Arab. Requires: mono
+                        or bilingual operation. Accept a single value.
+  --alternativum-linguam [alternativum_linguam], -AL [alternativum_linguam]
+                        (Planned, but not implemented yet) Alternative source
+                        languages (up to 5) to be added as metadata (like
+                        XLIFF <note>) for operations that only accept one
+                        source language. Requires: bilingual operation.
+                        Accepts multiple values.
+  --linguam [linguam], -L [linguam]
+                        (Planned, but not implemented yet) Restrict working
+                        languages to a list. Useful for HXLTM to HXLTM or
+                        multilingual formats like TMX. Requires: multilingual
+                        operation. Accepts multiple values.
+  --non-linguam [non_linguam], -non-L [non_linguam]
+                        (Planned, but not implemented yet) Inverse of --non-
+                        linguam. Document one or more languages that should be
+                        ignored if they exist. Requires: multilingual
+                        operation.Accept a single value.
   --objectivum-HXLTM, --HXLTM
-                        Save output as HXLTM (default). Multilingual.
+                        Save output as HXLTM (default). Multilingual output
+                        format.
   --objectivum-TMX, --TMX
                         Export to Translation Memory eXchange (TMX) v1.4b.
-                        Multilingual.
-  --objectivum-TBX-Basic, --TBX-Basic
+                        Multilingual output format
+  --objectivum-TBX-Basim, --TBX-Basim
                         (Planned, but not implemented yet) Export to Term Base
-                        eXchange (TBX). Multilingual.
+                        eXchange (TBX). Multilingual output format
   --objectivum-UTX, --UTX
                         (Planned, but not implemented yet) Export to Universal
-                        Terminology eXchange (UTX). Multilingual.
+                        Terminology eXchange (UTX). Multilingual output format
   --objectivum-XLIFF, --XLIFF, --XLIFF2
                         Export to XLIFF (XML Localization Interchange File
                         Format) v2.1. (mono or bi-lingual support only as per
@@ -74,6 +99,10 @@ optional arguments:
                         are ID (if available) or source natural language.
                         Values are target language. No comments are exported.
                         Monolingual/Bilingual
+  --crudum-objectivum-caput [fon_hxlattrs]
+                        (Advanced override for tabular output, like CSV).
+                        Explicit define first line of output (separed by ,)
+                        Example: "la,ar,Annotationem"
   --crudum-fontem-linguam-hxlattrs [fon_hxlattrs], --fon-hxlattrs [fon_hxlattrs]
                         (Advanced override for --fontem-linguam). Explicit HXL
                         Attributes for source language. Example:
