@@ -46,8 +46,8 @@ fontem_archivum_extensionem:
   .utx: UTX
   .tbx: TBX-Basic
   .xlf: XLIFF2
-  .xlf2: XLIFF2
-  .xliff: XLIFF2
+  .xlf2: XLIFF # XLIFF2
+  .xliff: XLIFF # XLIFF2
 
 fontem_archivum_extensionem_regex:
   "[a-z]{2}.csv": CSV-3 # Not implemented yet
@@ -58,77 +58,132 @@ formatum:
   #### CSV-3: Source + Target + Comment (draft) _______________________________
   # tag::formatum_CSV-3[]
   CSV-3:
-    archivum_extensionem: .csv
-    normam:
-      - https://site.matecat.com/support/managing-language-resources/add-glossary/
-    situs_interretialis:
-      referens_officinale: []
+    __meta:
+      archivum_extensionem: .csv
+      normam:
+        - https://site.matecat.com/support/managing-language-resources/add-glossary/
+      nomen:
+        eng-Latn: 'Source + Target + Comment (draft)'
+      situs_interretialis:
+        referens_officinale: []
   # end::formatum_CSV-3[]
 
-  #### CSV-HXL-XLIFF: HXLated CSV for bilingual (+ up to 5 source alt) _________
+  #### HXLated bilingual CSV (+ up to 5 source alt) for XLIFF___________________
+  # tag::formatum_CSV-HXL-XLIFF[]
   CSV-HXL-XLIFF:
-    archivum_extensionem: .xliff.hxl.csv
-    # archivum_extensionem: .{fontem-linguam}--{objectivum-linguam}.xliff.hxl.csv
+    __meta:
+      archivum_extensionem: .xliff.hxl.csv
+      # archivum_extensionem: .{fontem-linguam}--{objectivum-linguam}.xliff.hxl.csv
+      normam:
+        - https://hdp.etica.ai/hxltm/archivum/
+      nomen:
+        eng-Latn: 'HXLated bilingual CSV (+ up to 5 source alt) for XLIFF'
+      situs_interretialis:
+        referens_officinale: []
     exportandum_hxl_sortem:
       - '#x_xliff +unit +id'
       - '#x_xliff +source' # ...  __linguam__ aut __linguam_de_imperium__
       - '#x_xliff +target' # ... __linguam__ aut __linguam_de_imperium__
       - '#x_xliff +segment +state' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__sourcestatus' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__sourcestatus'
+      #    ... __linguam__ aut __linguam_de_imperium__
       - '#x_xliff +unit +note +note_category__termtype'
       - '#x_xliff +group +group_0'
-      - '#x_xliff +unit +note +note_category__altsource1' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt1' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt1' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__altsource2' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt2' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt2' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__altsource3' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt3' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt3' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__altsource4' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt4' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt4' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__altsource5' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt5' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt5' # ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource1'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt1'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt1'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource2'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt2'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt2'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource3'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt3'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt3'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource4'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt4'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt4'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__altsource5'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__definitionalt5'
+      #    ... __linguam__ aut __linguam_de_imperium__
+      - '#x_xliff +unit +note +note_category__contextalt5'
+      #    ... __linguam__ aut __linguam_de_imperium__
       - '#x_xliff +unit +note +note_category__wikidata'
       - '#x_xliff +unit +note +note_category__iate'
       - '#x_xliff +unit +note +note_category__unterm'
-    normam:
-      - https://hdp.etica.ai/hxltm/archivum/
-    situs_interretialis:
-      referens_officinale: []
+
+  # end::formatum_CSV-HXL-XLIFF[]
+
+  # tag::formatum_GSheets[]
+  #### XLSX, Google Sheets ____________________________________________________
+  # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
+  # @see https://support.google.com/drive/answer/37603
+  GSheets:
+    __meta:
+      # archivum_extensionem: None
+      normam:
+        - https://developers.google.com/sheets/api
+      nomen:
+        eng-Latn: 'Google Sheets (via CSV import)'
+      situs_interretialis:
+        referens_officinale:
+          - https://www.google.com/sheets/about/
+  # end::formatum_GSheets[]
 
   #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
+  # tag::formatum_HXLTM[]
   HXLTM:
-    archivum_extensionem: .tm.hxl.csv
-    normam:
-      - https://github.com/HXL-CPLP/forum/issues/58
-    situs_interretialis:
-      referens_officinale:
-        - https://hdp.etica.ai/hxltm
+    __meta:
+      archivum_extensionem: .tm.hxl.csv
+      normam:
+        - https://github.com/HXL-CPLP/forum/issues/58
+      nomen:
+        eng-Latn: 'HXL Trānslātiōnem Memoriam'
+      situs_interretialis:
+        referens_officinale:
+          - https://hdp.etica.ai/hxltm
+  # end::formatum_HXLTM[]
 
   #### JSON-kv: JSON key: val; id/source -> target _____________________________
+  # tag::formatum_JSON-kv[]
   JSON-kv:
-    archivum_extensionem: .json
-    normam:
-      # Not sure where to find some place to 'explain' this format
-      - https://angular.io/guide/i18n#change-the-source-language-file-location
-      - https://www.i18next.com/misc/json-format
-    situs_interretialis:
-      referens_officinale: []
+    __meta:
+      archivum_extensionem: .json
+      normam:
+        # Not sure where to find some place to 'explain' this format
+        - https://angular.io/guide/i18n#change-the-source-language-file-location
+        - https://www.i18next.com/misc/json-format
+      nomen:
+        eng-Latn: 'JSON key: val; id/source -> target (draft)'
+      situs_interretialis:
+        referens_officinale: []
     exemplum:
       - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+  # end::formatum_JSON-kv[]
 
+  # tag::formatum_TBX-Basim[]
   #### TBX-Basic: TermBase eXchange (TBX) Basic ________________________________
-  TBX-Basic:
-    archivum_extensionem: .tbx
-    normam:
-      - http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
-    situs_interretialis:
-      referens_officinale:
-        - http://www.terminorgs.net/TBX-Basic.html
+  TBX-Basim:
+    __meta:
+      archivum_extensionem: .tbx
+      normam:
+        - http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+      nomen:
+        eng-Latn: 'TermBase eXchange (TBX) Basic (planned, no draft)'
+      situs_interretialis:
+        referens_officinale:
+          - http://www.terminorgs.net/TBX-Basic.html
 
   #### Term Base eXchange (TBX) 2008 CC-BY License _____________________________
   # Term Base eXchange (TBX) (identical to ISO 30042:2008)
@@ -152,53 +207,57 @@ formatum:
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/06/Spreadsheet-to-TBX-Min-Tutorial.pdf
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/05/sampleSpreadsheets.zip
     # - https://multilingual.com/issues/july-aug-2019/tbx-version-3-published-at-iso/
+  # end::formatum_TBX-Basim[]
 
   #### TMX: TermBase eXchange (TBX) Basic ______________________________________
+  # tag::formatum_TMX[]
   TMX:
-    archivum_extensionem: .tmx
-    normam:
-      - https://www.gala-global.org/tmx-14b
-      - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd
-    situs_interretialis:
-      referens_officinale:
-        - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+    __meta:
+      archivum_extensionem: .tmx
+      normam:
+        - https://www.gala-global.org/tmx-14b
+        - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd
+      nomen:
+        eng-Latn: 'Translation Memory eXchange format (TMX)'
+      situs_interretialis:
+        referens_officinale:
+          - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+  # end::formatum_TMX[]
 
   #### UTX: Universal Terminology eXchange _____________________________________
+  # tag::formatum_UTX[]
   UTX:
-    archivum_extensionem: .utx
-    situs_interretialis:
-      referens_officinale:
-        - http://www.aamt.info/english/utx/
-      vicipaedia:
-        - https://en.wikipedia.org/wiki/Universal_Terminology_eXchange
-    normam:
-      - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
-      - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx
-    exemplum:
-      - https://aamt.info/english/download/#UTX_Glossaries
-      - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
+    __meta:
+      archivum_extensionem: .utx
+      situs_interretialis:
+        referens_officinale:
+          - http://www.aamt.info/english/utx/
+        vicipaedia:
+          - https://en.wikipedia.org/wiki/Universal_Terminology_eXchange
+      normam:
+        - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
+        - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx
+      nomen:
+        eng-Latn: 'Universal Terminology eXchange (UTX) (planned, but no draft)'
+      exemplum:
+        - https://aamt.info/english/download/#UTX_Glossaries
+        - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
+  # end::formatum_UTX[]
 
-  #### XLIFF1: Universal Terminology eXchange v1.2 _____________________________
-  XLIFF1:
-    archivum_extensionem: .xlf
-    situs_interretialis:
-      referens_officinale:
-        - https://www.oasis-open.org/committees/xliff/
-      vicipaedia:
-        - https://en.wikipedia.org/wiki/XLIFF
-    normam:
-      - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
-
-  #### XLIFF2: Universal Terminology eXchange v2.1 _____________________________
-  XLIFF2:
-    archivum_extensionem: .xlf
-    situs_interretialis:
-      referens_officinale:
-        - https://www.oasis-open.org/committees/xliff/
-      vicipaedia:
-        - https://en.wikipedia.org/wiki/XLIFF
-    normam:
-      - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
+  #### XLIFF: XML Localization Interchange File Format (XLIFF) v2.1 ____________
+  # tag::formatum_XLIFF[]
+  XLIFF:
+    __meta:
+      archivum_extensionem: .xlf
+      situs_interretialis:
+        referens_officinale:
+          - https://www.oasis-open.org/committees/xliff/
+        vicipaedia:
+          - https://en.wikipedia.org/wiki/XLIFF
+      normam:
+        - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
+      nomen:
+        eng-Latn: 'XML Localization Interchange File Format (XLIFF) v2.1'
   # TODO: check XLIFF JSON 'JLIFF' 
   #       - https://github.com/oasis-tcs/xliff-omos-jliff
   #       - https://github.com/oasis-tcs/xliff-omos-jliff/blob/master/JLIFF-schema-draft/JLIFF-2.0/jliff-schema-2.0.json
@@ -206,22 +265,52 @@ formatum:
   # "TBX Mapping with XLIFF v2.0 and Higher Version 1.0"
   # - https://tools.oasis-open.org/version-control/browse/wsvn/xliff-omos/trunk/XLIFF-TBX/xliff-tbx-v1.0.pdf
   # - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.863.1277&rep=rep1&type=pdf
+  # end::formatum_XLIFF[]
+
+  #### XLIFF1: Universal Terminology eXchange v1.2 _____________________________
+  # tag::formatum_XLIFF1[]
+  XLIFF1:
+    __meta:
+      archivum_extensionem: .xlf
+      situs_interretialis:
+        referens_officinale:
+          - https://www.oasis-open.org/committees/xliff/
+        vicipaedia:
+          - https://en.wikipedia.org/wiki/XLIFF
+      normam:
+        - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
+      nomen:
+        eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)'
+  # end::formatum_XLIFF1[]
+
+  # tag::formatum_XLSX[]
+  #### XLSX, Google Sheets ____________________________________________________
+  # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
+  # @see https://support.google.com/drive/answer/37603
+  XLSX:
+    __meta:
+      archivum_extensionem: .xlsx
+      nomen:
+        eng-Latn: 'Microsoft Excel (no plugins to read data directly from .XSLX)'
+  # end::formatum_XLSX[]
 
   #### YAML: (draft) ___________________________________________________________
+  # tag::formatum_YAML[]
   YAML:
-    archivum_extensionem: .yml
-    normam:
-      # Not sure where to find some place to 'explain' this format
-      - https://guides.rubyonrails.org/i18n.html
-    situs_interretialis:
-      referens_officinale:
+    __meta:
+      archivum_extensionem: .yml
+      normam:
+        # Not sure where to find some place to 'explain' this format
         - https://guides.rubyonrails.org/i18n.html
-    exemplum:
-      - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+      nomen:
+        eng-Latn: 'YAML (planned, but no draft)'
+      situs_interretialis:
+        referens_officinale:
+          - https://guides.rubyonrails.org/i18n.html
+      exemplum:
+        - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+  # end::formatum_YAML[]
 
-   #### XLSX, Google Sheets ____________________________________________________
-   # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
-   # @see https://support.google.com/drive/answer/37603
 # end::formatum[]
 
 # tag::ontologia[]

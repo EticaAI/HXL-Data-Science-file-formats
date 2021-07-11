@@ -20,13 +20,13 @@ jobs:
           program: "asciidoctor --backend=html5 -o hxltm/index.html -a toc2 hxltm/README.adoc"
 
     - name: hxltm/archivum/index.html
-      id: adocbuild
+      id: adocbuild2
       uses: tonynv/asciidoctor-action@master
       with:
           program: "asciidoctor --backend=html5 -o hxltm/archivum/index.html -a toc2 hxltm/archivum/README.adoc"
 
-    - name: Print execution time
-      run: echo "Time ${{ steps.adocbuild.outputs.time }}"
+    # - name: Print execution time
+    #   run: echo "Time ${{ steps.adocbuild.outputs.time }}"
 
     - name: Deploy docs to ghpages
       uses: peaceiris/actions-gh-pages@v3

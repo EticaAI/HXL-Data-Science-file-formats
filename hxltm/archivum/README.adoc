@@ -1,5 +1,6 @@
-== `+HXLTM+` HXL Trānslātiōnem Memoriam: archīvum fōrmātum normam
+= `+HXLTM+` HXL Trānslātiōnem Memoriam: archīvum fōrmātum normam
 :toc: preamble
+:toclevels: 3
 :icons: font
 :source-highlighter: highlight.js
 :highlightjs-languages: yaml
@@ -23,36 +24,154 @@ IMPORTANT: This page contains a *draft* of informations handled by the by
 
 
 [#HXLTM-archivum-dialecton]
-=== HXLM dialects
-____
-Trivia: "`dialecton`", https://en.wiktionary.org/wiki/dialectos#Latin
-____
+== HXLM dialects
 
 [#HXLTM]
-==== HXL Trānslātiōnem Memoriam: archīvum fōrmātum
+=== `+HXLTM+`
+==== HXL Trānslātiōnem Memoriam
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_HXLTM]
+----
+
+[#CSV-HXL-XLIFF]
+=== `+CSV-HXL-XLIFF+`:
+==== HXLated bilingual CSV (+ up to 5 source alt) for XLIFF
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-HXL-XLIFF]
+----
 
 [#HXLTM-archivum-exportandum]
-=== Other file formats
+== HXLTM exported formats
 
 
-=== `+CSV-3+`
+[#CSV-3]
+=== `+CSV-3+`:
+==== CSV Source + Target + Comment (draft)
+
 [source,yaml]
 ----
 include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-3]
 ----
 
-
-==== `+TBX-Basim+`
-
-=== Etc
-
-==== `+TBX-Basic+`
-
-* Aliud: link:#tbx-basim[`+TBX-Basim+`]
-
-== Ontologia
+[#GSheets]
+=== `+GSheets+`:
+==== Google Sheets (via CSV import)
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum]
+include::../../ontologia/cor.hxltm.yml[tag=formatum_GSheets]
 ----
+
+[#JSON-kv]
+=== `+JSON-kv+`:
+==== JSON key: val; id/source -> target (draft)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_JSON-kv]
+----
+
+[#TBX-Basim]
+=== `+TBX-Basim+`:
+==== TermBase eXchange (TBX) Basic (planned, no draft)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_TBX-Basim]
+----
+
+[#TMX]
+=== `+TMX+`:
+==== Translation Memory eXchange format (TMX)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_TMX]
+----
+
+[#UTX]
+=== `+UTX+`:
+==== Universal Terminology eXchange (UTX) (planned, but no draft)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_UTX]
+----
+
+[#XLIFF]
+=== `+XLIFF+`:
+==== XML Localization Interchange File Format (XLIFF) v2.1
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_XLIFF]
+----
+
+[#XLIFF1]
+=== `+XLIFF1+`:
+==== XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_XLIFF1]
+----
+
+[#XLSX]
+=== `+XLSX+`:
+==== Microsoft Excel (no plugins to read data directly from .XSLX)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_XLSX]
+----
+
+[#YAML]
+=== `+YAML+`:
+==== YAML (planned, but no draft)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_YAML]
+----
+
+
+== HXLTM ontologies
+
+[#ontologia]
+=== Ontologia
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=ontologia]
+----
+
+[#ontologia-aliud]
+=== Aliases
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=ontologia_aliud]
+----
+
+[#ontologia-datum-typum]
+=== Data types
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=ontologia_datum_typum]
+----
+
+== License
+
+link:UNLICENSE[image:../../img/public-domain.png[Public Domain Dedication]]
+
+The https://github.com/EticaAI[EticaAI] has dedicated the work to the
+link:../../UNLICENSE[public domain] by waiving all of their rights to the
+work worldwide under copyright law, including all related and
+neighboring rights, to the extent allowed by law. You can copy, modify,
+distribute and perform the work, even for commercial purposes, all
+without asking permission.
