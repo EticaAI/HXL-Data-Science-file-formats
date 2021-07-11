@@ -298,12 +298,12 @@ class HXLTMCLI:
         )
 
         parser.add_argument(
-            '--objectivum-CSV-HXLated-XLIFF',
+            '--objectivum-CSV-HXL-XLIFF', '--CSV-HXL-XLIFF',
             help='(experimental) ' +
             'HXLated bilingual CSV (feature compatible with XLIFF)',
             dest='objectivum_typum',
             action='append_const',
-            const='CSV-3'
+            const='CSV-HXL-XLIFF'
         )
 
         parser.add_argument(
@@ -456,18 +456,18 @@ class HXLTMCLI:
 
             with self.hxlhelper.make_source(args, stdin) as source, \
                     self.hxlhelper.make_output(args, stdout) as output:
-                # Save the HXL TM locally. It will be used by either hxltm2csv
-                # or hxltm2csv + hxltm2xliff
+                # Save the HXL TM locally. It will be used by either in_csv
+                # or in_csv + in_xliff
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
             # if archivum_extensionem == '.csv':
             #     # print('CSV!')
-            #     self.hxltm2csv(args.outfile, self.original_outfile,
+            #     self.in_csv(args.outfile, self.original_outfile,
             #                    self.original_outfile_is_stdout, args)
             if self.objectivum_typum == 'TMX':
                 # print('TMX')
-                self.hxltm2tmx(args.outfile, self.original_outfile,
+                self.in_tmx(args.outfile, self.original_outfile,
                                self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'TBX-Basic':
@@ -481,29 +481,29 @@ class HXLTMCLI:
 
             elif self.objectivum_typum == 'CSV-3':
                 # raise NotImplementedError('CSV-3 not implemented yet')
-                self.hxltm2csv3(args.outfile, self.original_outfile,
+                self.in_csv3(args.outfile, self.original_outfile,
                                 self.original_outfile_is_stdout, args)
 
-            elif self.objectivum_typum == 'CSV-HXLated-XLIFF':
+            elif self.objectivum_typum == 'CSV-HXL-XLIFF':
                 # raise NotImplementedError('CSV-3 not implemented yet')
-                self.hxltm2csv(args.outfile, self.original_outfile,
+                self.in_csv(args.outfile, self.original_outfile,
                                self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'JSON-kv':
-                self.hxltm2jsonkv(args.outfile, self.original_outfile,
+                self.in_jsonkv(args.outfile, self.original_outfile,
                                   self.original_outfile_is_stdout, args)
                 # raise NotImplementedError('JSON-kv not implemented yet')
 
             elif self.objectivum_typum == 'XLIFF2':
                 # print('XLIFF2')
-                self.hxltm2csv(args.outfile, temp_csv4xliff.name,
+                self.in_csv(args.outfile, temp_csv4xliff.name,
                                False, args)
-                self.hxltm2xliff(temp_csv4xliff.name, self.original_outfile,
+                self.in_xliff(temp_csv4xliff.name, self.original_outfile,
                                  self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'HXLTM':
                 # print('HXLTM')
-                self.hxltm2noop(args.outfile, self.original_outfile,
+                self.in_noop(args.outfile, self.original_outfile,
                                 self.original_outfile_is_stdout)
 
             elif self.objectivum_typum == 'INCOGNITUM':
@@ -519,10 +519,10 @@ class HXLTMCLI:
                 # self.hxl2tab(args.outfile, self.original_outfile,
                 #              self.original_outfile_is_stdout, args)
 
-                # self.hxltm2csv(args.outfile, temp_csv4xliff.name,
+                # self.in_csv(args.outfile, temp_csv4xliff.name,
                 #                False, args)
                 # print('noop')
-                self.hxltm2noop(args.outfile, self.original_outfile,
+                self.in_noop(args.outfile, self.original_outfile,
                                 self.original_outfile_is_stdout)
 
         finally:
@@ -531,9 +531,9 @@ class HXLTMCLI:
 
         return self.EXIT_OK
 
-    def hxltm2noop(self, hxlated_input, tab_output, is_stdout):
+    def in_noop(self, hxlated_input, tab_output, is_stdout):
         """
-        hxltm2noop only export whatever the initial HXL input was.
+        in_noop only export whatever the initial HXL input was.
 
         Requires that the input must be a valid HXLated file
         """
@@ -558,10 +558,10 @@ class HXLTMCLI:
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
-    def hxltm2csv(self, hxlated_input, tab_output, is_stdout, args):
+    def in_csv(self, hxlated_input, tab_output, is_stdout, args):
         """
-        hxltm2csv pre-process the initial HXL TM on a intermediate format that
-        can be used alone or as requisite of the hxltm2xliff exporter
+        in_csv pre-process the initial HXL TM on a intermediate format that
+        can be used alone or as requisite of the in_xliff exporter
         """
 
         with open(hxlated_input, 'r') as csv_file:
@@ -574,7 +574,7 @@ class HXLTMCLI:
             # exported HXlated file should already save without headers.
             next(csv_reader)
             header_original = next(csv_reader)
-            header_new = self.hxltm2csv_header(
+            header_new = self.in_csv_header(
                 header_original,
                 fontem_linguam=args.fontem_linguam,
                 objectivum_linguam=args.objectivum_linguam,
@@ -611,7 +611,7 @@ class HXLTMCLI:
             # exported HXlated file should already save without headers.
             next(csv_reader)
             header_original = next(csv_reader)
-            header_new = self.hxltm2csv_header(
+            header_new = self.in_csv_header(
                 header_original,
                 fontem_linguam=args.fontem_linguam,
                 objectivum_linguam=args.objectivum_linguam,
@@ -634,7 +634,7 @@ class HXLTMCLI:
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
-    def hxltm2csv3(self, hxlated_input, file_output, is_stdout, args):
+    def in_csv3(self, hxlated_input, file_output, is_stdout, args):
         """Convert HXLTM to output 'CSV-3'
 
         Args:
@@ -683,7 +683,7 @@ class HXLTMCLI:
                 for line in datum:
                     txt_writer.writerow(line)
 
-    def hxltm2jsonkv(self, hxlated_input, file_output, is_stdout, args):
+    def in_jsonkv(self, hxlated_input, file_output, is_stdout, args):
         """Convert HXLTM to output 'JSON-kv'
 
         Args:
@@ -738,9 +738,9 @@ class HXLTMCLI:
                 # for line in datum:
                 #     txt_writer.writerow(line)
 
-    def hxltm2tmx(self, hxlated_input, tmx_output, is_stdout, args):
+    def in_tmx(self, hxlated_input, tmx_output, is_stdout, args):
         """
-        hxltm2tmx is  is the main method to de facto make the conversion.
+        in_tmx is  is the main method to de facto make the conversion.
 
         TODO: this is a work-in-progress at this moment, 2021-06-28
         @see https://en.wikipedia.org/wiki/Translation_Memory_eXchange
@@ -843,9 +843,9 @@ class HXLTMCLI:
                     new_txt.write(ln + "\n")
                     # print (ln)
 
-    def hxltm2xliff(self, hxlated_input, xliff_output, is_stdout, args):
+    def in_xliff(self, hxlated_input, xliff_output, is_stdout, args):
         """
-        hxltm2xliff is  is the main method to de facto make the conversion.
+        in_xliff is  is the main method to de facto make the conversion.
 
         TODO: this is a work-in-progress at this moment, 2021-06-28
         """
@@ -923,7 +923,7 @@ class HXLTMCLI:
                     new_txt.write(ln + "\n")
                     # print (ln)
 
-    def hxltm2csv_header(
+    def in_csv_header(
             self, hxlated_header, fontem_linguam, objectivum_linguam):
         """
         _[eng-Latn] Convert the Main HXL TM file to a single or source to

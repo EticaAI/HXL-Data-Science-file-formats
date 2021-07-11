@@ -34,6 +34,7 @@
 # - https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
 # - 
 
+# tag::archivum[]
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
   .xliff.hxl.csv: CSV-HXL-XLIFF
@@ -50,15 +51,19 @@ fontem_archivum_extensionem:
 
 fontem_archivum_extensionem_regex:
   "[a-z]{2}.csv": CSV-3 # Not implemented yet
+# end::archivum[]
 
+# tag::formatum[]
 formatum:
   #### CSV-3: Source + Target + Comment (draft) _______________________________
+  # tag::formatum_CSV-3[]
   CSV-3:
     archivum_extensionem: .csv
     normam:
       - https://site.matecat.com/support/managing-language-resources/add-glossary/
     situs_interretialis:
       referens_officinale: []
+  # end::formatum_CSV-3[]
 
   #### CSV-HXL-XLIFF: HXLated CSV for bilingual (+ up to 5 source alt) _________
   CSV-HXL-XLIFF:
@@ -217,7 +222,9 @@ formatum:
    #### XLSX, Google Sheets ____________________________________________________
    # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
    # @see https://support.google.com/drive/answer/37603
+# end::formatum[]
 
+# tag::ontologia[]
 # Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
 ontologia:
 
@@ -890,6 +897,9 @@ ontologia:
               _exemplum:
                 {"translationem": {"directionem": ""}}
             _UTX: *referens_ontologia-commune-conceptum-meta-_UTX
+# end::ontologia[]
+
+# tag::ontologia_datum_typum[]
 
   # Trivia:
   # - ontologia, https://la.wikipedia.org/wiki/Ontologia
@@ -963,7 +973,9 @@ ontologia_datum_typum:
   typum:
     numerum_digitum: {}
     textum: {}
+# end::ontologia_datum_typum[]
 
+# tag::ontologia_aliud[]
 # Trivia: 
 # - ontologia, https://la.wikipedia.org/wiki/Ontologia
 # - aliud, https://en.wiktionary.org/wiki/alius#Latin, https://en.wiktionary.org/wiki/alias#English
@@ -1534,6 +1546,7 @@ ontologia_aliud:
     #   exported for an MT system that does not treat sentence as a type of
     #   part of speech, sentence entries can be treated as nouns.
 
+# end::ontologia_aliud[]
 
 ## TBX Basic 3.1 (http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf)
 #  5 Mandatory data categories

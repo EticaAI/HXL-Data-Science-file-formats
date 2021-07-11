@@ -1,0 +1,58 @@
+== `+HXLTM+` HXL Trānslātiōnem Memoriam: archīvum fōrmātum normam
+:toc: preamble
+:icons: font
+:source-highlighter: highlight.js
+:highlightjs-languages: yaml
+
+https://hdp.etica.ai/hxltm[image:https://img.shields.io/badge/Site-hdp.etica.ai%2Fhxltm-blue[Site]]
+https://github.com/EticaAI/HXL-Data-Science-file-formats[image:https://img.shields.io/badge/GitHub-EticaAI%2FHXL--Data--Science--file--formats-lightgrey?logo=github&style=social[EticaAI/HXL-Data-Science-file-formats]]
+https://pypi.org/project/hdp-toolchain/[image:https://img.shields.io/badge/python%20package-hdp--toolchain-brightgreen[Python
+Package: hdp-toolchain]]
+https://hxlstandard.org/[image:https://img.shields.io/badge/Standard-HXL-%23F26459[Standard
+HXL]]
+image:https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats[License]
+https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486[image:https://img.shields.io/badge/Google%20Drive-HXL--CPLP--Vocab_Auxilium--Humanitarium--API-yellowgreen[Google
+Drive]]
+
+IMPORTANT: This page contains a *draft* of informations handled by the by
+           `+hxltmcli` that already are not the HXLTM main format itself.
+           Some of these exports (in special the ones that are not HXLTM)
+           are subject to changes based on real testing or feedback
+           and they may not be up to date on this documentation.
+
+
+
+[#HXLTM-archivum-dialecton]
+=== HXLM dialects
+____
+Trivia: "`dialecton`", https://en.wiktionary.org/wiki/dialectos#Latin
+____
+
+[#HXLTM]
+==== HXL Trānslātiōnem Memoriam: archīvum fōrmātum
+
+[#HXLTM-archivum-exportandum]
+=== Other file formats
+
+
+=== `+CSV-3+`
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-3]
+----
+
+
+==== `+TBX-Basim+`
+
+=== Etc
+
+==== `+TBX-Basic+`
+
+* Aliud: link:#tbx-basim[`+TBX-Basim+`]
+
+== Ontologia
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum]
+----
