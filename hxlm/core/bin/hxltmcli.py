@@ -150,6 +150,10 @@ class HXLTMCLI:
         self.conf = {}  # Crudum, raw file
         self.otlg = None  # HXLTMOntologia object
         self.objectivum_typum = None
+        self.fontem_linguam: HXLTMLinguam = None
+        self.objectivum_linguam: HXLTMLinguam = None
+        self.alternativum_linguam: List[HXLTMLinguam] = []
+        self.linguam: List[HXLTMLinguam] = []
         self.errors = []
 
         # Posix exit codes
@@ -181,6 +185,45 @@ class HXLTMCLI:
 
         return 'INCOGNITUM'
 
+    def _initiale(self, args,  is_debug=False):
+        """Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+        # if args.expertum_metadatum_est:
+        #     self.expertum_metadatum_est = args.expertum_metadatum_est
+
+        if args.fontem_linguam:
+            self.fontem_linguam = HXLTMLinguam(args.fontem_linguam)
+            if is_debug:
+                print('fontem_linguam', self.fontem_linguam.v())
+
+        if args.objectivum_linguam:
+            self.objectivum_linguam = HXLTMLinguam(args.objectivum_linguam)
+            if is_debug:
+                print('objectivum_linguam', self.objectivum_linguam.v())
+
+        if args.alternativum_linguam and len(args.alternativum_linguam) > 0:
+            unicum = set(args.alternativum_linguam)
+            for rem in unicum:
+                rem_obj = HXLTMLinguam(rem)
+                if is_debug:
+                    print('alternativum_linguam', rem_obj.v())
+                self.alternativum_linguam.append(rem_obj)
+
+        if args.linguam and len(args.linguam) > 0:
+            unicum = set(args.linguam)
+            for rem in unicum:
+                rem_obj = HXLTMLinguam(rem)
+                if is_debug:
+                    print('linguam', rem_obj.v())
+                self.linguam.append(rem_obj)
+
+        # if is_debug:
+        #     print('fontem_linguam', self.fontem_linguam.v())
+        #     print('objectivum_linguam', self.objectivum_linguam.v())
+        #     print('alternativum_linguam')
+        #     if len(self.alternativum_linguam):
+        #         for rem in
+
     def make_args_hxltmcli(self):
 
         self.hxlhelper = HXLUtils()
@@ -202,11 +245,24 @@ class HXLTMCLI:
         # TODO: implement example using index number (not language) as
         #       for very simple cases (mostly for who is learning
         #       or doing very few languages) know the number is easier
+
         parser.add_argument(
-            '--fontem-linguam', '-f',
+            '--expertum-metadatum',
+            help='(Expert mode) Return metadata of the operation ' +
+            'in JSON format instead of generate the output. ' +
+            'Good for debugging.',
+            # dest='fontem_linguam',
+            metavar='expertum_metadatum_est',
+            action='store_const',
+            const=True,
+            default=False
+        )
+        parser.add_argument(
+            '--fontem-linguam', '-FL',
             help='(For bilingual operations) Source natural language ' +
-            '(use if not auto detected). ' +
-            'Must be like {ISO 639-3}-{ISO 15924}. Example: lat-Latn',
+            '(use if not auto-detected). ' +
+            'Must be like {ISO 639-3}-{ISO 15924}. Example: lat-Latn. ' +
+            'Accept a single value.',
             # dest='fontem_linguam',
             metavar='fontem_linguam',
             action='store',
@@ -215,19 +271,61 @@ class HXLTMCLI:
         )
 
         parser.add_argument(
-            '--objectivum-linguam', '-o',
+            '--objectivum-linguam', '-OL',
             help='(For bilingual operations) Target natural language ' +
-            '(use if not auto detected). ' +
-            'Must be like {ISO 639-3}-{ISO 15924}. Example: arb-Arab',
+            '(use if not auto-detected). ' +
+            'Must be like {ISO 639-3}-{ISO 15924}. Example: arb-Arab. ' +
+            'Requires: mono or bilingual operation. ' +
+            'Accept a single value.',
             metavar='objectivum_linguam',
             action='store',
             default='arb-Arab',
             nargs='?'
         )
 
+        # --alternativum-linguam is a draft. Not 100% implemented
+        parser.add_argument(
+            '--alternativum-linguam', '-AL',
+            help='(Planned, but not implemented yet) ' +
+            'Alternative source languages (up to 5) to be added ' +
+            'as metadata (like XLIFF <note>) for operations that ' +
+            'only accept one source language. ' +
+            'Requires: bilingual operation. ' +
+            'Accepts multiple values.',
+            metavar='alternativum_linguam',
+            action='append',
+            nargs='?'
+        )
+
+        # --linguam is a draft. Not 100% implemented
+        parser.add_argument(
+            '--linguam', '-L',
+            help='(Planned, but not implemented yet) ' +
+            'Restrict working languages to a list. Useful for ' +
+            'HXLTM to HXLTM or multilingual formats like TMX. ' +
+            'Requires: multilingual operation. ' +
+            'Accepts multiple values.',
+            metavar='linguam',
+            action='append',
+            nargs='?'
+        )
+
+        # --non-linguam is a draft. Not 100% implemented
+        parser.add_argument(
+            '--non-linguam', '-non-L',
+            help='(Planned, but not implemented yet) ' +
+            'Inverse of --non-linguam. Document one or more languages that ' +
+            'should be ignored if they exist. ' +
+            'Requires: multilingual operation.' +
+            'Accept a single value.',
+            metavar='non_linguam',
+            action='append',
+            nargs='?'
+        )
+
         parser.add_argument(
             '--objectivum-HXLTM', '--HXLTM',
-            help='Save output as HXLTM (default). Multilingual.',
+            help='Save output as HXLTM (default). Multilingual output format.',
             # metavar='objectivum_typum',
             dest='objectivum_typum',
             action='append_const',
@@ -237,7 +335,7 @@ class HXLTMCLI:
         parser.add_argument(
             '--objectivum-TMX', '--TMX',
             help='Export to Translation Memory eXchange (TMX) v1.4b. ' +
-            ' Multilingual.',
+            ' Multilingual output format',
             # metavar='objectivum_typum',
             dest='objectivum_typum',
             action='append_const',
@@ -245,21 +343,21 @@ class HXLTMCLI:
         )
 
         parser.add_argument(
-            '--objectivum-TBX-Basic', '--TBX-Basic',
+            '--objectivum-TBX-Basim', '--TBX-Basim',
             help='(Planned, but not implemented yet) ' +
             'Export to Term Base eXchange (TBX). ' +
-            ' Multilingual.',
+            ' Multilingual output format',
             # metavar='objectivum_typum',
             dest='objectivum_typum',
             action='append_const',
-            const='TBX-Basic'
+            const='TBX-Basim'
         )
 
         parser.add_argument(
             '--objectivum-UTX', '--UTX',
             help='(Planned, but not implemented yet) ' +
             'Export to Universal Terminology eXchange (UTX). ' +
-            ' Multilingual.',
+            ' Multilingual output format',
             # metavar='objectivum_typum',
             dest='objectivum_typum',
             action='append_const',
@@ -273,7 +371,7 @@ class HXLTMCLI:
             '(mono or bi-lingual support only as per XLIFF specification)',
             dest='objectivum_typum',
             action='append_const',
-            const='XLIFF2'
+            const='XLIFF'
         )
 
         parser.add_argument(
@@ -326,6 +424,19 @@ class HXLTMCLI:
         #     default=None,
         #     nargs='?'
         # )
+
+        # Trivia: caput, https://en.wiktionary.org/wiki/caput#Latin
+        # --rudum-objectivum-caput is a draft. Not 100% implemented
+        parser.add_argument(
+            '--crudum-objectivum-caput',
+            help='(Advanced override for tabular output, like CSV). ' +
+            'Explicit define first line of output (separed by ,) ' +
+            'Example: "la,ar,Annotationem"',
+            metavar='fon_hxlattrs',
+            action='store',
+            default=None,
+            nargs='?'
+        )
 
         # --crudum-fontem-linguam-hxlattrs is a draft. Not 100% implemented
         parser.add_argument(
@@ -422,6 +533,8 @@ class HXLTMCLI:
 
         # return self.EXIT_OK
 
+        self._initiale(args, args.venandum_insectum_est)
+
         self.conf = HXLTMUtil.load_hxltm_options(
             args.archivum_configurationem,
             args.venandum_insectum_est
@@ -461,6 +574,13 @@ class HXLTMCLI:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
+            if args.expertum_metadatum:
+                self.in_expertum_metadatum(args.outfile,
+                                           self.original_outfile,
+                                           self.original_outfile_is_stdout,
+                                           args)
+                return self.EXIT_OK
+
             # if archivum_extensionem == '.csv':
             #     # print('CSV!')
             #     self.in_csv(args.outfile, self.original_outfile,
@@ -468,10 +588,10 @@ class HXLTMCLI:
             if self.objectivum_typum == 'TMX':
                 # print('TMX')
                 self.in_tmx(args.outfile, self.original_outfile,
-                               self.original_outfile_is_stdout, args)
+                            self.original_outfile_is_stdout, args)
 
-            elif self.objectivum_typum == 'TBX-Basic':
-                raise NotImplementedError('TBX-Basic not implemented yet')
+            elif self.objectivum_typum == 'TBX-Basim':
+                raise NotImplementedError('TBX-Basim not implemented yet')
 
             elif self.objectivum_typum == 'UTX':
                 raise NotImplementedError('UTX not implemented yet')
@@ -482,29 +602,29 @@ class HXLTMCLI:
             elif self.objectivum_typum == 'CSV-3':
                 # raise NotImplementedError('CSV-3 not implemented yet')
                 self.in_csv3(args.outfile, self.original_outfile,
-                                self.original_outfile_is_stdout, args)
+                             self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'CSV-HXL-XLIFF':
                 # raise NotImplementedError('CSV-3 not implemented yet')
                 self.in_csv(args.outfile, self.original_outfile,
-                               self.original_outfile_is_stdout, args)
+                            self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'JSON-kv':
                 self.in_jsonkv(args.outfile, self.original_outfile,
-                                  self.original_outfile_is_stdout, args)
+                               self.original_outfile_is_stdout, args)
                 # raise NotImplementedError('JSON-kv not implemented yet')
 
-            elif self.objectivum_typum == 'XLIFF2':
-                # print('XLIFF2')
+            elif self.objectivum_typum == 'XLIFF':
+                # print('XLIFF (2)')
                 self.in_csv(args.outfile, temp_csv4xliff.name,
-                               False, args)
+                            False, args)
                 self.in_xliff(temp_csv4xliff.name, self.original_outfile,
-                                 self.original_outfile_is_stdout, args)
+                              self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'HXLTM':
                 # print('HXLTM')
                 self.in_noop(args.outfile, self.original_outfile,
-                                self.original_outfile_is_stdout)
+                             self.original_outfile_is_stdout)
 
             elif self.objectivum_typum == 'INCOGNITUM':
                 # print('INCOGNITUM')
@@ -523,13 +643,58 @@ class HXLTMCLI:
                 #                False, args)
                 # print('noop')
                 self.in_noop(args.outfile, self.original_outfile,
-                                self.original_outfile_is_stdout)
+                             self.original_outfile_is_stdout)
 
         finally:
             temp.close()
             temp_csv4xliff.close()
 
         return self.EXIT_OK
+
+    def in_expertum_metadatum(
+            self, hxlated_input: str, tab_output: str, is_stdout: bool, args):
+        """in_expertum_metadatum
+
+        Trivia:
+        - in, https://en.wiktionary.org/wiki/in#Latin
+        - expertum, https://en.wiktionary.org/wiki/expertus#Latin
+        - meta
+          - https://en.wiktionary.org/wiki/meta#English
+            - https://en.wiktionary.org/wiki/metaphysica#Latin
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+
+        Args:
+            hxlated_input ([str]): Path to input data on disk
+            tab_output ([str]): If not stdout, path to output on disk
+            is_stdout (bool): If is stdout
+        """
+        resultatum = {
+            'argumentum': {
+                'fontem_linguam': self.fontem_linguam.v(),
+                'objectivum_linguam': self.objectivum_linguam.v(),
+                'alternativum_linguam': [],
+                'linguam': []
+            },
+            'archivum_fontem': {},
+            'archivum_objectivum': {},
+        }
+
+        if len(self.alternativum_linguam) > 0:
+            for rem in self.alternativum_linguam:
+                resultatum['argumentum']['alternativum_linguam'].append(
+                    rem.v())
+
+        if len(self.linguam) > 0:
+            for rem in self.linguam:
+                resultatum['argumentum']['linguam'].append(rem.v())
+
+        json_out = json.dumps(
+            resultatum, indent=4, sort_keys=True, ensure_ascii=False)
+
+        # TODO: maybe implement option to save the metadata on a different
+        #       file (or allow generate the metadata even if actual result
+        #       final output was generated)
+        print(json_out)
 
     def in_noop(self, hxlated_input, tab_output, is_stdout):
         """
@@ -844,6 +1009,86 @@ class HXLTMCLI:
                     # print (ln)
 
     def in_xliff(self, hxlated_input, xliff_output, is_stdout, args):
+        """
+        in_xliff is  is the main method to de facto make the conversion.
+
+        TODO: this is a work-in-progress at this moment, 2021-06-28
+        """
+
+        datum = []
+
+        with open(hxlated_input, 'r') as csv_file:
+            csvReader = csv.DictReader(csv_file)
+
+            # Convert each row into a dictionary
+            # and add it to data
+            for item in csvReader:
+
+                datum.append(HXLTMUtil.xliff_item_relevant_options(item))
+
+        resultatum = []
+        resultatum.append('<?xml version="1.0"?>')
+        resultatum.append(
+            '<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" ' +
+            'version="2.0" srcLang="en" trgLang="fr">')
+        resultatum.append('  <file id="f1">')
+
+        num = 0
+
+        for rem in datum:
+            num += 1
+            if '#x_xliff+unit+id' in rem and rem['#x_xliff+unit+id']:
+                unit_id = rem['#x_xliff+unit+id']
+            else:
+                unit_id = num
+            # unit_id = rem['#x_xliff+unit+id'] if rem['#x_xliff+unit+id'] \
+            #               else num
+            resultatum.append('      <unit id="' + str(unit_id) + '">')
+
+            resultatum.append('        <segment>')
+
+            xsource = HXLTMUtil.xliff_item_xliff_source_key(rem)
+            if xsource:
+                if not rem[xsource]:
+                    resultatum.append(
+                        '          <!-- ERROR source ' + str(unit_id) +
+                        ', ' + xsource + '-->')
+                    if not args.silentium:
+                        print('ERROR:', unit_id, xsource)
+                        # TODO: make exit status code warn about this
+                        #       so other scripts can deal with bad output
+                        #       when --silentium is not used
+                    # continue
+                else:
+                    resultatum.append('          <source>' +
+                                      rem[xsource] + '</source>')
+
+            xtarget = HXLTMUtil.xliff_item_xliff_target_key(rem)
+            if xtarget and rem[xtarget]:
+                resultatum.append('          <target>' +
+                                  rem[xtarget] + '</target>')
+
+            resultatum.append('        </segment>')
+
+            resultatum.append('      </unit>')
+
+        resultatum.append('  </file>')
+        resultatum.append('</xliff>')
+
+        if is_stdout:
+            for ln in resultatum:
+                print(ln)
+        else:
+            xliff_output_cleanup = open(xliff_output, 'w')
+            xliff_output_cleanup.truncate()
+            xliff_output_cleanup.close()
+
+            with open(xliff_output, 'a') as new_txt:
+                for ln in resultatum:
+                    new_txt.write(ln + "\n")
+                    # print (ln)
+
+    def in_xliff_old(self, hxlated_input, xliff_output, is_stdout, args):
         """
         in_xliff is  is the main method to de facto make the conversion.
 

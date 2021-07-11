@@ -247,6 +247,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 
 # end::XLIFF[]
 
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
 # To revert only one file that keeps changing even with same input
 # git checkout -- testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
 
