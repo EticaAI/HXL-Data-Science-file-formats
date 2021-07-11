@@ -416,6 +416,8 @@ python3 -m pip install hdp-toolchain
 
 <a id="HXLTM" href="#HXLTM">§ HXLTM</a>
 
+> **Dedicated documentation at <https://hdp.etica.ai/hxltm>**
+
 The _Humanitarian Exchange Language Trānslātiōnem Memoriam_
 (abbreviation: "HXLTM") is an HXLated valid HXL tabular format by
 [HXL-CPLP](https://github.com/HXL-CPLP) to store community contributed
@@ -426,9 +428,6 @@ allow reuse by others interested in export HXLTM files to common formats
 used by professional translators. But software developers interested in promote
 use cases of HXL are encouraged to either collaborate to `hxltmcli` or create
 other tools.
-
-Dedicated documentation at <https://hdp.etica.ai/hxltm>
-
 
 ### 2. Reasons behind
 

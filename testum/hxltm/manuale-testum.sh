@@ -3,11 +3,11 @@
 #
 #          FILE:  manuale-testum.sh
 #
-#         USAGE:  ./tests/hxltm/manuale-testum.sh
+#         USAGE:  ./testum/hxltm/manuale-testum.sh
 #
-#   DESCRIPTION:  Manual tests for hxltmcli.
+#   DESCRIPTION:  Manual testum for hxltmcli.
 #                 This file can also be used to undestand how the output
-#                 of tests/hxltm/resultatum was created
+#                 of testum/hxltm/resultatum was created
 #
 #       OPTIONS:  ---
 #
@@ -48,8 +48,8 @@ Hapi_schemam_un_htcds_RESULTATUM_TMX_LOCAL="resultatum/schemam-un-htcds.tmx"
 Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL="resultatum/schemam-un-htcds.xlf"
 Hapi_schemam_un_htcds_RESULTATUM_BILINGUAL_HXL_CSV_LOCAL="resultatum/schemam-un-htcds_eng-Latn_por-Latn.hxl.csv"
 
-#### Init tests and chechs _____________________________________________________
-cd "$ROOTDIR/tests/hxltm" || exit
+#### Init testum and chechs _____________________________________________________
+cd "$ROOTDIR/testum/hxltm" || exit
 
 if [ ! -f "$HXLTM_EXEMPLUM_XLSX_LOCAL" ]; then
     echo "$HXLTM_EXEMPLUM_XLSX_LOCAL not found."
@@ -107,10 +107,10 @@ printf "\n\n\n\tTESTUM 012 Hapi_schemam_un_htcds\n\n"
 echo hxltmcli "$Hapi_schemam_un_htcds" "$Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF --fontem-linguam eng-Latn@en --objectivum-linguam por-Latn@pt
 hxltmcli "$Hapi_schemam_un_htcds" "$Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF --fontem-linguam eng-Latn@en --objectivum-linguam por-Latn@pt
 
-# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats/tests/hxltm$ hxltmcli schemam-un-htcds.tm.hxl.csv resultatum/schemam-un-htcds.xlf --objectivum-XLIFF --fontem-linguam eng-Latn@en
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats/testum/hxltm$ hxltmcli schemam-un-htcds.tm.hxl.csv resultatum/schemam-un-htcds.xlf --objectivum-XLIFF --fontem-linguam eng-Latn@en
 
 
 # To revert only one file that keeps changing even with same input
-# git checkout -- tests/hxltm/resultatum/hxltm-exemplum-linguam.tmx
+# git checkout -- testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
 
 exit 0

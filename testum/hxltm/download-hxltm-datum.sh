@@ -3,7 +3,7 @@
 #
 #          FILE:  download-hxltm-datum.sh
 #
-#         USAGE:  ./tests/hxltm/download-hxltm-datum.sh
+#         USAGE:  ./testum/hxltm/download-hxltm-datum.sh
 #
 #   DESCRIPTION:  Download data from Google Spreadsheets via HXL-Proxy
 #
@@ -67,24 +67,24 @@ if true ; then
     echo ''
     echo "hxltm_linguam"
     echo "   Fontem:   [$hxltm_exemplum_linguam]"
-    echo "   Archīvum: [${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv]"
-    wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/tests/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
+    echo "   Archīvum: [${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv]"
+    wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
 fi
 
 if true ; then
     echo ''
     echo "hxltm_exemplum_glossarium_minimum"
     echo "   Fontem:   [$hxltm_exemplum_glossarium_minimum]"
-    echo "   Archīvum: [${ROOTDIR}/tests/hxltm/hxltm-exemplum-glossarium-minimum.tm.hxl.csv]"
-    wget -qO- "$hxltm_exemplum_glossarium_minimum" > "${ROOTDIR}/tests/hxltm/hxltm-exemplum-glossarium-minimum.tm.hxl.csv"
+    echo "   Archīvum: [${ROOTDIR}/testum/hxltm/hxltm-exemplum-glossarium-minimum.tm.hxl.csv]"
+    wget -qO- "$hxltm_exemplum_glossarium_minimum" > "${ROOTDIR}/testum/hxltm/hxltm-exemplum-glossarium-minimum.tm.hxl.csv"
 fi
 
 if true ; then
     echo ''
     echo "csv_3_exemplum"
     echo "   Fontem:   [$csv_3_exemplum]"
-    echo "   Archīvum: [${ROOTDIR}/tests/hxltm/csv-3-exemplum.csv]"
-    wget -qO- "$csv_3_exemplum" > "${ROOTDIR}/tests/hxltm/csv-3-exemplum.csv"
+    echo "   Archīvum: [${ROOTDIR}/testum/hxltm/csv-3-exemplum.csv]"
+    wget -qO- "$csv_3_exemplum" > "${ROOTDIR}/testum/hxltm/csv-3-exemplum.csv"
 fi
 
 # .gitignore: Do not save production test files to save space outside hapi.etica.ai
@@ -92,8 +92,8 @@ if true ; then
     echo ''
     echo "Hapi_schemam_un_htcds"
     echo "   Fontem: [$Hapi_schemam_un_htcds]"
-    echo "   Filum:  [${ROOTDIR}/tests/hxltm/schemam-un-htcds.tm.hxl.csv"
-    wget -qO- "$Hapi_schemam_un_htcds" > "${ROOTDIR}/tests/hxltm/schemam-un-htcds.tm.hxl.csv"
+    echo "   Filum:  [${ROOTDIR}/testum/hxltm/schemam-un-htcds.tm.hxl.csv"
+    wget -qO- "$Hapi_schemam_un_htcds" > "${ROOTDIR}/testum/hxltm/schemam-un-htcds.tm.hxl.csv"
 fi
 
 exit 0

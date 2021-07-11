@@ -443,7 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#HXLTM-archivum-dialecton">HXLM dialects</a>
+<li><a href="#HXLTM-archivum-dialecton">HXLM core file dialects</a>
 <ul class="sectlevel2">
 <li><a href="#HXLTM"><code>HXLTM</code></a>
 <ul class="sectlevel3">
@@ -518,6 +518,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#ontologia-datum-typum">Data types</a></li>
 </ul>
 </li>
+<li><a href="#hxltmcli--help"><code>hxltmcli --help</code></a></li>
 <li><a href="#_license">License</a></li>
 </ul>
 </div>
@@ -533,18 +534,49 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span class="image"><img src="https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-formats" alt="License"></span>
 <a href="https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486"><span class="image"><img src="https://img.shields.io/badge/Google%20Drive-HXL&#8212;&#8203;CPLP&#8212;&#8203;Vocab_Auxilium&#8212;&#8203;Humanitarium&#8212;&#8203;API-yellowgreen" alt="Google Drive"></span></a></p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This page contains a <strong>draft</strong> of informations handled by the by
-           <code>+hxltmcli</code> that already are not the HXLTM main format itself.
-           Some of these exports (in special the ones that are not HXLTM)
-           are subject to changes based on real testing or feedback
-           and they may not be up to date on this documentation.
+<code>hxltmcli</code> uses Python 3 and the reference version can be installed
+     with <a href="https://pypi.org/project/hdp-toolchain/">hdp-toolchain</a>.
+     TL;DR: <code>pip install hdp-toolchain</code>. <strong>The result of the lastest
+     <a href="#hxltmcli--help">hxltmcli --help. is on the bottom of this page</a>.</strong>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <a href="https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml">HXLTM core ontology cor.hxltm.yml</a>
+    that comes with hxltmcli can be customized with
+    <code>hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For advanced hackers or (people helping others in middle of urgency and
+     with basic knowledge of python),
+     <strong>is possible copy only the single file
+     <a href="https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/bin/hxltmcli">hxltmcli.py</a></strong>,
+     put on your executable path, and use immediately instead of
+     hdp-toolchain version. The hard requirements are
+     <code>pip install libhxl langcodes pyyaml</code>
 </td>
 </tr>
 </table>
@@ -552,7 +584,7 @@ This page contains a <strong>draft</strong> of informations handled by the by
 </div>
 </div>
 <div class="sect1">
-<h2 id="HXLTM-archivum-dialecton">HXLM dialects</h2>
+<h2 id="HXLTM-archivum-dialecton">HXLM core file dialects</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="HXLTM"><code>HXLTM</code></h3>
@@ -2231,6 +2263,122 @@ ontologia_datum_typum:
 </div>
 </div>
 <div class="sect1">
+<h2 id="hxltmcli--help"><code>hxltmcli --help</code></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># hxltmcli can be installed with hdp-toolchain
+# @see https://pypi.org/project/hdp-toolchain/
+pip install hdp-toolchain
+
+hxltmcli --help</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
+                [--http-header header] [--remove-headers] [--strip-tags]
+                [--ignore-certs]
+                [--log debug|info|warning|error|critical|none]
+                [--fontem-linguam [fontem_linguam]]
+                [--objectivum-linguam [objectivum_linguam]]
+                [--objectivum-HXLTM] [--objectivum-TMX]
+                [--objectivum-TBX-Basic] [--objectivum-UTX]
+                [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
+                [--objectivum-CSV-3] [--objectivum-CSV-HXL-XLIFF]
+                [--objectivum-JSON-kv]
+                [--crudum-fontem-linguam-hxlattrs [fon_hxlattrs]]
+                [--crudum-fontem-linguam-bcp47 [fon_bcp47]]
+                [--crudum-objectivum-linguam-hxlattrs [obj_hxlattrs]]
+                [--crudum-objectivum-linguam-bcp47 [obj_bcp47]]
+                [--archivum-configurationem] [--silentium]
+                [--venandum-insectum-est]
+                [infile] [outfile]
+
+_[eng-Latn] hxltmcli v0.8.2 is an working draft of a tool to convert prototype
+of translation memory stored with HXL to XLIFF v2.1 [eng-Latn]_
+
+positional arguments:
+  infile                HXL file to read (if omitted, use standard input).
+  outfile               HXL file to write (if omitted, use standard output).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --sheet [number]      Select sheet from a workbook (1 is first sheet)
+  --selector [path]     JSONPath expression for starting point in JSON input
+  --http-header header  Custom HTTP header to send with request
+  --remove-headers      Strip text headers from the CSV output
+  --strip-tags          Strip HXL tags from the CSV output
+  --ignore-certs        Don't verify SSL connections (useful for self-signed)
+  --log debug|info|warning|error|critical|none
+                        Set minimum logging level
+  --fontem-linguam [fontem_linguam], -f [fontem_linguam]
+                        (For bilingual operations) Source natural language
+                        (use if not auto detected). Must be like {ISO
+                        639-3}-{ISO 15924}. Example: lat-Latn
+  --objectivum-linguam [objectivum_linguam], -o [objectivum_linguam]
+                        (For bilingual operations) Target natural language
+                        (use if not auto detected). Must be like {ISO
+                        639-3}-{ISO 15924}. Example: arb-Arab
+  --objectivum-HXLTM, --HXLTM
+                        Save output as HXLTM (default). Multilingual.
+  --objectivum-TMX, --TMX
+                        Export to Translation Memory eXchange (TMX) v1.4b.
+                        Multilingual.
+  --objectivum-TBX-Basic, --TBX-Basic
+                        (Planned, but not implemented yet) Export to Term Base
+                        eXchange (TBX). Multilingual.
+  --objectivum-UTX, --UTX
+                        (Planned, but not implemented yet) Export to Universal
+                        Terminology eXchange (UTX). Multilingual.
+  --objectivum-XLIFF, --XLIFF, --XLIFF2
+                        Export to XLIFF (XML Localization Interchange File
+                        Format) v2.1. (mono or bi-lingual support only as per
+                        XLIFF specification)
+  --objectivum-XLIFF-obsoletum, --XLIFF-obsoletum, --XLIFF1
+                        (Not implemented) Export to XLIFF (XML Localization
+                        Interchange File Format) v1.2, an obsolete format for
+                        lazy developers who don't implemented XLIFF 2
+                        (released in 2014) yet.
+  --objectivum-CSV-3, --CSV-3
+                        (Not implemented yet) Export to Bilingual CSV with
+                        BCP47 headers (source to target) plus comments on last
+                        column
+  --objectivum-CSV-HXL-XLIFF, --CSV-HXL-XLIFF
+                        (experimental) HXLated bilingual CSV (feature
+                        compatible with XLIFF)
+  --objectivum-JSON-kv, --JSON-kv
+                        (Not implemented yet) Export to Bilingual JSON. Keys
+                        are ID (if available) or source natural language.
+                        Values are target language. No comments are exported.
+                        Monolingual/Bilingual
+  --crudum-fontem-linguam-hxlattrs [fon_hxlattrs], --fon-hxlattrs [fon_hxlattrs]
+                        (Advanced override for --fontem-linguam). Explicit HXL
+                        Attributes for source language. Example:
+                        "+i_la+i_lat+is_latn"
+  --crudum-fontem-linguam-bcp47 [fon_bcp47], --fon-bcp47 [fon_bcp47]
+                        (Advanced override for --fontem-linguam). Explicit
+                        IETF BCP 47 language tag for source language. Example:
+                        "la"
+  --crudum-objectivum-linguam-hxlattrs [obj_hxlattrs], --obj-hxlattrs [obj_hxlattrs]
+                        (Advanced override for --objectivum-linguam). Explicit
+                        HXL Attributes for target language. Example:
+                        "+i_ar+i_arb+is_arab"
+  --crudum-objectivum-linguam-bcp47 [obj_bcp47], --obj-bcp47 [obj_bcp47]
+                        (Advanced override for --objectivum-linguam). Explicit
+                        IETF BCP 47 language tag for target language. Example:
+                        "ar"
+  --archivum-configurationem
+                        Path to custom configuration file (The cor.hxltm.yml)
+  --silentium           Silence warnings? Try to not generate any warning. May
+                        generate invalid output
+  --venandum-insectum-est, --debug
+                        Enable debug? Extra information for program debugging</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_license">License</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -2249,7 +2397,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-11 06:07:55 UTC
+Last updated 2021-07-11 07:24:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
