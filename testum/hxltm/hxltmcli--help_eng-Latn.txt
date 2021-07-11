@@ -1,0 +1,98 @@
+usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
+                [--http-header header] [--remove-headers] [--strip-tags]
+                [--ignore-certs]
+                [--log debug|info|warning|error|critical|none]
+                [--fontem-linguam [fontem_linguam]]
+                [--objectivum-linguam [objectivum_linguam]]
+                [--objectivum-HXLTM] [--objectivum-TMX]
+                [--objectivum-TBX-Basic] [--objectivum-UTX]
+                [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
+                [--objectivum-CSV-3] [--objectivum-CSV-HXL-XLIFF]
+                [--objectivum-JSON-kv]
+                [--crudum-fontem-linguam-hxlattrs [fon_hxlattrs]]
+                [--crudum-fontem-linguam-bcp47 [fon_bcp47]]
+                [--crudum-objectivum-linguam-hxlattrs [obj_hxlattrs]]
+                [--crudum-objectivum-linguam-bcp47 [obj_bcp47]]
+                [--archivum-configurationem] [--silentium]
+                [--venandum-insectum-est]
+                [infile] [outfile]
+
+_[eng-Latn] hxltmcli v0.8.2 is an working draft of a tool to convert prototype
+of translation memory stored with HXL to XLIFF v2.1 [eng-Latn]_
+
+positional arguments:
+  infile                HXL file to read (if omitted, use standard input).
+  outfile               HXL file to write (if omitted, use standard output).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --sheet [number]      Select sheet from a workbook (1 is first sheet)
+  --selector [path]     JSONPath expression for starting point in JSON input
+  --http-header header  Custom HTTP header to send with request
+  --remove-headers      Strip text headers from the CSV output
+  --strip-tags          Strip HXL tags from the CSV output
+  --ignore-certs        Don't verify SSL connections (useful for self-signed)
+  --log debug|info|warning|error|critical|none
+                        Set minimum logging level
+  --fontem-linguam [fontem_linguam], -f [fontem_linguam]
+                        (For bilingual operations) Source natural language
+                        (use if not auto detected). Must be like {ISO
+                        639-3}-{ISO 15924}. Example: lat-Latn
+  --objectivum-linguam [objectivum_linguam], -o [objectivum_linguam]
+                        (For bilingual operations) Target natural language
+                        (use if not auto detected). Must be like {ISO
+                        639-3}-{ISO 15924}. Example: arb-Arab
+  --objectivum-HXLTM, --HXLTM
+                        Save output as HXLTM (default). Multilingual.
+  --objectivum-TMX, --TMX
+                        Export to Translation Memory eXchange (TMX) v1.4b.
+                        Multilingual.
+  --objectivum-TBX-Basic, --TBX-Basic
+                        (Planned, but not implemented yet) Export to Term Base
+                        eXchange (TBX). Multilingual.
+  --objectivum-UTX, --UTX
+                        (Planned, but not implemented yet) Export to Universal
+                        Terminology eXchange (UTX). Multilingual.
+  --objectivum-XLIFF, --XLIFF, --XLIFF2
+                        Export to XLIFF (XML Localization Interchange File
+                        Format) v2.1. (mono or bi-lingual support only as per
+                        XLIFF specification)
+  --objectivum-XLIFF-obsoletum, --XLIFF-obsoletum, --XLIFF1
+                        (Not implemented) Export to XLIFF (XML Localization
+                        Interchange File Format) v1.2, an obsolete format for
+                        lazy developers who don't implemented XLIFF 2
+                        (released in 2014) yet.
+  --objectivum-CSV-3, --CSV-3
+                        (Not implemented yet) Export to Bilingual CSV with
+                        BCP47 headers (source to target) plus comments on last
+                        column
+  --objectivum-CSV-HXL-XLIFF, --CSV-HXL-XLIFF
+                        (experimental) HXLated bilingual CSV (feature
+                        compatible with XLIFF)
+  --objectivum-JSON-kv, --JSON-kv
+                        (Not implemented yet) Export to Bilingual JSON. Keys
+                        are ID (if available) or source natural language.
+                        Values are target language. No comments are exported.
+                        Monolingual/Bilingual
+  --crudum-fontem-linguam-hxlattrs [fon_hxlattrs], --fon-hxlattrs [fon_hxlattrs]
+                        (Advanced override for --fontem-linguam). Explicit HXL
+                        Attributes for source language. Example:
+                        "+i_la+i_lat+is_latn"
+  --crudum-fontem-linguam-bcp47 [fon_bcp47], --fon-bcp47 [fon_bcp47]
+                        (Advanced override for --fontem-linguam). Explicit
+                        IETF BCP 47 language tag for source language. Example:
+                        "la"
+  --crudum-objectivum-linguam-hxlattrs [obj_hxlattrs], --obj-hxlattrs [obj_hxlattrs]
+                        (Advanced override for --objectivum-linguam). Explicit
+                        HXL Attributes for target language. Example:
+                        "+i_ar+i_arb+is_arab"
+  --crudum-objectivum-linguam-bcp47 [obj_bcp47], --obj-bcp47 [obj_bcp47]
+                        (Advanced override for --objectivum-linguam). Explicit
+                        IETF BCP 47 language tag for target language. Example:
+                        "ar"
+  --archivum-configurationem
+                        Path to custom configuration file (The cor.hxltm.yml)
+  --silentium           Silence warnings? Try to not generate any warning. May
+                        generate invalid output
+  --venandum-insectum-est, --debug
+                        Enable debug? Extra information for program debugging
