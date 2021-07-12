@@ -1251,27 +1251,27 @@ class HXLTMCLI:
                     target XLIFF translation pair
         [eng-Latn]_
 
-#item+id                          -> #x_xliff+unit+id
-#meta+archivum                    -> #x_xliff+file
-#item+wikidata+code               -> #x_xliff+unit+note+note_category__wikidata
-#meta+wikidata+code               -> #x_xliff+unit+note+note_category__wikidata
-#meta+item+url+list               -> #x_xliff+unit+notes+note_category__url
-#item+type+lat_dominium+list      -> #x_xliff+group+group_0
+# item+id                         -> #x_xliff+unit+id
+# meta+archivum                   -> #x_xliff+file
+# item+wikidata+code              -> #x_xliff+unit+note+note_category__wikidata
+# meta+wikidata+code              -> #x_xliff+unit+note+note_category__wikidata
+# meta+item+url+list              -> #x_xliff+unit+notes+note_category__url
+# item+type+lat_dominium+list     -> #x_xliff+group+group_0
 #                             (We will not implement deeper levels  than 0 now)
 
     [contextum: XLIFF srcLang]
-#item(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+source+i_ZZZ+is_ZZZZ
-#status(*)+i_ZZZ+is_ZZZZ+xliff
+# item(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+source+i_ZZZ+is_ZZZZ
+# status(*)+i_ZZZ+is_ZZZZ+xliff
                             -> #meta+x_xliff+segment_source+state+i_ZZZ+is_ZZZZ
                                    (XLIFF don't support)
-#meta(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+unit+note+note_category__source
-#meta(*)+i_ZZZ+is_ZZZZ+list       -> #x_xliff+unit+notes+note_category__source
+# meta(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+unit+note+note_category__source
+# meta(*)+i_ZZZ+is_ZZZZ+list       -> #x_xliff+unit+notes+note_category__source
 
     [contextum: XLIFF trgLang]
-#item(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+target+i_ZZZ+is_ZZZZ
-#status(*)+i_ZZZ+is_ZZZZ+xliff    -> #x_xliff+segment+state+i_ZZZ+is_ZZZZ
-#meta(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+unit+note+note_category__target
-#meta(*)+i_ZZZ+is_ZZZZ+list       -> #x_xliff+unit+notes+note_category__target
+# item(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+target+i_ZZZ+is_ZZZZ
+# status(*)+i_ZZZ+is_ZZZZ+xliff    -> #x_xliff+segment+state+i_ZZZ+is_ZZZZ
+# meta(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+unit+note+note_category__target
+# meta(*)+i_ZZZ+is_ZZZZ+list       -> #x_xliff+unit+notes+note_category__target
 
         _[eng-Latn] TODO:
 - Map XLIFF revisions back MateCat back to HXL TM
@@ -1469,6 +1469,7 @@ class HXLTMDatum:
             crudum_titulum=crudum_titulum,
             crudum_hashtag=crudum_hashtag,
             datum_rem_brevis=datum_rem_brevis,
+            columnam_collectionem=self.columnam,
             venandum_insectum_est=self.venandum_insectum_est
         )
 
@@ -1487,7 +1488,7 @@ class HXLTMDatum:
     #     """
     #     print('TODO _initialle_meta_caput')
 
-    def v(self, verbosum: bool = False):  # pylint: disable=invalid-name
+    def v(self, verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
 
         Trivia:
@@ -1501,14 +1502,22 @@ class HXLTMDatum:
         Returns:
             [Dict]: Python objectīvum
         """
+        if verbosum is not False:
+            verbosum = verbosum or self.venandum_insectum_est
+
         resultatum = {
-            'crudum_caput': self.crudum_caput,
-            'crudum_hashtag': self.crudum_hashtag,
+            # 'crudum_caput': self.crudum_caput,
+            # 'crudum_hashtag': self.crudum_hashtag,
             'meta': self.meta.v(verbosum),
-            'columnam':
-                [item.v(verbosum) if item else None for item in self.columnam],
-            # 'columnam': self.columnam.v(verbosum),
+            # optio --venandum-insectum-est requirere
+            # 'columnam': []
         }
+
+        if verbosum:
+            resultatum['crudum_caput'] = self.crudum_caput
+            resultatum['crudum_hashtag'] = self.crudum_hashtag
+            resultatum['columnam'] = \
+                [item.v(verbosum) if item else None for item in self.columnam]
 
         # return self.__dict__
         return resultatum
@@ -1665,7 +1674,9 @@ True
 
         # self.rem = [123]
 
-        self._initialle(crudum_titulum, crudum_hashtag, datum_rem_brevis)
+        self._initialle(
+            crudum_titulum, crudum_hashtag,
+            datum_rem_brevis, columnam_collectionem)
 
     def _initialle(
         self,
@@ -1700,15 +1711,18 @@ True
         # self.rem = [123]
 
         # Note:
+        # print('columnam_collectionem', columnam_collectionem)
+        # print('columnam_collectionem', len(columnam_collectionem))
         for item_num in range(self.numerum_optionem):
             # if columnam_collectionem is not None and item_num in
-            if columnam_collectionem is not None and \
-                    item_num in columnam_collectionem:
+            if columnam_collectionem is not None:
                 col_meta = columnam_collectionem[item_num]
+                # print('acerto')
             else:
+                # print('erro')
                 col_meta = None
             self.rem.append(HXLTMRemCaput(
-                columnam_numerum=item_num,
+                columnam=item_num,
                 columnam_meta=col_meta,
                 hashtag=self.hxl_hashtag_de_columnam(item_num),
                 titulum=self.titulum_de_columnam(item_num),
@@ -1850,7 +1864,7 @@ True
 
         return self.crudum_titulum[numerum]
 
-    def v(self, verbosum: bool = False):  # pylint: disable=invalid-name
+    def v(self, verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
 
         Trivia:
@@ -1864,10 +1878,13 @@ True
         Returns:
             [Dict]: Python objectīvum
         """
+        if verbosum is not False:
+            verbosum = verbosum or self.venandum_insectum_est
+
         resultatum = {
             'rem': [item.v(verbosum) if item else None for item in self.rem],
-            'crudum_titulum': self.crudum_titulum,
-            'crudum_hashtag': self.crudum_hashtag,
+            # 'crudum_titulum': self.crudum_titulum,
+            # 'crudum_hashtag': self.crudum_hashtag,
             'numerum_optionem': self.numerum_optionem,
             'numerum_optionem_hxl': self.numerum_optionem_hxl,
             'numerum_optionem_hxl_unicum': self.numerum_optionem_hxl_unicum,
@@ -1876,6 +1893,10 @@ True
             self.numerum_optionem_nomen_unicum,
             # 'venandum_insectum_est': self.venandum_insectum_est,
         }
+
+        if verbosum:
+            resultatum['crudum_titulum'] = self.crudum_titulum
+            resultatum['crudum_hashtag'] = self.crudum_hashtag
 
         # return self.__dict__
         return resultatum
@@ -2386,7 +2407,7 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
 
         return resultatum
 
-    def v(self, _verbosum: bool = False):  # pylint: disable=invalid-name
+    def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
 
         Trivia:
@@ -2411,7 +2432,8 @@ class HXLTMRemCaput(HXLTMLinguam):
         HXLTMLinguam ([HXLTMLinguam]): HXLTMLinguam
     """
 
-    columnam_numerum: InitVar[int] = -1
+    columnam: InitVar[int] = -1
+    valendum_meta: InitVar[Dict] = None
     datum_typum: InitVar['str'] = None
     hashtag: InitVar[str] = None
     titulum: InitVar[str] = None
@@ -2421,11 +2443,11 @@ class HXLTMRemCaput(HXLTMLinguam):
     # @see https://github.com/PyCQA/pylint/issues/3505
     # pylint: disable=super-init-not-called
     # pylint: disable=non-parent-init-called
-
+    # pylint: disable=too-many-arguments
     def __init__(
             self,
-            columnam_numerum: int = -1,
-            columnam_meta: Type['HXLTMDatumColumnam'] = None,
+            columnam: int = -1,
+            columnam_meta: Dict = None,  # HXLTMDatumColumnam.v()
             hashtag: str = '',
             titulum: str = '',
             strictum=False):
@@ -2433,13 +2455,14 @@ class HXLTMRemCaput(HXLTMLinguam):
 
         Args:
             columnam (int): Numerum columnam
+            columnam_meta (HXLTMDatumColumnam): HXLTMDatumColumnam
             hashtag (str): Textum hashtag. Defallo: ''
             titulum (str): Textum titulum. Defallo: ''
             strictum (bool, optional): Strictum est?.
                        Trivia: https://en.wiktionary.org/wiki/strictus#Latin
                        Defallo falsum.
         """
-
+        # print('columnam_meta', columnam_meta)
         # TODO: learn more about python super and how to deal with multiple
         #       inheritance.
         #       @see https://stackoverflow.com/questions/3277367
@@ -2468,12 +2491,163 @@ class HXLTMRemCaput(HXLTMLinguam):
 
         self._typum = 'HXLTMRemCaput'  # Used only when output JSON
 
-        self.columnam_numerum = columnam_numerum
+        # self.valendum_meta = 'teste123'
+        self.columnam = columnam
         self.hashtag = hashtag
         self.titulum = titulum
         if columnam_meta is not None:
-            self.datum_typum = columnam_meta.datum_typum
-            self.quantitatem = columnam_meta.quantitatem
+            self.valendum_meta = columnam_meta.v(False)
+
+
+class HXLTMTypum:
+    """HXLTM Data typum
+    Author:
+        Emerson Rocha <rocha[at]ieee.org>
+        David Megginson
+            (HXLTMTypum based also on from hxl.datatypes)
+    Creation date:
+            2018-04-07 hxl.datatypes
+                       (@see https://github.com/HXLStandard/libhxl-python
+                        /blob/main/hxl/datatypes.py)
+            2021-06-12 HXLTMTypum
+
+    Testum:
+>>> HXLTMTypum.hoc_est_numerum(1234)
+True
+>>> HXLTMTypum.hoc_est_numerum("1234")
+True
+>>> HXLTMTypum.collectionem_datum_typum([1])
+'numerum'
+>>> HXLTMTypum.collectionem_datum_typum([1, "2", "tribus"])
+'textum'
+>>> HXLTMTypum.collectionem_datum_typum(["", "   ", "	"])
+'vacuum'
+    """
+
+    @staticmethod
+    def datum_typum(rem: Type[Any], _annotationem=None) -> str:
+        """Datum typum
+
+        Trivia:
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+        - typum, https://en.wiktionary.org/wiki/typus#Latin
+        - rem, https://en.wiktionary.org/wiki/res#Latin
+
+        Args:
+            rem (Type[Any]): Rem
+
+        Returns:
+            str: Textum datum typum
+        """
+        # TODO: this is a draft
+
+        if HXLTMTypum.hoc_est_numerum(rem):
+            return 'numerum'
+        if HXLTMTypum.hoc_est_vacuum(rem):
+            return 'vacuum'
+
+        return 'textum'
+
+    @staticmethod
+    def collectionem_datum_typum(
+            colloctionem_rem,  # : List,
+            _annotationem=None) -> str:
+        """Datum typum
+
+        Trivia:
+        - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+        - typum, https://en.wiktionary.org/wiki/typus#Latin
+        - rem, https://en.wiktionary.org/wiki/res#Latin
+        - incognitum, https://en.wiktionary.org/wiki/incognitus#Latin
+
+        Args:
+            rem (Type[Any]): Rem
+
+        Returns:
+            str: Textum datum typum
+        """
+        # TODO: this is a draft
+        resultatum = set()
+
+        try:
+            iter(colloctionem_rem)
+            # print('iteration will probably work')
+        except TypeError:
+            return 'incognitum'
+            # print('not iterable')
+        for rem in colloctionem_rem:
+            resultatum.add(HXLTMTypum.datum_typum(rem))
+        resultatum = list(resultatum)
+
+        if len(resultatum) == 1:
+            return resultatum[0]
+
+        if 'vacuum' in resultatum:
+            resultatum.remove('vacuum')
+            if len(resultatum) == 1:
+                return resultatum[0]
+
+        if 'textum' in resultatum:
+            return 'textum'
+        return 'incognitum'
+
+    @staticmethod
+    def hoc_est_numerum(rem: Type[Any]) -> bool:
+        """Hoc est numerum?
+
+        _[eng-Latn]
+        hxl.datatypes.is_number()
+
+        By duck typing, test if a value contains something recognisable as
+        a number.
+        [eng-Latn]_
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - hoc, https://en.wiktionary.org/wiki/hoc#Latin
+          - est, https://en.wiktionary.org/wiki/est#Latin
+          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+
+        Args:
+            rem ([Any]): Rem
+
+        Returns:
+            [str]: Datum typum de rem
+        """
+        try:
+            float(rem)
+            return True
+        except ValueError:
+            return False
+
+    @staticmethod
+    def hoc_est_vacuum(rem: Type[Any]) -> bool:
+        """Hoc est numerum?
+
+        _[eng-Latn]
+        hxl.datatypes.is_empty()
+
+        None, empty string, or whitespace only counts as empty; anything else
+        doesn't.
+        [eng-Latn]_
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - hoc, https://en.wiktionary.org/wiki/hoc#Latin
+          - est, https://en.wiktionary.org/wiki/est#Latin
+          - vacuum, https://en.wiktionary.org/wiki/vacuus#Latin
+
+        Args:
+            rem ([Any]): Rem
+
+        Returns:
+            [str]: Datum typum de rem
+        """
+        # TODO: implement the '∅' that we use for intentionaly mark
+        #       a value that is okay to be empty
+
+        return (rem is None or rem == '' or str(rem).isspace())
 
 
 class HXLTMUtil:
@@ -2758,7 +2932,7 @@ class HXLTMUtil:
     @staticmethod
     def xliff_item_relevant_options(item):
         """From an dict (python object) return only keys that start with
-        #x_xliff
+        # x_xliff
 
         Args:
             item ([Dict]): An non-filtered dict (python object) represent a row
