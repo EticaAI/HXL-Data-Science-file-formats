@@ -1400,8 +1400,8 @@ class HXLTMDatum:
     crudum_caput: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
     meta: InitVar[Type['HXLTMDatumMetaCaput']] = None
-    datum_rem: InitVar[List] = []
-    datum_rem: InitVar[List] = []
+    # datum_rem: InitVar[List] = []
+    columnam: InitVar[List] = []
     ontologia: InitVar[Type['HXLTMOntologia']] = None
     venandum_insectum_est: InitVar[bool] = False
 
@@ -1449,10 +1449,21 @@ class HXLTMDatum:
 
             for rem in csv_lectorem:
                 datum_rem.append(rem)
+        # print(datum_rem)
+        # print('oooi')
+        # print(len(datum_rem[0]))
 
         if len(datum_rem) > 0:
-            self.datum_rem = datum_rem
+            # self.datum_rem = datum_rem
             datum_rem_brevis = datum_rem[:5]
+            for item_num in range(len(datum_rem[0])):
+                # print('oi2', item_num)
+                col_rem_val = HXLTMDatumColumnam.reducendum_de_datum(
+                    datum_rem, item_num)
+                self.columnam.append(HXLTMDatumColumnam(
+                    col_rem_val
+                ))
+                # print(type(self.columnam[0]))
 
         self.meta = HXLTMDatumMetaCaput(
             crudum_titulum=crudum_titulum,
@@ -1476,12 +1487,16 @@ class HXLTMDatum:
     #     """
     #     print('TODO _initialle_meta_caput')
 
-    def v(self):  # pylint: disable=invalid-name
+    def v(self, verbosum: bool = False):  # pylint: disable=invalid-name
         """Ego python Dict
 
         Trivia:
          - valendum, https://en.wiktionary.org/wiki/valeo#Latin
            - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            verbosum (bool): Verbosum est? Defallo falsum.
 
         Returns:
             [Dict]: Python objectīvum
@@ -1489,7 +1504,10 @@ class HXLTMDatum:
         resultatum = {
             'crudum_caput': self.crudum_caput,
             'crudum_hashtag': self.crudum_hashtag,
-            'meta': self.meta.v(),
+            'meta': self.meta.v(verbosum),
+            'columnam':
+                [item.v(verbosum) if item else None for item in self.columnam],
+            # 'columnam': self.columnam.v(verbosum),
         }
 
         # return self.__dict__
@@ -1497,7 +1515,7 @@ class HXLTMDatum:
 
 
 @dataclass
-class HXLTMDatumColumnamSummarius:
+class HXLTMDatumColumnam:
     """HXLTM Datum columnam summārius
 
     Trivia:
@@ -1513,15 +1531,15 @@ class HXLTMDatumColumnamSummarius:
 
     _typum: InitVar[str] = None   # Used only when output JSON
     datum_typum: InitVar['str'] = None
-    _valendum: InitVar[List] = None
     quantitatem: InitVar[int] = None
+    _valendum: InitVar[List] = None
 
     # self._typum = 'HXLTMRemCaput'  # Used only when output JSON
 
     def __init__(self, valendum: List):
 
-        self._typum = 'HXLTMDatumColumnamSummarius'
-        self.__valendum = valendum
+        self._typum = 'HXLTMDatumColumnam'
+        # self._valendum = valendum
         self.quantitatem = len(valendum) if valendum is not None else 0
 
     # @see https://github.com/HXLStandard/libhxl-python/blob
@@ -1536,12 +1554,36 @@ class HXLTMDatumColumnamSummarius:
 
         print('typum_col', typum_col)
 
-    def v(self):  # pylint: disable=invalid-name
+    @staticmethod
+    def reducendum_de_datum(datum: List, columnam: int) -> List:
+        """Redūcendum Columnam de datum
+
+        Args:
+            datum (List): Datum [rem x col]
+            columnam (int): Numerum columnam in datum
+
+        Returns:
+            List: Unum columnam
+        """
+        resultatum = []
+        if datum is not None and len(datum) > 0:
+            for rem_num, _ in enumerate(datum):  # numero de linhas
+                # for col_num in enumerate(datum[0]): # Número de colunas
+                resultatum.append(datum[rem_num][columnam])
+                # resultatum.append(datum[rem_num])
+        # pass # redūcendum_Columnam_de_datum
+        return resultatum
+
+    def v(self, verbosum: bool = False):  # pylint: disable=invalid-name
         """Ego python Dict
 
         Trivia:
          - valendum, https://en.wiktionary.org/wiki/valeo#Latin
            - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            verbosum (bool): Verbosum est? Defallo falsum.
 
         Returns:
             [Dict]: Python objectīvum
@@ -1607,11 +1649,14 @@ True
     numerum_optionem_nomen_unicum: InitVar[int] = 0
     venandum_insectum_est: InitVar[bool] = False
 
-    def __init__(self,
-                 crudum_titulum: List,
-                 crudum_hashtag: List,
-                 datum_rem_brevis: List,
-                 venandum_insectum_est: bool = False):
+    def __init__(
+            self,
+            crudum_titulum: List,
+            crudum_hashtag: List,
+            datum_rem_brevis: List,
+            columnam_collectionem: List[Type['HXLTMDatumColumnam']] = None,
+            venandum_insectum_est: bool = False
+    ):
 
         self.crudum_titulum = crudum_titulum
         self.crudum_hashtag = crudum_hashtag
@@ -1622,10 +1667,13 @@ True
 
         self._initialle(crudum_titulum, crudum_hashtag, datum_rem_brevis)
 
-    def _initialle(self,
-                   crudum_titulum: List,
-                   crudum_hashtag: List,
-                   datum_rem_brevis: List):
+    def _initialle(
+        self,
+        crudum_titulum: List,
+        crudum_hashtag: List,
+        datum_rem_brevis: List,
+        columnam_collectionem: List[Type['HXLTMDatumColumnam']] = None
+    ):
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
@@ -1636,6 +1684,10 @@ True
         # print(crudum_hashtag)
 
         self.datum_rem_brevis = datum_rem_brevis
+        # _[eng-Latn]
+        # crudum_hashtag also have empty spaces, so it still can be used to
+        # know how many columns do exist
+        # [eng-Latn]_
         self.numerum_optionem = len(crudum_hashtag)
         self.numerum_optionem_hxl = \
             self.quod_est_hashtag_caput(crudum_hashtag)
@@ -1647,11 +1699,19 @@ True
 
         # self.rem = [123]
 
-        for col in range(self.numerum_optionem):
+        # Note:
+        for item_num in range(self.numerum_optionem):
+            # if columnam_collectionem is not None and item_num in
+            if columnam_collectionem is not None and \
+                    item_num in columnam_collectionem:
+                col_meta = columnam_collectionem[item_num]
+            else:
+                col_meta = None
             self.rem.append(HXLTMRemCaput(
-                columnam=col,
-                hashtag=self.hxl_hashtag_de_columnam(col),
-                titulum=self.titulum_de_columnam(col),
+                columnam_numerum=item_num,
+                columnam_meta=col_meta,
+                hashtag=self.hxl_hashtag_de_columnam(item_num),
+                titulum=self.titulum_de_columnam(item_num),
             ))
             # print(col)
 
@@ -1790,18 +1850,22 @@ True
 
         return self.crudum_titulum[numerum]
 
-    def v(self):  # pylint: disable=invalid-name
+    def v(self, verbosum: bool = False):  # pylint: disable=invalid-name
         """Ego python Dict
 
         Trivia:
          - valendum, https://en.wiktionary.org/wiki/valeo#Latin
            - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            verbosum (bool): Verbosum est? Defallo falsum.
 
         Returns:
             [Dict]: Python objectīvum
         """
         resultatum = {
-            'rem': [item.v() if item else None for item in self.rem],
+            'rem': [item.v(verbosum) if item else None for item in self.rem],
             'crudum_titulum': self.crudum_titulum,
             'crudum_hashtag': self.crudum_hashtag,
             'numerum_optionem': self.numerum_optionem,
@@ -2322,12 +2386,16 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
 
         return resultatum
 
-    def v(self):  # pylint: disable=invalid-name
+    def v(self, _verbosum: bool = False):  # pylint: disable=invalid-name
         """Ego python Dict
 
         Trivia:
          - valendum, https://en.wiktionary.org/wiki/valeo#Latin
            - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            _verbosum (bool): Verbosum est? Defallo falsum.
 
         Returns:
             [Dict]: Python objectīvum
@@ -2335,7 +2403,7 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
         return self.__dict__
 
 
-# class HXLTMRemCaput(HXLTMLinguam, HXLTMDatumColumnamSummarius):
+# class HXLTMRemCaput(HXLTMLinguam, HXLTMDatumColumnam):
 class HXLTMRemCaput(HXLTMLinguam):
     """HXLTMRemCaput HXLTMLinguam et HXLTMDatumMetaCaput metadatum
 
@@ -2343,7 +2411,8 @@ class HXLTMRemCaput(HXLTMLinguam):
         HXLTMLinguam ([HXLTMLinguam]): HXLTMLinguam
     """
 
-    columnam: InitVar[int] = -1
+    columnam_numerum: InitVar[int] = -1
+    datum_typum: InitVar['str'] = None
     hashtag: InitVar[str] = None
     titulum: InitVar[str] = None
 
@@ -2353,12 +2422,13 @@ class HXLTMRemCaput(HXLTMLinguam):
     # pylint: disable=super-init-not-called
     # pylint: disable=non-parent-init-called
 
-    def __init__(self,
-                 columnam: int = -1,
-                 valendum: int = None,
-                 hashtag: str = '',
-                 titulum: str = '',
-                 strictum=False):
+    def __init__(
+            self,
+            columnam_numerum: int = -1,
+            columnam_meta: Type['HXLTMDatumColumnam'] = None,
+            hashtag: str = '',
+            titulum: str = '',
+            strictum=False):
         """HXLTMRemCaput initiāle
 
         Args:
@@ -2388,17 +2458,22 @@ class HXLTMRemCaput(HXLTMLinguam):
         # else:
         #     vacuum = False
 
+        # TODO: Use columnam_meta information when availible
+
         # print("HXLTMRemCaput(): entering")
         # print(self.v())
         HXLTMLinguam.__init__(self, linguam, strictum, vacuum)
-        # HXLTMDatumColumnamSummarius.__init__(self, valendum)
+        # HXLTMDatumColumnam.__init__(self, valendum)
         # print("HXLTMRemCaput(): exiting")
 
         self._typum = 'HXLTMRemCaput'  # Used only when output JSON
 
-        self.columnam = columnam
+        self.columnam_numerum = columnam_numerum
         self.hashtag = hashtag
         self.titulum = titulum
+        if columnam_meta is not None:
+            self.datum_typum = columnam_meta.datum_typum
+            self.quantitatem = columnam_meta.quantitatem
 
 
 class HXLTMUtil:
