@@ -1424,7 +1424,7 @@ class HXLTMDatum:
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
-        crudum_nomen = []
+        crudum_titulum = []
         crudum_hashtag = []
         datum_rem = []
         datum_rem_brevis = []
@@ -1436,7 +1436,7 @@ class HXLTMDatum:
                 rem_nunc = next(csv_lectorem)
                 if HXLTMDatumMetaCaput.quod_est_hashtag_caput(rem_nunc):
                     if rem_prius is not None:
-                        crudum_nomen = rem_prius
+                        crudum_titulum = rem_prius
                     crudum_hashtag = rem_nunc
                     break
                 rem_prius = rem_nunc
@@ -1453,7 +1453,7 @@ class HXLTMDatum:
             datum_rem_brevis = datum_rem[:5]
 
         self.meta = HXLTMDatumMetaCaput(
-            crudum_nomen=crudum_nomen,
+            crudum_titulum=crudum_titulum,
             crudum_hashtag=crudum_hashtag,
             datum_rem_brevis=datum_rem_brevis,
             venandum_insectum_est=self.venandum_insectum_est
@@ -1518,13 +1518,13 @@ True
 True
 >>> rem.quod_datum_rem_correctum_est([['Canem amat Marcus.', '']])
 False
->>> rem.nomen_de_columnam(0)
+>>> rem.titulum_de_columnam(0)
 'id'
->>> rem.nomen_de_columnam(1)
+>>> rem.titulum_de_columnam(1)
 'Nōmen'
->>> rem.nomen_de_columnam(2)
+>>> rem.titulum_de_columnam(2)
 'Annotātiōnem'
->>> rem.nomen_de_columnam(9999)
+>>> rem.titulum_de_columnam(9999)
 False
 >>> rem.hxl_hashtag_de_columnam(0)
 '#item+id'
@@ -1535,7 +1535,7 @@ True
     """
 
     # crudum: InitVar[List] = []
-    crudum_nomen: InitVar[List] = []
+    rem: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
     datum_rem_brevis: InitVar[List] = []
     numerum_optionem: InitVar[int] = 0
@@ -1546,20 +1546,20 @@ True
     venandum_insectum_est: InitVar[bool] = False
 
     def __init__(self,
-                 crudum_nomen: List,
+                 crudum_titulum: List,
                  crudum_hashtag: List,
                  datum_rem_brevis: List,
                  venandum_insectum_est: bool = False):
 
-        self.crudum_nomen = crudum_nomen
+        self.crudum_titulum = crudum_titulum
         self.crudum_hashtag = crudum_hashtag
         self.datum_rem_brevis = datum_rem_brevis
         self.venandum_insectum_est = venandum_insectum_est
 
-        self._initialle(crudum_nomen, crudum_hashtag, datum_rem_brevis)
+        self._initialle(crudum_titulum, crudum_hashtag, datum_rem_brevis)
 
     def _initialle(self,
-                   crudum_nomen: List,
+                   crudum_titulum: List,
                    crudum_hashtag: List,
                    datum_rem_brevis: List):
         """
@@ -1567,8 +1567,8 @@ True
         """
         # self.quod_est_hashtag_caput
 
-        non_vacuum_nomen = list(filter(len, crudum_nomen))
-        # print(crudum_nomen)
+        non_vacuum_nomen = list(filter(len, crudum_titulum))
+        # print(crudum_titulum)
         # print(crudum_hashtag)
 
         self.datum_rem_brevis = datum_rem_brevis
@@ -1580,6 +1580,14 @@ True
         self.numerum_optionem_nomen = len(non_vacuum_nomen)
         self.numerum_optionem_nomen_unicum = \
             len(set(non_vacuum_nomen))
+
+        for col in range(self.numerum_optionem):
+            self.rem.append(HXLTMRemCaput(
+                columnam=col,
+                hashtag=self.hxl_hashtag_de_columnam(col),
+                titulum=self.titulum_de_columnam(col),
+            ))
+            # print(col)
 
     def hxl_hashtag_de_columnam(self, numerum: int) -> Union[str, None]:
         """HXL hashtag dē columnam numerum
@@ -1600,7 +1608,6 @@ True
         """
 
         if numerum < 0 or numerum >= len(self.crudum_hashtag):
-            # print('erro', numerum, len(self.crudum_nomen), self.crudum_nomen)
             # _[eng-Latn]Called on a wrong, invalid, index[eng-Latn]_
             return False
         if len(self.crudum_hashtag[numerum]) == 0:
@@ -1693,7 +1700,7 @@ True
         # https://en.wiktionary.org/wiki/columna#Latin
         print('TODO')
 
-    def nomen_de_columnam(self, numerum: int) -> Union[str, None]:
+    def titulum_de_columnam(self, numerum: int) -> Union[str, None]:
         """Nomen dē columnam numerum
 
         Trivia:
@@ -1709,14 +1716,13 @@ True
             Union[str, None, False]: nōmen aut python None aut python False
         """
         # https://en.wiktionary.org/wiki/columna#Latin
-        if numerum < 0 or numerum >= len(self.crudum_nomen):
-            # print('erro', numerum, len(self.crudum_nomen), self.crudum_nomen)
+        if numerum < 0 or numerum >= len(self.crudum_titulum):
             # _[eng-Latn]Called on a wrong, invalid, index[eng-Latn]_
             return False
-        if len(self.crudum_nomen[numerum]) == 0:
+        if len(self.crudum_titulum[numerum]) == 0:
             return None
 
-        return self.crudum_nomen[numerum]
+        return self.crudum_titulum[numerum]
 
     def v(self):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -1729,7 +1735,7 @@ True
             [Dict]: Python objectīvum
         """
         resultatum = {
-            'crudum_nomen': self.crudum_nomen,
+            'crudum_titulum': self.crudum_titulum,
             'crudum_hashtag': self.crudum_hashtag,
             'numerum_optionem': self.numerum_optionem,
             'numerum_optionem_hxl': self.numerum_optionem_hxl,
@@ -2012,6 +2018,7 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
                        Trivia: https://en.wiktionary.org/wiki/vacuus#Latin.
                        Defallo falsum.
         """
+        super().__init__()
         self.crudum = linguam
         if not vacuum:
             self.initialle(strictum)
@@ -2264,21 +2271,30 @@ class HXLTMRemCaput(HXLTMLinguam):
     Args:
         HXLTMLinguam ([HXLTMLinguam]): HXLTMLinguam
     """
+
+    columnam: InitVar[int] = -1
+    hashtag: InitVar[str] = None
+    titulum: InitVar[str] = None
+
     # def __init__(self, linguam: str, strictum=False, vacuum=False):
 
     # @see https://github.com/PyCQA/pylint/issues/3505
     # pylint: disable=super-init-not-called
     # pylint: disable=non-parent-init-called
-    def __init__(self, linguam: str, strictum=False):
-        """HXLTMLinguam initiāle
+
+    def __init__(self,
+                 columnam: int = -1,
+                 hashtag: str = '',
+                 titulum: str = '',
+                 strictum=False):
+        """HXLTMRemCaput initiāle
 
         Args:
-            linguam (str): Textum linguam
+            columnam (int): Numerum columnam
+            hashtag (str): Textum hashtag. Defallo: ''
+            titulum (str): Textum titulum. Defallo: ''
             strictum (bool, optional): Strictum est?.
                        Trivia: https://en.wiktionary.org/wiki/strictus#Latin
-                       Defallo falsum.
-            vacuum (bool, optional): vacuum	est?
-                       Trivia: https://en.wiktionary.org/wiki/vacuus#Latin.
                        Defallo falsum.
         """
 
@@ -2286,20 +2302,25 @@ class HXLTMRemCaput(HXLTMLinguam):
         #       inheritance.
         #       @see https://stackoverflow.com/questions/3277367
         #            /how-does-pythons-super-work-with-multiple-inheritance
-        # self.crudum = linguam
 
+        linguam = HXLTMUtil.linguam_de_hxlhashtag(hashtag) if hashtag else ''
         # _[eng-Latn]
         # While on HXLTMLinguam the user must explicitly force vacuum=False
         # to not tolerate malformated requests, the HXLTMRemCaput
         # have to deal with pretty much anything as header. So we assume
         # empty HXL hashtag means HXLTMLinguam vacuum=True
         # [eng-Latn]_
-        if len(linguam) == 0:
-            vacuum = True
-        print("HXLTMRemCaput(): entering")
+        if linguam is None or len(linguam) == 0:
+            vacuum = True # noqa
 
-        HXLTMRemCaput.__init__(linguam, strictum, vacuum)
-        print("HXLTMRemCaput(): exiting")
+        # print("HXLTMRemCaput(): entering")
+        # print(self.v())
+        # HXLTMLinguam.__init__(linguam, strictum, vacuum)
+        # print("HXLTMRemCaput(): exiting")
+
+        # self.columnam = columnam
+        # self.hashtag = hashtag
+        # self.titulum = titulum
 
 
 class HXLTMUtil:
@@ -2312,7 +2333,7 @@ class HXLTMUtil:
     """
 
     @staticmethod
-    def bcp47_from_hxlattrs(hashtag):
+    def bcp47_from_hxlattrs(hashtag: Union[str, None]) -> str:
         """From a typical HXLTM hashtag, return only the bcp47 language code
         without require a complex table equivalence.
 
@@ -2328,7 +2349,7 @@ class HXLTMUtil:
         Returns:
             [String]: HXL Attributes
         """
-        if hashtag:
+        if hashtag and isinstance(hashtag, str):
             parts = hashtag.lower().split('+i_')
             for k in parts:
                 if len(k) == 2:
@@ -2337,7 +2358,7 @@ class HXLTMUtil:
         return ''
 
     @staticmethod
-    def bcp47_from_linguam(linguam):
+    def bcp47_from_linguam(linguam: Union[str, None]) -> str:
         """From am linguam with hint about BCP47, get the BCP47 code
         Returns empty if no hint exist
 
@@ -2396,7 +2417,7 @@ class HXLTMUtil:
         return result
 
     @staticmethod
-    def iso6393_from_hxlattrs(hashtag):
+    def iso6393_from_hxlattrs(hashtag: Union[str, None]) -> str:
         """From a typical HXLTM hashtag, return only the ISO 639-3 language
         code without require a complex table equivalence.
 
@@ -2414,7 +2435,7 @@ class HXLTMUtil:
         Returns:
             [String]: HXL Attributes
         """
-        if hashtag:
+        if hashtag and isinstance(hashtag, str):
             # parts = hashtag.lower().split('+i_')
             parts = hashtag.lower().split('+')
             # '#item+i_ar+i_arb+is_arab' => ['#item', 'ar', 'arb+is_arab']
@@ -2428,7 +2449,7 @@ class HXLTMUtil:
         return ''
 
     @staticmethod
-    def iso115924_from_hxlattrs(hashtag):
+    def iso115924_from_hxlattrs(hashtag: Union[str, None]) -> str:
         """From a typical HXLTM hashtag, return only the ISO 115924
         writting system without require a complex table equivalence.
 
@@ -2444,7 +2465,7 @@ class HXLTMUtil:
         Returns:
             [String]: HXL Attributes
         """
-        if hashtag:
+        if hashtag and isinstance(hashtag, str):
             parts = hashtag.lower().split('+')
             for k in parts:
                 if k.startswith('is_'):
@@ -2486,6 +2507,49 @@ class HXLTMUtil:
         iso6391, _adm = list(bcp47.split('-'))
 
         return '+i_' + iso6391 + '+i_' + iso6393 + '+is_' + iso115924
+
+    @staticmethod
+    def linguam_de_hxlhashtag(
+            hxl_hashtag: str,
+            non_obsoletum: bool = False,
+            non_patriam: bool = False,
+            non_privatum: bool = False) -> Union[str, None]:
+        """Linguam de HXL hashtag
+
+        Args:
+            linguam ([str]): _[eng-Latn] An HXL hashtag [eng-Latn]_
+            non_obsoletum ([bool]): Non bcp47?
+            non_patriam ([bool]): Non patriam codicem??
+            non_privatum ([bool]): Non privatum codicem?
+
+        Returns:
+            [Union[str, None]]: Linguam codicem aut python None
+
+        Example:
+            >>> HXLTMUtil.linguam_de_hxlhashtag(
+            ...    '#meta+item+i_la+i_lat+is_latn')
+            'lat-latn@la'
+        """
+        rawstr = ''
+        bcp47 = HXLTMUtil.bcp47_from_hxlattrs(hxl_hashtag)
+        iso6393 = HXLTMUtil.iso6393_from_hxlattrs(hxl_hashtag)
+        iso115924 = HXLTMUtil.iso115924_from_hxlattrs(hxl_hashtag)
+
+        if non_patriam:
+            # TODO: implement +ii_ (region with political influence attribute)
+            raise NotImplementedError('non_patriam')
+        if non_privatum:
+            # TODO: implement +ix_ (private attributes)
+            raise NotImplementedError('non_privatum')
+
+        if iso6393:
+            rawstr += iso6393
+        if iso115924:
+            rawstr += '-' + iso115924
+        if bcp47 and not non_obsoletum:
+            rawstr += '@' + bcp47
+
+        return rawstr if rawstr else None
 
     @staticmethod
     def load_hxltm_options(custom_file_option=None, is_debug=False):
