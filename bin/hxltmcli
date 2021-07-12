@@ -154,6 +154,7 @@ class HXLTMCLI:
         self.objectivum_linguam: HXLTMLinguam = None
         self.alternativum_linguam: List[HXLTMLinguam] = []
         self.linguam: List[HXLTMLinguam] = []
+        self.datum: HXLTMDatum = None
         # self.meta_archivum_fontem = {}
         self.meta_archivum_fontem = {}
         self.errors = []
@@ -270,17 +271,17 @@ class HXLTMCLI:
 
             mAF['rem_I'] = next(csv_reader)
             mAF['rem_I_hxl_caput_est'] = \
-                HXLTMUtil.hxl_hashtag_caput_est(
+                HXLTMDatum.quod_est_hashtag_caput(
                     mAF['rem_I'])
 
             mAF['rem_II'] = next(csv_reader)
             mAF['rem_II_hxl_caput_est'] = \
-                HXLTMUtil.hxl_hashtag_caput_est(
+                HXLTMDatum.quod_est_hashtag_caput(
                     mAF['rem_II'])
 
             mAF['rem_III'] = next(csv_reader)
             mAF['rem_III_hxl_caput_est'] = \
-                HXLTMUtil.hxl_hashtag_caput_est(
+                HXLTMDatum.quod_est_hashtag_caput(
                     mAF['rem_III'])
 
         self.meta_archivum_fontem = mAF
@@ -635,6 +636,7 @@ class HXLTMCLI:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
+            self.datum = HXLTMDatum(args.outfile, self.otlg)
             self._initiale_meta_archivum_fontem_hxlated(args.outfile)
 
             if args.expertum_metadatum:
@@ -1373,31 +1375,91 @@ class HXLTMCLI:
         return hxlated_header
 
 
+@dataclass
 class HXLTMDatum:
     """
     _[eng-Latn]
     HXLTMDatum is a python wrapper for the an HXLated HXLTM dataset.
-    One limitation (that is unlikely to be a problem) is that similar to
+
+    While this class does not use libhxl directly, it assumes that the dataset
+    already was saved on local disk and is CSV valid with hashtags. (We will
+    not reimplement too much low level logic here).
+
+    One limitation (that is unlikely to be a problem) is, similar to
     softwares like Pandas (and unlikely libhxl, that play nice with streams)
     this class requires load all the data on the memory instead of process
     row by row.
     [eng-Latn]_
-
     """
 
-    def __init__(self, archivum):
+    # crudum: InitVar[List] = []
+    crudum_caput: InitVar[List] = []
+    crudum_hashtag: InitVar[List] = []
+    ontologia: InitVar[Type['HXLTMOntologia']] = None
+
+    def __init__(self, archivum: str, ontologia: Type['HXLTMOntologia']):
         """
         _[eng-Latn] Constructs all the necessary attributes for the
-                    HXLTMOntologia object.
+                    HXLTMDatum object.
         [eng-Latn]_
         """
-        self.initialle(archivum)
 
-    def initialle(self, archivum: str):
+        self.ontologia = ontologia
+
+        # print('oi')
+
+        self._initialle(archivum)
+
+    def _initialle(self, archivum: str):
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
-        # print('TODO')
+        crudum_caput = []  # noqa
+        crudum_hashtag = []
+
+        with open(archivum, 'r') as hxl_archivum:
+            csv_lectorem = csv.reader(hxl_archivum)
+            rem_prius = None
+            for _ in range(25):
+                rem_nunc = next(csv_lectorem)
+                if self.quod_est_hashtag_caput(rem_nunc):
+                    crudum_hashtag = rem_nunc
+                    if rem_prius is not None:
+                        crudum_caput = rem_nunc
+                    break
+                rem_prius = rem_nunc
+            if len(crudum_hashtag) == 0:
+                # This is not supposed to happen, since the file should
+                # already be parsed previously by libhxl
+                raise SyntaxError('HXLTMDatum quod archīvum HXL hashtags?')
+
+        if crudum_caput:
+            print('todo')
+
+    @staticmethod
+    def quod_est_hashtag_caput(rem: List) -> bool:
+        """HXL hashtag caput est?
+
+        @see hxl.HXLReader.parse_tags()
+              https://github.com/HXLStandard/libhxl-python/blob/main/hxl/io.py
+
+        Args:
+            rem (List): List to test
+
+        Returns:
+            bool: True if seems to be a HXLated hashtag row
+        """
+        # Same as FUZZY_HASHTAG_PERCENTAGE = 0.5 from libhxl
+        min_limit = 50
+        total = 0
+        hashtag_like = 0
+        for item in rem:
+            total += 1
+            if item.startswith('#'):
+                hashtag_like += 1
+
+        return (hashtag_like > 0) and \
+            ((total / hashtag_like * 100) > min_limit)
 
 
 class HXLTMOntologia:
@@ -1970,18 +2032,6 @@ class HXLTMUtil:
             return bcp47
 
         return ''
-
-    @staticmethod
-    def hxl_hashtag_caput_est(rem: List) -> bool:
-        min_limit = 50
-        total = 0
-        hashtag_like = 0
-        for item in rem:
-            total += 1
-            if item.startswith('#'):
-                hashtag_like += 1
-
-        return hashtag_like > 0 and (total / hashtag_like * 100) > min_limit
 
     @staticmethod
     def hxllangattrs_list_from_item(item):
