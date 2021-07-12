@@ -98,6 +98,7 @@ import yaml
 import hxl.converters
 import hxl.filters
 import hxl.io
+import hxl.datatypes
 
 # @see https://github.com/rspeer/langcodes
 # pip3 install langcodes
@@ -1400,6 +1401,7 @@ class HXLTMDatum:
     crudum_hashtag: InitVar[List] = []
     meta: InitVar[Type['HXLTMDatumMetaCaput']] = None
     datum_rem: InitVar[List] = []
+    datum_rem: InitVar[List] = []
     ontologia: InitVar[Type['HXLTMOntologia']] = None
     venandum_insectum_est: InitVar[bool] = False
 
@@ -1495,6 +1497,66 @@ class HXLTMDatum:
 
 
 @dataclass
+class HXLTMDatumColumnamSummarius:
+    """HXLTM Datum columnam summārius
+
+    Trivia:
+    - HXLTM, https://hdp.etica.ai/hxltm
+    - Datum, https://en.wiktionary.org/wiki/datum#Latin
+    - Columnam, https://en.wiktionary.org/wiki/columna#Latin
+    - summārius, https://en.wiktionary.org/wiki/summary#English
+    - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+      - 'value' , https://en.wiktionary.org/wiki/value#English
+    - quantitātem , https://en.wiktionary.org/wiki/quantitas
+    """
+    # pylint: disable=too-many-instance-attributes
+
+    _typum: InitVar[str] = None   # Used only when output JSON
+    datum_typum: InitVar['str'] = None
+    _valendum: InitVar[List] = None
+    quantitatem: InitVar[int] = None
+
+    # self._typum = 'HXLTMRemCaput'  # Used only when output JSON
+
+    def __init__(self, valendum: List):
+
+        self._typum = 'HXLTMDatumColumnamSummarius'
+        self.__valendum = valendum
+        self.quantitatem = len(valendum) if valendum is not None else 0
+
+    # @see https://github.com/HXLStandard/libhxl-python/blob
+    #      /main/hxl/datatypes.py
+    def _datum_typum(self):
+        # type = hxl.datatypes.typeof("     ") # => "empty"
+        # print(hxl.datatypes.typeof())
+        typum_col = set()
+        if self._valendum is not None and len(self._valendum):
+            for rem in self._valendum:
+                typum_col.add(hxl.datatypes.typeof(rem))
+
+        print('typum_col', typum_col)
+
+    def v(self):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        resultatum = {
+            '_typum': self._typum,
+            'quantitatem': self.quantitatem,
+            'datum_typum': self.datum_typum,
+        }
+
+        # return self.__dict__
+        return resultatum
+
+
+@dataclass
 class HXLTMDatumMetaCaput:  # pylint: disable=too-many-instance-attributes
     """
     _[eng-Latn]
@@ -1556,6 +1618,8 @@ True
         self.datum_rem_brevis = datum_rem_brevis
         self.venandum_insectum_est = venandum_insectum_est
 
+        # self.rem = [123]
+
         self._initialle(crudum_titulum, crudum_hashtag, datum_rem_brevis)
 
     def _initialle(self,
@@ -1580,6 +1644,8 @@ True
         self.numerum_optionem_nomen = len(non_vacuum_nomen)
         self.numerum_optionem_nomen_unicum = \
             len(set(non_vacuum_nomen))
+
+        # self.rem = [123]
 
         for col in range(self.numerum_optionem):
             self.rem.append(HXLTMRemCaput(
@@ -1735,6 +1801,7 @@ True
             [Dict]: Python objectīvum
         """
         resultatum = {
+            'rem': [item.v() if item else None for item in self.rem],
             'crudum_titulum': self.crudum_titulum,
             'crudum_hashtag': self.crudum_hashtag,
             'numerum_optionem': self.numerum_optionem,
@@ -1797,7 +1864,7 @@ class HXLTMOntologia:
         def recursionem(rem):
             # Trivia:
             # - recursiōnem, https://en.wiktionary.org/wiki/recursio#Latin
-            for k, v in rem.items():
+            for _k, v in rem.items():
                 if isinstance(v, dict):
                     recursionem(v)
                 else:
@@ -1835,7 +1902,7 @@ class HXLTMOntologia:
             raise RuntimeError('HXLTMOntologia.hxlhashtag error')
         return None
 
-    def de(self, dotted_key: str,
+    def de(self, dotted_key: str,  # pylint: disable=invalid-name
            default: Any = None, fontem: dict = None) -> Any:
         """
         Trivia: dē, https://en.wiktionary.org/wiki/de#Latin
@@ -1949,7 +2016,8 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
         HXLTMLinguam()
 
         >>> HXLTMLinguam('lat-Latn@la-IT@IT').v()
-        {'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', \
+        {'_typum': 'HXLTMLinguam', \
+'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', \
 'bcp47': 'la-IT', 'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', \
 'iso115924': 'Latn'}
 
@@ -1958,8 +2026,8 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
 
         # Kalo Finnish Romani, Latin script (no ISO 2 language)
         >>> HXLTMLinguam('rmf-Latn').v()
-        {'crudum': 'rmf-Latn', 'linguam': 'rmf-Latn', 'iso6393': 'rmf', \
-'iso115924': 'Latn'}
+        {'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
+'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn'}
 
         # Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
         >>> HXLTMLinguam('rmf-Latn').a()
@@ -1994,6 +2062,7 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
     """
 
     # Exemplum: lat-Latn@la-IT@IT, arb-Arab@ar-EG@EG
+    _typum: InitVar[str] = None  # 'HXLTMLinguam'
     crudum: InitVar[str] = None
     linguam: InitVar[str] = None     # Exemplum: lat-Latn, arb-Arab
     bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
@@ -2018,7 +2087,8 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
                        Trivia: https://en.wiktionary.org/wiki/vacuus#Latin.
                        Defallo falsum.
         """
-        super().__init__()
+        # super().__init__()
+        self._typum = 'HXLTMLinguam'  # Used only when output JSON
         self.crudum = linguam
         if not vacuum:
             self.initialle(strictum)
@@ -2265,6 +2335,7 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
         return self.__dict__
 
 
+# class HXLTMRemCaput(HXLTMLinguam, HXLTMDatumColumnamSummarius):
 class HXLTMRemCaput(HXLTMLinguam):
     """HXLTMRemCaput HXLTMLinguam et HXLTMDatumMetaCaput metadatum
 
@@ -2284,6 +2355,7 @@ class HXLTMRemCaput(HXLTMLinguam):
 
     def __init__(self,
                  columnam: int = -1,
+                 valendum: int = None,
                  hashtag: str = '',
                  titulum: str = '',
                  strictum=False):
@@ -2310,17 +2382,23 @@ class HXLTMRemCaput(HXLTMLinguam):
         # have to deal with pretty much anything as header. So we assume
         # empty HXL hashtag means HXLTMLinguam vacuum=True
         # [eng-Latn]_
-        if linguam is None or len(linguam) == 0:
-            vacuum = True # noqa
+        vacuum = bool(linguam is None or len(linguam) == 0)
+        # if linguam is None or len(linguam) == 0:
+        #     vacuum = True
+        # else:
+        #     vacuum = False
 
         # print("HXLTMRemCaput(): entering")
         # print(self.v())
-        # HXLTMLinguam.__init__(linguam, strictum, vacuum)
+        HXLTMLinguam.__init__(self, linguam, strictum, vacuum)
+        # HXLTMDatumColumnamSummarius.__init__(self, valendum)
         # print("HXLTMRemCaput(): exiting")
 
-        # self.columnam = columnam
-        # self.hashtag = hashtag
-        # self.titulum = titulum
+        self._typum = 'HXLTMRemCaput'  # Used only when output JSON
+
+        self.columnam = columnam
+        self.hashtag = hashtag
+        self.titulum = titulum
 
 
 class HXLTMUtil:
