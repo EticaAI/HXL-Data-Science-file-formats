@@ -741,8 +741,11 @@ class HXLTMCLI:
                 'linguam': []
             },
             'archivum_fontem': self.meta_archivum_fontem,
+            'archivum_fontem_m': {},
             'archivum_objectivum': {},
         }
+
+        resultatum['archivum_fontem_m'] = self.datum.v()
 
         if len(self.alternativum_linguam) > 0:
             for rem in self.alternativum_linguam:
@@ -1395,9 +1398,15 @@ class HXLTMDatum:
     # crudum: InitVar[List] = []
     crudum_caput: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
+    meta: InitVar[Type['HXLTMDatumMetaCaput']] = None
+    datum_rem: InitVar[List] = []
     ontologia: InitVar[Type['HXLTMOntologia']] = None
+    venandum_insectum_est: InitVar[bool] = False
 
-    def __init__(self, archivum: str, ontologia: Type['HXLTMOntologia']):
+    def __init__(self,
+                 archivum: str,
+                 ontologia: Type['HXLTMOntologia'],
+                 venandum_insectum_est: bool = False):
         """
         _[eng-Latn] Constructs all the necessary attributes for the
                     HXLTMDatum object.
@@ -1405,6 +1414,7 @@ class HXLTMDatum:
         """
 
         self.ontologia = ontologia
+        self.venandum_insectum_est = venandum_insectum_est
 
         # print('oi')
 
@@ -1416,6 +1426,8 @@ class HXLTMDatum:
         """
         crudum_caput = []  # noqa
         crudum_hashtag = []
+        datum_rem = []
+        datum_rem_brevis = []
 
         with open(archivum, 'r') as hxl_archivum:
             csv_lectorem = csv.reader(hxl_archivum)
@@ -1433,8 +1445,34 @@ class HXLTMDatum:
                 # already be parsed previously by libhxl
                 raise SyntaxError('HXLTMDatum quod archīvum HXL hashtags?')
 
-        if crudum_caput:
-            print('todo')
+            for rem in csv_lectorem:
+                datum_rem.append(rem)
+
+        if len(datum_rem) > 0:
+            self.datum_rem = datum_rem
+            datum_rem_brevis = datum_rem[:5]
+
+        self.meta = HXLTMDatumMetaCaput(
+            crudum_caput=crudum_caput,
+            crudum_hashtag=crudum_hashtag,
+            datum_rem_brevis=datum_rem_brevis,
+            venandum_insectum_est=self.venandum_insectum_est
+        )
+
+        # self._initialle_meta_caput(crudum_hashtag, crudum_caput)
+
+    # def _initialle_meta_caput(self,
+    #                           crudum_hashtag: List,
+    #                           crudum_caput: List):
+    #     """
+    #     Trivia:
+    #      - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+    #     - meta
+    #       - https://en.wiktionary.org/wiki/meta#English
+    #         - https://en.wiktionary.org/wiki/metaphysica#Latin
+    #     - caput, https://en.wiktionary.org/wiki/caput#Latin
+    #     """
+    #     print('TODO _initialle_meta_caput')
 
     @staticmethod
     def quod_est_hashtag_caput(rem: List) -> bool:
@@ -1460,6 +1498,82 @@ class HXLTMDatum:
 
         return (hashtag_like > 0) and \
             ((total / hashtag_like * 100) > min_limit)
+
+    def v(self):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        resultatum = {
+            'crudum_caput': self.crudum_caput,
+            'crudum_hashtag': self.crudum_hashtag,
+            'meta': self.meta.v(),
+        }
+
+        # return self.__dict__
+        return resultatum
+
+
+@dataclass
+class HXLTMDatumMetaCaput:
+    """
+    _[eng-Latn]
+    HXLTMDatumMetaCaput contains data about hashtags, raw headings (if they
+    exist on original dataset) of a dataset
+    [eng-Latn]_
+    """
+
+    # crudum: InitVar[List] = []
+    crudum_caput: InitVar[List] = []
+    crudum_hashtag: InitVar[List] = []
+    numerum_optionem: InitVar[int] = 0
+    venandum_insectum_est: InitVar[bool] = False
+
+    def __init__(self,
+                 crudum_caput: List,
+                 crudum_hashtag: List,
+                 datum_rem_brevis: List,
+                 venandum_insectum_est: bool = False):
+
+        self.venandum_insectum_est = venandum_insectum_est
+
+        self._initialle(crudum_caput, crudum_hashtag, datum_rem_brevis)
+
+    def _initialle(self,
+                   crudum_caput: List,
+                   crudum_hashtag: List,
+                   datum_rem_brevis: List):
+        """
+        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+        # crudum_caput = []  # noqa
+        # crudum_hashtag = []
+        # print()
+
+    def v(self):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        resultatum = {
+            'crudum_caput': self.crudum_caput,
+            'crudum_hashtag': self.crudum_hashtag,
+            'numerum_optionem': self.numerum_optionem,
+            # 'venandum_insectum_est': self.venandum_insectum_est,
+        }
+
+        # return self.__dict__
+        return resultatum
 
 
 class HXLTMOntologia:
@@ -1653,7 +1767,7 @@ class HXLTMBCP47:
 
 
 @dataclass
-class HXLTMLinguam:
+class HXLTMLinguam:  # pylint disable=too-many-instance-attributes
     """HXLTM linguam auxilium programmi
 
     Testum:
@@ -1704,8 +1818,6 @@ class HXLTMLinguam:
 '+i_la+i_lat+is_latn+ii_it+ix_caesar12+ix_romanum1'
 
     """
-
-    # pylint disable=too-many-instance-attributes
 
     # Exemplum: lat-Latn@la-IT@IT, arb-Arab@ar-EG@EG
     crudum: InitVar[str] = None
@@ -1966,7 +2078,11 @@ class HXLTMLinguam:
         return resultatum
 
     def v(self):  # pylint: disable=invalid-name
-        """Resultatum, objectīvum
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
 
         Returns:
             [Dict]: Python objectīvum
