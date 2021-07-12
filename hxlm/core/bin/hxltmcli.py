@@ -2258,6 +2258,50 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
         return self.__dict__
 
 
+class HXLTMRemCaput(HXLTMLinguam):
+    """HXLTMRemCaput HXLTMLinguam et HXLTMDatumMetaCaput metadatum
+
+    Args:
+        HXLTMLinguam ([HXLTMLinguam]): HXLTMLinguam
+    """
+    # def __init__(self, linguam: str, strictum=False, vacuum=False):
+
+    # @see https://github.com/PyCQA/pylint/issues/3505
+    # pylint: disable=super-init-not-called
+    # pylint: disable=non-parent-init-called
+    def __init__(self, linguam: str, strictum=False):
+        """HXLTMLinguam initiāle
+
+        Args:
+            linguam (str): Textum linguam
+            strictum (bool, optional): Strictum est?.
+                       Trivia: https://en.wiktionary.org/wiki/strictus#Latin
+                       Defallo falsum.
+            vacuum (bool, optional): vacuum	est?
+                       Trivia: https://en.wiktionary.org/wiki/vacuus#Latin.
+                       Defallo falsum.
+        """
+
+        # TODO: learn more about python super and how to deal with multiple
+        #       inheritance.
+        #       @see https://stackoverflow.com/questions/3277367
+        #            /how-does-pythons-super-work-with-multiple-inheritance
+        # self.crudum = linguam
+
+        # _[eng-Latn]
+        # While on HXLTMLinguam the user must explicitly force vacuum=False
+        # to not tolerate malformated requests, the HXLTMRemCaput
+        # have to deal with pretty much anything as header. So we assume
+        # empty HXL hashtag means HXLTMLinguam vacuum=True
+        # [eng-Latn]_
+        if len(linguam) == 0:
+            vacuum = True
+        print("HXLTMRemCaput(): entering")
+
+        HXLTMRemCaput.__init__(linguam, strictum, vacuum)
+        print("HXLTMRemCaput(): exiting")
+
+
 class HXLTMUtil:
     """HXL Trānslātiōnem Memoriam auxilium programmi
 
