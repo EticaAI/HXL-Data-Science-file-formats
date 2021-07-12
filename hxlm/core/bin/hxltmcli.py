@@ -1495,12 +1495,43 @@ class HXLTMDatum:
 
 
 @dataclass
-class HXLTMDatumMetaCaput:
+class HXLTMDatumMetaCaput:  # pylint: disable=too-many-instance-attributes
     """
     _[eng-Latn]
     HXLTMDatumMetaCaput contains data about hashtags, raw headings (if they
     exist on original dataset) of a dataset
     [eng-Latn]_
+
+        Testum:
+
+>>> rem = HXLTMDatumMetaCaput(
+...   ['id', 'Nōmen', 'Annotātiōnem'],
+...   ['#item+id', '#item+lat_nomen', ''],
+...   [
+...      [1, 'Marcus canem amat.', 'Vērum!'],
+...      [2, 'Canem Marcus amat.', ''],
+...      [3, 'Amat canem Marcus.', 'vērum? vērum!']
+...   ])
+>>> rem.quod_datum_rem_correctum_est()
+True
+>>> rem.quod_datum_rem_correctum_est([[4, 'Marcus amat canem.', '']])
+True
+>>> rem.quod_datum_rem_correctum_est([['Canem amat Marcus.', '']])
+False
+>>> rem.nomen_de_columnam(0)
+'id'
+>>> rem.nomen_de_columnam(1)
+'Nōmen'
+>>> rem.nomen_de_columnam(2)
+'Annotātiōnem'
+>>> rem.nomen_de_columnam(9999)
+False
+>>> rem.hxl_hashtag_de_columnam(0)
+'#item+id'
+>>> rem.hxl_hashtag_de_columnam(1)
+'#item+lat_nomen'
+>>> rem.hxl_hashtag_de_columnam(2) is None
+True
     """
 
     # crudum: InitVar[List] = []
@@ -1520,6 +1551,8 @@ class HXLTMDatumMetaCaput:
                  datum_rem_brevis: List,
                  venandum_insectum_est: bool = False):
 
+        self.crudum_nomen = crudum_nomen
+        self.crudum_hashtag = crudum_hashtag
         self.datum_rem_brevis = datum_rem_brevis
         self.venandum_insectum_est = venandum_insectum_est
 
@@ -1538,6 +1571,7 @@ class HXLTMDatumMetaCaput:
         # print(crudum_nomen)
         # print(crudum_hashtag)
 
+        self.datum_rem_brevis = datum_rem_brevis
         self.numerum_optionem = len(crudum_hashtag)
         self.numerum_optionem_hxl = \
             self.quod_est_hashtag_caput(crudum_hashtag)
@@ -1547,11 +1581,36 @@ class HXLTMDatumMetaCaput:
         self.numerum_optionem_nomen_unicum = \
             len(set(non_vacuum_nomen))
 
-        # crudum_caput = []  # noqa
-        # crudum_hashtag = []
-        # print()
+    def hxl_hashtag_de_columnam(self, numerum: int) -> Union[str, None]:
+        """HXL hashtag dē columnam numerum
 
-    def quod_datum_rem_correctum_est(self) -> bool:
+        Trivia:
+          - HXL, https://hxlstandard.org/
+          - hashtag, https://en.wiktionary.org/wiki/hashtag
+          - dē, https://en.wiktionary.org/wiki/de#Latin
+          - columnam, https://en.wiktionary.org/wiki/columna#Latin
+          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+
+        Args:
+            numerum (int): Numerum de columnam. Initiāle 0.
+
+        Returns:
+            Union[str, None, False]:
+                HXL Hashtag aut python None aut python False
+        """
+
+        if numerum < 0 or numerum >= len(self.crudum_hashtag):
+            # print('erro', numerum, len(self.crudum_nomen), self.crudum_nomen)
+            # _[eng-Latn]Called on a wrong, invalid, index[eng-Latn]_
+            return False
+        if len(self.crudum_hashtag[numerum]) == 0:
+            return None
+        # print('oi1', self.crudum_hashtag)
+        # print('oi2', self.crudum_hashtag[numerum])
+        return self.crudum_hashtag[numerum]
+
+    def quod_datum_rem_correctum_est(
+            self, datum_rem_brevis: List = None) -> bool:
         """Quod datum rem corrēctum est?
 
         _[eng-Latn]
@@ -1563,27 +1622,26 @@ class HXLTMDatumMetaCaput:
         appear on the dataset)
         [eng-Latn]_
 
+        Args:
+            datum_rem_brevis (List):
+                _[eng-Latn]
+                List of list of custom data to test. Can be used to test
+                new data from a previous created item.
+                The default is use the initial data provide when
+                constructing the data object.
+                [eng-Latn]_
+
         Returns:
             bool: Verum: rem corrēctum est.
-
-        Testum:
-
->>> rem = HXLTMDatumMetaCaput(
-...   ['id', 'nomen'],
-...   ['#item+id', '#item+lat_nomen'],
-...   [
-...      [1, 'Marcus canem amat.'],
-...      [2, 'Canem Marcus amat.'],
-...      [3, 'Amat canem Marcus.'],
-...   ])
->>> rem.quod_datum_rem_correctum_est()
-True
         """
-        if len(self.datum_rem_brevis) == 0:
+        if datum_rem_brevis is None:
+            datum_rem_brevis = self.datum_rem_brevis
+
+        if len(datum_rem_brevis) == 0:
             # _[eng-Latn] Empty data is acceptable [eng-Latn]_
             return True
 
-        return self.numerum_optionem == len(self.datum_rem_brevis[0])
+        return self.numerum_optionem == len(datum_rem_brevis[0])
 
     @staticmethod
     def quod_est_hashtag_caput(rem: List) -> Union[bool, int]:
@@ -1616,6 +1674,49 @@ True
             ((total / hashtag_like * 100) > min_limit)
 
         return hashtag_like if est_hashtag else False
+
+    def linguam_de_columnam(self, numerum: int) -> Type['HXLTMLinguam']:
+        """Nōmen dē columnam numerum
+
+        Trivia:
+          - linguam, https://en.wiktionary.org/wiki/lingua#Latin
+          - dē, https://en.wiktionary.org/wiki/de#Latin
+          - columnam, https://en.wiktionary.org/wiki/columna#Latin
+          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+
+        Args:
+            numerum (int): Numerum de columnam. Initiāle 0.
+
+        Returns:
+            Union[str, None]: linguam aut python None
+        """
+        # https://en.wiktionary.org/wiki/columna#Latin
+        print('TODO')
+
+    def nomen_de_columnam(self, numerum: int) -> Union[str, None]:
+        """Nomen dē columnam numerum
+
+        Trivia:
+          - nōmen, https://en.wiktionary.org/wiki/nomen#Latin
+          - dē, https://en.wiktionary.org/wiki/de#Latin
+          - columnam, https://en.wiktionary.org/wiki/columna#Latin
+          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+
+        Args:
+            numerum (int): Numerum de columnam. Initiāle 0.
+
+        Returns:
+            Union[str, None, False]: nōmen aut python None aut python False
+        """
+        # https://en.wiktionary.org/wiki/columna#Latin
+        if numerum < 0 or numerum >= len(self.crudum_nomen):
+            # print('erro', numerum, len(self.crudum_nomen), self.crudum_nomen)
+            # _[eng-Latn]Called on a wrong, invalid, index[eng-Latn]_
+            return False
+        if len(self.crudum_nomen[numerum]) == 0:
+            return None
+
+        return self.crudum_nomen[numerum]
 
     def v(self):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -1834,7 +1935,7 @@ class HXLTMBCP47:
 
 
 @dataclass
-class HXLTMLinguam:  # pylint disable=too-many-instance-attributes
+class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
     """HXLTM linguam auxilium programmi
 
     Testum:
