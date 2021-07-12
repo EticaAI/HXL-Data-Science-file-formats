@@ -271,17 +271,17 @@ class HXLTMCLI:
 
             mAF['rem_I'] = next(csv_reader)
             mAF['rem_I_hxl_caput_est'] = \
-                HXLTMDatum.quod_est_hashtag_caput(
+                HXLTMDatumMetaCaput.quod_est_hashtag_caput(
                     mAF['rem_I'])
 
             mAF['rem_II'] = next(csv_reader)
             mAF['rem_II_hxl_caput_est'] = \
-                HXLTMDatum.quod_est_hashtag_caput(
+                HXLTMDatumMetaCaput.quod_est_hashtag_caput(
                     mAF['rem_II'])
 
             mAF['rem_III'] = next(csv_reader)
             mAF['rem_III_hxl_caput_est'] = \
-                HXLTMDatum.quod_est_hashtag_caput(
+                HXLTMDatumMetaCaput.quod_est_hashtag_caput(
                     mAF['rem_III'])
 
         self.meta_archivum_fontem = mAF
@@ -1424,7 +1424,7 @@ class HXLTMDatum:
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
-        crudum_caput = []  # noqa
+        crudum_nomen = []
         crudum_hashtag = []
         datum_rem = []
         datum_rem_brevis = []
@@ -1434,10 +1434,10 @@ class HXLTMDatum:
             rem_prius = None
             for _ in range(25):
                 rem_nunc = next(csv_lectorem)
-                if self.quod_est_hashtag_caput(rem_nunc):
-                    crudum_hashtag = rem_nunc
+                if HXLTMDatumMetaCaput.quod_est_hashtag_caput(rem_nunc):
                     if rem_prius is not None:
-                        crudum_caput = rem_nunc
+                        crudum_nomen = rem_prius
+                    crudum_hashtag = rem_nunc
                     break
                 rem_prius = rem_nunc
             if len(crudum_hashtag) == 0:
@@ -1453,7 +1453,7 @@ class HXLTMDatum:
             datum_rem_brevis = datum_rem[:5]
 
         self.meta = HXLTMDatumMetaCaput(
-            crudum_caput=crudum_caput,
+            crudum_nomen=crudum_nomen,
             crudum_hashtag=crudum_hashtag,
             datum_rem_brevis=datum_rem_brevis,
             venandum_insectum_est=self.venandum_insectum_est
@@ -1473,31 +1473,6 @@ class HXLTMDatum:
     #     - caput, https://en.wiktionary.org/wiki/caput#Latin
     #     """
     #     print('TODO _initialle_meta_caput')
-
-    @staticmethod
-    def quod_est_hashtag_caput(rem: List) -> bool:
-        """HXL hashtag caput est?
-
-        @see hxl.HXLReader.parse_tags()
-              https://github.com/HXLStandard/libhxl-python/blob/main/hxl/io.py
-
-        Args:
-            rem (List): List to test
-
-        Returns:
-            bool: True if seems to be a HXLated hashtag row
-        """
-        # Same as FUZZY_HASHTAG_PERCENTAGE = 0.5 from libhxl
-        min_limit = 50
-        total = 0
-        hashtag_like = 0
-        for item in rem:
-            total += 1
-            if item.startswith('#'):
-                hashtag_like += 1
-
-        return (hashtag_like > 0) and \
-            ((total / hashtag_like * 100) > min_limit)
 
     def v(self):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -1529,31 +1504,118 @@ class HXLTMDatumMetaCaput:
     """
 
     # crudum: InitVar[List] = []
-    crudum_caput: InitVar[List] = []
+    crudum_nomen: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
+    datum_rem_brevis: InitVar[List] = []
     numerum_optionem: InitVar[int] = 0
+    numerum_optionem_hxl: InitVar[int] = 0
+    numerum_optionem_hxl_unicum: InitVar[int] = 0
+    numerum_optionem_nomen: InitVar[int] = 0
+    numerum_optionem_nomen_unicum: InitVar[int] = 0
     venandum_insectum_est: InitVar[bool] = False
 
     def __init__(self,
-                 crudum_caput: List,
+                 crudum_nomen: List,
                  crudum_hashtag: List,
                  datum_rem_brevis: List,
                  venandum_insectum_est: bool = False):
 
+        self.datum_rem_brevis = datum_rem_brevis
         self.venandum_insectum_est = venandum_insectum_est
 
-        self._initialle(crudum_caput, crudum_hashtag, datum_rem_brevis)
+        self._initialle(crudum_nomen, crudum_hashtag, datum_rem_brevis)
 
     def _initialle(self,
-                   crudum_caput: List,
+                   crudum_nomen: List,
                    crudum_hashtag: List,
                    datum_rem_brevis: List):
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
+        # self.quod_est_hashtag_caput
+
+        non_vacuum_nomen = list(filter(len, crudum_nomen))
+        # print(crudum_nomen)
+        # print(crudum_hashtag)
+
+        self.numerum_optionem = len(crudum_hashtag)
+        self.numerum_optionem_hxl = \
+            self.quod_est_hashtag_caput(crudum_hashtag)
+        self.numerum_optionem_hxl_unicum = \
+            self.quod_est_hashtag_caput(set(crudum_hashtag))
+        self.numerum_optionem_nomen = len(non_vacuum_nomen)
+        self.numerum_optionem_nomen_unicum = \
+            len(set(non_vacuum_nomen))
+
         # crudum_caput = []  # noqa
         # crudum_hashtag = []
         # print()
+
+    def quod_datum_rem_correctum_est(self) -> bool:
+        """Quod datum rem corrēctum est?
+
+        _[eng-Latn]
+        Very basic check to test if the number of numerum_optionem is exact
+        the number of data rows. While we do tolerate rows without
+        any text heading name or HXL hashtag, the number of rows (tagged or
+        not) must match. Without this is very likely we will put data on
+        wrong place when trying to relate they by index number (order they
+        appear on the dataset)
+        [eng-Latn]_
+
+        Returns:
+            bool: Verum: rem corrēctum est.
+
+        Testum:
+
+>>> rem = HXLTMDatumMetaCaput(
+...   ['id', 'nomen'],
+...   ['#item+id', '#item+lat_nomen'],
+...   [
+...      [1, 'Marcus canem amat.'],
+...      [2, 'Canem Marcus amat.'],
+...      [3, 'Amat canem Marcus.'],
+...   ])
+>>> rem.quod_datum_rem_correctum_est()
+True
+        """
+        if len(self.datum_rem_brevis) == 0:
+            # _[eng-Latn] Empty data is acceptable [eng-Latn]_
+            return True
+
+        return self.numerum_optionem == len(self.datum_rem_brevis[0])
+
+    @staticmethod
+    def quod_est_hashtag_caput(rem: List) -> Union[bool, int]:
+        """HXL hashtag caput est?
+
+        @see hxl.HXLReader.parse_tags()
+              https://github.com/HXLStandard/libhxl-python/blob/main/hxl/io.py
+
+        Args:
+            rem (List):
+                _[eng-Latn] List to test [eng-Latn]_
+
+        Returns:
+            Union[bool, int]:
+                _[eng-Latn]
+                False if not seems to be a HXLated; int with total
+                number of columns started with #
+                [eng-Latn]_
+        """
+        # Same as FUZZY_HASHTAG_PERCENTAGE = 0.5 from libhxl
+        min_limit = 50
+        total = 0
+        hashtag_like = 0
+        for item in rem:
+            total += 1
+            if item.startswith('#'):
+                hashtag_like += 1
+
+        est_hashtag = (hashtag_like > 0) and \
+            ((total / hashtag_like * 100) > min_limit)
+
+        return hashtag_like if est_hashtag else False
 
     def v(self):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -1566,9 +1628,14 @@ class HXLTMDatumMetaCaput:
             [Dict]: Python objectīvum
         """
         resultatum = {
-            'crudum_caput': self.crudum_caput,
+            'crudum_nomen': self.crudum_nomen,
             'crudum_hashtag': self.crudum_hashtag,
             'numerum_optionem': self.numerum_optionem,
+            'numerum_optionem_hxl': self.numerum_optionem_hxl,
+            'numerum_optionem_hxl_unicum': self.numerum_optionem_hxl_unicum,
+            'numerum_optionem_nomen': self.numerum_optionem_nomen,
+            'numerum_optionem_nomen_unicum':
+            self.numerum_optionem_nomen_unicum,
             # 'venandum_insectum_est': self.venandum_insectum_est,
         }
 
