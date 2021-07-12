@@ -252,6 +252,68 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # hxltmcli --expertum-metadatum --venandum-insectum-est
 # end::venandum_insectum_est[]
 
+
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
+### Profile, text
+# @see see https://stackoverflow.com/questions/582336/how-can-you-profile-a-python-script
+#     cd ./testum/hxltm/
+#     python3 -m cProfile -s time /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/hxltmcli.py hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
+#     python3 -m cProfile -s cumtime /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/hxltmcli.py hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
+#     python3 -m cProfile -s cumtime /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/hxltmcli.py hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum | grep hxltmcli.py
+
+# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats/testum/hxltm$ python3 -m cProfile -s cumtime /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/hxltmcli.py hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum | grep hxltmcli.py
+#         1    0.000    0.000    0.787    0.787 hxltmcli.py:72(<module>)
+#         1    0.000    0.000    0.233    0.233 hxltmcli.py:582(execute_cli)
+#         1    0.000    0.000    0.226    0.226 hxltmcli.py:2489(load_hxltm_options)
+#         1    0.000    0.000    0.226    0.226 hxltmcli.py:2531(_load_hxltm_options_file)
+#         1    0.000    0.000    0.004    0.004 hxltmcli.py:289(make_args_hxltmcli)
+#         1    0.000    0.000    0.002    0.002 hxltmcli.py:2701(make_source)
+#         1    0.000    0.000    0.002    0.002 hxltmcli.py:2708(make_input)
+#         1    0.000    0.000    0.002    0.002 hxltmcli.py:2613(make_args)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:719(in_expertum_metadatum)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1406(__init__)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1423(_initialle)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:230(_initiale_meta_archivum_fontem_hxlated)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1381(HXLTMDatum)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1497(HXLTMDatumMetaCaput)
+#         7    0.000    0.000    0.000    0.000 hxltmcli.py:1646(quod_est_hashtag_caput)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2770(__exit__)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2733(make_output)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2764(__init__)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1747(HXLTMOntologia)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1548(__init__)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1561(_initialle)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:191(_initiale)
+#         4    0.000    0.000    0.000    0.000 hxltmcli.py:2003(__init__)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2604(__init__)
+#         4    0.000    0.000    0.000    0.000 hxltmcli.py:2021(initialle)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1937(HXLTMLinguam)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2740(make_headers)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:134(HXLTMCLI)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2304(HXLTMUtil)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:142(__init__)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2593(HXLUtils)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1477(v)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1861(HXLTMBCP47)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1754(__init__)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2755(FileOutput)
+#         4    0.000    0.000    0.000    0.000 hxltmcli.py:2248(v)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2261(HXLTMRemCaput)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2774(StreamOutput)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1721(v)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:1763(initialle)
+#         1    0.000    0.000    0.000    0.000 hxltmcli.py:2767(__enter__)
+
+
+### Profile, visual
+# @see see https://stackoverflow.com/questions/582336/how-can-you-profile-a-python-script
+#     cd ./testum/hxltm/
+#     pip3 install graphviz
+#     sudo apt-get install graphviz
+#     pycallgraph -f graphviz -o pycallgraph-test.svg -- /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/hxltmcli.py hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
+#     pycallgraph graphviz -- /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/hxltmcli.py hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
+#     pycallgraph --max-depth 3 graphviz -- /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/hxltmcli.py hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
+
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
 # To revert only one file that keeps changing even with same input
 # git checkout -- testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx

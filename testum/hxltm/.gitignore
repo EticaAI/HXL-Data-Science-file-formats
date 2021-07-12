@@ -9,3 +9,9 @@ resultatum/schemam-un-htcds.tmx
 resultatum/schemam-un-htcds.xlf
 resultatum/schemam-un-htcds.xliff.hxl.csv
 resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
+
+# pycallgraph-test.svg
+# pycallgraph.png
+# @see https://stackoverflow.com/questions/582336/how-can-you-profile-a-python-script
+# *.svg
+pycallgraph.png
