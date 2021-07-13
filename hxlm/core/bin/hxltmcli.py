@@ -2490,6 +2490,19 @@ class HXLTMRemCaput(HXLTMLinguam):
 
 class HXLTMTypum:
     """HXLTM Data typum
+
+
+    _[eng-Latn]
+    Recommendation for proposes of new types to HXLTMTypum (if over the years)
+    this happens:
+
+    Add yourself to the Author of the individual functions and (even if need
+    help for the documentation) add inline documentation about the naming of
+    the funcion.
+
+    You can also write non eng-Latn comments.
+    [eng-Latn]_
+
     Author:
         Emerson Rocha <rocha[at]ieee.org>
         David Megginson
@@ -2637,6 +2650,133 @@ True
         #       a value that is okay to be empty
 
         return rem is None or rem == '' or str(rem).isspace()
+
+    @staticmethod
+    def in_numerum(rem: Union[int, str]) -> Union[int, float]:
+        """Trānslātiōnem: rem in numerum
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - in, https://en.wiktionary.org/wiki/in#Latin
+          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+
+        Args:
+            rem ([Any]): Rem
+
+        Returns:
+            [int, float]: Rem in numerum
+        """
+        # _[eng-Latn]
+        # TODO: is a draft. We have so many types of numbers that this will
+        #       need lots of funcions. In special to convert, for example
+        #       I = 1, V = 5, IX = 9, ... and other textum types
+        #       (Emerson Rocha, 2021-07-13 04:14 UTC)
+        # [eng-Latn]_
+        return HXLTMTypum.in_numerum_simplex(rem)
+
+    @staticmethod
+    def in_textum_json(
+            rem: Any,
+            formosum: Union[bool, int] = None,
+            clavem_sortem: bool = False,
+            imponendum_praejudicium: bool = False
+    ) -> str:
+        """Trānslātiōnem: rem in textum JSON
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - in, https://en.wiktionary.org/wiki/in#Latin
+          - json, https://www.json.org/
+          - fōrmōsum, https://en.wiktionary.org/wiki/formosus
+          - impōnendum, https://en.wiktionary.org/wiki/enforcier#Old_French
+          - praejūdicium, https://en.wiktionary.org/wiki/praejudicium#Latin
+          - sortem, https://en.wiktionary.org/wiki/sors#Latin
+          - clāvem, https://en.wiktionary.org/wiki/clavis#Latin
+
+        Args:
+            rem ([Any]): Rem
+
+        Returns:
+            [str]: Rem in JSON textum
+
+        Testum:
+>>> rem = {"b": 2, "a": ['ت', 'ツ', '😊']}
+
+>>> HXLTMTypum.in_textum_json(rem)
+'{"b": 2, "a": ["ت", "ツ", "😊"]}'
+
+>>> HXLTMTypum.in_textum_json(rem, clavem_sortem=True)
+'{"a": ["ت", "ツ", "😊"], "b": 2}'
+
+>>> HXLTMTypum.in_textum_json(rem, imponendum_praejudicium=True)
+'{"b": 2, "a": ["\\u062a", "\\u30c4", "\\ud83d\\ude0a"]}'
+
+>>> HXLTMTypum.in_textum_json(rem, formosum=True)
+'{\\n    "b": 2,\\n    \
+"a": [\\n        "ت",\\n        "ツ",\\n        "😊"\\n    ]\\n}'
+
+        """
+
+        # print = json.dumps()
+
+        if formosum is True:
+            formosum = 4
+
+        json_textum = json.dumps(
+            rem,
+            indent=formosum,
+            sort_keys=clavem_sortem,
+            ensure_ascii=imponendum_praejudicium
+        )
+
+        return json_textum
+
+    @staticmethod
+    def in_numerum_simplex(rem: Union[int, str]) -> int:
+        """Rem in numerum simplex?
+
+        _[eng-Latn]
+        See also hxl.datatypes.normalise_number()
+
+        Attempt to convert a value to a number.
+
+        Will convert to int type if it has no decimal places.
+        [eng-Latn]_
+
+        Author:
+            David Megginson
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - in, https://en.wiktionary.org/wiki/in#Latin
+          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+          - simplex, https://en.wiktionary.org/wiki/simplex#Latin
+          - disciplīnam manuāle
+            - https://en.wikipedia.org/wiki/IEEE_754
+
+        Args:
+            rem ([Any]): Rem
+
+        Returns:
+            [Union[int, float]]: Rem in numerum IEEE integer aut IEEE 754
+
+        Testum:
+            >>> HXLTMTypum.in_numerum_simplex('1234')
+            1234
+            >>> HXLTMTypum.in_numerum_simplex('1234.0')
+            1234
+        """
+        # pylint: disable=invalid-name,no-else-return
+
+        try:
+            n = float(rem)
+            if n == int(n):
+                return int(n)
+            else:
+                return n
+        except Exception as expt:
+            raise ValueError(
+                "Non numerum trānslātiōnem: {}".format(rem)) from expt
 
     @staticmethod
     def magnitudinem_de_byte(rem: str) -> int:
