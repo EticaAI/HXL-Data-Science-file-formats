@@ -1550,18 +1550,7 @@ class HXLTMDatumColumnam:
         self._typum = 'HXLTMDatumColumnam'
         # self._valendum = valendum
         self.quantitatem = len(valendum) if valendum is not None else 0
-
-    # @see https://github.com/HXLStandard/libhxl-python/blob
-    #      /main/hxl/datatypes.py
-    def _datum_typum(self):
-        # type = hxl.datatypes.typeof("     ") # => "empty"
-        # print(hxl.datatypes.typeof())
-        typum_col = set()
-        if self._valendum is not None and len(self._valendum):
-            for rem in self._valendum:
-                typum_col.add(hxl.datatypes.typeof(rem))
-
-        print('typum_col', typum_col)
+        self.datum_typum = HXLTMTypum.collectionem_datum_typum(valendum)
 
     @staticmethod
     def reducendum_de_datum(datum: List, columnam: int) -> List:
@@ -2647,7 +2636,81 @@ True
         # TODO: implement the '∅' that we use for intentionaly mark
         #       a value that is okay to be empty
 
-        return (rem is None or rem == '' or str(rem).isspace())
+        return rem is None or rem == '' or str(rem).isspace()
+
+    @staticmethod
+    def magnitudinem_de_byte(rem: str) -> int:
+        """Magnitūdinem dē byte
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - magnitūdinem, https://en.wiktionary.org/wiki/est#Latin
+          - dē, https://en.wiktionary.org/wiki/de#Latin
+          - byte
+            - https://en.wiktionary.org/wiki/byte#English
+            - https://en.wikipedia.org/wiki/Byte
+
+        Args:
+            rem (str): Rem textum
+
+        Returns:
+            int: Numerum
+
+        Testum:
+            >>> HXLTMTypum.magnitudinem_de_byte('Testīs')
+            7
+        """
+        if rem is None:
+            return -1
+
+        # @see https://stackoverflow.com/questions/30686701
+        #      /python-get-size-of-string-in-bytes
+        # TODO: This is a draft. Needs work.
+        return len(rem.encode('utf-8'))
+
+    @staticmethod
+    def magnitudinem_de_numerum(rem: str) -> int:
+        """Magnitūdinem dē numerum
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - magnitūdinem, https://en.wiktionary.org/wiki/est#Latin
+          - dē, https://en.wiktionary.org/wiki/de#Latin
+          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+
+        Args:
+            rem (str): Rem textum
+
+        Returns:
+            int: Numerum
+        """
+        print('TODO')
+
+    @staticmethod
+    def magnitudinem_de_textum(rem: str) -> int:
+        """magnitūdinem dē textum
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - magnitūdinem, https://en.wiktionary.org/wiki/est#Latin
+          - dē, https://en.wiktionary.org/wiki/de#Latin
+          - textum, https://en.wiktionary.org/wiki/textus#Latin
+
+        Args:
+            rem (str): Rem textum
+
+        Returns:
+            int: Numerum
+
+        Testum:
+        >>> HXLTMTypum.magnitudinem_de_textum('Testīs')
+        6
+        """
+        if rem is None:
+            return -1
+
+        # TODO: This is a draft. Needs work.
+        return len(rem)
 
 
 class HXLTMUtil:
