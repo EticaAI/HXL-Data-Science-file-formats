@@ -69,6 +69,9 @@ if true ; then
     echo "   Fontem:   [$hxltm_exemplum_linguam]"
     echo "   Archīvum: [${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv]"
     wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
+
+    echo "hxltm_linguam, hdp-toolchain package"
+    cp "${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv" "${ROOTDIR}/hxlm/data/exemplum/hxltm-exemplum-linguam.tm.hxl.csv"
 fi
 
 if true ; then
