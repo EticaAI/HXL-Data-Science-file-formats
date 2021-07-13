@@ -817,8 +817,22 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF &gt;
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: HXLTM-ASA; This section is a draft
-# [eng-Latn]_</code></pre>
+# The HXLTM-ASA is an not strictly documented Abstract Syntax Tree
+# of an data conversion operation.
+#
+# These are quick examples. They reuse other examples on this guide, but also
+# save data on a separate file.
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next example will generate an XLIFF, but we also will save the HXLTM-ASA.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.xlf \
+  --expertum-HXLTM-ASA resultatum/hxltm-exemplum-linguam.asa.hxltm.json \
+  --objectivum-XLIFF</code></pre>
 </div>
 </div>
 </div>
@@ -2662,7 +2676,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-13 06:25:03 UTC
+Last updated 2021-07-13 07:39:58 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
