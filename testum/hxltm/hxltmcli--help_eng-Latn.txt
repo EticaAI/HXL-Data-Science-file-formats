@@ -2,8 +2,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--http-header header] [--remove-headers] [--strip-tags]
                 [--ignore-certs]
                 [--log debug|info|warning|error|critical|none]
-                [--expertum-metadatum]
-                [--expertum-HXLTM-ASA [hxltm_asa_archivum]]
+                [--expertum-metadatum] [--expertum-HXLTM-ASA [hxltm_asa]]
                 [--fontem-linguam [fontem_linguam]]
                 [--objectivum-linguam [objectivum_linguam]]
                 [--alternativum-linguam [alternativum_linguam]]
@@ -42,7 +41,7 @@ optional arguments:
   --expertum-metadatum  (Expert mode) Return metadata of the operation in JSON
                         format instead of generate the output. Good for
                         debugging.
-  --expertum-HXLTM-ASA [hxltm_asa_archivum]
+  --expertum-HXLTM-ASA [hxltm_asa]
                         (Expert mode) Save an Abstract Syntax Tree in JSON
                         format to a file path. With --venandum-insectum-est
                         output entire dataset data. Good for debugging.

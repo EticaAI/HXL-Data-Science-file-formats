@@ -273,10 +273,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             bool: If okay.
         """
 
-        with open(archivum, 'r') as arch:
-            crudum_datum = arch.read().splitlines()
+        # with open(archivum, 'r') as arch:
+        #     hxltm_crudum = arch.read().splitlines()
 
-        self.hxltm_asa = HXLTMASA(crudum_datum, self.ontologia, argumentum)
+        self.hxltm_asa = HXLTMASA(
+            hxltm_archivum=archivum,
+            ontologia=self.ontologia,
+            argumentum=argumentum)
 
         # mAF = {
         #     # 'rem_I_textum_caput_est': None,
@@ -696,7 +699,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             hxlated_input = args.outfile
 
             # TODO: replace self.datum by HXLTMASA
-            self.datum = HXLTMDatum(hxlated_input, self.ontologia)
+            # self.datum = HXLTMDatum(hxlated_input, self.ontologia)
 
             # _[eng-Latn]
             # This step will do raw analysis of the hxlated_input on a
@@ -1488,11 +1491,14 @@ class HXLTMASA:
 >>> datum = HXLTMTestumAuxilium.datum('hxltm-exemplum-linguam.tm.hxl.csv')
 >>> datum = []
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
->>> asa = HXLTMASA(datum, ontologia)
+
+# TODO: fix this after refactoring HXLTMDatum
+###>>> asa = HXLTMASA(hxltm_crudum=datum, ontologia=ontologia)
 
 # >>> asa.__dict__
     """
 
+    datum: InitVar[Type['HXLTMDatum']] = None
     hxltm_crudum: InitVar[List] = []
     ontologia: InitVar[Type['HXLTMOntologia']] = None
 
@@ -1501,13 +1507,17 @@ class HXLTMASA:
     fontem_linguam: Type['HXLTMLinguam'] = None
     objectivum_linguam: Type['HXLTMLinguam'] = None
     alternativum_linguam: List[Type['HXLTMLinguam']] = None
-    linguam: List[Type['HXLTMLinguam']] = None
+
+    # @see https://la.wikipedia.org/wiki/Lingua_agendi
+    agendum_linguam: List[Type['HXLTMLinguam']] = None
+    # linguam: List[Type['HXLTMLinguam']] = None
 
     argumentum: InitVar[Dict] = None
-    venandum_insectum_est: InitVar[bool] = False
+    _venandum_insectum_est: InitVar[bool] = False
 
     def __init__(self,
-                 hxltm_crudum: List[List],
+                 hxltm_crudum: List[List] = None,
+                 hxltm_archivum: str = None,
                  ontologia: Union[Type['HXLTMOntologia'], Dict] = None,
                  argumentum: Dict = None,
                  venandum_insectum_est: bool = False):
@@ -1537,42 +1547,71 @@ class HXLTMASA:
 
         self.hxltm_crudum = hxltm_crudum
         self.ontologia = ontologia
-        self.argumentum = argumentum
-        self.venandum_insectum_est = venandum_insectum_est
 
-    def _initiale(self, args,  is_debug=False):
-        """Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        self.datum = HXLTMDatum(
+            hxltm_crudum=hxltm_crudum,
+            hxltm_archivum=hxltm_archivum,
+            venandum_insectum_est=venandum_insectum_est)
+        # self.argumentum = argumentum
+        self._venandum_insectum_est = venandum_insectum_est
+
+        self._initiale(argumentum)
+
+    def _initiale(self, argumentum):
+        """HXLTMASA initiāle
+
+        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+
+        Args:
+            argumentum (Dict):
+                _[lat-Latn]
+                Python argumentum,
+                https://docs.python.org/3/library/argparse.html
+                [lat-Latn]_
+            venandum_insectum_est (bool, optional):
+            _[lat-Latn]
+                Vēnandum īnsectum est? Defallo falsum
+            [lat-Latn]_
         """
         # if args.expertum_metadatum_est:
         #     self.expertum_metadatum_est = args.expertum_metadatum_est
 
         # TODO: migrate all this to HXLTMASA._initiale
 
-        if args.fontem_linguam:
-            self.fontem_linguam = HXLTMLinguam(args.fontem_linguam)
-            if is_debug:
-                print('fontem_linguam', self.fontem_linguam.v())
+        # _[eng-Latn] Process the comment line argumetns [eng-Latn]_
+        if argumentum:
 
-        if args.objectivum_linguam:
-            self.objectivum_linguam = HXLTMLinguam(args.objectivum_linguam)
-            if is_debug:
-                print('objectivum_linguam', self.objectivum_linguam.v())
+            if argumentum.fontem_linguam:
+                self.fontem_linguam = HXLTMLinguam(argumentum.fontem_linguam)
+                # if is_debug:
+                #     print('fontem_linguam', self.fontem_linguam.v())
 
-        if args.alternativum_linguam and len(args.alternativum_linguam) > 0:
-            unicum = set(args.alternativum_linguam)
-            for rem in unicum:
-                rem_obj = HXLTMLinguam(rem)
-                if is_debug:
-                    print('alternativum_linguam', rem_obj.v())
-                self.alternativum_linguam.append(rem_obj)
+            if argumentum.objectivum_linguam:
+                self.objectivum_linguam = HXLTMLinguam(
+                    argumentum.objectivum_linguam)
+                # if is_debug:
+                #     print('objectivum_linguam', self.objectivum_linguam.v())
 
-        if args.linguam and len(args.linguam) > 0:
-            unicum = set(args.linguam)
-            for rem in unicum:
-                rem_obj = HXLTMLinguam(rem)
-                if is_debug:
-                    print('linguam', rem_obj.v())
-                self.linguam.append(rem_obj)
+            if argumentum.alternativum_linguam and \
+                    len(argumentum.alternativum_linguam) > 0:
+                unicum = set(argumentum.alternativum_linguam)
+                for rem in unicum:
+                    rem_obj = HXLTMLinguam(rem)
+                    # if is_debug:
+                    #     print('alternativum_linguam', rem_obj.v())
+                    self.alternativum_linguam.append(rem_obj)
+
+            # TODO: change input to use agendum_linguam instead of linguam
+            if argumentum.linguam and len(argumentum.linguam) > 0:
+                unicum = set(argumentum.linguam)
+                for rem in unicum:
+                    rem_obj = HXLTMLinguam(rem)
+                    # if is_debug:
+                    #     print('linguam', rem_obj.v())
+                    self.agendum_linguam.append(rem_obj)
+
+    def _initiale_hxltm_crudum(self, hxltm_crudum):
+        pass
 
     def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -1589,48 +1628,52 @@ class HXLTMASA:
             [Dict]: Python dict
         """
 
-        resultatum = {
-            '__systema_varians': __SYSTEMA_VARIANS__,
-            '__systema_versionem': __VERSION__,
-            '_typum': 'HXLTMASA',
-            'argumentum': {
-                'fontem_linguam', self.fontem_linguam,
-                'objectivum_linguam', self.objectivum_linguam,
-                'alternativum_linguam', self.alternativum_linguam,
-                'linguam', self.linguam,
-            }
-            # 'argumentum': {
-            #     'fontem_linguam': self.fontem_linguam.v(),
-            #     'objectivum_linguam': self.objectivum_linguam.v(),
-            #     'alternativum_linguam': [],
-            #     'linguam': []
-            # },
-            # 'archivum_fontem': self.meta_archivum_fontem,
-            # 'archivum_fontem_m': {},
-            # 'archivum_objectivum': {},
+        asa = {
+            '__asa': {
+                'nomen': 'HXLTM Abstractum Syntaxim Arborem',
+                'systema_varians': __SYSTEMA_VARIANS__,
+                'systema_versionem': __VERSION__,
+            },
+            '_argumentum': {}
         }
 
-        # resultatum['archivum_fontem_m'] = self.datum.v()
+        if self.fontem_linguam:
+            asa['_argumentum']['fontem_linguam'] = \
+                self.fontem_linguam.v(self._venandum_insectum_est)
 
-        # if len(self.alternativum_linguam) > 0:
-        #     for rem in self.alternativum_linguam:
-        #         resultatum['argumentum']['alternativum_linguam'].append(
-        #             rem.v())
+        if self.objectivum_linguam:
+            asa['_argumentum']['objectivum_linguam'] = \
+                self.objectivum_linguam.v(self._venandum_insectum_est)
 
-        # if len(self.linguam) > 0:
-        #     for rem in self.linguam:
-        #         resultatum['argumentum']['linguam'].append(rem.v())
+        if self.alternativum_linguam and len(self.alternativum_linguam) > 0:
+            asa['_argumentum']['alternativum_linguam'] = []
+            for rem_al in self.alternativum_linguam:
+                asa['_argumentum']['alternativum_linguam'].append(
+                    rem_al.v(self._venandum_insectum_est)
+                )
 
-        # if not args.venandum_insectum_est:
-        #     venandum_insectum_est_notitia = {
-        #         '__annotatianem': "optio --venandum-insectum-est requirere"
+        if self.agendum_linguam and len(self.agendum_linguam) > 0:
+            asa['_argumentum']['agendum_linguam'] = []
+            for rem_al in self.agendum_linguam:
+                asa['_argumentum']['agendum_linguam'].append(
+                    rem_al.v(self._venandum_insectum_est)
+                )
+
+            # asa['_argumentum']['objectivum_linguam'] = \
+            #     self.objectivum_linguam.v(self._venandum_insectum_est)
+
+        # resultatum_2 = {
+        #     # '__asa': meta_asa,
+        #     # '_typum': 'HXLTMASA',
+        #     'argumentum': {
+        #         'fontem_linguam': self.fontem_linguam.v(),
+        #         'objectivum_linguam': self.objectivum_linguam.v(),
+        #         'alternativum_linguam': self.alternativum_linguam.v(),
+        #         'linguam': self.linguam,
         #     }
+        # }
 
-        #     resultatum['archivum_fontem'] = venandum_insectum_est_notitia
-
-        # basim = self.__dict__
-
-        return resultatum
+        return asa
 
 
 @dataclass
@@ -1660,13 +1703,21 @@ class HXLTMDatum:
     venandum_insectum_est: InitVar[bool] = False
 
     def __init__(self,
-                 archivum: str,
-                 ontologia: Type['HXLTMOntologia'],
+                 hxltm_crudum: str = None,
+                 hxltm_archivum: str = None,
+                 ontologia: Type['HXLTMOntologia'] = None,
                  venandum_insectum_est: bool = False):
-        """
-        _[eng-Latn] Constructs all the necessary attributes for the
-                    HXLTMDatum object.
-        [eng-Latn]_
+        """[summary]
+
+        Args:
+            hxltm_crudum (str, optional): [description]. Defaults to None.
+            hxltm_archivum (str, optional): [description]. Defaults to None.
+            ontologia (Type[, optional): [description]. Defaults to None.
+            venandum_insectum_est (bool, optional): [description].
+                    Defaults to False.
+
+        Raises:
+            SyntaxError: [description]
         """
 
         self.ontologia = ontologia
@@ -1674,9 +1725,14 @@ class HXLTMDatum:
 
         # print('oi')
 
-        self._initialle(archivum)
+        if hxltm_crudum is not None and len(hxltm_crudum) > 0:
+            self._initialle_de_hxltm_crudum(hxltm_crudum)
+        elif hxltm_archivum is not None and len(hxltm_archivum) > 0:
+            self._initialle_de_hxltm_archivum(hxltm_archivum)
+        else:
+            raise SyntaxError('HXLTMDatum crudum aut archivum non vacuum')
 
-    def _initialle(self, archivum: str):
+    def _initialle_de_hxltm_archivum(self, archivum: str):
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
@@ -1727,20 +1783,62 @@ class HXLTMDatum:
             venandum_insectum_est=self.venandum_insectum_est
         )
 
-        # self._initialle_meta_caput(crudum_hashtag, crudum_caput)
+    def _initialle_de_hxltm_crudum(self, hxltm_crudum: List):
+        """
+        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
 
-    # def _initialle_meta_caput(self,
-    #                           crudum_hashtag: List,
-    #                           crudum_caput: List):
-    #     """
-    #     Trivia:
-    #      - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
-    #     - meta
-    #       - https://en.wiktionary.org/wiki/meta#English
-    #         - https://en.wiktionary.org/wiki/metaphysica#Latin
-    #     - caput, https://en.wiktionary.org/wiki/caput#Latin
-    #     """
-    #     print('TODO _initialle_meta_caput')
+        # Note: when using hxltm_crudum, the array of arrays must already
+        #       be near strictly valid. We will only check where is the
+        #       hashtag line and if do exist a heading line.
+        crudum_titulum = []
+        crudum_hashtag = []
+        # datum_rem = []
+        if HXLTMDatumMetaCaput.quod_est_hashtag_caput(hxltm_crudum[0]):
+            crudum_hashtag = hxltm_crudum[0]
+            hxltm_crudum.pop(0)
+        elif HXLTMDatumMetaCaput.quod_est_hashtag_caput(hxltm_crudum[1]):
+            crudum_titulum = hxltm_crudum[0]
+            crudum_hashtag = hxltm_crudum[1]
+            hxltm_crudum.pop(0)
+            hxltm_crudum.pop(0)
+        else:
+            # print(hxltm_crudum[0])
+            # print(hxltm_crudum[1])
+            raise SyntaxError('HXLTMDatum quod crudum HXL hashtags?')
+
+        # print('crudum_hashtag', crudum_hashtag)
+        # print('crudum_hashtag len', len(crudum_hashtag))
+        # print('crudum_hashtag len', len(crudum_hashtag))
+        # print('hxltm_crudum 0', hxltm_crudum[0])
+        # print('hxltm_crudum 0 len', len(hxltm_crudum[0]))
+        # At this point, hxltm_crudum, if any, should have only data
+        if len(hxltm_crudum) > 0:
+            if len(crudum_hashtag) != len(hxltm_crudum[0]):
+                raise SyntaxError(
+                    'HXLTMDatum hashtag numerum [{}] non aequalis '
+                    'datum numerum [{}]'.format(
+                        len(crudum_hashtag),
+                        len(hxltm_crudum[0])
+                    ))
+
+            # self.datum_rem = datum_rem
+            # datum_rem_brevis = hxltm_crudum[:5]
+            for item_num in range(len(crudum_hashtag)):
+                print('oi2', item_num)
+                col_rem_val = HXLTMDatumColumnam.reducendum_de_datum(
+                    hxltm_crudum, item_num)
+                self.columnam.append(HXLTMDatumColumnam(
+                    col_rem_val
+                ))
+
+        self.meta = HXLTMDatumMetaCaput(
+            crudum_titulum=crudum_titulum,
+            crudum_hashtag=crudum_hashtag,
+            # datum_rem_brevis=[],
+            columnam_collectionem=self.columnam,
+            venandum_insectum_est=self.venandum_insectum_est
+        )
 
     def v(self, verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -1906,7 +2004,7 @@ True
             self,
             crudum_titulum: List,
             crudum_hashtag: List,
-            datum_rem_brevis: List,
+            datum_rem_brevis: List = None,
             columnam_collectionem: List[Type['HXLTMDatumColumnam']] = None,
             venandum_insectum_est: bool = False
     ):
@@ -2805,10 +2903,15 @@ class HXLTMTestumAuxilium:
                 'python3 -m doctest hxltmcli-de-marcus.py'
                 ' <'.format(exemplum_archivum))
 
+        hxltm_crudum = []
         with open(exemplum_archivum, 'r') as arch:
-            crudum_datum = arch.read().splitlines()
+            csv_lectorem = csv.reader(arch)
+            for rem in csv_lectorem:
+                hxltm_crudum.append(rem)
+            # hxltm_crudum = arch.read().splitlines()
 
-        return crudum_datum
+        # print(hxltm_crudum)
+        return hxltm_crudum
 
     @staticmethod
     def ontologia() -> Dict:
