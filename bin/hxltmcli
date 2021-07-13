@@ -106,6 +106,19 @@ import langcodes
 
 __VERSION__ = "v0.8.2"
 
+# _[eng-Latn]
+# Note: If you are doing a fork and making it public, please customize
+# __SYSTEMA_VARIANS__, even if the __VERSION__ keeps the same
+# [eng-Latn]_
+__SYSTEMA_VARIANS__ = "hxltmcli.py;eticaai;rocha+voluntārium-commūne"
+# Trivia:
+# - systēma, https://en.wiktionary.org/wiki/systema#Latin
+# - variāns, https://en.wiktionary.org/wiki/varians#Latin
+# - furcam, https://en.wiktionary.org/wiki/furca#Latin
+# - commūne, https://en.wiktionary.org/wiki/communis#Latin
+# - voluntārium, https://en.wiktionary.org/wiki/voluntarius#Latin
+
+# systēma
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
 STDIN = sys.stdin.buffer
 
@@ -122,11 +135,15 @@ HXLM_CONFIG_BASE = os.getenv(
 # only libhxl, yaml, etc installed, we tolerate it
 try:
     from hxlm.core.constant import (
-        HXLM_ROOT
+        HXLM_ROOT,
+        HDATUM_EXEMPLUM
     )
     HXLTM_SCRIPT_DIR = HXLM_ROOT + '/core/bin'
+    HXLTM_TESTUM_BASIM_DEFALLO = str(HDATUM_EXEMPLUM).replace('file://', '')
 except ImportError:
     HXLTM_SCRIPT_DIR = str(Path(__file__).parent.resolve())
+    HXLTM_TESTUM_BASIM_DEFALLO = str(Path(
+        HXLTM_SCRIPT_DIR + '/../../../testum/hxltm').resolve())
 
 HXLTM_RUNNING_DIR = str(Path().resolve())
 
@@ -1445,7 +1462,12 @@ class HXLTMASA:
         - conceptum de Abstractum Syntaxim Arborem
             - https://www.wikidata.org/wiki/Q127380
 
+>>> datum = HXLTMTestumAuxilium.datum('hxltm-exemplum-linguam.tm.hxl.csv')
+>>> datum = []
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
+>>> asa = HXLTMASA(datum, ontologia)
+
+# >>> asa.__dict__
     """
 
     hxltm_crudum: InitVar[List] = []
@@ -1486,6 +1508,24 @@ class HXLTMASA:
         self.ontologia = ontologia
         self.argumentum = argumentum
         self.venandum_insectum_est = venandum_insectum_est
+
+    def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            _verbosum (bool): Verbosum est? Defallo falsum.
+
+        Returns:
+            [Dict]: Python dict
+        """
+        basim = self.__dict__
+
+        return basim
 
 
 @dataclass
@@ -2603,7 +2643,7 @@ class HXLTMTestumAuxilium:
     """
 
     @staticmethod
-    def testum_basim() -> str:
+    def testum_praefixum(archivum: str = None) -> str:
         """Testum basim
 
         _[eng-Latn]
@@ -2617,28 +2657,53 @@ class HXLTMTestumAuxilium:
         eventually want to propose for the public project)
         [eng-Latn]_
 
+        Trivia:
+        - archīvum, https://en.wiktionary.org/wiki/archivum
+        - praefīxum, https://en.wiktionary.org/wiki/praefixus#Latin
+
         Returns:
             str:
                 _[eng-Latn]
                 Directory containing test files.
                 [eng-Latn]_
         """
-        _HXLTM_TESTUM_BASIM = os.getenv('HXLTM_TESTUM_BASIM', HXLTM_SCRIPT_DIR)
+
+        # if HDATUM_EXEMPLUM:
+        # hxltmtestum = str(Path(
+        #     HXLTM_SCRIPT_DIR + '/../../../testum/hxltm').resolve())
+
+        praefixum = os.getenv('HXLTM_TESTUM_BASIM', HXLTM_TESTUM_BASIM_DEFALLO)
+
+        if archivum:
+            return praefixum + '/' + archivum
+
+        return praefixum
 
     @staticmethod
-    def datum(exemplum_archivum: str) -> Dict:
-        """HXLTM Ontologia 'cor.hxltm.yml'
+    def datum(
+        exemplum_archivum: str = 'hxltm-exemplum-linguam.tm.hxl.csv'
+    ) -> List:
+        """Crudum HXLTM exemplum datum
 
         Returns:
-            Dict: HXLTM Ontologia
+            List: Crudum HXLTM exemplum datum
         """
+        if not os.path.isfile(exemplum_archivum):
+            exemplum_archivum = HXLTMTestumAuxilium.testum_praefixum(
+                exemplum_archivum)
 
         if not os.path.isfile(exemplum_archivum):
             raise RuntimeError(
-                'HXLTMTestumAuxilium non-datum [{}]'.format(exemplum_archivum))
+                'HXLTMTestumAuxilium non-datum [{}]. '
+                'Requīsītum: dēfīnītiōnem HXLTM_TESTUM_BASIM. Exemplum:'
+                '> HXLTM_TESTUM_BASIM="/home/marcus/testum/" '
+                'python3 -m doctest hxltmcli-de-marcus.py'
+                ' <'.format(exemplum_archivum))
 
-        with open(exemplum_archivum) as arch:
-            rem_crudum = arch.read().splitlines()
+        with open(exemplum_archivum, 'r') as arch:
+            crudum_datum = arch.read().splitlines()
+
+        return crudum_datum
 
     @staticmethod
     def ontologia() -> Dict:
