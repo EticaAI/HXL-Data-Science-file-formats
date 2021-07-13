@@ -132,8 +132,22 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF > re
 # tag::HXLTM-ASA[]
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: HXLTM-ASA; This section is a draft
+# The HXLTM-ASA is an not strictly documented Abstract Syntax Tree
+# of an data conversion operation.
+#
+# These are quick examples. They reuse other examples on this guide, but also
+# save data on a separate file.
 # [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next example will generate an XLIFF, but we also will save the HXLTM-ASA.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.xlf \
+  --expertum-HXLTM-ASA resultatum/hxltm-exemplum-linguam.asa.hxltm.json \
+  --objectivum-XLIFF
 
 # end::HXLTM-ASA[]
 

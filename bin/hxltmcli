@@ -117,7 +117,6 @@ HXLM_CONFIG_BASE = os.getenv(
 # ~/.config/hxlm/cor.hxltm.yml
 # This can be customized with enviroment variable HXLM_CONFIG_BASE
 
-
 # Since hpd-toolchain is not a hard requeriment, we first try to load
 # hdp-toolchain lib, but if hxltmcli is a standalone script with
 # only libhxl, yaml, etc installed, we tolerate it
@@ -228,13 +227,18 @@ class HXLTMCLI:
         #     if len(self.alternativum_linguam):
         #         for rem in
 
-    def _initiale_meta_archivum_fontem_hxlated(self, archivum: str) -> bool:
+    def _initiale_hxltm_asa(self, archivum: str) -> bool:
         """Pre-populate metadata about source file
 
         Requires already HXLated file saved on disk.
 
+        Trivia:
+        - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        - HXLTM, https://hdp.etica.ai/hxltm
+        - HXLTM ASA, https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA
+
         Args:
-            archivum (str): Path to an already HXLated file on disk
+            archivum (str): Archīvum trivia
 
         Returns:
             bool: If okay.
@@ -329,9 +333,10 @@ class HXLTMCLI:
             'With --venandum-insectum-est output entire dataset data. ' +
             'Good for debugging.',
             # dest='fontem_linguam',
-            metavar='hxltm_asa_archivum',
+            metavar='hxltm_asa',
+            dest='hxltm_asa',
             action='store',
-            default='arb-Arab',
+            default=None,
             nargs='?'
         )
 
@@ -652,11 +657,24 @@ class HXLTMCLI:
                 hxl.io.write_hxl(output.output, source,
                                  show_tags=not args.strip_tags)
 
-            self.datum = HXLTMDatum(args.outfile, self.otlg)
-            self._initiale_meta_archivum_fontem_hxlated(args.outfile)
+            hxlated_input = args.outfile
+
+            self.datum = HXLTMDatum(hxlated_input, self.otlg)
+
+            # _[eng-Latn]
+            # This step will do raw analysis of the hxlated_input on a
+            # temporary on the disk.
+            # [eng-Latn]_
+            self._initiale_hxltm_asa(hxlated_input)
+
+            # print(args)
+
+            if args.hxltm_asa:
+                self.in_asa(hxlated_input, args)
+                # print('TODO')
 
             if args.expertum_metadatum:
-                self.in_expertum_metadatum(args.outfile,
+                self.in_expertum_metadatum(hxlated_input,
                                            self.original_outfile,
                                            self.original_outfile_is_stdout,
                                            args)
@@ -664,11 +682,11 @@ class HXLTMCLI:
 
             # if archivum_extensionem == '.csv':
             #     # print('CSV!')
-            #     self.in_csv(args.outfile, self.original_outfile,
+            #     self.in_csv(hxlated_input, self.original_outfile,
             #                    self.original_outfile_is_stdout, args)
             if self.objectivum_typum == 'TMX':
                 # print('TMX')
-                self.in_tmx(args.outfile, self.original_outfile,
+                self.in_tmx(hxlated_input, self.original_outfile,
                             self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'TBX-Basim':
@@ -682,29 +700,29 @@ class HXLTMCLI:
 
             elif self.objectivum_typum == 'CSV-3':
                 # raise NotImplementedError('CSV-3 not implemented yet')
-                self.in_csv3(args.outfile, self.original_outfile,
+                self.in_csv3(hxlated_input, self.original_outfile,
                              self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'CSV-HXL-XLIFF':
                 # raise NotImplementedError('CSV-3 not implemented yet')
-                self.in_csv(args.outfile, self.original_outfile,
+                self.in_csv(hxlated_input, self.original_outfile,
                             self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'JSON-kv':
-                self.in_jsonkv(args.outfile, self.original_outfile,
+                self.in_jsonkv(hxlated_input, self.original_outfile,
                                self.original_outfile_is_stdout, args)
                 # raise NotImplementedError('JSON-kv not implemented yet')
 
             elif self.objectivum_typum == 'XLIFF':
                 # print('XLIFF (2)')
-                self.in_csv(args.outfile, temp_csv4xliff.name,
+                self.in_csv(hxlated_input, temp_csv4xliff.name,
                             False, args)
                 self.in_xliff(temp_csv4xliff.name, self.original_outfile,
                               self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'HXLTM':
                 # print('HXLTM')
-                self.in_noop(args.outfile, self.original_outfile,
+                self.in_noop(hxlated_input, self.original_outfile,
                              self.original_outfile_is_stdout)
 
             elif self.objectivum_typum == 'INCOGNITUM':
@@ -717,13 +735,13 @@ class HXLTMCLI:
             else:
                 # print('default / unknow option result')
                 # Here maybe error?
-                # self.hxl2tab(args.outfile, self.original_outfile,
+                # self.hxl2tab(hxlated_input, self.original_outfile,
                 #              self.original_outfile_is_stdout, args)
 
-                # self.in_csv(args.outfile, temp_csv4xliff.name,
+                # self.in_csv(hxlated_input, temp_csv4xliff.name,
                 #                False, args)
                 # print('noop')
-                self.in_noop(args.outfile, self.original_outfile,
+                self.in_noop(hxlated_input, self.original_outfile,
                              self.original_outfile_is_stdout)
 
         finally:
@@ -731,6 +749,11 @@ class HXLTMCLI:
             temp_csv4xliff.close()
 
         return self.EXIT_OK
+
+    def in_asa(self, hxlated_input: str, cli_args):
+        print('TODO HXLTM asa')
+        print(type(cli_args))
+        # pass
 
     def in_expertum_metadatum(
             self, hxlated_input: str, tab_output: str, is_stdout: bool, args):
@@ -1393,6 +1416,76 @@ class HXLTMCLI:
                 continue
 
         return hxlated_header
+
+
+@dataclass
+class HXLTMASA:
+    """HXLTM Abstractum Syntaxim Arborem
+
+    _[eng-Latn]
+    The HXLTM-ASA is an not strictly documented Abstract Syntax Tree
+    of an data conversion operation.
+
+    This format, different from the HXLTM permanent storage, is not
+    meant to be used by end users. And, in fact, either JSON (or other
+    formats, like YAML) are more a tool for users debugging the initial
+    reference implementation hxltmcli OR developers using JSON
+    as more advanced input than the end user permanent storage.
+
+    Warning: The HXLTM-ASA is not meant to be an stricly documented format
+    even if HXLTM eventually get used by large public. If necessary,
+    some special format could be created, but this would require feedback
+    from community or some work already done by implementers.
+    [eng-Latn]_
+
+    Trivia:
+        - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
+        - syntaxim, https://en.wiktionary.org/wiki/syntaxis#Latin
+        - arborem, https://en.wiktionary.org/wiki/arbor#Latin
+        - conceptum de Abstractum Syntaxim Arborem
+            - https://www.wikidata.org/wiki/Q127380
+
+>>> ontologia = HXLTMTestumAuxilium.ontologia()
+    """
+
+    hxltm_crudum: InitVar[List] = []
+    ontologia: InitVar[Type['HXLTMOntologia']] = None
+    argumentum: InitVar[Dict] = None
+    venandum_insectum_est: InitVar[bool] = False
+
+    def __init__(self,
+                 hxltm_crudum: List[List],
+                 ontologia: Union[Type['HXLTMOntologia'], Dict] = None,
+                 argumentum: Dict = None,
+                 venandum_insectum_est: bool = False):
+        """
+
+        Args:
+            hxltm_crudum (List[List]):
+                _[lat-Latn]
+                Crudum HXLTM Archīvum (in Python Array de Array)
+                [lat-Latn]_
+            ontologia (Union[Type['HXLTMOntologia'], Dict]):
+                _[lat-Latn]
+                HXLTM Cor Ontologia e.g. cor.hxltm.yml (in Python Dict)
+                [lat-Latn]_
+            argumentum (Dict):
+                _[lat-Latn]
+                Python argumentum,
+                https://docs.python.org/3/library/argparse.html
+                [lat-Latn]_
+            venandum_insectum_est (bool, optional):
+            _[lat-Latn]
+                Vēnandum īnsectum est? Defallo falsum
+            [lat-Latn]_
+
+            Vēnandum īnsectum Defaults to False.
+        """
+
+        self.hxltm_crudum = hxltm_crudum
+        self.ontologia = ontologia
+        self.argumentum = argumentum
+        self.venandum_insectum_est = venandum_insectum_est
 
 
 @dataclass
@@ -2484,6 +2577,78 @@ class HXLTMRemCaput(HXLTMLinguam):
         self.titulum = titulum
         if columnam_meta is not None:
             self.valendum_meta = columnam_meta.v(False)
+
+
+class HXLTMTestumAuxilium:
+    """HXLTM Testum Auxilium
+
+    _[eng-Latn]
+    This class only contains static methods to help test the rest of the huge
+    hxltmcli.py file.
+
+    Every time lines start with ">>> python-code-here" this actually is an
+    python doctest operation that can be executed with something like
+
+        python3 -m doctest hxlm/core/bin/hxltmcli.py
+
+    So the HXLTMTestumAuxilium contain test helpers.
+    [eng-Latn]_
+
+    Trivia:
+    - testum, https://en.wiktionary.org/wiki/testum
+    - auxilium, https://en.wiktionary.org/wiki/auxilium#Latin
+    - disciplīnam manuāle
+      - Python doctest
+        - https://docs.python.org/3/library/doctest.html
+    """
+
+    @staticmethod
+    def testum_basim() -> str:
+        """Testum basim
+
+        _[eng-Latn]
+        Note: this will try check if the enviroment variable
+        HXLTM_TESTUM_BASIM and only fallback to assume the entire
+        hdp-toolchain installation (or a fork from
+        EticaAI/HXL-Data-Science-file-formats) on local disk.
+
+        Since the hxltmclitm v0.8.2 can be used in standalone more, users
+        may want to run tests from other paths (in special if they
+        eventually want to propose for the public project)
+        [eng-Latn]_
+
+        Returns:
+            str:
+                _[eng-Latn]
+                Directory containing test files.
+                [eng-Latn]_
+        """
+        _HXLTM_TESTUM_BASIM = os.getenv('HXLTM_TESTUM_BASIM', HXLTM_SCRIPT_DIR)
+
+    @staticmethod
+    def datum(exemplum_archivum: str) -> Dict:
+        """HXLTM Ontologia 'cor.hxltm.yml'
+
+        Returns:
+            Dict: HXLTM Ontologia
+        """
+
+        if not os.path.isfile(exemplum_archivum):
+            raise RuntimeError(
+                'HXLTMTestumAuxilium non-datum [{}]'.format(exemplum_archivum))
+
+        with open(exemplum_archivum) as arch:
+            rem_crudum = arch.read().splitlines()
+
+    @staticmethod
+    def ontologia() -> Dict:
+        """HXLTM Ontologia 'cor.hxltm.yml'
+
+        Returns:
+            Dict: HXLTM Ontologia
+        """
+        # print(HXLTMUtil.load_hxltm_options())
+        return HXLTMUtil.load_hxltm_options()
 
 
 class HXLTMTypum:
