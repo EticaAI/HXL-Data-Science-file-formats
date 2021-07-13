@@ -70,7 +70,9 @@ if true ; then
     echo "   Archīvum: [${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv]"
     wget -qO- "$hxltm_exemplum_linguam" > "${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv"
 
-    echo "hxltm_linguam, hdp-toolchain package"
+    # We ship some test files also with hdp-toolchain so python doc test
+    # can be executed with Tox.
+    echo "hxltm_linguam, hdp-toolchain package (used by python doctests"
     cp "${ROOTDIR}/testum/hxltm/hxltm-exemplum-linguam.tm.hxl.csv" "${ROOTDIR}/hxlm/data/exemplum/hxltm-exemplum-linguam.tm.hxl.csv"
 fi
 

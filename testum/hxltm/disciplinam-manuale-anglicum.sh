@@ -146,7 +146,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF > re
 
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
   resultatum/hxltm-exemplum-linguam.xlf \
-  --expertum-HXLTM-ASA resultatum/hxltm-exemplum-linguam.asa.hxltm.json \
+  --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.json \
   --objectivum-XLIFF
 
 # end::HXLTM-ASA[]

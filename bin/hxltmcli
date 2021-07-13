@@ -148,7 +148,7 @@ except ImportError:
 HXLTM_RUNNING_DIR = str(Path().resolve())
 
 
-class HXLTMCLI:
+class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
     """
     _[eng-Latn] hxltmcli is an working draft of a tool to
                 convert prototype of translation memory stored with HXL to
@@ -165,13 +165,19 @@ class HXLTMCLI:
         self.hxlhelper = None
         self.args = None
         self.conf = {}  # Crudum, raw file
-        self.otlg = None  # HXLTMOntologia object
+        self.ontologia = None  # HXLTMOntologia object
         self.objectivum_typum = None
+
+        # TODO: migrade from HXLTMcli to HXLTMASA the
+        # fontem_linguam, objectivum_linguam, alternativum_linguam, linguam
         self.fontem_linguam: HXLTMLinguam = None
         self.objectivum_linguam: HXLTMLinguam = None
         self.alternativum_linguam: List[HXLTMLinguam] = []
         self.linguam: List[HXLTMLinguam] = []
+
+        # TODO: replace self.datum by HXLTMASA
         self.datum: HXLTMDatum = None
+        self.hxltm_asa: Type['HXLTMASA'] = None
         # self.meta_archivum_fontem = {}
         self.meta_archivum_fontem = {}
         self.errors = []
@@ -211,6 +217,8 @@ class HXLTMCLI:
         # if args.expertum_metadatum_est:
         #     self.expertum_metadatum_est = args.expertum_metadatum_est
 
+        # TODO: migrate all this to HXLTMASA._initiale
+
         if args.fontem_linguam:
             self.fontem_linguam = HXLTMLinguam(args.fontem_linguam)
             if is_debug:
@@ -244,7 +252,7 @@ class HXLTMCLI:
         #     if len(self.alternativum_linguam):
         #         for rem in
 
-    def _initiale_hxltm_asa(self, archivum: str) -> bool:
+    def _initiale_hxltm_asa(self, archivum: str, argumentum: Dict) -> bool:
         """Pre-populate metadata about source file
 
         Requires already HXLated file saved on disk.
@@ -256,59 +264,70 @@ class HXLTMCLI:
 
         Args:
             archivum (str): Archīvum trivia
-
+            argumentum (Dict):
+                _[lat-Latn]
+                Python argumentum,
+                https://docs.python.org/3/library/argparse.html
+                [lat-Latn]_
         Returns:
             bool: If okay.
         """
 
-        mAF = {
-            # 'rem_I_textum_caput_est': None,
-            'rem_I_hxl_caput_est': None,
-            'rem_I': [],
-            # 'rem_II_textum_caput_est': None,
-            'rem_II_hxl_caput_est': None,
-            'rem_II': [],
-            # 'rem_III_textum_caput_est': None,
-            'rem_III_hxl_caput_est': None,
-            'rem_III': [],
-            'rem_crudum_initialle': [],
-            'rem_crudum_finale': [],
-        }
+        with open(archivum, 'r') as arch:
+            crudum_datum = arch.read().splitlines()
 
-        rem_crudum = []
+        self.hxltm_asa = HXLTMASA(crudum_datum, self.ontologia, argumentum)
 
-        with open(archivum) as arch:
-            rem_crudum = arch.read().splitlines()
+        # mAF = {
+        #     # 'rem_I_textum_caput_est': None,
+        #     'rem_I_hxl_caput_est': None,
+        #     'rem_I': [],
+        #     # 'rem_II_textum_caput_est': None,
+        #     'rem_II_hxl_caput_est': None,
+        #     'rem_II': [],
+        #     # 'rem_III_textum_caput_est': None,
+        #     'rem_III_hxl_caput_est': None,
+        #     'rem_III': [],
+        #     'rem_crudum_initialle': [],
+        #     'rem_crudum_finale': [],
+        # }
 
-        mAF['rem_crudum_initialle'] = \
-            rem_crudum[:5]
+        # rem_crudum = []
 
-        if len(rem_crudum) > 5:
-            mAF['rem_crudum_finale'] = \
-                rem_crudum[-5:]
+        # with open(archivum) as arch:
+        #     rem_crudum = arch.read().splitlines()
 
-        # @see https://docs.python.org/3/library/csv.html
-        with open(archivum, 'r') as csv_file:
-            csv_reader = csv.reader(csv_file)
+        # mAF['rem_crudum_initialle'] = \
+        #     rem_crudum[:5]
 
-            mAF['rem_I'] = next(csv_reader)
-            mAF['rem_I_hxl_caput_est'] = \
-                HXLTMDatumMetaCaput.quod_est_hashtag_caput(
-                    mAF['rem_I'])
+        # if len(rem_crudum) > 5:
+        #     mAF['rem_crudum_finale'] = \
+        #         rem_crudum[-5:]
 
-            mAF['rem_II'] = next(csv_reader)
-            mAF['rem_II_hxl_caput_est'] = \
-                HXLTMDatumMetaCaput.quod_est_hashtag_caput(
-                    mAF['rem_II'])
+        # # @see https://docs.python.org/3/library/csv.html
+        # with open(archivum, 'r') as csv_file:
+        #     csv_reader = csv.reader(csv_file)
 
-            mAF['rem_III'] = next(csv_reader)
-            mAF['rem_III_hxl_caput_est'] = \
-                HXLTMDatumMetaCaput.quod_est_hashtag_caput(
-                    mAF['rem_III'])
+        #     mAF['rem_I'] = next(csv_reader)
+        #     mAF['rem_I_hxl_caput_est'] = \
+        #         HXLTMDatumMetaCaput.quod_est_hashtag_caput(
+        #             mAF['rem_I'])
 
-        self.meta_archivum_fontem = mAF
+        #     mAF['rem_II'] = next(csv_reader)
+        #     mAF['rem_II_hxl_caput_est'] = \
+        #         HXLTMDatumMetaCaput.quod_est_hashtag_caput(
+        #             mAF['rem_II'])
+
+        #     mAF['rem_III'] = next(csv_reader)
+        #     mAF['rem_III_hxl_caput_est'] = \
+        #         HXLTMDatumMetaCaput.quod_est_hashtag_caput(
+        #             mAF['rem_III'])
+
+        # self.meta_archivum_fontem = mAF
 
     def make_args_hxltmcli(self):
+        """make_args_hxltmcli
+        """
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
@@ -640,9 +659,9 @@ class HXLTMCLI:
             args.venandum_insectum_est
         )
 
-        self.otlg = HXLTMOntologia(self.conf)
+        self.ontologia = HXLTMOntologia(self.conf)
 
-        # print(self.otlg.hxl_de_aliud_nomen_breve())
+        # print(self.ontologia.hxl_de_aliud_nomen_breve())
         # raise RuntimeError('JUST TESTING, remove me')
 
         # If the user specified an output file, we will save on
@@ -676,13 +695,14 @@ class HXLTMCLI:
 
             hxlated_input = args.outfile
 
-            self.datum = HXLTMDatum(hxlated_input, self.otlg)
+            # TODO: replace self.datum by HXLTMASA
+            self.datum = HXLTMDatum(hxlated_input, self.ontologia)
 
             # _[eng-Latn]
             # This step will do raw analysis of the hxlated_input on a
             # temporary on the disk.
             # [eng-Latn]_
-            self._initiale_hxltm_asa(hxlated_input)
+            self._initiale_hxltm_asa(hxlated_input, args)
 
             # print(args)
 
@@ -767,10 +787,13 @@ class HXLTMCLI:
 
         return self.EXIT_OK
 
-    def in_asa(self, hxlated_input: str, cli_args):
-        print('TODO HXLTM asa')
-        print(type(cli_args))
-        # pass
+    def in_asa(self, str, cli_args):
+        # resultatum = HXLTMTypum.in_textum_json(
+        resultatum = HXLTMTypum.in_textum_yaml(
+            self.hxltm_asa.v(), formosum=True)
+
+        with open(cli_args.hxltm_asa, 'w') as writer:
+            writer.write(resultatum)
 
     def in_expertum_metadatum(
             self, hxlated_input: str, tab_output: str, is_stdout: bool, args):
@@ -1472,6 +1495,14 @@ class HXLTMASA:
 
     hxltm_crudum: InitVar[List] = []
     ontologia: InitVar[Type['HXLTMOntologia']] = None
+
+    # TODO: migrade from HXLTMcli to HXLTMASA the
+    # fontem_linguam, objectivum_linguam, alternativum_linguam, linguam
+    fontem_linguam: Type['HXLTMLinguam'] = None
+    objectivum_linguam: Type['HXLTMLinguam'] = None
+    alternativum_linguam: List[Type['HXLTMLinguam']] = None
+    linguam: List[Type['HXLTMLinguam']] = None
+
     argumentum: InitVar[Dict] = None
     venandum_insectum_est: InitVar[bool] = False
 
@@ -1509,6 +1540,40 @@ class HXLTMASA:
         self.argumentum = argumentum
         self.venandum_insectum_est = venandum_insectum_est
 
+    def _initiale(self, args,  is_debug=False):
+        """Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+        # if args.expertum_metadatum_est:
+        #     self.expertum_metadatum_est = args.expertum_metadatum_est
+
+        # TODO: migrate all this to HXLTMASA._initiale
+
+        if args.fontem_linguam:
+            self.fontem_linguam = HXLTMLinguam(args.fontem_linguam)
+            if is_debug:
+                print('fontem_linguam', self.fontem_linguam.v())
+
+        if args.objectivum_linguam:
+            self.objectivum_linguam = HXLTMLinguam(args.objectivum_linguam)
+            if is_debug:
+                print('objectivum_linguam', self.objectivum_linguam.v())
+
+        if args.alternativum_linguam and len(args.alternativum_linguam) > 0:
+            unicum = set(args.alternativum_linguam)
+            for rem in unicum:
+                rem_obj = HXLTMLinguam(rem)
+                if is_debug:
+                    print('alternativum_linguam', rem_obj.v())
+                self.alternativum_linguam.append(rem_obj)
+
+        if args.linguam and len(args.linguam) > 0:
+            unicum = set(args.linguam)
+            for rem in unicum:
+                rem_obj = HXLTMLinguam(rem)
+                if is_debug:
+                    print('linguam', rem_obj.v())
+                self.linguam.append(rem_obj)
+
     def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
 
@@ -1523,9 +1588,49 @@ class HXLTMASA:
         Returns:
             [Dict]: Python dict
         """
-        basim = self.__dict__
 
-        return basim
+        resultatum = {
+            '__systema_varians': __SYSTEMA_VARIANS__,
+            '__systema_versionem': __VERSION__,
+            '_typum': 'HXLTMASA',
+            'argumentum': {
+                'fontem_linguam', self.fontem_linguam,
+                'objectivum_linguam', self.objectivum_linguam,
+                'alternativum_linguam', self.alternativum_linguam,
+                'linguam', self.linguam,
+            }
+            # 'argumentum': {
+            #     'fontem_linguam': self.fontem_linguam.v(),
+            #     'objectivum_linguam': self.objectivum_linguam.v(),
+            #     'alternativum_linguam': [],
+            #     'linguam': []
+            # },
+            # 'archivum_fontem': self.meta_archivum_fontem,
+            # 'archivum_fontem_m': {},
+            # 'archivum_objectivum': {},
+        }
+
+        # resultatum['archivum_fontem_m'] = self.datum.v()
+
+        # if len(self.alternativum_linguam) > 0:
+        #     for rem in self.alternativum_linguam:
+        #         resultatum['argumentum']['alternativum_linguam'].append(
+        #             rem.v())
+
+        # if len(self.linguam) > 0:
+        #     for rem in self.linguam:
+        #         resultatum['argumentum']['linguam'].append(rem.v())
+
+        # if not args.venandum_insectum_est:
+        #     venandum_insectum_est_notitia = {
+        #         '__annotatianem': "optio --venandum-insectum-est requirere"
+        #     }
+
+        #     resultatum['archivum_fontem'] = venandum_insectum_est_notitia
+
+        # basim = self.__dict__
+
+        return resultatum
 
 
 @dataclass
@@ -2959,6 +3064,85 @@ True
         return json_textum
 
     @staticmethod
+    def in_textum_yaml(
+            rem: Any,
+            formosum: Union[bool, int] = None,
+            clavem_sortem: bool = False,
+            imponendum_praejudicium: bool = False
+    ) -> str:
+        """Trānslātiōnem: rem in textum YAML
+
+        Trivia:
+          - rem, https://en.wiktionary.org/wiki/res#Latin
+          - in, https://en.wiktionary.org/wiki/in#Latin
+          - YAML, https://yaml.org/
+          - fōrmōsum, https://en.wiktionary.org/wiki/formosus
+          - impōnendum, https://en.wiktionary.org/wiki/enforcier#Old_French
+          - praejūdicium, https://en.wiktionary.org/wiki/praejudicium#Latin
+          - sortem, https://en.wiktionary.org/wiki/sors#Latin
+          - clāvem, https://en.wiktionary.org/wiki/clavis#Latin
+
+        Args:
+            rem ([Any]): Rem
+
+        Returns:
+            [str]: Rem in JSON textum
+
+        Testum:
+>>> rem = {"b": 2, "a": ['ت', 'ツ', '😊']}
+
+>>> HXLTMTypum.in_textum_json(rem)
+'{"b": 2, "a": ["ت", "ツ", "😊"]}'
+
+>>> HXLTMTypum.in_textum_json(rem, clavem_sortem=True)
+'{"a": ["ت", "ツ", "😊"], "b": 2}'
+
+>>> HXLTMTypum.in_textum_json(rem, imponendum_praejudicium=True)
+'{"b": 2, "a": ["\\\u062a", "\\\u30c4", "\\\ud83d\\\ude0a"]}'
+
+>>> HXLTMTypum.in_textum_json(rem, formosum=True)
+'{\\n    "b": 2,\\n    \
+"a": [\\n        "ت",\\n        "ツ",\\n        "😊"\\n    ]\\n}'
+
+        """
+
+        # TODO: in_textum_yaml is a draft.
+
+        # print = json.dumps()
+
+        if formosum is True:
+            formosum = 4
+
+        yaml_textum = yaml.dump(
+            rem, Dumper=HXLTMTypumYamlDumper,
+            encoding='utf-8',
+            allow_unicode=not imponendum_praejudicium
+        )
+
+        # json_textum = json.dump(
+        #     rem,
+        #     indent=formosum,
+        #     sort_keys=clavem_sortem,
+        #     ensure_ascii=imponendum_praejudicium
+        # )
+
+        # return yaml_textum
+        # @see https://pyyaml.org/wiki/PyYAMLDocumentation
+        return str(yaml_textum, 'UTF-8')
+
+    # @staticmethod
+    # @see also hxlm/core/io/converter.py
+    # def to_yaml(thing: Any) -> str:
+    #     """Generic YAML exporter
+
+    #     Returns:
+    #         str: Returns an YAML formated string
+    #     """
+
+    #     return yaml.dump(thing, Dumper=HXLTMTypumYamlDumper,
+    #                     encoding='utf-8', allow_unicode=True)
+
+    @staticmethod
     def in_numerum_simplex(rem: Union[int, str]) -> int:
         """Rem in numerum simplex?
 
@@ -3078,6 +3262,16 @@ True
 
         # TODO: This is a draft. Needs work.
         return len(rem)
+
+
+class HXLTMTypumYamlDumper(yaml.Dumper):
+    """Force identation on pylint, https://github.com/yaml/pyyaml/issues/234
+    TODO: check on future if this still need
+          (Emerson Rocha, 2021-02-28 10:56 UTC)
+    """
+
+    def increase_indent(self, flow=False, *args, **kwargs):  # noqa
+        return super().increase_indent(flow=flow, indentless=False)
 
 
 class HXLTMUtil:
