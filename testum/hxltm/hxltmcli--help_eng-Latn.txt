@@ -2,7 +2,9 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--http-header header] [--remove-headers] [--strip-tags]
                 [--ignore-certs]
                 [--log debug|info|warning|error|critical|none]
-                [--expertum-metadatum] [--fontem-linguam [fontem_linguam]]
+                [--expertum-metadatum]
+                [--expertum-HXLTM-ASA [hxltm_asa_archivum]]
+                [--fontem-linguam [fontem_linguam]]
                 [--objectivum-linguam [objectivum_linguam]]
                 [--alternativum-linguam [alternativum_linguam]]
                 [--linguam [linguam]] [--non-linguam [non_linguam]]
@@ -40,6 +42,10 @@ optional arguments:
   --expertum-metadatum  (Expert mode) Return metadata of the operation in JSON
                         format instead of generate the output. Good for
                         debugging.
+  --expertum-HXLTM-ASA [hxltm_asa_archivum]
+                        (Expert mode) Save an Abstract Syntax Tree in JSON
+                        format to a file path. With --venandum-insectum-est
+                        output entire dataset data. Good for debugging.
   --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
                         (For bilingual operations) Source natural language
                         (use if not auto-detected). Must be like {ISO

@@ -320,6 +320,21 @@ class HXLTMCLI:
             const=True,
             default=False
         )
+
+        # TODO: --expertum-HXLTM-ASA is a draft.
+        parser.add_argument(
+            '--expertum-HXLTM-ASA',
+            help='(Expert mode) Save an Abstract Syntax Tree  ' +
+            'in JSON format to a file path. ' +
+            'With --venandum-insectum-est output entire dataset data. ' +
+            'Good for debugging.',
+            # dest='fontem_linguam',
+            metavar='hxltm_asa_archivum',
+            action='store',
+            default='arb-Arab',
+            nargs='?'
+        )
+
         parser.add_argument(
             '--fontem-linguam', '-FL',
             help='(For bilingual operations) Source natural language ' +
@@ -735,6 +750,7 @@ class HXLTMCLI:
             is_stdout (bool): If is stdout
         """
         resultatum = {
+            '_typum': 'HXLTMExpertumMetadatum',
             'argumentum': {
                 'fontem_linguam': self.fontem_linguam.v(),
                 'objectivum_linguam': self.objectivum_linguam.v(),
@@ -1506,6 +1522,7 @@ class HXLTMDatum:
             verbosum = verbosum or self.venandum_insectum_est
 
         resultatum = {
+            '_typum': 'HXLTMDatum',
             # 'crudum_caput': self.crudum_caput,
             # 'crudum_hashtag': self.crudum_hashtag,
             'meta': self.meta.v(verbosum),
@@ -1871,7 +1888,7 @@ True
             verbosum = verbosum or self.venandum_insectum_est
 
         resultatum = {
-            'rem': [item.v(verbosum) if item else None for item in self.rem],
+            'caput': [item.v(verbosum) if item else None for item in self.rem],
             # 'crudum_titulum': self.crudum_titulum,
             # 'crudum_hashtag': self.crudum_hashtag,
             'numerum_optionem': self.numerum_optionem,
@@ -2413,7 +2430,6 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
         return self.__dict__
 
 
-# class HXLTMRemCaput(HXLTMLinguam, HXLTMDatumColumnam):
 class HXLTMRemCaput(HXLTMLinguam):
     """HXLTMRemCaput HXLTMLinguam et HXLTMDatumMetaCaput metadatum
 
@@ -2426,8 +2442,6 @@ class HXLTMRemCaput(HXLTMLinguam):
     datum_typum: InitVar['str'] = None
     hashtag: InitVar[str] = None
     titulum: InitVar[str] = None
-
-    # def __init__(self, linguam: str, strictum=False, vacuum=False):
 
     # @see https://github.com/PyCQA/pylint/issues/3505
     # pylint: disable=super-init-not-called
@@ -2451,11 +2465,6 @@ class HXLTMRemCaput(HXLTMLinguam):
                        Trivia: https://en.wiktionary.org/wiki/strictus#Latin
                        Defallo falsum.
         """
-        # print('columnam_meta', columnam_meta)
-        # TODO: learn more about python super and how to deal with multiple
-        #       inheritance.
-        #       @see https://stackoverflow.com/questions/3277367
-        #            /how-does-pythons-super-work-with-multiple-inheritance
 
         linguam = HXLTMUtil.linguam_de_hxlhashtag(hashtag) if hashtag else ''
         # _[eng-Latn]
@@ -2465,22 +2474,11 @@ class HXLTMRemCaput(HXLTMLinguam):
         # empty HXL hashtag means HXLTMLinguam vacuum=True
         # [eng-Latn]_
         vacuum = bool(linguam is None or len(linguam) == 0)
-        # if linguam is None or len(linguam) == 0:
-        #     vacuum = True
-        # else:
-        #     vacuum = False
 
-        # TODO: Use columnam_meta information when availible
-
-        # print("HXLTMRemCaput(): entering")
-        # print(self.v())
         HXLTMLinguam.__init__(self, linguam, strictum, vacuum)
-        # HXLTMDatumColumnam.__init__(self, valendum)
-        # print("HXLTMRemCaput(): exiting")
 
         self._typum = 'HXLTMRemCaput'  # Used only when output JSON
 
-        # self.valendum_meta = 'teste123'
         self.columnam = columnam
         self.hashtag = hashtag
         self.titulum = titulum
@@ -2490,7 +2488,6 @@ class HXLTMRemCaput(HXLTMLinguam):
 
 class HXLTMTypum:
     """HXLTM Data typum
-
 
     _[eng-Latn]
     Recommendation for proposes of new types to HXLTMTypum (if over the years)
@@ -2709,7 +2706,7 @@ True
 '{"a": ["ت", "ツ", "😊"], "b": 2}'
 
 >>> HXLTMTypum.in_textum_json(rem, imponendum_praejudicium=True)
-'{"b": 2, "a": ["\\u062a", "\\u30c4", "\\ud83d\\ude0a"]}'
+'{"b": 2, "a": ["\\\u062a", "\\\u30c4", "\\\ud83d\\\ude0a"]}'
 
 >>> HXLTMTypum.in_textum_json(rem, formosum=True)
 '{\\n    "b": 2,\\n    \

@@ -69,6 +69,23 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-HXL-XLIFF]
 include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 ----
 
+[#HXLTM-ASA]
+=== `+HXLTM-ASA+`:
+==== HXLTM Abstractum Syntaxim Arborem
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=formatum_HXLTM-ASA]
+----
+
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+----
+
 [#HXLTM-archivum-exportandum]
 == HXLTM exported formats
 
