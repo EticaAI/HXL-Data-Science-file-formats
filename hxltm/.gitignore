@@ -2,7 +2,7 @@
 #    asciidoctor --backend=html5 -o hxltm/index.html -a toc2 hxltm/README.adoc
 # But for local testing we use this
 #    asciidoctor --backend=html5 -o hxltm/index.htm -a toc2 hxltm/README.adoc
-
+#    asciidoctor --backend=html5 -o hxltm/archivum/index.htm -a toc2 hxltm/archivum/README.adoc
 
 *.htm
 hxltm/archivum/index.htm

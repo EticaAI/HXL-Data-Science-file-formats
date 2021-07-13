@@ -38,6 +38,8 @@
 fontem_archivum_extensionem:
   .tm.hxl.csv: HXLTM
   .xliff.hxl.csv: CSV-HXL-XLIFF
+  .asa.hxltm.json: HXLTM-ASA-JSON
+  # .asa.hxltm.yml: HXLTM-ASA-YAML
   .hxl.csv: HXLTM
   # .csv: CSV-3
   .csv: HXLTM
@@ -154,6 +156,45 @@ formatum:
         referens_officinale:
           - https://hdp.etica.ai/hxltm
   # end::formatum_HXLTM[]
+
+  #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
+  # tag::formatum_HXLTM-ASA[]
+  HXLTM-ASA:
+    __meta:
+      archivum_extensionem: 
+        - .asa.hxltm.json
+        # - .asa.hxltm.yml
+      normam:
+        - https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA
+      descriptionem: |
+        _[eng-Latn]
+        The HXLTM-ASA is an not strictly documented Abstract Syntax Tree
+        of an data conversion operation.
+
+        This format, different from the HXLTM permanent storage, is not
+        meant to be used by end users. And, in fact, either JSON (or other
+        formats, like YAML) are more a tool for users debugging the initial
+        reference implementation hxltmcli OR developers using JSON
+        as more advanced input than the end user permanent storage.
+
+        Warning: The HXLTM-ASA is not meant to be an stricly documented format
+        even if HXLTM eventually get used by large public. If necessary,
+        some special format could be created, but this would require feedback
+        from community or some work already done by implementers.
+        [eng-Latn]_
+
+        Trivia:
+          - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
+          - syntaxim, https://en.wiktionary.org/wiki/syntaxis#Latin
+          - arborem, https://en.wiktionary.org/wiki/arbor#Latin
+          - conceptum de Abstractum Syntaxim Arborem
+            - https://www.wikidata.org/wiki/Q127380
+      nomen:
+        eng-Latn: 'HXLTM Abstractum Syntaxim Arborem'
+      situs_interretialis:
+        referens_officinale:
+          - https://hdp.etica.ai/hxltm
+  # end::formatum_HXLTM-ASA[]
 
   #### JSON-kv: JSON key: val; id/source -> target _____________________________
   # tag::formatum_JSON-kv[]

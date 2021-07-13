@@ -455,6 +455,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_hxlated_bilingual_csv_up_to_5_source_alt_for_xliff">HXLated bilingual CSV (+ up to 5 source alt) for XLIFF</a></li>
 </ul>
 </li>
+<li><a href="#HXLTM-ASA"><code>HXLTM-ASA</code>:</a>
+<ul class="sectlevel3">
+<li><a href="#_hxltm_abstractum_syntaxim_arborem">HXLTM Abstractum Syntaxim Arborem</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#HXLTM-archivum-exportandum">HXLTM exported formats</a>
@@ -763,6 +768,62 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF &gt;
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="HXLTM-ASA"><code>HXLTM-ASA</code>:</h3>
+<div class="sect3">
+<h4 id="_hxltm_abstractum_syntaxim_arborem">HXLTM Abstractum Syntaxim Arborem</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  HXLTM-ASA:
+    __meta:
+      archivum_extensionem: 
+        - .asa.hxltm.json
+        # - .asa.hxltm.yml
+      normam:
+        - https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA
+      descriptionem: |
+        _[eng-Latn]
+        The HXLTM-ASA is an not strictly documented Abstract Syntax Tree
+        of an data conversion operation.
+
+        This format, different from the HXLTM permanent storage, is not
+        meant to be used by end users. And, in fact, either JSON (or other
+        formats, like YAML) are more a tool for users debugging the initial
+        reference implementation hxltmcli OR developers using JSON
+        as more advanced input than the end user permanent storage.
+
+        Warning: The HXLTM-ASA is not meant to be an stricly documented format
+        even if HXLTM eventually get used by large public. If necessary,
+        some special format could be created, but this would require feedback
+        from community or some work already done by implementers.
+        [eng-Latn]_
+
+        Trivia:
+          - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
+          - syntaxim, https://en.wiktionary.org/wiki/syntaxis#Latin
+          - arborem, https://en.wiktionary.org/wiki/arbor#Latin
+          - conceptum de Abstractum Syntaxim Arborem
+            - https://www.wikidata.org/wiki/Q127380
+      nomen:
+        eng-Latn: 'HXLTM Abstractum Syntaxim Arborem'
+      situs_interretialis:
+        referens_officinale:
+          - https://hdp.etica.ai/hxltm</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_command_line_examples_3">Command line examples</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# TODO: HXLTM-ASA; This section is a draft
+# [eng-Latn]_</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -786,7 +847,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF &gt;
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_3">Command line examples</h5>
+<h5 id="_command_line_examples_4">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -934,7 +995,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 &gt; resulta
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_4">Command line examples</h5>
+<h5 id="_command_line_examples_5">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -2449,7 +2510,9 @@ hxltmcli --help</code></pre>
                 [--http-header header] [--remove-headers] [--strip-tags]
                 [--ignore-certs]
                 [--log debug|info|warning|error|critical|none]
-                [--expertum-metadatum] [--fontem-linguam [fontem_linguam]]
+                [--expertum-metadatum]
+                [--expertum-HXLTM-ASA [hxltm_asa_archivum]]
+                [--fontem-linguam [fontem_linguam]]
                 [--objectivum-linguam [objectivum_linguam]]
                 [--alternativum-linguam [alternativum_linguam]]
                 [--linguam [linguam]] [--non-linguam [non_linguam]]
@@ -2487,6 +2550,10 @@ optional arguments:
   --expertum-metadatum  (Expert mode) Return metadata of the operation in JSON
                         format instead of generate the output. Good for
                         debugging.
+  --expertum-HXLTM-ASA [hxltm_asa_archivum]
+                        (Expert mode) Save an Abstract Syntax Tree in JSON
+                        format to a file path. With --venandum-insectum-est
+                        output entire dataset data. Good for debugging.
   --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
                         (For bilingual operations) Source natural language
                         (use if not auto-detected). Must be like {ISO
@@ -2595,7 +2662,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-13 04:59:07 UTC
+Last updated 2021-07-13 06:25:03 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
