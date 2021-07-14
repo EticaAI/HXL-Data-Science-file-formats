@@ -250,7 +250,7 @@ formatum:
     # - https://multilingual.com/issues/july-aug-2019/tbx-version-3-published-at-iso/
   # end::formatum_TBX-Basim[]
 
-  #### TMX: TermBase eXchange (TBX) Basic ______________________________________
+  #### TMX: Translation Memory eXchange format (TMX) ___________________________
   # tag::formatum_TMX[]
   TMX:
     __meta:
