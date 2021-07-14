@@ -309,7 +309,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         self.hxltm_asa = HXLTMASA(
             archivum,
             ontologia=self.ontologia,
-            argumentum=argumentum)
+            argumentum=argumentum,
+            verbosum=argumentum.hxltm_asa_verbosum
+        )
 
         # mAF = {
         #     # 'rem_I_textum_caput_est': None,
@@ -372,47 +374,11 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             # """)
             description=__DESCRIPTIONEM_BREVE__,
             epilog=__EPILOGUM__
-            # description=(
-            #     "_[eng-Latn] hxltmcli " + __VERSION__ + " " +
-            #     "is an working draft of a tool to " +
-            #     "convert prototype of translation memory stored with HXL to " +
-            #     "XLIFF v2.1 [eng-Latn]_"
-            # )
         )
 
         # TODO: implement example using index number (not language) as
         #       for very simple cases (mostly for who is learning
         #       or doing very few languages) know the number is easier
-
-        parser.add_argument(
-            '--expertum-metadatum',
-            help='(Expert mode) Return metadata of the operation ' +
-            'in JSON format instead of generate the output. ' +
-            'Good for debugging.',
-            # dest='fontem_linguam',
-            metavar='expertum_metadatum_est',
-            action='store_const',
-            const=True,
-            default=False
-        )
-
-        # TODO: --expertum-HXLTM-ASA is a draft.
-        parser.add_argument(
-            '--expertum-HXLTM-ASA',
-            help='(Expert mode) Save an Abstract Syntax Tree  ' +
-            'in JSON format to a file path. ' +
-            'With --venandum-insectum-est output entire dataset data. ' +
-            'File extensions with .yml/.yaml = YAML output. ' +
-            'Files extensions with .json/.json5 = JSONs output. ' +
-            'Default: JSON output. ' +
-            'Good for debugging.',
-            # dest='fontem_linguam',
-            metavar='hxltm_asa',
-            dest='hxltm_asa',
-            action='store',
-            default=None,
-            nargs='?'
-        )
 
         parser.add_argument(
             '--fontem-linguam', '-FL',
@@ -671,6 +637,59 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         )
 
         parser.add_argument(
+            '--expertum-metadatum',
+            help='(Deprecated, use --expertum-HXLTM-ASA) ' +
+            '(Expert mode) Return metadata of the operation ' +
+            'in JSON format instead of generate the output. ' +
+            'Good for debugging.',
+            # dest='fontem_linguam',
+            metavar='expertum_metadatum_est',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        parser.add_argument(
+            '--expertum-HXLTM-ASA',
+            help='(Expert mode) Save an Abstract Syntax Tree  ' +
+            'in JSON format to a file path. ' +
+            'With --expertum-HXLTM-ASA-verbosum output entire dataset data. ' +
+            'File extensions with .yml/.yaml = YAML output. ' +
+            'Files extensions with .json/.json5 = JSONs output. ' +
+            'Default: JSON output. ' +
+            'Good for debugging.',
+            # dest='fontem_linguam',
+            metavar='hxltm_asa',
+            dest='hxltm_asa',
+            action='store',
+            default=None,
+            nargs='?'
+        )
+
+        # verbōsum, https://en.wiktionary.org/wiki/verbosus#Latin
+        parser.add_argument(
+            '--expertum-HXLTM-ASA-verbosum',
+            help='(Expert mode) Enable --expertum-HXLTM-ASA verbose mode',
+            # dest='fontem_linguam',
+            metavar='hxltm_asa_verbosum',
+            dest='hxltm_asa_verbosum',
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        # Trivia: experīmentum, https://en.wiktionary.org/wiki/experimentum
+        parser.add_argument(
+            # '--venandum-insectum-est, --debug',
+            '--experimentum-est',
+            help='(Internal testing only) Enable undocumented feature',
+            metavar="experimentum_est",
+            action='store_const',
+            const=True,
+            default=False
+        )
+
+        parser.add_argument(
             # '--venandum-insectum-est, --debug',
             '--venandum-insectum-est', '--debug',
             help='Enable debug? Extra information for program debugging',
@@ -770,8 +789,16 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             #                    self.original_outfile_is_stdout, args)
             if self.objectivum_typum == 'TMX':
                 # print('TMX')
-                self.in_tmx(hxlated_input, self.original_outfile,
-                            self.original_outfile_is_stdout, args)
+
+                if args.experimentum_est:
+                    if self.original_outfile_is_stdout:
+                        archivum_objectivum = False
+                    else:
+                        archivum_objectivum = self.original_outfile
+                    self.in_tmx_de_hxltmasa(archivum_objectivum)
+                else:
+                    self.in_tmx(hxlated_input, self.original_outfile,
+                                self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'TBX-Basim':
                 raise NotImplementedError('TBX-Basim not implemented yet')
@@ -1217,6 +1244,19 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     new_txt.write(ln + "\n")
                     # print (ln)
 
+    def in_tmx_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+
+        farmatum_tmx = HXLTMFarmatumTMX(self.hxltm_asa)
+
+        if archivum_objectivum is None:
+            return farmatum_tmx.in_stdout()
+
+        resultatum = farmatum_tmx.in_array()
+
+        with open(archivum_objectivum, 'w') as archivum_neo:
+            for rem in resultatum:
+                archivum_neo.write(rem + "\n")
+
     def in_xliff(self, hxlated_input, xliff_output, is_stdout, args):
         """
         in_xliff is  is the main method to de facto make the conversion.
@@ -1566,7 +1606,7 @@ alternativum_linguam=None, agendum_linguam=None)
     # linguam: List[Type['HXLTMLinguam']] = None
 
     argumentum: InitVar[Dict] = None
-    _venandum_insectum_est: InitVar[bool] = False
+    _verbosum: InitVar[bool] = False
 
     def __init__(self,
                  fontem_crudum_datum: Union[List[List], str],
@@ -1574,7 +1614,7 @@ alternativum_linguam=None, agendum_linguam=None)
                  #  hxltm_archivum: str = None,
                  ontologia: Union[Type['HXLTMOntologia'], Dict] = None,
                  argumentum: Dict = None,
-                 venandum_insectum_est: bool = False):
+                 verbosum: bool = False):
         """
 
         Args:
@@ -1591,9 +1631,9 @@ alternativum_linguam=None, agendum_linguam=None)
                 Python argumentum,
                 https://docs.python.org/3/library/argparse.html
                 [lat-Latn]_
-            venandum_insectum_est (bool, optional):
+            verbosum (bool, optional):
             _[lat-Latn]
-                Vēnandum īnsectum est? Defallo falsum
+                Verbōsum? Defallo falsum
             [lat-Latn]_
 
             Vēnandum īnsectum Defaults to False.
@@ -1604,9 +1644,9 @@ alternativum_linguam=None, agendum_linguam=None)
 
         self.datum = HXLTMDatum(
             fontem_crudum_datum,
-            venandum_insectum_est=venandum_insectum_est)
+            venandum_insectum_est=verbosum)
         # self.argumentum = argumentum
-        self._venandum_insectum_est = venandum_insectum_est
+        self._venandum_insectum_est = verbosum
 
         self._initiale(argumentum)
 
@@ -1692,28 +1732,28 @@ alternativum_linguam=None, agendum_linguam=None)
 
         if self.fontem_linguam:
             asa['_argumentum']['fontem_linguam'] = \
-                self.fontem_linguam.v(self._venandum_insectum_est)
+                self.fontem_linguam.v(self._verbosum)
 
         if self.objectivum_linguam:
             asa['_argumentum']['objectivum_linguam'] = \
-                self.objectivum_linguam.v(self._venandum_insectum_est)
+                self.objectivum_linguam.v(self._verbosum)
 
         if self.alternativum_linguam and len(self.alternativum_linguam) > 0:
             asa['_argumentum']['alternativum_linguam'] = []
             for rem_al in self.alternativum_linguam:
                 asa['_argumentum']['alternativum_linguam'].append(
-                    rem_al.v(self._venandum_insectum_est)
+                    rem_al.v(self._verbosum)
                 )
 
         if self.agendum_linguam and len(self.agendum_linguam) > 0:
             asa['_argumentum']['agendum_linguam'] = []
             for rem_al in self.agendum_linguam:
                 asa['_argumentum']['agendum_linguam'].append(
-                    rem_al.v(self._venandum_insectum_est)
+                    rem_al.v(self._verbosum)
                 )
 
             # asa['_argumentum']['objectivum_linguam'] = \
-            #     self.objectivum_linguam.v(self._venandum_insectum_est)
+            #     self.objectivum_linguam.v(self._verbosum)
 
         # resultatum_2 = {
         #     # '__asa': meta_asa,
@@ -2295,6 +2335,81 @@ True
 
         # return self.__dict__
         return resultatum
+
+# fōrmātum	https://en.wiktionary.org/wiki/formatus#Latin
+
+
+class HXLTMFarmatumTMX:
+    def __init__(self, hxltm_asa: Type['HXLTMASA']):
+        """
+        _[eng-Latn] Constructs all the necessary attributes for the
+                    HXLTMOntologia object.
+        [eng-Latn]_
+        """
+        self.hxltm_asa = hxltm_asa
+
+    # initiāle	https://en.wiktionary.org/wiki/initialis#Latin
+    def initiale(self) -> List:
+        resultatum = []
+        resultatum.append("<?xml version='1.0' encoding='utf-8'?>")
+        resultatum.append('<!DOCTYPE tmx SYSTEM "tmx14.dtd">')
+        resultatum.append('<tmx version="1.4">')
+        # @see https://www.gala-global.org/sites/default/files/migrated-pages
+        #      /docs/tmx14%20%281%29.dtd
+        resultatum.append(
+            '  <header creationtool="hxltm" creationtoolversion="' +
+            __VERSION__ + '" ' +
+            'segtype="sentence" o-tmf="UTF-8" ' +
+            'adminlang="en" srclang="en" datatype="PlainText"/>')
+        # TODO: make source and adminlang configurable
+        resultatum.append('  <body>')
+
+        return resultatum
+
+    def corporeum(self) -> List:
+        # corporeum	https://en.wiktionary.org/wiki/corporeus#Latin
+        resultatum = []
+        return resultatum
+
+    def finale(self) -> List:
+        # https://en.wiktionary.org/wiki/finalis#Latin
+        resultatum = []
+        return resultatum
+
+    def in_array(self) -> List:
+        # @see https://stackoverflow.com/questions/1720421
+        #      /how-do-i-concatenate-two-lists-in-python
+        resultatum = self.initiale()
+        corporeum = self.corporeum()
+        finale = self.finale()
+
+        resultatum += corporeum
+        resultatum += finale
+        resultatum.extend(corporeum)
+
+        return resultatum
+
+    def in_stdout(self):
+        initiale = self.initiale()
+
+        if len(initiale) > 0:
+            for rem in initiale:
+                print(rem)
+
+        corporeum = self.corporeum()
+
+        if len(corporeum) > 0:
+            for rem in corporeum:
+                print(rem)
+
+        finale = self.finale()
+
+        if len(finale) > 0:
+            for rem in finale:
+                print(rem)
+
+    def in_textum(self):
+        return self.in_array().join("\n")
 
 
 class HXLTMOntologia:
@@ -3783,7 +3898,7 @@ class HXLUtils:
         self.EXIT_SYNTAX = 2
 
     # def make_args(self, description, hxl_output=True):
-    def make_args(self, description, epilog = None, hxl_output=True):
+    def make_args(self, description, epilog=None, hxl_output=True):
         """Set up parser with default arguments.
 
         NOTE:

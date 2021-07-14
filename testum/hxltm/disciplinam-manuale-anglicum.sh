@@ -350,6 +350,8 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 #     pycallgraph --max-depth 3 graphviz -- /workspace/git/EticaAI/HXL-Data-Science-file-formats/hxlm/core/bin/hxltmcli.py hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
 
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF -AL por-Latn -AL spa-Latn --expertum-metadatum
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --objectivum-TMX --experimentum-est --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml --expertum-HXLTM-ASA-verbosum
+
 # To revert only one file that keeps changing even with same input
 # git checkout -- testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
 
