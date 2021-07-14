@@ -142,11 +142,22 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF > re
 ### II -------------------------------------------------------------------------
 # _[eng-Latn]
 # The next example will generate an XLIFF, but we also will save the HXLTM-ASA.
+#
+# The '--expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.json'
+# will generate an JSON output of the operation.
+#
+# The '--expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml'
+# will generate an YAML output of the operation.
 # [eng-Latn]_
 
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
   resultatum/hxltm-exemplum-linguam.xlf \
   --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.json \
+  --objectivum-XLIFF
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.xlf \
+  --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml \
   --objectivum-XLIFF
 
 # end::HXLTM-ASA[]
