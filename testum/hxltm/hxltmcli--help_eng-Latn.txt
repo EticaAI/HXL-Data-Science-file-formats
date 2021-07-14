@@ -44,7 +44,10 @@ optional arguments:
   --expertum-HXLTM-ASA [hxltm_asa]
                         (Expert mode) Save an Abstract Syntax Tree in JSON
                         format to a file path. With --venandum-insectum-est
-                        output entire dataset data. Good for debugging.
+                        output entire dataset data. File extensions with
+                        .yml/.yaml = YAML output. Files extensions with
+                        .json/.json5 = JSONs output. Default: JSON output.
+                        Good for debugging.
   --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
                         (For bilingual operations) Source natural language
                         (use if not auto-detected). Must be like {ISO

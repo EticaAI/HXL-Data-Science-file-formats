@@ -277,7 +277,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         #     hxltm_crudum = arch.read().splitlines()
 
         self.hxltm_asa = HXLTMASA(
-            hxltm_archivum=archivum,
+            archivum,
             ontologia=self.ontologia,
             argumentum=argumentum)
 
@@ -370,6 +370,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             help='(Expert mode) Save an Abstract Syntax Tree  ' +
             'in JSON format to a file path. ' +
             'With --venandum-insectum-est output entire dataset data. ' +
+            'File extensions with .yml/.yaml = YAML output. ' +
+            'Files extensions with .json/.json5 = JSONs output. ' +
+            'Default: JSON output. ' +
             'Good for debugging.',
             # dest='fontem_linguam',
             metavar='hxltm_asa',
@@ -710,7 +713,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             # print(args)
 
             if args.hxltm_asa:
-                self.in_asa(hxlated_input, args)
+                self.in_asa(args)
                 # print('TODO')
 
             if args.expertum_metadatum:
@@ -790,10 +793,17 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         return self.EXIT_OK
 
-    def in_asa(self, str, cli_args):
-        # resultatum = HXLTMTypum.in_textum_json(
-        resultatum = HXLTMTypum.in_textum_yaml(
-            self.hxltm_asa.v(), formosum=True)
+    def in_asa(self, cli_args):
+
+        if str(cli_args.hxltm_asa).endswith(('.yml', '.yaml')):
+            resultatum = HXLTMTypum.in_textum_yaml(
+                self.hxltm_asa.v(), formosum=True)
+        elif str(cli_args.hxltm_asa).endswith(('.json', '.json5')):
+            resultatum = HXLTMTypum.in_textum_json(
+                self.hxltm_asa.v(), formosum=True)
+        else:
+            resultatum = HXLTMTypum.in_textum_json(
+                self.hxltm_asa.v(), formosum=True)
 
         with open(cli_args.hxltm_asa, 'w') as writer:
             writer.write(resultatum)
@@ -1489,14 +1499,16 @@ class HXLTMASA:
             - https://www.wikidata.org/wiki/Q127380
 
 >>> datum = HXLTMTestumAuxilium.datum('hxltm-exemplum-linguam.tm.hxl.csv')
->>> datum = []
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
 
 # TODO: fix this after refactoring HXLTMDatum
-###>>> asa = HXLTMASA(hxltm_crudum=datum, ontologia=ontologia)
-
-# >>> asa.__dict__
+>>> asa = HXLTMASA(datum, ontologia=ontologia)
+>>> asa
+HXLTMASA(fontem_linguam=None, objectivum_linguam=None, \
+alternativum_linguam=None, agendum_linguam=None)
     """
+
+    # pylint: disable=too-many-instance-attributes
 
     datum: InitVar[Type['HXLTMDatum']] = None
     hxltm_crudum: InitVar[List] = []
@@ -1516,8 +1528,9 @@ class HXLTMASA:
     _venandum_insectum_est: InitVar[bool] = False
 
     def __init__(self,
-                 hxltm_crudum: List[List] = None,
-                 hxltm_archivum: str = None,
+                 fontem_crudum_datum: Union[List[List], str],
+                 #  hxltm_crudum: List[List] = None,
+                 #  hxltm_archivum: str = None,
                  ontologia: Union[Type['HXLTMOntologia'], Dict] = None,
                  argumentum: Dict = None,
                  venandum_insectum_est: bool = False):
@@ -1545,12 +1558,11 @@ class HXLTMASA:
             Vēnandum īnsectum Defaults to False.
         """
 
-        self.hxltm_crudum = hxltm_crudum
+        # self.hxltm_crudum = hxltm_crudum
         self.ontologia = ontologia
 
         self.datum = HXLTMDatum(
-            hxltm_crudum=hxltm_crudum,
-            hxltm_archivum=hxltm_archivum,
+            fontem_crudum_datum,
             venandum_insectum_est=venandum_insectum_est)
         # self.argumentum = argumentum
         self._venandum_insectum_est = venandum_insectum_est
@@ -1680,16 +1692,19 @@ class HXLTMASA:
 class HXLTMDatum:
     """
     _[eng-Latn]
-    HXLTMDatum is a python wrapper for the an HXLated HXLTM dataset.
-
-    While this class does not use libhxl directly, it assumes that the dataset
-    already was saved on local disk and is CSV valid with hashtags. (We will
-    not reimplement too much low level logic here).
+    HXLTMDatum is a python wrapper for the an HXLated HXLTM dataset. It
+    either be initialized by a raw Python array of arrays (with 1st or 2nd)
+    row with the HXL hashtags) or with a path for a file on local disk.
 
     One limitation (that is unlikely to be a problem) is, similar to
     softwares like Pandas (and unlikely libhxl, that play nice with streams)
     this class requires load all the data on the memory instead of process
     row by row.
+
+    NOTE: see also HXLTMASA(). Both are similar but HXLTMASA() could in some
+          cases to be implemented eventually hold more than one HXlated
+          dataset in memory, so HXLTMDatum is somewhat a simplified version
+          (whitout awareness of ontologia, for example).
     [eng-Latn]_
     """
 
@@ -1699,13 +1714,14 @@ class HXLTMDatum:
     meta: InitVar[Type['HXLTMDatumMetaCaput']] = None
     # datum_rem: InitVar[List] = []
     columnam: InitVar[List] = []
-    ontologia: InitVar[Type['HXLTMOntologia']] = None
+    # ontologia: InitVar[Type['HXLTMOntologia']] = None
     venandum_insectum_est: InitVar[bool] = False
 
     def __init__(self,
-                 hxltm_crudum: str = None,
-                 hxltm_archivum: str = None,
-                 ontologia: Type['HXLTMOntologia'] = None,
+                 crudum_datum: Union[List[List], str],
+                 #  hxltm_crudum: str = None,
+                 #  hxltm_archivum: str = None,
+                 #  ontologia: Type['HXLTMOntologia'] = None,
                  venandum_insectum_est: bool = False):
         """[summary]
 
@@ -1720,15 +1736,16 @@ class HXLTMDatum:
             SyntaxError: [description]
         """
 
-        self.ontologia = ontologia
+        # self.ontologia = ontologia
         self.venandum_insectum_est = venandum_insectum_est
 
-        # print('oi')
+        # Check: is this an array of arrays (hxltm_crudum) or a path to
+        # a file on disk?
 
-        if hxltm_crudum is not None and len(hxltm_crudum) > 0:
-            self._initialle_de_hxltm_crudum(hxltm_crudum)
-        elif hxltm_archivum is not None and len(hxltm_archivum) > 0:
-            self._initialle_de_hxltm_archivum(hxltm_archivum)
+        if isinstance(crudum_datum, str):
+            self._initialle_de_hxltm_archivum(crudum_datum)
+        elif isinstance(crudum_datum, list):
+            self._initialle_de_hxltm_crudum(crudum_datum)
         else:
             raise SyntaxError('HXLTMDatum crudum aut archivum non vacuum')
 
@@ -1807,11 +1824,6 @@ class HXLTMDatum:
             # print(hxltm_crudum[1])
             raise SyntaxError('HXLTMDatum quod crudum HXL hashtags?')
 
-        # print('crudum_hashtag', crudum_hashtag)
-        # print('crudum_hashtag len', len(crudum_hashtag))
-        # print('crudum_hashtag len', len(crudum_hashtag))
-        # print('hxltm_crudum 0', hxltm_crudum[0])
-        # print('hxltm_crudum 0 len', len(hxltm_crudum[0]))
         # At this point, hxltm_crudum, if any, should have only data
         if len(hxltm_crudum) > 0:
             if len(crudum_hashtag) != len(hxltm_crudum[0]):
@@ -1825,7 +1837,7 @@ class HXLTMDatum:
             # self.datum_rem = datum_rem
             # datum_rem_brevis = hxltm_crudum[:5]
             for item_num in range(len(crudum_hashtag)):
-                print('oi2', item_num)
+                # print('oi2', item_num)
                 col_rem_val = HXLTMDatumColumnam.reducendum_de_datum(
                     hxltm_crudum, item_num)
                 self.columnam.append(HXLTMDatumColumnam(

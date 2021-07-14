@@ -827,11 +827,22 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF &gt;
 ### II -------------------------------------------------------------------------
 # _[eng-Latn]
 # The next example will generate an XLIFF, but we also will save the HXLTM-ASA.
+#
+# The '--expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.json'
+# will generate an JSON output of the operation.
+#
+# The '--expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml'
+# will generate an YAML output of the operation.
 # [eng-Latn]_
 
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
   resultatum/hxltm-exemplum-linguam.xlf \
   --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.json \
+  --objectivum-XLIFF
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.xlf \
+  --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml \
   --objectivum-XLIFF</code></pre>
 </div>
 </div>
@@ -2566,7 +2577,10 @@ optional arguments:
   --expertum-HXLTM-ASA [hxltm_asa]
                         (Expert mode) Save an Abstract Syntax Tree in JSON
                         format to a file path. With --venandum-insectum-est
-                        output entire dataset data. Good for debugging.
+                        output entire dataset data. File extensions with
+                        .yml/.yaml = YAML output. Files extensions with
+                        .json/.json5 = JSONs output. Default: JSON output.
+                        Good for debugging.
   --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
                         (For bilingual operations) Source natural language
                         (use if not auto-detected). Must be like {ISO
@@ -2675,7 +2689,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-13 12:47:40 UTC
+Last updated 2021-07-14 05:52:40 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
