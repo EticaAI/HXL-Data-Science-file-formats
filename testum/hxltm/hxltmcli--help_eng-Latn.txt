@@ -17,12 +17,15 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--crudum-fontem-linguam-bcp47 [fon_bcp47]]
                 [--crudum-objectivum-linguam-hxlattrs [obj_hxlattrs]]
                 [--crudum-objectivum-linguam-bcp47 [obj_bcp47]]
-                [--archivum-configurationem] [--silentium]
+                [--archivum-configurationem]
+                [--archivum-configurationem-appendicem] [--silentium]
                 [--venandum-insectum-est]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.8.2 is an working draft of a tool to convert prototype
-of translation memory stored with HXL to XLIFF v2.1 [eng-Latn]_
+_[eng-Latn] hxltmcli v0.8.2 is an implementation of HXLTM tagging conventions
+on HXL to manage and export tabular data to popular translation memories
+and glossaries file formats with non-close standards.
+[eng-Latn]_"
 
 positional arguments:
   infile                HXL file to read (if omitted, use standard input).
@@ -129,7 +132,27 @@ optional arguments:
                         "ar"
   --archivum-configurationem
                         Path to custom configuration file (The cor.hxltm.yml)
+  --archivum-configurationem-appendicem
+                        (Not implemented yet)Path to custom configuration file
+                        (The cor.hxltm.yml)
   --silentium           Silence warnings? Try to not generate any warning. May
                         generate invalid output
   --venandum-insectum-est, --debug
                         Enable debug? Extra information for program debugging
+
+Exemplum breve:
+
+HXLTM (csv) -> Translation Memory eXchange format (TMX):
+    hxltmcli fontem.tm.hxl.csv objectivum.tmx --objectivum-TMX
+
+HXLTM (xlsx; sheet 7) -> Translation Memory eXchange format (TMX):
+    hxltmcli fontem.xlsx objectivum.tmx --sheet 7 --objectivum-TMX
+
+HXLTM (xlsx; sheet 7, Situs interretialis) -> HXLTM (csv):
+    hxltmcli https://example.org/fontem.xlsx --sheet 7 fontem.tm.hxl.csv
+
+HXLTM (Google Docs) -> HXLTM (csv):
+    hxltmcli https://docs.google.com/spreadsheets/(...) fontem.tm.hxl.csv
+
+HXLTM (Google Docs) -> Translation Memory eXchange format (TMX):
+    hxltmcli https://docs.google.com/spreadsheets/(...) objectivum.tmx --objectivum-TMX
