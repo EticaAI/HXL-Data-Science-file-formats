@@ -1250,13 +1250,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
 
         if archivum_objectivum is None:
-            return farmatum_tmx.in_stdout()
+            return farmatum_tmx.in_normam_exitum()
 
-        resultatum = farmatum_tmx.in_array()
+        farmatum_tmx.in_archivum(archivum_objectivum)
 
-        with open(archivum_objectivum, 'w') as archivum_neo:
-            for rem in resultatum:
-                archivum_neo.write(rem + "\n")
+        # with open(archivum_objectivum, 'w') as archivum_neo:
+        #     for rem in resultatum:
+        #         archivum_neo.write(rem + "\n")
 
     def in_xliff(self, hxlated_input, xliff_output, is_stdout, args):
         """
@@ -2343,7 +2343,7 @@ True
 
 
 class HXLTMInFormatum(ABC):
-    """HXLTM In Farmatum; abstractum Python classem
+    """HXLTM In Fōrmātum; abstractum Python classem
 
     Trivia:
         - HXLTM:
@@ -2366,9 +2366,11 @@ class HXLTMInFormatum(ABC):
         - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
             - id est: Python List
         - dē, https://en.wiktionary.org/wiki/de#Latin
+        - errōrem, https://en.wiktionary.org/wiki/error#Latin
         - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
         - 'id est', https://en.wiktionary.org/wiki/id_est
         - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        - locum, https://en.wiktionary.org/wiki/locum#Latin
         - resultātum, https://en.wiktionary.org/wiki/resultatum
 
     Speciāle verbum in HXLTM:
@@ -2380,6 +2382,9 @@ class HXLTMInFormatum(ABC):
 
     """
 
+    # @see https://docs.python.org/3/library/logging.html
+    # @see https://docs.python.org/pt-br/dev/howto/logging.html
+
     def __init__(self, hxltm_asa: Type['HXLTMASA']):
         """HXLTM In Farmatum initiāle
 
@@ -2388,8 +2393,7 @@ class HXLTMInFormatum(ABC):
         """
         self.hxltm_asa = hxltm_asa
 
-    @abstractmethod
-    def datum_initiale(self) -> List:
+    def datum_initiale(self) -> List:  # pylint: disable=no-self-use
         """Datum initiāle de fōrmātum
 
         Trivia:
@@ -2399,6 +2403,7 @@ class HXLTMInFormatum(ABC):
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
+        return []
 
     @abstractmethod
     def datum_corporeum(self) -> List:
@@ -2407,14 +2412,30 @@ class HXLTMInFormatum(ABC):
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
+        # _[eng-Latn]
+        # The datum_corporeum() is a hard requeriment to implement a
+        # file exporter.
+        # [eng-Latn]_
 
-    @abstractmethod
-    def datum_finale(self) -> List:
+    def datum_finale(self) -> List:  # pylint: disable=no-self-use
         """Datum fīnāle de fōrmātum
 
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
+        return []
+
+    def in_archivum(self, archivum_locum: str) -> None:
+        """Resultātum in Archīvum
+
+        Args:
+            archivum_locum (str): Archīvum locum, id est, Python file path
+        """
+        resultatum = self.in_collectionem()
+
+        with open(archivum_locum, 'w') as archivum_punctum:
+            for rem in resultatum:
+                archivum_punctum.write(rem + "\n")
 
     def in_collectionem(self) -> List:
         """Resultātum in collēctiōnem, id est Python List
@@ -2434,6 +2455,14 @@ class HXLTMInFormatum(ABC):
 
         return resultatum
 
+    def in_exportandum(self):
+        """Resultātum in defallo
+
+        Raises:
+            NotImplementedError:
+        """
+        raise NotImplementedError
+
     def in_textum(self) -> str:
         """Resultātum in textum, id est Python str
 
@@ -2441,6 +2470,9 @@ class HXLTMInFormatum(ABC):
             str: Python str, id est: textum
         """
         return self.in_collectionem().join("\n")
+
+    # def in_norman_errōrem(self) -> None
+    # https://en.wiktionary.org/wiki/error#Latin
 
     def in_normam_exitum(self) -> None:
         """Resultātum in normam exitum, id est: Python stdout
@@ -2455,6 +2487,14 @@ class HXLTMInFormatum(ABC):
         - disciplīnam manuāle
             - https://docs.python.org/3/library/sys.html#sys.stdout
         """
+        # TODO: _[eng-Latn]
+        #       The current version of in_normam_exitum, since depends on
+        #       HXLTMInFormatum.in_collectionem(), is not optimized for
+        #       large inputs that do not fit in memory. Do exist room
+        #       for improvement here if someone else is interested.
+        #       (Emerson Rocha, 2021-07-14 09:52 UTC)
+        #       [eng-Latn]_
+
         initiale = self.datum_initiale()
 
         if len(initiale) > 0:
@@ -2472,7 +2512,6 @@ class HXLTMInFormatum(ABC):
         if len(finale) > 0:
             for rem in finale:
                 print(rem)
-    # def in_textum(self) -> str:
 
 
 class HXLTMInFormatumTMX(HXLTMInFormatum):
@@ -2499,46 +2538,6 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
         # corporeum	https://en.wiktionary.org/wiki/corporeus#Latin
         resultatum = []
         return resultatum
-
-    def datum_finale(self) -> List:
-        # https://en.wiktionary.org/wiki/finalis#Latin
-        resultatum = []
-        return resultatum
-
-    def in_array(self) -> List:
-        # @see https://stackoverflow.com/questions/1720421
-        #      /how-do-i-concatenate-two-lists-in-python
-        resultatum = self.datum_initiale()
-        corporeum = self.datum_corporeum()
-        finale = self.datum_finale()
-
-        resultatum += corporeum
-        resultatum += finale
-        resultatum.extend(corporeum)
-
-        return resultatum
-
-    def in_stdout(self):
-        initiale = self.datum_initiale()
-
-        if len(initiale) > 0:
-            for rem in initiale:
-                print(rem)
-
-        corporeum = self.datum_corporeum()
-
-        if len(corporeum) > 0:
-            for rem in corporeum:
-                print(rem)
-
-        finale = self.datum_finale()
-
-        if len(finale) > 0:
-            for rem in finale:
-                print(rem)
-
-    def in_textum(self):
-        return self.in_array().join("\n")
 
 
 class HXLTMOntologia:
