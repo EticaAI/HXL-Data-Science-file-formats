@@ -73,6 +73,7 @@ import sys
 import os
 import logging
 import argparse
+# import textwrap # used for make_args epilog
 from pathlib import Path
 
 import csv
@@ -117,6 +118,35 @@ __SYSTEMA_VARIANS__ = "hxltmcli.py;eticaai;rocha+voluntārium-commūne"
 # - furcam, https://en.wiktionary.org/wiki/furca#Latin
 # - commūne, https://en.wiktionary.org/wiki/communis#Latin
 # - voluntārium, https://en.wiktionary.org/wiki/voluntarius#Latin
+
+__DESCRIPTIONEM_BREVE__ = """
+_[eng-Latn] hxltmcli {0} is an implementation of HXLTM tagging conventions
+on HXL to manage and export tabular data to popular translation memories
+and glossaries file formats with non-close standards.
+[eng-Latn]_"
+""".format(__VERSION__)
+
+# tag::epilogum[]
+__EPILOGUM__ = """
+Exemplum breve:
+
+HXLTM (csv) -> Translation Memory eXchange format (TMX):
+    hxltmcli fontem.tm.hxl.csv objectivum.tmx --objectivum-TMX
+
+HXLTM (xlsx; sheet 7) -> Translation Memory eXchange format (TMX):
+    hxltmcli fontem.xlsx objectivum.tmx --sheet 7 --objectivum-TMX
+
+HXLTM (xlsx; sheet 7, Situs interretialis) -> HXLTM (csv):
+    hxltmcli https://example.org/fontem.xlsx --sheet 7 fontem.tm.hxl.csv
+
+HXLTM (Google Docs) -> HXLTM (csv):
+    hxltmcli https://docs.google.com/spreadsheets/(...) fontem.tm.hxl.csv
+
+HXLTM (Google Docs) -> Translation Memory eXchange format (TMX):
+    hxltmcli https://docs.google.com/spreadsheets/(...) objectivum.tmx \
+--objectivum-TMX
+"""
+# end::epilogum[]
 
 # systēma
 # In Python2, sys.stdin is a byte stream; in Python3, it's a text stream
@@ -340,12 +370,14 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             #             HXL to XLIFF v2.1
             # [eng-Latn]_
             # """)
-            description=(
-                "_[eng-Latn] hxltmcli " + __VERSION__ + " " +
-                "is an working draft of a tool to " +
-                "convert prototype of translation memory stored with HXL to " +
-                "XLIFF v2.1 [eng-Latn]_"
-            )
+            description=__DESCRIPTIONEM_BREVE__,
+            epilog=__EPILOGUM__
+            # description=(
+            #     "_[eng-Latn] hxltmcli " + __VERSION__ + " " +
+            #     "is an working draft of a tool to " +
+            #     "convert prototype of translation memory stored with HXL to " +
+            #     "XLIFF v2.1 [eng-Latn]_"
+            # )
         )
 
         # TODO: implement example using index number (not language) as
@@ -615,6 +647,15 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         parser.add_argument(
             '--archivum-configurationem',
             help='Path to custom configuration file (The cor.hxltm.yml)',
+            action='store_const',
+            const=True,
+            default=None
+        )
+        # TODO: --archivum-configurationem-appendicem
+        parser.add_argument(
+            '--archivum-configurationem-appendicem',
+            help='(Not implemented yet)' +
+            'Path to custom configuration file (The cor.hxltm.yml)',
             action='store_const',
             const=True,
             default=None
@@ -3741,13 +3782,26 @@ class HXLUtils:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-    def make_args(self, description, hxl_output=True):
+    # def make_args(self, description, hxl_output=True):
+    def make_args(self, description, epilog = None, hxl_output=True):
         """Set up parser with default arguments.
+
+        NOTE:
+            2021-07-14: Change from libhxl make_args: added epilog option
+
         @param description: usage description to show
         @param hxl_output: if True (default), include options for HXL output.
         @returns: an argument parser, partly set up.
         """
-        parser = argparse.ArgumentParser(description=description)
+        if epilog is None:
+            parser = argparse.ArgumentParser(description=description)
+        else:
+            parser = argparse.ArgumentParser(
+                description=description,
+                formatter_class=argparse.RawDescriptionHelpFormatter,
+                epilog=epilog
+            )
+
         parser.add_argument(
             'infile',
             help='HXL file to read (if omitted, use standard input).',

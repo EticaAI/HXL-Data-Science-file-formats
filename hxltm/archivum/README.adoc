@@ -33,6 +33,13 @@ TIP: For advanced hackers or (people helping others in middle of urgency and
      `pip install libhxl langcodes pyyaml`
 
 
+[#HXLTM-TLDR]
+== TL;DR: Too Long; Didn't read
+
+[source,yaml]
+----
+include::../../bin/hxltmcli[tag=epilogum]
+----
 
 [#HXLTM-archivum-dialecton]
 == HXLM core file dialects
