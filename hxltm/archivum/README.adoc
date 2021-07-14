@@ -30,7 +30,7 @@ TIP: For advanced hackers or (people helping others in middle of urgency and
      https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/bin/hxltmcli[hxltmcli.py]*,
      put on your executable path, and use immediately instead of
      hdp-toolchain version. The hard requirements are
-     `pip install libhxl langcodes pyyaml`
+     `pip install libhxl langcodes pyyaml python-liquid`
 
 
 [#HXLTM-TLDR]
