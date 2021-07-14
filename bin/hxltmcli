@@ -75,6 +75,7 @@ import logging
 import argparse
 # import textwrap # used for make_args epilog
 from pathlib import Path
+from abc import ABC, abstractmethod
 
 import csv
 import tempfile
@@ -128,7 +129,7 @@ and glossaries file formats with non-close standards.
 
 # tag::epilogum[]
 __EPILOGUM__ = """
-Exemplum breve:
+Exemplōrum gratiā:
 
 HXLTM (csv) -> Translation Memory eXchange format (TMX):
     hxltmcli fontem.tm.hxl.csv objectivum.tmx --objectivum-TMX
@@ -1246,7 +1247,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
     def in_tmx_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
 
-        farmatum_tmx = HXLTMFarmatumTMX(self.hxltm_asa)
+        farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
 
         if archivum_objectivum is None:
             return farmatum_tmx.in_stdout()
@@ -1578,6 +1579,8 @@ class HXLTMASA:
         - arborem, https://en.wiktionary.org/wiki/arbor#Latin
         - conceptum de Abstractum Syntaxim Arborem
             - https://www.wikidata.org/wiki/Q127380
+
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
 
 >>> datum = HXLTMTestumAuxilium.datum('hxltm-exemplum-linguam.tm.hxl.csv')
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
@@ -2050,7 +2053,7 @@ class HXLTMDatumMetaCaput:  # pylint: disable=too-many-instance-attributes
     exist on original dataset) of a dataset
     [eng-Latn]_
 
-        Testum:
+        Exemplōrum gratiā (et Python doctest, id est, testum automata):
 
 >>> rem = HXLTMDatumMetaCaput(
 ...   ['id', 'Nōmen', 'Annotātiōnem'],
@@ -2339,17 +2342,143 @@ True
 # fōrmātum	https://en.wiktionary.org/wiki/formatus#Latin
 
 
-class HXLTMFarmatumTMX:
+class HXLTMInFormatum(ABC):
+    """HXLTM In Farmatum; abstractum Python classem
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - in, https://en.wiktionary.org/wiki/in-#Latin
+        - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+        - abstractum Python classem
+            - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
+            - Python, https://docs.python.org/
+            - classem, https://en.wiktionary.org/wiki/classis#Latin
+        - disciplīnam manuāle
+            - https://docs.python.org/3/library/abc.html
+
+    Intrōductōrium cursum de Latīnam linguam (breve glōssārium):
+        - archīvum, https://en.wiktionary.org/wiki/archivum
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+        - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+        - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
+            - id est: Python List
+        - dē, https://en.wiktionary.org/wiki/de#Latin
+        - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
+        - 'id est', https://en.wiktionary.org/wiki/id_est
+        - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        - resultātum, https://en.wiktionary.org/wiki/resultatum
+
+    Speciāle verbum in HXLTM:
+        - 'Exemplōrum gratiā (et Python doctest, id est, testum automata)'
+            - Exemplōrum gratiā
+              - https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)
+            - 'Python doctest' (non Latīnam)
+                -https://docs.python.org/3/library/doctest.html
+
+    """
+
     def __init__(self, hxltm_asa: Type['HXLTMASA']):
-        """
-        _[eng-Latn] Constructs all the necessary attributes for the
-                    HXLTMOntologia object.
-        [eng-Latn]_
+        """HXLTM In Farmatum initiāle
+
+        Args:
+            hxltm_asa (HXLTMASA): HXLTMASA objectīvum
         """
         self.hxltm_asa = hxltm_asa
 
+    @abstractmethod
+    def datum_initiale(self) -> List:
+        """Datum initiāle de fōrmātum
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+
+    @abstractmethod
+    def datum_corporeum(self) -> List:
+        """Datum corporeum de fōrmātum
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+
+    @abstractmethod
+    def datum_finale(self) -> List:
+        """Datum fīnāle de fōrmātum
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+
+    def in_collectionem(self) -> List:
+        """Resultātum in collēctiōnem, id est Python List
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        # @see https://stackoverflow.com/questions/1720421
+        #      /how-do-i-concatenate-two-lists-in-python
+        resultatum = self.datum_initiale()
+        corporeum = self.datum_corporeum()
+        finale = self.datum_finale()
+
+        resultatum += corporeum
+        resultatum += finale
+        resultatum.extend(corporeum)
+
+        return resultatum
+
+    def in_textum(self) -> str:
+        """Resultātum in textum, id est Python str
+
+        Returns:
+            str: Python str, id est: textum
+        """
+        return self.in_collectionem().join("\n")
+
+    def in_normam_exitum(self) -> None:
+        """Resultātum in normam exitum, id est: Python stdout
+
+        Trivia:
+        - normam, https://en.wiktionary.org/wiki/norma#Latin
+        - exitum, https://en.wiktionary.org/wiki/productio#Latin
+        - etymologiam:
+          - stdout, Standard output
+            - https://en.wiktionary.org/wiki/stdout
+            - https://en.wikipedia.org/wiki/Standard_streams
+        - disciplīnam manuāle
+            - https://docs.python.org/3/library/sys.html#sys.stdout
+        """
+        initiale = self.datum_initiale()
+
+        if len(initiale) > 0:
+            for rem in initiale:
+                print(rem)
+
+        corporeum = self.datum_corporeum()
+
+        if len(corporeum) > 0:
+            for rem in corporeum:
+                print(rem)
+
+        finale = self.datum_finale()
+
+        if len(finale) > 0:
+            for rem in finale:
+                print(rem)
+    # def in_textum(self) -> str:
+
+
+class HXLTMInFormatumTMX(HXLTMInFormatum):
+
     # initiāle	https://en.wiktionary.org/wiki/initialis#Latin
-    def initiale(self) -> List:
+    def datum_initiale(self) -> List:
         resultatum = []
         resultatum.append("<?xml version='1.0' encoding='utf-8'?>")
         resultatum.append('<!DOCTYPE tmx SYSTEM "tmx14.dtd">')
@@ -2366,12 +2495,12 @@ class HXLTMFarmatumTMX:
 
         return resultatum
 
-    def corporeum(self) -> List:
+    def datum_corporeum(self) -> List:
         # corporeum	https://en.wiktionary.org/wiki/corporeus#Latin
         resultatum = []
         return resultatum
 
-    def finale(self) -> List:
+    def datum_finale(self) -> List:
         # https://en.wiktionary.org/wiki/finalis#Latin
         resultatum = []
         return resultatum
@@ -2379,9 +2508,9 @@ class HXLTMFarmatumTMX:
     def in_array(self) -> List:
         # @see https://stackoverflow.com/questions/1720421
         #      /how-do-i-concatenate-two-lists-in-python
-        resultatum = self.initiale()
-        corporeum = self.corporeum()
-        finale = self.finale()
+        resultatum = self.datum_initiale()
+        corporeum = self.datum_corporeum()
+        finale = self.datum_finale()
 
         resultatum += corporeum
         resultatum += finale
@@ -2390,19 +2519,19 @@ class HXLTMFarmatumTMX:
         return resultatum
 
     def in_stdout(self):
-        initiale = self.initiale()
+        initiale = self.datum_initiale()
 
         if len(initiale) > 0:
             for rem in initiale:
                 print(rem)
 
-        corporeum = self.corporeum()
+        corporeum = self.datum_corporeum()
 
         if len(corporeum) > 0:
             for rem in corporeum:
                 print(rem)
 
-        finale = self.finale()
+        finale = self.datum_finale()
 
         if len(finale) > 0:
             for rem in finale:
@@ -2606,7 +2735,8 @@ class HXLTMBCP47:
 class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
     """HXLTM linguam auxilium programmi
 
-    Testum:
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
         >>> HXLTMLinguam('lat-Latn@la-IT@IT')
         HXLTMLinguam()
 
@@ -3116,7 +3246,8 @@ class HXLTMTypum:
                         /blob/main/hxl/datatypes.py)
             2021-06-12 HXLTMTypum
 
-    Testum:
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
 >>> HXLTMTypum.hoc_est_numerum(1234)
 True
 >>> HXLTMTypum.hoc_est_numerum("1234")
@@ -3302,7 +3433,8 @@ True
         Returns:
             [str]: Rem in JSON textum
 
-        Testum:
+        Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
 >>> rem = {"b": 2, "a": ['ت', 'ツ', '😊']}
 
 >>> HXLTMTypum.in_textum_json(rem)
@@ -3359,7 +3491,8 @@ True
         Returns:
             [str]: Rem in JSON textum
 
-        Testum:
+        Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
 >>> rem = {"b": 2, "a": ['ت', 'ツ', '😊']}
 
 >>> HXLTMTypum.in_textum_json(rem)
@@ -3442,7 +3575,8 @@ True
         Returns:
             [Union[int, float]]: Rem in numerum IEEE integer aut IEEE 754
 
-        Testum:
+        Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
             >>> HXLTMTypum.in_numerum_simplex('1234')
             1234
             >>> HXLTMTypum.in_numerum_simplex('1234.0')
@@ -3478,7 +3612,8 @@ True
         Returns:
             int: Numerum
 
-        Testum:
+        Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
             >>> HXLTMTypum.magnitudinem_de_byte('Testīs')
             7
         """
@@ -3524,9 +3659,10 @@ True
         Returns:
             int: Numerum
 
-        Testum:
-        >>> HXLTMTypum.magnitudinem_de_textum('Testīs')
-        6
+        Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+            >>> HXLTMTypum.magnitudinem_de_textum('Testīs')
+            6
         """
         if rem is None:
             return -1
