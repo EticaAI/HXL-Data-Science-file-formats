@@ -14,7 +14,9 @@
 #                             python script. But on this case, you will need
 #                             to install at least the hard dependencies
 #                             of hxltmcli:
-#                                 pip install libhxl langcodes pyyaml
+#
+#                             pip install libhxl langcodes pyyaml python-liquid
+#
 #                 [eng-Latn]_
 #                 @see http://docs.oasis-open.org/xliff/xliff-core/v2.1
 #                      /os/xliff-core-v2.1-os.html
@@ -32,6 +34,8 @@
 #                       - pip3 install langcodes
 #                     - pyyaml (@see https://github.com/yaml/pyyaml)
 #                       - pip3 install pyyaml
+#                     - langcodes (@see https://github.com/jg-rp/liquid)
+#                       - pip3 install python-liquid
 #          BUGS:  ---
 #         NOTES:  ---
 #        AUTHOR:  Emerson Rocha <rocha[at]ieee.org>
@@ -105,6 +109,16 @@ import hxl.datatypes
 # @see https://github.com/rspeer/langcodes
 # pip3 install langcodes
 import langcodes
+
+# @see https://github.com/jg-rp/liquid
+# pip3 install -U python-liquid
+# from liquid import Template as LiquidTemplate
+# TODO: implement a JSON filter
+#       @see https://github.com/jg-rp/liquid-extra/blob/main/liquid_extra
+#            /filters/additional.py
+
+# template = LiquidTemplate("Hello, {{ you }}!")
+# print(template.render(you="World"))  # "Hello, World!"
 
 __VERSION__ = "v0.8.2"
 
@@ -1963,6 +1977,28 @@ class HXLTMDatum:
             venandum_insectum_est=self.venandum_insectum_est
         )
 
+    def rem_de_numerum(self, numerum: int):
+        # return numerum
+        return self.columnam[0]
+
+    def rem_iterandum(self) -> Type['HXLTMRemIterandum']:
+        return HXLTMRemIterandum(self)
+
+    def rem_quantitatem(self) -> int:
+        """Rem quantitatem tōtāle numerum
+
+        Trivia:
+        - tōtāle, https://en.wiktionary.org/wiki/totalis#Latin
+
+        Returns:
+            int: [description]
+        """
+        totale = 0
+
+        if self.columnam is not None and len(self.columnam) > 0:
+            totale = self.columnam[0].quantitatem
+        return totale
+
     def v(self, verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
 
@@ -2366,6 +2402,52 @@ True
         # return self.__dict__
         return resultatum
 
+# # @see https://stackoverflow.com/questions/19151
+#        /build-a-basic-python-iterator
+# class Counter:
+#     def __init__(self, low, high):
+#         self.current = low - 1
+#         self.high = high
+
+#     def __iter__(self):
+#         return self
+
+#     def __next__(self): # Python 2: def next(self)
+#         self.current += 1
+#         if self.current < self.high:
+#             return self.current
+#         raise StopIteration
+
+# for c in Counter(3, 9):
+#     print(c)
+
+
+class HXLTMRemIterandum:
+
+    # @see https://en.wiktionary.org/wiki/iterator
+    # @see https://en.wiktionary.org/wiki/itero#Latin
+
+    def __init__(self, hxltm_datum: Type['HXLTMDatum'] = None):
+        self.hxltm_datum = hxltm_datum
+
+        self.rem_hoc = 0
+        self.rem_quantitatem = hxltm_datum.rem_quantitatem()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.rem_hoc += 1
+        if self.rem_hoc < self.rem_quantitatem:
+            return self.rem_hoc
+        raise StopIteration
+
+    def v(self):
+        self.hxltm_datum.rem_de_numerum(self.rem_hoc)
+
+# for c in HXLTMRemIterandum():
+#     print(c)
+
 # fōrmātum	https://en.wiktionary.org/wiki/formatus#Latin
 
 
@@ -2571,6 +2653,12 @@ class HXLTMInFormatum(ABC):
             for rem in finale:
                 print(rem)
 
+    def rem(self) -> Type['HXLTMRemIterandum']:
+
+        # @see https://gist.github.com/drmalex07/6e040310ab9ac12b4dfd
+        # @see https://dzone.com/articles/python-look-ahead-multiple
+        return self.hxltm_asa.datum.rem_iterandum()
+
 
 class HXLTMInFormatumTMX(HXLTMInFormatum):
     """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
@@ -2648,6 +2736,12 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
         resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
         resultatum.append('<!-- ' + __class__.__name__ + ' -->')
         resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+
+        # for numerum, rem in self.rem():
+        # for rem, rem2 in self.rem():
+        for rem in self.rem():
+            # resultatum.append(rem.v())
+            resultatum.append(str(rem))
         return resultatum
 
     def datum_finale(self) -> List:  # pylint: disable=no-self-use
