@@ -827,10 +827,20 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
             elif self.objectivum_typum == 'XLIFF':
                 # print('XLIFF (2)')
-                self.in_csv(hxlated_input, temp_csv4xliff.name,
-                            False, args)
-                self.in_xliff(temp_csv4xliff.name, self.original_outfile,
-                              self.original_outfile_is_stdout, args)
+
+                if args.experimentum_est:
+                    if self.original_outfile_is_stdout:
+                        archivum_objectivum = False
+                    else:
+                        archivum_objectivum = self.original_outfile
+                    self.in_xliff_de_hxltmasa(archivum_objectivum)
+                else:
+                    self.in_csv(
+                        hxlated_input, temp_csv4xliff.name,
+                        False, args)
+                    self.in_xliff(
+                        temp_csv4xliff.name, self.original_outfile,
+                        self.original_outfile_is_stdout, args)
 
             elif self.objectivum_typum == 'HXLTM':
                 # print('HXLTM')
@@ -1246,6 +1256,12 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     # print (ln)
 
     def in_tmx_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+        """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
+
+        Args:
+            archivum_objectivum (Union[str, None]):
+                Archīvum locum, id est, Python file path
+        """
 
         farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
 
@@ -1253,10 +1269,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             return farmatum_tmx.in_normam_exitum()
 
         farmatum_tmx.in_archivum(archivum_objectivum)
-
-        # with open(archivum_objectivum, 'w') as archivum_neo:
-        #     for rem in resultatum:
-        #         archivum_neo.write(rem + "\n")
 
     def in_xliff(self, hxlated_input, xliff_output, is_stdout, args):
         """
@@ -1417,6 +1429,21 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 for ln in resultatum:
                     new_txt.write(ln + "\n")
                     # print (ln)
+
+    def in_xliff_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+        """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
+
+        Args:
+            archivum_objectivum (Union[str, None]):
+                Archīvum locum, id est, Python file path
+        """
+
+        farmatum_xliff = HXLTMInFormatumXLIFF(self.hxltm_asa)
+
+        if archivum_objectivum is None:
+            return farmatum_xliff.in_normam_exitum()
+
+        farmatum_xliff.in_archivum(archivum_objectivum)
 
     def in_csv_header(
             self, hxlated_header, fontem_linguam, objectivum_linguam):
@@ -2380,7 +2407,26 @@ class HXLTMInFormatum(ABC):
             - 'Python doctest' (non Latīnam)
                 -https://docs.python.org/3/library/doctest.html
 
+    Author:
+        Multis Clanculum Civibus
+
+    Collaborators:
+        Emerson Rocha <rocha[at]ieee.org>
+
+    Creation Date:
+        2021-07-14
+
+    Revisions:
+
+    License:
+        Public Domain
     """
+
+    # ontologia/cor.hxltm.yml clāvem nomen
+    ONTOLOGIA_FORMATUM = ''
+
+    # ontologia/cor.hxltm.yml basim extēnsiōnem
+    # ONTOLOGIA_FORMATUM_BASIM = ''
 
     # @see https://docs.python.org/3/library/logging.html
     # @see https://docs.python.org/pt-br/dev/howto/logging.html
@@ -2394,7 +2440,7 @@ class HXLTMInFormatum(ABC):
         self.hxltm_asa = hxltm_asa
 
     def datum_initiale(self) -> List:  # pylint: disable=no-self-use
-        """Datum initiāle de fōrmātum
+        """Datum initiāle de fōrmātum Lorem Ipsum vI.II
 
         Trivia:
             - datum, https://en.wiktionary.org/wiki/datum#Latin
@@ -2407,7 +2453,11 @@ class HXLTMInFormatum(ABC):
 
     @abstractmethod
     def datum_corporeum(self) -> List:
-        """Datum corporeum de fōrmātum
+        """Datum corporeum de fōrmātum Lorem Ipsum vI.II
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
 
         Returns:
             List: Python List, id est: rem collēctiōnem
@@ -2416,9 +2466,18 @@ class HXLTMInFormatum(ABC):
         # The datum_corporeum() is a hard requeriment to implement a
         # file exporter.
         # [eng-Latn]_
+        resultatum = []
+        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        resultatum.append('<!-- ' + __class__.__name__ + ' -->')
+        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        return resultatum
 
     def datum_finale(self) -> List:  # pylint: disable=no-self-use
-        """Datum fīnāle de fōrmātum
+        """Datum fīnāle de fōrmātum Lorem Ipsum vI.II
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
 
         Returns:
             List: Python List, id est: rem collēctiōnem
@@ -2451,7 +2510,6 @@ class HXLTMInFormatum(ABC):
 
         resultatum += corporeum
         resultatum += finale
-        resultatum.extend(corporeum)
 
         return resultatum
 
@@ -2515,9 +2573,50 @@ class HXLTMInFormatum(ABC):
 
 
 class HXLTMInFormatumTMX(HXLTMInFormatum):
+    """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - in, https://en.wiktionary.org/wiki/in-#Latin
+        - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+        - TMX, https://www.wikidata.org/wiki/Q1890189
+
+    Normam:
+        - https://www.gala-global.org/tmx-14b
+
+    Author:
+        Emerson Rocha <rocha[at]ieee.org>
+
+    Collaborators:
+        (_[eng-Latn] Additional names here [eng-Latn]_)
+
+    Creation Date:
+        2021-07-14
+
+    Revisions:
+
+    License:
+        Public Domain
+    """
+
+    ONTOLOGIA_FORMATUM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
 
     # initiāle	https://en.wiktionary.org/wiki/initialis#Latin
     def datum_initiale(self) -> List:
+        """Datum initiāle de fōrmātum Translation Memory eXchange format
+        (TMX) v1.4
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+
         resultatum = []
         resultatum.append("<?xml version='1.0' encoding='utf-8'?>")
         resultatum.append('<!DOCTYPE tmx SYSTEM "tmx14.dtd">')
@@ -2535,8 +2634,117 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
         return resultatum
 
     def datum_corporeum(self) -> List:
-        # corporeum	https://en.wiktionary.org/wiki/corporeus#Latin
+        """Datum corporeum de fōrmātum Translation Memory eXchange format
+        (TMX) v1.4
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
         resultatum = []
+        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        resultatum.append('<!-- ' + __class__.__name__ + ' -->')
+        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        return resultatum
+
+    def datum_finale(self) -> List:  # pylint: disable=no-self-use
+        """Datum fīnāle de fōrmātum Translation Memory eXchange format
+        (TMX) v1.4
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        resultatum = []
+        resultatum.append('  </body>')
+        resultatum.append('</tmx>')
+        return resultatum
+
+
+class HXLTMInFormatumXLIFF(HXLTMInFormatum):
+    """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF) v2.1
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - in, https://en.wiktionary.org/wiki/in-#Latin
+        - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+        - XLIFF, <https://en.wikipedia.org/wiki/XLIFF>
+        - disciplīnam manuāle
+            - <https://docs.oasis-open.org/xliff/xliff-core/v2.1/>
+
+    Normam:
+        - <https://docs.oasis-open.org/xliff/xliff-core/v2.1/>
+
+    Author:
+        Emerson Rocha <rocha[at]ieee.org>
+
+    Collaborators:
+        (_[eng-Latn] Additional names here [eng-Latn]_)
+
+    Creation Date:
+        2021-07-14
+
+    Revisions:
+
+    License:
+        Public Domain
+    """
+
+    def datum_initiale(self) -> List:
+        """Datum initiāle de fōrmātum XML Localization Interchange File Format
+        (XLIFF)
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        resultatum = []
+        resultatum.append('<?xml version="1.0"?>')
+        resultatum.append(
+            '<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" ' +
+            'version="2.0" srcLang="en" trgLang="fr">')
+        resultatum.append('  <file id="f1">')
+
+        return resultatum
+
+    def datum_corporeum(self) -> List:
+        """Datum corporeum de fōrmātum XML Localization Interchange File Format
+        (XLIFF)
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        resultatum = []
+        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        resultatum.append('<!-- ' + __class__.__name__ + ' -->')
+        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        return resultatum
+
+    def datum_finale(self) -> List:  # pylint: disable=no-self-use
+        """Datum fīnāle de fōrmātum
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        resultatum = []
+        resultatum.append('  </file>')
+        resultatum.append('</xliff>')
         return resultatum
 
 
