@@ -507,6 +507,15 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             const='JSON-kv'
         )
 
+        # parser.add_argument(
+        #     '--limitem-quantitatem',
+        #     help='(Advanced; Only for ) ' +
+        #     'aaa',
+        #     metavar='limitem_quantitatem',
+        #     type=int,
+        #     nargs='?'
+        # )
+
         # # deprecated
         # parser.add_argument(
         #     '--archivum-extensionem',
@@ -1584,7 +1593,8 @@ class HXLTMASA:
 >>> asa = HXLTMASA(datum, ontologia=ontologia)
 >>> asa
 HXLTMASA(fontem_linguam=None, objectivum_linguam=None, \
-alternativum_linguam=None, agendum_linguam=None)
+alternativum_linguam=None, agendum_linguam=None, \
+limitem_quantitatem=-1, limitem_initiale_lineam=-1)
     """
 
     # pylint: disable=too-many-instance-attributes
@@ -1602,6 +1612,10 @@ alternativum_linguam=None, agendum_linguam=None)
     # @see https://la.wikipedia.org/wiki/Lingua_agendi
     agendum_linguam: List[Type['HXLTMLinguam']] = None
     # linguam: List[Type['HXLTMLinguam']] = None
+
+    # Trivia: līmitem, https://en.wiktionary.org/wiki/limes#Latin
+    limitem_quantitatem: int = -1
+    limitem_initiale_lineam: int = -1
 
     argumentum: InitVar[Dict] = None
     _verbosum: InitVar[bool] = False
@@ -1731,7 +1745,8 @@ alternativum_linguam=None, agendum_linguam=None)
             # it's own parameters. But is preferable to try to use options
             # that could be reused by others
             '__ASA__INSTRUMENTUM__': {
-                'agendum_linguam': 'mul-Zyyy'
+                # 'agendum_linguam': 'mul-Zyyy'
+                'agendum_linguam': []
             },
 
             # Similar to __ASA__INSTRUMENTUM__ (a place for tools to put
@@ -1759,15 +1774,19 @@ alternativum_linguam=None, agendum_linguam=None)
                 # /27518377#27518377
                 'lineam_crudum_quantitatem': -1,
             },
-            '_datum_meta_': {
-                # columnam, https://en.wiktionary.org/wiki/columna#Latin
-                'columnam_quantitatem': -1,
-                # līneam, https://en.wiktionary.org/wiki/linea#Latin
-                'lineam_quantitatem': -1,
-                'rem_quantitatem': -1,
-            },
+            '_datum_meta_': {},
+            # '_datum_meta_': {
+            #     'caput': [],
+            #     # columnam, https://en.wiktionary.org/wiki/columna#Latin
+            #     'columnam_quantitatem': -1,
+            #     # līneam, https://en.wiktionary.org/wiki/linea#Latin
+            #     'columnam_quantitatem': -1,
+            #     'rem_quantitatem': -1,
+            # },
             'datum': {}
         }
+
+        asa['_datum_meta_'] = self.datum.meta.v(self._verbosum)
 
         if self.fontem_linguam:
             asa['__ASA__INSTRUMENTUM__']['fontem_linguam'] = \
@@ -1790,20 +1809,6 @@ alternativum_linguam=None, agendum_linguam=None)
                 asa['__ASA__INSTRUMENTUM__']['agendum_linguam'].append(
                     rem_al.v(self._verbosum)
                 )
-
-            # asa['_argumentum']['objectivum_linguam'] = \
-            #     self.objectivum_linguam.v(self._verbosum)
-
-        # resultatum_2 = {
-        #     # '__asa': meta_asa,
-        #     # '_typum': 'HXLTMASA',
-        #     'argumentum': {
-        #         'fontem_linguam': self.fontem_linguam.v(),
-        #         'objectivum_linguam': self.objectivum_linguam.v(),
-        #         'alternativum_linguam': self.alternativum_linguam.v(),
-        #         'linguam': self.linguam,
-        #     }
-        # }
 
         return asa
 
@@ -1831,7 +1836,7 @@ class HXLTMDatum:
     # crudum: InitVar[List] = []
     crudum_caput: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
-    meta: InitVar[Type['HXLTMDatumMetaCaput']] = None
+    meta: InitVar[Type['HXLTMDatumCaput']] = None
     # datum_rem: InitVar[List] = []
     columnam: InitVar[List] = []
     # ontologia: InitVar[Type['HXLTMOntologia']] = None
@@ -1883,7 +1888,7 @@ class HXLTMDatum:
             rem_prius = None
             for _ in range(25):
                 rem_nunc = next(csv_lectorem)
-                if HXLTMDatumMetaCaput.quod_est_hashtag_caput(rem_nunc):
+                if HXLTMDatumCaput.quod_est_hashtag_caput(rem_nunc):
                     if rem_prius is not None:
                         crudum_titulum = rem_prius
                     crudum_hashtag = rem_nunc
@@ -1912,7 +1917,7 @@ class HXLTMDatum:
                 ))
                 # print(type(self.columnam[0]))
 
-        self.meta = HXLTMDatumMetaCaput(
+        self.meta = HXLTMDatumCaput(
             crudum_titulum=crudum_titulum,
             crudum_hashtag=crudum_hashtag,
             datum_rem_brevis=datum_rem_brevis,
@@ -1931,10 +1936,10 @@ class HXLTMDatum:
         crudum_titulum = []
         crudum_hashtag = []
         # datum_rem = []
-        if HXLTMDatumMetaCaput.quod_est_hashtag_caput(hxltm_crudum[0]):
+        if HXLTMDatumCaput.quod_est_hashtag_caput(hxltm_crudum[0]):
             crudum_hashtag = hxltm_crudum[0]
             hxltm_crudum.pop(0)
-        elif HXLTMDatumMetaCaput.quod_est_hashtag_caput(hxltm_crudum[1]):
+        elif HXLTMDatumCaput.quod_est_hashtag_caput(hxltm_crudum[1]):
             crudum_titulum = hxltm_crudum[0]
             crudum_hashtag = hxltm_crudum[1]
             hxltm_crudum.pop(0)
@@ -1964,7 +1969,7 @@ class HXLTMDatum:
                     col_rem_val
                 ))
 
-        self.meta = HXLTMDatumMetaCaput(
+        self.meta = HXLTMDatumCaput(
             crudum_titulum=crudum_titulum,
             crudum_hashtag=crudum_hashtag,
             # datum_rem_brevis=[],
@@ -1994,12 +1999,13 @@ class HXLTMDatum:
             totale = self.columnam[0].quantitatem
         return totale
 
-    def v(self, verbosum: bool = None):  # pylint: disable=invalid-name
+    def v(self, verbosum: bool = None, clavem: str = None):
         """Ego python Dict
 
         Trivia:
          - valendum, https://en.wiktionary.org/wiki/valeo#Latin
            - Anglicum (English): value (?)
+         - clāvem, https://en.wiktionary.org/wiki/clavis#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
         Args:
@@ -2008,6 +2014,8 @@ class HXLTMDatum:
         Returns:
             [Dict]: Python objectīvum
         """
+        # pylint: disable=invalid-name
+
         if verbosum is not False:
             verbosum = verbosum or self.venandum_insectum_est
 
@@ -2026,7 +2034,9 @@ class HXLTMDatum:
             resultatum['columnam'] = \
                 [item.v(verbosum) if item else None for item in self.columnam]
 
-        # return self.__dict__
+        if clavem is not None:
+            return resultatum['clavem']
+
         return resultatum
 
 
@@ -2104,16 +2114,16 @@ class HXLTMDatumColumnam:
 
 
 @dataclass
-class HXLTMDatumMetaCaput:  # pylint: disable=too-many-instance-attributes
+class HXLTMDatumCaput:  # pylint: disable=too-many-instance-attributes
     """
     _[eng-Latn]
-    HXLTMDatumMetaCaput contains data about hashtags, raw headings (if they
+    HXLTMDatumCaput contains data about hashtags, raw headings (if they
     exist on original dataset) of a dataset
     [eng-Latn]_
 
         Exemplōrum gratiā (et Python doctest, id est, testum automata):
 
->>> rem = HXLTMDatumMetaCaput(
+>>> rem = HXLTMDatumCaput(
 ...   ['id', 'Nōmen', 'Annotātiōnem'],
 ...   ['#item+id', '#item+lat_nomen', ''],
 ...   [
@@ -2147,11 +2157,11 @@ True
     rem: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
     datum_rem_brevis: InitVar[List] = []
-    numerum_optionem: InitVar[int] = 0
-    numerum_optionem_hxl: InitVar[int] = 0
-    numerum_optionem_hxl_unicum: InitVar[int] = 0
-    numerum_optionem_nomen: InitVar[int] = 0
-    numerum_optionem_nomen_unicum: InitVar[int] = 0
+    columnam_quantitatem: InitVar[int] = 0
+    columnam_quantitatem_hxl: InitVar[int] = 0
+    columnam_quantitatem_hxl_unicum: InitVar[int] = 0
+    columnam_quantitatem_nomen: InitVar[int] = 0
+    columnam_quantitatem_nomen_unicum: InitVar[int] = 0
     venandum_insectum_est: InitVar[bool] = False
 
     def __init__(
@@ -2195,13 +2205,13 @@ True
         # crudum_hashtag also have empty spaces, so it still can be used to
         # know how many columns do exist
         # [eng-Latn]_
-        self.numerum_optionem = len(crudum_hashtag)
-        self.numerum_optionem_hxl = \
+        self.columnam_quantitatem = len(crudum_hashtag)
+        self.columnam_quantitatem_hxl = \
             self.quod_est_hashtag_caput(crudum_hashtag)
-        self.numerum_optionem_hxl_unicum = \
+        self.columnam_quantitatem_hxl_unicum = \
             self.quod_est_hashtag_caput(set(crudum_hashtag))
-        self.numerum_optionem_nomen = len(non_vacuum_nomen)
-        self.numerum_optionem_nomen_unicum = \
+        self.columnam_quantitatem_nomen = len(non_vacuum_nomen)
+        self.columnam_quantitatem_nomen_unicum = \
             len(set(non_vacuum_nomen))
 
         # self.rem = [123]
@@ -2209,7 +2219,7 @@ True
         # Note:
         # print('columnam_collectionem', columnam_collectionem)
         # print('columnam_collectionem', len(columnam_collectionem))
-        for item_num in range(self.numerum_optionem):
+        for item_num in range(self.columnam_quantitatem):
             # if columnam_collectionem is not None and item_num in
             if columnam_collectionem is not None:
                 col_meta = columnam_collectionem[item_num]
@@ -2257,7 +2267,7 @@ True
         """Quod datum rem corrēctum est?
 
         _[eng-Latn]
-        Very basic check to test if the number of numerum_optionem is exact
+        Very basic check to test if the number of columnam_quantitatem is exact
         the number of data rows. While we do tolerate rows without
         any text heading name or HXL hashtag, the number of rows (tagged or
         not) must match. Without this is very likely we will put data on
@@ -2284,7 +2294,7 @@ True
             # _[eng-Latn] Empty data is acceptable [eng-Latn]_
             return True
 
-        return self.numerum_optionem == len(datum_rem_brevis[0])
+        return self.columnam_quantitatem == len(datum_rem_brevis[0])
 
     @staticmethod
     def quod_est_hashtag_caput(rem: List) -> Union[bool, int]:
@@ -2381,12 +2391,13 @@ True
             'caput': [item.v(verbosum) if item else None for item in self.rem],
             # 'crudum_titulum': self.crudum_titulum,
             # 'crudum_hashtag': self.crudum_hashtag,
-            'numerum_optionem': self.numerum_optionem,
-            'numerum_optionem_hxl': self.numerum_optionem_hxl,
-            'numerum_optionem_hxl_unicum': self.numerum_optionem_hxl_unicum,
-            'numerum_optionem_nomen': self.numerum_optionem_nomen,
-            'numerum_optionem_nomen_unicum':
-            self.numerum_optionem_nomen_unicum,
+            'columnam_quantitatem': self.columnam_quantitatem,
+            'columnam_quantitatem_hxl': self.columnam_quantitatem_hxl,
+            'columnam_quantitatem_hxl_unicum': \
+            self.columnam_quantitatem_hxl_unicum,
+            'columnam_quantitatem_nomen': self.columnam_quantitatem_nomen,
+            'columnam_quantitatem_nomen_unicum':
+            self.columnam_quantitatem_nomen_unicum,
             # 'venandum_insectum_est': self.venandum_insectum_est,
         }
 
@@ -2413,6 +2424,19 @@ class HXLTMRem:
 
 
 class HXLTMRemIterandum:
+    """HXLTM
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - disciplīnam manuāle
+            - https://docs.python.org/3/library/abc.html
+
+    Raises:
+        StopIteration: fīnāle
+    """
 
     # @see https://en.wiktionary.org/wiki/iterator
     # @see https://en.wiktionary.org/wiki/itero#Latin
@@ -3353,7 +3377,7 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
 
 
 class HXLTMRemCaput(HXLTMLinguam):
-    """HXLTMRemCaput HXLTMLinguam et HXLTMDatumMetaCaput metadatum
+    """HXLTMRemCaput HXLTMLinguam et HXLTMDatumCaput metadatum
 
     TODO: maybe rename to HXLTMDatumCaput
 
