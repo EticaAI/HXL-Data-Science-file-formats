@@ -1915,17 +1915,49 @@ class HXLTMArgumentum:
             - HXL, https://hxlstandard.org/
             - TM, https://www.wikidata.org/wiki/Q333761
         - argūmentum, https://en.wiktionary.org/wiki/argumentum#Latin
-        - datum, https://en.wiktionary.org/wiki/datum#Latin
-        - sēlēctum, https://en.wiktionary.org/wiki/selectus#Latin
+
+    Intrōductōrium cursum de Latīnam linguam (breve glōssārium):
+        - archīvum, https://en.wiktionary.org/wiki/archivum
+        - agendum linguam
+            - https://la.wikipedia.org/wiki/Lingua_agendi
+        - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
         - columnam, https://en.wiktionary.org/wiki/columna#Latin
-        - līneam, https://en.wiktionary.org/wiki/linea#Latin
-        - līmitem, https://en.wiktionary.org/wiki/limes#Latin
-        - quantitātem, https://en.wiktionary.org/wiki/quantitas
-        - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
         - fontem, https://en.wiktionary.org/wiki/fons#Latin
+        - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+        - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         - linguam, https://en.wiktionary.org/wiki/lingua#Latin
+        - līmitem, https://en.wiktionary.org/wiki/limes#Latin
+        - līneam, https://en.wiktionary.org/wiki/linea#Latin
+        - multiplum linguam:
+            - linguam
+            - multiplum, https://en.wiktionary.org/wiki/multiplus#Latin
+        - objectīvum, https://en.wiktionary.org/wiki/objectivus#Latin
+        - quantitātem, https://en.wiktionary.org/wiki/quantitas
+        - typum, https://en.wiktionary.org/wiki/typus#Latin
+        - sēlēctum, https://en.wiktionary.org/wiki/selectus#Latin
+        - sōlum, https://en.wiktionary.org/wiki/solus#Latin
 
     Args:
+        agendum_linguam (List[HXLTMLinguam]):
+            _[lat-Latn]
+            Objectīvum linguam
+            (Optiōnem in multiplum linguam aut bilingue operātiōnem)
+            [lat-Latn]_
+        fontem_linguam (HXLTMLinguam):
+            _[lat-Latn]
+            Fontem linguam
+            (Optiōnem sōlum in bilingue operātiōnem)
+            [lat-Latn]_
+        objectivum_linguam (HXLTMLinguam):
+            _[lat-Latn]
+            Objectīvum linguam
+            (Optiōnem sōlum in bilingue operātiōnem)
+            [lat-Latn]_
+        objectivum_formatum (HXLTMLinguam):
+            _[lat-Latn]
+            OArgūmentum dēfīnītiōnem ad objectīvum archīvum fōrmātum
+            [lat-Latn]_
         columnam_numerum (List):
             _[lat-Latn] Datum sēlēctum columnam numerum [lat-Latn]_
         non_columnam_numerum (List):
@@ -1937,29 +1969,16 @@ class HXLTMArgumentum:
         limitem_initiale_lineam (int):
             _[lat-Latn] Datum initiāle līneam [lat-Latn]_
     """
+    agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
-    # _fontem_linguam: InitVar[Type['HXLTMLinguam']] = \
-    #     field(init=False, repr=False, default=None)
-    agendum_linguam: InitVar[List] = []
+    objectivum_linguam: InitVar[Type['HXLTMLinguam']] = None
+    objectivum_formatum: InitVar[str] = 'HXLTM'
     columnam_numerum: InitVar[List] = []
     non_columnam_numerum: InitVar[List] = []
-    limitem_quantitatem: InitVar[int] = 1048576
     limitem_initiale_lineam: InitVar[int] = -1
-
-    def est_fontem_linguam(self, rem: Union[str, Type['HXLTMLinguam']]):
-        """HXLTM Argūmentum dēfīnītiōnem ad fontem linguam
-
-        Args:
-            rem (Union[str, HXLTMLinguam]): Rem
-
-        Returns:
-            [HXLTMArgumentum]: Ego HXLTMArgumentum
-        """
-        if isinstance(rem, HXLTMLinguam):
-            self.fontem_linguam = rem
-        else:
-            self.fontem_linguam = HXLTMLinguam(rem)
-        return self
+    limitem_quantitatem: InitVar[int] = 1048576
+    ad_astra: InitVar[bool] = False
+    venandum_insectum_est: InitVar[bool] = False
 
     # def de_argparse(self, args_rem: Type['ArgumentParser']):
     def de_argparse(self, args_rem: Dict = None):
@@ -1973,6 +1992,12 @@ class HXLTMArgumentum:
             [HXLTMArgumentum]: Ego HXLTMArgumentum
         """
         if args_rem is not None:
+            if hasattr(args_rem, 'agendum_linguam'):
+                self.est_agendum_linguam(args_rem.agendum_linguam)
+            if hasattr(args_rem, 'fontem_linguam'):
+                self.est_fontem_linguam(args_rem.fontem_linguam)
+            if hasattr(args_rem, 'objectivum_linguam'):
+                self.est_objectivum_linguam(args_rem.objectivum_linguam)
             if hasattr(args_rem, 'columnam_numerum'):
                 self.columnam_numerum = args_rem.columnam_numerum
             if hasattr(args_rem, 'non_columnam_numerum'):
@@ -1983,6 +2008,85 @@ class HXLTMArgumentum:
                 self.limitem_initiale_lineam = \
                     args_rem.limitem_initiale_lineam
 
+        return self
+
+    def est_agendum_linguam(self, rem: Union[str, list]):
+        """Argūmentum dēfīnītiōnem ad agendum linguam
+
+        (Optiōnem in multiplum linguam aut bilingue operātiōnem)
+
+        Args:
+            rem (Union[str, HXLTMLinguam]): Rem
+
+        Returns:
+            [HXLTMArgumentum]: Ego HXLTMArgumentum
+        """
+        if isinstance(rem, list):
+            for item in rem:
+                if isinstance(rem, HXLTMLinguam):
+                    self.agendum_linguam.append(item)
+                else:
+                    self.agendum_linguam.append(HXLTMLinguam(item))
+        elif isinstance(rem, str):
+            collectionem = rem.split(',')
+            for item in collectionem:
+                self.agendum_linguam.append(HXLTMLinguam(item.trim()))
+        elif rem is None:
+            # self.agendum_linguam.append(HXLTMLinguam())
+            self.agendum_linguam = []
+        else:
+            raise SyntaxError('Rem typum incognitum {}'.format(str(rem)))
+
+        return self
+
+    def est_fontem_linguam(self, rem: Union[str, Type['HXLTMLinguam']]):
+        """Argūmentum dēfīnītiōnem ad fontem linguam
+
+        (Optiōnem sōlum in bilingue operātiōnem)
+
+        Args:
+            rem (Union[str, HXLTMLinguam]): Rem
+
+        Returns:
+            [HXLTMArgumentum]: Ego HXLTMArgumentum
+        """
+        if isinstance(rem, HXLTMLinguam):
+            self.fontem_linguam = rem
+        else:
+            self.fontem_linguam = HXLTMLinguam(rem)
+        return self
+
+    def est_objectivum_formatum(self, rem: str = 'HXLTM'):
+        """Argūmentum dēfīnītiōnem ad objectīvum archīvum fōrmātum
+
+        Args:
+            rem (Union[str, HXLTMLinguam]): Rem
+
+        Returns:
+            [HXLTMArgumentum]: Ego HXLTMArgumentum
+        """
+        if rem is None or len(rem) == 0:
+            self.objectivum_linguam = 'HXLTM'
+        else:
+            self.objectivum_linguam = rem
+
+        return self
+
+    def est_objectivum_linguam(self, rem: Union[str, Type['HXLTMLinguam']]):
+        """Argūmentum dēfīnītiōnem ad objectīvum linguam
+
+        (Optiōnem sōlum in bilingue operātiōnem)
+
+        Args:
+            rem (Union[str, HXLTMLinguam]): Rem
+
+        Returns:
+            [HXLTMArgumentum]: Ego HXLTMArgumentum
+        """
+        if isinstance(rem, HXLTMLinguam):
+            self.objectivum_linguam = rem
+        else:
+            self.objectivum_linguam = HXLTMLinguam(rem)
         return self
 
     def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
@@ -3290,48 +3394,54 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
 
     Exemplōrum gratiā (et Python doctest, id est, testum automata):
 
-        >>> HXLTMLinguam('lat-Latn@la-IT@IT')
-        HXLTMLinguam()
+>>> HXLTMLinguam('lat-Latn@la-IT@IT')
+HXLTMLinguam()
 
-        >>> HXLTMLinguam('lat-Latn@la-IT@IT').v()
-        {'_typum': 'HXLTMLinguam', \
+>>> HXLTMLinguam('lat-Latn@la-IT@IT').v()
+{'_typum': 'HXLTMLinguam', \
 'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', \
 'bcp47': 'la-IT', 'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', \
 'iso115924': 'Latn'}
 
-        >>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
-        '+i_la+i_lat+is_latn+ii_it'
+>>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
+'+i_la+i_lat+is_latn+ii_it'
 
-        # Kalo Finnish Romani, Latin script (no ISO 2 language)
-        >>> HXLTMLinguam('rmf-Latn').v()
-        {'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
+        Kalo Finnish Romani, Latin script (no ISO 2 language)
+
+>>> HXLTMLinguam('rmf-Latn').v()
+{'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
 'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn'}
 
-        # Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
-        >>> HXLTMLinguam('rmf-Latn').a()
-        '+i_rmf+is_latn'
+        Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
 
-# Private use language tags: se use similar pattern of BCP 47.
-# (https://tools.ietf.org/search/bcp47)
+>>> HXLTMLinguam('rmf-Latn').a()
+'+i_rmf+is_latn'
+
+        Private use language tags: se use similar pattern of BCP 47.
+        (https://tools.ietf.org/search/bcp47)
+
 >>> HXLTMLinguam('lat-Latn-x-privatum').a()
 '+i_lat+is_latn+ix_privatum'
 
 >>> HXLTMLinguam('lat-Latn-x-privatum-tag8digt').a()
 '+i_lat+is_latn+ix_privatum+ix_tag8digt'
 
-# If x-private is only on BCP, we ignore it on HXL attrs. Tools may still
-# use this for other processing (like for XLIFF), but not for generated
-# Datasets.
+        If x-private is only on BCP, we ignore it on HXL attrs.
+        Tools may still use this for other processing (like for XLIFF),
+        but not for generated Datasets.
+
 >>> HXLTMLinguam(
 ... 'cmn-Latn@zh-Latn-CN-variant1-a-extend1-x-wadegile-private1').a()
 '+i_zh+i_cmn+is_latn'
 
-# To force a x-private language tag, it must be on linguam (first part)
-# even if it means repeat.
-# Also, we create attributes shorted by ASCII alphabet, as BCP47 would do
+        To force a x-private language tag, it must be on linguam (first part)
+        even if it means repeat. Also, we create attributes shorted by
+        ASCII alphabet, as BCP47 would do
+
 >>> HXLTMLinguam(
 ... 'cmn-Latn-x-wadegile-private1@zh-CN-x-wadegile-private1').a()
 '+i_zh+i_cmn+is_latn+ix_private1+ix_wadegile'
+
 
 >>> HXLTMLinguam(
 ... 'lat-Latn-x-caesar12-romanum1@la-IT-x-caesar12-romanum1@IT').a()
