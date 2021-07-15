@@ -563,6 +563,19 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         # @see https://stackoverflow.com/questions/15459997
         #      /passing-integer-lists-to-python/15460288
         parser.add_argument(
+            '--selectum-columnam-numerum',
+            help='(Advanced) ' +
+            'Select only columns from source HXLTM dataset by a list of '
+            'index numbers (starts by zero). As example: '
+            'to select the first 3 columns'
+            'use "0,1,2" and NOT "1,2,3"',
+            metavar='columnam_numerum',
+            # type=lambda x: x.split(',')
+            type=lambda x: map(int, x.split(','))
+        )
+        # @see https://stackoverflow.com/questions/15459997
+        #      /passing-integer-lists-to-python/15460288
+        parser.add_argument(
             '--non-selectum-columnam-numerum',
             help='(Advanced) ' +
             'Exclude columns from source HXLTM dataset by a list of '
@@ -734,6 +747,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         The execute_cli is the main entrypoint of HXLTMCLI. When
         called will convert the HXL source to example format.
         """
+        # pylint: disable=too-many-branches,too-many-statements
 
         # # NOTE: the next lines, in fact, only generate an csv outut. So you
         # #       can use as starting point.
@@ -1660,9 +1674,12 @@ limitem_quantitatem=-1, limitem_initiale_lineam=-1)
     agendum_linguam: List[Type['HXLTMLinguam']] = None
     # linguam: List[Type['HXLTMLinguam']] = None
 
+    columnam_numerum: InitVar[List] = []
+    non_columnam_numerum: InitVar[List] = []
+
     # Trivia: līmitem, https://en.wiktionary.org/wiki/limes#Latin
-    limitem_quantitatem: int = -1
-    limitem_initiale_lineam: int = -1
+    limitem_quantitatem: InitVar[int] = -1
+    limitem_initiale_lineam: InitVar[int] = -1
 
     argumentum: InitVar[Dict] = None
     _verbosum: InitVar[bool] = False
@@ -1685,9 +1702,9 @@ limitem_quantitatem=-1, limitem_initiale_lineam=-1)
                 _[lat-Latn]
                 HXLTM Cor Ontologia e.g. cor.hxltm.yml (in Python Dict)
                 [lat-Latn]_
-            argumentum (Dict):
+            argumentum (Union[Dict,ArgumentParser):
                 _[lat-Latn]
-                Python argumentum,
+                Dict aut Python argumentum, id est,
                 https://docs.python.org/3/library/argparse.html
                 [lat-Latn]_
             verbosum (bool, optional):
@@ -1702,8 +1719,15 @@ limitem_quantitatem=-1, limitem_initiale_lineam=-1)
         self.ontologia = ontologia
 
         if argumentum:
-            self.limitem_quantitatem = argumentum.limitem_quantitatem
-            self.limitem_initiale_lineam = argumentum.limitem_initiale_lineam
+            if hasattr(argumentum, 'columnam_numerum'):
+                self.columnam_numerum = argumentum.columnam_numerum
+            if hasattr(argumentum, 'non_columnam_numerum'):
+                self.non_columnam_numerum = argumentum.non_columnam_numerum
+            if hasattr(argumentum, 'limitem_quantitatem'):
+                self.limitem_quantitatem = argumentum.limitem_quantitatem
+            if hasattr(argumentum, 'limitem_initiale_lineam'):
+                self.limitem_initiale_lineam = \
+                    argumentum.limitem_initiale_lineam
 
         self.datum = HXLTMDatum(
             fontem_crudum_datum,
@@ -1869,6 +1893,66 @@ limitem_quantitatem=-1, limitem_initiale_lineam=-1)
 
 
 @dataclass
+class HXLTMArgumentum:
+    """HXLTM Argūmentum
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - argūmentum, https://en.wiktionary.org/wiki/argumentum#Latin
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+        - sēlēctum, https://en.wiktionary.org/wiki/selectus#Latin
+        - columnam, https://en.wiktionary.org/wiki/columna#Latin
+        - līneam, https://en.wiktionary.org/wiki/linea#Latin
+        - līmitem, https://en.wiktionary.org/wiki/limes#Latin
+        - quantitātem, https://en.wiktionary.org/wiki/quantitas
+        - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+
+    Args:
+        columnam_numerum (List):
+            _[lat-Latn] Datum sēlēctum columnam numerum [lat-Latn]_
+        non_columnam_numerum (List):
+            _[lat-Latn] Datum non sēlēctum columnam numerum [lat-Latn]_
+        limitem_quantitatem (int):
+            _[lat-Latn] Datum līmitem līneam quantitātem [lat-Latn]_
+        limitem_quantitatem (int):
+            _[lat-Latn] Datum līmitem līneam quantitātem [lat-Latn]_
+        limitem_initiale_lineam (int):
+            _[lat-Latn] Datum initiāle līneam [lat-Latn]_
+    """
+    columnam_numerum: InitVar[List] = []
+    non_columnam_numerum: InitVar[List] = []
+    limitem_quantitatem: InitVar[int] = 1048576
+    limitem_initiale_lineam: InitVar[int] = -1
+
+    # def de_argparse(self, args_rem: Type['ArgumentParser']):
+    def de_argparse(self, args_rem: Dict = None):
+        """Argūmentum de Python argparse
+
+        Args:
+            args_rem (Dict, optional):
+                Python ArgumentParser. Defallo Python None
+
+        Returns:
+            [HXLTMArgumentum]: Ego HXLTMArgumentum
+        """
+        if args_rem is not None:
+            if hasattr(args_rem, 'columnam_numerum'):
+                self.columnam_numerum = args_rem.columnam_numerum
+            if hasattr(args_rem, 'non_columnam_numerum'):
+                self.non_columnam_numerum = args_rem.non_columnam_numerum
+            if hasattr(args_rem, 'limitem_quantitatem'):
+                self.limitem_quantitatem = args_rem.limitem_quantitatem
+            if hasattr(args_rem, 'limitem_initiale_lineam'):
+                self.limitem_initiale_lineam = \
+                    args_rem.limitem_initiale_lineam
+
+        return self
+
+
+@dataclass
 class HXLTMDatum:
     """
     _[eng-Latn]
@@ -1891,7 +1975,8 @@ class HXLTMDatum:
     # crudum: InitVar[List] = []
     crudum_caput: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
-    non_columnam_numerum: InitVar[List] = None
+    columnam_numerum: InitVar[List] = []
+    non_columnam_numerum: InitVar[List] = []
     limitem_quantitatem: InitVar[int] = 1048576
     limitem_initiale_lineam: InitVar[int] = -1
     meta: InitVar[Type['HXLTMDatumCaput']] = None
@@ -1905,9 +1990,11 @@ class HXLTMDatum:
                  #  hxltm_crudum: str = None,
                  #  hxltm_archivum: str = None,
                  #  ontologia: Type['HXLTMOntologia'] = None,
+                 columnam_numerum: List = None,
                  non_columnam_numerum: List = None,
                  limitem_quantitatem: int = 1048576,
                  limitem_initiale_lineam: int = -1,
+                 argumentum: Dict = None,
                  venandum_insectum_est: bool = False):
         """[summary]
 
@@ -1925,6 +2012,7 @@ class HXLTMDatum:
 
         # self.ontologia = ontologia
         self.venandum_insectum_est = venandum_insectum_est
+        self.columnam_numerum = columnam_numerum
         self.non_columnam_numerum = non_columnam_numerum
         self.limitem_quantitatem = limitem_quantitatem
         self.limitem_initiale_lineam = limitem_initiale_lineam
