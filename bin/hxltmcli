@@ -558,15 +558,21 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             default=None
         )
 
-        # # deprecated
-        # parser.add_argument(
-        #     '--archivum-extensionem',
-        #     help='File extension. .xlf, .csv or .tmx',
-        #     action='store',
-        #     # default='.xlf',
-        #     default=None,
-        #     nargs='?'
-        # )
+        # sēlēctum
+
+        # @see https://stackoverflow.com/questions/15459997
+        #      /passing-integer-lists-to-python/15460288
+        parser.add_argument(
+            '--non-selectum-columnam-numerum',
+            help='(Advanced) ' +
+            'Exclude columns from source HXLTM dataset by a list of '
+            'index numbers (starts by zero). As example: '
+            'to ignore the first ("Excel A"), and fifth ("Excel: E") column:'
+            'use "0,4" and not "1,5"',
+            metavar='non_columnam_numerum',
+            # type=lambda x: x.split(',')
+            type=lambda x: map(int, x.split(','))
+        )
 
         # Trivia: caput, https://en.wiktionary.org/wiki/caput#Latin
         # --rudum-objectivum-caput is a draft. Not 100% implemented
@@ -794,7 +800,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
             if args.hxltm_asa:
                 self.in_asa(args)
-                # print('TODO')
 
             if args.expertum_metadatum:
                 self.in_expertum_metadatum(hxlated_input,
@@ -1696,8 +1701,14 @@ limitem_quantitatem=-1, limitem_initiale_lineam=-1)
         # self.hxltm_crudum = hxltm_crudum
         self.ontologia = ontologia
 
+        if argumentum:
+            self.limitem_quantitatem = argumentum.limitem_quantitatem
+            self.limitem_initiale_lineam = argumentum.limitem_initiale_lineam
+
         self.datum = HXLTMDatum(
             fontem_crudum_datum,
+            limitem_quantitatem=self.limitem_quantitatem,
+            limitem_initiale_lineam=self.limitem_initiale_lineam,
             venandum_insectum_est=verbosum)
         # self.argumentum = argumentum
         self._venandum_insectum_est = verbosum
@@ -1815,6 +1826,8 @@ limitem_quantitatem=-1, limitem_initiale_lineam=-1)
                 # /how-to-get-line-count-of-a-large-file-cheaply-in-python
                 # /27518377#27518377
                 'lineam_crudum_quantitatem': -1,
+                'limitem_quantitatem': self.limitem_quantitatem,
+                'limitem_initiale_lineam': self.limitem_initiale_lineam,
             },
             '_datum_meta_': {},
             # '_datum_meta_': {
@@ -1878,6 +1891,9 @@ class HXLTMDatum:
     # crudum: InitVar[List] = []
     crudum_caput: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
+    non_columnam_numerum: InitVar[List] = None
+    limitem_quantitatem: InitVar[int] = 1048576
+    limitem_initiale_lineam: InitVar[int] = -1
     meta: InitVar[Type['HXLTMDatumCaput']] = None
     # datum_rem: InitVar[List] = []
     columnam: InitVar[List] = []
@@ -1889,12 +1905,16 @@ class HXLTMDatum:
                  #  hxltm_crudum: str = None,
                  #  hxltm_archivum: str = None,
                  #  ontologia: Type['HXLTMOntologia'] = None,
+                 non_columnam_numerum: List = None,
+                 limitem_quantitatem: int = 1048576,
+                 limitem_initiale_lineam: int = -1,
                  venandum_insectum_est: bool = False):
         """[summary]
 
         Args:
             hxltm_crudum (str, optional): [description]. Defaults to None.
-            hxltm_archivum (str, optional): [description]. Defaults to None.
+            limitem_quantitatem (int, optional):
+            limitem_initiale_lineam (int, optional):
             ontologia (Type[, optional): [description]. Defaults to None.
             venandum_insectum_est (bool, optional): [description].
                     Defaults to False.
@@ -1905,6 +1925,11 @@ class HXLTMDatum:
 
         # self.ontologia = ontologia
         self.venandum_insectum_est = venandum_insectum_est
+        self.non_columnam_numerum = non_columnam_numerum
+        self.limitem_quantitatem = limitem_quantitatem
+        self.limitem_initiale_lineam = limitem_initiale_lineam
+
+        # print('limitem_initiale_lineam', self.limitem_initiale_lineam)
 
         # Check: is this an array of arrays (hxltm_crudum) or a path to
         # a file on disk?
@@ -1952,8 +1977,16 @@ class HXLTMDatum:
             datum_rem_brevis = datum_rem[:5]
             for item_num in range(len(datum_rem[0])):
                 # print('oi2', item_num)
+
+                # TODO: --non-selectum-columnam-numerum
+                #         dont apply if item_num in self.non_columnam_numerum
+
                 col_rem_val = HXLTMDatumColumnam.reducendum_de_datum(
-                    datum_rem, item_num)
+                    datum_rem,
+                    item_num,
+                    limitem_quantitatem=self.limitem_quantitatem,
+                    limitem_initiale_lineam=self.limitem_initiale_lineam
+                )
                 self.columnam.append(HXLTMDatumColumnam(
                     col_rem_val
                 ))
@@ -2004,9 +2037,15 @@ class HXLTMDatum:
             # self.datum_rem = datum_rem
             # datum_rem_brevis = hxltm_crudum[:5]
             for item_num in range(len(crudum_hashtag)):
-                # print('oi2', item_num)
+
+                # TODO: --non-selectum-columnam-numerum
+                #         dont apply if item_num in self.non_columnam_numerum
+
                 col_rem_val = HXLTMDatumColumnam.reducendum_de_datum(
-                    hxltm_crudum, item_num)
+                    hxltm_crudum,
+                    item_num,
+                    limitem_quantitatem=self.limitem_quantitatem,
+                    limitem_initiale_lineam=self.limitem_initiale_lineam)
                 self.columnam.append(HXLTMDatumColumnam(
                     col_rem_val
                 ))
@@ -2066,6 +2105,8 @@ class HXLTMDatum:
             # 'crudum_caput': self.crudum_caput,
             # 'crudum_hashtag': self.crudum_hashtag,
             'meta': self.meta.v(verbosum),
+            'limitem_quantitatem': self.limitem_quantitatem,
+            'limitem_initiale_lineam': self.limitem_initiale_lineam,
             # optio --venandum-insectum-est requirere
             # 'columnam': []
         }
@@ -2100,19 +2141,30 @@ class HXLTMDatumColumnam:
     _typum: InitVar[str] = None   # Used only when output JSON
     datum_typum: InitVar['str'] = None
     quantitatem: InitVar[int] = None
+    # limitem_quantitatem: InitVar[int] = 1048576
+    # limitem_initiale_lineam: InitVar[int] = -1
     _valendum: InitVar[List] = None
 
     # self._typum = 'HXLTMRemCaput'  # Used only when output JSON
 
-    def __init__(self, valendum: List):
+    def __init__(self,
+                 valendum: List,
+                 limitem_quantitatem: int = 1048576,
+                 limitem_initiale_lineam: int = -1):
 
         self._typum = 'HXLTMDatumColumnam'
+        # self.limitem_quantitatem = limitem_quantitatem
+        # self.limitem_initiale_lineam = limitem_initiale_lineam
         # self._valendum = valendum
         self.quantitatem = len(valendum) if valendum is not None else 0
         self.datum_typum = HXLTMTypum.collectionem_datum_typum(valendum)
 
     @staticmethod
-    def reducendum_de_datum(datum: List, columnam: int) -> List:
+    def reducendum_de_datum(
+            datum: List,
+            columnam: int,
+            limitem_quantitatem: int = 1048576,
+            limitem_initiale_lineam: int = -1) -> List:
         """Redūcendum Columnam de datum
 
         Args:
@@ -2126,7 +2178,16 @@ class HXLTMDatumColumnam:
         if datum is not None and len(datum) > 0:
             for rem_num, _ in enumerate(datum):  # numero de linhas
                 # for col_num in enumerate(datum[0]): # Número de colunas
-                resultatum.append(datum[rem_num][columnam])
+
+                if limitem_initiale_lineam != -1:
+                    limitem_quantitatem += limitem_initiale_lineam
+
+                # TODO: test if is not off-by-one
+                if (rem_num >= limitem_initiale_lineam) and \
+                        (rem_num <= limitem_quantitatem):
+                    resultatum.append(datum[rem_num][columnam])
+                # else:
+                #     print('ignored' + str(rem_num))
                 # resultatum.append(datum[rem_num])
         # pass # redūcendum_Columnam_de_datum
         return resultatum

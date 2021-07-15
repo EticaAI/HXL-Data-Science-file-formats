@@ -2,16 +2,19 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--http-header header] [--remove-headers] [--strip-tags]
                 [--ignore-certs]
                 [--log debug|info|warning|error|critical|none]
-                [--expertum-metadatum] [--expertum-HXLTM-ASA [hxltm_asa]]
                 [--fontem-linguam [fontem_linguam]]
                 [--objectivum-linguam [objectivum_linguam]]
                 [--alternativum-linguam [alternativum_linguam]]
-                [--linguam [linguam]] [--non-linguam [non_linguam]]
-                [--objectivum-HXLTM] [--objectivum-TMX]
-                [--objectivum-TBX-Basim] [--objectivum-UTX]
+                [--agendum-linguam [agendum_linguam]]
+                [--non-linguam [non_linguam]] [--objectivum-HXLTM]
+                [--objectivum-TMX] [--objectivum-TBX-Basim] [--objectivum-UTX]
                 [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
                 [--objectivum-CSV-3] [--objectivum-CSV-HXL-XLIFF]
                 [--objectivum-JSON-kv]
+                [--limitem-quantitatem [limitem_quantitatem]]
+                [--limitem-initiale-lineam [limitem_initiale_lineam]]
+                [--non-securum-limitem]
+                [--non-selectum-columnam-numerum non_columnam_numerum]
                 [--crudum-objectivum-caput [fon_hxlattrs]]
                 [--crudum-fontem-linguam-hxlattrs [fon_hxlattrs]]
                 [--crudum-fontem-linguam-bcp47 [fon_bcp47]]
@@ -19,6 +22,8 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--crudum-objectivum-linguam-bcp47 [obj_bcp47]]
                 [--archivum-configurationem]
                 [--archivum-configurationem-appendicem] [--silentium]
+                [--expertum-metadatum] [--expertum-HXLTM-ASA [hxltm_asa]]
+                [--expertum-HXLTM-ASA-verbosum] [--experimentum-est]
                 [--venandum-insectum-est]
                 [infile] [outfile]
 
@@ -41,16 +46,6 @@ optional arguments:
   --ignore-certs        Don't verify SSL connections (useful for self-signed)
   --log debug|info|warning|error|critical|none
                         Set minimum logging level
-  --expertum-metadatum  (Expert mode) Return metadata of the operation in JSON
-                        format instead of generate the output. Good for
-                        debugging.
-  --expertum-HXLTM-ASA [hxltm_asa]
-                        (Expert mode) Save an Abstract Syntax Tree in JSON
-                        format to a file path. With --venandum-insectum-est
-                        output entire dataset data. File extensions with
-                        .yml/.yaml = YAML output. Files extensions with
-                        .json/.json5 = JSONs output. Default: JSON output.
-                        Good for debugging.
   --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
                         (For bilingual operations) Source natural language
                         (use if not auto-detected). Must be like {ISO
@@ -61,13 +56,14 @@ optional arguments:
                         (use if not auto-detected). Must be like {ISO
                         639-3}-{ISO 15924}. Example: arb-Arab. Requires: mono
                         or bilingual operation. Accept a single value.
-  --alternativum-linguam [alternativum_linguam], -AL [alternativum_linguam]
-                        (Planned, but not implemented yet) Alternative source
-                        languages (up to 5) to be added as metadata (like
-                        XLIFF <note>) for operations that only accept one
-                        source language. Requires: bilingual operation.
-                        Accepts multiple values.
-  --linguam [linguam], -L [linguam]
+  --alternativum-linguam [alternativum_linguam]
+                        (Deprecated, use --agendum-linguam) (Planned, but not
+                        implemented yet) Alternative source languages (up to
+                        5) to be added as metadata (like XLIFF <note>) for
+                        operations that only accept one source language.
+                        Requires: bilingual operation. Accepts multiple
+                        values.
+  --agendum-linguam [agendum_linguam], -AL [agendum_linguam]
                         (Planned, but not implemented yet) Restrict working
                         languages to a list. Useful for HXLTM to HXLTM or
                         multilingual formats like TMX. Requires: multilingual
@@ -110,6 +106,39 @@ optional arguments:
                         are ID (if available) or source natural language.
                         Values are target language. No comments are exported.
                         Monolingual/Bilingual
+  --limitem-quantitatem [limitem_quantitatem]
+                        (Advanced, large datasets) Customize the limit of the
+                        maximum number of raw rows can be in a single step.
+                        Try increments of 1 million.Use value -1 to disable
+                        limits (even if means exaust all computer memory
+                        require full restart). Defaults to 1048576 (but to
+                        avoid non-expert humans or automated workflows
+                        generate output with missing data without no one
+                        reading the warning messages if the --limitem-
+                        quantitatem was reached AND no customization was done
+                        on --limitem-initiale-lineam an exception will abort
+  --limitem-initiale-lineam [limitem_initiale_lineam]
+                        (Advanced, large datasets) When working in batches and
+                        the initial row to process is not the first one
+                        (starts from 0) use this option if is inviable
+                        increase to simply --limitem-quantitatem
+  --non-securum-limitem, --ad-astra-per-aspera
+                        (For situational/temporary usage, as in "one weekend"
+                        NOT six months) Disable any secure hardware limits and
+                        make the program try harder tolerate (even if means
+                        ignore entire individual rows or columns) but still
+                        work with what was left from the dataset. This option
+                        assume is acceptable not try protect from exhaust all
+                        memory or disk space when working with large datasets
+                        and (even for smaller, but not well know from the
+                        python or YAML ontologia) the current human user
+                        evaluated that the data loss is either false positive
+                        or tolerable until permanent fix.
+  --non-selectum-columnam-numerum non_columnam_numerum
+                        (Advanced) Exclude columns from source HXLTM dataset
+                        by a list of index numbers (starts by zero). As
+                        example: to ignore the first ("Excel A"), and fifth
+                        ("Excel: E") column:use "0,4" and not "1,5"
   --crudum-objectivum-caput [fon_hxlattrs]
                         (Advanced override for tabular output, like CSV).
                         Explicit define first line of output (separed by ,)
@@ -137,10 +166,23 @@ optional arguments:
                         (The cor.hxltm.yml)
   --silentium           Silence warnings? Try to not generate any warning. May
                         generate invalid output
+  --expertum-metadatum  (Deprecated, use --expertum-HXLTM-ASA) (Expert mode)
+                        Return metadata of the operation in JSON format
+                        instead of generate the output. Good for debugging.
+  --expertum-HXLTM-ASA [hxltm_asa]
+                        (Expert mode) Save an Abstract Syntax Tree in JSON
+                        format to a file path. With --expertum-HXLTM-ASA-
+                        verbosum output entire dataset data. File extensions
+                        with .yml/.yaml = YAML output. Files extensions with
+                        .json/.json5 = JSONs output. Default: JSON output.
+                        Good for debugging.
+  --expertum-HXLTM-ASA-verbosum
+                        (Expert mode) Enable --expertum-HXLTM-ASA verbose mode
+  --experimentum-est    (Internal testing only) Enable undocumented feature
   --venandum-insectum-est, --debug
                         Enable debug? Extra information for program debugging
 
-Exemplum breve:
+Exemplōrum gratiā:
 
 HXLTM (csv) -> Translation Memory eXchange format (TMX):
     hxltmcli fontem.tm.hxl.csv objectivum.tmx --objectivum-TMX
