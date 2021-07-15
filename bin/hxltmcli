@@ -213,6 +213,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         self.ontologia = None  # HXLTMOntologia object
         self.objectivum_typum = None
 
+        self.argumentum: Type['HXLTMArgumentum'] = None
+
         # TODO: migrade from HXLTMcli to HXLTMASA the
         # fontem_linguam, objectivum_linguam, alternativum_linguam, linguam
         self.fontem_linguam: HXLTMLinguam = None
@@ -263,6 +265,11 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         #     self.expertum_metadatum_est = args.expertum_metadatum_est
 
         # TODO: migrate all this to HXLTMASA._initiale
+
+        if args:
+            self.argumentum = HXLTMArgumentum().de_argparse(args)
+        else:
+            self.argumentum = HXLTMArgumentum()
 
         if args.fontem_linguam:
             self.fontem_linguam = HXLTMLinguam(args.fontem_linguam)
@@ -759,6 +766,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         # return self.EXIT_OK
 
         self._initiale(args, args.venandum_insectum_est)
+
+        # print(HXLTMArgumentum().de_argparse(args))
+        # # print(HXLTMArgumentum().fontem_linguam)
+        # print(HXLTMArgumentum().est_fontem_linguam('por-Latn'))
+        # print(HXLTMArgumentum().est_fontem_linguam('por-Latn').v())
+        # print(HXLTMArgumentum({'fontem_linguam': 'por-Latn'}).v())
+        # print(HXLTMLinguam('por-Latn').__dict__)
 
         self.conf = HXLTMUtil.load_hxltm_options(
             args.archivum_configurationem,
@@ -1654,8 +1668,7 @@ class HXLTMASA:
 >>> asa = HXLTMASA(datum, ontologia=ontologia)
 >>> asa
 HXLTMASA(fontem_linguam=None, objectivum_linguam=None, \
-alternativum_linguam=None, agendum_linguam=None, \
-limitem_quantitatem=-1, limitem_initiale_lineam=-1)
+alternativum_linguam=None)
     """
 
     # pylint: disable=too-many-instance-attributes
@@ -1671,7 +1684,7 @@ limitem_quantitatem=-1, limitem_initiale_lineam=-1)
     alternativum_linguam: List[Type['HXLTMLinguam']] = None
 
     # @see https://la.wikipedia.org/wiki/Lingua_agendi
-    agendum_linguam: List[Type['HXLTMLinguam']] = None
+    agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
     # linguam: List[Type['HXLTMLinguam']] = None
 
     columnam_numerum: InitVar[List] = []
@@ -1909,6 +1922,8 @@ class HXLTMArgumentum:
         - līmitem, https://en.wiktionary.org/wiki/limes#Latin
         - quantitātem, https://en.wiktionary.org/wiki/quantitas
         - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        - fontem, https://en.wiktionary.org/wiki/fons#Latin
+        - linguam, https://en.wiktionary.org/wiki/lingua#Latin
 
     Args:
         columnam_numerum (List):
@@ -1922,10 +1937,29 @@ class HXLTMArgumentum:
         limitem_initiale_lineam (int):
             _[lat-Latn] Datum initiāle līneam [lat-Latn]_
     """
+    fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
+    # _fontem_linguam: InitVar[Type['HXLTMLinguam']] = \
+    #     field(init=False, repr=False, default=None)
+    agendum_linguam: InitVar[List] = []
     columnam_numerum: InitVar[List] = []
     non_columnam_numerum: InitVar[List] = []
     limitem_quantitatem: InitVar[int] = 1048576
     limitem_initiale_lineam: InitVar[int] = -1
+
+    def est_fontem_linguam(self, rem: Union[str, Type['HXLTMLinguam']]):
+        """HXLTM Argūmentum dēfīnītiōnem ad fontem linguam
+
+        Args:
+            rem (Union[str, HXLTMLinguam]): Rem
+
+        Returns:
+            [HXLTMArgumentum]: Ego HXLTMArgumentum
+        """
+        if isinstance(rem, HXLTMLinguam):
+            self.fontem_linguam = rem
+        else:
+            self.fontem_linguam = HXLTMLinguam(rem)
+        return self
 
     # def de_argparse(self, args_rem: Type['ArgumentParser']):
     def de_argparse(self, args_rem: Dict = None):
@@ -1950,6 +1984,22 @@ class HXLTMArgumentum:
                     args_rem.limitem_initiale_lineam
 
         return self
+
+    def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            _verbosum (bool): Verbosum est? Defallo falsum.
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        return self.__dict__
 
 
 @dataclass

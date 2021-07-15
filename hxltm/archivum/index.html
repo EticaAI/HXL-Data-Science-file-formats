@@ -2578,6 +2578,7 @@ hxltmcli --help</code></pre>
                 [--limitem-quantitatem [limitem_quantitatem]]
                 [--limitem-initiale-lineam [limitem_initiale_lineam]]
                 [--non-securum-limitem]
+                [--selectum-columnam-numerum columnam_numerum]
                 [--non-selectum-columnam-numerum non_columnam_numerum]
                 [--crudum-objectivum-caput [fon_hxlattrs]]
                 [--crudum-fontem-linguam-hxlattrs [fon_hxlattrs]]
@@ -2698,6 +2699,11 @@ optional arguments:
                         python or YAML ontologia) the current human user
                         evaluated that the data loss is either false positive
                         or tolerable until permanent fix.
+  --selectum-columnam-numerum columnam_numerum
+                        (Advanced) Select only columns from source HXLTM
+                        dataset by a list of index numbers (starts by zero).
+                        As example: to select the first 3 columnsuse "0,1,2"
+                        and NOT "1,2,3"
   --non-selectum-columnam-numerum non_columnam_numerum
                         (Advanced) Exclude columns from source HXLTM dataset
                         by a list of index numbers (starts by zero). As
@@ -2785,7 +2791,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-15 19:32:34 UTC
+Last updated 2021-07-15 20:34:07 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
