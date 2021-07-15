@@ -23,7 +23,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--crudum-objectivum-linguam-bcp47 [obj_bcp47]]
                 [--archivum-configurationem]
                 [--archivum-configurationem-appendicem] [--silentium]
-                [--expertum-metadatum] [--expertum-HXLTM-ASA [hxltm_asa]]
+                [--expertum-HXLTM-ASA [hxltm_asa]]
                 [--expertum-HXLTM-ASA-verbosum] [--experimentum-est]
                 [--venandum-insectum-est]
                 [infile] [outfile]
@@ -172,9 +172,6 @@ optional arguments:
                         (The cor.hxltm.yml)
   --silentium           Silence warnings? Try to not generate any warning. May
                         generate invalid output
-  --expertum-metadatum  (Deprecated, use --expertum-HXLTM-ASA) (Expert mode)
-                        Return metadata of the operation in JSON format
-                        instead of generate the output. Good for debugging.
   --expertum-HXLTM-ASA [hxltm_asa]
                         (Expert mode) Save an Abstract Syntax Tree in JSON
                         format to a file path. With --expertum-HXLTM-ASA-
