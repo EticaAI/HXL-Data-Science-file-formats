@@ -218,7 +218,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         self.fontem_linguam: HXLTMLinguam = None
         self.objectivum_linguam: HXLTMLinguam = None
         self.alternativum_linguam: List[HXLTMLinguam] = []
-        self.linguam: List[HXLTMLinguam] = []
+        self.agendum_linguam: List[HXLTMLinguam] = []
 
         # TODO: replace self.datum by HXLTMASA
         self.datum: HXLTMDatum = None
@@ -282,13 +282,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     print('alternativum_linguam', rem_obj.v())
                 self.alternativum_linguam.append(rem_obj)
 
-        if args.linguam and len(args.linguam) > 0:
-            unicum = set(args.linguam)
+        if args.agendum_linguam and len(args.agendum_linguam) > 0:
+            unicum = set(args.agendum_linguam)
             for rem in unicum:
                 rem_obj = HXLTMLinguam(rem)
                 if is_debug:
-                    print('linguam', rem_obj.v())
-                self.linguam.append(rem_obj)
+                    print('agendum_linguam', rem_obj.v())
+                self.agendum_linguam.append(rem_obj)
 
         # if is_debug:
         #     print('fontem_linguam', self.fontem_linguam.v())
@@ -327,53 +327,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             argumentum=argumentum,
             verbosum=argumentum.hxltm_asa_verbosum
         )
-
-        # mAF = {
-        #     # 'rem_I_textum_caput_est': None,
-        #     'rem_I_hxl_caput_est': None,
-        #     'rem_I': [],
-        #     # 'rem_II_textum_caput_est': None,
-        #     'rem_II_hxl_caput_est': None,
-        #     'rem_II': [],
-        #     # 'rem_III_textum_caput_est': None,
-        #     'rem_III_hxl_caput_est': None,
-        #     'rem_III': [],
-        #     'rem_crudum_initialle': [],
-        #     'rem_crudum_finale': [],
-        # }
-
-        # rem_crudum = []
-
-        # with open(archivum) as arch:
-        #     rem_crudum = arch.read().splitlines()
-
-        # mAF['rem_crudum_initialle'] = \
-        #     rem_crudum[:5]
-
-        # if len(rem_crudum) > 5:
-        #     mAF['rem_crudum_finale'] = \
-        #         rem_crudum[-5:]
-
-        # # @see https://docs.python.org/3/library/csv.html
-        # with open(archivum, 'r') as csv_file:
-        #     csv_reader = csv.reader(csv_file)
-
-        #     mAF['rem_I'] = next(csv_reader)
-        #     mAF['rem_I_hxl_caput_est'] = \
-        #         HXLTMDatumMetaCaput.quod_est_hashtag_caput(
-        #             mAF['rem_I'])
-
-        #     mAF['rem_II'] = next(csv_reader)
-        #     mAF['rem_II_hxl_caput_est'] = \
-        #         HXLTMDatumMetaCaput.quod_est_hashtag_caput(
-        #             mAF['rem_II'])
-
-        #     mAF['rem_III'] = next(csv_reader)
-        #     mAF['rem_III_hxl_caput_est'] = \
-        #         HXLTMDatumMetaCaput.quod_est_hashtag_caput(
-        #             mAF['rem_III'])
-
-        # self.meta_archivum_fontem = mAF
 
     def make_args_hxltmcli(self):
         """make_args_hxltmcli
@@ -423,8 +376,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         # --alternativum-linguam is a draft. Not 100% implemented
         parser.add_argument(
-            '--alternativum-linguam', '-AL',
-            help='(Planned, but not implemented yet) ' +
+            '--alternativum-linguam',
+            help='(Deprecated, use --agendum-linguam) '
+            '(Planned, but not implemented yet) ' +
             'Alternative source languages (up to 5) to be added ' +
             'as metadata (like XLIFF <note>) for operations that ' +
             'only accept one source language. ' +
@@ -437,13 +391,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         # --linguam is a draft. Not 100% implemented
         parser.add_argument(
-            '--linguam', '-L',
+            '--agendum-linguam', '-AL',
             help='(Planned, but not implemented yet) ' +
             'Restrict working languages to a list. Useful for ' +
             'HXLTM to HXLTM or multilingual formats like TMX. ' +
             'Requires: multilingual operation. ' +
             'Accepts multiple values.',
-            metavar='linguam',
+            metavar='agendum_linguam',
             action='append',
             nargs='?'
         )
@@ -890,13 +844,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         if str(cli_args.hxltm_asa).endswith(('.yml', '.yaml')):
             resultatum = HXLTMTypum.in_textum_yaml(
-                self.hxltm_asa.v(), formosum=True)
+                self.hxltm_asa.v(), formosum=True, clavem_sortem=True)
         elif str(cli_args.hxltm_asa).endswith(('.json', '.json5')):
             resultatum = HXLTMTypum.in_textum_json(
-                self.hxltm_asa.v(), formosum=True)
+                self.hxltm_asa.v(), formosum=True, clavem_sortem=True)
         else:
             resultatum = HXLTMTypum.in_textum_json(
-                self.hxltm_asa.v(), formosum=True)
+                self.hxltm_asa.v(), formosum=True, clavem_sortem=True)
 
         with open(cli_args.hxltm_asa, 'w') as writer:
             writer.write(resultatum)
@@ -924,7 +878,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 'fontem_linguam': self.fontem_linguam.v(),
                 'objectivum_linguam': self.objectivum_linguam.v(),
                 'alternativum_linguam': [],
-                'linguam': []
+                'agendum_linguam': []
             },
             'archivum_fontem': self.meta_archivum_fontem,
             'archivum_fontem_m': {},
@@ -938,9 +892,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 resultatum['argumentum']['alternativum_linguam'].append(
                     rem.v())
 
-        if len(self.linguam) > 0:
-            for rem in self.linguam:
-                resultatum['argumentum']['linguam'].append(rem.v())
+        if len(self.agendum_linguam) > 0:
+            for rem in self.agendum_linguam:
+                resultatum['argumentum']['agendum_linguam'].append(rem.v())
 
         if not args.venandum_insectum_est:
             venandum_insectum_est_notitia = {
@@ -1738,9 +1692,9 @@ alternativum_linguam=None, agendum_linguam=None)
                     #     print('alternativum_linguam', rem_obj.v())
                     self.alternativum_linguam.append(rem_obj)
 
-            # TODO: change input to use agendum_linguam instead of linguam
-            if argumentum.linguam and len(argumentum.linguam) > 0:
-                unicum = set(argumentum.linguam)
+            if argumentum.agendum_linguam and \
+                    len(argumentum.agendum_linguam) > 0:
+                unicum = set(argumentum.agendum_linguam)
                 for rem in unicum:
                     rem_obj = HXLTMLinguam(rem)
                     # if is_debug:
@@ -1766,33 +1720,74 @@ alternativum_linguam=None, agendum_linguam=None)
         """
 
         asa = {
-            '__asa': {
-                'nomen': 'HXLTM Abstractum Syntaxim Arborem',
-                'systema_varians': __SYSTEMA_VARIANS__,
-                'systema_versionem': __VERSION__,
+            # A TL;DR of what the ASA file is
+            '__ASA__': {
+                'asa_nomen': 'HXLTM Abstractum Syntaxim Arborem',
+                'instrumentum_varians': __SYSTEMA_VARIANS__,
+                'instrumentum_versionem': __VERSION__,
             },
-            '_argumentum': {}
+            # Somewhat portable reference of how the HXLTM ASA was generate
+            # from souce input. This can be used by each tool to define
+            # it's own parameters. But is preferable to try to use options
+            # that could be reused by others
+            '__ASA__INSTRUMENTUM__': {
+                'agendum_linguam': 'mul-Zyyy'
+            },
+
+            # Similar to __ASA__INSTRUMENTUM__ (a place for tools to put
+            # metadata about the datum) but the main point here is this
+            # can store information that is temporary and may not make
+            # sense if the ASA is shared on other computers or for long term.
+            # One example is the path for the hxltm CSV temporary file on
+            # local disk.
+            # Why store path to temporary file? Because if HXLTM ASA is used
+            # to preprocess data for another tool, a tool could still do
+            # raw reading of the CSV file on disk without need to enable
+            # verbose modes.
+            '__ASA__TEMPORARIUM__': {
+                # archīvum, https://en.wiktionary.org/wiki/archivum
+                'archivum_bytes': -1,
+                'archivum_temporarium_locum': None,
+                'columnam_crudum_quantitatem': -1,
+                # TODO: maybe implement some way to make a cheapy full
+                #       disk check for how many line breaks do a file have.
+                #       This could be useful for tools trying to decode CSV
+                #       without being aware that may exist line breaks inside
+                #       row items (they are valid).
+                # @see https://stackoverflow.com/questions/845058
+                # /how-to-get-line-count-of-a-large-file-cheaply-in-python
+                # /27518377#27518377
+                'lineam_crudum_quantitatem': -1,
+            },
+            '_datum_meta_': {
+                # columnam, https://en.wiktionary.org/wiki/columna#Latin
+                'columnam_quantitatem': -1,
+                # līneam, https://en.wiktionary.org/wiki/linea#Latin
+                'lineam_quantitatem': -1,
+                'rem_quantitatem': -1,
+            },
+            'datum': {}
         }
 
         if self.fontem_linguam:
-            asa['_argumentum']['fontem_linguam'] = \
+            asa['__ASA__INSTRUMENTUM__']['fontem_linguam'] = \
                 self.fontem_linguam.v(self._verbosum)
 
         if self.objectivum_linguam:
-            asa['_argumentum']['objectivum_linguam'] = \
+            asa['__ASA__INSTRUMENTUM__']['objectivum_linguam'] = \
                 self.objectivum_linguam.v(self._verbosum)
 
         if self.alternativum_linguam and len(self.alternativum_linguam) > 0:
-            asa['_argumentum']['alternativum_linguam'] = []
+            asa['__ASA__INSTRUMENTUM__']['alternativum_linguam'] = []
             for rem_al in self.alternativum_linguam:
-                asa['_argumentum']['alternativum_linguam'].append(
+                asa['__ASA__INSTRUMENTUM__']['alternativum_linguam'].append(
                     rem_al.v(self._verbosum)
                 )
 
         if self.agendum_linguam and len(self.agendum_linguam) > 0:
-            asa['_argumentum']['agendum_linguam'] = []
+            asa['__ASA__INSTRUMENTUM__']['agendum_linguam'] = []
             for rem_al in self.agendum_linguam:
-                asa['_argumentum']['agendum_linguam'].append(
+                asa['__ASA__INSTRUMENTUM__']['agendum_linguam'].append(
                     rem_al.v(self._verbosum)
                 )
 
@@ -2402,24 +2397,19 @@ True
         # return self.__dict__
         return resultatum
 
-# # @see https://stackoverflow.com/questions/19151
-#        /build-a-basic-python-iterator
-# class Counter:
-#     def __init__(self, low, high):
-#         self.current = low - 1
-#         self.high = high
 
-#     def __iter__(self):
-#         return self
+class HXLTMRem:
 
-#     def __next__(self): # Python 2: def next(self)
-#         self.current += 1
-#         if self.current < self.high:
-#             return self.current
-#         raise StopIteration
+    def __init__(self, hxltm_datum: Type['HXLTMDatum'], rem_numerum: int):
+        self.hxltm_datum = hxltm_datum
 
-# for c in Counter(3, 9):
-#     print(c)
+        # TODO: implement HXLTMRem by, via the item FIRST row number of a
+        #       grouped rem and point to hxltm_datum, generate a Row
+        #       with only HXLTMRemCaput (future HXLTMDatumCaput) plus
+        #       the data of grouped rem
+
+        self.rem_hoc = 0
+        self.rem_quantitatem = hxltm_datum.rem_quantitatem()
 
 
 class HXLTMRemIterandum:
@@ -2439,11 +2429,8 @@ class HXLTMRemIterandum:
     def __next__(self):
         self.rem_hoc += 1
         if self.rem_hoc < self.rem_quantitatem:
-            return self.rem_hoc
+            return self.hxltm_datum.rem_de_numerum(self.rem_hoc)
         raise StopIteration
-
-    def v(self):
-        self.hxltm_datum.rem_de_numerum(self.rem_hoc)
 
 # for c in HXLTMRemIterandum():
 #     print(c)
@@ -3367,6 +3354,8 @@ class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
 
 class HXLTMRemCaput(HXLTMLinguam):
     """HXLTMRemCaput HXLTMLinguam et HXLTMDatumMetaCaput metadatum
+
+    TODO: maybe rename to HXLTMDatumCaput
 
     Args:
         HXLTMLinguam ([HXLTMLinguam]): HXLTMLinguam
