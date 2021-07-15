@@ -507,14 +507,56 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             const='JSON-kv'
         )
 
-        # parser.add_argument(
-        #     '--limitem-quantitatem',
-        #     help='(Advanced; Only for ) ' +
-        #     'aaa',
-        #     metavar='limitem_quantitatem',
-        #     type=int,
-        #     nargs='?'
-        # )
+        parser.add_argument(
+            '--limitem-quantitatem',
+            help='(Advanced, large datasets) '
+            'Customize the limit of the maximum number of raw rows can '
+            'be in a single step. Try increments of 1 million.'
+            'Use value -1 to disable limits (even if means exaust '
+            'all computer memory require full restart). '
+            'Defaults to 1048576 (but to avoid non-expert humans or '
+            'automated workflows generate output with missing data '
+            'without no one reading the warning messages '
+            'if the --limitem-quantitatem was reached AND '
+            'no customization was done on --limitem-initiale-lineam '
+            'an exception will abort',
+            metavar='limitem_quantitatem',
+            type=int,
+            default=1048576,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--limitem-initiale-lineam',
+            help='(Advanced, large datasets) ' +
+            'When working in batches and the initial row to process is not '
+            'the first one (starts from 0) use this option if is '
+            'inviable increase to simply --limitem-quantitatem',
+            metavar='limitem_initiale_lineam',
+            type=int,
+            default=-1,
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--non-securum-limitem', '--ad-astra-per-aspera',
+            help='(For situational/temporary usage, as '
+            'in "one weekend" NOT six months) '
+            'Disable any secure hardware limits and make the program '
+            'try harder tolerate (even if means '
+            'ignore entire individual rows or columns) but still work with '
+            'what was left from the dataset. '
+            'This option assume is acceptable not try protect from exhaust '
+            'all memory or disk space when working with large datasets '
+            'and (even for smaller, but not well know from the '
+            'python or YAML ontologia) the current human user evaluated that '
+            'the data loss is either false positive or tolerable '
+            'until permanent fix.',
+            metavar='ad_astra',
+            action='store_const',
+            const=True,
+            default=None
+        )
 
         # # deprecated
         # parser.add_argument(
