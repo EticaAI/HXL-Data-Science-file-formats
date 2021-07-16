@@ -2348,24 +2348,42 @@ class HXLTMDatumCaput:  # pylint: disable=too-many-instance-attributes
 ...   ])
 >>> rem.quod_datum_rem_correctum_est()
 True
+
 >>> rem.quod_datum_rem_correctum_est([[4, 'Marcus amat canem.', '']])
 True
+
 >>> rem.quod_datum_rem_correctum_est([['Canem amat Marcus.', '']])
 False
+
 >>> rem.titulum_de_columnam(0)
 'id'
+
 >>> rem.titulum_de_columnam(1)
 'Nōmen'
+
 >>> rem.titulum_de_columnam(2)
 'Annotātiōnem'
+
 >>> rem.titulum_de_columnam(9999)
 False
+
 >>> rem.hxl_hashtag_de_columnam(0)
 '#item+id'
+
 >>> rem.hxl_hashtag_de_columnam(1)
 '#item+lat_nomen'
+
 >>> rem.hxl_hashtag_de_columnam(2) is None
 True
+
+>>> rem.indicem_de_hxl_hashtag('#item+lat_nomen')
+1
+
+>>> rem.indicem_de_hxl_hashtag('#item')
+0
+
+>>> rem.indicem_de_hxl_hashtag('')
+2
     """
 
     # crudum: InitVar[List] = []
@@ -2580,6 +2598,42 @@ True
         # https://en.wiktionary.org/wiki/columna#Latin
         print('TODO')
 
+    def indicem_de_hxl_hashtag(
+            self, hxl_hashtag: str, exactum: bool = False,
+            strictum=False) -> Union[int, None]:
+        """Indicem dē HXL Hashtag de datum
+
+        Trivia:
+            - indicem, https://en.wiktionary.org/wiki/index#Latin
+            - dē, https://en.wiktionary.org/wiki/de#Latin
+            - hxl hashtag, https://hxlstandard.org/
+            - exāctum, https://en.wiktionary.org/wiki/exactus#Latin
+            - strictum, https://en.wiktionary.org/wiki/strictus#Latin
+
+        Args:
+            hxl_hashtag (str): [description]
+            exactum (bool): Exāctum est? Defallo Falsum.
+            strictum (bool): Strictum est? Defallo Falsum.
+
+        Returns:
+            Union[int, None]: Resultatum
+        """
+        # exactum_indicem = self.crudum_hashtag.find(hxl_hashtag)
+        # if exactum_indicem > -1:
+        #     return exactum_indicem
+
+        if hxl_hashtag in self.crudum_hashtag:
+            return self.crudum_hashtag.index(hxl_hashtag)
+
+        if exactum and strictum:
+            raise ValueError
+
+        for rem in self.crudum_hashtag:
+            if rem.startswith(hxl_hashtag):
+                return self.crudum_hashtag.index(rem)
+
+        return None
+
     def titulum_de_columnam(self, numerum: int) -> Union[str, None]:
         """Nomen dē columnam numerum
 
@@ -2734,7 +2788,7 @@ class HXLTMDatumColumnam:
 
 @dataclass
 class HXLTMDatumLineam:
-    """HXLTM Datum columnam
+    """HXLTM Datum līneam
 
     Trivia:
         - HXLTM, https://hdp.etica.ai/hxltm
@@ -2768,20 +2822,21 @@ True
 'lineam': [None, None, None], 'vacuum': True}
 
 
->>> lineam_obj_b = HXLTMDatumLineam(datum_caput=caput, lineam=datum_solum)
+>>> lineam_obj_b = HXLTMDatumLineam(datum_caput=caput, lineam=datum_lineam_III)
 >>> lineam_obj_b.v()
-{'_typum': 'HXLTMDatumLineam', 'indicem': -1, 'lineam': \
-[[1, 'Marcus canem amat.', 'Vērum!'], \
-[2, 'Canem Marcus amat.', ''], \
-[3, 'Amat canem Marcus.', 'vērum? vērum!']], \
-'vacuum': False}
+{'_typum': 'HXLTMDatumLineam', 'indicem': -1, \
+'lineam': [3, 'Amat canem Marcus.', 'vērum? vērum!'], 'vacuum': False}
 
 >>> lineam_obj_b.valendum_de_index(lineam_indicem = 2)
-[3, 'Amat canem Marcus.', 'vērum? vērum!']
+'vērum? vērum!'
 
->>> datum_lineam_III_red = HXLTMDatumLineam.reducendum_de_datum(datum_solum, 2)
+>>> lineam_obj_b.valendum_de_hxl('#item+lat_nomen')
+'Amat canem Marcus.'
+
+>>> datum_lineam_III_red = HXLTMDatumLineam.reducendum_de_datum(
+...    datum_lineam_III, 2)
 >>> datum_lineam_III_red
-[3, 'Amat canem Marcus.', 'vērum? vērum!']
+'vērum? vērum!'
     """
 
     _typum: InitVar[str] = None
@@ -2867,7 +2922,47 @@ True
         return resultatum
 
     def valendum_de_index(self, lineam_indicem: int):
+        """Valendum dē indicem
+
+        Trivia:
+            - valendum	https://en.wiktionary.org/wiki/valeo#Latin
+            - dē, https://en.wiktionary.org/wiki/de#Latin
+            - indicem, https://en.wiktionary.org/wiki/index#Latin
+
+        Args:
+            hxl_hashtag (str): HXL Hashtag
+            lineam_indicem (int): Indicem numerum
+        """
         return self.lineam[lineam_indicem]
+
+    def valendum_de_hxl(
+        self, hxl_hashtag: str, exactum: bool = False, strictum=False
+    ):
+        """Valendum de HXL hashtag
+
+        Trivia:
+            - valendum	https://en.wiktionary.org/wiki/valeo#Latin
+            - indicem, https://en.wiktionary.org/wiki/index#Latin
+            - dē, https://en.wiktionary.org/wiki/de#Latin
+            - hxl hashtag, https://hxlstandard.org/
+            - exāctum, https://en.wiktionary.org/wiki/exactus#Latin
+            - strictum, https://en.wiktionary.org/wiki/strictus#Latin
+
+        Args:
+            hxl_hashtag (str): HXL Hashtag
+            exactum (bool): Exāctum est? Defallo Falsum
+            strictum (bool): Strictum est? Defallo Falsum.
+        """
+        indicem = self.datum_caput.indicem_de_hxl_hashtag(
+            hxl_hashtag, exactum=exactum, strictum=strictum)
+        if indicem:
+            # print(self.lineam)
+            return self.lineam[indicem]
+
+        if strictum:
+            raise ValueError
+
+        return None
 
 # @TODO HXLTMDatumRem
 # @dataclass
