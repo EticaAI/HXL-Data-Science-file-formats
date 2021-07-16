@@ -40,7 +40,7 @@
 #         NOTES:  ---
 #       AUTHORS:  Emerson Rocha <rocha[at]ieee.org>
 # COLLABORATORS:
-#                 <Additional non-anonymous names here>
+#                 <@TODO: put additional non-anonymous names here>
 #
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
@@ -94,6 +94,27 @@ Crash course from names in Latin to English
 - Vēnandum īnsectum
     - Debugging
 
+Some other very frequent generic terms:
+
+- ad:
+    - @see https://en.wiktionary.org/wiki/ad#Latin
+        - (direction) toward, to
+        - up to (indicating direction upwards)
+        - in consequence of
+        - for, to, toward (indicating purpose or aim)
+        - in order to, to, for (indicating means)
+        - (...)
+- de:
+    - @see https://en.wiktionary.org/wiki/de#Latin
+        - of, concerning, about
+        - from, away from, down from, out of
+- in:
+    - @see https://en.wiktionary.org/wiki/in#Latin
+        - toward, towards, against, at
+        - until, for
+        - about
+        - according to
+
 > Tips:
 > - HXL-CPLP-Vocab_Auxilium-Humanitarium-API spreadsheet have additional terms
 > - Google _wiktionary term-in-english_. Sometimes Google Translate will
@@ -123,33 +144,26 @@ Crash course from names in Latin to English
 >     rus-Cyrl, and etc...) even when in fact we, 'the people', will use
 >     more specific language/dialects, like por-Latn.
 
+Missing 'good' Latin terms to express meaning in English (for software)
+----------
+
+- value (as in variable value)
+    - @see https://en.wiktionary.org/wiki/value
+- array, list
+    - @see https://en.wiktionary.org/wiki/array
+    - Sometimes we use 'Python List' as in
+        - "Rem collēctiōnem, id est, Python List"
+- output (preferable some short word, not like prōductiōnem)
+    - @see https://en.wiktionary.org/wiki/output#English
+- input
+    - @see https://en.wiktionary.org/wiki/input
+
 [eng-Latn]_
-
-
 """
-# Tests
-# Exemplos: https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21
-#          /test-suite/core/valid/allExtensions.xlf
-# ./_systema/programma/hxltmcli.py --help
-# ./_systema/programma/hxltmcli.py _hxltm/schemam-un-htcds.tm.hxl.csv
-# ./_systema/programma/hxltmcli.py _hxltm/schemam-un-htcds-5items.tm.hxl.csv
-# ./_systema/programma/hxltmcli.py _hxltm/schemam-un-htcds.tm.hxl.csv \
-#    --fontem-linguam=eng-Latn
-# ./_systema/programma/hxltmcli.py _hxltm/schemam-un-htcds-5items.tm.hxl.csv \
-#    --fontem-linguam=eng-Latn --archivum-extensionem=.tmx
-# ./_systema/programma/hxltmcli.py _hxltm/schemam-un-htcds-5items.tm.hxl.csv \
-#    _hxltm/schemam-un-htcds-5items.tmx --fontem-linguam=eng-Latn \
-#    --archivum-extensionem=.tmx
-# python3 -m doctest ./_systema/programma/hxltmcli.py
-# python3 -m doctest bin/hxltmcli
-# python3 -m doctest hxlm/core/bin/hxltmcli.py
-
-# from re import S
 import sys
 import os
 import logging
 import argparse
-# import textwrap # used for make_args epilog
 from pathlib import Path
 from abc import ABC, abstractmethod
 
@@ -188,7 +202,6 @@ import langcodes
 # TODO: implement a JSON filter
 #       @see https://github.com/jg-rp/liquid-extra/blob/main/liquid_extra
 #            /filters/additional.py
-
 # template = LiquidTemplate("Hello, {{ you }}!")
 # print(template.render(you="World"))  # "Hello, World!"
 
@@ -245,11 +258,14 @@ _HOME = str(Path.home())
 HXLM_CONFIG_BASE = os.getenv(
     'HXLM_CONFIG_BASE', _HOME + '/.config/hxlm')
 # ~/.config/hxlm/cor.hxltm.yml
-# This can be customized with enviroment variable HXLM_CONFIG_BASE
 
+# _[eng-Latn]
+# This can be customized with enviroment variable HXLM_CONFIG_BASE
+#
 # Since hpd-toolchain is not a hard requeriment, we first try to load
 # hdp-toolchain lib, but if hxltmcli is a standalone script with
 # only libhxl, yaml, etc installed, we tolerate it
+# [eng-Latn]_
 try:
     from hxlm.core.constant import (
         HXLM_ROOT,
@@ -301,7 +317,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         self.original_outfile = None
         self.original_outfile_is_stdout = True
 
-    def _objectivum_typum_from_outfile(self, outfile):
+    def _objectivum_formatum_from_outfile(self, outfile):
         """Uses cor.hxltm.yml fontem_archivum_extensionem to detect output
         format without user need to explicitly inform the option.
 
@@ -342,43 +358,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         self.ontologia = HXLTMOntologia(self.conf)
 
-        # if args.fontem_linguam:
-        #     self.fontem_linguam = HXLTMLinguam(args.fontem_linguam)
-        #     if is_debug:
-        #         print('fontem_linguam', self.fontem_linguam.v())
-
-        # if args.objectivum_linguam:
-        #     self.objectivum_linguam = HXLTMLinguam(args.objectivum_linguam)
-        #     if is_debug:
-        #         print('objectivum_linguam', self.objectivum_linguam.v())
-
-        # if args.alternativum_linguam and len(args.alternativum_linguam) > 0:
-        #     unicum = set(args.alternativum_linguam)
-        #     for rem in unicum:
-        #         rem_obj = HXLTMLinguam(rem)
-        #         if is_debug:
-        #             print('alternativum_linguam', rem_obj.v())
-        #         self.alternativum_linguam.append(rem_obj)
-
-        # if args.agendum_linguam and len(args.agendum_linguam) > 0:
-        #     unicum = set(args.agendum_linguam)
-        #     for rem in unicum:
-        #         rem_obj = HXLTMLinguam(rem)
-        #         if is_debug:
-        #             print('agendum_linguam', rem_obj.v())
-        #         self.agendum_linguam.append(rem_obj)
-
-        # if is_debug:
-        #     print('fontem_linguam', self.fontem_linguam.v())
-        #     print('objectivum_linguam', self.objectivum_linguam.v())
-        #     print('alternativum_linguam')
-        #     if len(self.alternativum_linguam):
-        #         for rem in
-
-    def _initiale_hxltm_asa(self, archivum: str, argumentum: Dict) -> bool:
-        """Pre-populate metadata about source file
+    def _initiale_hxltm_asa(self, archivum: str) -> bool:
+        """
+        _[eng-Latn]
+        Pre-populate metadata about source file
 
         Requires already HXLated file saved on disk.
+        [eng-Latn]_
 
         Trivia:
         - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
@@ -402,7 +388,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         self.hxltm_asa = HXLTMASA(
             archivum,
             ontologia=self.ontologia,
-            argumentum=argumentum,
+            # argumentum=argumentum,
+            argumentum=self.argumentum,
             # verbosum=argumentum.hxltm_asa_verbosum
         )
 
@@ -412,19 +399,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            #     description=("""
-            # _[eng-Latn] hxltmcli is an working draft of a tool to
-            #             convert prototype of translation memory stored with
-            #             HXL to XLIFF v2.1
-            # [eng-Latn]_
-            # """)
             description=__DESCRIPTIONEM_BREVE__,
             epilog=__EPILOGUM__
         )
-
-        # TODO: implement example using index number (not language) as
-        #       for very simple cases (mostly for who is learning
-        #       or doing very few languages) know the number is easier
 
         parser.add_argument(
             '--fontem-linguam', '-FL',
@@ -452,22 +429,22 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             nargs='?'
         )
 
-        # --alternativum-linguam is a draft. Not 100% implemented
-        parser.add_argument(
-            '--alternativum-linguam',
-            help='(Deprecated, use --agendum-linguam) '
-            '(Planned, but not implemented yet) ' +
-            'Alternative source languages (up to 5) to be added ' +
-            'as metadata (like XLIFF <note>) for operations that ' +
-            'only accept one source language. ' +
-            'Requires: bilingual operation. ' +
-            'Accepts multiple values.',
-            metavar='alternativum_linguam',
-            action='append',
-            nargs='?'
-        )
+        # # @deprecated
+        # parser.add_argument(
+        #     '--alternativum-linguam',
+        #     help='(Deprecated, use --agendum-linguam) '
+        #     '(Planned, but not implemented yet) ' +
+        #     'Alternative source languages (up to 5) to be added ' +
+        #     'as metadata (like XLIFF <note>) for operations that ' +
+        #     'only accept one source language. ' +
+        #     'Requires: bilingual operation. ' +
+        #     'Accepts multiple values.',
+        #     metavar='alternativum_linguam',
+        #     action='append',
+        #     nargs='?'
+        # )
 
-        # --linguam is a draft. Not 100% implemented
+        # --agendum-linguam is a draft. Not 100% implemented
         parser.add_argument(
             '--agendum-linguam', '-AL',
             help='(Planned, but not implemented yet) ' +
@@ -480,15 +457,15 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             nargs='?'
         )
 
-        # --non-linguam is a draft. Not 100% implemented
+        # --non-agendum-linguam is a draft. Not 100% implemented
         parser.add_argument(
-            '--non-linguam', '-non-L',
+            '--non-agendum-linguam', '-non-AL',
             help='(Planned, but not implemented yet) ' +
-            'Inverse of --non-linguam. Document one or more languages that ' +
-            'should be ignored if they exist. ' +
+            'Inverse of --agendum-linguam. Document one or more ' +
+            'languages that should be ignored if they exist. ' +
             'Requires: multilingual operation.' +
             'Accept a single value.',
-            metavar='non_linguam',
+            metavar='non_agendum_linguam',
             action='append',
             nargs='?'
         )
@@ -496,8 +473,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         parser.add_argument(
             '--objectivum-HXLTM', '--HXLTM',
             help='Save output as HXLTM (default). Multilingual output format.',
-            # metavar='objectivum_typum',
-            dest='objectivum_typum',
+            # metavar='objectivum_formatum',
+            dest='objectivum_formatum',
             action='append_const',
             const='HXLTM'
         )
@@ -506,8 +483,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             '--objectivum-TMX', '--TMX',
             help='Export to Translation Memory eXchange (TMX) v1.4b. ' +
             ' Multilingual output format',
-            # metavar='objectivum_typum',
-            dest='objectivum_typum',
+            # metavar='objectivum_formatum',
+            dest='objectivum_formatum',
             action='append_const',
             const='TMX'
         )
@@ -517,8 +494,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             help='(Planned, but not implemented yet) ' +
             'Export to Term Base eXchange (TBX). ' +
             ' Multilingual output format',
-            # metavar='objectivum_typum',
-            dest='objectivum_typum',
+            # metavar='objectivum_formatum',
+            dest='objectivum_formatum',
             action='append_const',
             const='TBX-Basim'
         )
@@ -528,8 +505,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             help='(Planned, but not implemented yet) ' +
             'Export to Universal Terminology eXchange (UTX). ' +
             ' Multilingual output format',
-            # metavar='objectivum_typum',
-            dest='objectivum_typum',
+            # metavar='objectivum_formatum',
+            dest='objectivum_formatum',
             action='append_const',
             const='UTX'
         )
@@ -539,7 +516,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             help='Export to XLIFF (XML Localization Interchange File Format)' +
             ' v2.1. ' +
             '(mono or bi-lingual support only as per XLIFF specification)',
-            dest='objectivum_typum',
+            dest='objectivum_formatum',
             action='append_const',
             const='XLIFF'
         )
@@ -550,7 +527,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'Export to XLIFF (XML Localization Interchange ' +
             'File Format) v1.2, an obsolete format for lazy developers who ' +
             'don\'t implemented XLIFF 2 (released in 2014) yet.',
-            dest='objectivum_typum',
+            dest='objectivum_formatum',
             action='append_const',
             const='XLIFF1'
         )
@@ -560,7 +537,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             help='(Not implemented yet) ' +
             'Export to Bilingual CSV with BCP47 headers (source to target)' +
             ' plus comments on last column ',
-            dest='objectivum_typum',
+            dest='objectivum_formatum',
             action='append_const',
             const='CSV-3'
         )
@@ -569,7 +546,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             '--objectivum-CSV-HXL-XLIFF', '--CSV-HXL-XLIFF',
             help='(experimental) ' +
             'HXLated bilingual CSV (feature compatible with XLIFF)',
-            dest='objectivum_typum',
+            dest='objectivum_formatum',
             action='append_const',
             const='CSV-HXL-XLIFF'
         )
@@ -580,7 +557,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'Export to Bilingual JSON. Keys are ID (if available) or source '
             'natural language. Values are target language. '
             'No comments are exported. Monolingual/Bilingual',
-            dest='objectivum_typum',
+            dest='objectivum_formatum',
             action='append_const',
             const='JSON-kv'
         )
@@ -666,7 +643,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         )
 
         # Trivia: caput, https://en.wiktionary.org/wiki/caput#Latin
-        # --rudum-objectivum-caput is a draft. Not 100% implemented
+        # --crudum-objectivum-caput is a draft. Not 100% implemented
         parser.add_argument(
             '--crudum-objectivum-caput',
             help='(Advanced override for tabular output, like CSV). ' +
@@ -753,19 +730,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             default=False
         )
 
-        # parser.add_argument(
-        #     '--expertum-metadatum',
-        #     help='(Deprecated, use --expertum-HXLTM-ASA) ' +
-        #     '(Expert mode) Return metadata of the operation ' +
-        #     'in JSON format instead of generate the output. ' +
-        #     'Good for debugging.',
-        #     # dest='fontem_linguam',
-        #     metavar='expertum_metadatum_est',
-        #     action='store_const',
-        #     const=True,
-        #     default=False
-        # )
-
         parser.add_argument(
             '--expertum-HXLTM-ASA',
             help='(Expert mode) Save an Abstract Syntax Tree  ' +
@@ -838,10 +802,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         if args.outfile:
             self.original_outfile = args.outfile
             self.original_outfile_is_stdout = False
-            # self.objectivum_typum = self._objectivum_typum_from_outfile(
-            #     self.original_outfile)
             self.argumentum.est_objectivum_formatum(
-                self._objectivum_typum_from_outfile(
+                self._objectivum_formatum_from_outfile(
                     self.original_outfile))
 
         # print(self.argumentum.v())
@@ -866,7 +828,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             # This step will do raw analysis of the hxlated_input on a
             # temporary on the disk.
             # [eng-Latn]_
-            self._initiale_hxltm_asa(hxlated_input, args)
+            self._initiale_hxltm_asa(hxlated_input)
 
             if args.hxltm_asa:
                 self.in_asa(args.hxltm_asa)
@@ -943,8 +905,10 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     'manually select an output format, like --TMX'
                 )
             else:
+                print(self.argumentum.objectivum_formatum)
+                # obj_for = self.argumentum.objectivum_formatum
                 raise ValueError(
-                    'INCOGNITUM (objetive file output based on extension) ' +
+                    'INCOGNITUM2 (objetive file output based on extension) ' +
                     'failed do decide what you want. Check --help and ' +
                     'manually select an output format, like --TMX'
                 )
@@ -1147,11 +1111,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             args ([type]): python argparse
         """
 
-        # fon_ling = HXLTMUtil.linguam_2_hxlattrs(args.fontem_linguam)
-        # fon_bcp47 = HXLTMUtil.bcp47_from_linguam(args.fontem_linguam)
-        # obj_ling = HXLTMUtil.linguam_2_hxlattrs(args.objectivum_linguam)
-        # obj_bcp47 = HXLTMUtil.bcp47_from_linguam(args.objectivum_linguam)
-
         data_started = False
         fon_index = None
         obj_index = None
@@ -1202,6 +1161,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         @see https://cloud.google.com/translate/automl/docs/prepare
         @see http://xml.coverpages.org/tmxSpec971212.html
         """
+
+        # print('in_tmx')
 
         datum = []
 
@@ -1285,16 +1246,16 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         resultatum.append('</tmx>')
 
         if is_stdout:
-            for ln in resultatum:
-                print(ln)
+            for lineam in resultatum:
+                print(lineam)
         else:
             tmx_output_cleanup = open(tmx_output, 'w')
             tmx_output_cleanup.truncate()
             tmx_output_cleanup.close()
 
             with open(tmx_output, 'a') as new_txt:
-                for ln in resultatum:
-                    new_txt.write(ln + "\n")
+                for lineam in resultatum:
+                    new_txt.write(lineam + "\n")
                     # print (ln)
 
     def in_tmx_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
@@ -1304,6 +1265,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             archivum_objectivum (Union[str, None]):
                 Archīvum locum, id est, Python file path
         """
+
+        # print('in_tmx_de_hxltmasa')
 
         farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
 
@@ -1657,8 +1620,7 @@ class HXLTMASA:
 # TODO: fix this after refactoring HXLTMDatum
 >>> asa = HXLTMASA(datum, ontologia=ontologia)
 >>> asa
-HXLTMASA(fontem_linguam=None, objectivum_linguam=None, \
-alternativum_linguam=None)
+HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
     """
 
     # pylint: disable=too-many-instance-attributes
@@ -1671,7 +1633,7 @@ alternativum_linguam=None)
     # fontem_linguam, objectivum_linguam, alternativum_linguam, linguam
     fontem_linguam: Type['HXLTMLinguam'] = None
     objectivum_linguam: Type['HXLTMLinguam'] = None
-    alternativum_linguam: List[Type['HXLTMLinguam']] = None
+    # alternativum_linguam: List[Type['HXLTMLinguam']] = None
 
     # @see https://la.wikipedia.org/wiki/Lingua_agendi
     agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
@@ -1719,64 +1681,6 @@ alternativum_linguam=None)
         self.datum = HXLTMDatum(
             fontem_crudum_datum,
             argumentum=self.argumentum)
-
-        # self._initiale(argumentum)
-
-    # def _initiale(self, argumentum):
-    #     """HXLTMASA initiāle
-
-    #     Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
-
-    #     Args:
-    #         argumentum (Dict):
-    #             _[lat-Latn]
-    #             Python argumentum,
-    #             https://docs.python.org/3/library/argparse.html
-    #             [lat-Latn]_
-    #         venandum_insectum (bool, optional):
-    #         _[lat-Latn]
-    #             Vēnandum īnsectum est? Defallo falsum
-    #         [lat-Latn]_
-    #     """
-    #     # if args.expertum_metadatum_est:
-    #     #     self.expertum_metadatum_est = args.expertum_metadatum_est
-
-    #     # TODO: migrate all this to HXLTMASA._initiale
-
-    #     # _[eng-Latn] Process the comment line argumetns [eng-Latn]_
-    #     if argumentum:
-
-    #         if argumentum.fontem_linguam:
-    #             self.fontem_linguam = HXLTMLinguam(argumentum.fontem_linguam)  # noqa
-    #             # if is_debug:
-    #             #     print('fontem_linguam', self.fontem_linguam.v())
-
-    #         if argumentum.objectivum_linguam:
-    #             self.objectivum_linguam = HXLTMLinguam(
-    #                 argumentum.objectivum_linguam)
-    #             # if is_debug:
-    #             #     print('objectivum_linguam', self.objectivum_linguam.v())  # noqa
-
-    #         if argumentum.alternativum_linguam and \
-    #                 len(argumentum.alternativum_linguam) > 0:
-    #             unicum = set(argumentum.alternativum_linguam)
-    #             for rem in unicum:
-    #                 rem_obj = HXLTMLinguam(rem)
-    #                 # if is_debug:
-    #                 #     print('alternativum_linguam', rem_obj.v())
-    #                 self.alternativum_linguam.append(rem_obj)
-
-    #         if argumentum.agendum_linguam and \
-    #                 len(argumentum.agendum_linguam) > 0:
-    #             unicum = set(argumentum.agendum_linguam)
-    #             for rem in unicum:
-    #                 rem_obj = HXLTMLinguam(rem)
-    #                 # if is_debug:
-    #                 #     print('linguam', rem_obj.v())
-    #                 self.agendum_linguam.append(rem_obj)
-
-    # def _initiale_hxltm_crudum(self, hxltm_crudum):
-    #     pass
 
     def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -1858,12 +1762,15 @@ alternativum_linguam=None)
             asa['__ASA__INSTRUMENTUM__']['objectivum_linguam'] = \
                 self.objectivum_linguam.v(self._verbosum)
 
-        if self.alternativum_linguam and len(self.alternativum_linguam) > 0:
-            asa['__ASA__INSTRUMENTUM__']['alternativum_linguam'] = []
-            for rem_al in self.alternativum_linguam:
-                asa['__ASA__INSTRUMENTUM__']['alternativum_linguam'].append(
-                    rem_al.v(self._verbosum)
-                )
+        # print(self.argumentum)
+        asa['__ASA__INSTRUMENTUM__']['argumentum'] = self.argumentum.v()
+
+        # if self.alternativum_linguam and len(self.alternativum_linguam) > 0:
+        #     asa['__ASA__INSTRUMENTUM__']['alternativum_linguam'] = []
+        #     for rem_al in self.alternativum_linguam:
+        #         asa['__ASA__INSTRUMENTUM__']['alternativum_linguam'].append(
+        #             rem_al.v(self._verbosum)
+        #        )
 
         if self.agendum_linguam and len(self.agendum_linguam) > 0:
             asa['__ASA__INSTRUMENTUM__']['agendum_linguam'] = []
@@ -1988,6 +1895,13 @@ class HXLTMArgumentum:
             if hasattr(args_rem, 'objectivum_linguam'):
                 self.est_objectivum_linguam(args_rem.objectivum_linguam)
 
+            if hasattr(args_rem, 'objectivum_formatum'):
+                if isinstance(args_rem.objectivum_formatum, list):
+                    # TODO: deal with multiple outputs
+                    self.objectivum_formatum = args_rem.objectivum_formatum[0]
+                else:
+                    self.objectivum_formatum = args_rem.objectivum_formatum
+
             if hasattr(args_rem, 'columnam_numerum'):
                 self.columnam_numerum = args_rem.columnam_numerum
             if hasattr(args_rem, 'non_columnam_numerum'):
@@ -2005,10 +1919,6 @@ class HXLTMArgumentum:
             if hasattr(args_rem, 'ad_astra'):
                 self.est_ad_astra(args_rem.ad_astra)
 
-            if hasattr(args_rem, 'venandum_insectum'):
-                self.est_venandum_insectum(args_rem.venandum_insectum)
-
-            # TODO: deprecated, remove venandum_insectum
             if hasattr(args_rem, 'venandum_insectum'):
                 self.est_venandum_insectum(args_rem.venandum_insectum)
 
@@ -2172,12 +2082,12 @@ class HXLTMDatum:
           (whitout awareness of ontologia, for example).
     [eng-Latn]_
 
-        Args:
-            crudum_datum (Union[List[List], str]):
-            argumentum (HXLTMArgumentum):
-                _[lat-Latn]
-                HXLTMArgumentum
-                [lat-Latn]_
+    Args:
+        crudum_datum (Union[List[List], str]):
+        argumentum (HXLTMArgumentum):
+            _[lat-Latn]
+            HXLTMArgumentum
+            [lat-Latn]_
     """
 
     # crudum: InitVar[List] = []
@@ -2400,16 +2310,16 @@ class HXLTMDatumColumnam:
     """HXLTM Datum columnam summārius
 
     Trivia:
-    - HXLTM, https://hdp.etica.ai/hxltm
-    - Datum, https://en.wiktionary.org/wiki/datum#Latin
-    - Columnam, https://en.wiktionary.org/wiki/columna#Latin
-    - summārius, https://en.wiktionary.org/wiki/summary#English
-    - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-      - 'value' , https://en.wiktionary.org/wiki/value#English
-    - quantitātem , https://en.wiktionary.org/wiki/quantitas
+        - HXLTM, https://hdp.etica.ai/hxltm
+        - Datum, https://en.wiktionary.org/wiki/datum#Latin
+        - Columnam, https://en.wiktionary.org/wiki/columna#Latin
+         - summārius, https://en.wiktionary.org/wiki/summary#English
+        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+            - 'value' , https://en.wiktionary.org/wiki/value#English
+        - quantitātem , https://en.wiktionary.org/wiki/quantitas
     """
 
-    _typum: InitVar[str] = None   # Used only when output JSON
+    _typum: InitVar[str] = None
     datum_typum: InitVar['str'] = None
     datum_columnam: InitVar[List] = None
     quantitatem: InitVar[int] = 0
@@ -2456,10 +2366,7 @@ class HXLTMDatumColumnam:
                 if (rem_num >= limitem_initiale_lineam) and \
                         (rem_num <= limitem_quantitatem):
                     resultatum.append(datum[rem_num][columnam])
-                # else:
-                #     print('ignored' + str(rem_num))
-                # resultatum.append(datum[rem_num])
-        # pass # redūcendum_Columnam_de_datum
+
         return resultatum
 
     def v(self, _verbosum: bool = False):  # pylint: disable=invalid-name
@@ -2724,10 +2631,10 @@ True
         """Nōmen dē columnam numerum
 
         Trivia:
-          - linguam, https://en.wiktionary.org/wiki/lingua#Latin
-          - dē, https://en.wiktionary.org/wiki/de#Latin
-          - columnam, https://en.wiktionary.org/wiki/columna#Latin
-          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+            - linguam, https://en.wiktionary.org/wiki/lingua#Latin
+            - dē, https://en.wiktionary.org/wiki/de#Latin
+            - columnam, https://en.wiktionary.org/wiki/columna#Latin
+            - numerum, https://en.wiktionary.org/wiki/numerus#Latin
 
         Args:
             numerum (int): Numerum de columnam. Initiāle 0.
@@ -2742,10 +2649,10 @@ True
         """Nomen dē columnam numerum
 
         Trivia:
-          - nōmen, https://en.wiktionary.org/wiki/nomen#Latin
-          - dē, https://en.wiktionary.org/wiki/de#Latin
-          - columnam, https://en.wiktionary.org/wiki/columna#Latin
-          - numerum, https://en.wiktionary.org/wiki/numerus#Latin
+            - nōmen, https://en.wiktionary.org/wiki/nomen#Latin
+            - dē, https://en.wiktionary.org/wiki/de#Latin
+            - columnam, https://en.wiktionary.org/wiki/columna#Latin
+            - numerum, https://en.wiktionary.org/wiki/numerus#Latin
 
         Args:
             numerum (int): Numerum de columnam. Initiāle 0.
@@ -2968,6 +2875,50 @@ class HXLTMInFormatum(ABC):
             List: Python List, id est: rem collēctiōnem
         """
         return []
+
+    def de_lineam(self) -> Type['HXLTMRemIterandum']:
+        """Generandum līneam de datum
+
+        _[eng-Latn]
+        Used to generate a raw line, without deeper processing of meaning
+        like generandum_rem()
+        [eng-Latn]_
+
+        Trivia:
+        - 'generandum'
+            - https://en.wiktionary.org/wiki/genero#Latin
+            - https://en.wikipedia.org/wiki/Generator_(computer_programming)
+        - līneam, https://en.wiktionary.org/wiki/linea#Latin
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+
+        Returns:
+            HXLTMRemIterandum:
+        """
+
+        # Draft. Using rem_iterandum for now
+        return self.hxltm_asa.rem_iterandum()
+
+    def de_rem(self) -> Type['HXLTMRemIterandum']:
+        """Generandum līneam de rem
+
+        _[eng-Latn]
+        For concepts where a a thing actually is more than one line on
+        HXLTM tabular representation the de_rem() could be used
+        instead of de_lineam()
+        [eng-Latn]_
+
+        Trivia:
+        - 'generandum'
+            - https://en.wiktionary.org/wiki/genero#Latin
+            - https://en.wikipedia.org/wiki/Generator_(computer_programming)
+        - rem	https://en.wiktionary.org/wiki/res#Latin
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+
+        Returns:
+            HXLTMRemIterandum:
+        """
+
+        return self.hxltm_asa.rem_iterandum()
 
     def in_archivum(self, archivum_locum: str) -> None:
         """Resultātum in Archīvum
@@ -4697,16 +4648,6 @@ class HXLTMUtil:
     @staticmethod
     def tmx_item_relevan_options(item):
         return item
-        # item_neo = {}
-
-        # for k in item:
-        #     if k.startswith('#x_xliff'):
-        #         if item[k] == '∅':
-        #             item_neo[k] = None
-        #         else:
-        #             item_neo[k] = item[k]
-
-        # return item_neo
 
     @staticmethod
     def xliff_item_xliff_source_key(item):
