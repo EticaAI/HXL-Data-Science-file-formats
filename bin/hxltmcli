@@ -89,6 +89,8 @@ Crash course from names in Latin to English
       like TMX and TBX)
 - collēctiōnem:
     - collection, List, array (not sure if exist better naming in Latin, sorry)
+- obiectum
+    - Object (or Python Dict)
 - Caput
     - Header
 - Vēnandum īnsectum
@@ -2709,6 +2711,7 @@ class HXLTMDatumColumnam:
         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
             - 'value' , https://en.wiktionary.org/wiki/value#English
         - quantitātem , https://en.wiktionary.org/wiki/quantitas
+
     """
 
     _typum: InitVar[str] = None
@@ -2783,6 +2786,164 @@ class HXLTMDatumColumnam:
         }
 
         # return self.__dict__
+        return resultatum
+
+
+@dataclass
+class HXLTMDatumConceptumSaccum:
+    """HXLTM Conceptum Saccum
+
+    Trivia:
+        - HXLTM, https://hdp.etica.ai/hxltm
+        - Datum, https://en.wiktionary.org/wiki/datum#Latin
+        - datum saccum
+            - saccum, https://en.wiktionary.org/wiki/saccus#Latin
+            - "Data chunk", https://en.wikipedia.org/wiki/Chunk_(information)
+        - conceptum, https://en.wiktionary.org/wiki/conceptus#Latin
+        - grupum, https://en.wiktionary.org/wiki/grupus#Latin
+        - obiectum, https://en.wiktionary.org/wiki/obiectum#Latin
+        - redūcendum, https://en.wiktionary.org/wiki/reducendus#Latin
+
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> crudum_titulum = ['id', 'Nōmen', 'Annotātiōnem']
+>>> crudum_hashtag = [
+...    '#item+conceptum+codicem',
+...    '#item+rem+i_la+i_lat+is_Latn',
+...    '#meta+rem+annotationem+i_la+i_lat+is_Latn']
+>>> datum_solum = [
+...      ['', 'Salvi mundi!', ''],
+...      ['C2', 'Marcus canem amat.', 'Vērum!'],
+...      ['C2', 'Canem Marcus amat.', ''],
+...      ['C2', 'Amat canem Marcus.', 'vērum? vērum!'],
+...      ['C3', 'Vēnandum īnsectum.', ''],
+...   ]
+
+>>> crudum_grupum_conceptum = HXLTMDatumConceptumSaccum\
+    .reducendum_grupum_indicem_de_datum(
+...        datum_solum
+...     )
+>>> crudum_grupum_conceptum
+{'C2': [1, 2, 3], 'C3': [4]}
+
+>>> crudum_grupum_conceptum.keys()
+dict_keys(['C2', 'C3'])
+
+
+    """
+
+    _typum: InitVar[str] = None
+    datum_caput: InitVar[Type['HXLTMDatumCaput']] = None
+    ontologia: InitVar[Type['HXLTMOntologia']] = None
+    lineam_collectionem: InitVar[List[Type['HXLTMDatumLineam']]] = []
+    vacuum: InitVar[str] = False
+
+    def __init__(
+            self,
+            lineam_collectionem: List[Type['HXLTMDatumLineam']] = None,
+            ontologia: Type['HXLTMOntologia'] = None,
+            vacuum: InitVar[str] = False
+    ):
+        self._typum = 'HXLTMDatumConceptumSaccum'
+        self.vacuum = vacuum
+
+        if not self.vacuum:
+            if lineam_collectionem is None or len(lineam_collectionem) == 0:
+                raise ValueError('columnam_quantitatem vacuum est?')
+
+            if not isinstance(lineam_collectionem[0], HXLTMDatumLineam):
+                raise ValueError(
+                    'lineam_collectionem non HXLTMDatumLineam est?')
+
+        if ontologia is None:
+            self.ontologia = HXLTMOntologia(None, vacuum=True)
+        #     if vacuum:
+        #         self.lineam_collectionem = \
+        #             [None] * self.datum_caput.columnam_quantitatem
+        #     else:
+        #         raise ValueError('columnam_quantitatem vacuum est?')
+        # else:
+        #     self.lineam = lineam
+
+    @staticmethod
+    def reducendum_de_datum_saccum(
+            datum_caput: Type['HXLTMDatumCaput'],
+            datum_saccum: List) -> List[Type['HXLTMDatumLineam']]:
+        """Redūcendum līneam collēctiōnem de datum saccum
+
+        Args:
+            datum_caput (HXLTMDatumCaput):
+            datum_saccum (List): Datum saccum [rem x col]
+
+        _[eng-Latn]
+        Please use reducendum_grupum_indicem_de_datum to already filter
+        the logical lines that reflect a concept.
+        [eng-Latn]_
+
+        Returns:
+            List[HXLTMDatumLineam]:
+        """
+        resultatum = []
+        for item in datum_saccum:
+            resultatum.append(HXLTMDatumLineam(
+                datum_caput=datum_caput,
+                lineam=item))
+
+        return resultatum
+
+    # https://en.wikipedia.org/wiki/Chunk_(information)
+    @staticmethod
+    def reducendum_grupum_indicem_de_datum(
+            datum_saccum: List[List],
+            columnam_conceptum_indicem: List[int] = None) -> Dict:
+        """Redūcendum grupum de Conceptum (obiectum indicem)
+
+        _[eng-Latn]
+        The reducendum_grupum_indicem_de_datum can be used to break small
+        chunks of raw data values in logical blocks.
+
+        The columnam_conceptum_indicem (default = [0]) give a hint of
+        which columns could reflect what is (after concanetated) each
+        concept.
+        [eng-Latn]_
+
+        Args:
+            datum_saccum (List):
+                Datum [lineam x columnam] de Python List[List]
+            columnam_conceptum_indicem (List[int], optional):
+                columnam conceptum indicem collēctiōnem.
+                Defallo [0] (initiāle columnam).
+
+        Returns:
+            Dict: Exemplum: {'conceptum_I': [1, 2], 'conceptum_II', [3]}
+        """
+
+        resultatum = {}
+        if columnam_conceptum_indicem is None:
+            cci = [0]
+        else:
+            cci = columnam_conceptum_indicem
+
+        # in: lineam de datum
+        for indicem_lineam, lineam in enumerate(datum_saccum):
+            clavem = ''
+
+            # in: columnam de lineam
+            for indicem_conceptum in cci:
+                # print(indicem_conceptum)
+
+                # in: conceptum (columnam de lineam)
+                if lineam[indicem_conceptum]:
+                    # print(indicem_conceptum)
+                    # print(lineam[indicem_conceptum])
+                    clavem += str(lineam[indicem_conceptum])
+                # indicem_lineam_collectionem.append(indicem_lineam)
+
+            if clavem != '':
+                if clavem not in resultatum:
+                    resultatum[clavem] = []
+                resultatum[clavem].append(indicem_lineam)
+
         return resultatum
 
 
@@ -2963,10 +3124,6 @@ True
             raise ValueError
 
         return None
-
-# @TODO HXLTMDatumRem
-# @dataclass
-# class HXLTMDatumRem:
 
 
 class HXLTMRem:
@@ -3474,20 +3631,23 @@ class HXLTMOntologia:
 
     """
 
-    def __init__(self, ontologia):
+    def __init__(self, ontologia: Dict, vacuum: bool = False):
         """
         _[eng-Latn] Constructs all the necessary attributes for the
                     HXLTMOntologia object.
         [eng-Latn]_
         """
-        self.crudum = ontologia
-        self.initialle()
+        if vacuum:
+            self.crudum = {}
+        else:
+            self.crudum = ontologia
+        # self.initialle()
 
-    def initialle(self):
-        """
-        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
-        """
-        # print('TODO')
+    # def initialle(self):
+    #     """
+    #     Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+    #     """
+    #     # print('TODO')
 
     def hxl_de_aliud_nomen_breve(self, structum=False):
         """HXL attribūtum de aliud nōmen breve (cor.hxltm.yml)
