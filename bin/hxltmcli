@@ -2392,6 +2392,11 @@ True
     rem: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
     datum_rem_brevis: InitVar[List] = []  # Deprecated
+
+    # TODO; allow conceptum_indicem not be hardcoded.
+    # @see HXLTMDatumConceptumSaccum
+    conceptum_indicem: InitVar[List] = [0]
+    # conceptum_indicem = InitVar[List] = None
     columnam_quantitatem: InitVar[int] = 0
     columnam_quantitatem_hxl: InitVar[int] = 0
     columnam_quantitatem_hxl_unicum: InitVar[int] = 0
@@ -2818,6 +2823,11 @@ class HXLTMDatumConceptumSaccum:
 ...      ['C2', 'Amat canem Marcus.', 'vērum? vērum!'],
 ...      ['C3', 'Vēnandum īnsectum.', ''],
 ...   ]
+>>> caput = HXLTMDatumCaput(
+...            crudum_titulum=crudum_titulum,
+...            crudum_hashtag=crudum_hashtag
+...        )
+
 
 >>> crudum_grupum_conceptum = HXLTMDatumConceptumSaccum\
     .reducendum_grupum_indicem_de_datum(
@@ -2829,10 +2839,30 @@ class HXLTMDatumConceptumSaccum:
 >>> crudum_grupum_conceptum.keys()
 dict_keys(['C2', 'C3'])
 
+        _[eng-Latn]
+        Do not use this Conceptum_C2 way of slice. This is just to direct test
+        [eng-Latn]_
+
+>>> Conceptum_C2_datum = [datum_solum[1]] + [datum_solum[2]] + [datum_solum[3]]
+>>> Conceptum_C2_datum
+[['C2', 'Marcus canem amat.', 'Vērum!'], \
+['C2', 'Canem Marcus amat.', ''], \
+['C2', 'Amat canem Marcus.', 'vērum? vērum!']]
+
+>>> Conceptum_C2_lineam = HXLTMDatumConceptumSaccum\
+        .reducendum_de_datum_saccum(caput, Conceptum_C2_datum)
+>>> Conceptum_C2_lineam
+[HXLTMDatumLineam(), HXLTMDatumLineam(), HXLTMDatumLineam()]
+
+>>> Conceptum_C2 = HXLTMDatumConceptumSaccum(Conceptum_C2_lineam)
+>>> Conceptum_C2.v(verbosum=False)
+{'_typum': 'HXLTMDatumConceptumSaccum', 'conceptum_nomen': '', \
+'lineam_collectionem': [], 'vacuum': False}
 
     """
 
     _typum: InitVar[str] = None
+    conceptum_nomen: InitVar[str] = ''
     datum_caput: InitVar[Type['HXLTMDatumCaput']] = None
     ontologia: InitVar[Type['HXLTMOntologia']] = None
     lineam_collectionem: InitVar[List[Type['HXLTMDatumLineam']]] = []
@@ -2855,6 +2885,8 @@ dict_keys(['C2', 'C3'])
                 raise ValueError(
                     'lineam_collectionem non HXLTMDatumLineam est?')
 
+            self.lineam_collectionem = lineam_collectionem
+
         if ontologia is None:
             self.ontologia = HXLTMOntologia(None, vacuum=True)
         #     if vacuum:
@@ -2868,7 +2900,7 @@ dict_keys(['C2', 'C3'])
     @staticmethod
     def reducendum_de_datum_saccum(
             datum_caput: Type['HXLTMDatumCaput'],
-            datum_saccum: List) -> List[Type['HXLTMDatumLineam']]:
+            datum_saccum: List[List]) -> List[Type['HXLTMDatumLineam']]:
         """Redūcendum līneam collēctiōnem de datum saccum
 
         Args:
@@ -2929,20 +2961,52 @@ dict_keys(['C2', 'C3'])
             clavem = ''
 
             # in: columnam de lineam
-            for indicem_conceptum in cci:
-                # print(indicem_conceptum)
+            for conceptum_indicem in cci:
+                # print(conceptum_indicem)
 
                 # in: conceptum (columnam de lineam)
-                if lineam[indicem_conceptum]:
-                    # print(indicem_conceptum)
-                    # print(lineam[indicem_conceptum])
-                    clavem += str(lineam[indicem_conceptum])
+                if lineam[conceptum_indicem]:
+                    # print(conceptum_indicem)
+                    # print(lineam[conceptum_indicem])
+                    clavem += str(lineam[conceptum_indicem])
                 # indicem_lineam_collectionem.append(indicem_lineam)
 
             if clavem != '':
                 if clavem not in resultatum:
                     resultatum[clavem] = []
                 resultatum[clavem].append(indicem_lineam)
+
+        return resultatum
+
+    def v(self, verbosum: bool = False):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            _verbosum (bool): Verbosum est? Defallo falsum.
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        # if verbosum is not False:
+        #     verbosum = verbosum or self.argumentum.venandum_insectum
+
+        resultatum = {
+            '_typum': self._typum,
+            'conceptum_nomen': self.conceptum_nomen,
+            'lineam_collectionem': [],
+            'vacuum': self.vacuum,
+        }
+
+        if verbosum:
+            if self.lineam_collectionem and len(self.lineam_collectionem) > 0:
+                resultatum['lineam_collectionem'] = \
+                    [item.v(verbosum) if item else None
+                        for item in self.lineam_collectionem]
 
         return resultatum
 
