@@ -1679,7 +1679,10 @@ HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
         """
 
         # self.hxltm_crudum = hxltm_crudum
-        self.ontologia = ontologia
+        if ontologia:
+            self.ontologia = ontologia
+        else:
+            self.ontologia = HXLTMOntologia({}, vacuum=True)
 
         if argumentum is not None:
             self.argumentum = argumentum
@@ -1689,6 +1692,30 @@ HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
         self.datum = HXLTMDatum(
             fontem_crudum_datum,
             argumentum=self.argumentum)
+
+    def quod_globum_valendum(self) -> Dict:
+        """Quod globum valendum?
+
+        _[eng-Latn]
+        Return global variables (for Ontologia)
+        [eng-Latn]_
+
+        Trivia:
+        - globum, https://en.wiktionary.org/wiki/globus#Latin
+        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+
+        Returns:
+            Dict: globum valendum
+        """
+        # TODO: HXLTMASA.quod_globum_valendum is a draft.
+        resultatum = {}
+        globum_ontologia = self.ontologia.quod_globum_valendum()
+        globum_argumentum = self.argumentum.v()
+        resultatum = {**globum_argumentum, **globum_ontologia}
+
+        # print(globum_ontologia)
+
+        return {'globum': resultatum}
 
     def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -3464,16 +3491,29 @@ class HXLTMInFormatum(ABC):
         return self.hxltm_asa.rem_iterandum()
 
     def de_liquid(self,
-                  liquid_formatum=str, liquid_contextum: Dict = None) -> str:
-        """[summary]
+                  liquid_formatum: str, liquid_contextum: Dict = None) -> str:
+        """De liquid
+
+        _[eng-Latn]
+        Generate text output based on liquid templates. Global variables from
+        HXLTMASA (used from Ontologia plus arguments) are availible, but
+        the ideal usage is provide a dictionary with extra variables
+        (like the ones provide each row interation) so the template can
+        allow use them per concept bag.
+        [eng-Latn]_
+
+        Trivia:
+            - Shopify liquid, https://shopify.github.io/liquid/
+            - python-liquid, https://github.com/jg-rp/liquid
 
         Args:
-            liquid_formatum ([type], optional): [description]. Defaults to str.
-            liquid_contextum (Dict, optional): [description]. Defaults to None.
+            liquid_formatum (str):
+                Liquid template est
+            liquid_contextum (Dict, optional):
+                Contextum notitia
 
         Returns:
             str: [description]
-
 
 >>> datum = HXLTMTestumAuxilium.datum('hxltm-exemplum-linguam.tm.hxl.csv')
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
@@ -3485,13 +3525,15 @@ Salvi, {{ i }}! \
 ")
 'Salvi, 1! Salvi, 2! Salvi, 3! '
 
+>>> tmx.de_liquid('Salvi, {{ testum | plus: 50 }}!', {"testum": 100} )
+'Salvi, 150!'
         """
-        # resultatum = ''
         # @see https://github.com/jg-rp/liquid#quick-start
-        env = LiquidEnvironment(globals=liquid_contextum)
+        env = LiquidEnvironment(globals=self.quod_globum_valendum())
         liquid_template = env.from_string(liquid_formatum)
+        contextum = liquid_contextum if liquid_contextum else {}
 
-        return liquid_template.render()
+        return liquid_template.render(contextum)
 
     def de_rem(self) -> Type['HXLTMRemIterandum']:
         """Generandum līneam de rem
@@ -3604,6 +3646,22 @@ Salvi, {{ i }}! \
             for rem in finale:
                 print(rem)
 
+    def quod_globum_valendum(self) -> Dict:
+        """Quod globum valendum?
+
+        _[eng-Latn]
+        Return global variables (the ones that do no varies with each row)
+        [eng-Latn]_
+
+        Trivia:
+        - globum, https://en.wiktionary.org/wiki/globus#Latin
+        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+
+        Returns:
+            Dict: globum valendum
+        """
+        return self.hxltm_asa.quod_globum_valendum()
+
     # def rem(self) -> Type['HXLTMRemIterandum']:
 
     #     # @see https://gist.github.com/drmalex07/6e040310ab9ac12b4dfd
@@ -3684,9 +3742,40 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
             List: Python List, id est: rem collēctiōnem
         """
         resultatum = []
-        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
-        resultatum.append('<!-- ' + __class__.__name__ + ' -->')
-        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        # resultatum.append('<!-- ' + __class__.__name__ + ' -->')
+        # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+
+        liquid_template = """
+        <tu tuid="L10N_ego_summarius">
+          <prop type="wikidata">Q1</prop>
+          <tuv xml:lang="es">
+            <seg>Idioma español (Alfabeto latino)</seg>
+          </tuv>
+          <tuv xml:lang="pt">
+            <seg>Língua portuguesa (alfabeto latino)</seg>
+          </tuv>
+          {{ testum }}
+          {{ '#_1' }}
+          {{ rem }}
+          {{ rem['#_1'] }}
+          {{ rem['#_2'] | default: rem['#_1'] }}
+        </tu>
+        """
+        # {% comment %}{{ globum }}{% endcomment %}
+        liquid_context = {
+            "testum": {
+                "deep": {
+                    "deeper": 1
+                },
+                "#_1": "test"
+            },
+            "#_1": 123
+        }
+
+        resultatum.append(
+            self.de_liquid(liquid_template, {'rem': liquid_context})
+        )
 
         # for numerum, rem in self.rem():
         # for rem, rem2 in self.rem():
@@ -3909,6 +3998,25 @@ class HXLTMOntologia:
             lambda d, key: d.get(
                 key) if d else default, keys, fontem
         )
+
+    def quod_globum_valendum(self) -> Dict:
+        """Quod globum valendum?
+
+        _[eng-Latn]
+        Return global variables (for Ontologia)
+        [eng-Latn]_
+
+        Trivia:
+        - globum, https://en.wiktionary.org/wiki/globus#Latin
+        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+
+        Returns:
+            Dict: globum valendum
+        """
+        # TODO: HXLTMOntologia.quod_globum_valendum is a draft.
+        # resultatum = {}
+        # return resultatum
+        return self.crudum
 
     def quod_nomen_breve_de_hxl(self, hxl_hashtag: str) -> str:
         # TODO: make this actually read the cor.hxltm.yml. This hardcoded

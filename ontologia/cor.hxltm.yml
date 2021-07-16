@@ -357,6 +357,21 @@ formatum:
 
 # end::formatum[]
 
+# tag::formatum_excerptum[]
+formatum_excerptum:
+  # Trivia:
+  # - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+  # - excerptum, https://en.wiktionary.org/wiki/excerptus#Latin
+  # - "liquid template"
+  #   - https://shopify.github.io/liquid/
+  #   - https://github.com/jg-rp/liquid#quick-start
+
+  exemplum: |
+    {{ #_1 }},{{ #_2 }}
+
+
+# end::formatum_excerptum[]
+
 # tag::ontologia[]
 # Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
 ontologia:
