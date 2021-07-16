@@ -2497,6 +2497,11 @@ True
     def hxl_hashtag_de_columnam(self, numerum: int) -> Union[str, None]:
         """HXL hashtag dē columnam numerum
 
+        _[eng-Latn]
+        Returns the hashtag for each column index.
+        '' (empty string) if no hashtag exist for that column.
+        [eng-Latn]_
+
         Trivia:
           - HXL, https://hxlstandard.org/
           - hashtag, https://en.wiktionary.org/wiki/hashtag
@@ -2815,7 +2820,7 @@ class HXLTMDatumConceptumSaccum:
 >>> crudum_hashtag = [
 ...    '#item+conceptum+codicem',
 ...    '#item+rem+i_la+i_lat+is_Latn',
-...    '#meta+rem+annotationem+i_la+i_lat+is_Latn']
+...    '#meta+rem+annotationem+i_la+i_lat+is_latn']
 >>> datum_solum = [
 ...      ['', 'Salvi mundi!', ''],
 ...      ['C2', 'Marcus canem amat.', 'Vērum!'],
@@ -2856,13 +2861,20 @@ dict_keys(['C2', 'C3'])
 
 >>> Conceptum_C2 = HXLTMDatumConceptumSaccum(Conceptum_C2_lineam)
 >>> Conceptum_C2.v(verbosum=False)
-{'_typum': 'HXLTMDatumConceptumSaccum', 'conceptum_nomen': '', \
+{'_typum': 'HXLTMDatumConceptumSaccum', 'conceptum_nomen': 'C2', \
+'rem': {'#_0': 'C2', '#item+conceptum+codicem': 'C2', \
+'#_1': 'Marcus canem amat.', '#item+rem+i_la+i_lat+is_Latn': \
+'Marcus canem amat.', 'rem': [{'rem': 'Marcus canem amat.', \
+'_typum': 'HXLTMRemCaput', 'crudum': 'lat-latn@la', \
+'linguam': 'lat-Latn', 'bcp47': 'la', 'iso6391a2': 'la', \
+'iso6393': 'lat', 'iso115924': 'Latn'}], '#_2': 'Vērum!', \
+'#meta+rem+annotationem+i_la+i_lat+is_latn': 'Vērum!'}, \
 'lineam_collectionem': [], 'vacuum': False}
 
     """
 
     _typum: InitVar[str] = None
-    conceptum_nomen: InitVar[str] = ''
+    # conceptum_nomen: InitVar[str] = ''
     datum_caput: InitVar[Type['HXLTMDatumCaput']] = None
     ontologia: InitVar[Type['HXLTMOntologia']] = None
     lineam_collectionem: InitVar[List[Type['HXLTMDatumLineam']]] = []
@@ -2886,6 +2898,8 @@ dict_keys(['C2', 'C3'])
                     'lineam_collectionem non HXLTMDatumLineam est?')
 
             self.lineam_collectionem = lineam_collectionem
+
+            self.datum_caput = lineam_collectionem[0].datum_caput
 
         if ontologia is None:
             self.ontologia = HXLTMOntologia(None, vacuum=True)
@@ -2978,6 +2992,66 @@ dict_keys(['C2', 'C3'])
 
         return resultatum
 
+    def quod_clavem_et_valendum(self) -> Dict:
+        """Quod clāvem et valendum
+
+        _[eng-Latn]
+        Return a simple flat (one level) Python dictionary with variables that
+        could be used to be processed by liquid template
+
+        TODO: this version is only using the first line and ignoring concepts
+              that do have more than one line (like old versions).
+              The behavior of just consider the first line actually is likely
+              to be the default one when no advanced schema is detected
+              (like without Ontologa that matches the data).
+        [eng-Latn]_
+
+        Returns:
+            [Dict]: [description]
+        """
+        resultatum = {}
+
+        for col in range(self.datum_caput.columnam_quantitatem):
+            nomen_breve = ''
+            nunc_valendum = self.lineam_collectionem[0].valendum_de_index(col)
+
+            # '#_0', '#_2', '#_3', '#_4', ...
+            resultatum['#_' + str(col)] = nunc_valendum
+
+            hxl_hashtag = self.datum_caput.hxl_hashtag_de_columnam(col)
+
+            if hxl_hashtag:
+                resultatum[hxl_hashtag] = nunc_valendum
+                nomen_breve = \
+                    self.ontologia.quod_nomen_breve_de_hxl(hxl_hashtag)
+
+            if nomen_breve:
+                # TODO: make this non-hardcoded ASAP (via HXLTMOntologia)
+                if nomen_breve == 'rem__L__':
+                    resultatum['rem'] = []
+                    nunc_valendum_rem = HXLTMRem(
+                        hashtag=hxl_hashtag,
+                        rem=nunc_valendum
+                    ).v()
+                    # print(nunc_valendum_rem)
+                    # resultatum[nomen_breve].append(nunc_valendum)
+                    resultatum['rem'].append(nunc_valendum_rem)
+
+            # print(col)
+
+        return resultatum
+
+    def quod_nomen(self) -> str:
+        conceptum_index = [0]  # TODO: make it not hardcoded
+        conceptum_nomen = ''
+
+        if self.lineam_collectionem and len(self.lineam_collectionem) > 0:
+            for vindex in conceptum_index:
+                conceptum_nomen += str(
+                    self.lineam_collectionem[0].valendum_de_index(vindex))
+
+        return conceptum_nomen
+
     def v(self, verbosum: bool = False):  # pylint: disable=invalid-name
         """Ego python Dict
 
@@ -2997,7 +3071,8 @@ dict_keys(['C2', 'C3'])
 
         resultatum = {
             '_typum': self._typum,
-            'conceptum_nomen': self.conceptum_nomen,
+            'conceptum_nomen': self.quod_nomen(),
+            'rem': self.quod_clavem_et_valendum(),
             'lineam_collectionem': [],
             'vacuum': self.vacuum,
         }
@@ -3190,19 +3265,18 @@ True
         return None
 
 
-class HXLTMRem:
+# class HXLTMRem:
 
-    def __init__(self, hxltm_datum: Type['HXLTMDatum'], rem_numerum: int):
-        self.hxltm_datum = hxltm_datum
+#     def __init__(self, hxltm_datum: Type['HXLTMDatum'], rem_numerum: int):
+#         self.hxltm_datum = hxltm_datum
 
-        # TODO: implement HXLTMRem by, via the item FIRST row number of a
-        #       grouped rem and point to hxltm_datum, generate a Row
-        #       with only HXLTMRemCaput (future HXLTMDatumCaput) plus
-        #       the data of grouped rem
+#         # TODO: implement HXLTMRem by, via the item FIRST row number of a
+#         #       grouped rem and point to hxltm_datum, generate a Row
+#         #       with only HXLTMRemCaput (future HXLTMDatumCaput) plus
+#         #       the data of grouped rem
 
-        self.rem_hoc = 0
-        self.rem_quantitatem = hxltm_datum.rem_quantitatem()
-
+#         self.rem_hoc = 0
+#         self.rem_quantitatem = hxltm_datum.rem_quantitatem()
 
 class HXLTMRemIterandum:
     """HXLTM
@@ -3804,6 +3878,28 @@ class HXLTMOntologia:
                 key) if d else default, keys, fontem
         )
 
+    def quod_nomen_breve_de_hxl(self, hxl_hashtag: str) -> str:
+        # TODO: make this actually read the cor.hxltm.yml. This hardcoded
+        #       part is just a quick fix
+
+        # TODO: some types on cor.hxltm.yml are actually not string, but
+        #       lists. This means when asked, we should allow give
+        #       hints to let these values be converted
+        nomen_breve = ''
+        if hxl_hashtag == '#item+conceptum+codicem':
+            nomen_breve = 'conceptum_codicem'
+        elif hxl_hashtag == '#item+conceptum+dominium':
+            nomen_breve = 'conceptum_dominium'
+        elif hxl_hashtag == '#item+conceptum+typum':
+            nomen_breve = 'conceptum_typum'
+        elif hxl_hashtag.startswith('#item+rem+i_'):
+            nomen_breve = 'rem__L__'
+
+        return nomen_breve
+
+    def quod_nomen_breve_de_id(self, hxl_hashtag: str) -> str:
+        return ''
+
 
 class HXLTMBCP47:
     """HXLTM BCP47 auxilium programmi
@@ -4218,6 +4314,65 @@ HXLTMLinguam()
             [Dict]: Python objectīvum
         """
         return self.__dict__
+
+
+class HXLTMRem(HXLTMLinguam):
+
+    # columnam: InitVar[int] = -1
+    # valendum_meta: InitVar[Dict] = None
+    # datum_typum: InitVar['str'] = None
+    hashtag: InitVar[str] = None
+    titulum: InitVar[str] = None
+    rem: InitVar[str] = None
+    annotationem: InitVar[str] = None
+    partem_orationis: InitVar[str] = None
+    genus_grammaticum: InitVar[str] = None
+
+    # @see https://github.com/PyCQA/pylint/issues/3505
+    # pylint: disable=super-init-not-called
+    # pylint: disable=non-parent-init-called
+    # pylint: disable=too-many-arguments
+    def __init__(
+        self,
+        # columnam: int = -1,
+        # columnam_meta: Dict = None,  # HXLTMDatumColumnam.v()
+        hashtag: str,
+        rem: str = '',
+        # titulum: str = '',
+        strictum=False
+    ):
+        """HXLTMRemCaput initiāle
+
+        Args:
+            columnam (int): Numerum columnam
+            columnam_meta (HXLTMDatumColumnam): HXLTMDatumColumnam
+            hashtag (str): Textum hashtag. Defallo: ''
+            titulum (str): Textum titulum. Defallo: ''
+            strictum (bool, optional): Strictum est?.
+                       Trivia: https://en.wiktionary.org/wiki/strictus#Latin
+                       Defallo falsum.
+        """
+
+        self.rem = rem
+
+        linguam = HXLTMUtil.linguam_de_hxlhashtag(hashtag) if hashtag else ''
+        # _[eng-Latn]
+        # While on HXLTMLinguam the user must explicitly force vacuum=False
+        # to not tolerate malformated requests, the HXLTMRemCaput
+        # have to deal with pretty much anything as header. So we assume
+        # empty HXL hashtag means HXLTMLinguam vacuum=True
+        # [eng-Latn]_
+        vacuum = bool(linguam is None or len(linguam) == 0)
+
+        HXLTMLinguam.__init__(self, linguam, strictum, vacuum)
+
+        self._typum = 'HXLTMRemCaput'  # Used only when output JSON
+
+        # self.columnam = columnam
+        # self.hashtag = hashtag
+        # self.titulum = titulum
+        # if columnam_meta is not None:
+        #     self.valendum_meta = columnam_meta.v(False)
 
 
 class HXLTMRemCaput(HXLTMLinguam):

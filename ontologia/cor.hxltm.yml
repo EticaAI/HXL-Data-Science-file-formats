@@ -544,7 +544,7 @@ ontologia:
       __linguam_de_imperium__:
          # Exemplum: '#item +rem +i_en +i_eng +is_Latn +TODO_THINK_ABOUT_HXLTAG'
         __HXL: '#item +rem __linguam_de_imperium__'
-        __nomen_breve: 'rem__L__'
+        __nomen_breve: 'rem__L_I__'
         __id: ontologia.commune.rem.__linguam_de_imperium__
         _TBX: *referens_ontologia-commune-rem-__linguam__-_TBX
         _UTX: *referens_ontologia-commune-rem-__linguam__-_UTX
