@@ -206,6 +206,7 @@ import langcodes
 # @see https://github.com/jg-rp/liquid
 # pip3 install -U python-liquid
 # from liquid import Template as LiquidTemplate
+from liquid import Environment as LiquidEnvironment
 # TODO: implement a JSON filter
 #       @see https://github.com/jg-rp/liquid-extra/blob/main/liquid_extra
 #            /filters/additional.py
@@ -3344,6 +3345,7 @@ class HXLTMInFormatum(ABC):
     Intrōductōrium cursum de Latīnam linguam (breve glōssārium):
         - archīvum, https://en.wiktionary.org/wiki/archivum
         - datum, https://en.wiktionary.org/wiki/datum#Latin
+        - contextum, https://en.wiktionary.org/wiki/contextus#Latin
         - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
         - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
             - id est: Python List
@@ -3460,6 +3462,36 @@ class HXLTMInFormatum(ABC):
 
         # Draft. Using rem_iterandum for now
         return self.hxltm_asa.rem_iterandum()
+
+    def de_liquid(self,
+                  liquid_formatum=str, liquid_contextum: Dict = None) -> str:
+        """[summary]
+
+        Args:
+            liquid_formatum ([type], optional): [description]. Defaults to str.
+            liquid_contextum (Dict, optional): [description]. Defaults to None.
+
+        Returns:
+            str: [description]
+
+
+>>> datum = HXLTMTestumAuxilium.datum('hxltm-exemplum-linguam.tm.hxl.csv')
+>>> ontologia = HXLTMTestumAuxilium.ontologia()
+>>> tmx = HXLTMInFormatumTMX(HXLTMASA(datum))
+>>> tmx.de_liquid("\
+{%- for i in (1..3) -%}\
+Salvi, {{ i }}! \
+{% endfor -%}\
+")
+'Salvi, 1! Salvi, 2! Salvi, 3! '
+
+        """
+        # resultatum = ''
+        # @see https://github.com/jg-rp/liquid#quick-start
+        env = LiquidEnvironment(globals=liquid_contextum)
+        liquid_template = env.from_string(liquid_formatum)
+
+        return liquid_template.render()
 
     def de_rem(self) -> Type['HXLTMRemIterandum']:
         """Generandum līneam de rem
