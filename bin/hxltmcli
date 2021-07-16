@@ -2060,7 +2060,27 @@ class HXLTMArgumentum:
         Returns:
             [Dict]: Python objectīvum
         """
-        return self.__dict__
+        # TODO: add a commom helper of this for all other .v()
+        # TODO: make it at least one level more deep (or recursive)
+
+        resultatum = {}
+        for clavem in self.__dict__:
+            resultatum[clavem] = {}
+            if isinstance(self.__dict__[clavem], list):
+                resultatum[clavem] = []
+                if len(self.__dict__[clavem]) > 0:
+                    for rem in self.__dict__[clavem]:
+                        if hasattr(rem, 'v'):
+                            resultatum[clavem].append(rem.v())
+                        else:
+                            resultatum[clavem].append(rem)
+            elif hasattr(self.__dict__[clavem], 'v'):
+                resultatum[clavem] = self.__dict__[clavem].v()
+            else:
+                resultatum[clavem] = self.__dict__[clavem]
+
+        # return self.__dict__
+        return resultatum
 
 
 @dataclass
@@ -2093,10 +2113,6 @@ class HXLTMDatum:
     # crudum: InitVar[List] = []
     crudum_caput: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
-    # columnam_numerum: InitVar[List] = []
-    # non_columnam_numerum: InitVar[List] = []
-    # limitem_quantitatem: InitVar[int] = 1048576
-    # limitem_initiale_lineam: InitVar[int] = -1
     meta: InitVar[Type['HXLTMDatumCaput']] = None
     # datum_rem: InitVar[List] = []
     columnam: InitVar[List] = []
@@ -2302,94 +2318,6 @@ class HXLTMDatum:
         if clavem is not None:
             return resultatum['clavem']
 
-        return resultatum
-
-
-@dataclass
-class HXLTMDatumColumnam:
-    """HXLTM Datum columnam summārius
-
-    Trivia:
-        - HXLTM, https://hdp.etica.ai/hxltm
-        - Datum, https://en.wiktionary.org/wiki/datum#Latin
-        - Columnam, https://en.wiktionary.org/wiki/columna#Latin
-         - summārius, https://en.wiktionary.org/wiki/summary#English
-        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-            - 'value' , https://en.wiktionary.org/wiki/value#English
-        - quantitātem , https://en.wiktionary.org/wiki/quantitas
-    """
-
-    _typum: InitVar[str] = None
-    datum_typum: InitVar['str'] = None
-    datum_columnam: InitVar[List] = None
-    quantitatem: InitVar[int] = 0
-
-    def __init__(self, datum_columnam: List = None):
-        """HXLTMRemCaput initiāle
-
-        Args:
-            datum_columnam (int): Datum de columnam
-        """
-
-        self._typum = 'HXLTMDatumColumnam'
-
-        if datum_columnam is not None:
-            self.quantitatem = len(datum_columnam)
-        else:
-            self.datum_columnam = []
-        self.datum_typum = HXLTMTypum.collectionem_datum_typum(datum_columnam)
-
-    @staticmethod
-    def reducendum_de_datum(
-            datum: List,
-            columnam: int,
-            limitem_quantitatem: int = 1048576,
-            limitem_initiale_lineam: int = -1) -> List:
-        """Redūcendum Columnam de datum
-
-        Args:
-            datum (List): Datum [rem x col]
-            columnam (int): Numerum columnam in datum
-
-        Returns:
-            List: Unum columnam
-        """
-        resultatum = []
-        if datum is not None and len(datum) > 0:
-            for rem_num, _ in enumerate(datum):  # numero de linhas
-                # for col_num in enumerate(datum[0]): # Número de colunas
-
-                if limitem_initiale_lineam != -1:
-                    limitem_quantitatem += limitem_initiale_lineam
-
-                # TODO: test if is not off-by-one
-                if (rem_num >= limitem_initiale_lineam) and \
-                        (rem_num <= limitem_quantitatem):
-                    resultatum.append(datum[rem_num][columnam])
-
-        return resultatum
-
-    def v(self, _verbosum: bool = False):  # pylint: disable=invalid-name
-        """Ego python Dict
-
-        Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
-         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
-
-        Args:
-            verbosum (bool): Verbosum est? Defallo falsum.
-
-        Returns:
-            [Dict]: Python objectīvum
-        """
-        resultatum = {
-            '_typum': self._typum,
-            'quantitatem': self.quantitatem,
-            'datum_typum': self.datum_typum,
-        }
-
-        # return self.__dict__
         return resultatum
 
 
@@ -2708,6 +2636,94 @@ True
         return resultatum
 
 
+@dataclass
+class HXLTMDatumColumnam:
+    """HXLTM Datum columnam
+
+    Trivia:
+        - HXLTM, https://hdp.etica.ai/hxltm
+        - Datum, https://en.wiktionary.org/wiki/datum#Latin
+        - Columnam, https://en.wiktionary.org/wiki/columna#Latin
+         - summārius, https://en.wiktionary.org/wiki/summary#English
+        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+            - 'value' , https://en.wiktionary.org/wiki/value#English
+        - quantitātem , https://en.wiktionary.org/wiki/quantitas
+    """
+
+    _typum: InitVar[str] = None
+    datum_typum: InitVar['str'] = None
+    datum_columnam: InitVar[List] = None
+    quantitatem: InitVar[int] = 0
+
+    def __init__(self, datum_columnam: List = None):
+        """HXLTMRemCaput initiāle
+
+        Args:
+            datum_columnam (int): Datum de columnam
+        """
+
+        self._typum = 'HXLTMDatumColumnam'
+
+        if datum_columnam is not None:
+            self.quantitatem = len(datum_columnam)
+        else:
+            self.datum_columnam = []
+        self.datum_typum = HXLTMTypum.collectionem_datum_typum(datum_columnam)
+
+    @staticmethod
+    def reducendum_de_datum(
+            datum: List,
+            columnam: int,
+            limitem_quantitatem: int = 1048576,
+            limitem_initiale_lineam: int = -1) -> List:
+        """Redūcendum Columnam de datum
+
+        Args:
+            datum (List): Datum [rem x col]
+            columnam (int): Numerum columnam in datum
+
+        Returns:
+            List: Unum columnam
+        """
+        resultatum = []
+        if datum is not None and len(datum) > 0:
+            for rem_num, _ in enumerate(datum):  # numero de linhas
+                # for col_num in enumerate(datum[0]): # Número de colunas
+
+                if limitem_initiale_lineam != -1:
+                    limitem_quantitatem += limitem_initiale_lineam
+
+                # TODO: test if is not off-by-one
+                if (rem_num >= limitem_initiale_lineam) and \
+                        (rem_num <= limitem_quantitatem):
+                    resultatum.append(datum[rem_num][columnam])
+
+        return resultatum
+
+    def v(self, _verbosum: bool = False):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            verbosum (bool): Verbosum est? Defallo falsum.
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        resultatum = {
+            '_typum': self._typum,
+            'quantitatem': self.quantitatem,
+            'datum_typum': self.datum_typum,
+        }
+
+        # return self.__dict__
+        return resultatum
+
+
 class HXLTMRem:
 
     def __init__(self, hxltm_datum: Type['HXLTMDatum'], rem_numerum: int):
@@ -2754,6 +2770,13 @@ class HXLTMRemIterandum:
         if self.rem_hoc < self.rem_quantitatem:
             return self.hxltm_datum.rem_de_numerum(self.rem_hoc)
         raise StopIteration
+
+    # def __next__(self):
+    #     # Column
+    #     self.rem_hoc += 1
+    #     if self.rem_hoc < self.rem_quantitatem:
+    #         return self.hxltm_datum.rem_de_numerum(self.rem_hoc)
+    #     raise StopIteration
 
 # for c in HXLTMRemIterandum():
 #     print(c)
@@ -2918,7 +2941,9 @@ class HXLTMInFormatum(ABC):
             HXLTMRemIterandum:
         """
 
-        return self.hxltm_asa.rem_iterandum()
+        # @see https://gist.github.com/drmalex07/6e040310ab9ac12b4dfd
+        # @see https://dzone.com/articles/python-look-ahead-multiple
+        return self.hxltm_asa.datum.rem_iterandum()
 
     def in_archivum(self, archivum_locum: str) -> None:
         """Resultātum in Archīvum
@@ -3007,11 +3032,11 @@ class HXLTMInFormatum(ABC):
             for rem in finale:
                 print(rem)
 
-    def rem(self) -> Type['HXLTMRemIterandum']:
+    # def rem(self) -> Type['HXLTMRemIterandum']:
 
-        # @see https://gist.github.com/drmalex07/6e040310ab9ac12b4dfd
-        # @see https://dzone.com/articles/python-look-ahead-multiple
-        return self.hxltm_asa.datum.rem_iterandum()
+    #     # @see https://gist.github.com/drmalex07/6e040310ab9ac12b4dfd
+    #     # @see https://dzone.com/articles/python-look-ahead-multiple
+    #     return self.hxltm_asa.datum.rem_iterandum()
 
 
 class HXLTMInFormatumTMX(HXLTMInFormatum):
@@ -3093,8 +3118,9 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
 
         # for numerum, rem in self.rem():
         # for rem, rem2 in self.rem():
-        for rem in self.rem():
+        for rem in self.de_rem():
             # resultatum.append(rem.v())
+            print(rem)
             resultatum.append(str(rem))
         return resultatum
 
