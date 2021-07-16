@@ -93,6 +93,11 @@ Crash course from names in Latin to English
     - Header
 - Vēnandum īnsectum
     - Debugging
+- 'Exemplōrum gratiā (et Python doctest, id est, testum automata)'
+    - 'For example (and python doctest, that is, automated testing)'
+    - @see https://docs.python.org/3/library/doctest.html
+        - python3 -m doctest hxltmcli-fork-from-marcus.py
+        - python3 -m doctest hxlm/core/bin/hxltmcli.py
 
 Some other very frequent generic terms:
 
@@ -2372,6 +2377,7 @@ True
     columnam_quantitatem_hxl_unicum: InitVar[int] = 0
     columnam_quantitatem_nomen: InitVar[int] = 0
     columnam_quantitatem_nomen_unicum: InitVar[int] = 0
+    lineam_quantitatem: InitVar[int] = -1
     argumentum: InitVar[Type['HXLTMArgumentum']] = None
     # venandum_insectum: InitVar[bool] = False
 
@@ -2415,7 +2421,7 @@ True
         self,
         crudum_titulum: List,
         crudum_hashtag: List,
-        datum_rem_brevis: List,  # deprecated
+        datum_rem_brevis: List = None,  # deprecated
         columnam_collectionem: List[Type['HXLTMDatumColumnam']] = None
     ):
         """
@@ -2427,7 +2433,8 @@ True
         # print(crudum_titulum)
         # print(crudum_hashtag)
 
-        self.datum_rem_brevis = datum_rem_brevis
+        if datum_rem_brevis is not None:
+            self.datum_rem_brevis = datum_rem_brevis
         # _[eng-Latn]
         # crudum_hashtag also have empty spaces, so it still can be used to
         # know how many columns do exist
@@ -2653,6 +2660,7 @@ class HXLTMDatumColumnam:
     _typum: InitVar[str] = None
     datum_typum: InitVar['str'] = None
     datum_columnam: InitVar[List] = None
+    # indicem: InitVar[int] = -1
     quantitatem: InitVar[int] = 0
 
     def __init__(self, datum_columnam: List = None):
@@ -2722,6 +2730,148 @@ class HXLTMDatumColumnam:
 
         # return self.__dict__
         return resultatum
+
+
+@dataclass
+class HXLTMDatumLineam:
+    """HXLTM Datum columnam
+
+    Trivia:
+        - HXLTM, https://hdp.etica.ai/hxltm
+        - Datum, https://en.wiktionary.org/wiki/datum#Latin
+        - līneam, https://en.wiktionary.org/wiki/linea#Latin
+        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+            - 'value' , https://en.wiktionary.org/wiki/value#English
+        - quantitātem , https://en.wiktionary.org/wiki/quantitas
+
+        Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> crudum_titulum = ['id', 'Nōmen', 'Annotātiōnem']
+>>> crudum_hashtag = ['#item+id', '#item+lat_nomen', '']
+>>> datum_solum = [
+...      [1, 'Marcus canem amat.', 'Vērum!'],
+...      [2, 'Canem Marcus amat.', ''],
+...      [3, 'Amat canem Marcus.', 'vērum? vērum!']
+...   ]
+>>> datum_lineam_III = datum_solum[2]
+>>> datum_lineam_III
+[3, 'Amat canem Marcus.', 'vērum? vērum!']
+
+>>> datum = [crudum_titulum] + [crudum_hashtag] + datum_solum
+>>> caput = HXLTMDatumCaput(crudum_titulum, crudum_hashtag)
+>>> caput.quod_datum_rem_correctum_est()
+True
+
+>>> lineam_obj_a = HXLTMDatumLineam(datum_caput=caput, vacuum=True)
+>>> lineam_obj_a.v()
+{'_typum': 'HXLTMDatumLineam', 'indicem': -1, \
+'lineam': [None, None, None], 'vacuum': True}
+
+
+>>> lineam_obj_b = HXLTMDatumLineam(datum_caput=caput, lineam=datum_solum)
+>>> lineam_obj_b.v()
+{'_typum': 'HXLTMDatumLineam', 'indicem': -1, 'lineam': \
+[[1, 'Marcus canem amat.', 'Vērum!'], \
+[2, 'Canem Marcus amat.', ''], \
+[3, 'Amat canem Marcus.', 'vērum? vērum!']], \
+'vacuum': False}
+
+>>> lineam_obj_b.valendum_de_index(lineam_indicem = 2)
+[3, 'Amat canem Marcus.', 'vērum? vērum!']
+
+>>> datum_lineam_III_red = HXLTMDatumLineam.reducendum_de_datum(datum_solum, 2)
+>>> datum_lineam_III_red
+[3, 'Amat canem Marcus.', 'vērum? vērum!']
+    """
+
+    _typum: InitVar[str] = None
+    datum_caput: InitVar[Type['HXLTMDatumCaput']] = None
+    lineam: InitVar[List] = None
+    indicem: InitVar[int] = -1
+    vacuum: InitVar[str] = False
+    # quantitatem: InitVar[int] = 0
+
+    def __init__(
+        self,
+        datum_caput: Type['HXLTMDatumCaput'],
+        lineam: List = None,
+        indicem: int = -1,
+        vacuum: bool = False
+    ):
+        """HXLTMRemCaput initiāle
+
+        Args:
+            datum_columnam (int): Datum de columnam
+        """
+
+        self._typum = 'HXLTMDatumLineam'
+
+        self.datum_caput = datum_caput
+        self.vacuum = vacuum
+
+        if lineam is None or len(lineam) == 0:
+            if vacuum:
+                self.lineam = \
+                    [None] * self.datum_caput.columnam_quantitatem
+            else:
+                raise ValueError('lineam vacuum est?')
+        else:
+            self.lineam = lineam
+
+        self.indicem = indicem
+
+    @staticmethod
+    def reducendum_de_datum(
+            datum: List,
+            lineam_indicem: int) -> List:
+        """Redūcendum Columnam de datum
+
+        Args:
+            datum (List): Datum [rem x col]
+            columnam (int): Numerum columnam in datum
+
+        Returns:
+            List: Unum columnam
+        """
+        # resultatum = []
+        if datum is not None and len(datum) > 0:
+            for rem_num, _ in enumerate(datum):  # numero de linhas
+                if rem_num == lineam_indicem:
+                    return datum[rem_num]
+
+        raise ValueError('lineam non indicem ad datum?')
+
+    def v(self, _verbosum: bool = False):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+           - Anglicum (English): value (?)
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            verbosum (bool): Verbosum est? Defallo falsum.
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        resultatum = {
+            '_typum': self._typum,
+            'indicem': self.indicem,
+            'lineam': self.lineam,
+            'vacuum': self.vacuum,
+        }
+        # resultatum['datum_caput'] = self.datum_caput
+
+        # return self.__dict__
+        return resultatum
+
+    def valendum_de_index(self, lineam_indicem: int):
+        return self.lineam[lineam_indicem]
+
+# @TODO HXLTMDatumRem
+# @dataclass
+# class HXLTMDatumRem:
 
 
 class HXLTMRem:
@@ -3120,7 +3270,7 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
         # for rem, rem2 in self.rem():
         for rem in self.de_rem():
             # resultatum.append(rem.v())
-            print(rem)
+            # print(rem)
             resultatum.append(str(rem))
         return resultatum
 
