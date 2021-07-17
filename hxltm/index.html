@@ -1450,10 +1450,11 @@ fontem_archivum_extensionem_regex:
   "[a-z]{2}.csv": CSV-3 # Not implemented yet
 # end::archivum[]
 
-# tag::formatum[]
-formatum:
+# tag::normam[]
+# Trivia: normam, https://en.wiktionary.org/wiki/norma#Latin
+normam:
   #### CSV-3: Source + Target + Comment (draft) _______________________________
-  # tag::formatum_CSV-3[]
+  # tag::normam_CSV-3[]
   CSV-3:
     __meta:
       archivum_extensionem: .csv
@@ -1463,10 +1464,10 @@ formatum:
         eng-Latn: 'Source + Target + Comment (draft)'
       situs_interretialis:
         referens_officinale: []
-  # end::formatum_CSV-3[]
+  # end::normam_CSV-3[]
 
   #### HXLated bilingual CSV (+ up to 5 source alt) for XLIFF___________________
-  # tag::formatum_CSV-HXL-XLIFF[]
+  # tag::normam_CSV-HXL-XLIFF[]
   CSV-HXL-XLIFF:
     __meta:
       archivum_extensionem: .xliff.hxl.csv
@@ -1520,9 +1521,9 @@ formatum:
       - '#x_xliff +unit +note +note_category__iate'
       - '#x_xliff +unit +note +note_category__unterm'
 
-  # end::formatum_CSV-HXL-XLIFF[]
+  # end::normam_CSV-HXL-XLIFF[]
 
-  # tag::formatum_GSheets[]
+  # tag::normam_GSheets[]
   #### XLSX, Google Sheets ____________________________________________________
   # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
   # @see https://support.google.com/drive/answer/37603
@@ -1536,10 +1537,10 @@ formatum:
       situs_interretialis:
         referens_officinale:
           - https://www.google.com/sheets/about/
-  # end::formatum_GSheets[]
+  # end::normam_GSheets[]
 
   #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
-  # tag::formatum_HXLTM[]
+  # tag::normam_HXLTM[]
   HXLTM:
     __meta:
       archivum_extensionem: .tm.hxl.csv
@@ -1550,10 +1551,10 @@ formatum:
       situs_interretialis:
         referens_officinale:
           - https://hdp.etica.ai/hxltm
-  # end::formatum_HXLTM[]
+  # end::normam_HXLTM[]
 
   #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
-  # tag::formatum_HXLTM-ASA[]
+  # tag::normam_HXLTM-ASA[]
   HXLTM-ASA:
     __meta:
       archivum_extensionem: 
@@ -1592,10 +1593,10 @@ formatum:
           - https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM
           - https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22
 
-  # end::formatum_HXLTM-ASA[]
+  # end::normam_HXLTM-ASA[]
 
   #### JSON-kv: JSON key: val; id/source -&gt; target _____________________________
-  # tag::formatum_JSON-kv[]
+  # tag::normam_JSON-kv[]
   JSON-kv:
     __meta:
       archivum_extensionem: .json
@@ -1609,9 +1610,9 @@ formatum:
         referens_officinale: []
     exemplum:
       - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
-  # end::formatum_JSON-kv[]
+  # end::normam_JSON-kv[]
 
-  # tag::formatum_TBX-Basim[]
+  # tag::normam_TBX-Basim[]
   #### TBX-Basic: TermBase eXchange (TBX) Basic ________________________________
   TBX-Basim:
     __meta:
@@ -1646,10 +1647,10 @@ formatum:
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/06/Spreadsheet-to-TBX-Min-Tutorial.pdf
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/05/sampleSpreadsheets.zip
     # - https://multilingual.com/issues/july-aug-2019/tbx-version-3-published-at-iso/
-  # end::formatum_TBX-Basim[]
+  # end::normam_TBX-Basim[]
 
   #### TMX: Translation Memory eXchange format (TMX) ___________________________
-  # tag::formatum_TMX[]
+  # tag::normam_TMX[]
   TMX:
     __meta:
       archivum_extensionem: .tmx
@@ -1661,10 +1662,64 @@ formatum:
       situs_interretialis:
         referens_officinale:
           - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
-  # end::formatum_TMX[]
+    formatum:
+      initiale: |
+        &lt;?xml version='1.0' encoding='utf-8'?&gt;
+        &lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
+        &lt;tmx version="1.4"&gt;
+          &lt;header
+            creationtool="hxltmcli.py"
+            creationtoolversion="{{ globum.instrumentum_versionem }}"
+            segtype="sentence"
+            o-tmf="UTF-8"
+            adminlang="{{ globum.instrumentum_versionem }}"
+            srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
+            datatype="PlainText"
+          /&gt;
+  
+      # TODO: implement indicem_lineam
+      # TODO: implement indicem_columnam
+      corporeum: |
+        &lt;tu tuid="{{ conceptum.codicem | default: conceptum.indicem_lineam | default: 'errorem' }}"&gt;
+          {%- if conceptum.conceptum_codicem_wikidata %}
+          &lt;prop type="wikidata"&gt;{{ conceptum.conceptum_codicem_wikidata }}&lt;/prop&gt;
+          {% endif -%}
+          {% for item in conceptum.collectionem_de_rem %}
+            &lt;tuv xml:lang="{{ item.bcp47 | default: item.iso6393 }}"&gt;
+              {{ item.rem }}
+            &lt;/tuv&gt;
+          {% endfor %}
+          &lt;!--
+          &lt;tuv xml:lang="es"&gt;
+            &lt;seg&gt;Idioma español (Alfabeto latino)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="ar"&gt;
+            &lt;seg&gt;اللغة العربية&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="pt"&gt;
+            &lt;seg&gt;Língua portuguesa (alfabeto latino)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="sl"&gt;
+            &lt;seg&gt;Slovenščina (Latinska abeceda)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="hi"&gt;
+            &lt;seg&gt;हिन्दी भाषा (देवनागरी लिपि)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="en"&gt;
+            &lt;seg&gt;English language (Latin script)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="la"&gt;
+            &lt;seg&gt;Lingua Latina (Abecedarium Latinum)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          --&gt;
+        &lt;/tu&gt;
+
+      finale: "  &lt;/body&gt;\n&lt;/tmx&gt;"
+
+  # end::normam_TMX[]
 
   #### UTX: Universal Terminology eXchange _____________________________________
-  # tag::formatum_UTX[]
+  # tag::normam_UTX[]
   UTX:
     __meta:
       archivum_extensionem: .utx
@@ -1681,10 +1736,10 @@ formatum:
       exemplum:
         - https://aamt.info/english/download/#UTX_Glossaries
         - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
-  # end::formatum_UTX[]
+  # end::normam_UTX[]
 
   #### XLIFF: XML Localization Interchange File Format (XLIFF) v2.1 ____________
-  # tag::formatum_XLIFF[]
+  # tag::normam_XLIFF[]
   XLIFF:
     __meta:
       archivum_extensionem: .xlf
@@ -1704,10 +1759,10 @@ formatum:
   # "TBX Mapping with XLIFF v2.0 and Higher Version 1.0"
   # - https://tools.oasis-open.org/version-control/browse/wsvn/xliff-omos/trunk/XLIFF-TBX/xliff-tbx-v1.0.pdf
   # - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.863.1277&amp;rep=rep1&amp;type=pdf
-  # end::formatum_XLIFF[]
+  # end::normam_XLIFF[]
 
   #### XLIFF1: Universal Terminology eXchange v1.2 _____________________________
-  # tag::formatum_XLIFF1[]
+  # tag::normam_XLIFF1[]
   XLIFF1:
     __meta:
       archivum_extensionem: .xlf
@@ -1720,9 +1775,9 @@ formatum:
         - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
       nomen:
         eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)'
-  # end::formatum_XLIFF1[]
+  # end::normam_XLIFF1[]
 
-  # tag::formatum_XLSX[]
+  # tag::normam_XLSX[]
   #### XLSX, Google Sheets ____________________________________________________
   # @see https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
   # @see https://support.google.com/drive/answer/37603
@@ -1731,10 +1786,10 @@ formatum:
       archivum_extensionem: .xlsx
       nomen:
         eng-Latn: 'Microsoft Excel (no plugins to read data directly from .XSLX)'
-  # end::formatum_XLSX[]
+  # end::normam_XLSX[]
 
   #### YAML: (draft) ___________________________________________________________
-  # tag::formatum_YAML[]
+  # tag::normam_YAML[]
   YAML:
     __meta:
       archivum_extensionem: .yml
@@ -1748,11 +1803,11 @@ formatum:
           - https://guides.rubyonrails.org/i18n.html
       exemplum:
         - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
-  # end::formatum_YAML[]
+  # end::normam_YAML[]
 
-# end::formatum[]
+# end::normam[]
 
-# tag::formatum_excerptum[]
+# tag::normam_excerptum[]
 formatum_excerptum:
   # Trivia:
   # - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
@@ -1764,59 +1819,7 @@ formatum_excerptum:
   exemplum: |
     {{ #_1 }},{{ #_2 }}
 
-  formatum_TMX_datum_initiale: |
-    &lt;?xml version='1.0' encoding='utf-8'?&gt;
-    &lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
-    &lt;tmx version="1.4"&gt;
-      &lt;header
-        creationtool="hxltmcli.py"
-        creationtoolversion="{{ globum.instrumentum_versionem }}"
-        segtype="sentence"
-        o-tmf="UTF-8"
-        adminlang="{{ globum.instrumentum_versionem }}"
-        srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
-        datatype="PlainText"
-      /&gt;
-
-  # TODO: implement indicem_lineam
-  # TODO: implement indicem_columnam
-  formatum_TMX_datum_corporeum: |
-    &lt;tu tuid="{{ conceptum.codicem | default: conceptum.indicem_lineam | default: 'errorem' }}"&gt;
-      {%- if conceptum.conceptum_codicem_wikidata %}
-      &lt;prop type="wikidata"&gt;{{ conceptum.conceptum_codicem_wikidata }}&lt;/prop&gt;
-      {% endif -%}
-      {% for item in conceptum.collectionem_de_rem %}
-        &lt;tuv xml:lang="{{ item.bcp47 | default: item.iso6393 }}"&gt;
-          {{ item.rem }}
-        &lt;/tuv&gt;
-      {% endfor %}
-      &lt;!--
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;Idioma español (Alfabeto latino)&lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;اللغة العربية&lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;Língua portuguesa (alfabeto latino)&lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;Slovenščina (Latinska abeceda)&lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;हिन्दी भाषा (देवनागरी लिपि)&lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;English language (Latin script)&lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;Lingua Latina (Abecedarium Latinum)&lt;/seg&gt;
-      &lt;/tuv&gt;
-      --&gt;
-    &lt;/tu&gt;
-
-  formatum_TMX_datum_finale: "  &lt;/body&gt;\n&lt;/tmx&gt;"
-# end::formatum_excerptum[]
+# end::normam_excerptum[]
 
 # tag::ontologia[]
 # Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
@@ -3180,7 +3183,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-17 11:07:02 UTC
+Last updated 2021-07-17 12:19:48 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

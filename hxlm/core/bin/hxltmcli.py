@@ -1711,12 +1711,13 @@ HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
         # TODO: HXLTMASA.quod_globum_valendum is a draft.
         resultatum = {}
         globum_ontologia = self.ontologia.quod_globum_valendum()
-        globum_argumentum = self.argumentum.v()
+        globum_argumentum = {'globum': self.argumentum.v()}
         resultatum = {**globum_argumentum, **globum_ontologia}
 
         # print(globum_ontologia)
 
-        return {'globum': resultatum}
+        return resultatum
+        # return {'globum': resultatum}
 
     def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -3411,7 +3412,7 @@ class HXLTMInFormatum(ABC):
     ONTOLOGIA_FORMATUM = ''
 
     # ontologia/cor.hxltm.yml basim extēnsiōnem
-    # ONTOLOGIA_FORMATUM_BASIM = ''
+    ONTOLOGIA_FORMATUM_BASIM = ''
 
     # @see https://docs.python.org/3/library/logging.html
     # @see https://docs.python.org/pt-br/dev/howto/logging.html
@@ -3424,6 +3425,7 @@ class HXLTMInFormatum(ABC):
         """
         self.hxltm_asa = hxltm_asa
         self.ontologia = hxltm_asa.ontologia
+        self.globum = self.quod_globum_valendum()
 
     def datum_initiale(self) -> List:  # pylint: disable=no-self-use
         """Datum initiāle de fōrmātum Lorem Ipsum vI.II
@@ -3669,7 +3671,30 @@ Salvi, {{ i }}! \
         Returns:
             Dict: globum valendum
         """
-        return self.hxltm_asa.quod_globum_valendum()
+        globum = self.hxltm_asa.quod_globum_valendum()
+        summam = {}
+
+        # print(globum.keys())
+
+        if 'normam' in globum:
+            basim = self.ONTOLOGIA_FORMATUM_BASIM
+            ext = self.ONTOLOGIA_FORMATUM
+            if basim not in globum['normam']:
+                raise ValueError(
+                    "{0}: non [normam.{1}] in "
+                    "cor.hxltm.yml aut ego.hxltm.yml".format(
+                        __class__.__name__, basim
+                    ))
+
+            if ext in globum['normam']:
+                summam['normam'] = \
+                    {**globum['normam'][basim], **globum['normam'][ext]}
+            else:
+                summam['normam'] = globum['normam'][basim]
+
+            globum = {**globum, **summam}
+
+        return globum
 
     # def rem(self) -> Type['HXLTMRemIterandum']:
 
@@ -3708,7 +3733,9 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
         Public Domain
     """
 
-    ONTOLOGIA_FORMATUM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
+    # ONTOLOGIA_FORMATUM = ''
+
+    ONTOLOGIA_FORMATUM_BASIM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
 
     # initiāle	https://en.wiktionary.org/wiki/initialis#Latin
     def datum_initiale(self) -> List:
@@ -3754,6 +3781,9 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
         # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
         # resultatum.append('<!-- ' + __class__.__name__ + ' -->')
         # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+
+        # print(self.globum.keys())
+        # print(self.globum['normam'].keys())
 
         liquid_template = """
         <tu tuid="L10N_ego_summarius">
@@ -4023,7 +4053,7 @@ class HXLTMOntologia:
             Dict: fōrmātum excerptum
         """
         if self.crudum and 'formatum_excerptum' in self.crudum:
-            return self.crudum.formatum_excerptum
+            return self.crudum['formatum_excerptum']
         return {}
 
     def quod_globum_valendum(self) -> Dict:

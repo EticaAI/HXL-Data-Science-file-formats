@@ -1047,7 +1047,60 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 &gt; resulta
         eng-Latn: 'Translation Memory eXchange format (TMX)'
       situs_interretialis:
         referens_officinale:
-          - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards</code></pre>
+          - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+    formatum:
+      initiale: |
+        &lt;?xml version='1.0' encoding='utf-8'?&gt;
+        &lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
+        &lt;tmx version="1.4"&gt;
+          &lt;header
+            creationtool="hxltmcli.py"
+            creationtoolversion="{{ globum.instrumentum_versionem }}"
+            segtype="sentence"
+            o-tmf="UTF-8"
+            adminlang="{{ globum.instrumentum_versionem }}"
+            srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
+            datatype="PlainText"
+          /&gt;
+  
+      # TODO: implement indicem_lineam
+      # TODO: implement indicem_columnam
+      corporeum: |
+        &lt;tu tuid="{{ conceptum.codicem | default: conceptum.indicem_lineam | default: 'errorem' }}"&gt;
+          {%- if conceptum.conceptum_codicem_wikidata %}
+          &lt;prop type="wikidata"&gt;{{ conceptum.conceptum_codicem_wikidata }}&lt;/prop&gt;
+          {% endif -%}
+          {% for item in conceptum.collectionem_de_rem %}
+            &lt;tuv xml:lang="{{ item.bcp47 | default: item.iso6393 }}"&gt;
+              {{ item.rem }}
+            &lt;/tuv&gt;
+          {% endfor %}
+          &lt;!--
+          &lt;tuv xml:lang="es"&gt;
+            &lt;seg&gt;Idioma español (Alfabeto latino)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="ar"&gt;
+            &lt;seg&gt;اللغة العربية&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="pt"&gt;
+            &lt;seg&gt;Língua portuguesa (alfabeto latino)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="sl"&gt;
+            &lt;seg&gt;Slovenščina (Latinska abeceda)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="hi"&gt;
+            &lt;seg&gt;हिन्दी भाषा (देवनागरी लिपि)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="en"&gt;
+            &lt;seg&gt;English language (Latin script)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          &lt;tuv xml:lang="la"&gt;
+            &lt;seg&gt;Lingua Latina (Abecedarium Latinum)&lt;/seg&gt;
+          &lt;/tuv&gt;
+          --&gt;
+        &lt;/tu&gt;
+
+      finale: "  &lt;/body&gt;\n&lt;/tmx&gt;"</code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -2788,7 +2841,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-17 11:07:02 UTC
+Last updated 2021-07-17 12:19:48 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
