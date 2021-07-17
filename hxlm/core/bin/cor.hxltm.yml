@@ -267,8 +267,9 @@ normam:
       situs_interretialis:
         referens_officinale:
           - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+
     formatum:
-      initiale: |
+      initiale: |2
         <?xml version='1.0' encoding='utf-8'?>
         <!DOCTYPE tmx SYSTEM "tmx14.dtd">
         <tmx version="1.4">
@@ -281,45 +282,32 @@ normam:
             srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
             datatype="PlainText"
           />
-  
+
       # TODO: implement indicem_lineam
       # TODO: implement indicem_columnam
-      corporeum: |
-        <tu tuid="{{ conceptum.codicem | default: conceptum.indicem_lineam | default: 'errorem' }}">
-          {%- if conceptum.conceptum_codicem_wikidata %}
-          <prop type="wikidata">{{ conceptum.conceptum_codicem_wikidata }}</prop>
-          {% endif -%}
-          {% for item in conceptum.collectionem_de_rem %}
-            <tuv xml:lang="{{ item.bcp47 | default: item.iso6393 }}">
-              {{ item.rem }}
-            </tuv>
-          {% endfor %}
-          <!--
-          <tuv xml:lang="es">
-            <seg>Idioma español (Alfabeto latino)</seg>
-          </tuv>
-          <tuv xml:lang="ar">
-            <seg>اللغة العربية</seg>
-          </tuv>
-          <tuv xml:lang="pt">
-            <seg>Língua portuguesa (alfabeto latino)</seg>
-          </tuv>
-          <tuv xml:lang="sl">
-            <seg>Slovenščina (Latinska abeceda)</seg>
-          </tuv>
-          <tuv xml:lang="hi">
-            <seg>हिन्दी भाषा (देवनागरी लिपि)</seg>
-          </tuv>
-          <tuv xml:lang="en">
-            <seg>English language (Latin script)</seg>
-          </tuv>
-          <tuv xml:lang="la">
-            <seg>Lingua Latina (Abecedarium Latinum)</seg>
-          </tuv>
-          -->
-        </tu>
+      corporeum: |2
+            <tu tuid="{{ conceptum.codicem | default: conceptum.indicem_lineam | default: 'errorem' }}">
+              {%- if conceptum.conceptum_codicem_wikidata %}
+              <prop type="wikidata">{{ conceptum.conceptum_codicem_wikidata }}</prop>
+              {% endif -%}
+              {% for item in conceptum.collectionem_de_rem %}
+                <tuv xml:lang="{{ item.bcp47 | default: item.iso6393 }}">
+                  {{ item.rem }}
+                </tuv>
+              {% endfor %}
+              <!--
+              <tuv xml:lang="es">
+                <seg>Idioma español (Alfabeto latino)</seg>
+              </tuv>
+              <tuv xml:lang="ar">
+                <seg>اللغة العربية</seg>
+              </tuv>
+              -->
+            </tu>
 
-      finale: "  </body>\n</tmx>"
+      finale: |2
+          </body>
+        </tmx>
 
   # end::normam_TMX[]
 

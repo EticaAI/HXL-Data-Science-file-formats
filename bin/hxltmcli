@@ -2151,7 +2151,9 @@ class HXLTMDatum:
     crudum_caput: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
     meta: InitVar[Type['HXLTMDatumCaput']] = None
-    # datum_rem: InitVar[List] = []
+
+    # Data without headers, [līneam x columnam]
+    datum: InitVar[List] = []
     columnam: InitVar[List] = []
     # ontologia: InitVar[Type['HXLTMOntologia']] = None
     argumentum: InitVar[Type['HXLTMArgumentum']] = None
@@ -2185,7 +2187,8 @@ class HXLTMDatum:
         """
         crudum_titulum = []
         crudum_hashtag = []
-        datum_rem = []
+        # datum_rem = []
+        self.datum = []
         datum_rem_brevis = []
 
         with open(archivum, 'r') as hxl_archivum:
@@ -2205,19 +2208,19 @@ class HXLTMDatum:
                 raise SyntaxError('HXLTMDatum quod archīvum HXL hashtags?')
 
             for rem in csv_lectorem:
-                datum_rem.append(rem)
+                self.datum.append(rem)
 
-        if len(datum_rem) > 0:
+        if len(self.datum) > 0:
             # self.datum_rem = datum_rem
-            datum_rem_brevis = datum_rem[:5]
-            for item_num in range(len(datum_rem[0])):
+            datum_rem_brevis = self.datum[:5]
+            for item_num in range(len(self.datum[0])):
                 # print('oi2', item_num)
 
                 # TODO: --non-selectum-columnam-numerum
                 #         dont apply if item_num in self.non_columnam_numerum
 
                 col_rem_val = HXLTMDatumColumnam.reducendum_de_datum(
-                    datum_rem,
+                    self.datum,
                     item_num,
                     limitem_quantitatem=self.argumentum.limitem_quantitatem,
                     limitem_initiale_lineam=self.argumentum.limitem_initiale_lineam  # noqa
@@ -2269,7 +2272,7 @@ class HXLTMDatum:
                         len(hxltm_crudum[0])
                     ))
 
-            # self.datum_rem = datum_rem
+            self.datum = hxltm_crudum
             # datum_rem_brevis = hxltm_crudum[:5]
             for item_num in range(len(crudum_hashtag)):
 
@@ -2293,15 +2296,27 @@ class HXLTMDatum:
             # venandum_insectum=self.argumentum.venandum_insectum
         )
 
-    def rem_de_numerum(self, numerum: int):
-        # return numerum
-        return self.columnam[0]
+    def crudum_lineam_de_indicem(self, indicem: int) -> List:
+        """Crudum līneam de indicem
 
-    def rem_iterandum(self) -> Type['HXLTMRemIterandum']:
-        return HXLTMRemIterandum(self)
+        _[eng-Latn]
+        Raw values of a row from the dataset by index
+        [eng-Latn]_
 
-    def rem_quantitatem(self) -> int:
-        """Rem quantitatem tōtāle numerum
+        Args:
+            indicem (int): indicem de līneam
+
+        Returns:
+            [List]: valendum collēctiōnem, id est, crudum Python List
+        """
+        return self.datum[indicem]
+
+    def rem_iterandum(self) -> Type['HXLTMIterandumRem']:
+        return HXLTMIterandumRem(self)
+        # return HXLTMRemIterandum(self)
+
+    def lineam_quantitatem(self) -> int:
+        """Crudum līneam quantitatem tōtāle
 
         Trivia:
         - tōtāle, https://en.wiktionary.org/wiki/totalis#Latin
@@ -3295,6 +3310,41 @@ True
         return None
 
 
+class HXLTMIterandumRem:
+    """HXLTM Iterandum Rem, de Python Iterator
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - iterandum, https://en.wiktionary.org/wiki/itero#Latin
+        - disciplīnam manuāle
+            - https://docs.python.org/3/library/itertools.html
+
+    Raises:
+        StopIteration: fīnāle
+    """
+
+    # @see https://en.wiktionary.org/wiki/iterator
+    # @see https://en.wiktionary.org/wiki/itero#Latin
+
+    def __init__(self, hxltm_datum: Type['HXLTMDatum'] = None):
+        self.hxltm_datum = hxltm_datum
+
+        self.rem_hoc = 0
+        self.rem_quantitatem = hxltm_datum.lineam_quantitatem()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.rem_hoc += 1
+        if self.rem_hoc < self.rem_quantitatem:
+            return self.hxltm_datum.crudum_lineam_de_indicem(self.rem_hoc)
+        raise StopIteration
+
+
 # class HXLTMRem:
 
 #     def __init__(self, hxltm_datum: Type['HXLTMDatum'], rem_numerum: int):
@@ -3310,6 +3360,8 @@ True
 
 class HXLTMRemIterandum:
     """HXLTM
+
+    @deprecated use HXLTMIterandumRem
 
     Trivia:
         - HXLTM:
@@ -3426,6 +3478,7 @@ class HXLTMInFormatum(ABC):
         self.hxltm_asa = hxltm_asa
         self.ontologia = hxltm_asa.ontologia
         self.globum = self.quod_globum_valendum()
+        self.normam = self.globum['normam']
 
     def datum_initiale(self) -> List:  # pylint: disable=no-self-use
         """Datum initiāle de fōrmātum Lorem Ipsum vI.II
@@ -3521,7 +3574,7 @@ class HXLTMInFormatum(ABC):
 
 >>> datum = HXLTMTestumAuxilium.datum('hxltm-exemplum-linguam.tm.hxl.csv')
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
->>> tmx = HXLTMInFormatumTMX(HXLTMASA(datum))
+>>> tmx = HXLTMInFormatumTMX(HXLTMASA(datum, ontologia=ontologia))
 >>> tmx.de_liquid("\
 {%- for i in (1..3) -%}\
 Salvi, {{ i }}! \
@@ -3750,19 +3803,16 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
             List: Python List, id est: rem collēctiōnem
         """
 
+        # TODO: since this now is generic, move to HXLTMInFormatum
+
         resultatum = []
-        resultatum.append("<?xml version='1.0' encoding='utf-8'?>")
-        resultatum.append('<!DOCTYPE tmx SYSTEM "tmx14.dtd">')
-        resultatum.append('<tmx version="1.4">')
-        # @see https://www.gala-global.org/sites/default/files/migrated-pages
-        #      /docs/tmx14%20%281%29.dtd
+
+        liquid_template = self.normam['formatum']['initiale']
+        liquid_context = {}
+
         resultatum.append(
-            '  <header creationtool="hxltm" creationtoolversion="' +
-            __VERSION__ + '" ' +
-            'segtype="sentence" o-tmf="UTF-8" ' +
-            'adminlang="en" srclang="en" datatype="PlainText"/>')
-        # TODO: make source and adminlang configurable
-        resultatum.append('  <body>')
+            self.de_liquid(liquid_template, liquid_context)
+        )
 
         return resultatum
 
@@ -3778,50 +3828,19 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
             List: Python List, id est: rem collēctiōnem
         """
         resultatum = []
-        # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
-        # resultatum.append('<!-- ' + __class__.__name__ + ' -->')
-        # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
 
-        # print(self.globum.keys())
-        # print(self.globum['normam'].keys())
-
-        liquid_template = """
-        <tu tuid="L10N_ego_summarius">
-          <prop type="wikidata">Q1</prop>
-          <tuv xml:lang="es">
-            <seg>Idioma español (Alfabeto latino)</seg>
-          </tuv>
-          <tuv xml:lang="pt">
-            <seg>Língua portuguesa (alfabeto latino)</seg>
-          </tuv>
-          {{ testum }}
-          {{ '#_1' }}
-          {{ rem }}
-          {{ rem['#_1'] }}
-          {{ rem['#_2'] | default: rem['#_1'] }}
-        </tu>
-        """
-        # {% comment %}{{ globum }}{% endcomment %}
-        liquid_context = {
-            "testum": {
-                "deep": {
-                    "deeper": 1
-                },
-                "#_1": "test"
-            },
-            "#_1": 123
-        }
-
-        resultatum.append(
-            self.de_liquid(liquid_template, {'rem': liquid_context})
-        )
+        liquid_template = self.normam['formatum']['corporeum']
 
         # for numerum, rem in self.rem():
         # for rem, rem2 in self.rem():
         for rem in self.de_rem():
             # resultatum.append(rem.v())
             # print(rem)
-            resultatum.append(str(rem))
+            liquid_context = {'rem': str(rem)}
+            # resultatum.append(str(rem))
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
         return resultatum
 
     def datum_finale(self) -> List:  # pylint: disable=no-self-use
@@ -3835,9 +3854,18 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
+
+        # TODO: since this now is generic, move to HXLTMInFormatum
+
         resultatum = []
-        resultatum.append('  </body>')
-        resultatum.append('</tmx>')
+
+        liquid_template = self.normam['formatum']['finale']
+        liquid_context = {}
+
+        resultatum.append(
+            self.de_liquid(liquid_template, liquid_context)
+        )
+
         return resultatum
 
 
@@ -4728,8 +4756,12 @@ class HXLTMTestumAuxilium:
         Returns:
             Dict: HXLTM Ontologia
         """
-        # print(HXLTMUtil.load_hxltm_options())
-        return HXLTMUtil.load_hxltm_options()
+        conf = HXLTMUtil.load_hxltm_options()
+        # print(ontologia.keys())
+        # print(ontologia)
+        # print(HXLTMUtil.load_hxltm_options()['normam'])
+        # return HXLTMUtil.load_hxltm_options()
+        return HXLTMOntologia(conf)
 
 
 class HXLTMTypum:
