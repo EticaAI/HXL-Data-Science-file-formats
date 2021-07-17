@@ -1,8 +1,13 @@
-# @ARCHIVUM       ontologia/cor.hxltm.yml
-# @DESCRIPTIONEM  HXL Trānslātiōnem Memoriam (HXLTM)
+# @ARCHIVUM       cor.hxltm.yml
+# @VERSIONEM      v0.8.3+eticaai+voluntārium-commūne
 # @LICENTIAM      Dominium publicum
-#
-# Trivia:
+#                 SPDX-License-Identifier: Unlicense
+# @DESCRIPTIONEM  HXL Trānslātiōnem Memoriam (HXLTM) cor cōnfigūrātiōnem.
+#                 Auxilium de HXLTM: https://hdp.etica.ai/hxltm/
+
+__ontologia_cor_versionem__:  v0.8.3+EticaAI+voluntārium-commūne
+
+### Trivia:
 # - "HXL"
 #   - https://hxlstandard.org/
 # - "Trānslātiōnem Memoriam"
@@ -11,6 +16,8 @@
 #   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
 # - "cor"
 #   - https://en.wiktionary.org/wiki/cor#Latin
+# - "cōnfigūrātiōnem"
+#   - https://en.wiktionary.org/wiki/configuratio#Latin
 # - "ontologia"
 #   - https://la.wikipedia.org/wiki/Ontologia
 # - "glōssārium"
@@ -29,10 +36,19 @@
 #   - https://en.wiktionary.org/wiki/communis#Latin
 # - "alternātīvum"
 #   - https://en.wiktionary.org/wiki/alternativus#Latin
+# - "versiōnem"
+#   - https://en.wiktionary.org/wiki/versio#Latin
+# - referēns archīvum cōnfigūrātiōnem
 
-# TODO: plurals
-# - https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
-# - 
+## Referēns archīvum cōnfigūrātiōnem
+# ego.hxltm.yml >> venditorem.hxltm.yml > cor.hxltm.yml
+#
+# - I: ego.hxltm.yml
+#   - Exemplum: https://hdp.etica.ai/hxlm/data/exemplum/ego.hxltm.yml
+# - II: venditorem.hxltm.yml
+#   - Exemplum: https://hdp.etica.ai/hxlm/data/exemplum/venditorem.hxltm.yml
+# - III: cor.hxltm.yml
+#   - commūne referēns: https://hdp.etica.ai/ontologia/cor.hxltm.yml
 
 # tag::archivum[]
 fontem_archivum_extensionem:

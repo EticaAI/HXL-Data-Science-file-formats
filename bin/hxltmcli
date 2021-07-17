@@ -220,7 +220,7 @@ __VERSION__ = "v0.8.3"
 # Note: If you are doing a fork and making it public, please customize
 # __SYSTEMA_VARIANS__, even if the __VERSION__ keeps the same
 # [eng-Latn]_
-__SYSTEMA_VARIANS__ = "hxltmcli.py;eticaai;rocha+voluntārium-commūne"
+__SYSTEMA_VARIANS__ = "hxltmcli.py;EticaAI+voluntārium-commūne"
 # Trivia:
 # - systēma, https://en.wiktionary.org/wiki/systema#Latin
 # - variāns, https://en.wiktionary.org/wiki/varians#Latin
@@ -437,21 +437,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             default='arb-Arab',
             nargs='?'
         )
-
-        # # @deprecated
-        # parser.add_argument(
-        #     '--alternativum-linguam',
-        #     help='(Deprecated, use --agendum-linguam) '
-        #     '(Planned, but not implemented yet) ' +
-        #     'Alternative source languages (up to 5) to be added ' +
-        #     'as metadata (like XLIFF <note>) for operations that ' +
-        #     'only accept one source language. ' +
-        #     'Requires: bilingual operation. ' +
-        #     'Accepts multiple values.',
-        #     metavar='alternativum_linguam',
-        #     action='append',
-        #     nargs='?'
-        # )
 
         # --agendum-linguam is a draft. Not 100% implemented
         parser.add_argument(
@@ -3480,7 +3465,7 @@ class HXLTMInFormatum(ABC):
         self.globum = self.quod_globum_valendum()
         self.normam = self.globum['normam']
 
-    def datum_initiale(self) -> List:  # pylint: disable=no-self-use
+    def datum_initiale(self) -> List:
         """Datum initiāle de fōrmātum Lorem Ipsum vI.II
 
         Trivia:
@@ -3490,7 +3475,16 @@ class HXLTMInFormatum(ABC):
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
-        return []
+        resultatum = []
+
+        if 'formatum' in self.normam and 'initiale' in self.normam['formatum']:
+            liquid_template = self.normam['formatum']['initiale']
+            liquid_context = {}
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
+
+        return resultatum
 
     @abstractmethod
     def datum_corporeum(self) -> List:
@@ -3513,7 +3507,7 @@ class HXLTMInFormatum(ABC):
         resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
         return resultatum
 
-    def datum_finale(self) -> List:  # pylint: disable=no-self-use
+    def datum_finale(self) -> List:
         """Datum fīnāle de fōrmātum Lorem Ipsum vI.II
 
         Trivia:
@@ -3523,7 +3517,16 @@ class HXLTMInFormatum(ABC):
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
-        return []
+        resultatum = []
+
+        if 'formatum' in self.normam and 'finale' in self.normam['formatum']:
+            liquid_template = self.normam['formatum']['finale']
+            liquid_context = {}
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
+
+        return resultatum
 
     def de_lineam(self) -> Type['HXLTMRemIterandum']:
         """Generandum līneam de datum
@@ -3790,32 +3793,6 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
 
     ONTOLOGIA_FORMATUM_BASIM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
 
-    # initiāle	https://en.wiktionary.org/wiki/initialis#Latin
-    def datum_initiale(self) -> List:
-        """Datum initiāle de fōrmātum Translation Memory eXchange format
-        (TMX) v1.4
-
-        Trivia:
-            - datum, https://en.wiktionary.org/wiki/datum#Latin
-            - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
-
-        Returns:
-            List: Python List, id est: rem collēctiōnem
-        """
-
-        # TODO: since this now is generic, move to HXLTMInFormatum
-
-        resultatum = []
-
-        liquid_template = self.normam['formatum']['initiale']
-        liquid_context = {}
-
-        resultatum.append(
-            self.de_liquid(liquid_template, liquid_context)
-        )
-
-        return resultatum
-
     def datum_corporeum(self) -> List:
         """Datum corporeum de fōrmātum Translation Memory eXchange format
         (TMX) v1.4
@@ -3841,31 +3818,6 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
             resultatum.append(
                 self.de_liquid(liquid_template, liquid_context)
             )
-        return resultatum
-
-    def datum_finale(self) -> List:  # pylint: disable=no-self-use
-        """Datum fīnāle de fōrmātum Translation Memory eXchange format
-        (TMX) v1.4
-
-        Trivia:
-            - datum, https://en.wiktionary.org/wiki/datum#Latin
-            - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
-
-        Returns:
-            List: Python List, id est: rem collēctiōnem
-        """
-
-        # TODO: since this now is generic, move to HXLTMInFormatum
-
-        resultatum = []
-
-        liquid_template = self.normam['formatum']['finale']
-        liquid_context = {}
-
-        resultatum.append(
-            self.de_liquid(liquid_template, liquid_context)
-        )
-
         return resultatum
 
 
@@ -3967,7 +3919,9 @@ class HXLTMOntologia:
             self.crudum = {}
         else:
             self.crudum = ontologia
-        # self.initialle()
+
+        # TODO: hxlm/data/exemplum/ego.hxltm.yml
+        # TODO: hxlm/data/exemplum/venditorem.hxltm.yml
 
     # def initialle(self):
     #     """

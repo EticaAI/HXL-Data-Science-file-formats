@@ -1,0 +1,13 @@
+# @ARCHIVUM       venditorem.hxltm.yml
+# @VERSIONEM      vN.N.N-exemplum
+# @DESCRIPTIONEM HXLTM vēnditōrem cōnfigūrātiōnem (exemplum)
+#                Auxilium de HXLTM+HXL-CPLP: https://github.com/HXL-CPLP
+
+__ontologia_venditorem_versionem__:  v0.8+HXL-CPLP
+
+ontologia_aliud:
+  genus_grammaticum:
+    por_feminino:
+      _aliud: lat_femininum
+    por_masculino:
+      _aliud: lat_masculinum

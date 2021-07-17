@@ -1393,11 +1393,16 @@ authenticated requests. <strong>Our recomendations on this case is:</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># @ARCHIVUM       ontologia/cor.hxltm.yml
-# @DESCRIPTIONEM  HXL Trānslātiōnem Memoriam (HXLTM)
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># @ARCHIVUM       cor.hxltm.yml
+# @VERSIONEM      v0.8.3+eticaai+voluntārium-commūne
 # @LICENTIAM      Dominium publicum
-#
-# Trivia:
+#                 SPDX-License-Identifier: Unlicense
+# @DESCRIPTIONEM  HXL Trānslātiōnem Memoriam (HXLTM) cor cōnfigūrātiōnem.
+#                 Auxilium de HXLTM: https://hdp.etica.ai/hxltm/
+
+__ontologia_cor_versionem__:  v0.8.3+EticaAI+voluntārium-commūne
+
+### Trivia:
 # - "HXL"
 #   - https://hxlstandard.org/
 # - "Trānslātiōnem Memoriam"
@@ -1406,6 +1411,8 @@ authenticated requests. <strong>Our recomendations on this case is:</strong></p>
 #   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
 # - "cor"
 #   - https://en.wiktionary.org/wiki/cor#Latin
+# - "cōnfigūrātiōnem"
+#   - https://en.wiktionary.org/wiki/configuratio#Latin
 # - "ontologia"
 #   - https://la.wikipedia.org/wiki/Ontologia
 # - "glōssārium"
@@ -1424,10 +1431,19 @@ authenticated requests. <strong>Our recomendations on this case is:</strong></p>
 #   - https://en.wiktionary.org/wiki/communis#Latin
 # - "alternātīvum"
 #   - https://en.wiktionary.org/wiki/alternativus#Latin
+# - "versiōnem"
+#   - https://en.wiktionary.org/wiki/versio#Latin
+# - referēns archīvum cōnfigūrātiōnem
 
-# TODO: plurals
-# - https://www.gnu.org/software/gettext/manual/html_node/Plural-forms.html
-# - 
+## Referēns archīvum cōnfigūrātiōnem
+# ego.hxltm.yml &gt;&gt; venditorem.hxltm.yml &gt; cor.hxltm.yml
+#
+# - I: ego.hxltm.yml
+#   - Exemplum: https://hdp.etica.ai/hxlm/data/exemplum/ego.hxltm.yml
+# - II: venditorem.hxltm.yml
+#   - Exemplum: https://hdp.etica.ai/hxlm/data/exemplum/venditorem.hxltm.yml
+# - III: cor.hxltm.yml
+#   - commūne referēns: https://hdp.etica.ai/ontologia/cor.hxltm.yml
 
 # tag::archivum[]
 fontem_archivum_extensionem:
@@ -3171,7 +3187,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-17 13:41:05 UTC
+Last updated 2021-07-17 14:52:40 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
