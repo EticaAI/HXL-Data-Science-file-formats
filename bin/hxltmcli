@@ -2135,11 +2135,15 @@ class HXLTMDatum:
     # crudum: InitVar[List] = []
     crudum_caput: InitVar[List] = []
     crudum_hashtag: InitVar[List] = []
+    # conceptum = InitVar[List] = []
+    # conceptum = InitVar[List[Type['HXLTMLinguam']]] = None
+    # com = InitVar[List[Type['HXLTMDatumConceptumSaccum']]] = None
     meta: InitVar[Type['HXLTMDatumCaput']] = None
 
     # Data without headers, [līneam x columnam]
     datum: InitVar[List] = []
-    columnam: InitVar[List] = []
+    conceptum: InitVar[List[Type['HXLTMDatumConceptumSaccum']]] = []
+    columnam: InitVar[List] = []  # @deprecated
     # ontologia: InitVar[Type['HXLTMOntologia']] = None
     argumentum: InitVar[Type['HXLTMArgumentum']] = None
     venandum_insectum: InitVar[bool] = False
@@ -2165,6 +2169,45 @@ class HXLTMDatum:
             self._initialle_de_hxltm_crudum(crudum_datum)
         else:
             raise SyntaxError('HXLTMDatum crudum aut archivum non vacuum')
+        self._initiale_conceptum()
+
+    def _initiale_conceptum(self) -> bool:
+        """Initiāle conceptum de datum
+
+        @see HXLTMDatumConceptumSaccum
+
+        Returns:
+            bool: Resultatum okay
+        """
+        if not self.datum or len(self.datum) == 0:
+            return False
+
+        crudum_grupum_conceptum = HXLTMDatumConceptumSaccum.\
+            reducendum_grupum_indicem_de_datum(self.datum)
+        # resultatum exemplum: {'C2': [1, 2, 3], 'C3': [4]}
+
+        # print('crudum_grupum_conceptum', crudum_grupum_conceptum)
+
+        for clavem in crudum_grupum_conceptum:
+            crude_lineam = self.crudum_lineam_de_indicem(
+                crudum_grupum_conceptum[clavem])
+
+            # print('ooi', crudum_grupum_conceptum[clavem])
+            # print('ooi', crude_lineam)
+            lineam_grupum = HXLTMDatumConceptumSaccum.\
+                reducendum_de_datum_saccum(self.meta, crude_lineam)
+            # -> [HXLTMDatumLineam(), HXLTMDatumLineam(), HXLTMDatumLineam()]
+
+            # print('indicem_grupum', indicem_grupum)
+            # print('')
+            # print('lineam_grupum', lineam_grupum)
+            # break
+
+            concept_saccum = HXLTMDatumConceptumSaccum(lineam_grupum)
+            # resultatum exemplum: HXLTMDatumConceptumSaccum
+            self.conceptum.append(concept_saccum)
+
+        return True
 
     def _initialle_de_hxltm_archivum(self, archivum: str):
         """
@@ -2281,7 +2324,34 @@ class HXLTMDatum:
             # venandum_insectum=self.argumentum.venandum_insectum
         )
 
-    def crudum_lineam_de_indicem(self, indicem: int) -> List:
+    def conceptum_de_indicem(
+            self, indicem: int) -> Type['HXLTMDatumConceptumSaccum']:
+        """Conceptum de indicem
+
+        Args:
+            indicem (HXLTMDatumConceptumSaccum): Conceptum
+
+        Returns:
+            [List]: valendum collēctiōnem, id est, crudum Python List
+        """
+        return self.conceptum[indicem]
+
+    def conceptum_quantitatem(self) -> int:
+        """Conceptum quantitatem tōtāle
+
+        Trivia:
+        - tōtāle, https://en.wiktionary.org/wiki/totalis#Latin
+
+        Returns:
+            int: quantitatem tōtāle
+        """
+        totale = 0
+        if self.datum is not None:
+            totale = len(self.datum)
+
+        return totale
+
+    def crudum_lineam_de_indicem(self, indicem: Union[int, list]) -> List:
         """Crudum līneam de indicem
 
         _[eng-Latn]
@@ -2289,12 +2359,18 @@ class HXLTMDatum:
         [eng-Latn]_
 
         Args:
-            indicem (int): indicem de līneam
+            indicem (Union[int, list]): indicem de līneam
 
         Returns:
             [List]: valendum collēctiōnem, id est, crudum Python List
         """
-        return self.datum[indicem]
+        if isinstance(indicem, int):
+            return self.datum[indicem]
+        resultatum = []
+        for clavem in indicem:
+            resultatum.append(self.datum[clavem])
+
+        return resultatum
 
     def rem_iterandum(self) -> Type['HXLTMIterandumRem']:
         return HXLTMIterandumRem(self)
@@ -2307,7 +2383,7 @@ class HXLTMDatum:
         - tōtāle, https://en.wiktionary.org/wiki/totalis#Latin
 
         Returns:
-            int: [description]
+            int: quantitatem tōtāle
         """
         totale = 0
 
@@ -2941,6 +3017,16 @@ dict_keys(['C2', 'C3'])
         # else:
         #     self.lineam = lineam
 
+    def contextum(self) -> Dict:
+        """[summary]
+
+        Returns:
+            Dict: [description]
+        """
+        contextum = {}
+        contextum['rem'] = self.quod_clavem_et_valendum()
+        return contextum
+
     @staticmethod
     def reducendum_de_datum_saccum(
             datum_caput: Type['HXLTMDatumCaput'],
@@ -3043,6 +3129,8 @@ dict_keys(['C2', 'C3'])
 
         for col in range(self.datum_caput.columnam_quantitatem):
             nomen_breve = ''
+            # print(col)
+            # print(self.lineam_collectionem[0])
             nunc_valendum = self.lineam_collectionem[0].valendum_de_index(col)
 
             # '#_0', '#_2', '#_3', '#_4', ...
@@ -3068,6 +3156,7 @@ dict_keys(['C2', 'C3'])
                     resultatum['rem'].append(nunc_valendum_rem)
 
             # print(col)
+            # print(resultatum)
 
         return resultatum
 
@@ -3263,6 +3352,12 @@ True
             hxl_hashtag (str): HXL Hashtag
             lineam_indicem (int): Indicem numerum
         """
+
+        # print('self.v()', self.v(True))
+        # print('lineam_indicem', lineam_indicem)
+        # print('self.lineam', self.lineam)
+        # print('self.lineam[1]', self.lineam[1])
+        # print('self.lineam len', len(self.lineam))
         return self.lineam[lineam_indicem]
 
     def valendum_de_hxl(
@@ -3318,7 +3413,7 @@ class HXLTMIterandumRem:
         self.hxltm_datum = hxltm_datum
 
         self.rem_hoc = 0
-        self.rem_quantitatem = hxltm_datum.lineam_quantitatem()
+        self.rem_quantitatem = hxltm_datum.conceptum_quantitatem()
 
     def __iter__(self):
         return self
@@ -3326,7 +3421,8 @@ class HXLTMIterandumRem:
     def __next__(self):
         self.rem_hoc += 1
         if self.rem_hoc < self.rem_quantitatem:
-            return self.hxltm_datum.crudum_lineam_de_indicem(self.rem_hoc)
+            # return self.hxltm_datum.crudum_lineam_de_indicem(self.rem_hoc)
+            return self.hxltm_datum.conceptum_de_indicem(self.rem_hoc)
         raise StopIteration
 
 
@@ -3814,6 +3910,7 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
             # resultatum.append(rem.v())
             # print(rem)
             liquid_context = {'rem': str(rem)}
+            liquid_context = rem.contextum()
             # resultatum.append(str(rem))
             resultatum.append(
                 self.de_liquid(liquid_template, liquid_context)
