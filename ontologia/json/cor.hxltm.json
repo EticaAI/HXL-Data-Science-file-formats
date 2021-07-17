@@ -1,7 +1,10 @@
 {
+  "__ontologia_cor_versionem__": "v0.8.3+EticaAI+voluntārium-commūne",
   "fontem_archivum_extensionem": {
     ".tm.hxl.csv": "HXLTM",
     ".xliff.hxl.csv": "CSV-HXL-XLIFF",
+    ".asa.hxltm.json": "HXLTM-ASA-JSON",
+    ".asa.hxltm.yml": "HXLTM-ASA-YAML",
     ".hxl.csv": "HXLTM",
     ".csv": "HXLTM",
     ".json": "JSON-kv",
@@ -15,7 +18,7 @@
   "fontem_archivum_extensionem_regex": {
     "[a-z]{2}.csv": "CSV-3"
   },
-  "formatum": {
+  "normam": {
     "CSV-3": {
       "__meta": {
         "archivum_extensionem": ".csv",
@@ -102,6 +105,28 @@
         }
       }
     },
+    "HXLTM-ASA": {
+      "__meta": {
+        "archivum_extensionem": [
+          ".asa.hxltm.json",
+          ".asa.hxltm.yml"
+        ],
+        "normam": [
+          "https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA"
+        ],
+        "descriptionem": "_[eng-Latn]\nThe HXLTM-ASA is an not strictly documented Abstract Syntax Tree\nof an data conversion operation.\n\nThis format, different from the HXLTM permanent storage, is not\nmeant to be used by end users. And, in fact, either JSON (or other\nformats, like YAML) are more a tool for users debugging the initial\nreference implementation hxltmcli OR developers using JSON\nas more advanced input than the end user permanent storage.\n\nWarning: The HXLTM-ASA is not meant to be an stricly documented format\neven if HXLTM eventually get used by large public. If necessary,\nsome special format could be created, but this would require feedback\nfrom community or some work already done by implementers.\n[eng-Latn]_\n\nTrivia:\n  - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin\n  - syntaxim, https://en.wiktionary.org/wiki/syntaxis#Latin\n  - arborem, https://en.wiktionary.org/wiki/arbor#Latin\n  - conceptum de Abstractum Syntaxim Arborem\n    - https://www.wikidata.org/wiki/Q127380\n",
+        "nomen": {
+          "eng-Latn": "HXLTM Abstractum Syntaxim Arborem"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "https://hdp.etica.ai/hxltm",
+            "https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM",
+            "https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22"
+          ]
+        }
+      }
+    },
     "JSON-kv": {
       "__meta": {
         "archivum_extensionem": ".json",
@@ -169,6 +194,11 @@
             "https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards"
           ]
         }
+      },
+      "formatum": {
+        "initiale": "<?xml version='1.0' encoding='utf-8'?>\n<!DOCTYPE tmx SYSTEM \"tmx14.dtd\">\n<tmx version=\"1.4\">\n  <header\n    creationtool=\"hxltmcli.py\"\n    creationtoolversion=\"{{ globum.instrumentum_versionem }}\"\n    segtype=\"sentence\"\n    o-tmf=\"UTF-8\"\n    adminlang=\"{{ globum.instrumentum_versionem }}\"\n    srclang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\"\n    datatype=\"PlainText\"\n  />\n  <body>\n",
+        "corporeum": "    <tu tuid=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {%- if conceptum.conceptum_codicem_wikidata %}\n      <prop type=\"wikidata\">{{ conceptum.conceptum_codicem_wikidata }}</prop>\n      {% endif -%}\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <tuv xml:lang=\"{{ item[1].bcp47 }}\">\n        <seg>\n          {{ item[1].rem }}\n        </seg>\n      </tuv>\n      {%- endif -%}\n      {%- endfor %}\n    </tu>\n",
+        "finale": "  </body>\n</tmx>\n"
       }
     },
     "UTX": {
@@ -261,13 +291,29 @@
       }
     }
   },
+  "formatum_excerptum": {
+    "exemplum": "{{ #_1 }},{{ #_2 }}\n"
+  },
+  "libellam": {
+    "glossarium": null,
+    "conceptum": {
+      "_TBX": "entry-level"
+    },
+    "linguam": {
+      "_TBX": "language-level"
+    },
+    "rem": {
+      "_TBX": "term-level"
+    }
+  },
   "ontologia": {
     "commune": {
       "conceptum": {
         "accuratum": {
           "__HXL": "#status +conceptum +accuratum",
-          "__nomen_breve": "conceptum_accuratum",
+          "__nomen_breve": "accuratum",
           "__id": "ontologia.commune.conceptum.accuratum",
+          "__libellam": "conceptum",
           "__valorem_optionem": "ontologia_aliud.accuratum",
           "__valorem_maximum": 10,
           "__valorem_minimum": 0,
@@ -280,21 +326,24 @@
         },
         "codicem": {
           "__HXL": "#item +conceptum +codicem",
-          "__nomen_breve": "conceptum_codicem",
+          "__nomen_breve": "codicem",
           "__id": "ontologia.commune.conceptum.codicem",
+          "__libellam": "conceptum",
           "_XLIFF": {
             "__HXL_bilingue": "#x_xliff +unit +id"
           },
           "deprecatum": {
             "__HXL": "#meta +conceptum +codicem +deprecatum",
-            "__nomen_breve": "conceptum_codicem_deprecatum",
+            "__nomen_breve": "codicem_deprecatum",
             "__id": "ontologia.commune.conceptum.codicem.deprecatum",
+            "__libellam": "conceptum",
             "__valorem_typum": "compactum_textum - exemplum_codicem_a|exemplum_codicem_b|123456"
           },
           "alternativum": {
             "__HXL": "#meta +conceptum +codicem +alternativum",
-            "__nomen_breve": "conceptum_codicem_alternativum",
+            "__nomen_breve": "codicem_alternativum",
             "__id": "ontologia.commune.conceptum.codicem.alternativum",
+            "__libellam": "conceptum",
             "__valorem_typum": "compactum_textum",
             "_exemplum": [
               "Q1065|UNTERM5f40d95f1d17bf8c85256a01000080af|IATE787725"
@@ -303,8 +352,9 @@
         },
         "dominium": {
           "__HXL": "#item +conceptum +dominium",
-          "__nomen_breve": "conceptum_dominium",
+          "__nomen_breve": "dominium",
           "__id": "ontologia.commune.conceptum.dominium",
+          "__libellam": "conceptum",
           "_TBX": {
             "_id": "DC-489",
             "_descriptionem": "Refers to a location in the corpus—such as a software application\nuser interface, product packaging, oran industrial process—where\nthe term frequently occurs'A sample sentence that contains\nthe term.\n",
@@ -329,8 +379,9 @@
         },
         "typum": {
           "__HXL": "#item +conceptum +typum",
-          "__nomen_breve": "conceptum_typum",
+          "__nomen_breve": "typum",
           "__id": "ontologia.commune.conceptum.typum",
+          "__libellam": "rem",
           "_TBX": {
             "_id": "DC-2677",
             "_nomen": "Term type",
@@ -347,6 +398,7 @@
           "__HXL": "#item +rem __linguam__",
           "__nomen_breve": "rem__L__",
           "__id": "ontologia.commune.rem.__linguam__",
+          "__libellam": "rem",
           "_TBX": {
             "_id": "DC-1823",
             "_nomen": "Term",
@@ -369,8 +421,9 @@
         },
         "__linguam_de_imperium__": {
           "__HXL": "#item +rem __linguam_de_imperium__",
-          "__nomen_breve": "rem__L__",
+          "__nomen_breve": "rem__L_I__",
           "__id": "ontologia.commune.rem.__linguam_de_imperium__",
+          "__libellam": "rem",
           "_TBX": {
             "_id": "DC-1823",
             "_nomen": "Term",
@@ -394,8 +447,9 @@
         "accuratum": {
           "__linguam__": {
             "__HXL": "#status +rem +accuratum __linguam__",
-            "__nomen_breve": "rem_accuratum__L__",
+            "__nomen_breve": "accuratum__L__",
             "__id": "ontologia.commune.rem.__linguam__.accuratum",
+            "__libellam": "rem",
             "__valorem_optionem": "ontologia_aliud.accuratum",
             "__valorem_maximum": 10,
             "__valorem_minimum": 0,
@@ -408,8 +462,9 @@
           },
           "__linguam_de_imperium__": {
             "__HXL": "#status +rem +accuratum __linguam_de_imperium__",
-            "__nomen_breve": "rem_accuratum__L_I__",
+            "__nomen_breve": "accuratum__L_I__",
             "__id": "ontologia.commune.rem.accuratum.__linguam_de_imperium__",
+            "__libellam": "rem",
             "__valorem_optionem": "ontologia_aliud.accuratum",
             "__valorem_maximum": 10,
             "__valorem_minimum": 0,
@@ -424,13 +479,15 @@
         "compactum_json": {
           "__linguam__": {
             "__HXL": "#meta +rem +json __linguam__",
-            "__nomen_breve": "rem_json__L__",
-            "__id": "ontologia.commune.rem.compactum_json.__linguam__"
+            "__nomen_breve": "json__L__",
+            "__id": "ontologia.commune.rem.compactum_json.__linguam__",
+            "__libellam": "rem"
           },
           "__linguam_de_imperium__": {
             "__HXL": "#meta +rem +json __linguam_de_imperium__",
-            "__nomen_breve": "rem_json__L_I__",
-            "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__"
+            "__nomen_breve": "json__L_I__",
+            "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__",
+            "__libellam": "rem"
           }
         },
         "status": {
@@ -542,8 +599,9 @@
         "contextum": {
           "__linguam__": {
             "__HXL": "#item +rem +contextum __linguam__",
-            "__nomen_breve": "G_rem_contextum__L__",
+            "__nomen_breve": "contextum__L__",
             "__id": "ontologia.glossarium.rem.contextum.__linguam__",
+            "__libellam": "linguam",
             "_TBX": {
               "_id": "DC-149",
               "_descriptionem": "A sample sentence that contains the term.",
@@ -560,8 +618,9 @@
           },
           "__linguam_de_imperium__": {
             "__HXL": "#item +rem +contextum __linguam_de_imperium__",
-            "__nomen_breve": "G_rem_contextum__L_I__",
+            "__nomen_breve": "contextum__L_I__",
             "__id": "ontologia.commune.rem.contextum.__linguam_de_imperium__",
+            "__libellam": "linguam",
             "_TBX": {
               "_id": "DC-149",
               "_descriptionem": "A sample sentence that contains the term.",
@@ -580,8 +639,9 @@
         "definitionem": {
           "__linguam__": {
             "__HXL": "#item +rem +definitionem __linguam__",
-            "__nomen_breve": "G_rem_definitionem__L__",
+            "__nomen_breve": "definitionem__L__",
             "__id": "ontologia.glossarium.rem.definitionem.__linguam__",
+            "__libellam": "linguam",
             "_TBX": {
               "_id": "DC-168",
               "_descriptionem": null,
@@ -600,8 +660,9 @@
           },
           "__linguam_de_imperium__": {
             "__HXL": "#item +rem +definitionem __linguam_de_imperium__",
-            "__nomen_breve": "G_rem_definitionem__L_I__",
+            "__nomen_breve": "definitionem__L_I__",
             "__id": "ontologia.commune.rem.definitionem.__linguam_de_imperium__",
+            "__libellam": "linguam",
             "_TBX": {
               "_id": "DC-168",
               "_descriptionem": null,
@@ -626,8 +687,9 @@
         "codicem": {
           "iate": {
             "__HXL": "#meta +conceptum +codicem +iate",
-            "__nomen_breve": "conceptum_codicem_iate",
+            "__nomen_breve": "codicem_iate",
             "__id": "ontologia.extensionem.conceptum.codicem.iate",
+            "__libellam": "conceptum",
             "_url": "https://iate.europa.eu/fields-explained",
             "_compactum_json": [
               {
@@ -656,8 +718,9 @@
           },
           "unterm": {
             "__HXL": "#meta +conceptum +codicem +unterm",
-            "__nomen_breve": "conceptum_codicem_unterm",
+            "__nomen_breve": "codicem_unterm",
             "__id": "ontologia.extensionem.conceptum.codicem.unterm",
+            "__libellam": "conceptum",
             "_url": "https://iate.europa.eu/fields-explained",
             "_url_rem": "https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{valorem}}",
             "_compactum_json": [
@@ -685,8 +748,9 @@
           },
           "wikidata": {
             "__HXL": "#meta +conceptum +codicem +wikidata",
-            "__nomen_breve": "conceptum_codicem_wikidata",
+            "__nomen_breve": "codicem_wikidata",
             "__id": "ontologia.extensionem.conceptum.codicem.wikidata",
+            "__libellam": "conceptum",
             "_url": "https://www.wikidata.org/",
             "_url_rem": "https://www.wikidata.org/wiki/{{valorem}}",
             "_compactum_json": [
@@ -720,8 +784,9 @@
         "translationem": {
           "directionem": {
             "__HXL": "#meta +conceptum +translationem +directionem",
-            "__nomen_breve": "TM_conceptum_translationem_directionem",
+            "__nomen_breve": "translationem_directionem",
             "__id": "ontologia.tm.conceptum.translationem.directionem",
+            "__libellam": "conceptum",
             "_compactum_json": {
               "_id": "ontologia.commune.conceptum.compactum_json",
               "_JSONPath": "translationem.directionem",
@@ -743,8 +808,9 @@
           "directionem": {
             "__linguam__": {
               "__HXL": "#meta +rem +translationem +directionem __linguam__",
-              "__nomen_breve": "TM_rem_translationem_directionem__L__",
+              "__nomen_breve": "translationem_directionem__L__",
               "__id": "ontologia.tm.rem.translationem.directionem.__linguam__",
+              "__libellam": "conceptum",
               "_compactum_json": {
                 "_id": "ontologia.commune.rem.__linguam__.compactum_json",
                 "_JSONPath": "translationem.directionem",
@@ -761,8 +827,9 @@
             },
             "__linguam_de_imperium__": {
               "__HXL": "#item +rem +translationem +directionem __linguam_de_imperium__",
-              "__nomen_breve": "TM_rem_translationem_directionem__L_I__",
+              "__nomen_breve": "translationem_directionem__L_I__",
               "__id": "ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__",
+              "__libellam": "conceptum",
               "_compactum_json": {
                 "_id": "ontologia.commune.rem.__linguam_de_imperium__.compactum_json",
                 "_JSONPath": "translationem.directionem",

@@ -1685,7 +1685,9 @@ HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
 
         self.datum = HXLTMDatum(
             fontem_crudum_datum,
-            argumentum=self.argumentum)
+            argumentum=self.argumentum,
+            ontologia=self.ontologia
+        )
 
     def quod_globum_valendum(self) -> Dict:
         """Quod globum valendum?
@@ -2152,24 +2154,29 @@ class HXLTMDatum:
     datum: InitVar[List] = []
     conceptum: InitVar[List[Type['HXLTMDatumConceptumSaccum']]] = []
     columnam: InitVar[List] = []  # @deprecated
-    # ontologia: InitVar[Type['HXLTMOntologia']] = None
+    ontologia: InitVar[Type['HXLTMOntologia']] = None
     argumentum: InitVar[Type['HXLTMArgumentum']] = None
     venandum_insectum: InitVar[bool] = False
 
     def __init__(self,
                  crudum_datum: Union[List[List], str],
-                 argumentum: Type['HXLTMArgumentum'] = None):
+                 argumentum: Type['HXLTMArgumentum'] = None,
+                 ontologia: Type['HXLTMOntologia'] = None):
         """[summary]
 
         Args:
             hxltm_crudum (str, List[List]): Datum
             argumentum (HXLTMArgumentum): HXLTMArgumentum
+            ontologia (HXLTMOntologia): HXLTMOntologia
         """
 
         if argumentum is not None:
             self.argumentum = argumentum
         else:
             self.argumentum = HXLTMArgumentum()
+
+        if ontologia is not None:
+            self.ontologia = ontologia
 
         if isinstance(crudum_datum, str):
             self._initialle_de_hxltm_archivum(crudum_datum)
@@ -2211,7 +2218,10 @@ class HXLTMDatum:
             # print('lineam_grupum', lineam_grupum)
             # break
 
-            concept_saccum = HXLTMDatumConceptumSaccum(lineam_grupum)
+            # print('oii', self.ontologia)
+
+            concept_saccum = HXLTMDatumConceptumSaccum(
+                lineam_grupum, ontologia=self.ontologia)
             # resultatum exemplum: HXLTMDatumConceptumSaccum
             self.conceptum.append(concept_saccum)
 
@@ -2942,6 +2952,7 @@ class HXLTMDatumConceptumSaccum:
 ...      ['C2', 'Amat canem Marcus.', 'vērum? vērum!'],
 ...      ['C3', 'Vēnandum īnsectum.', ''],
 ...   ]
+>>> ontologia = HXLTMTestumAuxilium.ontologia()
 >>> caput = HXLTMDatumCaput(
 ...            crudum_titulum=crudum_titulum,
 ...            crudum_hashtag=crudum_hashtag
@@ -2973,18 +2984,20 @@ dict_keys(['C2', 'C3'])
 >>> Conceptum_C2_lineam
 [HXLTMDatumLineam(), HXLTMDatumLineam(), HXLTMDatumLineam()]
 
->>> Conceptum_C2 = HXLTMDatumConceptumSaccum(Conceptum_C2_lineam)
+>>> Conceptum_C2 = HXLTMDatumConceptumSaccum(Conceptum_C2_lineam, ontologia)
 >>> Conceptum_C2.v(verbosum=False)
 {'_typum': 'HXLTMDatumConceptumSaccum', 'conceptum_nomen': 'C2', \
-'rem': {'de_linguam': {}, 'hxl': {'#item+conceptum+codicem': 'C2', \
+'rem': {'de_id': {}, 'de_linguam': {'lat-Latn': \
+{'rem': 'Marcus canem amat.', '_typum': 'HXLTMRemCaput', \
+'crudum': 'lat-latn@la', 'linguam': 'lat-Latn', 'bcp47': 'la', \
+'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}}, \
+'de_nomen_breve': {'conceptum_codicem': 'C2', \
+'rem__L__': 'Marcus canem amat.'}, 'hxl': {'#item+conceptum+codicem': 'C2', \
 '#item+rem+i_la+i_lat+is_Latn': 'Marcus canem amat.', \
 '#meta+rem+annotationem+i_la+i_lat+is_latn': 'Vērum!'}, \
 'indicem': ['C2', 'Marcus canem amat.', 'Vērum!'], 'titulum': {}, \
-'id': 'C2', 'Nōmen': 'Marcus canem amat.', 'rem': \
-[{'rem': 'Marcus canem amat.', '_typum': 'HXLTMRemCaput', \
-'crudum': 'lat-latn@la', 'linguam': 'lat-Latn', 'bcp47': \
-'la', 'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}], \
-'Annotātiōnem': 'Vērum!'}, 'lineam_collectionem': [], 'vacuum': False}
+'id': 'C2', 'Nōmen': 'Marcus canem amat.', 'Annotātiōnem': 'Vērum!'}, \
+'lineam_collectionem': [], 'vacuum': False}
 
     """
 
@@ -3018,6 +3031,9 @@ dict_keys(['C2', 'C3'])
 
         if ontologia is None:
             self.ontologia = HXLTMOntologia(None, vacuum=True)
+        else:
+            self.ontologia = ontologia
+            # print('nao é noneeeee')
         #     if vacuum:
         #         self.lineam_collectionem = \
         #             [None] * self.datum_caput.columnam_quantitatem
@@ -3135,11 +3151,16 @@ dict_keys(['C2', 'C3'])
             [Dict]: [description]
         """
         resultatum = {
+            'de_id': {},
             'de_linguam': {},
+            'de_nomen_breve': {},
             'hxl': {},
             'indicem': [],
             'titulum': {}
         }
+
+        # print(self.ontologia.crudum)
+        # print(self.ontologia.hxl_de_aliud_nomen_breve())
 
         for col in range(self.datum_caput.columnam_quantitatem):
             nomen_breve = ''
@@ -3162,11 +3183,10 @@ dict_keys(['C2', 'C3'])
                 nomen_breve = \
                     self.ontologia.quod_nomen_breve_de_hxl(hxl_hashtag)
 
-                # if self.ontologia.quid_est_hashtag_circa_linguam(
-                #     hxl_hashtag):
-
-            # print('oooiwwww', hxl_hashtag)
             if nomen_breve:
+
+                resultatum['de_nomen_breve'][nomen_breve] = nunc_valendum
+
                 # TODO: make this non-hardcoded ASAP (via HXLTMOntologia)
                 # print('oooi')
                 if nomen_breve == 'rem__L__':
@@ -3177,10 +3197,6 @@ dict_keys(['C2', 'C3'])
                         rem=nunc_valendum
                     ).v()
 
-                    # print(nunc_valendum_rem)
-                    # print(nunc_valendum_rem)
-                    # resultatum[nomen_breve].append(nunc_valendum)
-                    # resultatum['rem'].append(nunc_valendum_rem)
                     resultatum['de_linguam'][nunc_valendum_rem['linguam']] = \
                         nunc_valendum_rem
 
@@ -4046,6 +4062,8 @@ class HXLTMOntologia:
         else:
             self.crudum = ontologia
 
+        # print('ooooi', vacuum, ontologia)
+
         # TODO: hxlm/data/exemplum/ego.hxltm.yml
         # TODO: hxlm/data/exemplum/venditorem.hxltm.yml
 
@@ -4093,6 +4111,7 @@ class HXLTMOntologia:
                         resultatum[rem['__nomen_breve']] = \
                             ''.join(rem['__HXL'].split())
 
+        print(self.crudum)
         recursionem(self.crudum['ontologia'])
         # print(resultatum)
         return resultatum
@@ -4265,7 +4284,6 @@ class HXLTMOntologia:
         #       raw hashtag, since several terms would have
         #       several hashtags
         pass
-
 
 
 class HXLTMBCP47:
