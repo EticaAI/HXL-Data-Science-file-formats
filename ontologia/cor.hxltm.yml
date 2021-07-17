@@ -303,7 +303,7 @@ normam:
       # TODO: implement indicem_lineam
       # TODO: implement indicem_columnam
       corporeum: |2
-            <tu tuid="{{ conceptum.codicem | default: conceptum.indicem_lineam | default: 'errorem' }}">
+            <tu tuid="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
               {%- if conceptum.conceptum_codicem_wikidata %}
               <prop type="wikidata">{{ conceptum.conceptum_codicem_wikidata }}</prop>
               {% endif -%}
@@ -429,6 +429,15 @@ formatum_excerptum:
 # end::normam_excerptum[]
 
 # tag::ontologia[]
+libellam:
+  glossarium:
+  conceptum:
+    _TBX: entry-level
+  linguam:
+    _TBX: language-level
+  rem:
+    _TBX: term-level
+
 # Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
 ontologia:
 
@@ -443,8 +452,9 @@ ontologia:
       #   - reliabilityCode, https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
       accuratum:
         __HXL: '#status +conceptum +accuratum'
-        __nomen_breve: 'conceptum_accuratum'
+        __nomen_breve: 'accuratum' # __nomen_breve + __libellam : 'conceptum.accuratum'
         __id: ontologia.commune.conceptum.accuratum
+        __libellam: conceptum
         __valorem_optionem: "ontologia_aliud.accuratum"
         __valorem_maximum: 10
         __valorem_minimum: 0
@@ -462,24 +472,27 @@ ontologia:
       # Trivia: cōdicem, https://en.wiktionary.org/wiki/codex#Latin
       codicem:
         __HXL: '#item +conceptum +codicem'
-        __nomen_breve: 'conceptum_codicem'
+        __nomen_breve: 'codicem'  # conceptum.codicem
         __id: ontologia.commune.conceptum.codicem
+        __libellam: conceptum
         _XLIFF:
           __HXL_bilingue: '#x_xliff +unit +id'
 
         # Trivia: dēprecātum, https://en.wiktionary.org/wiki/deprecatus#Latin
         deprecatum:
           __HXL: '#meta +conceptum +codicem +deprecatum'
-          __nomen_breve: 'conceptum_codicem_deprecatum'
+          __nomen_breve: 'codicem_deprecatum' # conceptum.codicem_deprecatum
           __id: ontologia.commune.conceptum.codicem.deprecatum
+          __libellam: conceptum
           __valorem_typum: compactum_textum
             - exemplum_codicem_a|exemplum_codicem_b|123456
 
         # Trivia: alternātīvum, https://en.wiktionary.org/wiki/alternativus#Latin
         alternativum:
           __HXL: '#meta +conceptum +codicem +alternativum'
-          __nomen_breve: 'conceptum_codicem_alternativum'
+          __nomen_breve: 'codicem_alternativum' # conceptum.codicem_deprecatum
           __id: ontologia.commune.conceptum.codicem.alternativum
+          __libellam: conceptum
           __valorem_typum: compactum_textum
           _exemplum:
             - Q1065|UNTERM5f40d95f1d17bf8c85256a01000080af|IATE787725
@@ -490,8 +503,9 @@ ontologia:
 
       dominium:
         __HXL: '#item +conceptum +dominium' # Always a list
-        __nomen_breve: 'conceptum_dominium'
+        __nomen_breve: 'dominium'  # conceptum.dominium
         __id: ontologia.commune.conceptum.dominium
+        __libellam: conceptum
         # See also
         # - https://iate.europa.eu/developers
         #  - https://iate.europa.eu/em-api/domains/_tree?pretty=true
@@ -553,8 +567,11 @@ ontologia:
       # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
       typum:
         __HXL: '#item +conceptum +typum'
-        __nomen_breve: 'conceptum_typum'
+        # @TODO: This may need move to other part, since is term level
+        #        not concept level.
+        __nomen_breve: 'typum'  # rem.typum
         __id: ontologia.commune.conceptum.typum
+        __libellam: rem
         _TBX: &referens_ontologia-commune-rem-typum-__linguam__-_TBX
           _id: DC-2677
           _nomen: Term type
@@ -578,8 +595,9 @@ ontologia:
       __linguam__:
          # Exemplum: '#item +rem +i_en +i_eng +is_Latn'
         __HXL: '#item +rem __linguam__'
-        __nomen_breve: 'rem__L__'
+        __nomen_breve: 'rem__L__'  # rem.rem__L__
         __id: ontologia.commune.rem.__linguam__
+        __libellam: rem
         _TBX: &referens_ontologia-commune-rem-__linguam__-_TBX
           _id: DC-1823
           _nomen: Term
@@ -615,8 +633,9 @@ ontologia:
       __linguam_de_imperium__:
          # Exemplum: '#item +rem +i_en +i_eng +is_Latn +TODO_THINK_ABOUT_HXLTAG'
         __HXL: '#item +rem __linguam_de_imperium__'
-        __nomen_breve: 'rem__L_I__'
+        __nomen_breve: 'rem__L_I__'  # rem.rem__L_I__
         __id: ontologia.commune.rem.__linguam_de_imperium__
+        __libellam: rem
         _TBX: *referens_ontologia-commune-rem-__linguam__-_TBX
         _UTX: *referens_ontologia-commune-rem-__linguam__-_UTX
         _XLIFF:
@@ -632,8 +651,9 @@ ontologia:
       accuratum:
         __linguam__:
           __HXL: '#status +rem +accuratum __linguam__'
-          __nomen_breve: 'rem_accuratum__L__'
+          __nomen_breve: 'accuratum__L__'  # rem.accuratum__L__
           __id: ontologia.commune.rem.__linguam__.accuratum
+          __libellam: rem
           __valorem_optionem: "ontologia_aliud.accuratum"
           __valorem_maximum: 10
           __valorem_minimum: 0
@@ -642,8 +662,9 @@ ontologia:
 
         __linguam_de_imperium__:
           __HXL: '#status +rem +accuratum __linguam_de_imperium__'
-          __nomen_breve: 'rem_accuratum__L_I__'
+          __nomen_breve: 'accuratum__L_I__'  # rem.accuratum__L_I__
           __id: ontologia.commune.rem.accuratum.__linguam_de_imperium__
+          __libellam: rem
           __valorem_optionem: "ontologia_aliud.accuratum"
           __valorem_maximum: 10
           __valorem_minimum: 0
@@ -653,12 +674,14 @@ ontologia:
       compactum_json:
         __linguam__:
           __HXL: '#meta +rem +json __linguam__'
-          __nomen_breve: 'rem_json__L__'
+          __nomen_breve: 'json__L__'  # rem.json__L__
           __id: ontologia.commune.rem.compactum_json.__linguam__
+          __libellam: rem
         __linguam_de_imperium__:
           __HXL: '#meta +rem +json __linguam_de_imperium__'
-          __nomen_breve: 'rem_json__L_I__'
+          __nomen_breve: 'json__L_I__'  # rem.json__L_I__
           __id: ontologia.commune.rem.compactum_json.__linguam_de_imperium__
+          __libellam: rem
 
       # Note: we will NOT provide a generic #meta +rem, but will compact_json
       # compactum_textum:
@@ -857,8 +880,10 @@ ontologia:
       contextum:
         __linguam__:
           __HXL: '#item +rem +contextum __linguam__'
-          __nomen_breve: 'G_rem_contextum__L__'
+          # __nomen_breve: 'G_rem_contextum__L__'
+          __nomen_breve: 'contextum__L__'  # linguam.contextum__L__
           __id: ontologia.glossarium.rem.contextum.__linguam__
+          __libellam: linguam
           _TBX: &referens_ontologia-commune-rem-contextum-__linguam__-_TBX
             _id: DC-149
             _descriptionem: A sample sentence that contains the term.
@@ -875,8 +900,10 @@ ontologia:
 
         __linguam_de_imperium__:
           __HXL: '#item +rem +contextum __linguam_de_imperium__'
-          __nomen_breve: 'G_rem_contextum__L_I__'
+          # __nomen_breve: 'G_rem_contextum__L_I__'
+          __nomen_breve: 'contextum__L_I__' # linguam.contextum__L_I__
           __id: ontologia.commune.rem.contextum.__linguam_de_imperium__
+          __libellam: linguam
           _TBX: *referens_ontologia-commune-rem-contextum-__linguam__-_TBX
           _XLIFF:
             # __HXL_bilingue: ''
@@ -892,8 +919,10 @@ ontologia:
       definitionem:
         __linguam__:
           __HXL: '#item +rem +definitionem __linguam__'
-          __nomen_breve: 'G_rem_definitionem__L__'
+          # __nomen_breve: 'G_rem_definitionem__L__'
+          __nomen_breve: 'definitionem__L__'  # linguam.definitionem__L__
           __id: ontologia.glossarium.rem.definitionem.__linguam__
+          __libellam: linguam
           _TBX: &referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
             _id: DC-168
             _descriptionem:
@@ -912,8 +941,10 @@ ontologia:
 
         __linguam_de_imperium__:
           __HXL: '#item +rem +definitionem __linguam_de_imperium__'
-          __nomen_breve: 'G_rem_definitionem__L_I__'
+          # __nomen_breve: 'G_rem_definitionem__L_I__'
+          __nomen_breve: 'definitionem__L_I__'  # linguam.definitionem__L_I__
           __id: ontologia.commune.rem.definitionem.__linguam_de_imperium__
+          __libellam: linguam
           _TBX: *referens_ontologia-commune-rem-definitionem-__linguam__-_TBX
           _XLIFF:
             # __HXL_bilingue: ''
@@ -933,8 +964,9 @@ ontologia:
 
         iate:
           __HXL: '#meta +conceptum +codicem +iate'
-          __nomen_breve: 'conceptum_codicem_iate'
+          __nomen_breve: 'codicem_iate'  # conceptum.codicem_iate
           __id: ontologia.extensionem.conceptum.codicem.iate
+          __libellam: conceptum
           _url: https://iate.europa.eu/fields-explained
           # _url_rem: ' ???? '
           _compactum_json:
@@ -955,8 +987,9 @@ ontologia:
 
         unterm:
           __HXL: '#meta +conceptum +codicem +unterm'
-          __nomen_breve: 'conceptum_codicem_unterm'
+          __nomen_breve: 'codicem_unterm'  # conceptum.codicem_unterm
           __id: ontologia.extensionem.conceptum.codicem.unterm
+          __libellam: conceptum
           _url: https://iate.europa.eu/fields-explained
           _url_rem: 'https://unterm.un.org/unterm/display/record/unhq/na?OriginalId={{valorem}}'
           _compactum_json:
@@ -976,8 +1009,9 @@ ontologia:
 
         wikidata:
           __HXL: '#meta +conceptum +codicem +wikidata'
-          __nomen_breve: 'conceptum_codicem_wikidata'
+          __nomen_breve: 'codicem_wikidata'  # conceptum.codicem_wikidata
           __id: ontologia.extensionem.conceptum.codicem.wikidata
+          __libellam: conceptum
           _url: https://www.wikidata.org/
           _url_rem: 'https://www.wikidata.org/wiki/{{valorem}}'
           _compactum_json:
@@ -1010,8 +1044,10 @@ ontologia:
         # Trivia: dīrēctiōnem, https://en.wiktionary.org/wiki/directio#Latin
         directionem:
           __HXL: '#meta +conceptum +translationem +directionem'
-          __nomen_breve: 'TM_conceptum_translationem_directionem'
+          # __nomen_breve: 'TM_conceptum_translationem_directionem'
+          __nomen_breve: 'translationem_directionem'  # conceptum.translationem_directionem
           __id: ontologia.tm.conceptum.translationem.directionem
+          __libellam: conceptum
           _compactum_json:
             #meta +json +conceptum
             _id: ontologia.commune.conceptum.compactum_json
@@ -1080,8 +1116,10 @@ ontologia:
           __linguam__:
             # Exemplum: '#meta +rem +translationem +directionem +i_en +i_eng +is_Latn'
             __HXL: '#meta +rem +translationem +directionem __linguam__'
-            __nomen_breve: 'TM_rem_translationem_directionem__L__'
+            # __nomen_breve: 'TM_rem_translationem_directionem__L__'
+            __nomen_breve: 'translationem_directionem__L__'  # conceptum.translationem_directionem__L__
             __id: ontologia.tm.rem.translationem.directionem.__linguam__
+            __libellam: conceptum
             _compactum_json:
               #meta +json +rem __linguam__
               _id: ontologia.commune.rem.__linguam__.compactum_json
@@ -1092,8 +1130,10 @@ ontologia:
 
           __linguam_de_imperium__:
             __HXL: '#item +rem +translationem +directionem __linguam_de_imperium__'
-            __nomen_breve: 'TM_rem_translationem_directionem__L_I__'
+            # __nomen_breve: 'TM_rem_translationem_directionem__L_I__'
+            __nomen_breve: 'translationem_directionem__L_I__'  # conceptum.translationem_directionem__L_I__
             __id: ontologia.tm.rem.translationem.directionem.__linguam_de_imperium__
+            __libellam: conceptum
             _compactum_json:
               #meta +json +rem __linguam_de_imperium__
               _id: ontologia.commune.rem.__linguam_de_imperium__.compactum_json
