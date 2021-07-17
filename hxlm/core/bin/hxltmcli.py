@@ -207,6 +207,7 @@ import langcodes
 # pip3 install -U python-liquid
 # from liquid import Template as LiquidTemplate
 from liquid import Environment as LiquidEnvironment
+from liquid.loaders import DictLoader as LiquiDictLoader
 # TODO: implement a JSON filter
 #       @see https://github.com/jg-rp/liquid-extra/blob/main/liquid_extra
 #            /filters/additional.py
@@ -3422,6 +3423,7 @@ class HXLTMInFormatum(ABC):
             hxltm_asa (HXLTMASA): HXLTMASA objectīvum
         """
         self.hxltm_asa = hxltm_asa
+        self.ontologia = hxltm_asa.ontologia
 
     def datum_initiale(self) -> List:  # pylint: disable=no-self-use
         """Datum initiāle de fōrmātum Lorem Ipsum vI.II
@@ -3529,7 +3531,14 @@ Salvi, {{ i }}! \
 'Salvi, 150!'
         """
         # @see https://github.com/jg-rp/liquid#quick-start
-        env = LiquidEnvironment(globals=self.quod_globum_valendum())
+        formatum_excerptum = LiquiDictLoader(
+            self.ontologia.quod_formatum_excerptum())
+        globum_valendum = self.quod_globum_valendum()
+
+        env = LiquidEnvironment(
+            globals=globum_valendum,
+            loader=formatum_excerptum
+        )
         liquid_template = env.from_string(liquid_formatum)
         contextum = liquid_contextum if liquid_contextum else {}
 
@@ -3999,6 +4008,24 @@ class HXLTMOntologia:
                 key) if d else default, keys, fontem
         )
 
+    def quod_formatum_excerptum(self) -> Dict:
+        """Quod fōrmātum excerptum?
+
+        _[eng-Latn]
+        Return fōrmātum excerptum (the formatum_excerptum from Ontologia)
+        [eng-Latn]_
+
+        Trivia:
+            - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+            - excerptum, https://en.wiktionary.org/wiki/excerptus#Latin
+
+        Returns:
+            Dict: fōrmātum excerptum
+        """
+        if self.crudum and 'formatum_excerptum' in self.crudum:
+            return self.crudum.formatum_excerptum
+        return {}
+
     def quod_globum_valendum(self) -> Dict:
         """Quod globum valendum?
 
@@ -4007,8 +4034,8 @@ class HXLTMOntologia:
         [eng-Latn]_
 
         Trivia:
-        - globum, https://en.wiktionary.org/wiki/globus#Latin
-        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+            - globum, https://en.wiktionary.org/wiki/globus#Latin
+            - valendum, https://en.wiktionary.org/wiki/valeo#Latin
 
         Returns:
             Dict: globum valendum
