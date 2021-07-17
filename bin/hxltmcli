@@ -165,6 +165,13 @@ Missing 'good' Latin terms to express meaning in English (for software)
 - input
     - @see https://en.wiktionary.org/wiki/input
 
+To Do
+---------
+- Improve the terms used for 'questions', like
+  'quid'/ 'quod'
+    - @see https://dcc.dickinson.edu/grammar/latin/questions
+
+
 [eng-Latn]_
 """
 import sys
@@ -172,6 +179,7 @@ import os
 import logging
 import argparse
 from pathlib import Path
+import re
 from abc import ABC, abstractmethod
 
 import csv
@@ -2968,14 +2976,15 @@ dict_keys(['C2', 'C3'])
 >>> Conceptum_C2 = HXLTMDatumConceptumSaccum(Conceptum_C2_lineam)
 >>> Conceptum_C2.v(verbosum=False)
 {'_typum': 'HXLTMDatumConceptumSaccum', 'conceptum_nomen': 'C2', \
-'rem': {'#_0': 'C2', '#item+conceptum+codicem': 'C2', \
-'#_1': 'Marcus canem amat.', '#item+rem+i_la+i_lat+is_Latn': \
-'Marcus canem amat.', 'rem': [{'rem': 'Marcus canem amat.', \
-'_typum': 'HXLTMRemCaput', 'crudum': 'lat-latn@la', \
-'linguam': 'lat-Latn', 'bcp47': 'la', 'iso6391a2': 'la', \
-'iso6393': 'lat', 'iso115924': 'Latn'}], '#_2': 'Vērum!', \
+'rem': {'de_linguam': {}, 'hxl': {'#item+conceptum+codicem': 'C2', \
+'#item+rem+i_la+i_lat+is_Latn': 'Marcus canem amat.', \
 '#meta+rem+annotationem+i_la+i_lat+is_latn': 'Vērum!'}, \
-'lineam_collectionem': [], 'vacuum': False}
+'indicem': ['C2', 'Marcus canem amat.', 'Vērum!'], 'titulum': {}, \
+'id': 'C2', 'Nōmen': 'Marcus canem amat.', 'rem': \
+[{'rem': 'Marcus canem amat.', '_typum': 'HXLTMRemCaput', \
+'crudum': 'lat-latn@la', 'linguam': 'lat-Latn', 'bcp47': \
+'la', 'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}], \
+'Annotātiōnem': 'Vērum!'}, 'lineam_collectionem': [], 'vacuum': False}
 
     """
 
@@ -3125,7 +3134,12 @@ dict_keys(['C2', 'C3'])
         Returns:
             [Dict]: [description]
         """
-        resultatum = {}
+        resultatum = {
+            'de_linguam': {},
+            'hxl': {},
+            'indicem': [],
+            'titulum': {}
+        }
 
         for col in range(self.datum_caput.columnam_quantitatem):
             nomen_breve = ''
@@ -3134,12 +3148,17 @@ dict_keys(['C2', 'C3'])
             nunc_valendum = self.lineam_collectionem[0].valendum_de_index(col)
 
             # '#_0', '#_2', '#_3', '#_4', ...
-            resultatum['#_' + str(col)] = nunc_valendum
+            # resultatum['#_' + str(col)] = nunc_valendum
+            resultatum['indicem'].append(nunc_valendum)
+            titulum = self.datum_caput.titulum_de_columnam(col)
+            if titulum:
+                resultatum[titulum] = nunc_valendum
 
             hxl_hashtag = self.datum_caput.hxl_hashtag_de_columnam(col)
 
             if hxl_hashtag:
-                resultatum[hxl_hashtag] = nunc_valendum
+                resultatum['hxl'][hxl_hashtag] = nunc_valendum
+                # resultatum[hxl_hashtag] = nunc_valendum
                 nomen_breve = \
                     self.ontologia.quod_nomen_breve_de_hxl(hxl_hashtag)
 
@@ -4153,6 +4172,57 @@ class HXLTMOntologia:
         # resultatum = {}
         # return resultatum
         return self.crudum
+
+    @staticmethod
+    def quid_est_hashtag_circa_conceptum(
+            hxl_hashtag: str) -> Union[bool, None]:
+        """Quid est hashtag circa +conceptum?
+
+        _[eng-Latn]
+        Is this hashtag about concept level?
+        [eng-Latn]
+
+        Args:
+            hxl_hashtag (str): Hashtag ad textum
+
+        Returns:
+            bool:
+        """
+        # TODO: make this actually read the cor.hxltm.yml. This hardcoded
+        #       part is just a quick fix
+
+        if HXLTMOntologia.quid_est_hashtag_circa_linguam(hxl_hashtag):
+            return False
+
+        if hxl_hashtag.find('+conceptum') > -1:
+            return True
+
+        return False
+
+    @staticmethod
+    def quid_est_hashtag_circa_linguam(hxl_hashtag: str) -> bool:
+        """Quid est hashtag circa linguam?
+
+        _[eng-Latn]
+        Is this hashtag about language term?
+        [eng-Latn]
+
+        Args:
+            hxl_hashtag (str): Hashtag ad textum
+
+        Returns:
+            bool:
+        """
+        # TODO: make this actually read the cor.hxltm.yml. This hardcoded
+        #       part is just a quick fix
+
+        if hxl_hashtag.startswith('#item+rem+i_'):
+            return True
+        if hxl_hashtag.startswith('#meta+rem+i_'):
+            return True
+        if re.match(r"\#.*(\+i_).*(\+is_).*", hxl_hashtag):
+            # # +i_ +is_
+            return True
 
     def quod_nomen_breve_de_hxl(self, hxl_hashtag: str) -> str:
         # TODO: make this actually read the cor.hxltm.yml. This hardcoded
