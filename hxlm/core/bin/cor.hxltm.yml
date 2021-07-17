@@ -298,6 +298,7 @@ normam:
             srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
             datatype="PlainText"
           />
+          <body>
 
       # TODO: implement indicem_lineam
       # TODO: implement indicem_columnam
@@ -306,30 +307,21 @@ normam:
               {%- if conceptum.conceptum_codicem_wikidata %}
               <prop type="wikidata">{{ conceptum.conceptum_codicem_wikidata }}</prop>
               {% endif -%}
-              {% for item in conceptum.collectionem_de_rem %}
-                <tuv xml:lang="{{ item.bcp47 | default: item.iso6393 }}">
-                  {{ item.rem }}
-                </tuv>
-              {% endfor %}
-              <!--
-              <tuv xml:lang="es">
-                <seg>Idioma español (Alfabeto latino)</seg>
+              {% for item in rem.de_linguam %}
+              {% if item[1].rem != '' -%}
+              <tuv xml:lang="{{ item[1].bcp47 }}">
+                <seg>
+                  {{ item[1].rem }}
+                </seg>
               </tuv>
-              <tuv xml:lang="ar">
-                <seg>اللغة العربية</seg>
-              </tuv>
-              -->
-              <!-- {{ rem.indicem }} -->
-
-
-              <!-- {{ rem.hxl }} -->
-
-              <!-- {{ rem }} -->
+              {%- endif -%}
+              {%- endfor %}
             </tu>
 
       finale: |2
           </body>
         </tmx>
+
 
   # end::normam_TMX[]
 

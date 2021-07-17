@@ -3162,17 +3162,27 @@ dict_keys(['C2', 'C3'])
                 nomen_breve = \
                     self.ontologia.quod_nomen_breve_de_hxl(hxl_hashtag)
 
+                # if self.ontologia.quid_est_hashtag_circa_linguam(
+                #     hxl_hashtag):
+
+            # print('oooiwwww', hxl_hashtag)
             if nomen_breve:
                 # TODO: make this non-hardcoded ASAP (via HXLTMOntologia)
+                # print('oooi')
                 if nomen_breve == 'rem__L__':
-                    resultatum['rem'] = []
+                    # print('nunc_valendum', nunc_valendum)
+                    # resultatum['rem'] = []
                     nunc_valendum_rem = HXLTMRem(
                         hashtag=hxl_hashtag,
                         rem=nunc_valendum
                     ).v()
+
+                    # print(nunc_valendum_rem)
                     # print(nunc_valendum_rem)
                     # resultatum[nomen_breve].append(nunc_valendum)
-                    resultatum['rem'].append(nunc_valendum_rem)
+                    # resultatum['rem'].append(nunc_valendum_rem)
+                    resultatum['de_linguam'][nunc_valendum_rem['linguam']] = \
+                        nunc_valendum_rem
 
             # print(col)
             # print(resultatum)
@@ -4223,6 +4233,7 @@ class HXLTMOntologia:
         if re.match(r"\#.*(\+i_).*(\+is_).*", hxl_hashtag):
             # # +i_ +is_
             return True
+        return False
 
     def quod_nomen_breve_de_hxl(self, hxl_hashtag: str) -> str:
         # TODO: make this actually read the cor.hxltm.yml. This hardcoded
@@ -4243,8 +4254,18 @@ class HXLTMOntologia:
 
         return nomen_breve
 
-    def quod_nomen_breve_de_id(self, hxl_hashtag: str) -> str:
+    def quod_nomen_breve_de_id(self, _hxl_hashtag: str) -> str:
+        """TODO quod_nomen_breve_de_id
+        """
         return ''
+
+    def in_rem(self, focused_datum: List) -> Type['HXLTMRem']:
+        # TODO: make a version of HXLTMRem that supports multiple values
+        #       grouped, and already initialized with lanuage tag, not
+        #       raw hashtag, since several terms would have
+        #       several hashtags
+        pass
+
 
 
 class HXLTMBCP47:

@@ -1693,6 +1693,7 @@ normam:
             srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
             datatype="PlainText"
           /&gt;
+          &lt;body&gt;
 
       # TODO: implement indicem_lineam
       # TODO: implement indicem_columnam
@@ -1701,30 +1702,21 @@ normam:
               {%- if conceptum.conceptum_codicem_wikidata %}
               &lt;prop type="wikidata"&gt;{{ conceptum.conceptum_codicem_wikidata }}&lt;/prop&gt;
               {% endif -%}
-              {% for item in conceptum.collectionem_de_rem %}
-                &lt;tuv xml:lang="{{ item.bcp47 | default: item.iso6393 }}"&gt;
-                  {{ item.rem }}
-                &lt;/tuv&gt;
-              {% endfor %}
-              &lt;!--
-              &lt;tuv xml:lang="es"&gt;
-                &lt;seg&gt;Idioma español (Alfabeto latino)&lt;/seg&gt;
+              {% for item in rem.de_linguam %}
+              {% if item[1].rem != '' -%}
+              &lt;tuv xml:lang="{{ item[1].bcp47 }}"&gt;
+                &lt;seg&gt;
+                  {{ item[1].rem }}
+                &lt;/seg&gt;
               &lt;/tuv&gt;
-              &lt;tuv xml:lang="ar"&gt;
-                &lt;seg&gt;اللغة العربية&lt;/seg&gt;
-              &lt;/tuv&gt;
-              --&gt;
-              &lt;!-- {{ rem.indicem }} --&gt;
-
-
-              &lt;!-- {{ rem.hxl }} --&gt;
-
-              &lt;!-- {{ rem }} --&gt;
+              {%- endif -%}
+              {%- endfor %}
             &lt;/tu&gt;
 
       finale: |2
           &lt;/body&gt;
         &lt;/tmx&gt;
+
 
   # end::normam_TMX[]
 
@@ -3193,7 +3185,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-17 17:25:41 UTC
+Last updated 2021-07-17 18:30:34 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
