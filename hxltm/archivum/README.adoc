@@ -50,7 +50,7 @@ include::../../bin/hxltmcli[tag=epilogum]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_HXLTM]
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM]
 ----
 
 ===== Command line examples
@@ -66,7 +66,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM_CSV]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-HXL-XLIFF]
+include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-HXL-XLIFF]
 ----
 
 ===== Command line examples
@@ -82,7 +82,8 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_HXLTM-ASA]
+include::../../ontologia/cor.hxltm.yml[tag=norman]
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-ASA]
 ----
 
 
@@ -102,7 +103,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_CSV-3]
+include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-3]
 ----
 
 ===== Command line examples
@@ -118,7 +119,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-3]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_GSheets]
+include::../../ontologia/cor.hxltm.yml[tag=normam_GSheets]
 ----
 
 [#JSON-kv]
@@ -127,7 +128,7 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_GSheets]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_JSON-kv]
+include::../../ontologia/cor.hxltm.yml[tag=normam_JSON-kv]
 ----
 
 [#TBX-Basim]
@@ -136,7 +137,7 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_JSON-kv]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_TBX-Basim]
+include::../../ontologia/cor.hxltm.yml[tag=normam_TBX-Basim]
 ----
 
 [#TMX]
@@ -145,7 +146,7 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_TBX-Basim]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_TMX]
+include::../../ontologia/cor.hxltm.yml[tag=normam_TMX]
 ----
 
 ===== Command line examples
@@ -161,7 +162,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TMX]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_UTX]
+include::../../ontologia/cor.hxltm.yml[tag=normam_UTX]
 ----
 
 [#XLIFF]
@@ -170,7 +171,7 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_UTX]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_XLIFF]
+include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF]
 ----
 
 [#XLIFF1]
@@ -179,7 +180,7 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_XLIFF]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_XLIFF1]
+include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF1]
 ----
 
 [#XLSX]
@@ -188,7 +189,7 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_XLIFF1]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_XLSX]
+include::../../ontologia/cor.hxltm.yml[tag=normam_XLSX]
 ----
 
 [#YAML]
@@ -197,7 +198,7 @@ include::../../ontologia/cor.hxltm.yml[tag=formatum_XLSX]
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=formatum_YAML]
+include::../../ontologia/cor.hxltm.yml[tag=normam_YAML]
 ----
 
 
