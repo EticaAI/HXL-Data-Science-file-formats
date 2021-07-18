@@ -63,7 +63,7 @@ fontem_archivum_extensionem:
   .tmx: TMX
   .utx: UTX
   .tbx: TBX-Basic
-  .xlf: XLIFF2
+  .xlf: XLIFF
   .xlf2: XLIFF # XLIFF2
   .xliff: XLIFF # XLIFF2
 

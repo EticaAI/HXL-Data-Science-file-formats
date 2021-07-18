@@ -313,27 +313,31 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         [eng-Latn]_
         """
         self.hxlhelper = None
-        self.args = None
+        # self.args = None
         self.conf = {}  # Crudum, raw file
-        self.ontologia = None  # HXLTMOntologia object
 
-        self.argumentum: Type['HXLTMArgumentum'] = None
+        # Only for initialization. Use self.hxltm_asa.ontologia (if need)
+        self._ontologia = None  # HXLTMOntologia object
+
+        # Only for initialization. Use self.hxltm_asa.argumentum (if need)
+        self._argumentum: Type['HXLTMArgumentum'] = None
 
         # TODO: replace self.datum by HXLTMASA
-        self.datum: HXLTMDatum = None
+        # self.datum: HXLTMDatum = None
         self.hxltm_asa: Type['HXLTMASA'] = None
         # self.meta_archivum_fontem = {}
         self.meta_archivum_fontem = {}
-        self.errors = []
+        # self.errors = []
 
         # Posix exit codes
-        self.EXIT_OK = 0
-        self.EXIT_ERROR = 1
-        self.EXIT_SYNTAX = 2
+        self.EXIT_OK = 0  # pylint: disable=invalid-name
+        self.EXIT_ERROR = 1  # pylint: disable=invalid-name
+        self.EXIT_SYNTAX = 2  # pylint: disable=invalid-name
 
         self.original_outfile = None
         self.original_outfile_is_stdout = True
 
+    # TODO: move _objectivum_formatum_from_outfile to HXLTMOntologia
     def _objectivum_formatum_from_outfile(self, outfile):
         """Uses cor.hxltm.yml fontem_archivum_extensionem to detect output
         format without user need to explicitly inform the option.
@@ -355,25 +359,27 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         return 'INCOGNITUM'
 
-    def _initiale(self, args):
+    def _initiale(self, pyargs):
         """Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
-        # if args.expertum_metadatum_est:
-        #     self.expertum_metadatum_est = args.expertum_metadatum_est
+        # if pyargs.expertum_metadatum_est:
+        #     self.expertum_metadatum_est = pyargs.expertum_metadatum_est
 
         # TODO: migrate all this to HXLTMASA._initiale
 
-        if args:
-            self.argumentum = HXLTMArgumentum().de_argparse(args)
+        # pyargs.est_stdout = True
+
+        if pyargs:
+            self._argumentum = HXLTMArgumentum().de_argparse(pyargs)
         else:
-            self.argumentum = HXLTMArgumentum()
+            self._argumentum = HXLTMArgumentum()
 
         self.conf = HXLTMUtil.load_hxltm_options(
-            args.archivum_configurationem,
-            args.venandum_insectum
+            pyargs.archivum_configurationem,
+            pyargs.venandum_insectum
         )
 
-        self.ontologia = HXLTMOntologia(self.conf)
+        self._ontologia = HXLTMOntologia(self.conf)
 
     def _initiale_hxltm_asa(self, archivum: str) -> bool:
         """
@@ -404,11 +410,17 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         self.hxltm_asa = HXLTMASA(
             archivum,
-            ontologia=self.ontologia,
+            ontologia=self._ontologia,
             # argumentum=argumentum,
-            argumentum=self.argumentum,
+            argumentum=self._argumentum,
             # verbosum=argumentum.hxltm_asa_verbosum
         )
+
+        # Only for initialization. Now use  self.hxltm_asa.ontologia (if need)
+        self._ontologia = None
+
+        # Only for initialization. Now use self.hxltm_asa.argumentum (if need)
+        self._argumentum = None
 
     def make_args_hxltmcli(self):
         """make_args_hxltmcli
@@ -798,28 +810,29 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             default=False
         )
 
-        self.args = parser.parse_args()
-        return self.args
+        # self.args = parser.parse_args()
+        est_args = parser.parse_args()
+        return est_args
 
-    def execute_cli(self, args,
-                    stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+    def execute_cli(self, pyargs,
+                    stdin=STDIN, stdout=sys.stdout, _stderr=sys.stderr):
         """
         The execute_cli is the main entrypoint of HXLTMCLI. When
         called will convert the HXL source to example format.
         """
         # pylint: disable=too-many-branches,too-many-statements
 
-        self._initiale(args)
+        self._initiale(pyargs)
 
         # _[eng-Latn]
         # If the user specified an output file, we will save on
-        # self.original_outfile. The args.outfile will be used for temporary
+        # self.original_outfile. The pyargs.outfile will be used for temporary
         # output
         # [eng-Latn]_
-        if args.outfile:
-            self.original_outfile = args.outfile
+        if pyargs.outfile:
+            self.original_outfile = pyargs.outfile
             self.original_outfile_is_stdout = False
-            self.argumentum.est_objectivum_formatum(
+            self._argumentum.est_objectivum_formatum(
                 self._objectivum_formatum_from_outfile(
                     self.original_outfile))
 
@@ -828,18 +841,18 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         try:
             temp = tempfile.NamedTemporaryFile()
             temp_csv4xliff = tempfile.NamedTemporaryFile()
-            args.outfile = temp.name
+            pyargs.outfile = temp.name
 
-            with self.hxlhelper.make_source(args, stdin) as source, \
-                    self.hxlhelper.make_output(args, stdout) as output:
+            with self.hxlhelper.make_source(pyargs, stdin) as source, \
+                    self.hxlhelper.make_output(pyargs, stdout) as output:
                 # _[eng-Latn]
                 # Save the HXL TM locally. It will be used by either in_csv
                 # or in_csv + in_xliff
                 # [eng-Latn]_
                 hxl.io.write_hxl(output.output, source,
-                                 show_tags=not args.strip_tags)
+                                 show_tags=not pyargs.strip_tags)
 
-            hxlated_input = args.outfile
+            hxlated_input = pyargs.outfile
 
             # _[eng-Latn]
             # This step will do raw analysis of the hxlated_input on a
@@ -847,14 +860,14 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             # [eng-Latn]_
             self._initiale_hxltm_asa(hxlated_input)
 
-            if args.hxltm_asa:
-                self.in_asa(args.hxltm_asa)
+            if pyargs.hxltm_asa:
+                self.in_asa(pyargs.hxltm_asa)
 
             if self.original_outfile_is_stdout is True and \
-                self.argumentum.objectivum_formatum is None:
-                self.argumentum.objectivum_formatum = 'HXLTM'
+                    self.hxltm_asa.argumentum.objectivum_formatum is None:
+                self.hxltm_asa.argumentum.objectivum_formatum = 'HXLTM'
 
-            if self.argumentum.objectivum_formatum == 'TMX':
+            if self.hxltm_asa.argumentum.objectivum_formatum == 'TMX':
                 # print('TMX')
                 if self.original_outfile_is_stdout:
                     archivum_objectivum = False
@@ -862,34 +875,35 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     archivum_objectivum = self.original_outfile
                 self.in_tmx_de_hxltmasa(archivum_objectivum)
 
-            elif self.argumentum.objectivum_formatum == 'TBX-Basim':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'TBX-Basim':
                 raise NotImplementedError('TBX-Basim not implemented yet')
 
-            elif self.argumentum.objectivum_formatum == 'UTX':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'UTX':
                 raise NotImplementedError('UTX not implemented yet')
 
-            elif self.argumentum.objectivum_formatum == 'XLIFF1':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'XLIFF1':
                 raise NotImplementedError('XLIFF1 not implemented')
 
-            elif self.argumentum.objectivum_formatum == 'CSV-3':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'CSV-3':
                 # raise NotImplementedError('CSV-3 not implemented yet')
                 self.in_csv3(hxlated_input, self.original_outfile,
-                             self.original_outfile_is_stdout, args)
+                             self.original_outfile_is_stdout, pyargs)
 
-            elif self.argumentum.objectivum_formatum == 'CSV-HXL-XLIFF':
+            elif self.hxltm_asa.argumentum.\
+                    objectivum_formatum == 'CSV-HXL-XLIFF':
                 # raise NotImplementedError('CSV-3 not implemented yet')
                 self.in_csv(hxlated_input, self.original_outfile,
-                            self.original_outfile_is_stdout, args)
+                            self.original_outfile_is_stdout, pyargs)
 
-            elif self.argumentum.objectivum_formatum == 'JSON-kv':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'JSON-kv':
                 self.in_jsonkv(hxlated_input, self.original_outfile,
-                               self.original_outfile_is_stdout, args)
+                               self.original_outfile_is_stdout, pyargs)
                 # raise NotImplementedError('JSON-kv not implemented yet')
 
-            elif self.argumentum.objectivum_formatum == 'XLIFF':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'XLIFF':
                 # print('XLIFF (2)')
 
-                if args.experimentum_est:
+                if pyargs.experimentum_est:
                     if self.original_outfile_is_stdout:
                         archivum_objectivum = False
                     else:
@@ -898,22 +912,22 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 else:
                     self.in_csv(
                         hxlated_input, temp_csv4xliff.name,
-                        False, args)
+                        False, pyargs)
                     self.in_xliff(
                         temp_csv4xliff.name, self.original_outfile,
-                        self.original_outfile_is_stdout, args)
+                        self.original_outfile_is_stdout, pyargs)
 
-            elif self.argumentum.objectivum_formatum == 'HXLTM':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'HXLTM':
                 # print('HXLTM')
                 self.in_noop(hxlated_input, self.original_outfile,
                              self.original_outfile_is_stdout)
 
-            elif self.argumentum.objectivum_formatum == 'CRUDUM':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'CRUDUM':
                 # print('CRUDUM')
                 self.in_noop(hxlated_input, self.original_outfile,
                              self.original_outfile_is_stdout)
 
-            elif self.argumentum.objectivum_formatum == 'INCOGNITUM':
+            elif self.hxltm_asa.argumentum.objectivum_formatum == 'INCOGNITUM':
                 # print('INCOGNITUM')
                 raise ValueError(
                     'INCOGNITUM (objetive file output based on extension) ' +
@@ -921,24 +935,14 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     'manually select an output format, like --TMX'
                 )
             else:
-                print(self.argumentum.objectivum_formatum)
-                # obj_for = self.argumentum.objectivum_formatum
-                print(self.argumentum.v())
+                # print(self.argumentum.objectivum_formatum)
+                # print(pyargs)
+                # print(self.argumentum.v())
                 raise ValueError(
                     'INCOGNITUM2 (objetive file output based on extension) ' +
                     'failed do decide what you want. Check --help and ' +
                     'manually select an output format, like --TMX'
                 )
-                # print('default / unknow option result')
-                # Here maybe error?
-                # self.hxl2tab(hxlated_input, self.original_outfile,
-                #              self.original_outfile_is_stdout, args)
-
-                # self.in_csv(hxlated_input, temp_csv4xliff.name,
-                #                False, args)
-                # print('noop')
-                # self.in_noop(hxlated_input, self.original_outfile,
-                #              self.original_outfile_is_stdout)
 
         finally:
             temp.close()
@@ -993,7 +997,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
-    def in_csv(self, hxlated_input, tab_output, is_stdout, args):
+    def in_csv(self, hxlated_input, tab_output, is_stdout, pyargs):
         """
         in_csv pre-process the initial HXL TM on a intermediate format that
         can be used alone or as requisite of the in_xliff exporter
@@ -1011,8 +1015,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             header_original = next(csv_reader)
             header_new = self.in_csv_header(
                 header_original,
-                fontem_linguam=args.fontem_linguam,
-                objectivum_linguam=args.objectivum_linguam,
+                fontem_linguam=pyargs.fontem_linguam,
+                objectivum_linguam=pyargs.objectivum_linguam,
             )
 
             if is_stdout:
@@ -1034,7 +1038,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
-    def hxl2tab(self, hxlated_input, tab_output, is_stdout, args):
+    def hxl2tab(self, hxlated_input, tab_output, is_stdout, pyargs):
         """
         (deprecated hxl2tab)
         """
@@ -1048,8 +1052,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             header_original = next(csv_reader)
             header_new = self.in_csv_header(
                 header_original,
-                fontem_linguam=args.fontem_linguam,
-                objectivum_linguam=args.objectivum_linguam,
+                fontem_linguam=pyargs.fontem_linguam,
+                objectivum_linguam=pyargs.objectivum_linguam,
             )
 
             if is_stdout:
@@ -1069,20 +1073,20 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
-    def in_csv3(self, hxlated_input, file_output, is_stdout, args):
+    def in_csv3(self, hxlated_input, file_output, is_stdout, pyargs):
         """Convert HXLTM to output 'CSV-3'
 
         Args:
             hxlated_input ([str]): Path to HXLated CSV
             tmx_output ([str]): Path to file to write output (if not stdout)
             is_stdout (bool): Flag to tell the output is stdout
-            args ([type]): python argparse
+            pyargs ([type]): python argparse
         """
 
         # fon_ling = HXLTMUtil.linguam_2_hxlattrs(args.fontem_linguam)
-        fon_bcp47 = HXLTMUtil.bcp47_from_linguam(args.fontem_linguam)
+        fon_bcp47 = HXLTMUtil.bcp47_from_linguam(pyargs.fontem_linguam)
         # obj_ling = HXLTMUtil.linguam_2_hxlattrs(args.objectivum_linguam)
-        obj_bcp47 = HXLTMUtil.bcp47_from_linguam(args.objectivum_linguam)
+        obj_bcp47 = HXLTMUtil.bcp47_from_linguam(pyargs.objectivum_linguam)
 
         data_started = False
         fon_index = None
@@ -1118,14 +1122,14 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 for line in datum:
                     txt_writer.writerow(line)
 
-    def in_jsonkv(self, hxlated_input, file_output, is_stdout, args):
+    def in_jsonkv(self, hxlated_input, file_output, is_stdout, pyargs):
         """Convert HXLTM to output 'JSON-kv'
 
         Args:
             hxlated_input ([str]): Path to HXLated CSV
             tmx_output ([str]): Path to file to write output (if not stdout)
             is_stdout (bool): Flag to tell the output is stdout
-            args ([type]): python argparse
+            pyargs ([type]): python argparse
         """
 
         data_started = False
@@ -1180,12 +1184,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
 
-        if archivum_objectivum is None:
+        if archivum_objectivum is None or archivum_objectivum is False or \
+                len(archivum_objectivum) == 0:
             return farmatum_tmx.in_normam_exitum()
 
         farmatum_tmx.in_archivum(archivum_objectivum)
 
-    def in_xliff(self, hxlated_input, xliff_output, is_stdout, args):
+    def in_xliff(self, hxlated_input, xliff_output, is_stdout, pyargs):
         """
         in_xliff is  is the main method to de facto make the conversion.
 
@@ -1230,7 +1235,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     resultatum.append(
                         '          <!-- ERROR source ' + str(unit_id) +
                         ', ' + xsource + '-->')
-                    if not args.silentium:
+                    if not pyargs.silentium:
                         print('ERROR:', unit_id, xsource)
                         # TODO: make exit status code warn about this
                         #       so other scripts can deal with bad output
@@ -1265,7 +1270,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     new_txt.write(ln + "\n")
                     # print (ln)
 
-    def in_xliff_old(self, hxlated_input, xliff_output, is_stdout, args):
+    def in_xliff_old(self, hxlated_input, xliff_output, is_stdout, pyargs):
         """
         in_xliff is  is the main method to de facto make the conversion.
 
@@ -1310,7 +1315,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     resultatum.append(
                         '          <!-- ERROR source ' + str(unit_id) +
                         ', ' + xsource + '-->')
-                    if not args.silentium:
+                    if not pyargs.silentium:
                         print('ERROR:', unit_id, xsource)
                         # TODO: make exit status code warn about this
                         #       so other scripts can deal with bad output
@@ -1530,7 +1535,7 @@ class HXLTMASA:
 # TODO: fix this after refactoring HXLTMDatum
 >>> asa = HXLTMASA(datum, ontologia=ontologia)
 >>> asa
-HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
+HXLTMASA()
     """
 
     # pylint: disable=too-many-instance-attributes
@@ -1541,8 +1546,8 @@ HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
 
     # TODO: migrade from HXLTMcli to HXLTMASA the
     # fontem_linguam, objectivum_linguam, alternativum_linguam, linguam
-    fontem_linguam: Type['HXLTMLinguam'] = None
-    objectivum_linguam: Type['HXLTMLinguam'] = None
+    # fontem_linguam: Type['HXLTMLinguam'] = None
+    # objectivum_linguam: Type['HXLTMLinguam'] = None
     # alternativum_linguam: List[Type['HXLTMLinguam']] = None
 
     # @see https://la.wikipedia.org/wiki/Lingua_agendi
@@ -1694,13 +1699,13 @@ HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
 
         asa['_datum_meta_'] = self.datum.meta.v(self._verbosum)
 
-        if self.fontem_linguam:
-            asa['__ASA__INSTRUMENTUM__']['fontem_linguam'] = \
-                self.fontem_linguam.v(self._verbosum)
+        # if self.argumentum.fontem_linguam:
+        #     asa['__ASA__INSTRUMENTUM__']['fontem_linguam'] = \
+        #         self.argumentum.fontem_linguam.v(self._verbosum)
 
-        if self.objectivum_linguam:
-            asa['__ASA__INSTRUMENTUM__']['objectivum_linguam'] = \
-                self.objectivum_linguam.v(self._verbosum)
+        # if self.argumentum.objectivum_linguam:
+        #     asa['__ASA__INSTRUMENTUM__']['objectivum_linguam'] = \
+        #         self.argumentum.objectivum_linguam.v(self._verbosum)
 
         # print(self.argumentum)
         asa['__ASA__INSTRUMENTUM__']['argumentum'] = self.argumentum.v()
@@ -1712,10 +1717,18 @@ HXLTMASA(fontem_linguam=None, objectivum_linguam=None)
         #             rem_al.v(self._verbosum)
         #        )
 
-        if self.agendum_linguam and len(self.agendum_linguam) > 0:
+        if self.argumentum.agendum_linguam and \
+                len(self.argumentum.agendum_linguam) > 0:
             asa['__ASA__INSTRUMENTUM__']['agendum_linguam'] = []
-            for rem_al in self.agendum_linguam:
+            for rem_al in self.argumentum.agendum_linguam:
                 asa['__ASA__INSTRUMENTUM__']['agendum_linguam'].append(
+                    rem_al.v(self._verbosum)
+                )
+        if self.argumentum.auxilium_linguam and \
+                len(self.argumentum.auxilium_linguam) > 0:
+            asa['__ASA__INSTRUMENTUM__']['auxilium_linguam'] = []
+            for rem_al in self.argumentum.auxilium_linguam:
+                asa['__ASA__INSTRUMENTUM__']['auxilium_linguam'].append(
                     rem_al.v(self._verbosum)
                 )
 
@@ -1781,9 +1794,15 @@ class HXLTMArgumentum:
             Objectīvum linguam
             (Optiōnem sōlum in bilingue operātiōnem)
             [lat-Latn]_
+        objectivum_archivum_nomen (str):
+            _[lat-Latn]
+            Argūmentum dēfīnītiōnem ad objectīvum archīvum nomen
+
+            Python None est Python stdout
+            [lat-Latn]_
         objectivum_formatum (HXLTMLinguam):
             _[lat-Latn]
-            OArgūmentum dēfīnītiōnem ad objectīvum archīvum fōrmātum
+            Argūmentum dēfīnītiōnem ad objectīvum archīvum fōrmātum
             [lat-Latn]_
         columnam_numerum (List):
             _[lat-Latn] Datum sēlēctum columnam numerum [lat-Latn]_
@@ -1814,6 +1833,7 @@ class HXLTMArgumentum:
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_formatum: InitVar[str] = 'HXLTM'
+    objectivum_archivum_nomen: InitVar[str] = None
     columnam_numerum: InitVar[List] = []
     non_columnam_numerum: InitVar[List] = []
     limitem_initiale_lineam: InitVar[int] = -1
@@ -1833,7 +1853,11 @@ class HXLTMArgumentum:
         Returns:
             [HXLTMArgumentum]: Ego HXLTMArgumentum
         """
+        # print(args_rem.outfile)
         if args_rem is not None:
+            if hasattr(args_rem, 'outfile'):
+                self.objectivum_archivum_nomen = args_rem.outfile
+
             if hasattr(args_rem, 'agendum_linguam'):
                 self.est_agendum_linguam(args_rem.agendum_linguam)
             if hasattr(args_rem, 'auxilium_linguam'):
@@ -1980,9 +2004,9 @@ class HXLTMArgumentum:
             [HXLTMArgumentum]: Ego HXLTMArgumentum
         """
         if rem is None or len(rem) == 0:
-            self.objectivum_linguam = 'HXLTM'
+            self.objectivum_formatum = 'HXLTM'
         else:
-            self.objectivum_linguam = rem
+            self.objectivum_formatum = rem
 
         return self
 
@@ -3569,6 +3593,7 @@ class HXLTMInFormatum(ABC):
         """
         resultatum = []
 
+        # TODO: move this block to HXLTMASA or HXLTMOntologia
         if 'formatum' in self.normam and 'initiale' in self.normam['formatum']:
             liquid_template = self.normam['formatum']['initiale']
             liquid_context = {}
@@ -3725,6 +3750,8 @@ Salvi, {{ i }}! \
             archivum_locum (str): Archīvum locum, id est, Python file path
         """
         resultatum = self.in_collectionem()
+
+        # print(archivum_locum)
 
         with open(archivum_locum, 'w') as archivum_punctum:
             for rem in resultatum:
@@ -5880,9 +5907,9 @@ class StreamOutput(object):
 if __name__ == "__main__":
 
     hxltmcli = HXLTMCLI()
-    args = hxltmcli.make_args_hxltmcli()
+    pyargs_ = hxltmcli.make_args_hxltmcli()
 
-    hxltmcli.execute_cli(args)
+    hxltmcli.execute_cli(pyargs_)
 
 
 def exec_from_console_scripts():
