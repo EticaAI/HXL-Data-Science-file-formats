@@ -45,7 +45,7 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.8.3
+#       VERSION:  v0.8.4
 #       CREATED:  2021-06-27 19:50 UTC v0.5, de github.com/EticaAI
 #                     /HXL-Data-Science-file-formats/blob/main/bin/hxl2example
 #      REVISION:  2021-06-27 21:16 UTC v0.6 de hxl2tab
@@ -57,6 +57,7 @@
 #                       to github.com/EticaAI/HXL-Data-Science-file-formats
 #                 2021-07-04 04:35 UTC v0.8.2 Configurations on cor.hxltm.yml
 #                 2021-07-15 00:02 UTC v0.8.3 HXLTM ASA working draft
+#                 2021-07-18 21:39 URC v0.8.4 HXLTM ASA MVP (TMX and XLIFF 2)
 # ==============================================================================
 """hxltmcli.py: Humanitarian Exchange Language Trānslātiōnem Memoriam CLI
 
@@ -222,7 +223,7 @@ from liquid.loaders import DictLoader as LiquiDictLoader
 # template = LiquidTemplate("Hello, {{ you }}!")
 # print(template.render(you="World"))  # "Hello, World!"
 
-__VERSION__ = "v0.8.3"
+__VERSION__ = "v0.8.4"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -894,9 +895,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
             elif self.hxltm_asa.argumentum.\
                     objectivum_formatum == 'CSV-HXL-XLIFF':
-                # raise NotImplementedError('CSV-3 not implemented yet')
-                self.in_csv(hxlated_input, self.original_outfile,
-                            self.original_outfile_is_stdout, pyargs)
+                raise NotImplementedError('CSV-3 not implemented yet')
+                # self.in_csv(hxlated_input, self.original_outfile,
+                #             self.original_outfile_is_stdout, pyargs)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'JSON-kv':
                 self.in_jsonkv(hxlated_input, self.original_outfile,
@@ -905,20 +906,11 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'XLIFF':
                 # print('XLIFF (2)')
-
-                if pyargs.experimentum_est:
-                    if self.original_outfile_is_stdout:
-                        archivum_objectivum = False
-                    else:
-                        archivum_objectivum = self.original_outfile
-                    self.in_xliff_de_hxltmasa(archivum_objectivum)
+                if self.original_outfile_is_stdout:
+                    archivum_objectivum = False
                 else:
-                    self.in_csv(
-                        hxlated_input, temp_csv4xliff.name,
-                        False, pyargs)
-                    self.in_xliff(
-                        temp_csv4xliff.name, self.original_outfile,
-                        self.original_outfile_is_stdout, pyargs)
+                    archivum_objectivum = self.original_outfile
+                self.in_xliff_de_hxltmasa(archivum_objectivum)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'HXLTM':
                 # print('HXLTM')
@@ -1000,84 +992,10 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     for line in csv_reader:
                         txt_writer.writerow(line)
 
-    def in_csv(self, hxlated_input, tab_output, is_stdout, pyargs):
-        """
-        in_csv pre-process the initial HXL TM on a intermediate format that
-        can be used alone or as requisite of the in_xliff exporter
-        """
-
-        with open(hxlated_input, 'r') as csv_file:
-            csv_reader = csv.reader(csv_file)
-
-            # TODO: fix problem if input data already only have HXL hashtags
-            #       but no extra headings (Emerson Rocha, 2021-06-28 01:27 UTC)
-
-            # Hotfix: skip first non-HXL header. Ideally I think the already
-            # exported HXlated file should already save without headers.
-            next(csv_reader)
-            header_original = next(csv_reader)
-            header_new = self.in_csv_header(
-                header_original,
-                fontem_linguam=pyargs.fontem_linguam,
-                objectivum_linguam=pyargs.objectivum_linguam,
-            )
-
-            if is_stdout:
-                # txt_writer = csv.writer(sys.stdout, delimiter='\t')
-                txt_writer = csv.writer(sys.stdout)
-                txt_writer.writerow(header_new)
-                for line in csv_reader:
-                    txt_writer.writerow(line)
-            else:
-
-                tab_output_cleanup = open(tab_output, 'w')
-                tab_output_cleanup.truncate()
-                tab_output_cleanup.close()
-
-                with open(tab_output, 'a') as new_txt:
-                    # txt_writer = csv.writer(new_txt, delimiter='\t')
-                    txt_writer = csv.writer(new_txt)
-                    txt_writer.writerow(header_new)
-                    for line in csv_reader:
-                        txt_writer.writerow(line)
-
-    def hxl2tab(self, hxlated_input, tab_output, is_stdout, pyargs):
-        """
-        (deprecated hxl2tab)
-        """
-
-        with open(hxlated_input, 'r') as csv_file:
-            csv_reader = csv.reader(csv_file)
-
-            # Hotfix: skip first non-HXL header. Ideally I think the already
-            # exported HXlated file should already save without headers.
-            next(csv_reader)
-            header_original = next(csv_reader)
-            header_new = self.in_csv_header(
-                header_original,
-                fontem_linguam=pyargs.fontem_linguam,
-                objectivum_linguam=pyargs.objectivum_linguam,
-            )
-
-            if is_stdout:
-                txt_writer = csv.writer(sys.stdout, delimiter='\t')
-                txt_writer.writerow(header_new)
-                for line in csv_reader:
-                    txt_writer.writerow(line)
-            else:
-
-                tab_output_cleanup = open(tab_output, 'w')
-                tab_output_cleanup.truncate()
-                tab_output_cleanup.close()
-
-                with open(tab_output, 'a') as new_txt:
-                    txt_writer = csv.writer(new_txt, delimiter='\t')
-                    txt_writer.writerow(header_new)
-                    for line in csv_reader:
-                        txt_writer.writerow(line)
-
     def in_csv3(self, hxlated_input, file_output, is_stdout, pyargs):
         """Convert HXLTM to output 'CSV-3'
+
+        TODO: make this format use the HXLTM ASA.
 
         Args:
             hxlated_input ([str]): Path to HXLated CSV
@@ -1194,166 +1112,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         farmatum_tmx.in_archivum(archivum_objectivum)
 
-    def in_xliff(self, hxlated_input, xliff_output, is_stdout, pyargs):
-        """
-        in_xliff is  is the main method to de facto make the conversion.
-
-        TODO: this is a work-in-progress at this moment, 2021-06-28
-        """
-
-        datum = []
-
-        with open(hxlated_input, 'r') as csv_file:
-            csvReader = csv.DictReader(csv_file)
-
-            # Convert each row into a dictionary
-            # and add it to data
-            for item in csvReader:
-
-                datum.append(HXLTMUtil.xliff_item_relevant_options(item))
-
-        resultatum = []
-        resultatum.append('<?xml version="1.0"?>')
-        resultatum.append(
-            '<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" ' +
-            'version="2.0" srcLang="en" trgLang="fr">')
-        resultatum.append('  <file id="f1">')
-
-        num = 0
-
-        for rem in datum:
-            num += 1
-            if '#x_xliff+unit+id' in rem and rem['#x_xliff+unit+id']:
-                unit_id = rem['#x_xliff+unit+id']
-            else:
-                unit_id = num
-            # unit_id = rem['#x_xliff+unit+id'] if rem['#x_xliff+unit+id'] \
-            #               else num
-            resultatum.append('      <unit id="' + str(unit_id) + '">')
-
-            resultatum.append('        <segment>')
-
-            xsource = HXLTMUtil.xliff_item_xliff_source_key(rem)
-            if xsource:
-                if not rem[xsource]:
-                    resultatum.append(
-                        '          <!-- ERROR source ' + str(unit_id) +
-                        ', ' + xsource + '-->')
-                    if not pyargs.silentium:
-                        print('ERROR:', unit_id, xsource)
-                        # TODO: make exit status code warn about this
-                        #       so other scripts can deal with bad output
-                        #       when --silentium is not used
-                    # continue
-                else:
-                    resultatum.append('          <source>' +
-                                      rem[xsource] + '</source>')
-
-            xtarget = HXLTMUtil.xliff_item_xliff_target_key(rem)
-            if xtarget and rem[xtarget]:
-                resultatum.append('          <target>' +
-                                  rem[xtarget] + '</target>')
-
-            resultatum.append('        </segment>')
-
-            resultatum.append('      </unit>')
-
-        resultatum.append('  </file>')
-        resultatum.append('</xliff>')
-
-        if is_stdout:
-            for ln in resultatum:
-                print(ln)
-        else:
-            xliff_output_cleanup = open(xliff_output, 'w')
-            xliff_output_cleanup.truncate()
-            xliff_output_cleanup.close()
-
-            with open(xliff_output, 'a') as new_txt:
-                for ln in resultatum:
-                    new_txt.write(ln + "\n")
-                    # print (ln)
-
-    def in_xliff_old(self, hxlated_input, xliff_output, is_stdout, pyargs):
-        """
-        in_xliff is  is the main method to de facto make the conversion.
-
-        TODO: this is a work-in-progress at this moment, 2021-06-28
-        """
-
-        datum = []
-
-        with open(hxlated_input, 'r') as csv_file:
-            csvReader = csv.DictReader(csv_file)
-
-            # Convert each row into a dictionary
-            # and add it to data
-            for item in csvReader:
-
-                datum.append(HXLTMUtil.xliff_item_relevant_options(item))
-
-        resultatum = []
-        resultatum.append('<?xml version="1.0"?>')
-        resultatum.append(
-            '<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" ' +
-            'version="2.0" srcLang="en" trgLang="fr">')
-        resultatum.append('  <file id="f1">')
-
-        num = 0
-
-        for rem in datum:
-            num += 1
-            if '#x_xliff+unit+id' in rem and rem['#x_xliff+unit+id']:
-                unit_id = rem['#x_xliff+unit+id']
-            else:
-                unit_id = num
-            # unit_id = rem['#x_xliff+unit+id'] if rem['#x_xliff+unit+id'] \
-            #               else num
-            resultatum.append('      <unit id="' + str(unit_id) + '">')
-
-            resultatum.append('        <segment>')
-
-            xsource = HXLTMUtil.xliff_item_xliff_source_key(rem)
-            if xsource:
-                if not rem[xsource]:
-                    resultatum.append(
-                        '          <!-- ERROR source ' + str(unit_id) +
-                        ', ' + xsource + '-->')
-                    if not pyargs.silentium:
-                        print('ERROR:', unit_id, xsource)
-                        # TODO: make exit status code warn about this
-                        #       so other scripts can deal with bad output
-                        #       when --silentium is not used
-                    # continue
-                else:
-                    resultatum.append('          <source>' +
-                                      rem[xsource] + '</source>')
-
-            xtarget = HXLTMUtil.xliff_item_xliff_target_key(rem)
-            if xtarget and rem[xtarget]:
-                resultatum.append('          <target>' +
-                                  rem[xtarget] + '</target>')
-
-            resultatum.append('        </segment>')
-
-            resultatum.append('      </unit>')
-
-        resultatum.append('  </file>')
-        resultatum.append('</xliff>')
-
-        if is_stdout:
-            for ln in resultatum:
-                print(ln)
-        else:
-            xliff_output_cleanup = open(xliff_output, 'w')
-            xliff_output_cleanup.truncate()
-            xliff_output_cleanup.close()
-
-            with open(xliff_output, 'a') as new_txt:
-                for ln in resultatum:
-                    new_txt.write(ln + "\n")
-                    # print (ln)
-
     def in_xliff_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
         """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF)
         v2.1
@@ -1365,144 +1123,11 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         farmatum_xliff = HXLTMInFormatumXLIFF(self.hxltm_asa)
 
-        if archivum_objectivum is None:
+        if archivum_objectivum is None or archivum_objectivum is False or \
+                len(archivum_objectivum) == 0:
             return farmatum_xliff.in_normam_exitum()
 
         farmatum_xliff.in_archivum(archivum_objectivum)
-
-    def in_csv_header(
-            self, hxlated_header, fontem_linguam, objectivum_linguam):
-        """
-        _[eng-Latn] Convert the Main HXL TM file to a single or source to
-                    target XLIFF translation pair
-        [eng-Latn]_
-
-# item+id                         -> #x_xliff+unit+id
-# meta+archivum                   -> #x_xliff+file
-# item+wikidata+code              -> #x_xliff+unit+note+note_category__wikidata
-# meta+wikidata+code              -> #x_xliff+unit+note+note_category__wikidata
-# meta+item+url+list              -> #x_xliff+unit+notes+note_category__url
-# item+type+lat_dominium+list     -> #x_xliff+group+group_0
-#                             (We will not implement deeper levels  than 0 now)
-
-    [contextum: XLIFF srcLang]
-# item(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+source+i_ZZZ+is_ZZZZ
-# status(*)+i_ZZZ+is_ZZZZ+xliff
-                            -> #meta+x_xliff+segment_source+state+i_ZZZ+is_ZZZZ
-                                   (XLIFF don't support)
-# meta(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+unit+note+note_category__source
-# meta(*)+i_ZZZ+is_ZZZZ+list       -> #x_xliff+unit+notes+note_category__source
-
-    [contextum: XLIFF trgLang]
-# item(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+target+i_ZZZ+is_ZZZZ
-# status(*)+i_ZZZ+is_ZZZZ+xliff    -> #x_xliff+segment+state+i_ZZZ+is_ZZZZ
-# meta(*)+i_ZZZ+is_ZZZZ            -> #x_xliff+unit+note+note_category__target
-# meta(*)+i_ZZZ+is_ZZZZ+list       -> #x_xliff+unit+notes+note_category__target
-
-        _[eng-Latn] TODO:
-- Map XLIFF revisions back MateCat back to HXL TM
-  @see http://docs.oasis-open.org/xliff/xliff-core/v2.1/os
-       /xliff-core-v2.1-os.html#revisions
-        [eng-Latn]_
-        """
-
-        # TODO: improve this block. I'm very sure there is some cleaner way to
-        #       do it in a more cleaner way (fititnt, 2021-01-28 08:56 UTC)
-
-        fon_ling = HXLTMUtil.linguam_2_hxlattrs(fontem_linguam)
-        fon_bcp47 = HXLTMUtil.bcp47_from_hxlattrs(fontem_linguam)
-        obj_ling = HXLTMUtil.linguam_2_hxlattrs(objectivum_linguam)
-        obj_bcp47 = HXLTMUtil.bcp47_from_hxlattrs(objectivum_linguam)
-
-        for idx, _ in enumerate(hxlated_header):
-
-            if hxlated_header[idx].startswith('#x_xliff'):
-                # Something explicitly was previously defined with #x_xliff
-                # So we will intentionally ignore on this step.
-                # This could be useful if someone is trying to translate twice
-                continue
-
-            elif hxlated_header[idx] == '#item+id' or \
-                    hxlated_header[idx] == '#item +conceptum +codicem':
-                hxlated_header[idx] = '#x_xliff+unit+id'
-                continue
-
-            elif hxlated_header[idx] == '#meta+archivum':
-                hxlated_header[idx] = '#x_xliff+file'
-                continue
-
-            elif hxlated_header[idx] == '#meta+item+url+list':
-                hxlated_header[idx] = '#x_xliff+unit+notes+note_category__url'
-                continue
-
-            elif hxlated_header[idx] == '#item+wikidata+code' or \
-                    hxlated_header[idx] == '#meta+wikidata+code' or \
-                    hxlated_header[idx] == '#meta+conceptum+codicem+alternativum':  # noqa
-                hxlated_header[idx] = \
-                    '#x_xliff+unit+note+note_category__wikidata'
-                continue
-
-            elif hxlated_header[idx] == '#item+type+lat_dominium+list' or \
-                    hxlated_header[idx] == '#item+conceptum+dominium':
-                hxlated_header[idx] = '#x_xliff+group+group_0'
-                continue
-
-            elif hxlated_header[idx].startswith('#item'):
-
-                if hxlated_header[idx].find(fon_ling) > -1 and \
-                        not hxlated_header[idx].find('+list') > -1:
-                    hxlated_header[idx] = '#x_xliff+source' + \
-                        fon_bcp47 + fon_ling
-                elif hxlated_header[idx].find(obj_ling) > -1 and \
-                        not hxlated_header[idx].find('+list') > -1:
-                    hxlated_header[idx] = '#x_xliff+target' + obj_ling
-
-                continue
-
-            elif hxlated_header[idx].startswith('#status'):
-                if hxlated_header[idx].find(fon_ling) > -1 and \
-                        not hxlated_header[idx].find('+list') > -1:
-                    # TODO: maybe just ignore source state? XLIFF do not
-                    #       support translations from source languages that
-                    #       are not ideally ready yet
-                    if hxlated_header[idx].find('+xliff') > -1:
-                        hxlated_header[idx] = '#x_xliff+segment+state' + \
-                            fon_bcp47 + fon_ling
-                elif hxlated_header[idx].find(obj_ling) > -1 and \
-                        not hxlated_header[idx].find('+list') > -1:
-                    if hxlated_header[idx].find('+xliff') > -1:
-                        hxlated_header[idx] = '#x_xliff+segment+state' + \
-                            obj_bcp47 + obj_ling
-                if hxlated_header[idx] != '#status':
-                    print('#status ERROR?, FIX ME', hxlated_header[idx])
-                continue
-
-            elif hxlated_header[idx].startswith('#meta'):
-                # @see http://docs.oasis-open.org/xliff/xliff-core/v2.1/os
-                #      /xliff-core-v2.1-os.html#category
-
-                if hxlated_header[idx].find(fon_ling) > -1:
-                    if hxlated_header[idx].find('+list') > -1:
-                        hxlated_header[idx] = \
-                            '#x_xliff+unit+notes+note_category__source'
-                    else:
-                        hxlated_header[idx] = \
-                            '#x_xliff+unit+note+note_category__source'
-                    continue
-
-                if hxlated_header[idx].find(obj_ling) > -1:
-                    if hxlated_header[idx].find('+list') > -1:
-                        hxlated_header[idx] = \
-                            '#x_xliff+unit+notes+note_category__target'
-                    else:
-                        hxlated_header[idx] = \
-                            '#x_xliff+unit+note+note_category__target'
-                    continue
-
-                # We will ignore other #metas
-                continue
-
-        return hxlated_header
 
 
 @dataclass

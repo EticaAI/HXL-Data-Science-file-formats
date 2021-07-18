@@ -28,7 +28,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--venandum-insectum-est]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.8.3 is an implementation of HXLTM tagging conventions
+_[eng-Latn] hxltmcli v0.8.4 is an implementation of HXLTM tagging conventions
 on HXL to manage and export tabular data to popular translation memories
 and glossaries file formats with non-close standards.
 [eng-Latn]_"

@@ -769,6 +769,11 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
 # _[eng-Latn]
 # TODO: CSV-HXL-XLIFF; This section is a draft
+
+# NOTE: --CSV-HXL-XLIFF was removed on version v0.8.4. We may stick with
+#       HXLTM CSV (for more complex metadata) and then CSV-3 or simpler or
+#       customized versions (aka user use 'templated (shopfify) liquid' to
+#       create own custom CSV versions)
 # [eng-Latn]_
 
 ### II -------------------------------------------------------------------------
@@ -776,9 +781,9 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-HXL-XLIFF
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-HXL-XLIFF
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF
+# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -786,11 +791,11 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF
 # disk.
 # [eng-Latn]_
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
-  --objectivum-CSV-HXL-XLIFF
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+#   resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
+#   --objectivum-CSV-HXL-XLIFF
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF &gt; resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
+# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF &gt; resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -934,9 +939,9 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-3
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-3
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3
+# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -944,11 +949,11 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3
 # disk.
 # [eng-Latn]_
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
-  --objectivum-CSV-3
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+#   resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
+#   --objectivum-CSV-3
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 &gt; resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
+# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 &gt; resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -2833,7 +2838,7 @@ hxltmcli --help</code></pre>
                 [--venandum-insectum-est]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.8.3 is an implementation of HXLTM tagging conventions
+_[eng-Latn] hxltmcli v0.8.4 is an implementation of HXLTM tagging conventions
 on HXL to manage and export tabular data to popular translation memories
 and glossaries file formats with non-close standards.
 [eng-Latn]_"
@@ -3027,7 +3032,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-18 21:17:13 UTC
+Last updated 2021-07-18 21:53:15 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

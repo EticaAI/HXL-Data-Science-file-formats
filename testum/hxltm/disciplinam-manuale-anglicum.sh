@@ -92,6 +92,11 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli > output-file.tm.hxl.csv
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
 # TODO: CSV-HXL-XLIFF; This section is a draft
+
+# NOTE: --CSV-HXL-XLIFF was removed on version v0.8.4. We may stick with
+#       HXLTM CSV (for more complex metadata) and then CSV-3 or simpler or
+#       customized versions (aka user use 'templated (shopfify) liquid' to
+#       create own custom CSV versions)
 # [eng-Latn]_
 
 ### II -------------------------------------------------------------------------
@@ -99,9 +104,9 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli > output-file.tm.hxl.csv
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-HXL-XLIFF
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-HXL-XLIFF
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF
+# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -109,11 +114,11 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF
 # disk.
 # [eng-Latn]_
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
-  --objectivum-CSV-HXL-XLIFF
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+#   resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
+#   --objectivum-CSV-HXL-XLIFF
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF > resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
+# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF > resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -174,9 +179,9 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-3
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-3
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3
+# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -184,11 +189,11 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3
 # disk.
 # [eng-Latn]_
 
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
-  --objectivum-CSV-3
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+#   resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
+#   --objectivum-CSV-3
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 > resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
+# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 > resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
