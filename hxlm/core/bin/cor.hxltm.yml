@@ -455,8 +455,8 @@ normam:
     formatum:
       initiale: |2
         <?xml version="1.0"?>
-        <xliff
-          xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0"
+        <xliff version="2.0"
+          xmlns="urn:oasis:names:tc:xliff:document:2.0"
           srcLang="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
           trgLang="{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}">
           <file id="f1">
@@ -518,6 +518,8 @@ normam:
           - https://en.wikipedia.org/wiki/XLIFF
       normam:
         - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
+        - https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd
+        - http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd
       nomen:
         eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)'
 
@@ -529,6 +531,50 @@ normam:
       modus_operandi:
         # - multiplum_linguam
         - bilingue
+
+    formatum:
+      initiale: |2
+        <?xml version="1.0"?>
+        <xliff version="1.2"
+          xmlns="urn:oasis:names:tc:xliff:document:1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-strict.xsd">
+          <file source-language="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
+            datatype="plaintext"
+            original="file.ext">
+            <body>
+
+      corporeum: |2
+            {% if rem.de_fontem_linguam -%}
+            <trans-unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
+              <source>{{ rem.de_fontem_linguam.rem }}</source>
+              {%- if rem.de_objectivum_linguam %}
+              <target>{{ rem.de_objectivum_linguam.rem }}</target>
+              {%- else -%}
+                <!-- non rem.de_objectivum_linguam -->
+              {%- endif  %}
+
+              {%- if rem.de_auxilium_linguam %}
+              <!--<group>-->
+                {% for item in rem.de_auxilium_linguam -%}
+                <note
+                  priority="2">
+                  {{ item.rem }}
+                </note>
+                {% endfor -%}
+              <!--</group>-->
+              {%- else -%}
+                <!-- non rem.de_auxilium_linguam -->
+              {%- endif  %}
+            </trans-unit>
+            {%- else -%}
+              <!-- non rem.de_fontem_linguam -->
+            {%- endif  %}
+
+      finale: |2
+            </body>
+          </file>
+        </xliff>
 
   # end::normam_XLIFF1[]
 

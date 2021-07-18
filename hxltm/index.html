@@ -1850,8 +1850,8 @@ normam:
     formatum:
       initiale: |2
         &lt;?xml version="1.0"?&gt;
-        &lt;xliff
-          xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0"
+        &lt;xliff version="2.0"
+          xmlns="urn:oasis:names:tc:xliff:document:2.0"
           srcLang="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
           trgLang="{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}"&gt;
           &lt;file id="f1"&gt;
@@ -1913,6 +1913,8 @@ normam:
           - https://en.wikipedia.org/wiki/XLIFF
       normam:
         - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
+        - https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd
+        - http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd
       nomen:
         eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)'
 
@@ -1924,6 +1926,50 @@ normam:
       modus_operandi:
         # - multiplum_linguam
         - bilingue
+
+    formatum:
+      initiale: |2
+        &lt;?xml version="1.0"?&gt;
+        &lt;xliff version="1.2"
+          xmlns="urn:oasis:names:tc:xliff:document:1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-strict.xsd"&gt;
+          &lt;file source-language="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
+            datatype="plaintext"
+            original="file.ext"&gt;
+            &lt;body&gt;
+
+      corporeum: |2
+            {% if rem.de_fontem_linguam -%}
+            &lt;trans-unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
+              &lt;source&gt;{{ rem.de_fontem_linguam.rem }}&lt;/source&gt;
+              {%- if rem.de_objectivum_linguam %}
+              &lt;target&gt;{{ rem.de_objectivum_linguam.rem }}&lt;/target&gt;
+              {%- else -%}
+                &lt;!-- non rem.de_objectivum_linguam --&gt;
+              {%- endif  %}
+
+              {%- if rem.de_auxilium_linguam %}
+              &lt;!--&lt;group&gt;--&gt;
+                {% for item in rem.de_auxilium_linguam -%}
+                &lt;note
+                  priority="2"&gt;
+                  {{ item.rem }}
+                &lt;/note&gt;
+                {% endfor -%}
+              &lt;!--&lt;/group&gt;--&gt;
+              {%- else -%}
+                &lt;!-- non rem.de_auxilium_linguam --&gt;
+              {%- endif  %}
+            &lt;/trans-unit&gt;
+            {%- else -%}
+              &lt;!-- non rem.de_fontem_linguam --&gt;
+            {%- endif  %}
+
+      finale: |2
+            &lt;/body&gt;
+          &lt;/file&gt;
+        &lt;/xliff&gt;
 
   # end::normam_XLIFF1[]
 
@@ -3393,7 +3439,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-18 21:53:15 UTC
+Last updated 2021-07-18 22:53:14 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

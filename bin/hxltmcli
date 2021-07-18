@@ -836,11 +836,12 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         if pyargs.outfile:
             self.original_outfile = pyargs.outfile
             self.original_outfile_is_stdout = False
-            self._argumentum.est_objectivum_formatum(
-                self._objectivum_formatum_from_outfile(
-                    self.original_outfile))
+            if not self._argumentum.objectivum_formatum:
+                self._argumentum.est_objectivum_formatum(
+                    self._objectivum_formatum_from_outfile(
+                        self.original_outfile))
 
-        # print(self.argumentum.v())
+        # print(self._argumentum.v())
 
         try:
             temp = tempfile.NamedTemporaryFile()
@@ -886,7 +887,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 raise NotImplementedError('UTX not implemented yet')
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'XLIFF1':
-                raise NotImplementedError('XLIFF1 not implemented')
+                # raise NotImplementedError('XLIFF1 not implemented')
+                # print('oi xliff 1')
+                if self.original_outfile_is_stdout:
+                    archivum_objectivum = False
+                else:
+                    archivum_objectivum = self.original_outfile
+                self.in_xliff1_de_hxltmasa(archivum_objectivum)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'CSV-3':
                 # raise NotImplementedError('CSV-3 not implemented yet')
@@ -1122,6 +1129,23 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         """
 
         farmatum_xliff = HXLTMInFormatumXLIFF(self.hxltm_asa)
+
+        if archivum_objectivum is None or archivum_objectivum is False or \
+                len(archivum_objectivum) == 0:
+            return farmatum_xliff.in_normam_exitum()
+
+        farmatum_xliff.in_archivum(archivum_objectivum)
+
+    def in_xliff1_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+        """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF)
+        v1.2
+
+        Args:
+            archivum_objectivum (Union[str, None]):
+                Archīvum locum, id est, Python file path
+        """
+
+        farmatum_xliff = HXLTMInFormatumXLIFF1(self.hxltm_asa)
 
         if archivum_objectivum is None or archivum_objectivum is False or \
                 len(archivum_objectivum) == 0:
@@ -3822,23 +3846,73 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
-        # resultatum = []
-        # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
-        # resultatum.append('<!-- ' + __class__.__name__ + ' -->')
-        # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
-        # return resultatum
         resultatum = []
 
         liquid_template = self.normam['formatum']['corporeum']
 
-        # for numerum, rem in self.rem():
-        # for rem, rem2 in self.rem():
         for rem in self.de_rem():
-            # resultatum.append(rem.v())
-            # print(rem)
             liquid_context = {'rem': str(rem)}
             liquid_context = rem.contextum()
-            # resultatum.append(str(rem))
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
+        return resultatum
+
+
+class HXLTMInFormatumXLIFF1(HXLTMInFormatum):
+    """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF) v1.2
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - in, https://en.wiktionary.org/wiki/in-#Latin
+        - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+        - XLIFF, <https://en.wikipedia.org/wiki/XLIFF>
+        - disciplīnam manuāle
+            - <https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html>
+
+    Normam:
+        - <https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html>
+
+    Author:
+        Emerson Rocha <rocha[at]ieee.org>
+
+    Collaborators:
+        (_[eng-Latn] Additional names here [eng-Latn]_)
+
+    Creation Date:
+        2021-07-18
+
+    Revisions:
+
+    License:
+        Public Domain
+    """
+
+    # ONTOLOGIA_FORMATUM = ''
+
+    ONTOLOGIA_FORMATUM_BASIM = 'XLIFF1'  # ontologia/cor.hxltm.yml clāvem nomen
+
+    def datum_corporeum(self) -> List:
+        """Datum corporeum de fōrmātum XML Localization Interchange File Format
+        (XLIFF1)
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        resultatum = []
+
+        liquid_template = self.normam['formatum']['corporeum']
+
+        for rem in self.de_rem():
+            liquid_context = {'rem': str(rem)}
+            liquid_context = rem.contextum()
             resultatum.append(
                 self.de_liquid(liquid_template, liquid_context)
             )
