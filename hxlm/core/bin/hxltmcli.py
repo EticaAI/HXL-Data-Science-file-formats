@@ -1620,9 +1620,10 @@ True
         self.datum = HXLTMDatum(
             fontem_crudum_datum,
             argumentum=self.argumentum,
-            ontologia=self.ontologia
+            # ontologia=self.ontologia
         )
         self.datum.asa(hxltm_asa=self)
+        self.datum.datum_parandum_statim()
 
     def quod_globum_valendum(self) -> Dict:
         """Quod globum valendum?
@@ -2202,6 +2203,8 @@ class HXLTMDatum:
     ontologia: InitVar[Type['HXLTMOntologia']] = None
     argumentum: InitVar[Type['HXLTMArgumentum']] = None
     venandum_insectum: InitVar[bool] = False
+
+    __crudum_datum: InitVar[Union[List[List], str]] = None
     __commune_asa: InitVar[Type['HXLTMASA']] = None
 
     def __init__(self,
@@ -2224,13 +2227,15 @@ class HXLTMDatum:
         if ontologia is not None:
             self.ontologia = ontologia
 
-        if isinstance(crudum_datum, str):
-            self._initialle_de_hxltm_archivum(crudum_datum)
-        elif isinstance(crudum_datum, list):
-            self._initialle_de_hxltm_crudum(crudum_datum)
-        else:
-            raise SyntaxError('HXLTMDatum crudum aut archivum non vacuum')
-        self._initiale_conceptum()
+        self.__crudum_datum = crudum_datum
+
+        # if isinstance(crudum_datum, str):
+        #     self._initialle_de_hxltm_archivum(crudum_datum)
+        # elif isinstance(crudum_datum, list):
+        #     self._initialle_de_hxltm_crudum(crudum_datum)
+        # else:
+        #     raise SyntaxError('HXLTMDatum crudum aut archivum non vacuum')
+        # self._initiale_conceptum()
 
     def _initiale_conceptum(self) -> bool:
         """Initiāle conceptum de datum
@@ -2266,8 +2271,10 @@ class HXLTMDatum:
 
             # print('oii', self.ontologia)
 
-            concept_saccum = HXLTMDatumConceptumSaccum(
-                lineam_grupum, ontologia=self.ontologia)
+            # concept_saccum = HXLTMDatumConceptumSaccum(
+            #     lineam_grupum, ontologia=self.ontologia)
+            concept_saccum = HXLTMDatumConceptumSaccum(lineam_grupum)
+            concept_saccum.asa(self.asa())
             # resultatum exemplum: HXLTMDatumConceptumSaccum
             self.conceptum.append(concept_saccum)
 
@@ -2463,6 +2470,21 @@ class HXLTMDatum:
             resultatum.append(self.datum[clavem])
 
         return resultatum
+
+    def datum_parandum_statim(self) -> Type['HXLTMDatum']:
+        """datum parandum  statim
+
+        _[eng-Latn]
+        Prepare the data immediately
+        [eng-Latn]_
+        """
+        if isinstance(self.__crudum_datum, str):
+            self._initialle_de_hxltm_archivum(self.__crudum_datum)
+        elif isinstance(self.__crudum_datum, list):
+            self._initialle_de_hxltm_crudum(self.__crudum_datum)
+        else:
+            raise SyntaxError('HXLTMDatum crudum aut archivum non vacuum')
+        self._initiale_conceptum()
 
     def rem_iterandum(self) -> Type['HXLTMIterandumRem']:
         return HXLTMIterandumRem(self)
@@ -3014,6 +3036,7 @@ class HXLTMDatumConceptumSaccum:
 
     Exemplōrum gratiā (et Python doctest, id est, testum automata):
 
+>>> ontologia = HXLTMTestumAuxilium.ontologia()
 >>> crudum_titulum = ['id', 'Nōmen', 'Annotātiōnem']
 >>> crudum_hashtag = [
 ...    '#item+conceptum+codicem',
@@ -3026,12 +3049,17 @@ class HXLTMDatumConceptumSaccum:
 ...      ['C2', 'Amat canem Marcus.', 'vērum? vērum!'],
 ...      ['C3', 'Vēnandum īnsectum.', ''],
 ...   ]
->>> ontologia = HXLTMTestumAuxilium.ontologia()
 >>> caput = HXLTMDatumCaput(
 ...            crudum_titulum=crudum_titulum,
 ...            crudum_hashtag=crudum_hashtag
 ...        )
 
+        _[eng-Latn]
+        Do not create crudum_hxltm_asa this way. HXLTMASA do not have
+        a vaccum option to create an empty object.
+        [eng-Latn]_
+
+>>> crudum_hxltm_asa = HXLTMASA([crudum_titulum] + [crudum_hashtag], ontologia)
 
 >>> crudum_grupum_conceptum = HXLTMDatumConceptumSaccum\
     .reducendum_grupum_indicem_de_datum(
@@ -3047,6 +3075,7 @@ dict_keys(['C2', 'C3'])
         Do not use this Conceptum_C2 way of slice. This is just to direct test
         [eng-Latn]_
 
+
 >>> Conceptum_C2_datum = [datum_solum[1]] + [datum_solum[2]] + [datum_solum[3]]
 >>> Conceptum_C2_datum
 [['C2', 'Marcus canem amat.', 'Vērum!'], \
@@ -3058,7 +3087,10 @@ dict_keys(['C2', 'C3'])
 >>> Conceptum_C2_lineam
 [HXLTMDatumLineam(), HXLTMDatumLineam(), HXLTMDatumLineam()]
 
->>> Conceptum_C2 = HXLTMDatumConceptumSaccum(Conceptum_C2_lineam, ontologia)
+>>> Conceptum_C2 = HXLTMDatumConceptumSaccum(Conceptum_C2_lineam)
+>>> Conceptum_C2.asa(crudum_hxltm_asa)
+HXLTMASA()
+
 >>> Conceptum_C2.v(verbosum=False)
 {'_typum': 'HXLTMDatumConceptumSaccum', 'conceptum_nomen': 'C2', \
 'rem': {'de_id': {}, 'de_linguam': {'lat-Latn': \
@@ -3070,6 +3102,8 @@ dict_keys(['C2', 'C3'])
 '#item+rem+i_la+i_lat+is_Latn': 'Marcus canem amat.', \
 '#meta+rem+annotationem+i_la+i_lat+is_latn': 'Vērum!'}, \
 'indicem': ['C2', 'Marcus canem amat.', 'Vērum!'], 'titulum': {}, \
+'de_fontem_linguam': {}, 'de_objectivum_linguam': {}, \
+'de_auxilium_linguam': {}, \
 'id': 'C2', 'Nōmen': 'Marcus canem amat.', 'Annotātiōnem': 'Vērum!'}, \
 'lineam_collectionem': [], 'vacuum': False}
 
@@ -3078,14 +3112,15 @@ dict_keys(['C2', 'C3'])
     _typum: InitVar[str] = None
     # conceptum_nomen: InitVar[str] = ''
     datum_caput: InitVar[Type['HXLTMDatumCaput']] = None
-    ontologia: InitVar[Type['HXLTMOntologia']] = None
+    # ontologia: InitVar[Type['HXLTMOntologia']] = None
     lineam_collectionem: InitVar[List[Type['HXLTMDatumLineam']]] = []
     vacuum: InitVar[str] = False
+    __commune_asa: InitVar[Type['HXLTMASA']] = None
 
     def __init__(
             self,
             lineam_collectionem: List[Type['HXLTMDatumLineam']] = None,
-            ontologia: Type['HXLTMOntologia'] = None,
+            # ontologia: Type['HXLTMOntologia'] = None,
             vacuum: InitVar[str] = False
     ):
         self._typum = 'HXLTMDatumConceptumSaccum'
@@ -3103,10 +3138,10 @@ dict_keys(['C2', 'C3'])
 
             self.datum_caput = lineam_collectionem[0].datum_caput
 
-        if ontologia is None:
-            self.ontologia = HXLTMOntologia(None, vacuum=True)
-        else:
-            self.ontologia = ontologia
+        # if ontologia is None:
+        #     self.ontologia = HXLTMOntologia(None, vacuum=True)
+        # else:
+        #     self.ontologia = ontologia
             # print('nao é noneeeee')
         #     if vacuum:
         #         self.lineam_collectionem = \
@@ -3115,6 +3150,34 @@ dict_keys(['C2', 'C3'])
         #         raise ValueError('columnam_quantitatem vacuum est?')
         # else:
         #     self.lineam = lineam
+
+    def asa(self, hxltm_asa: Type['HXLTMASA'] = None) -> Type['HXLTMASA']:
+        """HXLTMASA commūne objectīvum referēns
+
+        _[eng-Latn]
+        The asa() method allow to lazily inject a shared common reference to
+        the global HXLTM ASA without actually using Python globals.
+
+        This is unlikely to be a good design pattern, but get things done.
+        And it still allow to use classes like this one when no advanced
+        references of the ASA is necessary
+        [eng-Latn]_
+
+        Args:
+            hxltm_asa (HXLTMASA): HXLTM Abstractum Syntaxim Arborem
+
+        Returns:
+            [HXLTMASA]: HXLTM Abstractum Syntaxim Arborem
+        """
+        if hxltm_asa is None:
+            if not self.__commune_asa:
+                raise ReferenceError('hxltm_asa not initialized yet')
+            return self.__commune_asa
+        elif self.__commune_asa is not None:
+            raise ReferenceError('hxltm_asa already initialized')
+
+        self.__commune_asa = hxltm_asa
+        return self.__commune_asa
 
     def contextum(self) -> Dict:
         """[summary]
@@ -3224,6 +3287,10 @@ dict_keys(['C2', 'C3'])
         Returns:
             [Dict]: [description]
         """
+
+        # NOTE: the agendum-linguam should already be filtered steps before
+        #       this method would try to check it.
+
         resultatum = {
             'de_id': {},
             'de_linguam': {},
@@ -3232,6 +3299,14 @@ dict_keys(['C2', 'C3'])
             'indicem': [],
             'titulum': {}
         }
+
+        # TODO: these options should only be availible if is bilingual.
+        #       and do not setup it on other cases
+        resultatum['de_fontem_linguam'] = {}
+        resultatum['de_objectivum_linguam'] = {}
+        resultatum['de_auxilium_linguam'] = {}
+
+        # print('oi3333')
 
         # print(self.ontologia.crudum)
         # print(self.ontologia.hxl_de_aliud_nomen_breve())
@@ -3255,7 +3330,7 @@ dict_keys(['C2', 'C3'])
                 resultatum['hxl'][hxl_hashtag] = nunc_valendum
                 # resultatum[hxl_hashtag] = nunc_valendum
                 nomen_breve = \
-                    self.ontologia.quod_nomen_breve_de_hxl(hxl_hashtag)
+                    self.asa().ontologia.quod_nomen_breve_de_hxl(hxl_hashtag)
 
             if nomen_breve:
 
