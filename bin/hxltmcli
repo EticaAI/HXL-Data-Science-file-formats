@@ -459,6 +459,21 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             nargs='?'
         )
 
+        # @see https://la.wikipedia.org/wiki/Lingua_auxiliaris_internationalis
+        # --agendum-linguam is a draft. Not 100% implemented
+        parser.add_argument(
+            '--auxilium-linguam', '-AUXL',
+            help='(Planned, but not implemented yet) '
+            'Define auxiliary language. '
+            'Requires: bilingual operation (and file format allow metadata). '
+            'Default: Esperanto and Interlingua ' +
+            'Accepts multiple values.',
+            metavar='auxilium_linguam',
+            # default='epo-Latn@eo',
+            action='append',
+            nargs='?'
+        )
+
         # --non-agendum-linguam is a draft. Not 100% implemented
         parser.add_argument(
             '--non-agendum-linguam', '-non-AL',
@@ -835,6 +850,10 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             if args.hxltm_asa:
                 self.in_asa(args.hxltm_asa)
 
+            if self.original_outfile_is_stdout is True and \
+                self.argumentum.objectivum_formatum is None:
+                self.argumentum.objectivum_formatum = 'HXLTM'
+
             if self.argumentum.objectivum_formatum == 'TMX':
                 # print('TMX')
                 if self.original_outfile_is_stdout:
@@ -904,6 +923,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             else:
                 print(self.argumentum.objectivum_formatum)
                 # obj_for = self.argumentum.objectivum_formatum
+                print(self.argumentum.v())
                 raise ValueError(
                     'INCOGNITUM2 (objetive file output based on extension) ' +
                     'failed do decide what you want. Check --help and ' +
@@ -1743,8 +1763,13 @@ class HXLTMArgumentum:
     Args:
         agendum_linguam (List[HXLTMLinguam]):
             _[lat-Latn]
-            Objectīvum linguam
+            Agendum linguam
             (Optiōnem in multiplum linguam aut bilingue operātiōnem)
+            [lat-Latn]_
+        auxilium_linguam (List[HXLTMLinguam]):
+            _[lat-Latn]
+            Lingua auxiliaris
+            (Optiōnem in bilingue operātiōnem)
             [lat-Latn]_
         fontem_linguam (HXLTMLinguam):
             _[lat-Latn]
@@ -1785,6 +1810,7 @@ class HXLTMArgumentum:
             [lat-Latn]_
     """
     agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
+    auxilium_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_formatum: InitVar[str] = 'HXLTM'
@@ -1810,6 +1836,12 @@ class HXLTMArgumentum:
         if args_rem is not None:
             if hasattr(args_rem, 'agendum_linguam'):
                 self.est_agendum_linguam(args_rem.agendum_linguam)
+            if hasattr(args_rem, 'auxilium_linguam'):
+                self.est_auxilium_linguam(args_rem.auxilium_linguam)
+            else:
+                # https://iso639-3.sil.org/code/epo
+                # https://iso639-3.sil.org/code/ina
+                self.est_auxilium_linguam(['ina-Latn@ia'])
             if hasattr(args_rem, 'fontem_linguam'):
                 self.est_fontem_linguam(args_rem.fontem_linguam)
             if hasattr(args_rem, 'objectivum_linguam'):
@@ -1885,6 +1917,37 @@ class HXLTMArgumentum:
         elif rem is None:
             # self.agendum_linguam.append(HXLTMLinguam())
             self.agendum_linguam = []
+        else:
+            raise SyntaxError('Rem typum incognitum {}'.format(str(rem)))
+
+        return self
+
+    def est_auxilium_linguam(self, rem: Union[str, list]):
+        """Argūmentum dēfīnītiōnem ad auxilium linguam
+
+        (Optiōnem in multiplum linguam aut bilingue operātiōnem)
+
+        Args:
+            rem (Union[str, HXLTMLinguam]): Rem
+
+        Returns:
+            [HXLTMArgumentum]: Ego HXLTMArgumentum
+        """
+        if isinstance(rem, list):
+            unicum = set(rem)
+            for item in unicum:
+                if isinstance(rem, HXLTMLinguam):
+                    self.auxilium_linguam.append(item)
+                else:
+                    self.auxilium_linguam.append(HXLTMLinguam(item))
+        elif isinstance(rem, str):
+            collectionem = rem.split(',')
+            unicum = set(collectionem)
+            for item in collectionem:
+                self.auxilium_linguam.append(HXLTMLinguam(item.trim()))
+        elif rem is None:
+            # self.agendum_linguam.append(HXLTMLinguam())
+            self.auxilium_linguam = []
         else:
             raise SyntaxError('Rem typum incognitum {}'.format(str(rem)))
 
