@@ -1273,7 +1273,35 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
       # TODO: implement indicem_lineam
       # TODO: implement indicem_columnam
       corporeum: |2
-            &lt;!-- {{ rem }} --&gt;
+            {% if rem.de_fontem_linguam -%}
+            &lt;unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
+              &lt;segment&gt;
+                &lt;source&gt;{{ rem.de_fontem_linguam.rem }}&lt;/source&gt;
+                {%- if rem.de_objectivum_linguam %}
+                &lt;target&gt;{{ rem.de_objectivum_linguam.rem }}&lt;/target&gt;
+                {%- else -%}
+                  &lt;!-- non rem.de_objectivum_linguam --&gt;
+                {%- endif  %}
+
+                {%- if rem.de_auxilium_linguam %}
+                &lt;notes&gt;
+                  {% for item in rem.de_auxilium_linguam -%}
+                  &lt;note appliesTo="source"
+                    priority="2"
+                    category="mycat"&gt;
+                    {{ item.rem }}
+                  &lt;/note&gt;
+                  {% endfor -%}
+                &lt;/notes&gt;
+                {%- else -%}
+                  &lt;!-- non rem.de_auxilium_linguam --&gt;
+                {%- endif  %}
+
+              &lt;/segment&gt;
+            &lt;/unit&gt;
+            {%- else -%}
+              &lt;!-- non rem.de_fontem_linguam --&gt;
+            {%- endif  %}
 
       finale: |2
           &lt;/file&gt;
@@ -2999,7 +3027,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-18 19:47:40 UTC
+Last updated 2021-07-18 21:17:13 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

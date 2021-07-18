@@ -3101,10 +3101,8 @@ HXLTMASA()
 'rem__L__': 'Marcus canem amat.'}, 'hxl': {'#item+conceptum+codicem': 'C2', \
 '#item+rem+i_la+i_lat+is_Latn': 'Marcus canem amat.', \
 '#meta+rem+annotationem+i_la+i_lat+is_latn': 'Vērum!'}, \
-'indicem': ['C2', 'Marcus canem amat.', 'Vērum!'], 'titulum': {}, \
-'de_fontem_linguam': {}, 'de_objectivum_linguam': {}, \
-'de_auxilium_linguam': {}, \
-'id': 'C2', 'Nōmen': 'Marcus canem amat.', 'Annotātiōnem': 'Vērum!'}, \
+'indicem': ['C2', 'Marcus canem amat.', 'Vērum!'], 'titulum': {\
+'id': 'C2', 'Nōmen': 'Marcus canem amat.', 'Annotātiōnem': 'Vērum!'}}, \
 'lineam_collectionem': [], 'vacuum': False}
 
     """
@@ -3300,13 +3298,34 @@ HXLTMASA()
             'titulum': {}
         }
 
+        # print('oi3333')
+        # print('oi456', self.asa().argumentum.fontem_linguam)
+
+        fon_l = None
+        obj_l = None
+        aux_l = None
         # TODO: these options should only be availible if is bilingual.
         #       and do not setup it on other cases
-        resultatum['de_fontem_linguam'] = {}
-        resultatum['de_objectivum_linguam'] = {}
-        resultatum['de_auxilium_linguam'] = {}
 
-        # print('oi3333')
+        if self.asa().argumentum.fontem_linguam:
+            fon_l = self.asa().argumentum.fontem_linguam.linguam
+            resultatum['de_fontem_linguam'] = None
+
+        if self.asa().argumentum.objectivum_linguam:
+            obj_l = self.asa().argumentum.objectivum_linguam.linguam
+            resultatum['de_objectivum_linguam'] = None
+
+        if self.asa().argumentum.auxilium_linguam and \
+                len(self.asa().argumentum.auxilium_linguam) > 0:
+            aux_l = []
+            for item in self.asa().argumentum.auxilium_linguam:
+                # aux_l_nomen = item.linguam
+                # aux_l[aux_l_nomen] = item
+                aux_l.append(item.linguam)
+            resultatum['de_auxilium_linguam'] = []
+
+            # obj_L = self.asa().argumentum.objectivum_linguam.linguam
+            # resultatum['de_auxilium_linguam'] = {}
 
         # print(self.ontologia.crudum)
         # print(self.ontologia.hxl_de_aliud_nomen_breve())
@@ -3322,7 +3341,7 @@ HXLTMASA()
             resultatum['indicem'].append(nunc_valendum)
             titulum = self.datum_caput.titulum_de_columnam(col)
             if titulum:
-                resultatum[titulum] = nunc_valendum
+                resultatum['titulum'][titulum] = nunc_valendum
 
             hxl_hashtag = self.datum_caput.hxl_hashtag_de_columnam(col)
 
@@ -3336,18 +3355,32 @@ HXLTMASA()
 
                 resultatum['de_nomen_breve'][nomen_breve] = nunc_valendum
 
-                # TODO: make this non-hardcoded ASAP (via HXLTMOntologia)
-                # print('oooi')
-                if nomen_breve == 'rem__L__':
-                    # print('nunc_valendum', nunc_valendum)
-                    # resultatum['rem'] = []
-                    nunc_valendum_rem = HXLTMRem(
-                        hashtag=hxl_hashtag,
-                        rem=nunc_valendum
-                    ).v()
+            # TODO: make this non-hardcoded ASAP (via HXLTMOntologia)
+            # print('oooi')
+            if nomen_breve and nomen_breve == 'rem__L__':
+                # print('nunc_valendum', nunc_valendum)
+                # resultatum['rem'] = []
+                nunc_valendum_rem = HXLTMRem(
+                    hashtag=hxl_hashtag,
+                    rem=nunc_valendum
+                ).v()
 
-                    resultatum['de_linguam'][nunc_valendum_rem['linguam']] = \
-                        nunc_valendum_rem
+                # print('fon_l', fon_l)
+
+                if fon_l is not None and fon_l == nunc_valendum_rem['linguam']:
+                    resultatum['de_fontem_linguam'] = nunc_valendum_rem
+
+                if obj_l is not None and obj_l == nunc_valendum_rem['linguam']:
+                    resultatum['de_objectivum_linguam'] = nunc_valendum_rem
+
+                if aux_l is not None and nunc_valendum_rem['linguam'] in aux_l:
+                    resultatum['de_auxilium_linguam'].append(nunc_valendum_rem)
+                #     print('yay', aux_l, nunc_valendum_rem['linguam'])
+                # else:
+                #     print('noop', aux_l, nunc_valendum_rem['linguam'])
+
+                resultatum['de_linguam'][nunc_valendum_rem['linguam']] = \
+                    nunc_valendum_rem
 
             # print(col)
             # print(resultatum)

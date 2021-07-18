@@ -463,7 +463,35 @@ normam:
       # TODO: implement indicem_lineam
       # TODO: implement indicem_columnam
       corporeum: |2
-            <!-- {{ rem }} -->
+            {% if rem.de_fontem_linguam -%}
+            <unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
+              <segment>
+                <source>{{ rem.de_fontem_linguam.rem }}</source>
+                {%- if rem.de_objectivum_linguam %}
+                <target>{{ rem.de_objectivum_linguam.rem }}</target>
+                {%- else -%}
+                  <!-- non rem.de_objectivum_linguam -->
+                {%- endif  %}
+
+                {%- if rem.de_auxilium_linguam %}
+                <notes>
+                  {% for item in rem.de_auxilium_linguam -%}
+                  <note appliesTo="source"
+                    priority="2"
+                    category="mycat">
+                    {{ item.rem }}
+                  </note>
+                  {% endfor -%}
+                </notes>
+                {%- else -%}
+                  <!-- non rem.de_auxilium_linguam -->
+                {%- endif  %}
+
+              </segment>
+            </unit>
+            {%- else -%}
+              <!-- non rem.de_fontem_linguam -->
+            {%- endif  %}
 
       finale: |2
           </file>
