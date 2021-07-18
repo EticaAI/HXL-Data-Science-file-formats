@@ -4,6 +4,9 @@
 output-file.tm.hxl.csv
 HXL-Data-Science-file-formats-main
 schemam-un-htcds.tm.hxl.csv
+resultatum/xliff-core-1.2.xsd
+resultatum/xliff-core-1.2-strict.xsd
+resultatum/xliff-core-1.2-transitional.xsd
 resultatum/schemam-un-htcds_eng-Latn_por-Latn.hxl.csv
 resultatum/schemam-un-htcds.tmx
 resultatum/schemam-un-htcds.xlf

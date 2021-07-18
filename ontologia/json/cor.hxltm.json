@@ -295,7 +295,7 @@
         ]
       },
       "formatum": {
-        "initiale": "<?xml version=\"1.0\"?>\n<xliff\n  xmlns=\"urn:oasis:names:tc:xliff:document:2.0\" version=\"2.0\"\n  srcLang=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n  trgLang=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\">\n  <file id=\"f1\">\n",
+        "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"2.0\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:2.0\"\n  srcLang=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n  trgLang=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\">\n  <file id=\"f1\">\n",
         "corporeum": "    {% if rem.de_fontem_linguam -%}\n    <unit id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      <segment>\n        <source>{{ rem.de_fontem_linguam.rem }}</source>\n        {%- if rem.de_objectivum_linguam %}\n        <target>{{ rem.de_objectivum_linguam.rem }}</target>\n        {%- else -%}\n          <!-- non rem.de_objectivum_linguam -->\n        {%- endif  %}\n\n        {%- if rem.de_auxilium_linguam %}\n        <notes>\n          {% for item in rem.de_auxilium_linguam -%}\n          <note appliesTo=\"source\"\n            priority=\"2\"\n            category=\"mycat\">\n            {{ item.rem }}\n          </note>\n          {% endfor -%}\n        </notes>\n        {%- else -%}\n          <!-- non rem.de_auxilium_linguam -->\n        {%- endif  %}\n\n      </segment>\n    </unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
         "finale": "  </file>\n</xliff>\n"
       }
@@ -312,7 +312,9 @@
           ]
         },
         "normam": [
-          "https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html"
+          "https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html",
+          "https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd",
+          "http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd"
         ],
         "nomen": {
           "eng-Latn": "XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)"
@@ -322,6 +324,11 @@
         "modus_operandi": [
           "bilingue"
         ]
+      },
+      "formatum": {
+        "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"1.2\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:1.2\"\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xsi:schemaLocation=\"urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-strict.xsd\">\n  <file source-language=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n    datatype=\"plaintext\"\n    original=\"file.ext\">\n    <body>\n",
+        "corporeum": "    {% if rem.de_fontem_linguam -%}\n    <trans-unit id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      <source>{{ rem.de_fontem_linguam.rem }}</source>\n      {%- if rem.de_objectivum_linguam %}\n      <target>{{ rem.de_objectivum_linguam.rem }}</target>\n      {%- else -%}\n        <!-- non rem.de_objectivum_linguam -->\n      {%- endif  %}\n\n      {%- if rem.de_auxilium_linguam %}\n      <!--<group>-->\n        {% for item in rem.de_auxilium_linguam -%}\n        <note\n          priority=\"2\">\n          {{ item.rem }}\n        </note>\n        {% endfor -%}\n      <!--</group>-->\n      {%- else -%}\n        <!-- non rem.de_auxilium_linguam -->\n      {%- endif  %}\n    </trans-unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
+        "finale": "    </body>\n  </file>\n</xliff>\n"
       }
     },
     "XLSX": {
