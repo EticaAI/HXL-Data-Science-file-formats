@@ -1183,6 +1183,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         # print('in_tmx_de_hxltmasa')
 
         farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
+        farmatum_tmx.asa(self.hxltm_asa)
 
         if archivum_objectivum is None or archivum_objectivum is False or \
                 len(archivum_objectivum) == 0:
@@ -1351,7 +1352,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     # print (ln)
 
     def in_xliff_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
-        """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
+        """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF)
+        v2.1
 
         Args:
             archivum_objectivum (Union[str, None]):
@@ -1359,6 +1361,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         """
 
         farmatum_xliff = HXLTMInFormatumXLIFF(self.hxltm_asa)
+        farmatum_xliff.asa(self.hxltm_asa)
 
         if archivum_objectivum is None:
             return farmatum_xliff.in_normam_exitum()
@@ -1536,6 +1539,22 @@ class HXLTMASA:
 >>> asa = HXLTMASA(datum, ontologia=ontologia)
 >>> asa
 HXLTMASA()
+
+>>> asa.limitem_initiale_lineam
+-1
+
+>>> asa.datum.asa().limitem_initiale_lineam=3
+>>> asa.datum.asa().limitem_initiale_lineam
+3
+
+>>> asa.limitem_initiale_lineam
+3
+
+>>> asa is asa.datum.asa()
+True
+
+--- >>> id(asa) is id(asa.datum.asa())
+--- False
     """
 
     # pylint: disable=too-many-instance-attributes
@@ -1601,6 +1620,7 @@ HXLTMASA()
             argumentum=self.argumentum,
             ontologia=self.ontologia
         )
+        self.datum.asa(hxltm_asa=self)
 
     def quod_globum_valendum(self) -> Dict:
         """Quod globum valendum?
@@ -2115,6 +2135,20 @@ class HXLTMDatum:
             _[lat-Latn]
             HXLTMArgumentum
             [lat-Latn]_
+        argumentum (HXLTMArgumentum):
+        ontologia (HXLTMArgumentum):
+
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> crudum_datum = [
+...   ['id', 'Nōmen', 'Annotātiōnem'],
+...   ['#item+id', '#item+lat_nomen', ''],
+...   [1, 'Marcus canem amat.', 'Vērum!'],
+...   [2, 'Canem Marcus amat.', ''],
+...   [3, 'Amat canem Marcus.', 'vērum? vērum!']
+...   ]
+
+#>>> crudum_datum
     """
 
     # crudum: InitVar[List] = []
@@ -2132,6 +2166,7 @@ class HXLTMDatum:
     ontologia: InitVar[Type['HXLTMOntologia']] = None
     argumentum: InitVar[Type['HXLTMArgumentum']] = None
     venandum_insectum: InitVar[bool] = False
+    __commune_asa: InitVar[Type['HXLTMASA']] = None
 
     def __init__(self,
                  crudum_datum: Union[List[List], str],
@@ -2316,6 +2351,34 @@ class HXLTMDatum:
             columnam_collectionem=self.columnam,
             # venandum_insectum=self.argumentum.venandum_insectum
         )
+
+    def asa(self, hxltm_asa: Type['HXLTMASA'] = None) -> Type['HXLTMASA']:
+        """HXLTMASA commūne objectīvum referēns
+
+        _[eng-Latn]
+        The asa() method allow to lazily inject a shared common reference to
+        the global HXLTM ASA without actually using Python globals.
+
+        This is unlikely to be a good design pattern, but get things done.
+        And it still allow to use classes like this one when no advanced
+        references of the ASA is necessary
+        [eng-Latn]_
+
+        Args:
+            hxltm_asa (HXLTMASA): HXLTM Abstractum Syntaxim Arborem
+
+        Returns:
+            [HXLTMASA]: HXLTM Abstractum Syntaxim Arborem
+        """
+        if hxltm_asa is None:
+            if not self.__commune_asa:
+                raise ReferenceError('hxltm_asa not initialized yet')
+            return self.__commune_asa
+        elif self.__commune_asa is not None:
+            raise ReferenceError('hxltm_asa already initialized')
+
+        self.__commune_asa = hxltm_asa
+        return self.__commune_asa
 
     def conceptum_de_indicem(
             self, indicem: int) -> Type['HXLTMDatumConceptumSaccum']:
@@ -3567,6 +3630,8 @@ class HXLTMInFormatum(ABC):
     # ontologia/cor.hxltm.yml basim extēnsiōnem
     ONTOLOGIA_FORMATUM_BASIM = ''
 
+    __commune_asa: InitVar[Type['HXLTMASA']] = None
+
     # @see https://docs.python.org/3/library/logging.html
     # @see https://docs.python.org/pt-br/dev/howto/logging.html
 
@@ -3580,6 +3645,34 @@ class HXLTMInFormatum(ABC):
         self.ontologia = hxltm_asa.ontologia
         self.globum = self.quod_globum_valendum()
         self.normam = self.globum['normam']
+
+    def asa(self, hxltm_asa: Type['HXLTMASA'] = None) -> Type['HXLTMASA']:
+        """HXLTMASA commūne objectīvum referēns
+
+        _[eng-Latn]
+        The asa() method allow to lazily inject a shared common reference to
+        the global HXLTM ASA without actually using Python globals.
+
+        This is unlikely to be a good design pattern, but get things done.
+        And it still allow to use classes like this one when no advanced
+        references of the ASA is necessary
+        [eng-Latn]_
+
+        Args:
+            hxltm_asa (HXLTMASA): HXLTM Abstractum Syntaxim Arborem
+
+        Returns:
+            [HXLTMASA]: HXLTM Abstractum Syntaxim Arborem
+        """
+        if hxltm_asa is None:
+            if not self.__commune_asa:
+                raise ReferenceError('hxltm_asa not initialized yet')
+            return self.__commune_asa
+        elif self.__commune_asa is not None:
+            raise ReferenceError('hxltm_asa already initialized')
+
+        self.__commune_asa = hxltm_asa
+        return self.__commune_asa
 
     def datum_initiale(self) -> List:
         """Datum initiāle de fōrmātum Lorem Ipsum vI.II
@@ -3997,6 +4090,8 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
 
         liquid_template = self.normam['formatum']['corporeum']
 
+        print('oi')
+
         # for numerum, rem in self.rem():
         # for rem, rem2 in self.rem():
         for rem in self.de_rem():
@@ -4360,6 +4455,11 @@ HXLTMLinguam()
 'bcp47': 'la-IT', 'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', \
 'iso115924': 'Latn'}
 
+>>> HXLTMLinguam('lat-Latn@la-IT@IT', meta={'testum': 123}).v()
+{'_typum': 'HXLTMLinguam', '_vanandum_insectum_meta': {'testum': 123}, \
+'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', 'bcp47': 'la-IT', \
+'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}
+
 >>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
 '+i_la+i_lat+is_latn+ii_it'
 
@@ -4408,6 +4508,7 @@ HXLTMLinguam()
 
     # Exemplum: lat-Latn@la-IT@IT, arb-Arab@ar-EG@EG
     _typum: InitVar[str] = None  # 'HXLTMLinguam'
+    _vanandum_insectum_meta: InitVar[Dict] = None
     crudum: InitVar[str] = None
     linguam: InitVar[str] = None     # Exemplum: lat-Latn, arb-Arab
     bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
@@ -4420,7 +4521,9 @@ HXLTMLinguam()
 
     # https://tools.ietf.org/search/bcp47#page-2-12
 
-    def __init__(self, linguam: str, strictum=False, vacuum=False):
+    # def __init__(self, linguam: str, strictum=False, vacuum=False):
+    def __init__(self, linguam: str,
+                 strictum=False, vacuum=False, meta=None):
         """HXLTMLinguam initiāle
 
         Args:
@@ -4431,9 +4534,13 @@ HXLTMLinguam()
             vacuum (bool, optional): vacuum	est?
                        Trivia: https://en.wiktionary.org/wiki/vacuus#Latin.
                        Defallo falsum.
+            meta (Dict, optional):
+                    Metadatum ad Vēnandum īnsectum.Defallo vacuum.
         """
         # super().__init__()
         self._typum = 'HXLTMLinguam'  # Used only when output JSON
+        if meta is not None:
+            self._vanandum_insectum_meta = meta
         self.crudum = linguam
         if not vacuum:
             self.initialle(strictum)

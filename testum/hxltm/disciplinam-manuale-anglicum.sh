@@ -355,7 +355,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --objectivum-TMX --experimentum-est --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml --expertum-HXLTM-ASA-verbosum
 
 ## XLIFF2
-# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf --objectivum-XLIFF --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es --experimentum-est --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf.asa.hxltm.yml --expertum-HXLTM-ASA-verbosum
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf --objectivum-XLIFF --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es --auxilium-linguam eng-Latn@en,lat-Latn@la --experimentum-est --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf.asa.hxltm.yml --expertum-HXLTM-ASA-verbosum
 
 # To revert only one file that keeps changing even with same input
 # git checkout -- testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
