@@ -837,16 +837,11 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
             if self.argumentum.objectivum_formatum == 'TMX':
                 # print('TMX')
-
-                if args.experimentum_est:
-                    if self.original_outfile_is_stdout:
-                        archivum_objectivum = False
-                    else:
-                        archivum_objectivum = self.original_outfile
-                    self.in_tmx_de_hxltmasa(archivum_objectivum)
+                if self.original_outfile_is_stdout:
+                    archivum_objectivum = False
                 else:
-                    self.in_tmx(hxlated_input, self.original_outfile,
-                                self.original_outfile_is_stdout, args)
+                    archivum_objectivum = self.original_outfile
+                self.in_tmx_de_hxltmasa(archivum_objectivum)
 
             elif self.argumentum.objectivum_formatum == 'TBX-Basim':
                 raise NotImplementedError('TBX-Basim not implemented yet')
@@ -1152,113 +1147,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 # txt_writer = csv.writer(new_txt)
                 # for line in datum:
                 #     txt_writer.writerow(line)
-
-    def in_tmx(self, hxlated_input, tmx_output, is_stdout, args):
-        """
-        in_tmx is  is the main method to de facto make the conversion.
-
-        TODO: this is a work-in-progress at this moment, 2021-06-28
-        @see https://en.wikipedia.org/wiki/Translation_Memory_eXchange
-        @see https://www.gala-global.org/lisa-oscar-standards
-        @see https://cloud.google.com/translate/automl/docs/prepare
-        @see http://xml.coverpages.org/tmxSpec971212.html
-        """
-
-        # print('in_tmx')
-
-        datum = []
-
-        with open(hxlated_input, 'r') as csv_file:
-            # TODO: fix problem if input data already only have HXL hashtags
-            #       but no extra headings (Emerson Rocha, 2021-06-28 01:27 UTC)
-
-            # Hotfix: skip first non-HXL header. Ideally I think the already
-            # exported HXlated file should already save without headers.
-            next(csv_file)
-
-            csvReader = csv.DictReader(csv_file)
-
-            # Convert each row into a dictionary
-            # and add it to data
-            for item in csvReader:
-
-                datum.append(HXLTMUtil.tmx_item_relevan_options(item))
-
-        resultatum = []
-        resultatum.append("<?xml version='1.0' encoding='utf-8'?>")
-        resultatum.append('<!DOCTYPE tmx SYSTEM "tmx14.dtd">')
-        resultatum.append('<tmx version="1.4">')
-        # @see https://www.gala-global.org/sites/default/files/migrated-pages
-        #      /docs/tmx14%20%281%29.dtd
-        resultatum.append(
-            '  <header creationtool="hxltm" creationtoolversion="' +
-            __VERSION__ + '" ' +
-            'segtype="sentence" o-tmf="UTF-8" ' +
-            'adminlang="en" srclang="en" datatype="PlainText"/>')
-        # TODO: make source and adminlang configurable
-        resultatum.append('  <body>')
-
-        num = 0
-
-        for rem in datum:
-            num += 1
-
-            # unit_id = rem['#item+id'] if '#item+id' in rem else num
-            if '#item+id' in rem:
-                unit_id = rem['#item+id']
-            elif '#item+conceptum+codicem' in rem:
-                unit_id = rem['#item+conceptum+codicem']
-            else:
-                unit_id = num
-
-            resultatum.append('    <tu tuid="' + str(unit_id) + '">')
-            if '#item+wikidata+code' in rem and rem['#item+wikidata+code']:
-                resultatum.append(
-                    '      <prop type="wikidata">' +
-                    rem['#item+wikidata+code'] + '</prop>')
-
-            if '#meta+item+url+list' in rem and rem['#meta+item+url+list']:
-                resultatum.append(
-                    # TODO: improve naming
-                    '      <prop type="meta_urls">' + \
-                    rem['#meta+item+url+list'] + '</prop>')
-
-            hattrsl = HXLTMUtil.hxllangattrs_list_from_item(rem)
-            # print(hattrsl)
-            for langattrs in hattrsl:
-                # print(langattrs)
-
-                if '#item' + langattrs in rem:
-                    keylang = '#item' + langattrs
-                elif '#item+rem' + langattrs in rem:
-                    keylang = '#item+rem' + langattrs
-                else:
-                    keylang = 'no-key-found-failed'
-
-                if keylang in rem:
-                    bcp47 = HXLTMUtil.bcp47_from_hxlattrs(langattrs)
-                    resultatum.append('      <tuv xml:lang="' + bcp47 + '">')
-                    resultatum.append(
-                        '        <seg>' + rem[keylang] + '</seg>')
-                    resultatum.append('      </tuv>')
-
-            resultatum.append('    </tu>')
-
-        resultatum.append('  </body>')
-        resultatum.append('</tmx>')
-
-        if is_stdout:
-            for lineam in resultatum:
-                print(lineam)
-        else:
-            tmx_output_cleanup = open(tmx_output, 'w')
-            tmx_output_cleanup.truncate()
-            tmx_output_cleanup.close()
-
-            with open(tmx_output, 'a') as new_txt:
-                for lineam in resultatum:
-                    new_txt.write(lineam + "\n")
-                    # print (ln)
 
     def in_tmx_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
         """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
@@ -3995,25 +3883,9 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
         Public Domain
     """
 
-    def datum_initiale(self) -> List:
-        """Datum initiāle de fōrmātum XML Localization Interchange File Format
-        (XLIFF)
+    # ONTOLOGIA_FORMATUM = ''
 
-        Trivia:
-            - datum, https://en.wiktionary.org/wiki/datum#Latin
-            - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
-
-        Returns:
-            List: Python List, id est: rem collēctiōnem
-        """
-        resultatum = []
-        resultatum.append('<?xml version="1.0"?>')
-        resultatum.append(
-            '<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" ' +
-            'version="2.0" srcLang="en" trgLang="fr">')
-        resultatum.append('  <file id="f1">')
-
-        return resultatum
+    ONTOLOGIA_FORMATUM_BASIM = 'XLIFF'  # ontologia/cor.hxltm.yml clāvem nomen
 
     def datum_corporeum(self) -> List:
         """Datum corporeum de fōrmātum XML Localization Interchange File Format
@@ -4026,28 +3898,60 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
+        # resultatum = []
+        # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        # resultatum.append('<!-- ' + __class__.__name__ + ' -->')
+        # resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+        # return resultatum
         resultatum = []
-        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
-        resultatum.append('<!-- ' + __class__.__name__ + ' -->')
-        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
-        return resultatum
 
-    def datum_finale(self) -> List:  # pylint: disable=no-self-use
-        """Datum fīnāle de fōrmātum
+        liquid_template = self.normam['formatum']['corporeum']
 
-        Returns:
-            List: Python List, id est: rem collēctiōnem
-        """
-        resultatum = []
-        resultatum.append('  </file>')
-        resultatum.append('</xliff>')
+        # for numerum, rem in self.rem():
+        # for rem, rem2 in self.rem():
+        for rem in self.de_rem():
+            # resultatum.append(rem.v())
+            # print(rem)
+            liquid_context = {'rem': str(rem)}
+            liquid_context = rem.contextum()
+            # resultatum.append(str(rem))
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
         return resultatum
 
 
 class HXLTMOntologia:
-    """
-    _[eng-Latn] HXLTMOntologia is a python wrapper for the cor.hxltm.yml.
-    [eng-Latn]_
+    """HXLTM Ontologia
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - Ontologia
+            - https://www.wikidata.org/wiki/Q44325
+            - https://la.wikipedia.org/wiki/Ontologia
+            - Jacob Lorhard (1561-1609): The Creator of the Term "Ontologia"
+                - https://www.ontology.co/jacob-lorhard.htm
+
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> ontologia = HXLTMTestumAuxilium.ontologia()
+>>> 'HXLTM' in list(ontologia.de('normam').keys())
+True
+>>> 'genus_grammaticum' in list(ontologia.de('ontologia_aliud').keys())
+True
+>>> 'partem_orationis' in list(ontologia.de('ontologia_aliud').keys())
+True
+>>> ontologia.quid_est_hashtag_circa_conceptum('#item+conceptum+codicem')
+True
+>>> ontologia.quid_est_hashtag_circa_conceptum('#rem+rem+i_la+i_lat+is_latn')
+False
+>>> ontologia.quid_est_hashtag_circa_linguam('#item+conceptum+codicem')
+False
+>>> ontologia.quid_est_hashtag_circa_linguam('#rem+rem+i_la+i_lat+is_latn')
+True
 
     """
 
@@ -4061,17 +3965,6 @@ class HXLTMOntologia:
             self.crudum = {}
         else:
             self.crudum = ontologia
-
-        # print('ooooi', vacuum, ontologia)
-
-        # TODO: hxlm/data/exemplum/ego.hxltm.yml
-        # TODO: hxlm/data/exemplum/venditorem.hxltm.yml
-
-    # def initialle(self):
-    #     """
-    #     Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
-    #     """
-    #     # print('TODO')
 
     def hxl_de_aliud_nomen_breve(self, structum=False):
         """HXL attribūtum de aliud nōmen breve (cor.hxltm.yml)
@@ -4111,7 +4004,7 @@ class HXLTMOntologia:
                         resultatum[rem['__nomen_breve']] = \
                             ''.join(rem['__HXL'].split())
 
-        print(self.crudum)
+        # print(self.crudum)
         recursionem(self.crudum['ontologia'])
         # print(resultatum)
         return resultatum
