@@ -2781,11 +2781,10 @@ hxltmcli --help</code></pre>
                 [--log debug|info|warning|error|critical|none]
                 [--fontem-linguam [fontem_linguam]]
                 [--objectivum-linguam [objectivum_linguam]]
-                [--agendum-linguam [agendum_linguam]]
-                [--auxilium-linguam [auxilium_linguam]]
-                [--non-agendum-linguam [non_agendum_linguam]]
-                [--objectivum-HXLTM] [--objectivum-TMX]
-                [--objectivum-TBX-Basim] [--objectivum-UTX]
+                [--agendum-linguam agendum_linguam]
+                [--non-agendum-linguam non_agendum_linguam]
+                [--auxilium-linguam auxilium_linguam] [--objectivum-HXLTM]
+                [--objectivum-TMX] [--objectivum-TBX-Basim] [--objectivum-UTX]
                 [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
                 [--objectivum-CSV-3] [--objectivum-CSV-HXL-XLIFF]
                 [--objectivum-JSON-kv]
@@ -2835,21 +2834,21 @@ optional arguments:
                         (use if not auto-detected). Must be like {ISO
                         639-3}-{ISO 15924}. Example: arb-Arab. Requires: mono
                         or bilingual operation. Accept a single value.
-  --agendum-linguam [agendum_linguam], -AL [agendum_linguam]
+  --agendum-linguam agendum_linguam, -AL agendum_linguam
                         (Planned, but not implemented yet) Restrict working
                         languages to a list. Useful for HXLTM to HXLTM or
                         multilingual formats like TMX. Requires: multilingual
                         operation. Accepts multiple values.
-  --auxilium-linguam [auxilium_linguam], -AUXL [auxilium_linguam]
+  --non-agendum-linguam non_agendum_linguam, -non-AL non_agendum_linguam
+                        (Planned, but not implemented yet) Inverse of
+                        --agendum-linguam. Document one or more languages that
+                        should be ignored if they exist. Requires:
+                        multilingual operation. Accept multiple values.
+  --auxilium-linguam auxilium_linguam, -AUXL auxilium_linguam
                         (Planned, but not implemented yet) Define auxiliary
                         language. Requires: bilingual operation (and file
                         format allow metadata). Default: Esperanto and
                         Interlingua Accepts multiple values.
-  --non-agendum-linguam [non_agendum_linguam], -non-AL [non_agendum_linguam]
-                        (Planned, but not implemented yet) Inverse of
-                        --agendum-linguam. Document one or more languages that
-                        should be ignored if they exist. Requires:
-                        multilingual operation.Accept a single value.
   --objectivum-HXLTM, --HXLTM
                         Save output as HXLTM (default). Multilingual output
                         format.
@@ -3000,7 +2999,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-18 17:40:44 UTC
+Last updated 2021-07-18 18:56:01 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

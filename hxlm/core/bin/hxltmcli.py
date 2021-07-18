@@ -467,8 +467,23 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'Requires: multilingual operation. ' +
             'Accepts multiple values.',
             metavar='agendum_linguam',
-            action='append',
-            nargs='?'
+            type=lambda x: x.split(',')
+            # action='append',
+            # nargs='?'
+        )
+
+        # --non-agendum-linguam is a draft. Not 100% implemented
+        parser.add_argument(
+            '--non-agendum-linguam', '-non-AL',
+            help='(Planned, but not implemented yet) ' +
+            'Inverse of --agendum-linguam. Document one or more ' +
+            'languages that should be ignored if they exist. ' +
+            'Requires: multilingual operation. ' +
+            'Accept multiple values.',
+            metavar='non_agendum_linguam',
+            # action='append',
+            type=lambda x: x.split(',')
+            # nargs='?'
         )
 
         # @see https://la.wikipedia.org/wiki/Lingua_auxiliaris_internationalis
@@ -482,21 +497,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'Accepts multiple values.',
             metavar='auxilium_linguam',
             # default='epo-Latn@eo',
-            action='append',
-            nargs='?'
-        )
-
-        # --non-agendum-linguam is a draft. Not 100% implemented
-        parser.add_argument(
-            '--non-agendum-linguam', '-non-AL',
-            help='(Planned, but not implemented yet) ' +
-            'Inverse of --agendum-linguam. Document one or more ' +
-            'languages that should be ignored if they exist. ' +
-            'Requires: multilingual operation.' +
-            'Accept a single value.',
-            metavar='non_agendum_linguam',
-            action='append',
-            nargs='?'
+            # action='append',
+            type=lambda x: x.split(',')
+            # nargs='?'
         )
 
         parser.add_argument(
@@ -1183,7 +1186,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         # print('in_tmx_de_hxltmasa')
 
         farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
-        farmatum_tmx.asa(self.hxltm_asa)
+        # farmatum_tmx.asa(self.hxltm_asa)
 
         if archivum_objectivum is None or archivum_objectivum is False or \
                 len(archivum_objectivum) == 0:
@@ -1361,7 +1364,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         """
 
         farmatum_xliff = HXLTMInFormatumXLIFF(self.hxltm_asa)
-        farmatum_xliff.asa(self.hxltm_asa)
 
         if archivum_objectivum is None:
             return farmatum_xliff.in_normam_exitum()
@@ -1570,7 +1572,7 @@ True
     # alternativum_linguam: List[Type['HXLTMLinguam']] = None
 
     # @see https://la.wikipedia.org/wiki/Lingua_agendi
-    agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
+    # agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
     # linguam: List[Type['HXLTMLinguam']] = None
 
     columnam_numerum: InitVar[List] = []  # deprecated
@@ -1675,7 +1677,7 @@ True
             # that could be reused by others
             '__ASA__INSTRUMENTUM__': {
                 # 'agendum_linguam': 'mul-Zyyy'
-                'agendum_linguam': []
+                # 'agendum_linguam': []
             },
 
             # Similar to __ASA__INSTRUMENTUM__ (a place for tools to put
@@ -1737,20 +1739,20 @@ True
         #             rem_al.v(self._verbosum)
         #        )
 
-        if self.argumentum.agendum_linguam and \
-                len(self.argumentum.agendum_linguam) > 0:
-            asa['__ASA__INSTRUMENTUM__']['agendum_linguam'] = []
-            for rem_al in self.argumentum.agendum_linguam:
-                asa['__ASA__INSTRUMENTUM__']['agendum_linguam'].append(
-                    rem_al.v(self._verbosum)
-                )
-        if self.argumentum.auxilium_linguam and \
-                len(self.argumentum.auxilium_linguam) > 0:
-            asa['__ASA__INSTRUMENTUM__']['auxilium_linguam'] = []
-            for rem_al in self.argumentum.auxilium_linguam:
-                asa['__ASA__INSTRUMENTUM__']['auxilium_linguam'].append(
-                    rem_al.v(self._verbosum)
-                )
+        # if self.argumentum.agendum_linguam and \
+        #         len(self.argumentum.agendum_linguam) > 0:
+        #     asa['__ASA__INSTRUMENTUM__']['agendum_linguam'] = []
+        #     for rem_al in self.argumentum.agendum_linguam:
+        #         asa['__ASA__INSTRUMENTUM__']['agendum_linguam'].append(
+        #             rem_al.v(self._verbosum)
+        #         )
+        # if self.argumentum.auxilium_linguam and \
+        #         len(self.argumentum.auxilium_linguam) > 0:
+        #     asa['__ASA__INSTRUMENTUM__']['auxilium_linguam'] = []
+        #     for rem_al in self.argumentum.auxilium_linguam:
+        #         asa['__ASA__INSTRUMENTUM__']['auxilium_linguam'].append(
+        #             rem_al.v(self._verbosum)
+        #         )
 
         return asa
 
@@ -1861,6 +1863,7 @@ class HXLTMArgumentum:
     silentium: InitVar[bool] = False
     ad_astra: InitVar[bool] = False
     venandum_insectum: InitVar[bool] = False
+    # crudum_argparse: InitVar[Dict] = {}
 
     # def de_argparse(self, args_rem: Type['ArgumentParser']):
     def de_argparse(self, args_rem: Dict = None):
@@ -1873,19 +1876,28 @@ class HXLTMArgumentum:
         Returns:
             [HXLTMArgumentum]: Ego HXLTMArgumentum
         """
-        # print(args_rem.outfile)
+        # print(args_rem)
         if args_rem is not None:
             if hasattr(args_rem, 'outfile'):
                 self.objectivum_archivum_nomen = args_rem.outfile
 
             if hasattr(args_rem, 'agendum_linguam'):
                 self.est_agendum_linguam(args_rem.agendum_linguam)
+
             if hasattr(args_rem, 'auxilium_linguam'):
+                # print('oi auxilium_linguam', args_rem.auxilium_linguam)
                 self.est_auxilium_linguam(args_rem.auxilium_linguam)
             else:
+
                 # https://iso639-3.sil.org/code/epo
                 # https://iso639-3.sil.org/code/ina
-                self.est_auxilium_linguam(['ina-Latn@ia'])
+                self.est_auxilium_linguam(
+                    ['ina-Latn@ia', 'epo-Latn@eo'],
+                    {'annotationem': 'defallo'}
+                )
+            # print('oi3333 ', self.auxilium_linguam[0].v())
+            # print('oi3333 ', self.auxilium_linguam[1].v())
+
             if hasattr(args_rem, 'fontem_linguam'):
                 self.est_fontem_linguam(args_rem.fontem_linguam)
             if hasattr(args_rem, 'objectivum_linguam'):
@@ -1966,7 +1978,7 @@ class HXLTMArgumentum:
 
         return self
 
-    def est_auxilium_linguam(self, rem: Union[str, list]):
+    def est_auxilium_linguam(self, rem: Union[str, list], meta: Dict = None):
         """Argūmentum dēfīnītiōnem ad auxilium linguam
 
         (Optiōnem in multiplum linguam aut bilingue operātiōnem)
@@ -1977,24 +1989,30 @@ class HXLTMArgumentum:
         Returns:
             [HXLTMArgumentum]: Ego HXLTMArgumentum
         """
+        # print(rem)
         if isinstance(rem, list):
             unicum = set(rem)
             for item in unicum:
                 if isinstance(rem, HXLTMLinguam):
                     self.auxilium_linguam.append(item)
                 else:
-                    self.auxilium_linguam.append(HXLTMLinguam(item))
+                    self.auxilium_linguam.append(
+                        HXLTMLinguam(item, meta=meta))
+
         elif isinstance(rem, str):
             collectionem = rem.split(',')
+            # print(collectionem)
             unicum = set(collectionem)
             for item in collectionem:
-                self.auxilium_linguam.append(HXLTMLinguam(item.trim()))
+                self.auxilium_linguam.append(
+                    HXLTMLinguam(item.trim(), meta=meta))
         elif rem is None:
             # self.agendum_linguam.append(HXLTMLinguam())
             self.auxilium_linguam = []
         else:
             raise SyntaxError('Rem typum incognitum {}'.format(str(rem)))
 
+        # print('oi3', self.auxilium_linguam[0].v())
         return self
 
     def est_fontem_linguam(self, rem: Union[str, Type['HXLTMLinguam']]):
@@ -2090,11 +2108,15 @@ class HXLTMArgumentum:
         # TODO: add a commom helper of this for all other .v()
         # TODO: make it at least one level more deep (or recursive)
 
+        # print('oi4', id(self), self.__dict__)
+
         resultatum = {}
         for clavem in self.__dict__:
             resultatum[clavem] = {}
             if isinstance(self.__dict__[clavem], list):
                 resultatum[clavem] = []
+
+                # print('list', clavem, len(self.__dict__[clavem]))
                 if len(self.__dict__[clavem]) > 0:
                     for rem in self.__dict__[clavem]:
                         if hasattr(rem, 'v'):
@@ -2104,7 +2126,21 @@ class HXLTMArgumentum:
             elif hasattr(self.__dict__[clavem], 'v'):
                 resultatum[clavem] = self.__dict__[clavem].v()
             else:
+                # print('fallback', clavem)
                 resultatum[clavem] = self.__dict__[clavem]
+
+        # Hotfix, since code above is not recursive
+        if self.auxilium_linguam is not None and \
+                len(self.auxilium_linguam) > 0:
+            resultatum['auxilium_linguam'] = \
+                [item.v() for item in self.auxilium_linguam]
+
+        if self.agendum_linguam is not None and \
+                len(self.agendum_linguam) > 0:
+            resultatum['agendum_linguam'] = \
+                [item.v() for item in self.agendum_linguam]
+
+        # resultatum['teste'] = self.auxilium_linguam
 
         # return self.__dict__
         return resultatum
@@ -3646,34 +3682,6 @@ class HXLTMInFormatum(ABC):
         self.globum = self.quod_globum_valendum()
         self.normam = self.globum['normam']
 
-    def asa(self, hxltm_asa: Type['HXLTMASA'] = None) -> Type['HXLTMASA']:
-        """HXLTMASA commūne objectīvum referēns
-
-        _[eng-Latn]
-        The asa() method allow to lazily inject a shared common reference to
-        the global HXLTM ASA without actually using Python globals.
-
-        This is unlikely to be a good design pattern, but get things done.
-        And it still allow to use classes like this one when no advanced
-        references of the ASA is necessary
-        [eng-Latn]_
-
-        Args:
-            hxltm_asa (HXLTMASA): HXLTM Abstractum Syntaxim Arborem
-
-        Returns:
-            [HXLTMASA]: HXLTM Abstractum Syntaxim Arborem
-        """
-        if hxltm_asa is None:
-            if not self.__commune_asa:
-                raise ReferenceError('hxltm_asa not initialized yet')
-            return self.__commune_asa
-        elif self.__commune_asa is not None:
-            raise ReferenceError('hxltm_asa already initialized')
-
-        self.__commune_asa = hxltm_asa
-        return self.__commune_asa
-
     def datum_initiale(self) -> List:
         """Datum initiāle de fōrmātum Lorem Ipsum vI.II
 
@@ -4089,8 +4097,6 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
         resultatum = []
 
         liquid_template = self.normam['formatum']['corporeum']
-
-        print('oi')
 
         # for numerum, rem in self.rem():
         # for rem, rem2 in self.rem():
