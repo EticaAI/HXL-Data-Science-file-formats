@@ -1480,6 +1480,15 @@ normam:
         eng-Latn: 'Source + Target + Comment (draft)'
       situs_interretialis:
         referens_officinale: []
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        # - multiplum_linguam
+        - bilingue
   # end::normam_CSV-3[]
 
   #### HXLated bilingual CSV (+ up to 5 source alt) for XLIFF___________________
@@ -1537,6 +1546,15 @@ normam:
       - '#x_xliff +unit +note +note_category__iate'
       - '#x_xliff +unit +note +note_category__unterm'
 
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        # - multiplum_linguam
+        - bilingue
+
   # end::normam_CSV-HXL-XLIFF[]
 
   # tag::normam_GSheets[]
@@ -1553,6 +1571,16 @@ normam:
       situs_interretialis:
         referens_officinale:
           - https://www.google.com/sheets/about/
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue
+
   # end::normam_GSheets[]
 
   #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
@@ -1626,6 +1654,15 @@ normam:
         referens_officinale: []
     exemplum:
       - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        # - multiplum_linguam
+        - bilingue
   # end::normam_JSON-kv[]
 
   # tag::normam_TBX-Basim[]
@@ -1640,6 +1677,15 @@ normam:
       situs_interretialis:
         referens_officinale:
           - http://www.terminorgs.net/TBX-Basic.html
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue
 
   #### Term Base eXchange (TBX) 2008 CC-BY License _____________________________
   # Term Base eXchange (TBX) (identical to ISO 30042:2008)
@@ -1663,6 +1709,15 @@ normam:
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/06/Spreadsheet-to-TBX-Min-Tutorial.pdf
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/05/sampleSpreadsheets.zip
     # - https://multilingual.com/issues/july-aug-2019/tbx-version-3-published-at-iso/
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue
   # end::normam_TBX-Basim[]
 
   #### TMX: Translation Memory eXchange format (TMX) ___________________________
@@ -1678,6 +1733,15 @@ normam:
       situs_interretialis:
         referens_officinale:
           - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue
 
     formatum:
       initiale: |2
@@ -1738,10 +1802,25 @@ normam:
       exemplum:
         - https://aamt.info/english/download/#UTX_Glossaries
         - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        - multiplum_linguam
+        - bilingue
   # end::normam_UTX[]
 
   #### XLIFF: XML Localization Interchange File Format (XLIFF) v2.1 ____________
   # tag::normam_XLIFF[]
+
+  # @TODO: draft JLIFF (XLIFF on JSON)
+  #        @see https://github.com/oasis-tcs/xliff-omos-jliff
+  # @TODO: Check how well supported is the glossary module of the XLIFF 2.1
+  #        compared to the 1.2
+  #        @see http://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html#glossary-module
   XLIFF:
     __meta:
       archivum_extensionem: .xlf
@@ -1750,10 +1829,41 @@ normam:
           - https://www.oasis-open.org/committees/xliff/
         vicipaedia:
           - https://en.wikipedia.org/wiki/XLIFF
+      exemplum:
+        - https://github.com/oasis-tcs/xliff-xliff-22
+        - https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/allExtensions.xlf
+        - https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/everything-core.xlf
       normam:
         - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
       nomen:
         eng-Latn: 'XML Localization Interchange File Format (XLIFF) v2.1'
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        # - multiplum_linguam
+        - bilingue
+
+    formatum:
+      initiale: |2
+        &lt;?xml version="1.0"?&gt;
+        &lt;xliff
+          xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0"
+          srcLang="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
+          trgLang="{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}"&gt;
+          &lt;file id="f1"&gt;
+      # TODO: implement indicem_lineam
+      # TODO: implement indicem_columnam
+      corporeum: |2
+            &lt;!-- {{ rem }} --&gt;
+
+      finale: |2
+          &lt;/file&gt;
+        &lt;/xliff&gt;
+  
   # TODO: check XLIFF JSON 'JLIFF' 
   #       - https://github.com/oasis-tcs/xliff-omos-jliff
   #       - https://github.com/oasis-tcs/xliff-omos-jliff/blob/master/JLIFF-schema-draft/JLIFF-2.0/jliff-schema-2.0.json
@@ -1777,6 +1887,16 @@ normam:
         - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
       nomen:
         eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)'
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        # - multiplum_linguam
+        - bilingue
+
   # end::normam_XLIFF1[]
 
   # tag::normam_XLSX[]
@@ -1787,7 +1907,17 @@ normam:
     __meta:
       archivum_extensionem: .xlsx
       nomen:
-        eng-Latn: 'Microsoft Excel (no plugins to read data directly from .XSLX)'
+        eng-Latn: 'Microsoft Excel (native support to read, but not write, data directly with .XSLX)'
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue
+
   # end::normam_XLSX[]
 
   #### YAML: (draft) ___________________________________________________________
@@ -1805,6 +1935,16 @@ normam:
           - https://guides.rubyonrails.org/i18n.html
       exemplum:
         - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+
+    # Trivia:
+    # - ASA
+    #   - (HXLTM) Abstractum Syntaxim Arborem
+    asa:
+      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
+      modus_operandi:
+        # - multiplum_linguam
+        - bilingue
+
   # end::normam_YAML[]
 
 # end::normam[]
@@ -3225,7 +3365,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-17 22:57:16 UTC
+Last updated 2021-07-18 12:51:49 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -31,6 +31,11 @@
         "situs_interretialis": {
           "referens_officinale": []
         }
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
       }
     },
     "CSV-HXL-XLIFF": {
@@ -72,7 +77,12 @@
         "#x_xliff +unit +note +note_category__wikidata",
         "#x_xliff +unit +note +note_category__iate",
         "#x_xliff +unit +note +note_category__unterm"
-      ]
+      ],
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      }
     },
     "GSheets": {
       "__meta": {
@@ -87,6 +97,11 @@
             "https://www.google.com/sheets/about/"
           ]
         }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
       }
     },
     "HXLTM": {
@@ -143,7 +158,12 @@
       },
       "exemplum": [
         "https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json"
-      ]
+      ],
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      }
     },
     "TBX-Basim": {
       "__meta": {
@@ -159,6 +179,11 @@
             "http://www.terminorgs.net/TBX-Basic.html"
           ]
         }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
       }
     },
     "TBX-2008": {
@@ -177,6 +202,11 @@
           "https://github.com/byutrg/baseterm",
           "https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide"
         ]
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
       }
     },
     "TMX": {
@@ -194,6 +224,11 @@
             "https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards"
           ]
         }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
       },
       "formatum": {
         "initiale": "<?xml version='1.0' encoding='utf-8'?>\n<!DOCTYPE tmx SYSTEM \"tmx14.dtd\">\n<tmx version=\"1.4\">\n  <header\n    creationtool=\"hxltmcli.py\"\n    creationtoolversion=\"{{ globum.instrumentum_versionem }}\"\n    segtype=\"sentence\"\n    o-tmf=\"UTF-8\"\n    adminlang=\"{{ globum.instrumentum_versionem }}\"\n    srclang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\"\n    datatype=\"PlainText\"\n  />\n  <body>\n",
@@ -223,6 +258,12 @@
           "https://aamt.info/english/download/#UTX_Glossaries",
           "https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx"
         ]
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam",
+          "bilingue"
+        ]
       }
     },
     "XLIFF": {
@@ -236,12 +277,27 @@
             "https://en.wikipedia.org/wiki/XLIFF"
           ]
         },
+        "exemplum": [
+          "https://github.com/oasis-tcs/xliff-xliff-22",
+          "https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/allExtensions.xlf",
+          "https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/everything-core.xlf"
+        ],
         "normam": [
           "https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html"
         ],
         "nomen": {
           "eng-Latn": "XML Localization Interchange File Format (XLIFF) v2.1"
         }
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
+      },
+      "formatum": {
+        "initiale": "<?xml version=\"1.0\"?>\n<xliff\n  xmlns=\"urn:oasis:names:tc:xliff:document:2.0\" version=\"2.0\"\n  srcLang=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n  trgLang=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\">\n  <file id=\"f1\">\n",
+        "corporeum": "    <!-- {{ rem }} -->\n",
+        "finale": "  </file>\n</xliff>\n"
       }
     },
     "XLIFF1": {
@@ -261,14 +317,24 @@
         "nomen": {
           "eng-Latn": "XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)"
         }
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
+        ]
       }
     },
     "XLSX": {
       "__meta": {
         "archivum_extensionem": ".xlsx",
         "nomen": {
-          "eng-Latn": "Microsoft Excel (no plugins to read data directly from .XSLX)"
+          "eng-Latn": "Microsoft Excel (native support to read, but not write, data directly with .XSLX)"
         }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
       }
     },
     "YAML": {
@@ -287,6 +353,11 @@
         },
         "exemplum": [
           "https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json"
+        ]
+      },
+      "asa": {
+        "modus_operandi": [
+          "bilingue"
         ]
       }
     }
