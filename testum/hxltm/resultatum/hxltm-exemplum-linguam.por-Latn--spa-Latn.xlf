@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<xliff version="2.0"
+  xmlns="urn:oasis:names:tc:xliff:document:2.0"
+  srcLang="pt"
+  trgLang="es">
+  <file id="f1">
+
+    <unit id="L10N_ego_codicem">
+      <segment>
+        <source>por-Latn</source>
+        <target>spa-Latn</target>
+        <notes>
+          <note appliesTo="source" priority="2"
+            category="de_auxilium_linguam">
+            _[eng-Latn]eng-Latn[eng-Latn]_
+          </note>
+        </notes>
+      </segment>
+    </unit>
+
+    <unit id="L10N_ego_linguam_nomen">
+      <segment>
+        <source>Língua portuguesa</source>
+        <target>Idioma español</target>
+        <notes>
+          <note appliesTo="source" priority="2"
+            category="de_auxilium_linguam">
+            _[eng-Latn]English language[eng-Latn]_
+          </note>
+        </notes>
+      </segment>
+    </unit>
+
+    <unit id="L10N_ego_scriptum_nomen">
+      <segment>
+        <source>Alfabeto latino</source>
+        <target>Alfabeto latino</target>
+        <notes>
+          <note appliesTo="source" priority="2"
+            category="de_auxilium_linguam">
+            _[eng-Latn]Latin script[eng-Latn]_
+          </note>
+        </notes>
+      </segment>
+    </unit>
+
+    <unit id="L10N_ego_patriam_UN_M49_numerum">
+      <segment>
+        <source>001</source>
+        <target>001</target>
+        <notes>
+          <note appliesTo="source" priority="2"
+            category="de_auxilium_linguam">
+            _[eng-Latn]001[eng-Latn]_
+          </note>
+        </notes>
+      </segment>
+    </unit>
+
+    <unit id="L10N_ego_patriam_UN_P_codicem">
+      <segment>
+        <source>∅</source>
+        <target>∅</target>
+        <notes>
+          <note appliesTo="source" priority="2"
+            category="de_auxilium_linguam">
+            _[eng-Latn]∅[eng-Latn]_
+          </note>
+        </notes>
+      </segment>
+    </unit>
+
+    <unit id="I18N_testum_salve_mundi_testum_I18N">
+      <segment>
+        <source>Olá mundo!</source>
+        <target>¡Hola mundo!</target>
+        <notes>
+          <note appliesTo="source" priority="2"
+            category="de_auxilium_linguam">
+            _[eng-Latn]Hello, World![eng-Latn]_
+          </note>
+        </notes>
+      </segment>
+    </unit>
+
+    <unit id="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
+      <segment>
+        <source>Teste, 1, 2, 3</source>
+        <target>Prueba, 1, 2, 3</target>
+        <notes>
+          <note appliesTo="source" priority="2"
+            category="de_auxilium_linguam">
+            _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
+          </note>
+        </notes>
+      </segment>
+    </unit>
+
+    <unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
+      <segment>
+        <source>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</source>
+        <target>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</target>
+        <notes>
+          <note appliesTo="source" priority="2"
+            category="de_auxilium_linguam">
+            _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
+          </note>
+        </notes>
+      </segment>
+    </unit>
+
+  </file>
+</xliff>
+

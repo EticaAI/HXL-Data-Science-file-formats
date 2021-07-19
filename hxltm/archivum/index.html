@@ -495,7 +495,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_xml_localization_interchange_file_format_xliff_v2_1">XML Localization Interchange File Format (XLIFF) v2.1</a></li>
 </ul>
 </li>
-<li><a href="#XLIFF1"><code>XLIFF1</code>:</a>
+<li><a href="#XLIFF-obsoletum"><code>XLIFF-obsoletum</code>:</a>
 <ul class="sectlevel3">
 <li><a href="#_xml_localization_interchange_file_format_xliff_v1_2_too_old_no_draft">XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)</a></li>
 </ul>
@@ -756,6 +756,8 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
 # The '--expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml'
 # will generate an YAML output of the operation.
 # [eng-Latn]_
+
+# TODO: replace HXLTM ASA example from XLIFF to TBX or TMX
 
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
   resultatum/hxltm-exemplum-linguam.xlf \
@@ -1629,7 +1631,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
   # @TODO: Check how well supported is the glossary module of the XLIFF 2.1
   #        compared to the 1.2
   #        @see http://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html#glossary-module
-  XLIFF:
+  XLIFF-obsoletum:
     __meta:
       archivum_extensionem: .xlf
       situs_interretialis:
@@ -1679,17 +1681,17 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
                 {%- if rem.de_auxilium_linguam %}
                 &lt;notes&gt;
                   {% for item in rem.de_auxilium_linguam -%}
-                  &lt;note appliesTo="source"
-                    priority="2"
-                    category="mycat"&gt;
-                    {{ item.rem }}
+                  &lt;note appliesTo="source" priority="2"
+                    category="de_auxilium_linguam"&gt;
+                    _[{{- item.linguam -}}]
+                    {{- item.rem -}}
+                    [{{- item.linguam -}}]_
                   &lt;/note&gt;
-                  {% endfor -%}
+                  {%- endfor %}
                 &lt;/notes&gt;
                 {%- else -%}
                   &lt;!-- non rem.de_auxilium_linguam --&gt;
                 {%- endif  %}
-
               &lt;/segment&gt;
             &lt;/unit&gt;
             {%- else -%}
@@ -1709,10 +1711,189 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
   # - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.863.1277&amp;rep=rep1&amp;type=pdf</code></pre>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_command_line_examples_6">Command line examples</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Documentation at cor.hxltm.yml:normam.XLIFF
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: they save the input data on a file on
+# disk.
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+# - Auxiliar languages (accept multiple options):
+#     - Esperanto
+#     - English
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --auxilium-linguam epo-Latn@eo,eng-Latn@en \
+  --objectivum-XLIFF
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es --auxilium-linguam epo-Latn@eo,eng-Latn@en &gt; resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf
+
+### VI ------------------------------------------------------------------------
+# _[eng-Latn]
+# Silence errors with --silentium.
+#
+# Sometimes may be necessary ignore errors (like missing source term to
+# translate) and generate output format, even if invalid. The use of --silentium
+# can help ignore some warnings.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --auxilium-linguam epo-Latn@eo,eng-Latn@en \
+  --objectivum-XLIFF \
+  --silentium</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_result_example_2">Result example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0"?&gt;
+&lt;xliff version="2.0"
+  xmlns="urn:oasis:names:tc:xliff:document:2.0"
+  srcLang="pt"
+  trgLang="es"&gt;
+  &lt;file id="f1"&gt;
+
+    &lt;unit id="L10N_ego_codicem"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;por-Latn&lt;/source&gt;
+        &lt;target&gt;spa-Latn&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]eng-Latn[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="L10N_ego_linguam_nomen"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;Língua portuguesa&lt;/source&gt;
+        &lt;target&gt;Idioma español&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]English language[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="L10N_ego_scriptum_nomen"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;Alfabeto latino&lt;/source&gt;
+        &lt;target&gt;Alfabeto latino&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]Latin script[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="L10N_ego_patriam_UN_M49_numerum"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;001&lt;/source&gt;
+        &lt;target&gt;001&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]001[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="L10N_ego_patriam_UN_P_codicem"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;∅&lt;/source&gt;
+        &lt;target&gt;∅&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]∅[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="I18N_testum_salve_mundi_testum_I18N"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;Olá mundo!&lt;/source&gt;
+        &lt;target&gt;¡Hola mundo!&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]Hello, World![eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;Teste, 1, 2, 3&lt;/source&gt;
+        &lt;target&gt;Prueba, 1, 2, 3&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/source&gt;
+        &lt;target&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+  &lt;/file&gt;
+&lt;/xliff&gt;</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="XLIFF1"><code>XLIFF1</code>:</h3>
+<h3 id="XLIFF-obsoletum"><code>XLIFF-obsoletum</code>:</h3>
 <div class="sect3">
 <h4 id="_xml_localization_interchange_file_format_xliff_v1_2_too_old_no_draft">XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)</h4>
 <div class="listingblock">
@@ -1784,6 +1965,185 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
             &lt;/body&gt;
           &lt;/file&gt;
         &lt;/xliff&gt;</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_command_line_examples_7">Command line examples</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Documentation at cor.hxltm.yml:normam.XLIFF
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: they save the input data on a file on
+# disk.
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+# - Auxiliar languages (accept multiple options):
+#     - Esperanto
+#     - English
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --auxilium-linguam epo-Latn@eo,eng-Latn@en \
+  --objectivum-XLIFF-obsoletum
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF-obsoletum --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es --auxilium-linguam epo-Latn@eo,eng-Latn@en &gt; resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
+
+### VI ------------------------------------------------------------------------
+# _[eng-Latn]
+# Silence errors with --silentium.
+#
+# Sometimes may be necessary ignore errors (like missing source term to
+# translate) and generate output format, even if invalid. The use of --silentium
+# can help ignore some warnings.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --auxilium-linguam epo-Latn@eo,eng-Latn@en \
+  --objectivum-XLIFF-obsoletum \
+  --silentium</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_result_example_3">Result example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0"?&gt;
+&lt;xliff version="2.0"
+  xmlns="urn:oasis:names:tc:xliff:document:2.0"
+  srcLang="pt"
+  trgLang="es"&gt;
+  &lt;file id="f1"&gt;
+
+    &lt;unit id="L10N_ego_codicem"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;por-Latn&lt;/source&gt;
+        &lt;target&gt;spa-Latn&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]eng-Latn[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="L10N_ego_linguam_nomen"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;Língua portuguesa&lt;/source&gt;
+        &lt;target&gt;Idioma español&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]English language[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="L10N_ego_scriptum_nomen"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;Alfabeto latino&lt;/source&gt;
+        &lt;target&gt;Alfabeto latino&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]Latin script[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="L10N_ego_patriam_UN_M49_numerum"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;001&lt;/source&gt;
+        &lt;target&gt;001&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]001[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="L10N_ego_patriam_UN_P_codicem"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;∅&lt;/source&gt;
+        &lt;target&gt;∅&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]∅[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="I18N_testum_salve_mundi_testum_I18N"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;Olá mundo!&lt;/source&gt;
+        &lt;target&gt;¡Hola mundo!&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]Hello, World![eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;Teste, 1, 2, 3&lt;/source&gt;
+        &lt;target&gt;Prueba, 1, 2, 3&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+    &lt;unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+      &lt;segment&gt;
+        &lt;source&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/source&gt;
+        &lt;target&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/target&gt;
+        &lt;notes&gt;
+          &lt;note appliesTo="source" priority="2"
+            category="de_auxilium_linguam"&gt;
+            _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
+          &lt;/note&gt;
+        &lt;/notes&gt;
+      &lt;/segment&gt;
+    &lt;/unit&gt;
+
+  &lt;/file&gt;
+&lt;/xliff&gt;</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -3323,8 +3683,8 @@ optional arguments:
                         Export to Translation Memory eXchange (TMX) v1.4b.
                         Multilingual output format
   --objectivum-TBX-Basim, --TBX-Basim
-                        (Planned, but not implemented yet) Export to Term Base
-                        eXchange (TBX). Multilingual output format
+                        (Working draft) Export to Term Base eXchange (TBX)
+                        Basic Multilingual output format
   --objectivum-UTX, --UTX
                         (Planned, but not implemented yet) Export to Universal
                         Terminology eXchange (UTX). Multilingual output format
@@ -3466,7 +3826,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 16:45:06 UTC
+Last updated 2021-07-19 17:55:20 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

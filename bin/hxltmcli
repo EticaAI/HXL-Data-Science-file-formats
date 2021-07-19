@@ -57,7 +57,8 @@
 #                       to github.com/EticaAI/HXL-Data-Science-file-formats
 #                 2021-07-04 04:35 UTC v0.8.2 Configurations on cor.hxltm.yml
 #                 2021-07-15 00:02 UTC v0.8.3 HXLTM ASA working draft
-#                 2021-07-18 21:39 URC v0.8.4 HXLTM ASA MVP (TMX and XLIFF 2)
+#                 2021-07-18 21:39 UTC v0.8.4 HXLTM ASA MVP (TMX and XLIFF 2)
+#                 2021-07-19 17:50 UTC v0.8.5 HXLTM ASA MVP XLIFF 1, TBX-Basic
 # ==============================================================================
 """hxltmcli.py: Humanitarian Exchange Language Trānslātiōnem Memoriam CLI
 
@@ -223,7 +224,7 @@ from liquid.loaders import DictLoader as LiquiDictLoader
 # template = LiquidTemplate("Hello, {{ you }}!")
 # print(template.render(you="World"))  # "Hello, World!"
 
-__VERSION__ = "v0.8.4"
+__VERSION__ = "v0.8.5"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -562,7 +563,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'don\'t implemented XLIFF 2 (released in 2014) yet.',
             dest='objectivum_formatum',
             action='append_const',
-            const='XLIFF1'
+            const='XLIFF-obsoletum'
         )
 
         parser.add_argument(
@@ -889,7 +890,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'UTX':
                 raise NotImplementedError('UTX not implemented yet')
 
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'XLIFF1':
+            elif self.hxltm_asa.argumentum.\
+                    objectivum_formatum == 'XLIFF-obsoletum':
                 # raise NotImplementedError('XLIFF1 not implemented')
                 # print('oi xliff 1')
                 if self.original_outfile_is_stdout:

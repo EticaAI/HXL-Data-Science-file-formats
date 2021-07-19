@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<xliff version="1.2"
+  xmlns="urn:oasis:names:tc:xliff:document:1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-strict.xsd">
+  <file source-language="pt"
+    datatype="plaintext"
+    original="file.ext">
+    <body>
+
+    <trans-unit id="L10N_ego_codicem">
+      <source>por-Latn</source>
+      <target>spa-Latn</target>
+      <!--<group>-->
+        <note
+          priority="2">
+          eng-Latn
+        </note>
+        <!--</group>-->
+    </trans-unit>
+
+    <trans-unit id="L10N_ego_linguam_nomen">
+      <source>Língua portuguesa</source>
+      <target>Idioma español</target>
+      <!--<group>-->
+        <note
+          priority="2">
+          English language
+        </note>
+        <!--</group>-->
+    </trans-unit>
+
+    <trans-unit id="L10N_ego_scriptum_nomen">
+      <source>Alfabeto latino</source>
+      <target>Alfabeto latino</target>
+      <!--<group>-->
+        <note
+          priority="2">
+          Latin script
+        </note>
+        <!--</group>-->
+    </trans-unit>
+
+    <trans-unit id="L10N_ego_patriam_UN_M49_numerum">
+      <source>001</source>
+      <target>001</target>
+      <!--<group>-->
+        <note
+          priority="2">
+          001
+        </note>
+        <!--</group>-->
+    </trans-unit>
+
+    <trans-unit id="L10N_ego_patriam_UN_P_codicem">
+      <source>∅</source>
+      <target>∅</target>
+      <!--<group>-->
+        <note
+          priority="2">
+          ∅
+        </note>
+        <!--</group>-->
+    </trans-unit>
+
+    <trans-unit id="I18N_testum_salve_mundi_testum_I18N">
+      <source>Olá mundo!</source>
+      <target>¡Hola mundo!</target>
+      <!--<group>-->
+        <note
+          priority="2">
+          Hello, World!
+        </note>
+        <!--</group>-->
+    </trans-unit>
+
+    <trans-unit id="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
+      <source>Teste, 1, 2, 3</source>
+      <target>Prueba, 1, 2, 3</target>
+      <!--<group>-->
+        <note
+          priority="2">
+          Test, 1, 2, 3
+        </note>
+        <!--</group>-->
+    </trans-unit>
+
+    <trans-unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
+      <source>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</source>
+      <target>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</target>
+      <!--<group>-->
+        <note
+          priority="2">
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        </note>
+        <!--</group>-->
+    </trans-unit>
+
+    </body>
+  </file>
+</xliff>
+

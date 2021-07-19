@@ -155,6 +155,8 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli > output-file.tm.hxl.csv
 # will generate an YAML output of the operation.
 # [eng-Latn]_
 
+# TODO: replace HXLTM ASA example from XLIFF to TBX or TMX
+
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
   resultatum/hxltm-exemplum-linguam.xlf \
   --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.json \
@@ -277,7 +279,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX > resultatum/h
 # tag::XLIFF[]
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: XLIFF; This section is a draft
+# Documentation at cor.hxltm.yml:normam.XLIFF
 # [eng-Latn]_
 
 ### II -------------------------------------------------------------------------
@@ -293,13 +295,23 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF
 # _[eng-Latn]
 # The next 2 examples are equivalent: they save the input data on a file on
 # disk.
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+# - Auxiliar languages (accept multiple options):
+#     - Esperanto
+#     - English
 # [eng-Latn]_
 
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.xlf \
+  resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --auxilium-linguam epo-Latn@eo,eng-Latn@en \
   --objectivum-XLIFF
 
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF > resultatum/hxltm-exemplum-linguam.xlf
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es --auxilium-linguam epo-Latn@eo,eng-Latn@en > resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf
 
 ### VI ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -311,16 +323,71 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF > resultatum
 # [eng-Latn]_
 
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.xlf \
+  resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --auxilium-linguam epo-Latn@eo,eng-Latn@en \
   --objectivum-XLIFF \
   --silentium
 
-### III ------------------------------------------------------------------------
+# end::XLIFF[]
+
+#### XLIFF-obsoletum ___________________________________________________________
+# tag::XLIFF-obsoletum[]
+### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: docupent eventual new options to the --objectivum-XLIFF here.
+# Documentation at cor.hxltm.yml:normam.XLIFF
 # [eng-Latn]_
 
-# end::XLIFF[]
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XLIFF
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: they save the input data on a file on
+# disk.
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+# - Auxiliar languages (accept multiple options):
+#     - Esperanto
+#     - English
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --auxilium-linguam epo-Latn@eo,eng-Latn@en \
+  --objectivum-XLIFF-obsoletum
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XLIFF-obsoletum --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es --auxilium-linguam epo-Latn@eo,eng-Latn@en > resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
+
+### VI ------------------------------------------------------------------------
+# _[eng-Latn]
+# Silence errors with --silentium.
+#
+# Sometimes may be necessary ignore errors (like missing source term to
+# translate) and generate output format, even if invalid. The use of --silentium
+# can help ignore some warnings.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --auxilium-linguam epo-Latn@eo,eng-Latn@en \
+  --objectivum-XLIFF-obsoletum \
+  --silentium
+
+# end::XLIFF-obsoletum[]
 
 # tag::venandum_insectum_est[]
 ### Debug

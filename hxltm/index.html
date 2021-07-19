@@ -1394,13 +1394,13 @@ authenticated requests. <strong>Our recomendations on this case is:</strong></p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># @ARCHIVUM       cor.hxltm.yml
-# @VERSIONEM      v0.8.3+eticaai+voluntārium-commūne
+# @VERSIONEM      v0.8.5+eticaai+voluntārium-commūne
 # @LICENTIAM      Dominium publicum
 #                 SPDX-License-Identifier: Unlicense
 # @DESCRIPTIONEM  HXL Trānslātiōnem Memoriam (HXLTM) cor cōnfigūrātiōnem.
 #                 Auxilium de HXLTM: https://hdp.etica.ai/hxltm/
 
-__ontologia_cor_versionem__:  v0.8.4+EticaAI+voluntārium-commūne
+__ontologia_cor_versionem__:  v0.8.5+EticaAI+voluntārium-commūne
 
 ### Trivia:
 # - "HXL"
@@ -1874,7 +1874,7 @@ normam:
         - bilingue
   # end::normam_UTX[]
 
-  #### XLIFF: XML Localization Interchange File Format (XLIFF) v2.1 ____________
+  #### XLIFF-obsoletum: XML Localization Interchange File Format (XLIFF) v2.1 __
   # tag::normam_XLIFF[]
 
   # @TODO: draft JLIFF (XLIFF on JSON)
@@ -1882,7 +1882,7 @@ normam:
   # @TODO: Check how well supported is the glossary module of the XLIFF 2.1
   #        compared to the 1.2
   #        @see http://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html#glossary-module
-  XLIFF:
+  XLIFF-obsoletum:
     __meta:
       archivum_extensionem: .xlf
       situs_interretialis:
@@ -1932,17 +1932,17 @@ normam:
                 {%- if rem.de_auxilium_linguam %}
                 &lt;notes&gt;
                   {% for item in rem.de_auxilium_linguam -%}
-                  &lt;note appliesTo="source"
-                    priority="2"
-                    category="mycat"&gt;
-                    {{ item.rem }}
+                  &lt;note appliesTo="source" priority="2"
+                    category="de_auxilium_linguam"&gt;
+                    _[{{- item.linguam -}}]
+                    {{- item.rem -}}
+                    [{{- item.linguam -}}]_
                   &lt;/note&gt;
-                  {% endfor -%}
+                  {%- endfor %}
                 &lt;/notes&gt;
                 {%- else -%}
                   &lt;!-- non rem.de_auxilium_linguam --&gt;
                 {%- endif  %}
-
               &lt;/segment&gt;
             &lt;/unit&gt;
             {%- else -%}
@@ -1962,8 +1962,8 @@ normam:
   # - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.863.1277&amp;rep=rep1&amp;type=pdf
   # end::normam_XLIFF[]
 
-  #### XLIFF1: Universal Terminology eXchange v1.2 _____________________________
-  # tag::normam_XLIFF1[]
+  #### normam_XLIFF-obsoletum: Universal Terminology eXchange v1.2 _____________
+  # tag::normam_XLIFF-obsoletum[]
   XLIFF1:
     __meta:
       archivum_extensionem: .xlf
@@ -2032,7 +2032,7 @@ normam:
           &lt;/file&gt;
         &lt;/xliff&gt;
 
-  # end::normam_XLIFF1[]
+  # end::normam_XLIFF-obsoletum[]
 
   # tag::normam_XLSX[]
   #### XLSX, Google Sheets ____________________________________________________
@@ -3500,7 +3500,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 16:45:06 UTC
+Last updated 2021-07-19 17:55:20 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
