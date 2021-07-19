@@ -6,11 +6,15 @@ HXL-Data-Science-file-formats-main
 schemam-un-htcds.tm.hxl.csv
 resultatum/xliff-core-1.2.xsd
 resultatum/xliff-core-1.2-strict.xsd
+resultatum/tmx14.dtd
 resultatum/xliff-core-1.2-transitional.xsd
+resultatum/xliff_core_2.0.xsd
+
 # TBXBasiccoreStructV02.dtd from http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
 resultatum/TBXBasiccoreStructV02.dtd
 resultatum/TBX-basic-samples.tbx
 
+resultatum/hxltm-exemplum-linguam.xlf
 resultatum/schemam-un-htcds_eng-Latn_por-Latn.hxl.csv
 resultatum/schemam-un-htcds.tmx
 resultatum/schemam-un-htcds.xlf

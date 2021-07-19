@@ -874,31 +874,23 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 self.hxltm_asa.argumentum.objectivum_formatum = 'HXLTM'
 
             if self.hxltm_asa.argumentum.objectivum_formatum == 'TMX':
-                # print('TMX')
                 if self.original_outfile_is_stdout:
-                    archivum_objectivum = False
-                else:
-                    archivum_objectivum = self.original_outfile
-                self.in_tmx_de_hxltmasa(archivum_objectivum)
+                    return self.in_tmx(False)
+                return self.in_tmx(self.original_outfile)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'TBX-Basim':
-                # raise NotImplementedError('TBX-Basim not implemented yet')
                 if self.original_outfile_is_stdout:
-                    return self.in_tbx_basim_de_hxltmasa(False)
-                return self.in_tbx_basim_de_hxltmasa(self.original_outfile)
+                    return self.in_tbx_basim(False)
+                return self.in_tbx_basim(self.original_outfile)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'UTX':
                 raise NotImplementedError('UTX not implemented yet')
 
             elif self.hxltm_asa.argumentum.\
                     objectivum_formatum == 'XLIFF-obsoletum':
-                # raise NotImplementedError('XLIFF1 not implemented')
-                # print('oi xliff 1')
                 if self.original_outfile_is_stdout:
-                    archivum_objectivum = False
-                else:
-                    archivum_objectivum = self.original_outfile
-                self.in_xliff1_de_hxltmasa(archivum_objectivum)
+                    return self.in_xliff_obsoletum(False)
+                return self.in_xliff_obsoletum(self.original_outfile)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'CSV-3':
                 # raise NotImplementedError('CSV-3 not implemented yet')
@@ -922,7 +914,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     archivum_objectivum = False
                 else:
                     archivum_objectivum = self.original_outfile
-                self.in_xliff_de_hxltmasa(archivum_objectivum)
+                self.in_xliff(archivum_objectivum)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'HXLTM':
                 # print('HXLTM')
@@ -1105,7 +1097,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 # for line in datum:
                 #     txt_writer.writerow(line)
 
-    def in_tbx_basim_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+    def in_tbx_basim(self, archivum_objectivum: Union[str, None]):
         """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
 
         Args:
@@ -1113,7 +1105,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 Archīvum locum, id est, Python file path
         """
 
-        # print('in_tmx_de_hxltmasa')
+        # print('in_tmx')
 
         farmatum_tbx_basim = HXLTMInFormatumTBXBasim(self.hxltm_asa)
         # farmatum_tmx.asa(self.hxltm_asa)
@@ -1124,7 +1116,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         farmatum_tbx_basim.in_archivum(archivum_objectivum)
 
-    def in_tmx_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+    def in_tmx(self, archivum_objectivum: Union[str, None]):
         """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
 
         Args:
@@ -1132,7 +1124,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 Archīvum locum, id est, Python file path
         """
 
-        # print('in_tmx_de_hxltmasa')
+        # print('in_tmx')
 
         farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
         # farmatum_tmx.asa(self.hxltm_asa)
@@ -1143,7 +1135,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         farmatum_tmx.in_archivum(archivum_objectivum)
 
-    def in_xliff_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+    def in_xliff(self, archivum_objectivum: Union[str, None]):
         """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF)
         v2.1
 
@@ -1160,7 +1152,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         farmatum_xliff.in_archivum(archivum_objectivum)
 
-    def in_xliff1_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+    def in_xliff_obsoletum(
+            self, archivum_objectivum: Union[str, None]):
         """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF)
         v1.2
 
@@ -1169,13 +1162,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 Archīvum locum, id est, Python file path
         """
 
-        farmatum_xliff = HXLTMInFormatumXLIFF1(self.hxltm_asa)
+        farmatum_xliff = HXLTMInFormatumXLIFFObsoletum(self.hxltm_asa)
 
         if archivum_objectivum is None or archivum_objectivum is False or \
                 len(archivum_objectivum) == 0:
             return farmatum_xliff.in_normam_exitum()
 
-        farmatum_xliff.in_archivum(archivum_objectivum)
+        return farmatum_xliff.in_archivum(archivum_objectivum)
 
 
 @dataclass
@@ -1432,7 +1425,7 @@ True
 
 
 @dataclass
-class HXLTMArgumentum:
+class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     """HXLTM Argūmentum
 
     Trivia:
@@ -3960,7 +3953,7 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
         return resultatum
 
 
-class HXLTMInFormatumXLIFF1(HXLTMInFormatum):
+class HXLTMInFormatumXLIFFObsoletum(HXLTMInFormatumXLIFF):
     """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF) v1.2
 
     Trivia:
@@ -3994,30 +3987,7 @@ class HXLTMInFormatumXLIFF1(HXLTMInFormatum):
 
     # ONTOLOGIA_FORMATUM = ''
 
-    ONTOLOGIA_FORMATUM_BASIM = 'XLIFF1'  # ontologia/cor.hxltm.yml clāvem nomen
-
-    def datum_corporeum(self) -> List:
-        """Datum corporeum de fōrmātum XML Localization Interchange File Format
-        (XLIFF1)
-
-        Trivia:
-            - datum, https://en.wiktionary.org/wiki/datum#Latin
-            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
-
-        Returns:
-            List: Python List, id est: rem collēctiōnem
-        """
-        resultatum = []
-
-        liquid_template = self.normam['formatum']['corporeum']
-
-        for rem in self.de_rem():
-            liquid_context = {'rem': str(rem)}
-            liquid_context = rem.contextum()
-            resultatum.append(
-                self.de_liquid(liquid_template, liquid_context)
-            )
-        return resultatum
+    ONTOLOGIA_FORMATUM_BASIM = 'XLIFF-obsoletum'
 
 
 class HXLTMOntologia:

@@ -1716,7 +1716,6 @@ normam:
                 &lt;p&gt;Lorem ipsum dolor semet&lt;/p&gt;
               &lt;/sourceDesc&gt;
             &lt;/fileDesc&gt;
-            &lt;!-- @TODO martifHeader --&gt;
           &lt;/martifHeader&gt;
           &lt;text&gt;
             &lt;body&gt;
@@ -1726,7 +1725,7 @@ normam:
       #       &lt;termEntry id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
       #       will generate errors to validate TBX with TBXBasiccoreStructV02.dtd
       #       from http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
-      #       The problemtic part is '+2/3*': '*', '+', '/'
+      #       The problematic part is '+2/3*': '*', '+', '/'
       # [eng-Latn]_
       corporeum: |2
             &lt;termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
@@ -1877,12 +1876,8 @@ normam:
   #### XLIFF-obsoletum: XML Localization Interchange File Format (XLIFF) v2.1 __
   # tag::normam_XLIFF[]
 
-  # @TODO: draft JLIFF (XLIFF on JSON)
-  #        @see https://github.com/oasis-tcs/xliff-omos-jliff
-  # @TODO: Check how well supported is the glossary module of the XLIFF 2.1
-  #        compared to the 1.2
-  #        @see http://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html#glossary-module
-  XLIFF-obsoletum:
+  # @TODO: JLIFF (XLIFF on JSON) &lt;https://github.com/oasis-tcs/xliff-omos-jliff&gt;
+  XLIFF:
     __meta:
       archivum_extensionem: .xlf
       situs_interretialis:
@@ -1896,6 +1891,10 @@ normam:
         - https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/everything-core.xlf
       normam:
         - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
+        # - https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/
+        # @see https://github.com/redhat-developer/vscode-xml/wiki/XMLValidation#XML-catalog-with-XSD
+        # @see https://github.com/redhat-developer/vscode-xml/issues/315
+        - https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/catalog.xml
       nomen:
         eng-Latn: 'XML Localization Interchange File Format (XLIFF) v2.1'
 
@@ -1909,15 +1908,19 @@ normam:
         - bilingue
 
     formatum:
+
+      # @see https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/catalog.xml
+      # @see https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/xliff_core_2.0.xsd
       initiale: |2
         &lt;?xml version="1.0"?&gt;
         &lt;xliff version="2.0"
           xmlns="urn:oasis:names:tc:xliff:document:2.0"
+          xmlns:fs="urn:oasis:names:tc:xliff:fs:2.0"
+          xmlns:val="urn:oasis:names:tc:xliff:validation:2.0"
           srcLang="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
           trgLang="{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}"&gt;
           &lt;file id="f1"&gt;
-      # TODO: implement indicem_lineam
-      # TODO: implement indicem_columnam
+
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
             &lt;unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
@@ -1928,22 +1931,21 @@ normam:
                 {%- else -%}
                   &lt;!-- non rem.de_objectivum_linguam --&gt;
                 {%- endif  %}
-
-                {%- if rem.de_auxilium_linguam %}
-                &lt;notes&gt;
-                  {% for item in rem.de_auxilium_linguam -%}
-                  &lt;note appliesTo="source" priority="2"
-                    category="de_auxilium_linguam"&gt;
-                    _[{{- item.linguam -}}]
-                    {{- item.rem -}}
-                    [{{- item.linguam -}}]_
-                  &lt;/note&gt;
-                  {%- endfor %}
-                &lt;/notes&gt;
-                {%- else -%}
-                  &lt;!-- non rem.de_auxilium_linguam --&gt;
-                {%- endif  %}
               &lt;/segment&gt;
+              {%- if rem.de_auxilium_linguam %}
+              &lt;notes&gt;
+                {% for item in rem.de_auxilium_linguam -%}
+                &lt;note appliesTo="source" priority="2"
+                  category="de_auxilium_linguam"&gt;
+                  _[{{- item.linguam -}}]
+                  {{- item.rem -}}
+                  [{{- item.linguam -}}]_
+                &lt;/note&gt;
+                {%- endfor %}
+              &lt;/notes&gt;
+              {%- else -%}
+                &lt;!-- non rem.de_auxilium_linguam --&gt;
+              {%- endif  %}
             &lt;/unit&gt;
             {%- else -%}
               &lt;!-- non rem.de_fontem_linguam --&gt;
@@ -1964,7 +1966,7 @@ normam:
 
   #### normam_XLIFF-obsoletum: Universal Terminology eXchange v1.2 _____________
   # tag::normam_XLIFF-obsoletum[]
-  XLIFF1:
+  XLIFF-obsoletum:
     __meta:
       archivum_extensionem: .xlf
       situs_interretialis:
@@ -1992,9 +1994,7 @@ normam:
       initiale: |2
         &lt;?xml version="1.0"?&gt;
         &lt;xliff version="1.2"
-          xmlns="urn:oasis:names:tc:xliff:document:1.2"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-strict.xsd"&gt;
+          xmlns="urn:oasis:names:tc:xliff:document:1.2"&gt;
           &lt;file source-language="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
             datatype="plaintext"
             original="file.ext"&gt;
@@ -2010,15 +2010,16 @@ normam:
                 &lt;!-- non rem.de_objectivum_linguam --&gt;
               {%- endif  %}
 
-              {%- if rem.de_auxilium_linguam %}
-              &lt;!--&lt;group&gt;--&gt;
-                {% for item in rem.de_auxilium_linguam -%}
-                &lt;note
-                  priority="2"&gt;
-                  {{ item.rem }}
-                &lt;/note&gt;
-                {% endfor -%}
-              &lt;!--&lt;/group&gt;--&gt;
+              {%- if rem.de_auxilium_linguam -%}
+
+              {%- for item in rem.de_auxilium_linguam %}
+              &lt;note annotates="source" priority="2"&gt;
+                  _[{{- item.linguam -}}]
+                  {{- item.rem -}}
+                  [{{- item.linguam -}}]_
+              &lt;/note&gt;
+              {%- endfor -%}
+
               {%- else -%}
                 &lt;!-- non rem.de_auxilium_linguam --&gt;
               {%- endif  %}
@@ -3500,7 +3501,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 17:55:20 UTC
+Last updated 2021-07-19 19:20:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -1,0 +1,21 @@
+{
+    "//comment_1": "https://github.com/redhat-developer/vscode-xml",
+    "//comment_2": "TODO: add TBX-Basic",
+    "xml.catalogs": [
+        "https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/catalog.xml"
+    ],
+    "xml.fileAssociations": [
+        {
+            "pattern": "**/*.tmx",
+            "systemId": "https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd"
+        },
+        {
+            "pattern": "**/*.obsoletum.xlf",
+            "systemId": "https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd"
+        },
+        {
+            "pattern": "**/*.xlf",
+            "systemId": "https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/xliff_core_2.0.xsd"
+        }
+    ]
+}
