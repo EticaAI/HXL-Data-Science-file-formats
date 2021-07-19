@@ -182,7 +182,8 @@ import logging
 import argparse
 from pathlib import Path
 import re
-from abc import ABC, abstractmethod
+# from abc import ABC, abstractmethod
+from abc import ABC
 
 import csv
 import tempfile
@@ -873,74 +874,20 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     self.hxltm_asa.argumentum.objectivum_formatum is None:
                 self.hxltm_asa.argumentum.objectivum_formatum = 'HXLTM'
 
-            if self.hxltm_asa.argumentum.objectivum_formatum == 'TMX':
-                if self.original_outfile_is_stdout:
-                    return self.in_tmx(False)
-                return self.in_tmx(self.original_outfile)
-
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'TBX-Basim':
-                if self.original_outfile_is_stdout:
-                    return self.in_tbx_basim(False)
-                return self.in_tbx_basim(self.original_outfile)
-
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'UTX':
-                raise NotImplementedError('UTX not implemented yet')
-
-            elif self.hxltm_asa.argumentum.\
-                    objectivum_formatum == 'XLIFF-obsoletum':
-                if self.original_outfile_is_stdout:
-                    return self.in_xliff_obsoletum(False)
-                return self.in_xliff_obsoletum(self.original_outfile)
-
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'CSV-3':
-                # raise NotImplementedError('CSV-3 not implemented yet')
-                self.in_csv3(hxlated_input, self.original_outfile,
-                             self.original_outfile_is_stdout, pyargs)
-
-            elif self.hxltm_asa.argumentum.\
-                    objectivum_formatum == 'CSV-HXL-XLIFF':
-                raise NotImplementedError('CSV-3 not implemented yet')
-                # self.in_csv(hxlated_input, self.original_outfile,
-                #             self.original_outfile_is_stdout, pyargs)
-
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'JSON-kv':
-                self.in_jsonkv(hxlated_input, self.original_outfile,
-                               self.original_outfile_is_stdout, pyargs)
-                # raise NotImplementedError('JSON-kv not implemented yet')
-
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'XLIFF':
-                # print('XLIFF (2)')
-                if self.original_outfile_is_stdout:
-                    archivum_objectivum = False
-                else:
-                    archivum_objectivum = self.original_outfile
-                self.in_xliff(archivum_objectivum)
-
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'HXLTM':
-                # print('HXLTM')
+            if self.hxltm_asa.argumentum.objectivum_formatum == 'HXLTM':
+                # TODO: make it work with elf.in_archivum_formatum
                 self.in_noop(hxlated_input, self.original_outfile,
                              self.original_outfile_is_stdout)
-
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'CRUDUM':
-                # print('CRUDUM')
-                self.in_noop(hxlated_input, self.original_outfile,
-                             self.original_outfile_is_stdout)
-
-            elif self.hxltm_asa.argumentum.objectivum_formatum == 'INCOGNITUM':
-                # print('INCOGNITUM')
-                raise ValueError(
-                    'INCOGNITUM (objetive file output based on extension) ' +
-                    'failed do decide what you want. Check --help and ' +
-                    'manually select an output format, like --TMX'
-                )
             else:
-                # print(self.argumentum.objectivum_formatum)
-                # print(pyargs)
-                # print(self.argumentum.v())
-                raise ValueError(
-                    'INCOGNITUM2 (objetive file output based on extension) ' +
-                    'failed do decide what you want. Check --help and ' +
-                    'manually select an output format, like --TMX'
+
+                if self.original_outfile_is_stdout:
+                    objectivum_farchivum = False
+                else:
+                    objectivum_farchivum = self.original_outfile
+
+                self.in_archivum_formatum(
+                    objectivum_farchivum,
+                    self.hxltm_asa.argumentum.objectivum_formatum
                 )
 
         finally:
@@ -948,6 +895,63 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             temp_csv4xliff.close()
 
         return self.EXIT_OK
+
+    def in_archivum_formatum(
+            self,
+            objectivum_archivum: str,
+            objectivum_formatum: str
+    ):
+        """HXLTM Resultātum in Archīvum aut normam exitum
+
+        Args:
+            objectivum_archivum (str):
+                I. Archīvum locum, id est, Python file path
+                II. Python None aut Python false: Python stdout
+            objectivum_formatum (str):
+                HXLTM In Fōrmātum de nomen.
+        """
+        farmatum = None
+
+        if objectivum_formatum == 'TMX':
+            farmatum = HXLTMInFormatumTMX(self.hxltm_asa)
+        elif objectivum_formatum == 'TBX-Basim':
+            farmatum = HXLTMInFormatumTBXBasim(self.hxltm_asa)
+
+        elif objectivum_formatum == 'UTX':
+            raise NotImplementedError('UTX not implemented yet')
+
+        elif objectivum_formatum == 'CSV-3':
+            farmatum = HXLTMInFormatumTabulamCSV3(self.hxltm_asa)
+
+        elif objectivum_formatum == 'CSV-HXL-XLIFF':
+            raise NotImplementedError('CSV-3 not implemented yet')
+
+        elif objectivum_formatum == 'JSON-kv':
+            raise NotImplementedError('JSON-kv not implemented yet')
+
+        elif objectivum_formatum == 'XLIFF':
+            farmatum = HXLTMInFormatumXLIFF(self.hxltm_asa)
+
+        elif objectivum_formatum == 'XLIFF-obsoletum':
+            farmatum = HXLTMInFormatumXLIFFObsoletum(self.hxltm_asa)
+
+        elif objectivum_formatum == 'INCOGNITUM':
+            raise ValueError(
+                'INCOGNITUM (objetive file output based on extension) ' +
+                'failed do decide what you want. Check --help and ' +
+                'manually select an output format, like --TMX'
+            )
+
+        if farmatum:
+            return farmatum.in_archivum_aut_normam_exitum(objectivum_archivum)
+
+        raise ValueError(
+            'INCOGNITUM2 (objetive file output based on extension) '
+            'failed do decide what you want [{0}]. Check --help and '
+            'manually select an output format, like --TMX'.format(
+                objectivum_formatum
+            )
+        )
 
     def in_asa(self, hxltm_asa: str):
         """HXLTM In Fōrmātum; abstractum Python classem
@@ -995,180 +999,6 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     txt_writer = csv.writer(new_txt)
                     for line in csv_reader:
                         txt_writer.writerow(line)
-
-    def in_csv3(self, hxlated_input, file_output, is_stdout, pyargs):
-        """Convert HXLTM to output 'CSV-3'
-
-        TODO: make this format use the HXLTM ASA.
-
-        Args:
-            hxlated_input ([str]): Path to HXLated CSV
-            tmx_output ([str]): Path to file to write output (if not stdout)
-            is_stdout (bool): Flag to tell the output is stdout
-            pyargs ([type]): python argparse
-        """
-
-        # fon_ling = HXLTMUtil.linguam_2_hxlattrs(args.fontem_linguam)
-        fon_bcp47 = HXLTMUtil.bcp47_from_linguam(pyargs.fontem_linguam)
-        # obj_ling = HXLTMUtil.linguam_2_hxlattrs(args.objectivum_linguam)
-        obj_bcp47 = HXLTMUtil.bcp47_from_linguam(pyargs.objectivum_linguam)
-
-        data_started = False
-        fon_index = None
-        obj_index = None
-        meta_index = None
-        datum = []
-        with open(hxlated_input, 'r') as csvfile:
-            lines = csv.reader(csvfile)
-            for row in lines:
-                if not data_started:
-                    if row[0].startswith('#'):
-                        fon_index = 0
-                        obj_index = 1
-                        meta_index = 2
-                        # TODO: get exact row IDs without hardcoded
-                        data_started = True
-                        datum.append([fon_bcp47, obj_bcp47, ''])
-                    continue
-                datum.append([row[fon_index], row[obj_index], row[meta_index]])
-                # print(', '.join(row))
-
-        if is_stdout:
-            txt_writer = csv.writer(sys.stdout)
-            for line in datum:
-                txt_writer.writerow(line)
-        else:
-            old_file = open(file_output, 'w')
-            old_file.truncate()
-            old_file.close()
-
-            with open(file_output, 'a') as new_txt:
-                txt_writer = csv.writer(new_txt)
-                for line in datum:
-                    txt_writer.writerow(line)
-
-    def in_jsonkv(self, hxlated_input, file_output, is_stdout, pyargs):
-        """Convert HXLTM to output 'JSON-kv'
-
-        Args:
-            hxlated_input ([str]): Path to HXLated CSV
-            tmx_output ([str]): Path to file to write output (if not stdout)
-            is_stdout (bool): Flag to tell the output is stdout
-            pyargs ([type]): python argparse
-        """
-
-        data_started = False
-        fon_index = None
-        obj_index = None
-        # meta_index = None
-        datum = {}
-        with open(hxlated_input, 'r') as csvfile:
-            lines = csv.reader(csvfile)
-            for row in lines:
-                if not data_started:
-                    if row[0].startswith('#'):
-                        fon_index = 0
-                        obj_index = 1
-                        # meta_index = 2
-                        # TODO: get exact row IDs without hardcoded
-                        data_started = True
-                        # datum.append([fon_bcp47, obj_bcp47, ''])
-                    continue
-                datum[row[fon_index]] = row[obj_index]
-                # print(', '.join(row))
-        json_out = json.dumps(
-            datum, indent=4, sort_keys=True, ensure_ascii=False)
-
-        if is_stdout:
-            # print(json_out)
-            for line in json_out.split("\n"):
-                print(line)
-                # sys.stdout.write(line + "\n")
-
-        else:
-            old_file = open(file_output, 'w')
-            old_file.truncate()
-            old_file.close()
-
-            # TODO: test this part better.
-            with open(file_output, 'a') as new_txt:
-                new_txt.write(json_out)
-                # txt_writer = csv.writer(new_txt)
-                # for line in datum:
-                #     txt_writer.writerow(line)
-
-    def in_tbx_basim(self, archivum_objectivum: Union[str, None]):
-        """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
-
-        Args:
-            archivum_objectivum (Union[str, None]):
-                Archīvum locum, id est, Python file path
-        """
-
-        # print('in_tmx')
-
-        farmatum_tbx_basim = HXLTMInFormatumTBXBasim(self.hxltm_asa)
-        # farmatum_tmx.asa(self.hxltm_asa)
-
-        if archivum_objectivum is None or archivum_objectivum is False or \
-                len(archivum_objectivum) == 0:
-            return farmatum_tbx_basim.in_normam_exitum()
-
-        farmatum_tbx_basim.in_archivum(archivum_objectivum)
-
-    def in_tmx(self, archivum_objectivum: Union[str, None]):
-        """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
-
-        Args:
-            archivum_objectivum (Union[str, None]):
-                Archīvum locum, id est, Python file path
-        """
-
-        # print('in_tmx')
-
-        farmatum_tmx = HXLTMInFormatumTMX(self.hxltm_asa)
-        # farmatum_tmx.asa(self.hxltm_asa)
-
-        if archivum_objectivum is None or archivum_objectivum is False or \
-                len(archivum_objectivum) == 0:
-            return farmatum_tmx.in_normam_exitum()
-
-        farmatum_tmx.in_archivum(archivum_objectivum)
-
-    def in_xliff(self, archivum_objectivum: Union[str, None]):
-        """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF)
-        v2.1
-
-        Args:
-            archivum_objectivum (Union[str, None]):
-                Archīvum locum, id est, Python file path
-        """
-
-        farmatum_xliff = HXLTMInFormatumXLIFF(self.hxltm_asa)
-
-        if archivum_objectivum is None or archivum_objectivum is False or \
-                len(archivum_objectivum) == 0:
-            return farmatum_xliff.in_normam_exitum()
-
-        farmatum_xliff.in_archivum(archivum_objectivum)
-
-    def in_xliff_obsoletum(
-            self, archivum_objectivum: Union[str, None]):
-        """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF)
-        v1.2
-
-        Args:
-            archivum_objectivum (Union[str, None]):
-                Archīvum locum, id est, Python file path
-        """
-
-        farmatum_xliff = HXLTMInFormatumXLIFFObsoletum(self.hxltm_asa)
-
-        if archivum_objectivum is None or archivum_objectivum is False or \
-                len(archivum_objectivum) == 0:
-            return farmatum_xliff.in_normam_exitum()
-
-        return farmatum_xliff.in_archivum(archivum_objectivum)
 
 
 @dataclass
@@ -3478,7 +3308,27 @@ class HXLTMInFormatum(ABC):
 
         return resultatum
 
-    @abstractmethod
+    # @abstractmethod
+    # def datum_corporeum(self) -> List:
+    #     """Datum corporeum de fōrmātum Lorem Ipsum vI.II
+
+    #     Trivia:
+    #         - datum, https://en.wiktionary.org/wiki/datum#Latin
+    #         - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+
+    #     Returns:
+    #         List: Python List, id est: rem collēctiōnem
+    #     """
+    #     # _[eng-Latn]
+    #     # The datum_corporeum() is a hard requeriment to implement a
+    #     # file exporter.
+    #     # [eng-Latn]_
+    #     resultatum = []
+    #     resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+    #     resultatum.append('<!-- ' + __class__.__name__ + ' -->')
+    #     resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+    #     return resultatum
+
     def datum_corporeum(self) -> List:
         """Datum corporeum de fōrmātum Lorem Ipsum vI.II
 
@@ -3489,14 +3339,16 @@ class HXLTMInFormatum(ABC):
         Returns:
             List: Python List, id est: rem collēctiōnem
         """
-        # _[eng-Latn]
-        # The datum_corporeum() is a hard requeriment to implement a
-        # file exporter.
-        # [eng-Latn]_
         resultatum = []
-        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
-        resultatum.append('<!-- ' + __class__.__name__ + ' -->')
-        resultatum.append('<!-- 🚧 Opus in progressu 🚧 -->')
+
+        liquid_template = self.normam['formatum']['corporeum']
+
+        for rem in self.de_rem():
+            liquid_context = {'rem': str(rem)}
+            liquid_context = rem.contextum()
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
         return resultatum
 
     def datum_finale(self) -> List:
@@ -3632,6 +3484,19 @@ Salvi, {{ i }}! \
             for rem in resultatum:
                 archivum_punctum.write(rem + "\n")
 
+    def in_archivum_aut_normam_exitum(self, archivum_locum: str) -> None:
+        """Resultātum in Archīvum aut normam exitum
+
+        Args:
+            archivum_locum (str):
+                I. Archīvum locum, id est, Python file path
+                II. Python None aut Python false: Python stdout
+        """
+        if archivum_locum is None or archivum_locum is False or \
+                len(archivum_locum) == 0:
+            return self.in_normam_exitum()
+        return self.in_archivum(archivum_locum)
+
     def in_collectionem(self) -> List:
         """Resultātum in collēctiōnem, id est Python List
 
@@ -3753,6 +3618,67 @@ Salvi, {{ i }}! \
     #     return self.hxltm_asa.datum.rem_iterandum()
 
 
+class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
+    """HXLTM In Fōrmātum Tabulam (rādīcem Fōrmātum)
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - in, https://en.wiktionary.org/wiki/in-#Latin
+        - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+        - tabulam, https://en.wiktionary.org/wiki/tabulam#Latin
+        - rādīcem, https://en.wiktionary.org/wiki/radix#Latin
+
+    Author:
+        Emerson Rocha <rocha[at]ieee.org>
+
+    Collaborators:
+        (_[eng-Latn] Additional names here [eng-Latn]_)
+
+    Creation Date:
+        2021-07-19
+
+    Revisions:
+
+    License:
+        Public Domain
+    """
+
+    # ONTOLOGIA_FORMATUM = ''
+
+    ONTOLOGIA_FORMATUM_BASIM = 'Tabulam-Basim'
+
+    def datum_corporeum(self) -> List:
+        """Datum corporeum de fōrmātum Tabulam-Basim
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        resultatum = []
+
+        liquid_template = self.normam['formatum']['corporeum']
+
+        for rem in self.de_rem():
+            liquid_context = {'rem': str(rem)}
+            liquid_context = rem.contextum()
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
+        return resultatum
+
+
+class HXLTMInFormatumTabulamCSV3(HXLTMInFormatumTabulamRadicem):
+    """See cor.hxltm.yml:normam.TBX-Basim"""
+
+    ONTOLOGIA_FORMATUM_BASIM = 'CSV-3'
+
+
 class HXLTMInFormatumTBX(HXLTMInFormatum):
     """HXLTM In Fōrmātum TermBase eXchange (TBX)
 
@@ -3800,28 +3726,27 @@ class HXLTMInFormatumTBX(HXLTMInFormatum):
 
     ONTOLOGIA_FORMATUM_BASIM = 'TBX'  # ontologia/cor.hxltm.yml clāvem nomen
 
-    def datum_corporeum(self) -> List:
-        """Datum corporeum de fōrmātum XML Localization Interchange File Format
-        (XLIFF)
+    # def datum_corporeum(self) -> List:
+    #     """Datum corporeum de fōrmātum TermBase eXchange (TBX)
 
-        Trivia:
-            - datum, https://en.wiktionary.org/wiki/datum#Latin
-            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+    #     Trivia:
+    #         - datum, https://en.wiktionary.org/wiki/datum#Latin
+    #         - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
 
-        Returns:
-            List: Python List, id est: rem collēctiōnem
-        """
-        resultatum = []
+    #     Returns:
+    #         List: Python List, id est: rem collēctiōnem
+    #     """
+    #     resultatum = []
 
-        liquid_template = self.normam['formatum']['corporeum']
+    #     liquid_template = self.normam['formatum']['corporeum']
 
-        for rem in self.de_rem():
-            liquid_context = {'rem': str(rem)}
-            liquid_context = rem.contextum()
-            resultatum.append(
-                self.de_liquid(liquid_template, liquid_context)
-            )
-        return resultatum
+    #     for rem in self.de_rem():
+    #         liquid_context = {'rem': str(rem)}
+    #         liquid_context = rem.contextum()
+    #         resultatum.append(
+    #             self.de_liquid(liquid_template, liquid_context)
+    #         )
+    #     return resultatum
 
 
 class HXLTMInFormatumTBXBasim(HXLTMInFormatumTBX):
@@ -3864,33 +3789,33 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
 
     ONTOLOGIA_FORMATUM_BASIM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
 
-    def datum_corporeum(self) -> List:
-        """Datum corporeum de fōrmātum Translation Memory eXchange format
-        (TMX) v1.4
+    # def datum_corporeum(self) -> List:
+    #     """Datum corporeum de fōrmātum Translation Memory eXchange format
+    #     (TMX) v1.4
 
-        Trivia:
-            - datum, https://en.wiktionary.org/wiki/datum#Latin
-            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+    #     Trivia:
+    #         - datum, https://en.wiktionary.org/wiki/datum#Latin
+    #         - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
 
-        Returns:
-            List: Python List, id est: rem collēctiōnem
-        """
-        resultatum = []
+    #     Returns:
+    #         List: Python List, id est: rem collēctiōnem
+    #     """
+    #     resultatum = []
 
-        liquid_template = self.normam['formatum']['corporeum']
+    #     liquid_template = self.normam['formatum']['corporeum']
 
-        # for numerum, rem in self.rem():
-        # for rem, rem2 in self.rem():
-        for rem in self.de_rem():
-            # resultatum.append(rem.v())
-            # print(rem)
-            liquid_context = {'rem': str(rem)}
-            liquid_context = rem.contextum()
-            # resultatum.append(str(rem))
-            resultatum.append(
-                self.de_liquid(liquid_template, liquid_context)
-            )
-        return resultatum
+    #     # for numerum, rem in self.rem():
+    #     # for rem, rem2 in self.rem():
+    #     for rem in self.de_rem():
+    #         # resultatum.append(rem.v())
+    #         # print(rem)
+    #         liquid_context = {'rem': str(rem)}
+    #         liquid_context = rem.contextum()
+    #         # resultatum.append(str(rem))
+    #         resultatum.append(
+    #             self.de_liquid(liquid_template, liquid_context)
+    #         )
+    #     return resultatum
 
 
 class HXLTMInFormatumXLIFF(HXLTMInFormatum):
@@ -3929,28 +3854,28 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
 
     ONTOLOGIA_FORMATUM_BASIM = 'XLIFF'  # ontologia/cor.hxltm.yml clāvem nomen
 
-    def datum_corporeum(self) -> List:
-        """Datum corporeum de fōrmātum XML Localization Interchange File Format
-        (XLIFF)
+    # def datum_corporeum(self) -> List:
+    #     """Datum corporeum de fōrmātum XML Localization Interchange File
+    #     Format (XLIFF)
 
-        Trivia:
-            - datum, https://en.wiktionary.org/wiki/datum#Latin
-            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+    #     Trivia:
+    #         - datum, https://en.wiktionary.org/wiki/datum#Latin
+    #         - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
 
-        Returns:
-            List: Python List, id est: rem collēctiōnem
-        """
-        resultatum = []
+    #     Returns:
+    #         List: Python List, id est: rem collēctiōnem
+    #     """
+    #     resultatum = []
 
-        liquid_template = self.normam['formatum']['corporeum']
+    #     liquid_template = self.normam['formatum']['corporeum']
 
-        for rem in self.de_rem():
-            liquid_context = {'rem': str(rem)}
-            liquid_context = rem.contextum()
-            resultatum.append(
-                self.de_liquid(liquid_template, liquid_context)
-            )
-        return resultatum
+    #     for rem in self.de_rem():
+    #         liquid_context = {'rem': str(rem)}
+    #         liquid_context = rem.contextum()
+    #         resultatum.append(
+    #             self.de_liquid(liquid_template, liquid_context)
+    #         )
+    #     return resultatum
 
 
 class HXLTMInFormatumXLIFFObsoletum(HXLTMInFormatumXLIFF):

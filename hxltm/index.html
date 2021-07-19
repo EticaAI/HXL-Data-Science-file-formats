@@ -1726,6 +1726,8 @@ normam:
       #       will generate errors to validate TBX with TBXBasiccoreStructV02.dtd
       #       from http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
       #       The problematic part is '+2/3*': '*', '+', '/'
+      #       One way to replace:
+      #       {{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: "*", "%2A" | replace: "+", "%2B"  | replace: "/", "%2F" }}
       # [eng-Latn]_
       corporeum: |2
             &lt;termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
@@ -1924,14 +1926,6 @@ normam:
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
             &lt;unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
-              &lt;segment&gt;
-                &lt;source&gt;{{ rem.de_fontem_linguam.rem }}&lt;/source&gt;
-                {%- if rem.de_objectivum_linguam %}
-                &lt;target&gt;{{ rem.de_objectivum_linguam.rem }}&lt;/target&gt;
-                {%- else -%}
-                  &lt;!-- non rem.de_objectivum_linguam --&gt;
-                {%- endif  %}
-              &lt;/segment&gt;
               {%- if rem.de_auxilium_linguam %}
               &lt;notes&gt;
                 {% for item in rem.de_auxilium_linguam -%}
@@ -1946,6 +1940,14 @@ normam:
               {%- else -%}
                 &lt;!-- non rem.de_auxilium_linguam --&gt;
               {%- endif  %}
+              &lt;segment&gt;
+                &lt;source&gt;{{ rem.de_fontem_linguam.rem }}&lt;/source&gt;
+                {%- if rem.de_objectivum_linguam %}
+                &lt;target&gt;{{ rem.de_objectivum_linguam.rem }}&lt;/target&gt;
+                {%- else -%}
+                  &lt;!-- non rem.de_objectivum_linguam --&gt;
+                {%- endif  %}
+              &lt;/segment&gt;
             &lt;/unit&gt;
             {%- else -%}
               &lt;!-- non rem.de_fontem_linguam --&gt;
@@ -3501,7 +3503,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 19:20:06 UTC
+Last updated 2021-07-19 21:04:15 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

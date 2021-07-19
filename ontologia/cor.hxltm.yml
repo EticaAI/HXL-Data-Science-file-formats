@@ -331,6 +331,8 @@ normam:
       #       will generate errors to validate TBX with TBXBasiccoreStructV02.dtd
       #       from http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
       #       The problematic part is '+2/3*': '*', '+', '/'
+      #       One way to replace:
+      #       {{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: "*", "%2A" | replace: "+", "%2B"  | replace: "/", "%2F" }}
       # [eng-Latn]_
       corporeum: |2
             <termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
@@ -529,14 +531,6 @@ normam:
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
             <unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
-              <segment>
-                <source>{{ rem.de_fontem_linguam.rem }}</source>
-                {%- if rem.de_objectivum_linguam %}
-                <target>{{ rem.de_objectivum_linguam.rem }}</target>
-                {%- else -%}
-                  <!-- non rem.de_objectivum_linguam -->
-                {%- endif  %}
-              </segment>
               {%- if rem.de_auxilium_linguam %}
               <notes>
                 {% for item in rem.de_auxilium_linguam -%}
@@ -551,6 +545,14 @@ normam:
               {%- else -%}
                 <!-- non rem.de_auxilium_linguam -->
               {%- endif  %}
+              <segment>
+                <source>{{ rem.de_fontem_linguam.rem }}</source>
+                {%- if rem.de_objectivum_linguam %}
+                <target>{{ rem.de_objectivum_linguam.rem }}</target>
+                {%- else -%}
+                  <!-- non rem.de_objectivum_linguam -->
+                {%- endif  %}
+              </segment>
             </unit>
             {%- else -%}
               <!-- non rem.de_fontem_linguam -->
