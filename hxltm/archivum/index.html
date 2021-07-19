@@ -1579,7 +1579,11 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
 # TODO: docupent eventual new options to the --objectivum-TMX here.
-# [eng-Latn]_</code></pre>
+# [eng-Latn]_
+
+# objectivum_formatum_speciale
+
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --objectivum-TMX --objectivum-formatum-speciale TMX-de-marcus</code></pre>
 </div>
 </div>
 </div>
@@ -3621,6 +3625,7 @@ hxltmcli --help</code></pre>
                 [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
                 [--objectivum-CSV-3] [--objectivum-CSV-HXL-XLIFF]
                 [--objectivum-JSON-kv]
+                [--objectivum-formatum-speciale [objectivum_formatum_speciale]]
                 [--limitem-quantitatem [limitem_quantitatem]]
                 [--limitem-initiale-lineam [limitem_initiale_lineam]]
                 [--non-securum-limitem]
@@ -3715,20 +3720,29 @@ optional arguments:
                         are ID (if available) or source natural language.
                         Values are target language. No comments are exported.
                         Monolingual/Bilingual
+  --objectivum-formatum-speciale [objectivum_formatum_speciale]
+                        (Not fully implemented yet) In addition to use a
+                        output format (like --objectivum-TMX) inform an
+                        special additional key that customize the base format
+                        (like normam.TMX) already existing on
+                        ego.hxltm.yml/venditorem.hxltm.yml/cor.hxltm.yml.
+                        Example: "hxltmcli fontem.hxl.csv objectivum.tmx
+                        --objectivum-TMX --objectivum-formatum-speciale TMX-
+                        de-marcus"
   --limitem-quantitatem [limitem_quantitatem]
-                        (Advanced, large datasets) Customize the limit of the
+                        (Advanced, large data sets) Customize the limit of the
                         maximum number of raw rows can be in a single step.
                         Try increments of 1 million.Use value -1 to disable
-                        limits (even if means exaust all computer memory
+                        limits (even if means exhaust all computer memory
                         require full restart). Defaults to 1048576 (but to
-                        avoid non-expert humans or automated workflows
+                        avoid non-expert humans or automated work flows
                         generate output with missing data without no one
                         reading the warning messages if the --limitem-
                         quantitatem was reached AND no customization was done
                         on --limitem-initiale-lineam an exception will abort
   --limitem-initiale-lineam [limitem_initiale_lineam]
-                        (Advanced, large datasets) When working in batches and
-                        the initial row to process is not the first one
+                        (Advanced, large data sets) When working in batches
+                        and the initial row to process is not the first one
                         (starts from 0) use this option if is inviable
                         increase to simply --limitem-quantitatem
   --non-securum-limitem, --ad-astra-per-aspera
@@ -3738,7 +3752,7 @@ optional arguments:
                         ignore entire individual rows or columns) but still
                         work with what was left from the dataset. This option
                         assume is acceptable not try protect from exhaust all
-                        memory or disk space when working with large datasets
+                        memory or disk space when working with large data sets
                         and (even for smaller, but not well know from the
                         python or YAML ontologia) the current human user
                         evaluated that the data loss is either false positive
@@ -3746,7 +3760,7 @@ optional arguments:
   --selectum-columnam-numerum columnam_numerum
                         (Advanced) Select only columns from source HXLTM
                         dataset by a list of index numbers (starts by zero).
-                        As example: to select the first 3 columnsuse "0,1,2"
+                        As example: to select the first 3 columns use "0,1,2"
                         and NOT "1,2,3"
   --non-selectum-columnam-numerum non_columnam_numerum
                         (Advanced) Exclude columns from source HXLTM dataset
@@ -3832,7 +3846,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 21:04:15 UTC
+Last updated 2021-07-19 22:33:07 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

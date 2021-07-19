@@ -272,6 +272,10 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX > resultatum/h
 # TODO: docupent eventual new options to the --objectivum-TMX here.
 # [eng-Latn]_
 
+# objectivum_formatum_speciale
+
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --objectivum-TMX --objectivum-formatum-speciale TMX-de-marcus
+
 # end::TMX[]
 
 

@@ -596,16 +596,32 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             action='append_const',
             const='JSON-kv'
         )
+        parser.add_argument(
+            '--objectivum-formatum-speciale',
+            help='(Not fully implemented yet) ' +
+            'In addition to use a output format (like --objectivum-TMX) '
+            'inform an special additional key that customize '
+            'the base format (like normam.TMX) '
+            'already existing on '
+            'ego.hxltm.yml/venditorem.hxltm.yml/cor.hxltm.yml. '
+            'Example: "hxltmcli fontem.hxl.csv objectivum.tmx '
+            '--objectivum-TMX --objectivum-formatum-speciale TMX-de-marcus"',
+            dest='objectivum_formatum_speciale',
+            metavar='objectivum_formatum_speciale',
+            action='store',
+            default=None,
+            nargs='?'
+        )
 
         parser.add_argument(
             '--limitem-quantitatem',
-            help='(Advanced, large datasets) '
+            help='(Advanced, large data sets) '
             'Customize the limit of the maximum number of raw rows can '
             'be in a single step. Try increments of 1 million.'
-            'Use value -1 to disable limits (even if means exaust '
+            'Use value -1 to disable limits (even if means exhaust '
             'all computer memory require full restart). '
             'Defaults to 1048576 (but to avoid non-expert humans or '
-            'automated workflows generate output with missing data '
+            'automated work flows generate output with missing data '
             'without no one reading the warning messages '
             'if the --limitem-quantitatem was reached AND '
             'no customization was done on --limitem-initiale-lineam '
@@ -618,7 +634,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         parser.add_argument(
             '--limitem-initiale-lineam',
-            help='(Advanced, large datasets) ' +
+            help='(Advanced, large data sets) ' +
             'When working in batches and the initial row to process is not '
             'the first one (starts from 0) use this option if is '
             'inviable increase to simply --limitem-quantitatem',
@@ -637,7 +653,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'ignore entire individual rows or columns) but still work with '
             'what was left from the dataset. '
             'This option assume is acceptable not try protect from exhaust '
-            'all memory or disk space when working with large datasets '
+            'all memory or disk space when working with large data sets '
             'and (even for smaller, but not well know from the '
             'python or YAML ontologia) the current human user evaluated that '
             'the data loss is either false positive or tolerable '
@@ -657,7 +673,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             help='(Advanced) ' +
             'Select only columns from source HXLTM dataset by a list of '
             'index numbers (starts by zero). As example: '
-            'to select the first 3 columns'
+            'to select the first 3 columns '
             'use "0,1,2" and NOT "1,2,3"',
             metavar='columnam_numerum',
             # type=lambda x: x.split(',')
@@ -887,7 +903,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
                 self.in_archivum_formatum(
                     objectivum_farchivum,
-                    self.hxltm_asa.argumentum.objectivum_formatum
+                    self.hxltm_asa.argumentum.objectivum_formatum,
+                    # self.hxltm_asa.argumentum.objectivum_formatum_speciale,
                 )
 
         finally:
@@ -899,7 +916,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
     def in_archivum_formatum(
             self,
             objectivum_archivum: str,
-            objectivum_formatum: str
+            objectivum_formatum: str,
+            # objectivum_formatum_speciale: str = None
     ):
         """HXLTM Resultātum in Archīvum aut normam exitum
 
@@ -910,18 +928,18 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             objectivum_formatum (str):
                 HXLTM In Fōrmātum de nomen.
         """
-        farmatum = None
+        formatum = None
 
         if objectivum_formatum == 'TMX':
-            farmatum = HXLTMInFormatumTMX(self.hxltm_asa)
+            formatum = HXLTMInFormatumTMX(self.hxltm_asa)
         elif objectivum_formatum == 'TBX-Basim':
-            farmatum = HXLTMInFormatumTBXBasim(self.hxltm_asa)
+            formatum = HXLTMInFormatumTBXBasim(self.hxltm_asa)
 
         elif objectivum_formatum == 'UTX':
             raise NotImplementedError('UTX not implemented yet')
 
         elif objectivum_formatum == 'CSV-3':
-            farmatum = HXLTMInFormatumTabulamCSV3(self.hxltm_asa)
+            formatum = HXLTMInFormatumTabulamCSV3(self.hxltm_asa)
 
         elif objectivum_formatum == 'CSV-HXL-XLIFF':
             raise NotImplementedError('CSV-3 not implemented yet')
@@ -930,10 +948,10 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             raise NotImplementedError('JSON-kv not implemented yet')
 
         elif objectivum_formatum == 'XLIFF':
-            farmatum = HXLTMInFormatumXLIFF(self.hxltm_asa)
+            formatum = HXLTMInFormatumXLIFF(self.hxltm_asa)
 
         elif objectivum_formatum == 'XLIFF-obsoletum':
-            farmatum = HXLTMInFormatumXLIFFObsoletum(self.hxltm_asa)
+            formatum = HXLTMInFormatumXLIFFObsoletum(self.hxltm_asa)
 
         elif objectivum_formatum == 'INCOGNITUM':
             raise ValueError(
@@ -942,8 +960,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 'manually select an output format, like --TMX'
             )
 
-        if farmatum:
-            return farmatum.in_archivum_aut_normam_exitum(objectivum_archivum)
+        if formatum:
+            return formatum.in_archivum_aut_normam_exitum(objectivum_archivum)
 
         raise ValueError(
             'INCOGNITUM2 (objetive file output based on extension) '
@@ -1352,6 +1370,7 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_formatum: InitVar[str] = 'HXLTM'
+    objectivum_formatum_speciale: InitVar[str] = None
     objectivum_archivum_nomen: InitVar[str] = None
     columnam_numerum: InitVar[List] = []
     non_columnam_numerum: InitVar[List] = []
@@ -1406,6 +1425,11 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
                     self.objectivum_formatum = args_rem.objectivum_formatum[0]
                 else:
                     self.objectivum_formatum = args_rem.objectivum_formatum
+
+            if hasattr(args_rem, 'objectivum_formatum_speciale') and \
+                    args_rem.objectivum_formatum_speciale:
+                self.objectivum_formatum_speciale = \
+                    args_rem.objectivum_formatum_speciale
 
             if hasattr(args_rem, 'columnam_numerum'):
                 self.columnam_numerum = args_rem.columnam_numerum
@@ -3262,27 +3286,50 @@ class HXLTMInFormatum(ABC):
 
     License:
         Public Domain
+
+    Args:
+        hxltm_asa (HXLTMASA):
+            HXLTMASA objectīvum
+        ontologia_normam_speciale (str):
+            Clāvem textum de ontologia (id est, *.hxltm.yml) normam
+            speciāle.
+            Defallo: Python class constant
     """
 
-    # ontologia/cor.hxltm.yml clāvem nomen
-    ONTOLOGIA_FORMATUM = ''
+    # # ontologia/cor.hxltm.yml clāvem nomen
+    # ONTOLOGIA_FORMATUM = ''
 
     # ontologia/cor.hxltm.yml basim extēnsiōnem
-    ONTOLOGIA_FORMATUM_BASIM = ''
+    ONTOLOGIA_NORMAM: str = ''
+
+    # Trivia: speciāle, https://en.wiktionary.org/wiki/specialis#Latin
+    ontologia_normam_speciale = ''
+
+    # hxltm_asa
+    # ontologia
+
+    # speciāle
 
     __commune_asa: InitVar[Type['HXLTMASA']] = None
 
     # @see https://docs.python.org/3/library/logging.html
     # @see https://docs.python.org/pt-br/dev/howto/logging.html
 
-    def __init__(self, hxltm_asa: Type['HXLTMASA']):
-        """HXLTM In Farmatum initiāle
+    def __init__(self,
+                 hxltm_asa: Type['HXLTMASA']):
+        """HXLTM In Formatum initiāle
 
         Args:
-            hxltm_asa (HXLTMASA): HXLTMASA objectīvum
+            hxltm_asa (HXLTMASA):
+                HXLTMASA objectīvum
         """
         self.hxltm_asa = hxltm_asa
         self.ontologia = hxltm_asa.ontologia
+
+        if hxltm_asa.argumentum.objectivum_formatum_speciale:
+            # print('ooooi', hxltm_asa.argumentum.objectivum_formatum_speciale)
+            self.ontologia_normam_speciale = \
+                hxltm_asa.argumentum.objectivum_formatum_speciale
         self.globum = self.quod_globum_valendum()
         self.normam = self.globum['normam']
 
@@ -3592,20 +3639,30 @@ Salvi, {{ i }}! \
         # print(globum.keys())
 
         if 'normam' in globum:
-            basim = self.ONTOLOGIA_FORMATUM_BASIM
-            ext = self.ONTOLOGIA_FORMATUM
+            basim = self.ONTOLOGIA_NORMAM
+            ext = self.ontologia_normam_speciale
             if basim not in globum['normam']:
                 raise ValueError(
                     "{0}: non [normam.{1}] in "
                     "cor.hxltm.yml aut ego.hxltm.yml".format(
                         __class__.__name__, basim
                     ))
-
-            if ext in globum['normam']:
-                summam['normam'] = \
-                    {**globum['normam'][basim], **globum['normam'][ext]}
-            else:
+            if ext is None or len(ext) == 0:
                 summam['normam'] = globum['normam'][basim]
+            else:
+                if ext in globum['normam']:
+                    summam['normam'] = \
+                        {**globum['normam'][basim], **globum['normam'][ext]}
+                else:
+                    optionem = list(globum['normam'].keys())
+
+                    raise ValueError(
+                        'Non normam.{0} in archīvum ego.hxltm.yml, '
+                        'venditorem.hxltm.yml aut cor.hxltm.yml. '
+                        'Optiōnem: {1}'.format(
+                            ext, str(optionem)
+                        )
+                    )
 
             globum = {**globum, **summam}
 
@@ -3648,7 +3705,7 @@ class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
 
     # ONTOLOGIA_FORMATUM = ''
 
-    ONTOLOGIA_FORMATUM_BASIM = 'Tabulam-Basim'
+    ONTOLOGIA_NORMAM = 'Tabulam-Basim'
 
     def datum_corporeum(self) -> List:
         """Datum corporeum de fōrmātum Tabulam-Basim
@@ -3676,7 +3733,7 @@ class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
 class HXLTMInFormatumTabulamCSV3(HXLTMInFormatumTabulamRadicem):
     """See cor.hxltm.yml:normam.TBX-Basim"""
 
-    ONTOLOGIA_FORMATUM_BASIM = 'CSV-3'
+    ONTOLOGIA_NORMAM = 'CSV-3'
 
 
 class HXLTMInFormatumTBX(HXLTMInFormatum):
@@ -3724,7 +3781,7 @@ class HXLTMInFormatumTBX(HXLTMInFormatum):
 
     # ONTOLOGIA_FORMATUM = 'TBX-Basim'
 
-    ONTOLOGIA_FORMATUM_BASIM = 'TBX'  # ontologia/cor.hxltm.yml clāvem nomen
+    ONTOLOGIA_NORMAM = 'TBX'  # ontologia/cor.hxltm.yml clāvem nomen
 
     # def datum_corporeum(self) -> List:
     #     """Datum corporeum de fōrmātum TermBase eXchange (TBX)
@@ -3752,7 +3809,7 @@ class HXLTMInFormatumTBX(HXLTMInFormatum):
 class HXLTMInFormatumTBXBasim(HXLTMInFormatumTBX):
     """See cor.hxltm.yml:normam.TBX-Basim"""
 
-    ONTOLOGIA_FORMATUM_BASIM = 'TBX-Basim'
+    ONTOLOGIA_NORMAM = 'TBX-Basim'
 
 
 class HXLTMInFormatumTMX(HXLTMInFormatum):
@@ -3787,7 +3844,7 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
 
     # ONTOLOGIA_FORMATUM = ''
 
-    ONTOLOGIA_FORMATUM_BASIM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
+    ONTOLOGIA_NORMAM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
 
     # def datum_corporeum(self) -> List:
     #     """Datum corporeum de fōrmātum Translation Memory eXchange format
@@ -3852,7 +3909,7 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
 
     # ONTOLOGIA_FORMATUM = ''
 
-    ONTOLOGIA_FORMATUM_BASIM = 'XLIFF'  # ontologia/cor.hxltm.yml clāvem nomen
+    ONTOLOGIA_NORMAM = 'XLIFF'  # ontologia/cor.hxltm.yml clāvem nomen
 
     # def datum_corporeum(self) -> List:
     #     """Datum corporeum de fōrmātum XML Localization Interchange File
@@ -3912,7 +3969,7 @@ class HXLTMInFormatumXLIFFObsoletum(HXLTMInFormatumXLIFF):
 
     # ONTOLOGIA_FORMATUM = ''
 
-    ONTOLOGIA_FORMATUM_BASIM = 'XLIFF-obsoletum'
+    ONTOLOGIA_NORMAM = 'XLIFF-obsoletum'
 
 
 class HXLTMOntologia:
