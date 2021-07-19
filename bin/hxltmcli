@@ -3736,6 +3736,74 @@ Salvi, {{ i }}! \
     #     return self.hxltm_asa.datum.rem_iterandum()
 
 
+class HXLTMInFormatumTBX(HXLTMInFormatum):
+    """HXLTM In Fōrmātum TermBase eXchange (TBX)
+
+    Trivia:
+    - HXLTM:
+    - HXLTM, https://hdp.etica.ai/hxltm
+        - HXL, https://hxlstandard.org/
+        - TM, https://www.wikidata.org/wiki/Q333761
+    - in, https://en.wiktionary.org/wiki/in-#Latin
+    - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+    - TBX, <https://en.wikipedia.org/wiki/TermBase_eXchange>
+
+    Normam:
+    - http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+    - http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
+    - https://www.gala-global.org/knowledge-center/industry-development
+        /standards/lisa-oscar-standards
+    - gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+
+    Author:
+        Emerson Rocha <rocha[at]ieee.org>
+
+    Collaborators:
+        (_[eng-Latn] Additional names here [eng-Latn]_)
+
+    Creation Date:
+        2021-07-19
+
+    Revisions:
+
+    License:
+        Public Domain
+    """
+
+    # ONTOLOGIA_FORMATUM = 'TBX-Basim'
+
+    ONTOLOGIA_FORMATUM_BASIM = 'TBX'  # ontologia/cor.hxltm.yml clāvem nomen
+
+    def datum_corporeum(self) -> List:
+        """Datum corporeum de fōrmātum XML Localization Interchange File Format
+        (XLIFF)
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        resultatum = []
+
+        liquid_template = self.normam['formatum']['corporeum']
+
+        for rem in self.de_rem():
+            liquid_context = {'rem': str(rem)}
+            liquid_context = rem.contextum()
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
+        return resultatum
+
+
+class HXLTMInFormatumTBXBasim(HXLTMInFormatumTBX):
+    """See cor.hxltm.yml:normam.TBX-Basim"""
+
+    ONTOLOGIA_FORMATUM_BASIM = 'TBX-Basim'
+
+
 class HXLTMInFormatumTMX(HXLTMInFormatum):
     """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
 
