@@ -3346,7 +3346,9 @@ class HXLTMInFormatum(ABC):
         resultatum = []
 
         # TODO: move this block to HXLTMASA or HXLTMOntologia
-        if 'formatum' in self.normam and 'initiale' in self.normam['formatum']:
+        if 'formatum' in self.normam and \
+            'initiale' in self.normam['formatum'] and \
+                self.normam['formatum']['initiale']:
             liquid_template = self.normam['formatum']['initiale']
             liquid_context = {}
             resultatum.append(
@@ -3410,7 +3412,9 @@ class HXLTMInFormatum(ABC):
         """
         resultatum = []
 
-        if 'formatum' in self.normam and 'finale' in self.normam['formatum']:
+        if 'formatum' in self.normam and \
+            'finale' in self.normam['formatum'] and \
+                self.normam['formatum']['finale']:
             liquid_template = self.normam['formatum']['finale']
             liquid_context = {}
             resultatum.append(

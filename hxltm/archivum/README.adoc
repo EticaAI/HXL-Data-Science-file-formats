@@ -113,9 +113,20 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-3]
 
 ===== Command line examples
 
+
 [source,bash]
 ----
 include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-3]
+----
+
+
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv
+
+[source,csv]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv[]
 ----
 
 [#GSheets]
