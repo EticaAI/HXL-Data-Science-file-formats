@@ -524,8 +524,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         parser.add_argument(
             '--objectivum-TBX-Basim', '--TBX-Basim',
-            help='(Planned, but not implemented yet) ' +
-            'Export to Term Base eXchange (TBX). ' +
+            help='(Working draft) ' +
+            'Export to Term Base eXchange (TBX) Basic ' +
             ' Multilingual output format',
             # metavar='objectivum_formatum',
             dest='objectivum_formatum',
@@ -881,7 +881,10 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 self.in_tmx_de_hxltmasa(archivum_objectivum)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'TBX-Basim':
-                raise NotImplementedError('TBX-Basim not implemented yet')
+                # raise NotImplementedError('TBX-Basim not implemented yet')
+                if self.original_outfile_is_stdout:
+                    return self.in_tbx_basim_de_hxltmasa(False)
+                return self.in_tbx_basim_de_hxltmasa(self.original_outfile)
 
             elif self.hxltm_asa.argumentum.objectivum_formatum == 'UTX':
                 raise NotImplementedError('UTX not implemented yet')
@@ -1099,6 +1102,25 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 # txt_writer = csv.writer(new_txt)
                 # for line in datum:
                 #     txt_writer.writerow(line)
+
+    def in_tbx_basim_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
+        """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
+
+        Args:
+            archivum_objectivum (Union[str, None]):
+                Archīvum locum, id est, Python file path
+        """
+
+        # print('in_tmx_de_hxltmasa')
+
+        farmatum_tbx_basim = HXLTMInFormatumTBXBasim(self.hxltm_asa)
+        # farmatum_tmx.asa(self.hxltm_asa)
+
+        if archivum_objectivum is None or archivum_objectivum is False or \
+                len(archivum_objectivum) == 0:
+            return farmatum_tbx_basim.in_normam_exitum()
+
+        farmatum_tbx_basim.in_archivum(archivum_objectivum)
 
     def in_tmx_de_hxltmasa(self, archivum_objectivum: Union[str, None]):
         """HXLTM In Fōrmātum Translation Memory eXchange format (TMX) v1.4
@@ -3769,6 +3791,15 @@ class HXLTMInFormatumTBX(HXLTMInFormatum):
     License:
         Public Domain
     """
+
+    # _[eng-Latn]
+    # NOTE: some IDs, like
+    #       <termEntry id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百
+    #           千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
+    #       will generate errors to validate TBX with TBXBasiccoreStructV02.dtd
+    #       from http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
+    #       The problemtic part is '+2/3*': '*', '+', '/'
+    # [eng-Latn]_
 
     # ONTOLOGIA_FORMATUM = 'TBX-Basim'
 

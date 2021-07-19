@@ -1682,10 +1682,12 @@ normam:
       normam:
         - http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
       nomen:
-        eng-Latn: 'TermBase eXchange (TBX) Basic (planned, no draft)'
+        eng-Latn: 'TermBase eXchange (TBX) Basic 2.1'
       situs_interretialis:
         referens_officinale:
           - http://www.terminorgs.net/TBX-Basic.html
+          - http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
+          - http://www.ttt.org/oscarStandards/tbx/tbx-basic.html
 
     # Trivia:
     # - ASA
@@ -1695,6 +1697,56 @@ normam:
       modus_operandi:
         - multiplum_linguam
         # - bilingue
+
+    formatum:
+      initiale: |2
+        &lt;?xml version='1.0'?&gt;
+        &lt;!DOCTYPE martif SYSTEM "TBXBasiccoreStructV02.dtd"&gt;
+        &lt;martif type="TBX-Basic"
+          xml:lang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"&gt;
+          &lt;martifHeader&gt;
+            &lt;fileDesc&gt;
+              &lt;titleStmt&gt;
+                &lt;title&gt;TBX-Basic Sample File&lt;/title&gt;
+                &lt;note&gt;
+                  Lorem ipsum dolor semet
+                &lt;/note&gt;
+              &lt;/titleStmt&gt;
+              &lt;sourceDesc&gt;
+                &lt;p&gt;Lorem ipsum dolor semet&lt;/p&gt;
+              &lt;/sourceDesc&gt;
+            &lt;/fileDesc&gt;
+            &lt;!-- @TODO martifHeader --&gt;
+          &lt;/martifHeader&gt;
+          &lt;text&gt;
+            &lt;body&gt;
+
+      # _[eng-Latn]
+      # NOTE: some IDs, like
+      #       &lt;termEntry id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+      #       will generate errors to validate TBX with TBXBasiccoreStructV02.dtd
+      #       from http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
+      #       The problemtic part is '+2/3*': '*', '+', '/'
+      # [eng-Latn]_
+      corporeum: |2
+            &lt;termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
+              {% for item in rem.de_linguam %}
+              {% if item[1].rem != '' -%}
+              &lt;langSet xml:lang="{{ item[1].bcp47 }}"&gt;
+                &lt;tig&gt;
+                  &lt;term&gt;
+                    {{ item[1].rem }}
+                  &lt;/term&gt;
+                &lt;/tig&gt;
+              &lt;/langSet&gt;
+              {%- endif -%}
+              {%- endfor %}
+            &lt;/termEntry&gt;
+
+      finale: |2
+            &lt;/body&gt;
+          &lt;/text&gt;
+        &lt;/martif&gt;
 
   #### Term Base eXchange (TBX) 2008 CC-BY License _____________________________
   # Term Base eXchange (TBX) (identical to ISO 30042:2008)
@@ -3448,7 +3500,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 15:47:27 UTC
+Last updated 2021-07-19 16:45:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -451,11 +451,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_hxl_trānslātiōnem_memoriam">HXL Trānslātiōnem Memoriam</a></li>
 </ul>
 </li>
-<li><a href="#CSV-HXL-XLIFF"><code>CSV-HXL-XLIFF</code>:</a>
-<ul class="sectlevel3">
-<li><a href="#_hxlated_bilingual_csv_up_to_5_source_alt_for_xliff">HXLated bilingual CSV (+ up to 5 source alt) for XLIFF</a></li>
-</ul>
-</li>
 <li><a href="#HXLTM-ASA"><code>HXLTM-ASA</code>:</a>
 <ul class="sectlevel3">
 <li><a href="#_hxltm_abstractum_syntaxim_arborem">HXLTM Abstractum Syntaxim Arborem</a></li>
@@ -482,7 +477,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#TBX-Basim"><code>TBX-Basim</code>:</a>
 <ul class="sectlevel3">
-<li><a href="#_termbase_exchange_tbx_basic_planned_no_draft">TermBase eXchange (TBX) Basic (planned, no draft)</a></li>
+<li><a href="#_termbase_exchange_tbx_basic_2_1">TermBase eXchange (TBX) Basic 2.1</a></li>
 </ul>
 </li>
 <li><a href="#TMX"><code>TMX</code>:</a>
@@ -694,124 +689,6 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
 </div>
 </div>
 <div class="sect2">
-<h3 id="CSV-HXL-XLIFF"><code>CSV-HXL-XLIFF</code>:</h3>
-<div class="sect3">
-<h4 id="_hxlated_bilingual_csv_up_to_5_source_alt_for_xliff">HXLated bilingual CSV (+ up to 5 source alt) for XLIFF</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  CSV-HXL-XLIFF:
-    __meta:
-      archivum_extensionem: .xliff.hxl.csv
-      # archivum_extensionem: .{fontem-linguam}--{objectivum-linguam}.xliff.hxl.csv
-      normam:
-        - https://hdp.etica.ai/hxltm/archivum/
-      nomen:
-        eng-Latn: 'HXLated bilingual CSV (+ up to 5 source alt) for XLIFF'
-      situs_interretialis:
-        referens_officinale: []
-    exportandum_hxl_sortem:
-      - '#x_xliff +unit +id'
-      - '#x_xliff +source' # ...  __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +target' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +segment +state' # ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__sourcestatus'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__termtype'
-      - '#x_xliff +group +group_0'
-      - '#x_xliff +unit +note +note_category__altsource1'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt1'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt1'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__altsource2'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt2'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt2'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__altsource3'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt3'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt3'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__altsource4'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt4'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt4'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__altsource5'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__definitionalt5'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__contextalt5'
-      #    ... __linguam__ aut __linguam_de_imperium__
-      - '#x_xliff +unit +note +note_category__wikidata'
-      - '#x_xliff +unit +note +note_category__iate'
-      - '#x_xliff +unit +note +note_category__unterm'
-
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
-    asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
-      modus_operandi:
-        # - multiplum_linguam
-        - bilingue</code></pre>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_command_line_examples_2">Command line examples</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
-# _[eng-Latn]
-# TODO: CSV-HXL-XLIFF; This section is a draft
-
-# NOTE: --CSV-HXL-XLIFF was removed on version v0.8.4. We may stick with
-#       HXLTM CSV (for more complex metadata) and then CSV-3 or simpler or
-#       customized versions (aka user use 'templated (shopfify) liquid' to
-#       create own custom CSV versions)
-# [eng-Latn]_
-
-### II -------------------------------------------------------------------------
-# _[eng-Latn]
-# The next 2 examples are equivalent: will print to stdout the result
-# [eng-Latn]_
-
-# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-HXL-XLIFF
-
-# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF
-
-### III ------------------------------------------------------------------------
-# _[eng-Latn]
-# The next 2 examples are equivalent: they save the input data on a file on
-# disk.
-# [eng-Latn]_
-
-# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-#   resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
-#   --objectivum-CSV-HXL-XLIFF
-
-# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-HXL-XLIFF &gt; resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
-
-### III ------------------------------------------------------------------------
-# _[eng-Latn]
-# TODO: explain how to select the source and target language
-# [eng-Latn]_
-
-### IV ------------------------------------------------------------------------
-# _[eng-Latn]
-# TODO: explain how to select alternative languages
-# [eng-Latn]_</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="HXLTM-ASA"><code>HXLTM-ASA</code>:</h3>
 <div class="sect3">
 <h4 id="_hxltm_abstractum_syntaxim_arborem">HXLTM Abstractum Syntaxim Arborem</h4>
@@ -857,7 +734,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_3">Command line examples</h5>
+<h5 id="_command_line_examples_2">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -926,7 +803,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_4">Command line examples</h5>
+<h5 id="_command_line_examples_3">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -1031,7 +908,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 <div class="sect2">
 <h3 id="TBX-Basim"><code>TBX-Basim</code>:</h3>
 <div class="sect3">
-<h4 id="_termbase_exchange_tbx_basic_planned_no_draft">TermBase eXchange (TBX) Basic (planned, no draft)</h4>
+<h4 id="_termbase_exchange_tbx_basic_2_1">TermBase eXchange (TBX) Basic 2.1</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  #### TBX-Basic: TermBase eXchange (TBX) Basic ________________________________
@@ -1050,10 +927,12 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
       normam:
         - http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
       nomen:
-        eng-Latn: 'TermBase eXchange (TBX) Basic (planned, no draft)'
+        eng-Latn: 'TermBase eXchange (TBX) Basic 2.1'
       situs_interretialis:
         referens_officinale:
           - http://www.terminorgs.net/TBX-Basic.html
+          - http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
+          - http://www.ttt.org/oscarStandards/tbx/tbx-basic.html
 
     # Trivia:
     # - ASA
@@ -1063,6 +942,56 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
       modus_operandi:
         - multiplum_linguam
         # - bilingue
+
+    formatum:
+      initiale: |2
+        &lt;?xml version='1.0'?&gt;
+        &lt;!DOCTYPE martif SYSTEM "TBXBasiccoreStructV02.dtd"&gt;
+        &lt;martif type="TBX-Basic"
+          xml:lang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"&gt;
+          &lt;martifHeader&gt;
+            &lt;fileDesc&gt;
+              &lt;titleStmt&gt;
+                &lt;title&gt;TBX-Basic Sample File&lt;/title&gt;
+                &lt;note&gt;
+                  Lorem ipsum dolor semet
+                &lt;/note&gt;
+              &lt;/titleStmt&gt;
+              &lt;sourceDesc&gt;
+                &lt;p&gt;Lorem ipsum dolor semet&lt;/p&gt;
+              &lt;/sourceDesc&gt;
+            &lt;/fileDesc&gt;
+            &lt;!-- @TODO martifHeader --&gt;
+          &lt;/martifHeader&gt;
+          &lt;text&gt;
+            &lt;body&gt;
+
+      # _[eng-Latn]
+      # NOTE: some IDs, like
+      #       &lt;termEntry id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+      #       will generate errors to validate TBX with TBXBasiccoreStructV02.dtd
+      #       from http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
+      #       The problemtic part is '+2/3*': '*', '+', '/'
+      # [eng-Latn]_
+      corporeum: |2
+            &lt;termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
+              {% for item in rem.de_linguam %}
+              {% if item[1].rem != '' -%}
+              &lt;langSet xml:lang="{{ item[1].bcp47 }}"&gt;
+                &lt;tig&gt;
+                  &lt;term&gt;
+                    {{ item[1].rem }}
+                  &lt;/term&gt;
+                &lt;/tig&gt;
+              &lt;/langSet&gt;
+              {%- endif -%}
+              {%- endfor %}
+            &lt;/termEntry&gt;
+
+      finale: |2
+            &lt;/body&gt;
+          &lt;/text&gt;
+        &lt;/martif&gt;
 
   #### Term Base eXchange (TBX) 2008 CC-BY License _____________________________
   # Term Base eXchange (TBX) (identical to ISO 30042:2008)
@@ -1095,6 +1024,456 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
       modus_operandi:
         - multiplum_linguam
         # - bilingue</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_command_line_examples_4">Command line examples</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Explanation about the format at cor.hxltm.yml:normam.TBX-Basim
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-TBX-Basim
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: they save the input data on a file on
+# disk.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.tbx \
+  --objectivum-TBX-Basim
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; resultatum/hxltm-exemplum-linguam.tbx
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# TODO: docupent eventual new options to the --objectivum-TMX here.
+# [eng-Latn]_</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_result_example">Result example</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version='1.0'?&gt;
+&lt;!DOCTYPE martif SYSTEM "TBXBasiccoreStructV02.dtd"&gt;
+&lt;martif type="TBX-Basic"
+  xml:lang="la"&gt;
+  &lt;martifHeader&gt;
+    &lt;fileDesc&gt;
+      &lt;titleStmt&gt;
+        &lt;title&gt;TBX-Basic Sample File&lt;/title&gt;
+        &lt;note&gt;
+          Lorem ipsum dolor semet
+        &lt;/note&gt;
+      &lt;/titleStmt&gt;
+      &lt;sourceDesc&gt;
+        &lt;p&gt;Lorem ipsum dolor semet&lt;/p&gt;
+      &lt;/sourceDesc&gt;
+    &lt;/fileDesc&gt;
+    &lt;!-- @TODO martifHeader --&gt;
+  &lt;/martifHeader&gt;
+  &lt;text&gt;
+    &lt;body&gt;
+
+    &lt;termEntry id="L10N_ego_codicem"&gt;
+      
+      &lt;langSet xml:lang="la"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            lat-Latn
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="pt"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            por-Latn
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="en"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            eng-Latn
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="es"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            spa-Latn
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="ar"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            arb-Arab
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="hi"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            hin-Deva
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="sl"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            slv-Latn
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+    &lt;/termEntry&gt;
+
+    &lt;termEntry id="L10N_ego_linguam_nomen"&gt;
+      
+      &lt;langSet xml:lang="la"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Lingua Latina
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="pt"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Língua portuguesa
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="en"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            English language
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="es"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Idioma español
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="ar"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            اللغة العربية
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="hi"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            हिन्दी भाषा
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="sl"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Slovenščina
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+    &lt;/termEntry&gt;
+
+    &lt;termEntry id="L10N_ego_scriptum_nomen"&gt;
+      
+      &lt;langSet xml:lang="la"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Abecedarium Latinum
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="pt"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Alfabeto latino
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="en"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Latin script
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="es"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Alfabeto latino
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="hi"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            देवनागरी लिपि
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="sl"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Latinska abeceda
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+    &lt;/termEntry&gt;
+
+    &lt;termEntry id="L10N_ego_patriam_UN_M49_numerum"&gt;
+      
+      &lt;langSet xml:lang="la"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            001
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="pt"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            001
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="en"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            001
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="es"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            001
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="ar"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            001
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="hi"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            001
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="sl"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            001
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+    &lt;/termEntry&gt;
+
+    &lt;termEntry id="L10N_ego_patriam_UN_P_codicem"&gt;
+      
+      &lt;langSet xml:lang="la"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ∅
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="pt"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ∅
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="en"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ∅
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="es"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ∅
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="ar"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ∅
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="hi"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ∅
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="sl"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ∅
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+    &lt;/termEntry&gt;
+
+    &lt;termEntry id="I18N_testum_salve_mundi_testum_I18N"&gt;
+      
+      &lt;langSet xml:lang="la"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Salvi mundi!
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="pt"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Olá mundo!
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="en"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Hello, World!
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="es"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ¡Hola mundo!
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="hi"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            नमस्ते दुनिया
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+    &lt;/termEntry&gt;
+
+    &lt;termEntry id="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
+      
+      &lt;langSet xml:lang="la"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Testum, I, II, III
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="pt"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Teste, 1, 2, 3
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="en"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Test, 1, 2, 3
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="es"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            Prueba, 1, 2, 3
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="hi"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            परीक्षा, १, २, ३
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+    &lt;/termEntry&gt;
+
+    &lt;termEntry id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+      
+      &lt;langSet xml:lang="la"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            I,V, X, L, C, D, M
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="pt"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="en"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="es"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="hi"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            ०, १, २, ३, ४, ५, ६, ७, ८, ९
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+      &lt;langSet xml:lang="sl"&gt;
+        &lt;tig&gt;
+          &lt;term&gt;
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+          &lt;/term&gt;
+        &lt;/tig&gt;
+      &lt;/langSet&gt;
+    &lt;/termEntry&gt;
+
+    &lt;/body&gt;
+  &lt;/text&gt;
+&lt;/martif&gt;</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -3087,7 +3466,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 15:47:27 UTC
+Last updated 2021-07-19 16:45:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

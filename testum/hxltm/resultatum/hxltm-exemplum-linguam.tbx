@@ -1,0 +1,407 @@
+<?xml version='1.0'?>
+<!DOCTYPE martif SYSTEM "TBXBasiccoreStructV02.dtd">
+<martif type="TBX-Basic"
+  xml:lang="la">
+  <martifHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>TBX-Basic Sample File</title>
+        <note>
+          Lorem ipsum dolor semet
+        </note>
+      </titleStmt>
+      <sourceDesc>
+        <p>Lorem ipsum dolor semet</p>
+      </sourceDesc>
+    </fileDesc>
+    <!-- @TODO martifHeader -->
+  </martifHeader>
+  <text>
+    <body>
+
+    <termEntry id="L10N_ego_codicem">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            lat-Latn
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            por-Latn
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            eng-Latn
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            spa-Latn
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="ar">
+        <tig>
+          <term>
+            arb-Arab
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            hin-Deva
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="sl">
+        <tig>
+          <term>
+            slv-Latn
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
+    <termEntry id="L10N_ego_linguam_nomen">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            Lingua Latina
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            Língua portuguesa
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            English language
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            Idioma español
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="ar">
+        <tig>
+          <term>
+            اللغة العربية
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            हिन्दी भाषा
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="sl">
+        <tig>
+          <term>
+            Slovenščina
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
+    <termEntry id="L10N_ego_scriptum_nomen">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            Abecedarium Latinum
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            Alfabeto latino
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            Latin script
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            Alfabeto latino
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            देवनागरी लिपि
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="sl">
+        <tig>
+          <term>
+            Latinska abeceda
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
+    <termEntry id="L10N_ego_patriam_UN_M49_numerum">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            001
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            001
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            001
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            001
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="ar">
+        <tig>
+          <term>
+            001
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            001
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="sl">
+        <tig>
+          <term>
+            001
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
+    <termEntry id="L10N_ego_patriam_UN_P_codicem">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            ∅
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            ∅
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            ∅
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            ∅
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="ar">
+        <tig>
+          <term>
+            ∅
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            ∅
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="sl">
+        <tig>
+          <term>
+            ∅
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
+    <termEntry id="I18N_testum_salve_mundi_testum_I18N">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            Salvi mundi!
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            Olá mundo!
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            Hello, World!
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            ¡Hola mundo!
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            नमस्ते दुनिया
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
+    <termEntry id="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            Testum, I, II, III
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            Teste, 1, 2, 3
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            Test, 1, 2, 3
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            Prueba, 1, 2, 3
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            परीक्षा, १, २, ३
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
+    <termEntry id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
+      
+      <langSet xml:lang="la">
+        <tig>
+          <term>
+            I,V, X, L, C, D, M
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="pt">
+        <tig>
+          <term>
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="en">
+        <tig>
+          <term>
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="es">
+        <tig>
+          <term>
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="hi">
+        <tig>
+          <term>
+            ०, १, २, ३, ४, ५, ६, ७, ८, ९
+          </term>
+        </tig>
+      </langSet>
+      <langSet xml:lang="sl">
+        <tig>
+          <term>
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+          </term>
+        </tig>
+      </langSet>
+    </termEntry>
+
+    </body>
+  </text>
+</martif>
+

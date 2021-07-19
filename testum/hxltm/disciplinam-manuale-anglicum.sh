@@ -202,6 +202,41 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 
 # end::CSV-3[]
 
+#### TBX-Basim _________________________________________________________________
+# tag::TBX-Basim[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Explanation about the format at cor.hxltm.yml:normam.TBX-Basim
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-TBX-Basim
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: they save the input data on a file on
+# disk.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.tbx \
+  --objectivum-TBX-Basim
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim > resultatum/hxltm-exemplum-linguam.tbx
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# TODO: docupent eventual new options to the --objectivum-TMX here.
+# [eng-Latn]_
+
+# end::TBX-Basim[]
+
 #### TMX _______________________________________________________________________
 # tag::TMX[]
 ### I -------------------------------------------------------------------------
@@ -358,6 +393,9 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 
 ## TMX
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --objectivum-TMX --experimentum-est --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml --expertum-HXLTM-ASA-verbosum
+
+## TBX-Basim
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tbx --objectivum-TBX-Basim --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml
 
 ## XLIFF2
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf --objectivum-XLIFF --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es --auxilium-linguam eng-Latn@en,lat-Latn@la --experimentum-est --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf.asa.hxltm.yml --expertum-HXLTM-ASA-verbosum
