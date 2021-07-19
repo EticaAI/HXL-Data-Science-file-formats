@@ -94,6 +94,20 @@ normam:
       modus_operandi:
         # - multiplum_linguam
         - bilingue
+
+    formatum:
+      initiale: |-
+        "{{ globum.fontem_linguam.bcp47 | default: 'la' }}","{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}","commentarium"
+
+      # @TODO: this is a draft. Needs to deal with , and " on data
+      #        (maybe at Python Class level), See also
+      #        https://stackoverflow.com/questions/17808511
+      #        /properly-escape-a-double-quote-in-csv
+      corporeum: |-
+        "{{ rem.de_fontem_linguam.rem }}","{{ rem.de_objectivum_linguam.rem }}",""
+
+      finale: False
+
   # end::normam_CSV-3[]
 
   #### HXLated bilingual CSV (+ up to 5 source alt) for XLIFF___________________

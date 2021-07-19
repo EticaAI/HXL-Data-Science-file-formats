@@ -173,7 +173,9 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # tag::CSV-3[]
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: CSV-3; This section is a draft
+# @TODO: we need to give a quick explanation of some tools that on worst case
+#        scenario alredy undestand the 'CSV-3' style of
+#        source-language,target-language,comment
 # [eng-Latn]_
 
 ### II -------------------------------------------------------------------------
@@ -181,21 +183,53 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-3
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-CSV-3
 
-# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# Instead of use the default source (Latin) and objective (Arab, the classic
+# one) on both examples is defined the source (first column) and objective
+# second column):
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --objectivum-CSV-3
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
-# The next 2 examples are equivalent: they save the input data on a file on
-# disk.
+# Instead of use the default source (Latin) and objective (Arab, the classic
+# one) on both examples is defined the source (first column) and objective
+# second column):
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+#
+# but now, instead of print to stdout, save on the file
+# resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv
 # [eng-Latn]_
 
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-#   resultatum/hxltm-exemplum-linguam.xliff.hxl.csv \
+#   resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv \
 #   --objectivum-CSV-3
 
-# cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 > resultatum/hxltm-exemplum-linguam.xliff.hxl.csv
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --objectivum-CSV-3
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es > resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
