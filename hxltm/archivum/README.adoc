@@ -193,13 +193,41 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_UTX]
 include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF]
 ----
 
-[#XLIFF1]
-=== `+XLIFF1+`:
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XLIFF]
+----
+
+===== Result example
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
+----
+
+[#XLIFF-obsoletum]
+=== `+XLIFF-obsoletum+`:
 ==== XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)
 
 [source,yaml]
 ----
-include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF1]
+include::../../ontologia/cor.hxltm.yml[tag=normam_XLIFF-obsoletum]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XLIFF-obsoletum]
+----
+
+===== Result example
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf[]
 ----
 
 [#XLSX]

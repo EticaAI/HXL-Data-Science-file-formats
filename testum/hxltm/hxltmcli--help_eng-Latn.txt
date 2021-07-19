@@ -79,8 +79,8 @@ optional arguments:
                         Export to Translation Memory eXchange (TMX) v1.4b.
                         Multilingual output format
   --objectivum-TBX-Basim, --TBX-Basim
-                        (Planned, but not implemented yet) Export to Term Base
-                        eXchange (TBX). Multilingual output format
+                        (Working draft) Export to Term Base eXchange (TBX)
+                        Basic Multilingual output format
   --objectivum-UTX, --UTX
                         (Planned, but not implemented yet) Export to Universal
                         Terminology eXchange (UTX). Multilingual output format

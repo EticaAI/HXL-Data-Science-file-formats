@@ -1,5 +1,5 @@
 {
-  "__ontologia_cor_versionem__": "v0.8.4+EticaAI+voluntārium-commūne",
+  "__ontologia_cor_versionem__": "v0.8.5+EticaAI+voluntārium-commūne",
   "fontem_archivum_extensionem": {
     ".tm.hxl.csv": "HXLTM",
     ".xliff.hxl.csv": "CSV-HXL-XLIFF",
@@ -168,15 +168,21 @@
     "TBX-Basim": {
       "__meta": {
         "archivum_extensionem": ".tbx",
+        "descriptionem": "_[eng-Latn]\nSee the links\n[eng-Latn]_\n- http://www.terminorgs.net/Terminology-Starter-Guide.html\n- https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf\n- http://www.ttt.org/oscarStandards/tbx/tbx-basic.html\n",
+        "exemplum": [
+          "http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip"
+        ],
         "normam": [
           "http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf"
         ],
         "nomen": {
-          "eng-Latn": "TermBase eXchange (TBX) Basic (planned, no draft)"
+          "eng-Latn": "TermBase eXchange (TBX) Basic 2.1"
         },
         "situs_interretialis": {
           "referens_officinale": [
-            "http://www.terminorgs.net/TBX-Basic.html"
+            "http://www.terminorgs.net/TBX-Basic.html",
+            "http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip",
+            "http://www.ttt.org/oscarStandards/tbx/tbx-basic.html"
           ]
         }
       },
@@ -184,6 +190,11 @@
         "modus_operandi": [
           "multiplum_linguam"
         ]
+      },
+      "formatum": {
+        "initiale": "<?xml version='1.0'?>\n<!DOCTYPE martif SYSTEM \"TBXBasiccoreStructV02.dtd\">\n<martif type=\"TBX-Basic\"\n  xml:lang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\">\n  <martifHeader>\n    <fileDesc>\n      <titleStmt>\n        <title>TBX-Basic Sample File</title>\n        <note>\n          Lorem ipsum dolor semet\n        </note>\n      </titleStmt>\n      <sourceDesc>\n        <p>Lorem ipsum dolor semet</p>\n      </sourceDesc>\n    </fileDesc>\n    <!-- @TODO martifHeader -->\n  </martifHeader>\n  <text>\n    <body>\n",
+        "corporeum": "    <termEntry id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <langSet xml:lang=\"{{ item[1].bcp47 }}\">\n        <tig>\n          <term>\n            {{ item[1].rem }}\n          </term>\n        </tig>\n      </langSet>\n      {%- endif -%}\n      {%- endfor %}\n    </termEntry>\n",
+        "finale": "    </body>\n  </text>\n</martif>\n"
       }
     },
     "TBX-2008": {
@@ -266,7 +277,7 @@
         ]
       }
     },
-    "XLIFF": {
+    "XLIFF-obsoletum": {
       "__meta": {
         "archivum_extensionem": ".xlf",
         "situs_interretialis": {
@@ -296,7 +307,7 @@
       },
       "formatum": {
         "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"2.0\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:2.0\"\n  srcLang=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n  trgLang=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\">\n  <file id=\"f1\">\n",
-        "corporeum": "    {% if rem.de_fontem_linguam -%}\n    <unit id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      <segment>\n        <source>{{ rem.de_fontem_linguam.rem }}</source>\n        {%- if rem.de_objectivum_linguam %}\n        <target>{{ rem.de_objectivum_linguam.rem }}</target>\n        {%- else -%}\n          <!-- non rem.de_objectivum_linguam -->\n        {%- endif  %}\n\n        {%- if rem.de_auxilium_linguam %}\n        <notes>\n          {% for item in rem.de_auxilium_linguam -%}\n          <note appliesTo=\"source\"\n            priority=\"2\"\n            category=\"mycat\">\n            {{ item.rem }}\n          </note>\n          {% endfor -%}\n        </notes>\n        {%- else -%}\n          <!-- non rem.de_auxilium_linguam -->\n        {%- endif  %}\n\n      </segment>\n    </unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
+        "corporeum": "    {% if rem.de_fontem_linguam -%}\n    <unit id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      <segment>\n        <source>{{ rem.de_fontem_linguam.rem }}</source>\n        {%- if rem.de_objectivum_linguam %}\n        <target>{{ rem.de_objectivum_linguam.rem }}</target>\n        {%- else -%}\n          <!-- non rem.de_objectivum_linguam -->\n        {%- endif  %}\n\n        {%- if rem.de_auxilium_linguam %}\n        <notes>\n          {% for item in rem.de_auxilium_linguam -%}\n          <note appliesTo=\"source\" priority=\"2\"\n            category=\"de_auxilium_linguam\">\n            _[{{- item.linguam -}}]\n            {{- item.rem -}}\n            [{{- item.linguam -}}]_\n          </note>\n          {%- endfor %}\n        </notes>\n        {%- else -%}\n          <!-- non rem.de_auxilium_linguam -->\n        {%- endif  %}\n      </segment>\n    </unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
         "finale": "  </file>\n</xliff>\n"
       }
     },
