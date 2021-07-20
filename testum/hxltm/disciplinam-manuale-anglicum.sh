@@ -173,9 +173,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # tag::CSV-3[]
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# @TODO: we need to give a quick explanation of some tools that on worst case
-#        scenario alredy undestand the 'CSV-3' style of
-#        source-language,target-language,comment
+# Documentation at cor.hxltm.yml:normam.CSV-3
 # [eng-Latn]_
 
 ### II -------------------------------------------------------------------------
@@ -238,6 +236,63 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
 
 # end::CSV-3[]
 
+#### TSV-3 _____________________________________________________________________
+# tag::TSV-3[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Documentation at cor.hxltm.yml:normam.TSV-3
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-TSV-3
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TSV-3
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# Instead of use the default source (Latin) and objective (Arab, the classic
+# one) on both examples is defined the source (first column) and objective
+# second column):
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --objectivum-TSV-3
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TSV-3 --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# Instead of use the default source (Latin) and objective (Arab, the classic
+# one) on both examples is defined the source (first column) and objective
+# second column):
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+#
+# but now, instead of print to stdout, save on the file
+# resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --objectivum-TSV-3
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TSV-3 --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es > resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv
+# end::TSV-3[]
+
 #### TBX-Basim _________________________________________________________________
 # tag::TBX-Basim[]
 ### I -------------------------------------------------------------------------
@@ -277,7 +332,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim > result
 # tag::TMX[]
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: TMX; This section is a draft
+# Explanation about the format at cor.hxltm.yml:normam.TMX
 # [eng-Latn]_
 
 ### II -------------------------------------------------------------------------
@@ -303,12 +358,9 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX > resultatum/h
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: docupent eventual new options to the --objectivum-TMX here.
+# @TODO: docupent eventual new options to the --objectivum-TMX here, like the
+#        --agendum-linguam
 # [eng-Latn]_
-
-# objectivum_formatum_speciale
-
-# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --objectivum-TMX --objectivum-formatum-speciale TMX-de-marcus
 
 # end::TMX[]
 

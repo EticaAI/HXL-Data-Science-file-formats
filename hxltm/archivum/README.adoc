@@ -104,7 +104,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
 
 [#CSV-3]
 === `+CSV-3+`:
-==== CSV Source + Target + Comment (draft)
+==== CSV 3 bilingual Source + Objective + Comment
 
 [source,yaml]
 ----
@@ -118,7 +118,6 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_CSV-3]
 ----
 include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-3]
 ----
-
 
 ===== Result example
 
@@ -168,6 +167,33 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TBX-Basim]
 [source,xml]
 ----
 include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.tbx[]
+----
+
+
+[#TSV-3]
+=== `+TSV-3+`:
+==== TSV-3 bilingual Source + Objective + Comment
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_TSV-3]
+----
+
+===== Command line examples
+
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TSV-3]
+----
+
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv
+
+[source,tsv]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv[]
 ----
 
 [#TMX]

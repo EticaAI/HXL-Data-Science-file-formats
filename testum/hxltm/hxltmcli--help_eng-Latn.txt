@@ -9,8 +9,8 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--auxilium-linguam auxilium_linguam] [--objectivum-HXLTM]
                 [--objectivum-TMX] [--objectivum-TBX-Basim] [--objectivum-UTX]
                 [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
-                [--objectivum-CSV-3] [--objectivum-CSV-HXL-XLIFF]
-                [--objectivum-JSON-kv]
+                [--objectivum-CSV-3] [--objectivum-TSV-3]
+                [--objectivum-CSV-HXL-XLIFF] [--objectivum-JSON-kv]
                 [--objectivum-formatum-speciale [objectivum_formatum_speciale]]
                 [--limitem-quantitatem [limitem_quantitatem]]
                 [--limitem-initiale-lineam [limitem_initiale_lineam]]
@@ -97,7 +97,11 @@ optional arguments:
   --objectivum-CSV-3, --CSV-3
                         (Not implemented yet) Export to Bilingual CSV with
                         BCP47 headers (source to target) plus comments on last
-                        column
+                        column Bilingual operation.
+  --objectivum-TSV-3, --TSV-3
+                        (Not implemented yet) Export to Bilingual TAB with
+                        BCP47 headers (source to target) plus comments on last
+                        column Bilingual operation.
   --objectivum-CSV-HXL-XLIFF, --CSV-HXL-XLIFF
                         (experimental) HXLated bilingual CSV (feature
                         compatible with XLIFF)
