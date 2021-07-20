@@ -1925,16 +1925,23 @@ normam:
         - bilingue
 
     formatum:
+      # TODO: formatum.initiale should have access to at least the first 10
+      #       data lines. This could allos make some inferences without require
+      #       everyone make it in raw python code (id est, Liquid filters).
       initiale: |-
         #UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};
 
       # TODO: handle " better (maybe create a liquid special filter?)
-      # {{ tabulam }}
       corporeum: |-
+        {%- if tabulam.lineam_indicem contains 1 -%}
+          #{%- for item in rem.de_linguam -%}
+            term:{{ item[1].bcp47 }},
+          {%- endfor %}
+        {% endif -%}
         {%- for item in rem.de_linguam -%}
-        {% if item[1].rem != '' -%}
-          "{{- item[1].rem -}}",
-        {%- endif -%}
+          {% if item[1].rem != '' -%}
+            "{{- item[1].rem -}}",
+          {%- endif -%}
         {%- endfor -%}
 
       finale: false
@@ -3553,7 +3560,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 17:20:22 UTC
+Last updated 2021-07-20 18:17:17 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
