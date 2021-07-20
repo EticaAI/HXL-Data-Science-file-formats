@@ -462,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#CSV-3"><code>CSV-3</code>:</a>
 <ul class="sectlevel3">
-<li><a href="#_csv_source_target_comment_draft">CSV Source + Target + Comment (draft)</a></li>
+<li><a href="#_csv_3_bilingual_source_objective_comment">CSV 3 bilingual Source + Objective + Comment</a></li>
 </ul>
 </li>
 <li><a href="#GSheets"><code>GSheets</code>:</a>
@@ -478,6 +478,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#TBX-Basim"><code>TBX-Basim</code>:</a>
 <ul class="sectlevel3">
 <li><a href="#_termbase_exchange_tbx_basic_2_1">TermBase eXchange (TBX) Basic 2.1</a></li>
+</ul>
+</li>
+<li><a href="#TSV-3"><code>TSV-3</code>:</a>
+<ul class="sectlevel3">
+<li><a href="#_tsv_3_bilingual_source_objective_comment">TSV-3 bilingual Source + Objective + Comment</a></li>
 </ul>
 </li>
 <li><a href="#TMX"><code>TMX</code>:</a>
@@ -625,12 +630,12 @@ HXLTM (Google Docs) -&gt; Translation Memory eXchange format (TMX):
     __meta:
       archivum_extensionem: .tm.hxl.csv
       normam:
-        - https://github.com/HXL-CPLP/forum/issues/58
+        - &lt;https://github.com/HXL-CPLP/forum/issues/58&gt;
       nomen:
         eng-Latn: 'HXL Trānslātiōnem Memoriam'
       situs_interretialis:
         referens_officinale:
-          - https://hdp.etica.ai/hxltm</code></pre>
+          - &lt;https://hdp.etica.ai/hxltm&gt;</code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -700,7 +705,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
         - .asa.hxltm.json
         - .asa.hxltm.yml
       normam:
-        - https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA
+        - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA&gt;
       descriptionem: |
         _[eng-Latn]
         The HXLTM-ASA is an not strictly documented Abstract Syntax Tree
@@ -719,18 +724,18 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
         [eng-Latn]_
 
         Trivia:
-          - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
-          - syntaxim, https://en.wiktionary.org/wiki/syntaxis#Latin
-          - arborem, https://en.wiktionary.org/wiki/arbor#Latin
+          - abstractum, &lt;https://en.wiktionary.org/wiki/abstractus#Latin&gt;
+          - syntaxim, &lt;https://en.wiktionary.org/wiki/syntaxis#Latin&gt;
+          - arborem, &lt;https://en.wiktionary.org/wiki/arbor#Latin&gt;
           - conceptum de Abstractum Syntaxim Arborem
-            - https://www.wikidata.org/wiki/Q127380
+            - &lt;https://www.wikidata.org/wiki/Q127380&gt;
       nomen:
         eng-Latn: 'HXLTM Abstractum Syntaxim Arborem'
       situs_interretialis:
         referens_officinale:
-          - https://hdp.etica.ai/hxltm
-          - https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM
-          - https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22</code></pre>
+          - &lt;https://hdp.etica.ai/hxltm&gt;
+          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM&gt;
+          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22&gt;</code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -781,18 +786,36 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 <div class="sect2">
 <h3 id="CSV-3"><code>CSV-3</code>:</h3>
 <div class="sect3">
-<h4 id="_csv_source_target_comment_draft">CSV Source + Target + Comment (draft)</h4>
+<h4 id="_csv_3_bilingual_source_objective_comment">CSV 3 bilingual Source + Objective + Comment</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  CSV-3:
     __meta:
       archivum_extensionem: .csv
+      descriptionem: |
+        _[eng-Latn]
+        The hxltm "CSV-3" export format is a somewhat basic (but at worst case
+        accpted by several tools) with the following column order:
+
+        &gt;    "source-language","target-language",comment
+        &gt;    "verbum", "كلمة","Arabic translationem de latin verbum"
+
+        Some references of tools that allow conversions using this format:
+
+        - Okapi Framework
+          - &lt;https://okapiframework.org/wiki/index.php/Table_Filter&gt;
+        - MateCat
+          - &lt;https://site.matecat.com/support/managing-language-resources/add-glossary/&gt;
+        [eng-Latn]_
       normam:
-        - https://site.matecat.com/support/managing-language-resources/add-glossary/
+        - &lt;https://datatracker.ietf.org/doc/html/rfc4180&gt;
       nomen:
-        eng-Latn: 'Source + Target + Comment (draft)'
+        eng-Latn: 'CSV 3 bilingual Source + Objective + Comment'
       situs_interretialis:
-        referens_officinale: []
+        referens_officinale:
+          - &lt;https://datatracker.ietf.org/doc/html/rfc4180&gt;
+        vicipaedia:
+          - &lt;https://en.wikipedia.org/wiki/Comma-separated_values&gt;
 
     # Trivia:
     # - ASA
@@ -803,14 +826,14 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
         # - multiplum_linguam
         - bilingue
 
+    # @TODO: this is a draft. Needs to deal with , and " on data
+    #        (maybe at Python Class level), See also
+    #        https://stackoverflow.com/questions/17808511
+    #        /properly-escape-a-double-quote-in-csv
     formatum:
       initiale: |-
         "{{ globum.fontem_linguam.bcp47 | default: 'la' }}","{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}","commentarium"
 
-      # @TODO: this is a draft. Needs to deal with , and " on data
-      #        (maybe at Python Class level), See also
-      #        https://stackoverflow.com/questions/17808511
-      #        /properly-escape-a-double-quote-in-csv
       corporeum: |-
         "{{ rem.de_fontem_linguam.rem }}","{{ rem.de_objectivum_linguam.rem }}",""
 
@@ -823,9 +846,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# @TODO: we need to give a quick explanation of some tools that on worst case
-#        scenario alredy undestand the 'CSV-3' style of
-#        source-language,target-language,comment
+# Documentation at cor.hxltm.yml:normam.CSV-3
 # [eng-Latn]_
 
 ### II -------------------------------------------------------------------------
@@ -926,18 +947,14 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
     __meta:
       # archivum_extensionem: None
       normam:
-        - https://developers.google.com/sheets/api
+        - &lt;https://developers.google.com/sheets/api&gt;
       nomen:
         eng-Latn: 'Google Sheets (via CSV import)'
       situs_interretialis:
         referens_officinale:
-          - https://www.google.com/sheets/about/
+          - &lt;https://www.google.com/sheets/about/&gt;
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         - multiplum_linguam
         # - bilingue</code></pre>
@@ -956,20 +973,16 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       archivum_extensionem: .json
       normam:
         # Not sure where to find some place to 'explain' this format
-        - https://angular.io/guide/i18n#change-the-source-language-file-location
-        - https://www.i18next.com/misc/json-format
+        - &lt;https://angular.io/guide/i18n#change-the-source-language-file-location&gt;
+        - &lt;https://www.i18next.com/misc/json-format&gt;
       nomen:
         eng-Latn: 'JSON key: val; id/source -&gt; target (draft)'
       situs_interretialis:
         referens_officinale: []
     exemplum:
-      - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+      - &lt;https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json&gt;
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         # - multiplum_linguam
         - bilingue</code></pre>
@@ -991,26 +1004,22 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
         _[eng-Latn]
         See the links
         [eng-Latn]_
-        - http://www.terminorgs.net/Terminology-Starter-Guide.html
-        - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
-        - http://www.ttt.org/oscarStandards/tbx/tbx-basic.html
+        - &lt;http://www.terminorgs.net/Terminology-Starter-Guide.html&gt;
+        - &lt;https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf&gt;
+        - &lt;http://www.ttt.org/oscarStandards/tbx/tbx-basic.html&gt;
       exemplum:
-        - http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
+        - &lt;http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip&gt;
       normam:
-        - http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+        - &lt;http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf&gt;
       nomen:
         eng-Latn: 'TermBase eXchange (TBX) Basic 2.1'
       situs_interretialis:
         referens_officinale:
-          - http://www.terminorgs.net/TBX-Basic.html
-          - http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip
-          - http://www.ttt.org/oscarStandards/tbx/tbx-basic.html
+          - &lt;http://www.terminorgs.net/TBX-Basic.html&gt;
+          - &lt;http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip&gt;
+          - &lt;http://www.ttt.org/oscarStandards/tbx/tbx-basic.html&gt;
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         - multiplum_linguam
         # - bilingue
@@ -1089,11 +1098,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
     #      - https://www.tbxinfo.net/wp-content/uploads/2016/05/sampleSpreadsheets.zip
     # - https://multilingual.com/issues/july-aug-2019/tbx-version-3-published-at-iso/
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         - multiplum_linguam
         # - bilingue</code></pre>
@@ -1551,6 +1556,138 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; res
 </div>
 </div>
 <div class="sect2">
+<h3 id="TSV-3"><code>TSV-3</code>:</h3>
+<div class="sect3">
+<h4 id="_tsv_3_bilingual_source_objective_comment">TSV-3 bilingual Source + Objective + Comment</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  TSV-3:
+    __meta:
+      archivum_extensionem: .tab
+      descriptionem: |
+        _[eng-Latn]
+        The hxltm "TSV-3" is que version of the "CSV-3" with tabs.
+
+        It will exportl tools) with the following column order:
+
+        &gt;    source-language	target-language	comment
+        &gt;    verbum	كلمة	Arabic translationem de latin verbum
+
+        This format is less common than CSV-3, but may be useful when tab
+        is never used inside the fields.
+
+        [eng-Latn]_
+      normam:
+        - &lt;https://datatracker.ietf.org/doc/html/rfc4180&gt;
+        - &lt;https://www.iana.org/assignments/media-types/text/tab-separated-values&gt;
+        # - &lt;http://dataprotocols.org/linear-tsv/&gt;
+      nomen:
+        eng-Latn: 'TSV-3 bilingual Source + Objective + Comment'
+      situs_interretialis:
+        vicipaedia:
+          - &lt;https://en.wikipedia.org/wiki/Tab-separated_values&gt;
+
+    asa:
+      modus_operandi:
+        # - multiplum_linguam
+        - bilingue
+
+    formatum:
+      initiale: |-
+        {{ globum.fontem_linguam.bcp47 | default: 'la' }}	{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}	commentarium
+
+      corporeum: |-
+        {{ rem.de_fontem_linguam.rem }}	{{ rem.de_objectivum_linguam.rem }}	
+
+      finale: False</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_command_line_examples_5">Command line examples</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Documentation at cor.hxltm.yml:normam.TSV-3
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-TSV-3
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TSV-3
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# Instead of use the default source (Latin) and objective (Arab, the classic
+# one) on both examples is defined the source (first column) and objective
+# second column):
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --objectivum-TSV-3
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TSV-3 --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# Instead of use the default source (Latin) and objective (Arab, the classic
+# one) on both examples is defined the source (first column) and objective
+# second column):
+# - XLIFF source language:
+#     - Portuguese
+# - XLIFF objective (target) language:
+#     - Spanish
+#
+# but now, instead of print to stdout, save on the file
+# resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.csv
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv \
+  --fontem-linguam por-Latn@pt \
+  --objectivum-linguam spa-Latn@es \
+  --objectivum-TSV-3
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TSV-3 --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es &gt; resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_result_example_3">Result example</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv" class="bare">https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.tsv</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-tsv hljs" data-lang="tsv">pt	es	commentarium
+por-Latn	spa-Latn	
+Língua portuguesa	Idioma español	
+Alfabeto latino	Alfabeto latino	
+001	001	
+∅	∅	
+Olá mundo!	¡Hola mundo!	
+Teste, 1, 2, 3	Prueba, 1, 2, 3	
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10	1, 2, 3, 4, 5, 6, 7, 8, 9, 10	</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="TMX"><code>TMX</code>:</h3>
 <div class="sect3">
 <h4 id="_translation_memory_exchange_format_tmx">Translation Memory eXchange format (TMX)</h4>
@@ -1568,11 +1705,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; res
         referens_officinale:
           - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         - multiplum_linguam
         # - bilingue
@@ -1593,8 +1726,6 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; res
           /&gt;
           &lt;body&gt;
 
-      # TODO: implement indicem_lineam
-      # TODO: implement indicem_columnam
       corporeum: |2
             &lt;tu tuid="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
               {%- if conceptum.conceptum_codicem_wikidata %}
@@ -1617,12 +1748,12 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; res
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_5">Command line examples</h5>
+<h5 id="_command_line_examples_6">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: TMX; This section is a draft
+# Explanation about the format at cor.hxltm.yml:normam.TMX
 # [eng-Latn]_
 
 ### II -------------------------------------------------------------------------
@@ -1648,12 +1779,9 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
-# TODO: docupent eventual new options to the --objectivum-TMX here.
-# [eng-Latn]_
-
-# objectivum_formatum_speciale
-
-# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --objectivum-TMX --objectivum-formatum-speciale TMX-de-marcus</code></pre>
+# @TODO: docupent eventual new options to the --objectivum-TMX here, like the
+#        --agendum-linguam
+# [eng-Latn]_</code></pre>
 </div>
 </div>
 </div>
@@ -1682,11 +1810,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
         - https://aamt.info/english/download/#UTX_Glossaries
         - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         - multiplum_linguam
         - bilingue</code></pre>
@@ -1706,27 +1830,23 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
       archivum_extensionem: .xlf
       situs_interretialis:
         referens_officinale:
-          - https://www.oasis-open.org/committees/xliff/
+          - &lt;https://www.oasis-open.org/committees/xliff/&gt;
         vicipaedia:
-          - https://en.wikipedia.org/wiki/XLIFF
+          - &lt;https://en.wikipedia.org/wiki/XLIFF&gt;
       exemplum:
-        - https://github.com/oasis-tcs/xliff-xliff-22
-        - https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/allExtensions.xlf
-        - https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/everything-core.xlf
+        - &lt;https://github.com/oasis-tcs/xliff-xliff-22&gt;
+        - &lt;https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/allExtensions.xlf&gt;
+        - &lt;https://github.com/oasis-tcs/xliff-xliff-22/blob/master/xliff-21/test-suite/core/valid/everything-core.xlf&gt;
       normam:
-        - https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html
-        # - https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/
-        # @see https://github.com/redhat-developer/vscode-xml/wiki/XMLValidation#XML-catalog-with-XSD
-        # @see https://github.com/redhat-developer/vscode-xml/issues/315
-        - https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/catalog.xml
+        - &lt;https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html&gt;
+        # - &lt;https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/&gt;
+        # @see &lt;https://github.com/redhat-developer/vscode-xml/wiki/XMLValidation#XML-catalog-with-XSD&gt;
+        # @see &lt;https://github.com/redhat-developer/vscode-xml/issues/315&gt;
+        - &lt;https://docs.oasis-open.org/xliff/xliff-core/v2.1/os/schemas/catalog.xml&gt;
       nomen:
         eng-Latn: 'XML Localization Interchange File Format (XLIFF) v2.1'
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         # - multiplum_linguam
         - bilingue
@@ -1789,7 +1909,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_6">Command line examples</h5>
+<h5 id="_command_line_examples_7">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -1848,7 +1968,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_result_example_3">Result example</h5>
+<h5 id="_result_example_4">Result example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0"?&gt;
@@ -1982,21 +2102,17 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
       archivum_extensionem: .xlf
       situs_interretialis:
         referens_officinale:
-          - https://www.oasis-open.org/committees/xliff/
+          - &lt;https://www.oasis-open.org/committees/xliff/&gt;
         vicipaedia:
-          - https://en.wikipedia.org/wiki/XLIFF
+          - &lt;https://en.wikipedia.org/wiki/XLIFF&gt;
       normam:
-        - https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html
-        - https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd
-        - http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd
+        - &lt;https://docs.oasis-open.org/xliff/xliff-core/xliff-core.html&gt;
+        - &lt;https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd&gt;
+        - &lt;http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd&gt;
       nomen:
         eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)'
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         # - multiplum_linguam
         - bilingue
@@ -2046,7 +2162,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_7">Command line examples</h5>
+<h5 id="_command_line_examples_8">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -2105,7 +2221,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_result_example_4">Result example</h5>
+<h5 id="_result_example_5">Result example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0"?&gt;
@@ -2243,11 +2359,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
       nomen:
         eng-Latn: 'Microsoft Excel (native support to read, but not write, data directly with .XSLX)'
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         - multiplum_linguam
         # - bilingue</code></pre>
@@ -2266,20 +2378,16 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
       archivum_extensionem: .yml
       normam:
         # Not sure where to find some place to 'explain' this format
-        - https://guides.rubyonrails.org/i18n.html
+        - &lt;https://guides.rubyonrails.org/i18n.html&gt;
       nomen:
         eng-Latn: 'YAML (planned, but no draft)'
       situs_interretialis:
         referens_officinale:
-          - https://guides.rubyonrails.org/i18n.html
+          - &lt;https://guides.rubyonrails.org/i18n.html&gt;
       exemplum:
-        - https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json
+        - &lt;https://github.com/i18next/react-i18next/blob/master/example/react/public/locales/de/translation.json&gt;
 
-    # Trivia:
-    # - ASA
-    #   - (HXLTM) Abstractum Syntaxim Arborem
     asa:
-      # Trivia: modus operandī, https://en.wiktionary.org/wiki/modus_operandi#Latin
       modus_operandi:
         # - multiplum_linguam
         - bilingue</code></pre>
@@ -3693,8 +3801,8 @@ hxltmcli --help</code></pre>
                 [--auxilium-linguam auxilium_linguam] [--objectivum-HXLTM]
                 [--objectivum-TMX] [--objectivum-TBX-Basim] [--objectivum-UTX]
                 [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
-                [--objectivum-CSV-3] [--objectivum-CSV-HXL-XLIFF]
-                [--objectivum-JSON-kv]
+                [--objectivum-CSV-3] [--objectivum-TSV-3]
+                [--objectivum-CSV-HXL-XLIFF] [--objectivum-JSON-kv]
                 [--objectivum-formatum-speciale [objectivum_formatum_speciale]]
                 [--limitem-quantitatem [limitem_quantitatem]]
                 [--limitem-initiale-lineam [limitem_initiale_lineam]]
@@ -3781,7 +3889,11 @@ optional arguments:
   --objectivum-CSV-3, --CSV-3
                         (Not implemented yet) Export to Bilingual CSV with
                         BCP47 headers (source to target) plus comments on last
-                        column
+                        column Bilingual operation.
+  --objectivum-TSV-3, --TSV-3
+                        (Not implemented yet) Export to Bilingual TAB with
+                        BCP47 headers (source to target) plus comments on last
+                        column Bilingual operation.
   --objectivum-CSV-HXL-XLIFF, --CSV-HXL-XLIFF
                         (experimental) HXLated bilingual CSV (feature
                         compatible with XLIFF)
@@ -3916,7 +4028,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-19 23:33:21 UTC
+Last updated 2021-07-20 00:36:28 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

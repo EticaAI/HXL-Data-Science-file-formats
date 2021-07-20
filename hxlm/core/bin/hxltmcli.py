@@ -45,7 +45,7 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.8.4
+#       VERSION:  v0.8.6
 #       CREATED:  2021-06-27 19:50 UTC v0.5, de github.com/EticaAI
 #                     /HXL-Data-Science-file-formats/blob/main/bin/hxl2example
 #      REVISION:  2021-06-27 21:16 UTC v0.6 de hxl2tab
@@ -59,6 +59,7 @@
 #                 2021-07-15 00:02 UTC v0.8.3 HXLTM ASA working draft
 #                 2021-07-18 21:39 UTC v0.8.4 HXLTM ASA MVP (TMX and XLIFF 2)
 #                 2021-07-19 17:50 UTC v0.8.5 HXLTM ASA MVP XLIFF 1, TBX-Basic
+#                 2021-07-20 00:32 UTC v0.8.6 HXLTM ASA MVP CSV-3, TSV-3
 # ==============================================================================
 """hxltmcli.py: Humanitarian Exchange Language Trānslātiōnem Memoriam CLI
 
@@ -225,7 +226,7 @@ from liquid.loaders import DictLoader as LiquiDictLoader
 # template = LiquidTemplate("Hello, {{ you }}!")
 # print(template.render(you="World"))  # "Hello, World!"
 
-__VERSION__ = "v0.8.5"
+__VERSION__ = "v0.8.6"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -570,11 +571,23 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         parser.add_argument(
             '--objectivum-CSV-3', '--CSV-3',
             help='(Not implemented yet) ' +
-            'Export to Bilingual CSV with BCP47 headers (source to target)' +
-            ' plus comments on last column ',
+            'Export to Bilingual CSV with BCP47 headers (source to target) ' +
+            'plus comments on last column '
+            'Bilingual operation. ',
             dest='objectivum_formatum',
             action='append_const',
             const='CSV-3'
+        )
+
+        parser.add_argument(
+            '--objectivum-TSV-3', '--TSV-3',
+            help='(Not implemented yet) ' +
+            'Export to Bilingual TAB with BCP47 headers (source to target) ' +
+            'plus comments on last column '
+            'Bilingual operation. ',
+            dest='objectivum_formatum',
+            action='append_const',
+            const='TSV-3'
         )
 
         parser.add_argument(
@@ -930,22 +943,26 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         """
         formatum = None
 
-        if objectivum_formatum == 'TMX':
-            formatum = HXLTMInFormatumTMX(self.hxltm_asa)
-        elif objectivum_formatum == 'TBX-Basim':
-            formatum = HXLTMInFormatumTBXBasim(self.hxltm_asa)
-
-        elif objectivum_formatum == 'UTX':
-            raise NotImplementedError('UTX not implemented yet')
-
-        elif objectivum_formatum == 'CSV-3':
+        if objectivum_formatum == 'CSV-3':
             formatum = HXLTMInFormatumTabulamCSV3(self.hxltm_asa)
 
-        elif objectivum_formatum == 'CSV-HXL-XLIFF':
-            raise NotImplementedError('CSV-3 not implemented yet')
+        # elif objectivum_formatum == 'CSV-HXL-XLIFF':
+        #     raise NotImplementedError('CSV-3 not implemented yet')
 
         elif objectivum_formatum == 'JSON-kv':
             raise NotImplementedError('JSON-kv not implemented yet')
+
+        elif objectivum_formatum == 'TBX-Basim':
+            formatum = HXLTMInFormatumTBXBasim(self.hxltm_asa)
+
+        elif objectivum_formatum == 'TMX':
+            formatum = HXLTMInFormatumTMX(self.hxltm_asa)
+
+        elif objectivum_formatum == 'TSV-3':
+            formatum = HXLTMInFormatumTabulamTSV3(self.hxltm_asa)
+
+        elif objectivum_formatum == 'UTX':
+            raise NotImplementedError('UTX not implemented yet')
 
         elif objectivum_formatum == 'XLIFF':
             formatum = HXLTMInFormatumXLIFF(self.hxltm_asa)
@@ -3735,9 +3752,15 @@ class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
 
 
 class HXLTMInFormatumTabulamCSV3(HXLTMInFormatumTabulamRadicem):
-    """See cor.hxltm.yml:normam.TBX-Basim"""
+    """See cor.hxltm.yml:normam.CSV-3"""
 
     ONTOLOGIA_NORMAM = 'CSV-3'
+
+
+class HXLTMInFormatumTabulamTSV3(HXLTMInFormatumTabulamRadicem):
+    """See cor.hxltm.yml:normam.TSV-3"""
+
+    ONTOLOGIA_NORMAM = 'TSV-3'
 
 
 class HXLTMInFormatumTBX(HXLTMInFormatum):
