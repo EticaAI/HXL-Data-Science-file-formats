@@ -157,8 +157,6 @@ Some other very frequent generic terms:
 Missing 'good' Latin terms to express meaning in English (for software)
 ----------
 
-- value (as in variable value)
-    - @see https://en.wiktionary.org/wiki/value
 - array, list
     - @see https://en.wiktionary.org/wiki/array
     - Sometimes we use 'Python List' as in
@@ -1156,8 +1154,8 @@ True
         self.datum.asa(hxltm_asa=self)
         self.datum.datum_parandum_statim()
 
-    def quod_globum_valendum(self) -> Dict:
-        """Quod globum valendum?
+    def quod_globum_valorem(self) -> Dict:
+        """Quod globum valōrem?
 
         _[eng-Latn]
         Return global variables (for Ontologia)
@@ -1165,14 +1163,14 @@ True
 
         Trivia:
         - globum, https://en.wiktionary.org/wiki/globus#Latin
-        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+        - valōrem, https://en.wiktionary.org/wiki/valor#Latin
 
         Returns:
-            Dict: globum valendum
+            Dict: globum valorem
         """
-        # TODO: HXLTMASA.quod_globum_valendum is a draft.
+        # TODO: HXLTMASA.quod_globum_valorem is a draft.
         resultatum = {}
-        globum_ontologia = self.ontologia.quod_globum_valendum()
+        globum_ontologia = self.ontologia.quod_globum_valorem()
         globum_argumentum = {'globum': self.argumentum.v()}
         resultatum = {**globum_argumentum, **globum_ontologia}
 
@@ -1185,8 +1183,7 @@ True
         """Ego python Dict
 
         Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
         Args:
@@ -1633,8 +1630,7 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
         """Ego python Dict
 
         Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
         Args:
@@ -1979,7 +1975,7 @@ class HXLTMDatum:
             indicem (HXLTMDatumConceptumSaccum): Conceptum
 
         Returns:
-            [List]: valendum collēctiōnem, id est, crudum Python List
+            [List]: valorem collēctiōnem, id est, crudum Python List
         """
         return self.conceptum[indicem]
 
@@ -2009,7 +2005,7 @@ class HXLTMDatum:
             indicem (Union[int, list]): indicem de līneam
 
         Returns:
-            [List]: valendum collēctiōnem, id est, crudum Python List
+            [List]: valorem collēctiōnem, id est, crudum Python List
         """
         if isinstance(indicem, int):
             return self.datum[indicem]
@@ -2057,8 +2053,7 @@ class HXLTMDatum:
         """Ego python Dict
 
         Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
          - clāvem, https://en.wiktionary.org/wiki/clavis#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
@@ -2444,8 +2439,7 @@ True
         """Ego python Dict
 
         Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
         Args:
@@ -2488,7 +2482,7 @@ class HXLTMDatumColumnam:
         - Datum, https://en.wiktionary.org/wiki/datum#Latin
         - Columnam, https://en.wiktionary.org/wiki/columna#Latin
          - summārius, https://en.wiktionary.org/wiki/summary#English
-        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+        - valōrem, https://en.wiktionary.org/wiki/valor#Latin
             - 'value' , https://en.wiktionary.org/wiki/value#English
         - quantitātem , https://en.wiktionary.org/wiki/quantitas
 
@@ -2549,8 +2543,7 @@ class HXLTMDatumColumnam:
         """Ego python Dict
 
         Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
         Args:
@@ -2722,8 +2715,8 @@ HXLTMASA()
             Dict: Contextum
         """
         contextum = {}
-        contextum['rem'] = self.quod_clavem_et_valendum()
-        contextum['tabulam'] = self.quod_tabulam_valendum_ad_conceptum()
+        contextum['rem'] = self.quod_clavem_et_valorem()
+        contextum['tabulam'] = self.quod_tabulam_valorem_ad_conceptum()
         return contextum
 
     @staticmethod
@@ -2818,8 +2811,8 @@ HXLTMASA()
 
         return resultatum
 
-    def quod_clavem_et_valendum(self) -> Dict:
-        """Quod clāvem et valendum
+    def quod_clavem_et_valorem(self) -> Dict:
+        """Quod clāvem et valorem
 
         _[eng-Latn]
         Return a simple flat (one level) Python dictionary with variables that
@@ -2884,61 +2877,61 @@ HXLTMASA()
             nomen_breve = ''
             # print(col)
             # print(self.lineam_collectionem[0])
-            nunc_valendum = self.lineam_collectionem[0].valendum_de_index(col)
+            nunc_valorem = self.lineam_collectionem[0].valorem_de_index(col)
 
             # '#_0', '#_2', '#_3', '#_4', ...
-            # resultatum['#_' + str(col)] = nunc_valendum
-            resultatum['indicem'].append(nunc_valendum)
+            # resultatum['#_' + str(col)] = nunc_valorem
+            resultatum['indicem'].append(nunc_valorem)
             titulum = self.datum_caput.titulum_de_columnam(col)
             if titulum:
-                resultatum['titulum'][titulum] = nunc_valendum
+                resultatum['titulum'][titulum] = nunc_valorem
 
             hxl_hashtag = self.datum_caput.hxl_hashtag_de_columnam(col)
 
             if hxl_hashtag:
-                resultatum['hxl'][hxl_hashtag] = nunc_valendum
-                # resultatum[hxl_hashtag] = nunc_valendum
+                resultatum['hxl'][hxl_hashtag] = nunc_valorem
+                # resultatum[hxl_hashtag] = nunc_valorem
                 nomen_breve = \
                     self.asa().ontologia.quod_nomen_breve_de_hxl(hxl_hashtag)
 
             if nomen_breve:
 
-                resultatum['de_nomen_breve'][nomen_breve] = nunc_valendum
+                resultatum['de_nomen_breve'][nomen_breve] = nunc_valorem
 
             # TODO: make this non-hardcoded ASAP (via HXLTMOntologia)
             # print('oooi')
             if nomen_breve and nomen_breve == 'rem__L__':
-                # print('nunc_valendum', nunc_valendum)
+                # print('nunc_valorem', nunc_valorem)
                 # resultatum['rem'] = []
-                nunc_valendum_rem = HXLTMRem(
+                nunc_valorem_rem = HXLTMRem(
                     hashtag=hxl_hashtag,
-                    rem=nunc_valendum
+                    rem=nunc_valorem
                 ).v()
 
                 # print('fon_l', fon_l)
 
-                if fon_l is not None and fon_l == nunc_valendum_rem['linguam']:
-                    resultatum['de_fontem_linguam'] = nunc_valendum_rem
+                if fon_l is not None and fon_l == nunc_valorem_rem['linguam']:
+                    resultatum['de_fontem_linguam'] = nunc_valorem_rem
 
-                if obj_l is not None and obj_l == nunc_valendum_rem['linguam']:
-                    resultatum['de_objectivum_linguam'] = nunc_valendum_rem
+                if obj_l is not None and obj_l == nunc_valorem_rem['linguam']:
+                    resultatum['de_objectivum_linguam'] = nunc_valorem_rem
 
-                if aux_l is not None and nunc_valendum_rem['linguam'] in aux_l:
-                    resultatum['de_auxilium_linguam'].append(nunc_valendum_rem)
-                #     print('yay', aux_l, nunc_valendum_rem['linguam'])
+                if aux_l is not None and nunc_valorem_rem['linguam'] in aux_l:
+                    resultatum['de_auxilium_linguam'].append(nunc_valorem_rem)
+                #     print('yay', aux_l, nunc_valorem_rem['linguam'])
                 # else:
-                #     print('noop', aux_l, nunc_valendum_rem['linguam'])
+                #     print('noop', aux_l, nunc_valorem_rem['linguam'])
 
-                resultatum['de_linguam'][nunc_valendum_rem['linguam']] = \
-                    nunc_valendum_rem
+                resultatum['de_linguam'][nunc_valorem_rem['linguam']] = \
+                    nunc_valorem_rem
 
             # print(col)
             # print(resultatum)
 
         return resultatum
 
-    def quod_tabulam_valendum_ad_conceptum(self) -> Dict:
-        """Quod tabulam valendum ad conceptum?
+    def quod_tabulam_valorem_ad_conceptum(self) -> Dict:
+        """Quod tabulam valorem ad conceptum?
 
         _[eng-Latn]
         What table information applies to this concept?
@@ -2990,7 +2983,7 @@ HXLTMASA()
         if self.lineam_collectionem and len(self.lineam_collectionem) > 0:
             for vindex in conceptum_index:
                 conceptum_nomen += str(
-                    self.lineam_collectionem[0].valendum_de_index(vindex))
+                    self.lineam_collectionem[0].valorem_de_index(vindex))
 
         return conceptum_nomen
 
@@ -2998,8 +2991,7 @@ HXLTMASA()
         """Ego python Dict
 
         Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
         Args:
@@ -3014,7 +3006,7 @@ HXLTMASA()
         resultatum = {
             '_typum': self._typum,
             'conceptum_nomen': self.quod_nomen(),
-            'rem': self.quod_clavem_et_valendum(),
+            'rem': self.quod_clavem_et_valorem(),
             'lineam_collectionem': [],
             'vacuum': self.vacuum,
         }
@@ -3036,7 +3028,7 @@ class HXLTMDatumLineam:
         - HXLTM, https://hdp.etica.ai/hxltm
         - Datum, https://en.wiktionary.org/wiki/datum#Latin
         - līneam, https://en.wiktionary.org/wiki/linea#Latin
-        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+        - valōrem, https://en.wiktionary.org/wiki/valor#Latin
             - 'value' , https://en.wiktionary.org/wiki/value#English
         - quantitātem , https://en.wiktionary.org/wiki/quantitas
 
@@ -3069,10 +3061,10 @@ True
 {'_typum': 'HXLTMDatumLineam', 'indicem': -1, \
 'lineam': [3, 'Amat canem Marcus.', 'vērum? vērum!'], 'vacuum': False}
 
->>> lineam_obj_b.valendum_de_index(lineam_indicem = 2)
+>>> lineam_obj_b.valorem_de_index(lineam_indicem = 2)
 'vērum? vērum!'
 
->>> lineam_obj_b.valendum_de_hxl('#item+lat_nomen')
+>>> lineam_obj_b.valorem_de_hxl('#item+lat_nomen')
 'Amat canem Marcus.'
 
 >>> datum_lineam_III_red = HXLTMDatumLineam.reducendum_de_datum(
@@ -3142,8 +3134,7 @@ True
         """Ego python Dict
 
         Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
         Args:
@@ -3163,11 +3154,11 @@ True
         # return self.__dict__
         return resultatum
 
-    def valendum_de_index(self, lineam_indicem: int):
-        """Valendum dē indicem
+    def valorem_de_index(self, lineam_indicem: int):
+        """valorem dē indicem
 
         Trivia:
-            - valendum	https://en.wiktionary.org/wiki/valeo#Latin
+            - valorem	https://en.wiktionary.org/wiki/valeo#Latin
             - dē, https://en.wiktionary.org/wiki/de#Latin
             - indicem, https://en.wiktionary.org/wiki/index#Latin
 
@@ -3183,13 +3174,13 @@ True
         # print('self.lineam len', len(self.lineam))
         return self.lineam[lineam_indicem]
 
-    def valendum_de_hxl(
+    def valorem_de_hxl(
         self, hxl_hashtag: str, exactum: bool = False, strictum=False
     ):
-        """Valendum de HXL hashtag
+        """valorem de HXL hashtag
 
         Trivia:
-            - valendum	https://en.wiktionary.org/wiki/valeo#Latin
+            - valorem	https://en.wiktionary.org/wiki/valeo#Latin
             - indicem, https://en.wiktionary.org/wiki/index#Latin
             - dē, https://en.wiktionary.org/wiki/de#Latin
             - hxl hashtag, https://hxlstandard.org/
@@ -3406,7 +3397,7 @@ class HXLTMInFormatum(ABC):
             # print('ooooi', hxltm_asa.argumentum.objectivum_formatum_speciale)
             self.ontologia_normam_speciale = \
                 hxltm_asa.argumentum.objectivum_formatum_speciale
-        self.globum = self.quod_globum_valendum()
+        self.globum = self.quod_globum_valorem()
         self.normam = self.globum['normam']
 
     def datum_initiale(self) -> List:
@@ -3562,10 +3553,10 @@ Salvi, {{ i }}! \
         # @see https://github.com/jg-rp/liquid#quick-start
         formatum_excerptum = LiquiDictLoader(
             self.ontologia.quod_formatum_excerptum())
-        globum_valendum = self.quod_globum_valendum()
+        globum_valorem = self.quod_globum_valorem()
 
         env = LiquidEnvironment(
-            globals=globum_valendum,
+            globals=globum_valorem,
             loader=formatum_excerptum
         )
         liquid_template = env.from_string(liquid_formatum)
@@ -3699,8 +3690,8 @@ Salvi, {{ i }}! \
             for rem in finale:
                 print(rem)
 
-    def quod_globum_valendum(self) -> Dict:
-        """Quod globum valendum?
+    def quod_globum_valorem(self) -> Dict:
+        """Quod globum valorem?
 
         _[eng-Latn]
         Return global variables (the ones that do no varies with each row)
@@ -3708,12 +3699,12 @@ Salvi, {{ i }}! \
 
         Trivia:
         - globum, https://en.wiktionary.org/wiki/globus#Latin
-        - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+        - valōrem, https://en.wiktionary.org/wiki/valor#Latin
 
         Returns:
-            Dict: globum valendum
+            Dict: globum valorem
         """
-        globum = self.hxltm_asa.quod_globum_valendum()
+        globum = self.hxltm_asa.quod_globum_valorem()
         summam = {}
 
         # print(globum.keys())
@@ -4219,8 +4210,8 @@ True
             return self.crudum['formatum_excerptum']
         return {}
 
-    def quod_globum_valendum(self) -> Dict:
-        """Quod globum valendum?
+    def quod_globum_valorem(self) -> Dict:
+        """Quod globum valorem?
 
         _[eng-Latn]
         Return global variables (for Ontologia)
@@ -4228,12 +4219,12 @@ True
 
         Trivia:
             - globum, https://en.wiktionary.org/wiki/globus#Latin
-            - valendum, https://en.wiktionary.org/wiki/valeo#Latin
+            - valōrem, https://en.wiktionary.org/wiki/valor#Latin
 
         Returns:
-            Dict: globum valendum
+            Dict: globum valorem
         """
-        # TODO: HXLTMOntologia.quod_globum_valendum is a draft.
+        # TODO: HXLTMOntologia.quod_globum_valorem is a draft.
         # resultatum = {}
         # return resultatum
         return self.crudum
@@ -4736,8 +4727,7 @@ HXLTMLinguam()
         """Ego python Dict
 
         Trivia:
-         - valendum, https://en.wiktionary.org/wiki/valeo#Latin
-           - Anglicum (English): value (?)
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
          - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
 
         Args:
@@ -4752,7 +4742,7 @@ HXLTMLinguam()
 class HXLTMRem(HXLTMLinguam):
 
     # columnam: InitVar[int] = -1
-    # valendum_meta: InitVar[Dict] = None
+    # valorem_meta: InitVar[Dict] = None
     # datum_typum: InitVar['str'] = None
     hashtag: InitVar[str] = None
     titulum: InitVar[str] = None
@@ -4805,7 +4795,7 @@ class HXLTMRem(HXLTMLinguam):
         # self.hashtag = hashtag
         # self.titulum = titulum
         # if columnam_meta is not None:
-        #     self.valendum_meta = columnam_meta.v(False)
+        #     self.valorem_meta = columnam_meta.v(False)
 
 
 class HXLTMRemCaput(HXLTMLinguam):
@@ -4818,7 +4808,7 @@ class HXLTMRemCaput(HXLTMLinguam):
     """
 
     columnam: InitVar[int] = -1
-    valendum_meta: InitVar[Dict] = None
+    valorem_meta: InitVar[Dict] = None
     datum_typum: InitVar['str'] = None
     hashtag: InitVar[str] = None
     titulum: InitVar[str] = None
@@ -4863,7 +4853,7 @@ class HXLTMRemCaput(HXLTMLinguam):
         self.hashtag = hashtag
         self.titulum = titulum
         if columnam_meta is not None:
-            self.valendum_meta = columnam_meta.v(False)
+            self.valorem_meta = columnam_meta.v(False)
 
 
 class HXLTMTestumAuxilium:
@@ -5751,6 +5741,93 @@ class HXLTMUtil:
                 return k
 
         return None
+
+
+class HXLNormamInquisitionem(hxl.model.TagPattern):
+    """HXL Normam Inquīsītiōnem
+
+    @see <//github.com/HXLStandard/libhxl-python/blob/main/hxl/model.py#L298>
+
+    """
+
+
+class HXLNormamColumnam(hxl.model.Column):
+    """Terminum Item
+
+    @see <//github.com/HXLStandard/libhxl-python/blob/main/hxl/model.py#L728>
+
+>>> item = HXLNormamColumnam.\
+    parse("#status+rem+accuratum+i_pt+i_por+is_Latn")
+
+>>> item
+#status+rem+accuratum+i_pt+i_por+is_latn
+    """
+
+
+@dataclass
+class TerminumAbstractumRadicem:
+    """Terminum Abstractum Rādīcem
+
+    Trivia:
+        - terminum, https://en.wiktionary.org/wiki/terminus#Latin
+        - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
+        - rādīcem, https://en.wiktionary.org/wiki/radix#Latin
+        - pertinēns, https://en.wiktionary.org/wiki/pertinens#Latin
+        - HXL, HXL hashtag, hashtag:
+            - https://hxlstandard.org/
+    """
+
+    ontologia: InitVar[Type['HXLTMOntologia']] = None
+    crudum_hashtag: InitVar[List] = None
+    crudum_valorem: InitVar[List[List]] = None
+
+    def est_hoc_pertinens(self, hashtag: str) -> bool:
+        """Est hoc pertinēns?
+
+        Args:
+            hashtag (str): HXL Hashtag
+
+        Returns:
+            bool: [description]
+        """
+
+    def quod_columnam(self) -> Type[List[List]]:
+        pass
+
+    def quod_columnam_hashtag(self) -> Type[List[List]]:
+        pass
+
+
+@dataclass
+class TerminumAccuratum(TerminumAbstractumRadicem):
+    """Terminum accūrātum
+
+    Trivia:
+        - terminum, https://en.wiktionary.org/wiki/terminus#Latin
+        - accūrātum, https://en.wiktionary.org/wiki/accuratus#Latin
+
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> ontologia = HXLTMTestumAuxilium.ontologia()
+>>> crudum_hashtag = [
+...    '#status+rem+accuratum+i_pt+i_por+is_Latn',
+...    '#status+rem+textum+i_pt+i_por+is_Latn',
+...    '#meta+lat_etc'
+... ]
+>>> crudum_valorem_I = [[10, 'lat_rem_finale', 'etc']]
+>>> crudum_valorem_II = [[4, 'lat_rem_temporarium', 'etc2']]
+>>> crudum_valorem_III = [[1, 'lat_rem_temporarium_de_non_nativum', 'etc3']]
+>>> terminum_I = TerminumAccuratum(ontologia, crudum_hashtag, crudum_valorem_I)
+
+    """
+    # #status +rem +accuratum +i_pt +i_por +is_Latn
+    #  -> 10
+    #  -> 4
+    #  -> 1
+    # #status +rem +textum +i_pt +i_por +is_Latn
+    #  -> lat_rem_finale
+    #  -> lat_rem_temporarium
+    #  -> lat_rem_temporarium_de_non_nativum
 
 
 class HXLUtils:
