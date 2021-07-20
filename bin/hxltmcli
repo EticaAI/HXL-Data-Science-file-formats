@@ -1791,6 +1791,11 @@ class HXLTMDatum:
 
         # print('crudum_grupum_conceptum', crudum_grupum_conceptum)
 
+        # TODO: fix one potential issue (that maye we will keep as it is)
+        #       that the indicem of the line is starting from 1 and not
+        #       from 0 (like column). Anyway, this could be relevant to
+        #       implement (id est, start from 1) on the public documentation
+        indicem_nunc = 0
         for clavem in crudum_grupum_conceptum:
             crude_lineam = self.crudum_lineam_de_indicem(
                 crudum_grupum_conceptum[clavem])
@@ -1798,8 +1803,14 @@ class HXLTMDatum:
             # print('ooi', crudum_grupum_conceptum[clavem])
             # print('ooi', crude_lineam)
             lineam_grupum = HXLTMDatumConceptumSaccum.\
-                reducendum_de_datum_saccum(self.meta, crude_lineam)
+                reducendum_de_datum_saccum(
+                    datum_caput=self.meta,
+                    datum_saccum=crude_lineam,
+                    indicem_lineam_initiale=indicem_nunc
+                )
             # -> [HXLTMDatumLineam(), HXLTMDatumLineam(), HXLTMDatumLineam()]
+
+            indicem_nunc = indicem_nunc + len(crude_lineam)
 
             # print('indicem_grupum', indicem_grupum)
             # print('')
@@ -2673,19 +2684,6 @@ HXLTMASA()
 
             self.datum_caput = lineam_collectionem[0].datum_caput
 
-        # if ontologia is None:
-        #     self.ontologia = HXLTMOntologia(None, vacuum=True)
-        # else:
-        #     self.ontologia = ontologia
-            # print('nao é noneeeee')
-        #     if vacuum:
-        #         self.lineam_collectionem = \
-        #             [None] * self.datum_caput.columnam_quantitatem
-        #     else:
-        #         raise ValueError('columnam_quantitatem vacuum est?')
-        # else:
-        #     self.lineam = lineam
-
     def asa(self, hxltm_asa: Type['HXLTMASA'] = None) -> Type['HXLTMASA']:
         """HXLTMASA commūne objectīvum referēns
 
@@ -2708,31 +2706,37 @@ HXLTMASA()
             if not self.__commune_asa:
                 raise ReferenceError('hxltm_asa not initialized yet')
             return self.__commune_asa
-        elif self.__commune_asa is not None:
+
+        if self.__commune_asa is not None:
             raise ReferenceError('hxltm_asa already initialized')
 
         self.__commune_asa = hxltm_asa
         return self.__commune_asa
 
     def contextum(self) -> Dict:
-        """[summary]
+        """Contextum de rem
 
         Returns:
-            Dict: [description]
+            Dict: Contextum
         """
         contextum = {}
         contextum['rem'] = self.quod_clavem_et_valendum()
+        contextum['tabulam'] = self.quod_tabulam_valendum_ad_conceptum()
         return contextum
 
     @staticmethod
     def reducendum_de_datum_saccum(
-            datum_caput: Type['HXLTMDatumCaput'],
-            datum_saccum: List[List]) -> List[Type['HXLTMDatumLineam']]:
+        datum_caput: Type['HXLTMDatumCaput'],
+        datum_saccum: List[List],
+        indicem_lineam_initiale: int = -1
+    ) -> List[Type['HXLTMDatumLineam']]:
         """Redūcendum līneam collēctiōnem de datum saccum
 
         Args:
             datum_caput (HXLTMDatumCaput):
             datum_saccum (List): Datum saccum [rem x col]
+            indicem_lineam_initiale (int):
+                indicem initiāle de līneam
 
         _[eng-Latn]
         Please use reducendum_grupum_indicem_de_datum to already filter
@@ -2743,10 +2747,17 @@ HXLTMASA()
             List[HXLTMDatumLineam]:
         """
         resultatum = []
+        indicem_nunc = indicem_lineam_initiale
+
         for item in datum_saccum:
             resultatum.append(HXLTMDatumLineam(
                 datum_caput=datum_caput,
-                lineam=item))
+                lineam=item,
+                indicem=indicem_nunc
+            ))
+            # print('oi1', indicem_nunc)
+            indicem_nunc = indicem_nunc + 1 if indicem_nunc != -1 else -1
+            # print('oi2', indicem_nunc)
 
         return resultatum
 
@@ -2922,6 +2933,36 @@ HXLTMASA()
             # print(col)
             # print(resultatum)
 
+        return resultatum
+
+    def quod_tabulam_valendum_ad_conceptum(self) -> Dict:
+        """Quod tabulam valendum ad conceptum?
+
+        _[eng-Latn]
+        What table information applies to this concept?
+        [eng-Latn]_
+
+        Returns:
+            Dict: Python Dict
+        """
+        resultatum = {
+            'columnam_indicem': [],
+            'lineam_indicem': []
+        }
+
+        if len(self.lineam_collectionem) == 0:
+            return resultatum
+
+        # if len(self.lineam_collectionem[0].datum_caput.rem) > 0:
+        #     for rem in self.lineam_collectionem[0].datum_caput.rem:
+        #         print('TODO columnam_indicem', rem.v())
+
+        for lineam in self.lineam_collectionem:
+            resultatum['lineam_indicem'].append(lineam.indicem)
+            # pass
+            # print(lineam.indicem)
+
+        # print(self.lineam_collectionem[0].datum_caput)
         return resultatum
 
     def quod_nomen(self) -> str:
@@ -3901,10 +3942,12 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
     #         )
     #     return resultatum
 
+
 class HXLTMInFormatumUTX(HXLTMInFormatumTabulamRadicem):
     """See cor.hxltm.yml:normam.UTX"""
 
     ONTOLOGIA_NORMAM = 'UTX'
+
 
 class HXLTMInFormatumXLIFF(HXLTMInFormatum):
     """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF) v2.1
