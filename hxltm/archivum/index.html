@@ -975,6 +975,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
         # Not sure where to find some place to 'explain' this format
         - &lt;https://angular.io/guide/i18n#change-the-source-language-file-location&gt;
         - &lt;https://www.i18next.com/misc/json-format&gt;
+        - &lt;https://lokalise.com/blog/how-to-internationalize-react-application-using-i18next/&gt;
       nomen:
         eng-Latn: 'JSON key: val; id/source -&gt; target (draft)'
       situs_interretialis:
@@ -1785,6 +1786,310 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_result_example_4">Result example</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx" class="bare">https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version='1.0' encoding='utf-8'?&gt;
+&lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
+&lt;tmx version="1.4"&gt;
+  &lt;header
+    creationtool="hxltmcli.py"
+    creationtoolversion=""
+    segtype="sentence"
+    o-tmf="UTF-8"
+    adminlang=""
+    srclang="la"
+    datatype="PlainText"
+  /&gt;
+  &lt;body&gt;
+
+    &lt;tu tuid="L10N_ego_codicem"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          lat-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          por-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          eng-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          spa-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="ar"&gt;
+        &lt;seg&gt;
+          arb-Arab
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          hin-Deva
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          slv-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="L10N_ego_linguam_nomen"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          Lingua Latina
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          Língua portuguesa
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          English language
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          Idioma español
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="ar"&gt;
+        &lt;seg&gt;
+          اللغة العربية
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          हिन्दी भाषा
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          Slovenščina
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="L10N_ego_scriptum_nomen"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          Abecedarium Latinum
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          Alfabeto latino
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          Latin script
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          Alfabeto latino
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          देवनागरी लिपि
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          Latinska abeceda
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="L10N_ego_patriam_UN_M49_numerum"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="ar"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="L10N_ego_patriam_UN_P_codicem"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="ar"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="I18N_testum_salve_mundi_testum_I18N"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          Salvi mundi!
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          Olá mundo!
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          Hello, World!
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          ¡Hola mundo!
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          नमस्ते दुनिया
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          Testum, I, II, III
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          Teste, 1, 2, 3
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          Test, 1, 2, 3
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          Prueba, 1, 2, 3
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          परीक्षा, १, २, ३
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          I,V, X, L, C, D, M
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          ०, १, २, ३, ४, ५, ६, ७, ८, ९
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+  &lt;/body&gt;
+&lt;/tmx&gt;</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1813,7 +2118,385 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
     asa:
       modus_operandi:
         - multiplum_linguam
-        - bilingue</code></pre>
+        - bilingue
+
+    formatum:
+      initiale: |2
+        &lt;?xml version='1.0' encoding='utf-8'?&gt;
+        &lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
+        &lt;tmx version="1.4"&gt;
+          &lt;header
+            creationtool="hxltmcli.py"
+            creationtoolversion="{{ globum.instrumentum_versionem }}"
+            segtype="sentence"
+            o-tmf="UTF-8"
+            adminlang="{{ globum.instrumentum_versionem }}"
+            srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
+            datatype="PlainText"
+          /&gt;
+          &lt;body&gt;
+
+      corporeum: |2
+            &lt;tu tuid="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
+              {%- if conceptum.conceptum_codicem_wikidata %}
+              &lt;prop type="wikidata"&gt;{{ conceptum.conceptum_codicem_wikidata }}&lt;/prop&gt;
+              {% endif -%}
+              {% for item in rem.de_linguam %}
+              {% if item[1].rem != '' -%}
+              &lt;tuv xml:lang="{{ item[1].bcp47 }}"&gt;
+                &lt;seg&gt;
+                  {{ item[1].rem }}
+                &lt;/seg&gt;
+              &lt;/tuv&gt;
+              {%- endif -%}
+              {%- endfor %}
+            &lt;/tu&gt;
+
+      finale: |2
+          &lt;/body&gt;
+        &lt;/tmx&gt;</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_command_line_examples_7">Command line examples</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Explanation about the format at cor.hxltm.yml:normam.UTX
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-UTX
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: they save the input data on a file on
+# disk.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.utx \
+  --objectivum-UTX
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX &gt; resultatum/hxltm-exemplum-linguam.utx
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# @TODO: docupent eventual new options to the --objectivum-TMX here, like the
+#        --agendum-linguam
+# [eng-Latn]_</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_result_example_5">Result example</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.utx" class="bare">https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.utx</a></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version='1.0' encoding='utf-8'?&gt;
+&lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
+&lt;tmx version="1.4"&gt;
+  &lt;header
+    creationtool="hxltmcli.py"
+    creationtoolversion=""
+    segtype="sentence"
+    o-tmf="UTF-8"
+    adminlang=""
+    srclang="la"
+    datatype="PlainText"
+  /&gt;
+  &lt;body&gt;
+
+    &lt;tu tuid="L10N_ego_codicem"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          lat-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          por-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          eng-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          spa-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="ar"&gt;
+        &lt;seg&gt;
+          arb-Arab
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          hin-Deva
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          slv-Latn
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="L10N_ego_linguam_nomen"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          Lingua Latina
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          Língua portuguesa
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          English language
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          Idioma español
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="ar"&gt;
+        &lt;seg&gt;
+          اللغة العربية
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          हिन्दी भाषा
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          Slovenščina
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="L10N_ego_scriptum_nomen"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          Abecedarium Latinum
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          Alfabeto latino
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          Latin script
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          Alfabeto latino
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          देवनागरी लिपि
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          Latinska abeceda
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="L10N_ego_patriam_UN_M49_numerum"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="ar"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          001
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="L10N_ego_patriam_UN_P_codicem"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="ar"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          ∅
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="I18N_testum_salve_mundi_testum_I18N"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          Salvi mundi!
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          Olá mundo!
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          Hello, World!
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          ¡Hola mundo!
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          नमस्ते दुनिया
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          Testum, I, II, III
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          Teste, 1, 2, 3
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          Test, 1, 2, 3
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          Prueba, 1, 2, 3
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          परीक्षा, १, २, ३
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+    &lt;tu tuid="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+      &lt;tuv xml:lang="la"&gt;
+        &lt;seg&gt;
+          I,V, X, L, C, D, M
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="pt"&gt;
+        &lt;seg&gt;
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="en"&gt;
+        &lt;seg&gt;
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="es"&gt;
+        &lt;seg&gt;
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="hi"&gt;
+        &lt;seg&gt;
+          ०, १, २, ३, ४, ५, ६, ७, ८, ९
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+      &lt;tuv xml:lang="sl"&gt;
+        &lt;seg&gt;
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+        &lt;/seg&gt;
+      &lt;/tuv&gt;
+    &lt;/tu&gt;
+
+  &lt;/body&gt;
+&lt;/tmx&gt;</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1909,7 +2592,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_7">Command line examples</h5>
+<h5 id="_command_line_examples_8">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -1968,7 +2651,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_result_example_4">Result example</h5>
+<h5 id="_result_example_6">Result example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0"?&gt;
@@ -2162,7 +2845,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_8">Command line examples</h5>
+<h5 id="_command_line_examples_9">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -2221,7 +2904,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_result_example_5">Result example</h5>
+<h5 id="_result_example_7">Result example</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version="1.0"?&gt;
@@ -3821,7 +4504,7 @@ hxltmcli --help</code></pre>
                 [--venandum-insectum-est]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.8.5 is an implementation of HXLTM tagging conventions
+_[eng-Latn] hxltmcli v0.8.6 is an implementation of HXLTM tagging conventions
 on HXL to manage and export tabular data to popular translation memories
 and glossaries file formats with non-close standards.
 [eng-Latn]_"
@@ -4028,7 +4711,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 00:36:28 UTC
+Last updated 2021-07-20 15:24:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

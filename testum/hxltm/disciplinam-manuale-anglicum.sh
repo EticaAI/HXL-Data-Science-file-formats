@@ -365,6 +365,42 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX > resultatum/h
 # end::TMX[]
 
 
+#### UTX _______________________________________________________________________
+# tag::UTX[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Explanation about the format at cor.hxltm.yml:normam.UTX
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-UTX
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: they save the input data on a file on
+# disk.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.utx \
+  --objectivum-UTX
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX > resultatum/hxltm-exemplum-linguam.utx
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# @TODO: docupent eventual new options to the --objectivum-TMX here, like the
+#        --agendum-linguam
+# [eng-Latn]_
+
+# end::UTX[]
+
 #### XLIFF _____________________________________________________________________
 # tag::XLIFF[]
 ### I -------------------------------------------------------------------------

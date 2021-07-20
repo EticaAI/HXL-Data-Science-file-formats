@@ -211,6 +211,14 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_TMX]
 ----
 include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TMX]
 ----
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx[]
+----
 
 [#UTX]
 === `+UTX+`:
@@ -220,6 +228,22 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=TMX]
 ----
 include::../../ontologia/cor.hxltm.yml[tag=normam_UTX]
 ----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=UTX]
+----
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.utx
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.utx[]
+----
+
 
 [#XLIFF]
 === `+XLIFF+`:

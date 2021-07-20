@@ -1674,6 +1674,7 @@ normam:
         # Not sure where to find some place to 'explain' this format
         - &lt;https://angular.io/guide/i18n#change-the-source-language-file-location&gt;
         - &lt;https://www.i18next.com/misc/json-format&gt;
+        - &lt;https://lokalise.com/blog/how-to-internationalize-react-application-using-i18next/&gt;
       nomen:
         eng-Latn: 'JSON key: val; id/source -&gt; target (draft)'
       situs_interretialis:
@@ -1920,6 +1921,43 @@ normam:
       modus_operandi:
         - multiplum_linguam
         - bilingue
+
+    formatum:
+      initiale: |2
+        &lt;?xml version='1.0' encoding='utf-8'?&gt;
+        &lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
+        &lt;tmx version="1.4"&gt;
+          &lt;header
+            creationtool="hxltmcli.py"
+            creationtoolversion="{{ globum.instrumentum_versionem }}"
+            segtype="sentence"
+            o-tmf="UTF-8"
+            adminlang="{{ globum.instrumentum_versionem }}"
+            srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
+            datatype="PlainText"
+          /&gt;
+          &lt;body&gt;
+
+      corporeum: |2
+            &lt;tu tuid="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
+              {%- if conceptum.conceptum_codicem_wikidata %}
+              &lt;prop type="wikidata"&gt;{{ conceptum.conceptum_codicem_wikidata }}&lt;/prop&gt;
+              {% endif -%}
+              {% for item in rem.de_linguam %}
+              {% if item[1].rem != '' -%}
+              &lt;tuv xml:lang="{{ item[1].bcp47 }}"&gt;
+                &lt;seg&gt;
+                  {{ item[1].rem }}
+                &lt;/seg&gt;
+              &lt;/tuv&gt;
+              {%- endif -%}
+              {%- endfor %}
+            &lt;/tu&gt;
+
+      finale: |2
+          &lt;/body&gt;
+        &lt;/tmx&gt;
+
   # end::normam_UTX[]
 
   #### XLIFF-obsoletum: XML Localization Interchange File Format (XLIFF) v2.1 __
@@ -3534,7 +3572,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 00:36:28 UTC
+Last updated 2021-07-20 15:24:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

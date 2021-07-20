@@ -962,7 +962,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             formatum = HXLTMInFormatumTabulamTSV3(self.hxltm_asa)
 
         elif objectivum_formatum == 'UTX':
-            raise NotImplementedError('UTX not implemented yet')
+            formatum = HXLTMInFormatumUTX(self.hxltm_asa)
 
         elif objectivum_formatum == 'XLIFF':
             formatum = HXLTMInFormatumXLIFF(self.hxltm_asa)
@@ -3901,6 +3901,10 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
     #         )
     #     return resultatum
 
+class HXLTMInFormatumUTX(HXLTMInFormatumTabulamRadicem):
+    """See cor.hxltm.yml:normam.UTX"""
+
+    ONTOLOGIA_NORMAM = 'UTX'
 
 class HXLTMInFormatumXLIFF(HXLTMInFormatum):
     """HXLTM In Fōrmātum XML Localization Interchange File Format (XLIFF) v2.1
