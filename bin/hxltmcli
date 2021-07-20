@@ -197,6 +197,7 @@ from typing import (
 )
 
 from dataclasses import dataclass, InitVar
+# from dataclasses import dataclass, InitVar, field
 
 import json
 import yaml
@@ -5743,28 +5744,42 @@ class HXLTMUtil:
         return None
 
 
-class HXLNormamInquisitionem(hxl.model.TagPattern):
-    """HXL Normam Inquīsītiōnem
+class HXLNormamPatronum(hxl.model.TagPattern):
+    """HXL Normam Patrōnum
 
-    @see <//github.com/HXLStandard/libhxl-python/blob/main/hxl/model.py#L298>
+    Trivia:
+        - Anglicum pattern, https://en.wiktionary.org/wiki/pattern
+            - Latina, 'patrōnum'
+                - https://en.wiktionary.org/wiki/patronus#Latin
+            - Latina, Exemplum
+                - https://en.wiktionary.org/wiki/exemplar#Latin
 
+    @see <github.com/HXLStandard/libhxl-python/blob/main/hxl/model.py#L29>
+
+>>> rem_col = HXLNormamColumnam.\
+    parse("#status+rem+accuratum+i_pt+i_por+is_Latn")
+>>> conceptum_col = HXLNormamColumnam.parse("#item+conceptum+codicem")
+>>> inq = HXLNormamPatronum.parse('#*+rem+accuratum')
+>>> inq.match(rem_col)
+True
+
+>>> inq.match(conceptum_col)
+False
+
+>>> inq.get_matching_columns([rem_col, conceptum_col])
+[#status+rem+accuratum+i_pt+i_por+is_latn]
     """
 
 
 class HXLNormamColumnam(hxl.model.Column):
     """Terminum Item
 
-    @see <//github.com/HXLStandard/libhxl-python/blob/main/hxl/model.py#L728>
-
->>> item = HXLNormamColumnam.\
-    parse("#status+rem+accuratum+i_pt+i_por+is_Latn")
-
->>> item
-#status+rem+accuratum+i_pt+i_por+is_latn
+    @see <github.com/HXLStandard/libhxl-python/blob/main/hxl/model.py#L728>
     """
 
 
-@dataclass
+# @dataclass(init=False)
+@dataclass()
 class TerminumAbstractumRadicem:
     """Terminum Abstractum Rādīcem
 
@@ -5780,16 +5795,80 @@ class TerminumAbstractumRadicem:
     ontologia: InitVar[Type['HXLTMOntologia']] = None
     crudum_hashtag: InitVar[List] = None
     crudum_valorem: InitVar[List[List]] = None
+    hxl_columnam: InitVar[List[Type['HXLNormamColumnam']]] = []
+    hxl_patronum_crudum: InitVar[List[str]] = []
+    hxl_patronum: InitVar[List[Type['HXLNormamPatronum']]] = []
 
-    def est_hoc_pertinens(self, hashtag: str) -> bool:
+    ontologia_aliud_rem_status: InitVar[str] = 'rem_status'
+    ontologia_aliud: InitVar[str] = ''
+
+    def __init__(
+        self,
+        ontologia: Type['HXLTMOntologia'],
+        crudum_hashtag: List = None,
+        crudum_valorem: List = None
+    ):
+        """HXLTMRemCaput initiāle
+
+        Args:
+            ontologia (HXLTMOntologia): HXLTMOntologia
+            crudum_hashtag (List): Crudum Hashtag, de Python List
+            crudum_valorem (List): Crudum valorem, de Python List[List]
+        """
+
+        self.ontologia = ontologia
+        self.crudum_hashtag = crudum_hashtag
+        self.crudum_valorem = crudum_valorem
+        self.initiale()
+
+    def initiale(self):
+        """Initiāle
+        """
+        if self.hxl_patronum_crudum:
+            for patronum in self.hxl_patronum_crudum:
+
+                self.hxl_patronum.append(
+                    HXLNormamPatronum.parse(patronum)
+                )
+
+        if self.crudum_hashtag:
+            self.hxl_columnam = []
+            for columnam in self.crudum_hashtag:
+                self.hxl_columnam.append(
+                    HXLNormamColumnam.parse(columnam)
+                )
+
+        if not self.ontologia_aliud:
+            raise NotImplementedError('ontologia_aliud?')
+
+        return self
+
+    def est_hoc_pertinens(self, hashtag: str = None) -> Union[List, None]:
         """Est hoc pertinēns?
 
         Args:
             hashtag (str): HXL Hashtag
 
         Returns:
-            bool: [description]
+            Union[List, None]:
+                pertinēns: Hashtag Python List[str]
+                non-pertinēns: Python None
         """
+        if hashtag:
+            hxl_columnam = [HXLNormamColumnam.parse(hashtag)]
+        else:
+            hxl_columnam = self.hxl_columnam
+
+        # return HXLNormamPatronum.
+        # print('self.hxl_patronum_crudum', self.hxl_patronum_crudum)
+        # print('hxl_columnam', hxl_columnam)
+        # print(hxl_columnam)
+        for patronum_nunc in self.hxl_patronum:
+            resultatum = patronum_nunc.get_matching_columns(hxl_columnam)
+            if resultatum and len(resultatum) > 0:
+                return resultatum
+
+        return None
 
     def quod_columnam(self) -> Type[List[List]]:
         pass
@@ -5818,16 +5897,34 @@ class TerminumAccuratum(TerminumAbstractumRadicem):
 >>> crudum_valorem_II = [[4, 'lat_rem_temporarium', 'etc2']]
 >>> crudum_valorem_III = [[1, 'lat_rem_temporarium_de_non_nativum', 'etc3']]
 >>> terminum_I = TerminumAccuratum(ontologia, crudum_hashtag, crudum_valorem_I)
+>>> terminum_I
+TerminumAccuratum()
 
+>>> terminum_I.est_hoc_pertinens()
+[#status+rem+accuratum+i_pt+i_por+is_latn]
+
+>>> terminum_I.est_hoc_pertinens('#meta+url') is None
+True
     """
-    # #status +rem +accuratum +i_pt +i_por +is_Latn
-    #  -> 10
-    #  -> 4
-    #  -> 1
-    # #status +rem +textum +i_pt +i_por +is_Latn
-    #  -> lat_rem_finale
-    #  -> lat_rem_temporarium
-    #  -> lat_rem_temporarium_de_non_nativum
+
+    hxl_patronum_crudum = ['#status+rem+accuratum']
+    ontologia_aliud = 'accuratum'
+
+    def __init__(
+        self,
+        ontologia: Type['HXLTMOntologia'],
+        crudum_hashtag: List = None,
+        crudum_valorem: List = None
+    ):
+        """HXLTMRemCaput initiāle
+
+        Args:
+            ontologia (HXLTMOntologia): HXLTMOntologia
+            crudum_hashtag (List): Crudum Hashtag, de Python List
+            crudum_valorem (List): Crudum valorem, de Python List[List]
+        """
+        TerminumAbstractumRadicem.__init__(
+            self, ontologia, crudum_hashtag, crudum_valorem)
 
 
 class HXLUtils:
