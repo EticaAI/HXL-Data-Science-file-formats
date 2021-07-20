@@ -320,7 +320,7 @@
       },
       "formatum": {
         "initiale": "#UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};",
-        "corporeum": "{%- for item in rem.de_linguam -%}\n{% if item[1].rem != '' -%}\n  \"{{- item[1].rem -}}\",\n{%- endif -%}\n{%- endfor -%}",
+        "corporeum": "{%- if tabulam.lineam_indicem contains 1 -%}\n  #{%- for item in rem.de_linguam -%}\n    term:{{ item[1].bcp47 }},\n  {%- endfor %}\n{% endif -%}\n{%- for item in rem.de_linguam -%}\n  {% if item[1].rem != '' -%}\n    \"{{- item[1].rem -}}\",\n  {%- endif -%}\n{%- endfor -%}",
         "finale": false
       }
     },

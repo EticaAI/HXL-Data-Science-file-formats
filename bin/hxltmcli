@@ -2165,11 +2165,13 @@ True
     # @see HXLTMDatumConceptumSaccum
     conceptum_indicem: InitVar[List] = [0]
     # conceptum_indicem = InitVar[List] = None
-    columnam_quantitatem: InitVar[int] = 0
-    columnam_quantitatem_hxl: InitVar[int] = 0
-    columnam_quantitatem_hxl_unicum: InitVar[int] = 0
-    columnam_quantitatem_nomen: InitVar[int] = 0
-    columnam_quantitatem_nomen_unicum: InitVar[int] = 0
+    columnam_quantitatem: InitVar[int] = -1
+    columnam_quantitatem_hxl: InitVar[int] = -1
+    columnam_quantitatem_hxl_unicum: InitVar[int] = -1
+    # columnam_quantitatem_linguam: InitVar[int] = -1 # requires ontologia
+    # columnam_quantitatem_linguam_unicum: InitVar[int] = -1# req ontologia
+    columnam_quantitatem_nomen: InitVar[int] = -1
+    columnam_quantitatem_nomen_unicum: InitVar[int] = -1
     lineam_quantitatem: InitVar[int] = -1
     argumentum: InitVar[Type['HXLTMArgumentum']] = None
     # venandum_insectum: InitVar[bool] = False
@@ -2947,11 +2949,27 @@ HXLTMASA()
         """
         resultatum = {
             'columnam_indicem': [],
+            'columnam_quantitatem': -1,
+            'columnam_quantitatem_hxl_unicum': -1,
+            'columnam_quantitatem_nomen_unicum': -1,
+            # @TODO columnam_quantitatem_linguam
+            'columnam_quantitatem_linguam': -1,
+            # @TODO columnam_quantitatem_linguam_unicum
+            'columnam_quantitatem_linguam_unicum': -1,
             'lineam_indicem': []
         }
 
         if len(self.lineam_collectionem) == 0:
             return resultatum
+
+        datum_caput = self.lineam_collectionem[0].datum_caput
+        resultatum['columnam_quantitatem'] = datum_caput.columnam_quantitatem
+        resultatum['columnam_quantitatem_hxl_unicum'] = \
+            datum_caput.columnam_quantitatem_hxl_unicum
+        resultatum['columnam_quantitatem_nomen_unicum'] = \
+            datum_caput.columnam_quantitatem_hxl_unicum
+        # if self.lineam_collectionem[0].datum_caput.rem) > 0:
+        #     for rem in self.lineam_collectionem[0].datum_caput.rem:
 
         # if len(self.lineam_collectionem[0].datum_caput.rem) > 0:
         #     for rem in self.lineam_collectionem[0].datum_caput.rem:
