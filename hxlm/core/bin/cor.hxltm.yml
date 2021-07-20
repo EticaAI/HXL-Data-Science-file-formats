@@ -530,11 +530,12 @@ normam:
         - bilingue
 
     formatum:
-      initiale: |-2
+      initiale: |-
         #UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};
 
       # TODO: handle " better (maybe create a liquid special filter?)
-      corporeum: |-2
+      # {{ tabulam }}
+      corporeum: |-
         {%- for item in rem.de_linguam -%}
         {% if item[1].rem != '' -%}
           "{{- item[1].rem -}}",

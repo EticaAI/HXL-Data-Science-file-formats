@@ -2123,11 +2123,12 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
         - bilingue
 
     formatum:
-      initiale: |-2
+      initiale: |-
         #UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};
 
       # TODO: handle " better (maybe create a liquid special filter?)
-      corporeum: |-2
+      # {{ tabulam }}
+      corporeum: |-
         {%- for item in rem.de_linguam -%}
         {% if item[1].rem != '' -%}
           "{{- item[1].rem -}}",
@@ -4410,7 +4411,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 16:14:26 UTC
+Last updated 2021-07-20 17:20:22 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

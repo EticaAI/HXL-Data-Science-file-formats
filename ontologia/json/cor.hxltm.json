@@ -160,7 +160,8 @@
         "archivum_extensionem": ".json",
         "normam": [
           "<https://angular.io/guide/i18n#change-the-source-language-file-location>",
-          "<https://www.i18next.com/misc/json-format>"
+          "<https://www.i18next.com/misc/json-format>",
+          "<https://lokalise.com/blog/how-to-internationalize-react-application-using-i18next/>"
         ],
         "nomen": {
           "eng-Latn": "JSON key: val; id/source -> target (draft)"
@@ -293,22 +294,22 @@
         "archivum_extensionem": ".utx",
         "situs_interretialis": {
           "referens_officinale": [
-            "http://www.aamt.info/english/utx/"
+            "<http://www.aamt.info/english/utx/>"
           ],
           "vicipaedia": [
-            "https://en.wikipedia.org/wiki/Universal_Terminology_eXchange"
+            "<https://en.wikipedia.org/wiki/Universal_Terminology_eXchange>"
           ]
         },
         "normam": [
-          "https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf",
-          "https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx"
+          "<https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf>",
+          "<https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx>"
         ],
         "nomen": {
-          "eng-Latn": "Universal Terminology eXchange (UTX) (planned, but no draft)"
+          "eng-Latn": "Universal Terminology eXchange (UTX) (working draft)"
         },
         "exemplum": [
-          "https://aamt.info/english/download/#UTX_Glossaries",
-          "https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx"
+          "<https://aamt.info/english/download/#UTX_Glossaries> - <https://docs.google.com/spreadsheets/d/13gBCYAd3tbty10W2W6GX9rA-3oT2LnI2u0UG1dpIEkI/pubhtml?widget=true&headers=false> - <https://docs.google.com/spreadsheets/d/1YONjd_pb7iXJvGlYBeFtZCTCUrDxRfbvKf-OLbCw3LE/pubhtml?widget=true&headers=false>",
+          "<https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx>"
         ]
       },
       "asa": {
@@ -316,6 +317,11 @@
           "multiplum_linguam",
           "bilingue"
         ]
+      },
+      "formatum": {
+        "initiale": "#UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};",
+        "corporeum": "{%- for item in rem.de_linguam -%}\n{% if item[1].rem != '' -%}\n  \"{{- item[1].rem -}}\",\n{%- endif -%}\n{%- endfor -%}",
+        "finale": false
       }
     },
     "XLIFF": {
