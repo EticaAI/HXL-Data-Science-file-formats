@@ -1905,17 +1905,19 @@ normam:
       archivum_extensionem: .utx
       situs_interretialis:
         referens_officinale:
-          - http://www.aamt.info/english/utx/
+          - &lt;http://www.aamt.info/english/utx/&gt;
         vicipaedia:
-          - https://en.wikipedia.org/wiki/Universal_Terminology_eXchange
+          - &lt;https://en.wikipedia.org/wiki/Universal_Terminology_eXchange&gt;
       normam:
-        - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
-        - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx
+        - &lt;https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf&gt;
+        - &lt;https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx&gt;
       nomen:
-        eng-Latn: 'Universal Terminology eXchange (UTX) (planned, but no draft)'
+        eng-Latn: 'Universal Terminology eXchange (UTX) (working draft)'
       exemplum:
-        - https://aamt.info/english/download/#UTX_Glossaries
-        - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
+        - &lt;https://aamt.info/english/download/#UTX_Glossaries&gt;
+          - &lt;https://docs.google.com/spreadsheets/d/13gBCYAd3tbty10W2W6GX9rA-3oT2LnI2u0UG1dpIEkI/pubhtml?widget=true&amp;headers=false&gt;
+          - &lt;https://docs.google.com/spreadsheets/d/1YONjd_pb7iXJvGlYBeFtZCTCUrDxRfbvKf-OLbCw3LE/pubhtml?widget=true&amp;headers=false&gt;
+        - &lt;https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx&gt;
 
     asa:
       modus_operandi:
@@ -1923,40 +1925,18 @@ normam:
         - bilingue
 
     formatum:
-      initiale: |2
-        &lt;?xml version='1.0' encoding='utf-8'?&gt;
-        &lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
-        &lt;tmx version="1.4"&gt;
-          &lt;header
-            creationtool="hxltmcli.py"
-            creationtoolversion="{{ globum.instrumentum_versionem }}"
-            segtype="sentence"
-            o-tmf="UTF-8"
-            adminlang="{{ globum.instrumentum_versionem }}"
-            srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
-            datatype="PlainText"
-          /&gt;
-          &lt;body&gt;
+      initiale: |-2
+        #UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};
 
-      corporeum: |2
-            &lt;tu tuid="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
-              {%- if conceptum.conceptum_codicem_wikidata %}
-              &lt;prop type="wikidata"&gt;{{ conceptum.conceptum_codicem_wikidata }}&lt;/prop&gt;
-              {% endif -%}
-              {% for item in rem.de_linguam %}
-              {% if item[1].rem != '' -%}
-              &lt;tuv xml:lang="{{ item[1].bcp47 }}"&gt;
-                &lt;seg&gt;
-                  {{ item[1].rem }}
-                &lt;/seg&gt;
-              &lt;/tuv&gt;
-              {%- endif -%}
-              {%- endfor %}
-            &lt;/tu&gt;
+      # TODO: handle " better (maybe create a liquid special filter?)
+      corporeum: |-2
+        {%- for item in rem.de_linguam -%}
+        {% if item[1].rem != '' -%}
+          "{{- item[1].rem -}}",
+        {%- endif -%}
+        {%- endfor -%}
 
-      finale: |2
-          &lt;/body&gt;
-        &lt;/tmx&gt;
+      finale: false
 
   # end::normam_UTX[]
 
@@ -3572,7 +3552,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 15:24:06 UTC
+Last updated 2021-07-20 16:14:26 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -222,7 +222,7 @@ include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx[]
 
 [#UTX]
 === `+UTX+`:
-==== Universal Terminology eXchange (UTX) (planned, but no draft)
+==== Universal Terminology eXchange (UTX) (working draft)
 
 [source,yaml]
 ----

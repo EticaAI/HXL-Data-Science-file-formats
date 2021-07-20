@@ -492,7 +492,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#UTX"><code>UTX</code>:</a>
 <ul class="sectlevel3">
-<li><a href="#_universal_terminology_exchange_utx_planned_but_no_draft">Universal Terminology eXchange (UTX) (planned, but no draft)</a></li>
+<li><a href="#_universal_terminology_exchange_utx_working_draft">Universal Terminology eXchange (UTX) (working draft)</a></li>
 </ul>
 </li>
 <li><a href="#XLIFF"><code>XLIFF</code>:</a>
@@ -2095,7 +2095,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 <div class="sect2">
 <h3 id="UTX"><code>UTX</code>:</h3>
 <div class="sect3">
-<h4 id="_universal_terminology_exchange_utx_planned_but_no_draft">Universal Terminology eXchange (UTX) (planned, but no draft)</h4>
+<h4 id="_universal_terminology_exchange_utx_working_draft">Universal Terminology eXchange (UTX) (working draft)</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  UTX:
@@ -2103,17 +2103,19 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
       archivum_extensionem: .utx
       situs_interretialis:
         referens_officinale:
-          - http://www.aamt.info/english/utx/
+          - &lt;http://www.aamt.info/english/utx/&gt;
         vicipaedia:
-          - https://en.wikipedia.org/wiki/Universal_Terminology_eXchange
+          - &lt;https://en.wikipedia.org/wiki/Universal_Terminology_eXchange&gt;
       normam:
-        - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
-        - https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx
+        - &lt;https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf&gt;
+        - &lt;https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.docx&gt;
       nomen:
-        eng-Latn: 'Universal Terminology eXchange (UTX) (planned, but no draft)'
+        eng-Latn: 'Universal Terminology eXchange (UTX) (working draft)'
       exemplum:
-        - https://aamt.info/english/download/#UTX_Glossaries
-        - https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx
+        - &lt;https://aamt.info/english/download/#UTX_Glossaries&gt;
+          - &lt;https://docs.google.com/spreadsheets/d/13gBCYAd3tbty10W2W6GX9rA-3oT2LnI2u0UG1dpIEkI/pubhtml?widget=true&amp;headers=false&gt;
+          - &lt;https://docs.google.com/spreadsheets/d/1YONjd_pb7iXJvGlYBeFtZCTCUrDxRfbvKf-OLbCw3LE/pubhtml?widget=true&amp;headers=false&gt;
+        - &lt;https://aamt.info/wp-content/uploads/2019/06/yakushite-soccer-ej-utx1.20.utx&gt;
 
     asa:
       modus_operandi:
@@ -2121,40 +2123,18 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
         - bilingue
 
     formatum:
-      initiale: |2
-        &lt;?xml version='1.0' encoding='utf-8'?&gt;
-        &lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
-        &lt;tmx version="1.4"&gt;
-          &lt;header
-            creationtool="hxltmcli.py"
-            creationtoolversion="{{ globum.instrumentum_versionem }}"
-            segtype="sentence"
-            o-tmf="UTF-8"
-            adminlang="{{ globum.instrumentum_versionem }}"
-            srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
-            datatype="PlainText"
-          /&gt;
-          &lt;body&gt;
+      initiale: |-2
+        #UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};
 
-      corporeum: |2
-            &lt;tu tuid="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
-              {%- if conceptum.conceptum_codicem_wikidata %}
-              &lt;prop type="wikidata"&gt;{{ conceptum.conceptum_codicem_wikidata }}&lt;/prop&gt;
-              {% endif -%}
-              {% for item in rem.de_linguam %}
-              {% if item[1].rem != '' -%}
-              &lt;tuv xml:lang="{{ item[1].bcp47 }}"&gt;
-                &lt;seg&gt;
-                  {{ item[1].rem }}
-                &lt;/seg&gt;
-              &lt;/tuv&gt;
-              {%- endif -%}
-              {%- endfor %}
-            &lt;/tu&gt;
+      # TODO: handle " better (maybe create a liquid special filter?)
+      corporeum: |-2
+        {%- for item in rem.de_linguam -%}
+        {% if item[1].rem != '' -%}
+          "{{- item[1].rem -}}",
+        {%- endif -%}
+        {%- endfor -%}
 
-      finale: |2
-          &lt;/body&gt;
-        &lt;/tmx&gt;</code></pre>
+      finale: false</code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -2206,296 +2186,15 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX &gt; resultatu
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;?xml version='1.0' encoding='utf-8'?&gt;
-&lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;
-&lt;tmx version="1.4"&gt;
-  &lt;header
-    creationtool="hxltmcli.py"
-    creationtoolversion=""
-    segtype="sentence"
-    o-tmf="UTF-8"
-    adminlang=""
-    srclang="la"
-    datatype="PlainText"
-  /&gt;
-  &lt;body&gt;
-
-    &lt;tu tuid="L10N_ego_codicem"&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          lat-Latn
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          por-Latn
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          eng-Latn
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          spa-Latn
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;
-          arb-Arab
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          hin-Deva
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          slv-Latn
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-    &lt;/tu&gt;
-
-    &lt;tu tuid="L10N_ego_linguam_nomen"&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          Lingua Latina
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          Língua portuguesa
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          English language
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          Idioma español
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;
-          اللغة العربية
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          हिन्दी भाषा
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          Slovenščina
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-    &lt;/tu&gt;
-
-    &lt;tu tuid="L10N_ego_scriptum_nomen"&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          Abecedarium Latinum
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          Alfabeto latino
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          Latin script
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          Alfabeto latino
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          देवनागरी लिपि
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          Latinska abeceda
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-    &lt;/tu&gt;
-
-    &lt;tu tuid="L10N_ego_patriam_UN_M49_numerum"&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-    &lt;/tu&gt;
-
-    &lt;tu tuid="L10N_ego_patriam_UN_P_codicem"&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-    &lt;/tu&gt;
-
-    &lt;tu tuid="I18N_testum_salve_mundi_testum_I18N"&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          Salvi mundi!
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          Olá mundo!
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          Hello, World!
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          ¡Hola mundo!
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          नमस्ते दुनिया
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-    &lt;/tu&gt;
-
-    &lt;tu tuid="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          Testum, I, II, III
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          Teste, 1, 2, 3
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          Test, 1, 2, 3
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          Prueba, 1, 2, 3
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          परीक्षा, १, २, ३
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-    &lt;/tu&gt;
-
-    &lt;tu tuid="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
-      &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          I,V, X, L, C, D, M
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          ०, १, २, ३, ४, ५, ६, ७, ८, ९
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-      &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        &lt;/seg&gt;
-      &lt;/tuv&gt;
-    &lt;/tu&gt;
-
-  &lt;/body&gt;
-&lt;/tmx&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">#UTX 1.20; directionality: multi;
+"lat-Latn","por-Latn","eng-Latn","spa-Latn","arb-Arab","hin-Deva","slv-Latn",
+"Lingua Latina","Língua portuguesa","English language","Idioma español","اللغة العربية","हिन्दी भाषा","Slovenščina",
+"Abecedarium Latinum","Alfabeto latino","Latin script","Alfabeto latino","देवनागरी लिपि","Latinska abeceda",
+"001","001","001","001","001","001","001",
+"∅","∅","∅","∅","∅","∅","∅",
+"Salvi mundi!","Olá mundo!","Hello, World!","¡Hola mundo!","नमस्ते दुनिया",
+"Testum, I, II, III","Teste, 1, 2, 3","Test, 1, 2, 3","Prueba, 1, 2, 3","परीक्षा, १, २, ३",
+"I,V, X, L, C, D, M","1, 2, 3, 4, 5, 6, 7, 8, 9, 10","1, 2, 3, 4, 5, 6, 7, 8, 9, 10","1, 2, 3, 4, 5, 6, 7, 8, 9, 10","०, १, २, ३, ४, ५, ६, ७, ८, ९","1, 2, 3, 4, 5, 6, 7, 8, 9, 10",</code></pre>
 </div>
 </div>
 </div>
@@ -4711,7 +4410,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 15:24:06 UTC
+Last updated 2021-07-20 16:14:26 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
