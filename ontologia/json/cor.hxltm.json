@@ -627,21 +627,26 @@
             "__libellam": "rem"
           }
         },
-        "status": {
+        "statum": {
           "compactum_json": {
             "__linguam__": {
               "__HXL": "#status +rem +json __linguam__",
-              "__id": "ontologia.commune.rem.status.compactum_json.__linguam__"
+              "__id": "ontologia.commune.rem.status.compactum_json.__linguam__",
+              "__libellam": "rem",
+              "__nomen_breve": "statum_rem_json__L__"
             },
             "__linguam_de_imperium__": {
               "__HXL": "#status +rem +json __linguam_de_imperium__",
-              "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__"
+              "__id": "ontologia.commune.rem.compactum_json.__linguam_de_imperium__",
+              "__libellam": "rem"
             }
           },
           "compactum_textum": {
             "__linguam__": {
               "__HXL": "#status +rem +textum __linguam__",
               "__id": "ontologia.commune.rem.__linguam__.status.compactum_textum",
+              "__libellam": "rem",
+              "__nomen_breve": "statum_rem_textum__L__",
               "_XLIFF": {
                 "__HXL_fontem": "#x_xliff +unit +note +note_category__sourcestatus  __linguam__",
                 "__HXL_objectivum": "#x_xliff +segment +state __linguam__"

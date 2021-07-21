@@ -2876,6 +2876,9 @@ HXLTMASA()
         # print(self.ontologia.crudum)
         # print(self.ontologia.hxl_de_aliud_nomen_breve())
 
+        statum_rem_accuratuam = {}
+        statum_rem_de_textum = {}
+
         for col in range(self.datum_caput.columnam_quantitatem):
             nomen_breve = ''
             # print(col)
@@ -2890,6 +2893,7 @@ HXLTMASA()
                 resultatum['titulum'][titulum] = nunc_valorem
 
             hxl_hashtag = self.datum_caput.hxl_hashtag_de_columnam(col)
+            linguam_de_hashtag = ''
 
             if hxl_hashtag:
                 resultatum['hxl'][hxl_hashtag] = nunc_valorem
@@ -2900,9 +2904,19 @@ HXLTMASA()
             if nomen_breve:
 
                 resultatum['de_nomen_breve'][nomen_breve] = nunc_valorem
+                linguam_de_hashtag = HXLTMUtil.linguam_de_hxlhashtag(
+                    hxl_hashtag, non_obsoletum=True)
 
-            # TODO: make this non-hardcoded ASAP (via HXLTMOntologia)
-            # print('oooi')
+                if nomen_breve == 'accuratum__L__':
+                    statum_rem_accuratuam[linguam_de_hashtag] = nunc_valorem
+
+                if nomen_breve == 'statum_rem_textum__L__':
+                    statum_rem_de_textum[linguam_de_hashtag] = \
+                        self.asa().ontologia.quod_aliud_de_multiplum(
+                            'rem_statum',
+                            nunc_valorem
+                    )
+
             if nomen_breve and nomen_breve == 'rem__L__':
                 # print('nunc_valorem', nunc_valorem)
                 # resultatum['rem'] = []
@@ -2934,9 +2948,25 @@ HXLTMASA()
             # print(col)
             # print(resultatum)
 
+        # print('statum_rem_accuratuam', statum_rem_accuratuam)
+        # print('statum_rem_de_textum', statum_rem_de_textum)
+
+        return self._quod_clavem_et_valorem_ii(
+            resultatum, statum_rem_accuratuam, statum_rem_de_textum)
+
+    def _quod_clavem_et_valorem_ii(
+            self,
+            resultatum: List,
+            statum_rem_accuratuam: List,
+            statum_rem_de_textum: List):
+
+        # print('statum_rem_accuratuam', statum_rem_accuratuam)
+        # print('statum_rem_de_textum', statum_rem_de_textum)
+
         return resultatum
 
     def quod_statum(self, _option) -> Dict:
+        # @deprecated use HXLTMOntologia.quod_aliud_de_multiplum()
         resultatum = {
             # 1-10, TBX uses it
             'accuratum': -1,
@@ -4295,10 +4325,11 @@ True
         # print('resultatum', resultatum)
         return resultatum
 
-    def quod_aliud_de_multiplum(self,
-                                aliud_typum: str,
-                                aliud_valorem_multiplum: List[str]
-                                ) -> Dict:
+    def quod_aliud_de_multiplum(
+        self,
+        aliud_typum: str,
+        aliud_valorem_multiplum: Union[List[str], str]
+    ) -> Dict:
         """Quod Aliud de multiplum optiōnem?
 
         _[eng-Latn]
@@ -4324,7 +4355,7 @@ True
         Args:
             aliud_typum (str):
                 aliud valōrem
-            aliud_valorem_multiplum (List[str]):
+            aliud_valorem_multiplum (Union(List[str], str)):
                 aliud valōrem
 
         Returns:
@@ -4334,28 +4365,61 @@ True
 
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
 
-#>>> testum_I = ontologia.quod_aliud_de_multiplum(
-#...    'rem_status',
-#...    ['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'])
-#>>> testum_I
+>>> testum_I = ontologia.quod_aliud_de_multiplum(
+...    'rem_status',
+...    ['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'])
+>>> testum_I
+{'_crudum_originale': ['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'], \
+'_conjecturum': ['TBX_preferred'], \
+'codicem_lat': 'rem_finale', \
+'codicem_UTX': 'provisional', \
+'codicem_XLIFF': 'initial', \
+'codicem_TBX': 'preferred'\
+}
+
         """
         if not aliud_valorem_multiplum or len(aliud_valorem_multiplum) == 0:
             return None
 
-        resultatum = {}
-        # _aliud_familiam = self.crudum['ontologia_aliud_familiam'].keys()
-        aliud = []
+        if isinstance(aliud_valorem_multiplum, str):
+            aliud_valorem_multiplum = list(map(
+                str.strip,
+                aliud_valorem_multiplum.split('|')))
+
+        resultatum = {
+            '_crudum_originale': aliud_valorem_multiplum,
+            '_conjecturum': []
+        }
+        aliud_familiam = set(self.crudum['ontologia_aliud_familiam'].keys())
+        aliud_secundum = set()
         for item in aliud_valorem_multiplum:
             rem = self.quod_aliud(aliud_typum, item)
             if rem is None or '_aliud_familiam' not in rem:
                 continue
             resultatum['codicem_' + rem['_aliud_familiam']] = \
                 rem['codicem_' + rem['_aliud_familiam']]
-            print(rem['_aliud_familiam'])
-            aliud.append(rem)
+            aliud_familiam.discard(rem['_aliud_familiam'])
+            if 'aliud' in rem and len(rem['aliud']) > 0:
+                aliud_secundum.update(rem['aliud'])
+            # print(rem['_aliud_familiam'])
+            # aliud.append(rem)
 
-        print(aliud)
-        print(resultatum)
+        if len(aliud_secundum) > 0:
+            # print('>0', aliud_secundum)
+            for item in aliud_secundum:
+                rem = self.quod_aliud(aliud_typum, item)
+                if rem is None or '_aliud_familiam' not in rem:
+                    continue
+                if 'codicem_' + rem['_aliud_familiam'] in resultatum:
+                    # print('iam exsistit: ', item)
+                    continue
+
+                # print('conjectūrum!: ', item)
+                resultatum['_conjecturum'].append(item)
+                resultatum['codicem_' + rem['_aliud_familiam']] = \
+                    rem['codicem_' + rem['_aliud_familiam']]
+
+        return resultatum
 
     def quod_formatum_excerptum(self) -> Dict:
         """Quod fōrmātum excerptum?
@@ -4500,6 +4564,12 @@ True
             nomen_breve = 'conceptum_dominium'
         elif hxl_hashtag == '#item+conceptum+typum':
             nomen_breve = 'conceptum_typum'
+        elif hxl_hashtag.startswith('#status+rem+accuratum+i_'):
+            nomen_breve = 'accuratum__L__'
+        elif hxl_hashtag.startswith('#status+rem+textum+i_'):
+            nomen_breve = 'statum_rem_textum__L__'
+        elif hxl_hashtag.startswith('#status+rem+json+i_'):
+            nomen_breve = 'statum_rem_json__L__'
         elif hxl_hashtag.startswith('#item+rem+i_'):
             nomen_breve = 'rem__L__'
 
