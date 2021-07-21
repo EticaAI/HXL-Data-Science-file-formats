@@ -2908,7 +2908,9 @@ HXLTMASA()
                     hxl_hashtag, non_obsoletum=True)
 
                 if nomen_breve == 'accuratum__L__':
-                    statum_rem_accuratuam[linguam_de_hashtag] = nunc_valorem
+                    statum_rem_accuratuam[linguam_de_hashtag] = {
+                        'accuratum': nunc_valorem
+                    }
 
                 if nomen_breve == 'statum_rem_textum__L__':
                     statum_rem_de_textum[linguam_de_hashtag] = \
@@ -2945,25 +2947,34 @@ HXLTMASA()
                 resultatum['de_linguam'][nunc_valorem_rem['linguam']
                                          ]['statum'] = self.quod_statum({})
 
-            # print(col)
-            # print(resultatum)
+        supplementum_valorem = \
+            {**statum_rem_de_textum, **statum_rem_accuratuam}
 
-        # print('statum_rem_accuratuam', statum_rem_accuratuam)
-        # print('statum_rem_de_textum', statum_rem_de_textum)
+        # print('supplementum_valorem', supplementum_valorem)
 
         return self._quod_clavem_et_valorem_ii(
-            resultatum, statum_rem_accuratuam, statum_rem_de_textum)
+            resultatum, supplementum_valorem)
 
-    def _quod_clavem_et_valorem_ii(
-            self,
-            resultatum: List,
-            statum_rem_accuratuam: List,
-            statum_rem_de_textum: List):
+    def _quod_clavem_et_valorem_ii(self,
+                                   clavem_et_valorem: Dict,
+                                   statum_rem_accuratuam: Dict):
+        """[summary]
+
+        Args:
+            clavem_et_valorem (List):
+                clavem_et_valorem de quod_clavem_et_valorem()
+            supplementum_valorem (Dict): supplēmentum valōrem
+
+        Returns:
+            [type]: [description]
+        """
+        # print('statum_rem_accuratuam', statum_rem_accuratuam['lat-latn'])
+        # print('statum_rem_accuratuam', statum_rem_accuratuam)
 
         # print('statum_rem_accuratuam', statum_rem_accuratuam)
         # print('statum_rem_de_textum', statum_rem_de_textum)
 
-        return resultatum
+        return clavem_et_valorem
 
     def quod_statum(self, _option) -> Dict:
         # @deprecated use HXLTMOntologia.quod_aliud_de_multiplum()
@@ -6240,6 +6251,33 @@ class TerminumStatum(TerminumAbstractumRadicem):
         """
         TerminumAbstractumRadicem.__init__(
             self, ontologia, crudum_hashtag, crudum_valorem)
+
+
+def recursionem_combinandum_dictionarium(matrem: Dict, patrem: Dict) -> Dict:
+    """Recursiōnem combīnandum dictiōnārium
+
+    Trivia:
+        - recursiōnem, https://en.wiktionary.org/wiki/recursio#Latin
+        - combīnandum, https://en.wiktionary.org/wiki/combino#Latin
+        - dictiōnārium, https://en.wiktionary.org/wiki/dictionarium#Latin
+        - rem, https://en.wiktionary.org/wiki/res#Latin
+        - genitōrem, https://en.wiktionary.org/wiki/genitor#Latin
+        - mātrem, https://en.wiktionary.org/wiki/mater#Latin
+        - patrem, https://en.wiktionary.org/wiki/pater#Latin
+        - fīlium, https://en.wiktionary.org/wiki/filius#Latin
+
+    Args:
+        mātrem (Dict): Python dictiōnārium genitōrem 'mātrem'
+        patrem (Dict): Python dictiōnārium genitōrem 'patrem'
+
+    Returns:
+        Dict: dictiōnārium filium de mātrem et patrem
+    """
+
+# recursiōnem	https://en.wiktionary.org/wiki/recursio#Latin
+# combīnandum	https://en.wiktionary.org/wiki/combino#Latin
+# dictiōnārium	https://en.wiktionary.org/wiki/dictionarium#Latin
+    pass
 
 
 class HXLUtils:
