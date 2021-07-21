@@ -4114,19 +4114,16 @@ False
 >>> ontologia.quid_est_hashtag_circa_linguam('#rem+rem+i_la+i_lat+is_latn')
 True
 
->>> 'UTX_adverb' in ontologia.\
-    quod_aliud('partem_orationis', 'lat_adverbium')['aliud']
-True
 
->>> ontologia.quod_rem_statum()
+#>>> ontologia.quod_rem_statum()
 {'accuratum': None, 'crudum': [], 'crudum_originale': [], \
 'XLIFF': 'initial', 'UTX': 'provisional'}
 
 
->>> ontologia.quod_rem_statum(10, 'lat_rem_finale')
+#>>> ontologia.quod_rem_statum(10, 'lat_rem_finale')
 {'accuratum': 10, 'crudum': [], 'crudum_originale': ['lat_rem_finale'], \
 'XLIFF': 'initial', 'UTX': 'provisional'}
->>> ontologia.\
+#>>> ontologia.\
     quod_rem_statum(10, 'lat_rem_finale|UTX_provisional|XLIFF_initial')
 {'accuratum': 10, 'crudum': [], 'crudum_originale': \
 ['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'], \
@@ -4253,6 +4250,17 @@ True
 
         Returns:
             Dict: Python Dict, de *.hxltm.yml
+
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> ontologia = HXLTMTestumAuxilium.ontologia()
+>>> 'UTX_adverb' in ontologia.\
+    quod_aliud('partem_orationis', 'lat_adverbium')['aliud']
+True
+
+>>> ontologia.\
+    quod_aliud('partem_orationis', 'lat_adverbium')['codicem_TBX']
+'adverb'
         """
         if aliud_typum not in self.crudum['ontologia_aliud'] or \
                 aliud_valorem not in \
@@ -4260,8 +4268,9 @@ True
             return None
         resultatum = self.crudum['ontologia_aliud'][aliud_typum][aliud_valorem]
 
-        if resultatum['_aliud']:
-            resultatum['aliud'] = resultatum['_aliud'].split('|')
+        if '_aliud' in resultatum and resultatum['_aliud']:
+            resultatum['aliud'] = \
+                list(map(str.strip, resultatum['_aliud'].split('|')))
         else:
             # _[eng-Latn]Alias without aliases to other types?[eng-Latn]_
             resultatum['aliud'] = []
@@ -4269,6 +4278,9 @@ True
         aliud_familiam = self.crudum['ontologia_aliud_familiam'].keys()
         # print('aliud_familiam', aliud_familiam)
         for familiam in aliud_familiam:
+            if aliud_valorem.startswith(familiam + '_'):
+                resultatum['_aliud_familiam'] = familiam
+
             for aliud in resultatum['aliud']:
                 # _[eng-Latn]
                 # Only create a codicem_TTTT if *.hxmtl.yml already not have
@@ -4282,6 +4294,68 @@ True
 
         # print('resultatum', resultatum)
         return resultatum
+
+    def quod_aliud_de_multiplum(self,
+                                aliud_typum: str,
+                                aliud_valorem_multiplum: List[str]
+                                ) -> Dict:
+        """Quod Aliud de multiplum optiōnem?
+
+        _[eng-Latn]
+        HXLTM (when not working with RAW JSON) allows make simpler short
+        aliases from multiple standards, like:
+            'UTX_properNoun | TBX_noun'
+        In such way that it actually allows to make inferences about other
+        types implicitly even when some things are obvious
+        (like a 'proper noun' must be a 'noun').
+
+        When a field alredy not explicitly define an exact value, we
+        'try smart inferences', but if the initial input do already have
+        something wrong (but more specific for an output format) this
+        method will not override the more explicity alias.
+
+        Advanced checks (like bad tagging) should be done in another step.
+        [eng-Latn]_
+
+        Requīsītum:
+            - *.hxmtm.yml:ontologia_aliud
+            - *.hxmtm.yml:ontologia_aliud_familiam
+
+        Args:
+            aliud_typum (str):
+                aliud valōrem
+            aliud_valorem_multiplum (List[str]):
+                aliud valōrem
+
+        Returns:
+            Dict: Python Dict, de *.hxltm.yml
+
+        Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> ontologia = HXLTMTestumAuxilium.ontologia()
+
+#>>> testum_I = ontologia.quod_aliud_de_multiplum(
+#...    'rem_status',
+#...    ['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'])
+#>>> testum_I
+        """
+        if not aliud_valorem_multiplum or len(aliud_valorem_multiplum) == 0:
+            return None
+
+        resultatum = {}
+        # _aliud_familiam = self.crudum['ontologia_aliud_familiam'].keys()
+        aliud = []
+        for item in aliud_valorem_multiplum:
+            rem = self.quod_aliud(aliud_typum, item)
+            if rem is None or '_aliud_familiam' not in rem:
+                continue
+            resultatum['codicem_' + rem['_aliud_familiam']] = \
+                rem['codicem_' + rem['_aliud_familiam']]
+            print(rem['_aliud_familiam'])
+            aliud.append(rem)
+
+        print(aliud)
+        print(resultatum)
 
     def quod_formatum_excerptum(self) -> Dict:
         """Quod fōrmātum excerptum?
@@ -4341,7 +4415,7 @@ True
         resultatum = {
             # 1-10, TBX uses it
             'accuratum': statum_rem_accuratum,
-            'crudum': [],
+            # 'crudum': [],
             'crudum_originale': [],
             # initial, translated, reviewed, final
             'XLIFF': 'initial',

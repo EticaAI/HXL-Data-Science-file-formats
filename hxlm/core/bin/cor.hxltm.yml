@@ -1706,48 +1706,54 @@ ontologia_aliud:
 
     lat_commune:
       _aliud: 'TBX_other'
-      _codicem: lat_commune
+      # _codicem: lat_commune
       _codicem_TBX: TBX_other
       _descriptionem: |
         - https://la.wikipedia.org/wiki/Genus_grammaticum
         - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter
+      codicem_lat: commune
 
     lat_animatum:
       _aliud: 'TBX_other'
-      _codicem: lat_animatum
+      # _codicem: lat_animatum
       _codicem_TBX: TBX_other
       _descriptionem: |
         - https://la.wikipedia.org/wiki/Genus_grammaticum
         - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate
+      codicem_lat: animatum
 
     lat_femininum:
       _descriptionem: |
         - https://la.wikipedia.org/wiki/Genus_grammaticum
         - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+      codicem_lat: masculinum
 
     lat_inanimatum:
       _aliud: 'TBX_other'
-      _codicem: lat_inanimatum
+      # _codicem: lat_inanimatum
       _codicem_TBX: TBX_other
       _descriptionem: |
         - https://la.wikipedia.org/wiki/Genus_grammaticum
         - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Animate_and_inanimate
+      codicem_lat: inanimatum
 
     lat_neutrum:
       _aliud: 'TBX_other'
-      _codicem: lat_neutrum
+      # _codicem: lat_neutrum
       _codicem_TBX: TBX_other
       _descriptionem: |
         - https://la.wikipedia.org/wiki/Genus_grammaticum
         - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#Common_and_neuter
+      codicem_lat: neutrum
 
     lat_masculinum:
       _aliud: 'TBX_masculine'
-      _codicem: lat_masculinum
+      # _codicem: lat_masculinum
       _codicem_TBX: TBX_masculine
       _descriptionem: |
         - https://la.wikipedia.org/wiki/Genus_grammaticum
         - https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders
+      codicem_lat: masculinum
 
     # TODO: Lingua latina, 'More than three grammatical genders'
     # @see https://en.wikipedia.org/wiki/List_of_languages_by_type_of_grammatical_genders#More_than_three_grammatical_genders
@@ -1774,9 +1780,13 @@ ontologia_aliud:
     # </termNoteSpec>
 
     TBX_masculine:
+      codicem_TBX: masculine
     TBX_feminine:
+      codicem_TBX: feminine
     TBX_neuter:
+      codicem_TBX: neuter
     TBX_other:
+      codicem_TBX: other
 
   # Trivia: partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
   partem_orationis:
@@ -1796,6 +1806,7 @@ ontologia_aliud:
       _codicem_UTX: UTX_adverb
       _codicem_wikidata: Q380057 # https://www.wikidata.org/wiki/Q380057
       _normam: https://la.wikipedia.org/wiki/Adverbium
+      codicem_lat: adverbium
 
     lat_nomen_adiectivum:
       _aliud: 'TBX_adjective|UTX_adjective'
@@ -1804,6 +1815,7 @@ ontologia_aliud:
       _codicem_UTX: UTX_adjective
       _codicem_wikidata: Q34698 # https://www.wikidata.org/wiki/Q34698
       _normam: https://la.wikipedia.org/wiki/Adiectivum
+      codicem_lat: nomen_adiectivum
 
     # substantīvum
     lat_nomen_substantivum:
@@ -1813,6 +1825,7 @@ ontologia_aliud:
       _codicem_UTX: UTX_properNoun
       _codicem_wikidata: Q1084 # https://www.wikidata.org/wiki/Q1084
       _normam: https://la.wikipedia.org/wiki/Nomen_substantivum
+      codicem_lat: nomen_substantivum
 
     lat_nomen_proprium:
       _aliud: 'TBX_properNoun|UTX_properNoun'
@@ -1821,6 +1834,7 @@ ontologia_aliud:
       _codicem_UTX: UTX_properNoun
       _codicem_wikidata: Q147276 # https://www.wikidata.org/wiki/Q147276
       _normam: https://la.wikipedia.org/wiki/Nomen_proprium
+      codicem_lat: nomen_proprium
 
     # TODO: UTX_prenominal, https://pt.wikipedia.org/wiki/Coloca%C3%A7%C3%A3o_pronominal
 
@@ -1831,6 +1845,7 @@ ontologia_aliud:
       _codicem_UTX: UTX_verb
       _codicem_wikidata: Q24905 # https://www.wikidata.org/wiki/Q24905
       _normam: https://la.wikipedia.org/wiki/Verbum_(temporale)
+      codicem_lat: verbum
 
     # TODO: UTX_vt, Transitive verb, https://en.wikipedia.org/wiki/Transitive_verb
     # TODO: UTX_vi, Transitive verb, https://en.wikipedia.org/wiki/Intransitive_verb
@@ -1844,37 +1859,47 @@ ontologia_aliud:
     # http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
     TBX_noun:
       _codicem: DC-1333
+      codicem_TBX: noun
     TBX_verb:
       _codicem: DC-1424
+      codicem_TBX: verb
     TBX_adjective:
       _codicem: DC-1230
+      codicem_TBX: adjective
     TBX_adverb:
       _codicem: DC-1232
+      codicem_TBX: adverb
     TBX_properNoun:
       _codicem: DC-384
+      codicem_TBX: properNoun
     TBX_other:
       _codicem: DC-4336
+      codicem_TBX: other
 
     ### ------------------------------------------------------------------------
     # https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf
     UTX_noun:
       _nomen: Noun
+      codicem_UTX: noun
     UTX_properNoun:
       _nomen: Proper noun
+      codicem_UTX: properNoun
     UTX_verb:
-      _nomen: Verb
+      codicem_UTX: verb
     UTX_vt:
       _nomen: Transitive verb
+      codicem_UTX: vt
     UTX_vi:
       _nomen: Intransitive verb
+      codicem_UTX: vi
     UTX_adjective:
-      _nomen: Adjective
+      codicem_UTX: adjective
     UTX_prenominal:
-      _nomen: Prenominal
+      codicem_UTX: prenominal
     UTX_adverb:
-      _nomen: Adverb
+      codicem_UTX: adverb
     UTX_sentence:
-      _nomen: Sentence
+      codicem_UTX: sentence
 
   # Trivia:
   # - rem, https://en.wiktionary.org/wiki/res#Latin
@@ -1894,11 +1919,13 @@ ontologia_aliud:
     # - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
     lat_rem_finale:
       _aliud: 'TBX_preferred|UTX_approved|XLIFF_final'
+      codicem_lat: rem_finale
 
     # Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
     lat_rem_initiale:
       # TBX do not have valor for 'initial' but we can use accuratus for this
       _aliud: 'UTX_provisional|XLIFF_initial'
+      codicem_lat: rem_initiale
 
     # Trivia:
     # - temporārium, https://en.wiktionary.org/wiki/temporarius#Latin
@@ -1907,16 +1934,19 @@ ontologia_aliud:
     lat_rem_temporarium_de_non_nativum:
       #  TBX do not have valor for 'initial' but we can use accuratus for this
       _aliud: 'UTX_provisional|XLIFF_initial'
+      codicem_lat: rem_temporarium_de_non_nativum
 
     # Trivia:
     # - temporārium, https://en.wiktionary.org/wiki/temporarius#Latin
     lat_rem_temporarium:
       #  TBX do not have valor for 'initial' but we can use accuratus for this
       _aliud: 'UTX_provisional|XLIFF_initial'
+      codicem_lat: rem_temporarium
 
     # Trivia: vacuum, https://en.wiktionary.org/wiki/vacuus#Latin
     lat_rem_vacuum:
       _aliud: ''
+      codicem_lat: rem_vacuum
 
     ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
     # 3.1 7 Additional information about data categories
@@ -1930,20 +1960,24 @@ ontologia_aliud:
       _descriptionem: |
         The term that, among a set   of synonymous terms, is most recommended
         for use.
+      codicem_TBX: preferred
     TBX_admitted:
       _codicem: DC-73
       _codicem_isocat: admittedTerm‐admn‐sts
       _descriptionem: The term is acceptable for use
+      codicem_TBX: admitted
     TBX_notRecommended:
       _codicem: DC-74
       _codicem_isocat: deprecatedTerm‐admn‐sts
       _descriptionem: The term should not be used.
+      codicem_TBX: notRecommended
     TBX_obsolete:
       _codicem: DC-75
       _codicem_isocat: supersededTerm‐admn‐sts
       _descriptionem: |
         The term is no longer used, usually because a more modern term has
         replaced it.
+      codicem_TBX: obsolete
 
     ### Universal Terminology eXchange UTX 1.20 --------------------------------
     # The term status field indicates the status of a term.
@@ -1987,7 +2021,7 @@ ontologia_aliud:
         "approved."
         Note: The glossary administrator may also choose to exclude (delete)
         the term from the glossary, or move it to another glossary
-      _nomen: provisional
+      codicem_UTX: provisional
     UTX_approved:
       _descriptionem: |
         The term status "approved" indicates that an entry has been approved
@@ -2001,7 +2035,7 @@ ontologia_aliud:
         in another language. If the parts of speech of these multiple entries
         are different, then they are different terms. For example, "plot"
         can be a noun and a verb, and each can have approved status.
-      _nomen: approved
+      codicem_UTX: approved
 
       # 4.5.3 Blank term status
       # If the term status is left blank, it is considered as approved
@@ -2017,7 +2051,7 @@ ontologia_aliud:
         less-preferred or not for a particular glossary. Therefore, this
         status could vary in different glossaries, or with a different
         glossary administrator.
-      _nomen: non-standard
+      codicem_UTX: non-standard
 
     UTX_forbidden:
       _descriptionem: |
@@ -2040,7 +2074,7 @@ ontologia_aliud:
         checking. Based on this information, a function of a translation tool
         or a dedicated terminological checker can ascertain whether
         translation files contain any undesirable terms.
-      _nomen: forbidden
+      codicem_UTX: forbidden
 
     UTX_rejected:
       _descriptionem: |
@@ -2048,7 +2082,7 @@ ontologia_aliud:
         for inclusion in a glossary. Rejected terms can be kept in the glossary
         for record keeping, moved into a separate list, or deleted at a
         later time.
-      _nomen: rejected
+      codicem_UTX: rejected
 
     UTX_obsolete:
       _descriptionem: |
@@ -2056,7 +2090,7 @@ ontologia_aliud:
         but should no longer be used. Obsolete terms can be kept in the
         glossary for record keeping, moved into a separate list, or deleted
         at a later time.
-      _nomen: obsolete
+      codicem_UTX: obsolete
 
     ### XML Localization Interchange File Format XLIFF 2.1 ---------------------
     # @see https://docs.oasis-open.org/xliff/xliff-core/v2.1/xliff-core-v2.1.html#state
@@ -2082,19 +2116,19 @@ ontologia_aliud:
 
     XLIFF_initial:
       _descriptionem: indicates the segment is in its initial state
-      _nomen: initial
+      codicem_XLIFF: initial
 
     XLIFF_translated:
       _descriptionem: indicates the segment has been translated
-      _nomen: translated
+      codicem_XLIFF: translated
 
     XLIFF_reviewed:
       _descriptionem: indicates the segment has been reviewed
-      _nomen: reviewed
+      codicem_XLIFF: reviewed
 
     XLIFF_final:
       _descriptionem: indicates the segment is finalized and ready to be used
-      _nomen: final
+      codicem_XLIFF: final
 
   # Trivia:
   # - rem, https://en.wiktionary.org/wiki/res#Latin
@@ -2104,16 +2138,22 @@ ontologia_aliud:
     ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
     TBX_fullForm:
       _codicem: DC-321
+      codicem_TBX: fullForm
     TBX_acronym:
       _codicem: DC-334
+      codicem_TBX: acronym
     TBX_abbreviation:
       _codicem: DC-331
+      codicem_TBX: abbreviation
     TBX_shortForm:
       _codicem: DC-332
+      codicem_TBX: shortForm
     TBX_variant:
       _codicem: DC-330
+      codicem_TBX: variant
     TBX_phrase:
       _codicem: DC-339
+      codicem_TBX: phrase
 
     ### Universal Terminology eXchange UTX 1.20 --------------------------------
     #   4.4.2 sentence and special characters
@@ -2127,10 +2167,10 @@ ontologia_aliud:
     #   part of speech, sentence entries can be treated as nouns.
 
 ontologia_aliud_familiam:
-    lat:
-    TBX:
-    XLIFF:
-    UTX:
+  lat:
+  TBX:
+  XLIFF:
+  UTX:
 
 # end::ontologia_aliud[]
 
