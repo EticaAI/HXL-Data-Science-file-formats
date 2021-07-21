@@ -198,6 +198,7 @@ from typing import (
 
 from dataclasses import dataclass, InitVar
 # from dataclasses import dataclass, InitVar, field
+# from copy import deepcopy
 
 import json
 import yaml
@@ -6253,14 +6254,26 @@ class TerminumStatum(TerminumAbstractumRadicem):
             self, ontologia, crudum_hashtag, crudum_valorem)
 
 
+# https://docs.python.org/3/library/copy.html
+# https://stackoverflow.com/questions/7204805
+#   /how-to-merge-dictionaries-of-dictionaries
+# https://gist.github.com/angstwad/bf22d1822c38a92ec0a9
+# https://karthikbhat.net/recursive-dict-merge-python/
+# https://stackoverflow.com/questions/12897374
+#   /get-unique-values-from-a-list-in-python/12897419
 def recursionem_combinandum_dictionarium(matrem: Dict, patrem: Dict) -> Dict:
     """Recursiōnem combīnandum dictiōnārium
+
+    Requīsītum:
+        - from copy import deepcopy
+            - https://docs.python.org/3/library/copy.html
 
     Trivia:
         - recursiōnem, https://en.wiktionary.org/wiki/recursio#Latin
         - combīnandum, https://en.wiktionary.org/wiki/combino#Latin
         - dictiōnārium, https://en.wiktionary.org/wiki/dictionarium#Latin
         - rem, https://en.wiktionary.org/wiki/res#Latin
+        - valōrem, https://en.wiktionary.org/wiki/valor#Latin
         - genitōrem, https://en.wiktionary.org/wiki/genitor#Latin
         - mātrem, https://en.wiktionary.org/wiki/mater#Latin
         - patrem, https://en.wiktionary.org/wiki/pater#Latin
@@ -6272,12 +6285,58 @@ def recursionem_combinandum_dictionarium(matrem: Dict, patrem: Dict) -> Dict:
 
     Returns:
         Dict: dictiōnārium filium de mātrem et patrem
-    """
 
-# recursiōnem	https://en.wiktionary.org/wiki/recursio#Latin
-# combīnandum	https://en.wiktionary.org/wiki/combino#Latin
-# dictiōnārium	https://en.wiktionary.org/wiki/dictionarium#Latin
-    pass
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> matrem_I = {'a': [1, 2], 'b': {'b1': [1, 3], 'b3': 1}}
+>>> patrem_I = {'b': {'b1': [1, 2], 'b2': 2}}
+>>> filium_I_I = recursionem_combinandum_dictionarium(matrem_I, patrem_I)
+>>> filium_I_I
+{'a': [1, 2], 'b': {'b1': [1, 2, 3], 'b3': 1, 'b2': 2}}
+
+    """
+    if matrem is None or isinstance(matrem, (str, int, float)):
+        matrem = patrem
+    elif isinstance(matrem, list):
+
+        # _[eng-Latn]
+        # TODO: when lists exist, try to make the end result unique
+        # [eng-Latn]_
+        if isinstance(patrem, list):
+            matrem.extend(patrem)
+        else:
+            matrem.append(patrem)
+
+        matrem = list(set(matrem))
+    elif isinstance(matrem, set):
+        raise NotImplementedError('TODO: Python set')
+
+    elif isinstance(matrem, dict):
+        if isinstance(patrem, dict):
+            for clavem, _valorem in patrem.items():
+                if clavem in matrem:
+                    matrem[clavem] = recursionem_combinandum_dictionarium(
+                        matrem[clavem],
+                        patrem[clavem]
+                    )
+                else:
+                    matrem[clavem] = patrem[clavem]
+        else:
+            raise ValueError(
+                'Errōrem combīnandum matrem {0} et patrem {1}'.format(
+                    str(matrem), str(patrem)))
+    else:
+        raise NotImplementedError(
+            'TODO: Python type {0}'.format(type(matrem)))
+
+    # filium = deepcopy(matrem)
+    # for clavem, valorem in patrem.items():
+    #     if isinstance(valorem, Dict):
+    #         recursionem_combinandum_dictionarium()
+    #         pass
+    #     # filium[clavem] = patrem[clavem]
+
+    return matrem
 
 
 class HXLUtils:
