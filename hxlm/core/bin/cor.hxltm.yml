@@ -1791,7 +1791,7 @@ ontologia_aliud:
 
     lat_adverbium:
       _aliud: 'TBX_adverb|UTX_adverb'
-      _codicem: lat_nomen_adiectivum
+      _codicem: lat_adverbium
       _codicem_TBX: TBX_adverb
       _codicem_UTX: UTX_adverb
       _codicem_wikidata: Q380057 # https://www.wikidata.org/wiki/Q380057
@@ -2125,6 +2125,12 @@ ontologia_aliud:
     #   memory format (such as TMX) rather than a glossary. When a UTX glossary is
     #   exported for an MT system that does not treat sentence as a type of
     #   part of speech, sentence entries can be treated as nouns.
+
+ontologia_aliud_familiam:
+    lat:
+    TBX:
+    XLIFF:
+    UTX:
 
 # end::ontologia_aliud[]
 
