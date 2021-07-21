@@ -2640,7 +2640,9 @@ HXLTMASA()
 'rem': {'de_id': {}, 'de_linguam': {'lat-Latn': \
 {'rem': 'Marcus canem amat.', '_typum': 'HXLTMRemCaput', \
 'crudum': 'lat-latn@la', 'linguam': 'lat-Latn', 'bcp47': 'la', \
-'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}}, \
+'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn', \
+'statum': {'accuratum': -1, 'crudum': [], \
+'XLIFF': 'initial', 'UTX': 'provisional'}}}, \
 'de_nomen_breve': {'conceptum_codicem': 'C2', \
 'rem__L__': 'Marcus canem amat.'}, 'hxl': {'#item+conceptum+codicem': 'C2', \
 '#item+rem+i_la+i_lat+is_Latn': 'Marcus canem amat.', \
@@ -2926,9 +2928,27 @@ HXLTMASA()
                 resultatum['de_linguam'][nunc_valorem_rem['linguam']] = \
                     nunc_valorem_rem
 
+                resultatum['de_linguam'][nunc_valorem_rem['linguam']
+                                         ]['statum'] = self.quod_statum({})
+
             # print(col)
             # print(resultatum)
 
+        return resultatum
+
+    def quod_statum(self, _option) -> Dict:
+        resultatum = {
+            # 1-10, TBX uses it
+            'accuratum': -1,
+            'crudum': [],
+            # initial, translated, reviewed, final
+            'XLIFF': 'initial',
+            # provisional, approved, '', non-standard, rejected, obsolete
+            'UTX': 'provisional'
+        }
+        # scālam, https://en.wiktionary.org/wiki/scala#Latin
+
+        # TODO: implement this check
         return resultatum
 
     def quod_tabulam_valorem_ad_conceptum(self) -> Dict:
@@ -5783,6 +5803,17 @@ class HXLNormamColumnam(hxl.model.Column):
 class TerminumAbstractumRadicem:
     """Terminum Abstractum Rādīcem
 
+    _[eng-Latn]
+    Note: the Terminum data classes are focused do advanced parsing of fields
+    for a single language. Since HXLTM allows to store data both as human
+    editable aliases AND have an equivalent on JSON fields (in case automated
+    processing is done) thi s part can get complex very fast.
+
+    Another point is (since tabular data exported from XML, like the
+    ones from Europe IATE) can store more than one row, eventually Terminum*
+    could handle these advanced cases
+    [eng-Latn]_
+
     Trivia:
         - terminum, https://en.wiktionary.org/wiki/terminus#Latin
         - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
@@ -5790,6 +5821,7 @@ class TerminumAbstractumRadicem:
         - pertinēns, https://en.wiktionary.org/wiki/pertinens#Latin
         - HXL, HXL hashtag, hashtag:
             - https://hxlstandard.org/
+
     """
 
     ontologia: InitVar[Type['HXLTMOntologia']] = None
@@ -5799,7 +5831,7 @@ class TerminumAbstractumRadicem:
     hxl_patronum_crudum: InitVar[List[str]] = []
     hxl_patronum: InitVar[List[Type['HXLNormamPatronum']]] = []
 
-    ontologia_aliud_rem_status: InitVar[str] = 'rem_status'
+    # ontologia_aliud_rem_status: InitVar[str] = 'rem_status'
     ontologia_aliud: InitVar[str] = ''
 
     def __init__(
@@ -5916,7 +5948,36 @@ True
         crudum_hashtag: List = None,
         crudum_valorem: List = None
     ):
-        """HXLTMRemCaput initiāle
+        """TerminumAccuratum initiāle
+
+        Args:
+            ontologia (HXLTMOntologia): HXLTMOntologia
+            crudum_hashtag (List): Crudum Hashtag, de Python List
+            crudum_valorem (List): Crudum valorem, de Python List[List]
+        """
+        TerminumAbstractumRadicem.__init__(
+            self, ontologia, crudum_hashtag, crudum_valorem)
+
+
+@dataclass
+class TerminumStatum(TerminumAbstractumRadicem):
+    """Terminum accūrātum
+
+    Trivia:
+        - terminum, https://en.wiktionary.org/wiki/terminus#Latin
+        - statum, https://en.wiktionary.org/wiki/status#Latin
+    """
+
+    # hxl_patronum_crudum = ['#status+rem+accuratum']
+    # ontologia_aliud = 'accuratum'
+
+    def __init__(
+        self,
+        ontologia: Type['HXLTMOntologia'],
+        crudum_hashtag: List = None,
+        crudum_valorem: List = None
+    ):
+        """TerminumStatum initiāle
 
         Args:
             ontologia (HXLTMOntologia): HXLTMOntologia

@@ -2130,6 +2130,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
         #UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};
 
       # TODO: handle " better (maybe create a liquid special filter?)
+      # [{{ item[1].statum }}]
       corporeum: |-
         {%- if tabulam.lineam_indicem contains 1 -%}
           #{%- for item in rem.de_linguam -%}
@@ -4419,7 +4420,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-20 23:00:08 UTC
+Last updated 2021-07-21 16:49:52 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
