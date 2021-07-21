@@ -4095,18 +4095,43 @@ class HXLTMOntologia:
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
 >>> 'HXLTM' in list(ontologia.de('normam').keys())
 True
+
 >>> 'genus_grammaticum' in list(ontologia.de('ontologia_aliud').keys())
 True
+
 >>> 'partem_orationis' in list(ontologia.de('ontologia_aliud').keys())
 True
+
 >>> ontologia.quid_est_hashtag_circa_conceptum('#item+conceptum+codicem')
 True
+
 >>> ontologia.quid_est_hashtag_circa_conceptum('#rem+rem+i_la+i_lat+is_latn')
 False
+
 >>> ontologia.quid_est_hashtag_circa_linguam('#item+conceptum+codicem')
 False
+
 >>> ontologia.quid_est_hashtag_circa_linguam('#rem+rem+i_la+i_lat+is_latn')
 True
+
+>>> 'UTX_adverb' in ontologia.\
+    quod_aliud('partem_orationis', 'lat_adverbium')['aliud']
+True
+
+>>> ontologia.quod_rem_statum()
+{'accuratum': None, 'crudum': [], 'crudum_originale': [], \
+'XLIFF': 'initial', 'UTX': 'provisional'}
+
+
+>>> ontologia.quod_rem_statum(10, 'lat_rem_finale')
+{'accuratum': 10, 'crudum': [], 'crudum_originale': ['lat_rem_finale'], \
+'XLIFF': 'initial', 'UTX': 'provisional'}
+>>> ontologia.\
+    quod_rem_statum(10, 'lat_rem_finale|UTX_provisional|XLIFF_initial')
+{'accuratum': 10, 'crudum': [], 'crudum_originale': \
+['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'], \
+'XLIFF': 'initial', 'UTX': 'provisional'}
+
 
     """
 
@@ -4213,6 +4238,51 @@ True
                 key) if d else default, keys, fontem
         )
 
+    def quod_aliud(self, aliud_typum: str, aliud_valorem: str) -> Dict:
+        """Quod Aliud?
+
+        Requīsītum:
+            - *.hxmtm.yml:ontologia_aliud
+            - *.hxmtm.yml:ontologia_aliud_familiam
+
+        Args:
+            aliud_typum (str):
+                aliud valōrem
+            aliud_valōrem (str):
+                aliud valōrem
+
+        Returns:
+            Dict: Python Dict, de *.hxltm.yml
+        """
+        if aliud_typum not in self.crudum['ontologia_aliud'] or \
+                aliud_valorem not in \
+                self.crudum['ontologia_aliud'][aliud_typum]:
+            return None
+        resultatum = self.crudum['ontologia_aliud'][aliud_typum][aliud_valorem]
+
+        if resultatum['_aliud']:
+            resultatum['aliud'] = resultatum['_aliud'].split('|')
+        else:
+            # _[eng-Latn]Alias without aliases to other types?[eng-Latn]_
+            resultatum['aliud'] = []
+
+        aliud_familiam = self.crudum['ontologia_aliud_familiam'].keys()
+        # print('aliud_familiam', aliud_familiam)
+        for familiam in aliud_familiam:
+            for aliud in resultatum['aliud']:
+                # _[eng-Latn]
+                # Only create a codicem_TTTT if *.hxmtl.yml already not have
+                # one.
+                # [eng-Latn]_
+
+                if aliud.startswith(familiam + '_') and \
+                        not 'codicem_' + familiam in resultatum:
+                    resultatum['codicem_' + familiam] = \
+                        aliud.replace(familiam + '_', '')
+
+        # print('resultatum', resultatum)
+        return resultatum
+
     def quod_formatum_excerptum(self) -> Dict:
         """Quod fōrmātum excerptum?
 
@@ -4249,6 +4319,46 @@ True
         # resultatum = {}
         # return resultatum
         return self.crudum
+
+    def quod_rem_statum(self,
+                        statum_rem_accuratum: int = None,
+                        statum_rem_textum: str = '',
+                        rem_json: Union[str, Dict] = None
+                        ) -> Dict:
+        """[summary]
+
+        Args:
+            statum_rem_accuratum (int, optional):
+                Statum rem accūrātum. Defallo Python None.
+            statum_rem_textum (str, optional):
+                Statum rem textum. Defallo vacuum textum.
+
+        Returns:
+            Dict: [description]
+        """
+        # TODO: make the defaults configurable
+
+        resultatum = {
+            # 1-10, TBX uses it
+            'accuratum': statum_rem_accuratum,
+            'crudum': [],
+            'crudum_originale': [],
+            # initial, translated, reviewed, final
+            'XLIFF': 'initial',
+            # provisional, approved, '', non-standard, rejected, obsolete
+            'UTX': 'provisional'
+        }
+        if rem_json:
+            raise NotImplementedError('quod_rem_statum rem_json')
+
+        if statum_rem_textum != '':
+            crudum_originale = statum_rem_textum.split('|')
+            resultatum['crudum_originale'] = crudum_originale
+
+        # scālam, https://en.wiktionary.org/wiki/scala#Latin
+
+        # TODO: implement this check
+        return resultatum
 
     @staticmethod
     def quid_est_hashtag_circa_conceptum(
