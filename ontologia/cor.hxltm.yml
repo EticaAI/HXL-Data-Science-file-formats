@@ -601,23 +601,29 @@ normam:
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
             <unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}">
-              {% if rem.de_auxilium_linguam -%}
+              {% if rem.de_auxilium_linguam or rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}
               <notes>
-                {% for item in rem.de_auxilium_linguam -%}
-                <note appliesTo="source" priority="2"
+                {%- for item in rem.de_auxilium_linguam -%}
+                <note appliesTo="source" priority="3"
                   category="de_auxilium_linguam">
                   _[{{- item.linguam -}}]
                   {{- item.rem -}}
                   [{{- item.linguam -}}]_
                 </note>
                 {%- endfor %}
+                {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}
+                <note appliesTo="source" priority="1"
+                  category="referens_situs_interretialis">
+                  {{ item }}
+                </note>
+                {% endfor -%}
               </notes>
               {% else -%}
               <!--
-                non rem.de_auxilium_linguam
+                non rem.de_auxilium_linguam aut rem.de_nomen_breve.referens_situs_interretialis
               -->
               {% endif -%}
-              <segment>
+              <segment state="{{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'initial' }}">
                 <source>{{ rem.de_fontem_linguam.rem }}</source>
                 {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem != '' %}
                 <target>{{ rem.de_objectivum_linguam.rem }}</target>
@@ -630,6 +636,7 @@ normam:
               <!-- non rem.de_fontem_linguam -->
             {%- endif  %}
 
+      # <!-- {{ rem }} -->
       finale: |2
           </file>
         </xliff>
@@ -900,6 +907,15 @@ ontologia:
       #   #       edited by humans, but is a catch-all for metatada related
       #   #       to concept that does not have specialized field.
       #   # Recommended data type: JSON
+
+      # Trivia: referēns, https://en.wiktionary.org/wiki/referens
+      referens:
+        # Situs interretialis
+        situs_interretialis:
+          __HXL: '#meta +item +url +list'
+          __nomen_breve: 'referens_situs_interretialis' # conceptum.referens_situs_interretialis
+          __id: ontologia.commune.conceptum.referens.situs_interretialis
+          __libellam: conceptum
 
       # TODO: TBXBasic 6.17 Subject field, <descrip type="subjectField">
       # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
