@@ -2948,10 +2948,14 @@ HXLTMASA()
                 resultatum['de_linguam'][nunc_valorem_rem['linguam']
                                          ]['statum'] = self.quod_statum({})
 
-        supplementum_valorem = \
-            {**statum_rem_de_textum, **statum_rem_accuratuam}
+        supplementum_valorem = recursionem_combinandum_dictionarium(
+            statum_rem_de_textum, statum_rem_accuratuam
+        )
 
-        # print('supplementum_valorem', supplementum_valorem)
+        # supplementum_valorem = \
+        #     {**statum_rem_de_textum, **statum_rem_accuratuam}
+
+        # print('supplementum_valorem', supplementum_valorem['lat-latn'])
 
         return self._quod_clavem_et_valorem_ii(
             resultatum, supplementum_valorem)
@@ -6261,50 +6265,85 @@ class TerminumStatum(TerminumAbstractumRadicem):
 # https://karthikbhat.net/recursive-dict-merge-python/
 # https://stackoverflow.com/questions/12897374
 #   /get-unique-values-from-a-list-in-python/12897419
-def recursionem_combinandum_dictionarium(matrem: Dict, patrem: Dict) -> Dict:
+def recursionem_combinandum_dictionarium(
+    matrem: Union[Dict, Any],
+    patrem: Union[Dict, Any],
+    ignarantiam_praefixum: str = ''
+) -> Union[Dict, Any]:
     """Recursiōnem combīnandum dictiōnārium
 
-    Requīsītum:
-        - from copy import deepcopy
-            - https://docs.python.org/3/library/copy.html
+    Admonitiōnem:
+        - mātrem mūtātiōnem
+            - refugium: copy.deepcopy(matrem)
+                - https://docs.python.org/3/library/copy.html
+        - Python typum 'List' valōrem:
+            - oppressiōnem: ūnicum valōrem
 
     Trivia:
         - recursiōnem, https://en.wiktionary.org/wiki/recursio#Latin
         - combīnandum, https://en.wiktionary.org/wiki/combino#Latin
         - dictiōnārium, https://en.wiktionary.org/wiki/dictionarium#Latin
+        - praefīxum, https://en.wiktionary.org/wiki/praefixus#Latin
+        - ignōrantiam, https://en.wiktionary.org/wiki/ignorantia
+        - clāvem, https://en.wiktionary.org/wiki/clavis#Latin
         - rem, https://en.wiktionary.org/wiki/res#Latin
         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
         - genitōrem, https://en.wiktionary.org/wiki/genitor#Latin
         - mātrem, https://en.wiktionary.org/wiki/mater#Latin
         - patrem, https://en.wiktionary.org/wiki/pater#Latin
         - fīlium, https://en.wiktionary.org/wiki/filius#Latin
+        - admonitiōnem, https://en.wiktionary.org/wiki/admonitio#Latin
+        - oppressiōnem, https://en.wiktionary.org/wiki/oppressio#Latin
+        - mūtātiōnem, https://en.wiktionary.org/wiki/mutatio
+        - refugium, https://en.wiktionary.org/wiki/refugium#Latin
 
     Args:
-        mātrem (Dict): Python dictiōnārium genitōrem 'mātrem'
-        patrem (Dict): Python dictiōnārium genitōrem 'patrem'
+        mātrem (Dict):
+            Python dictiōnārium genitōrem 'mātrem'
+        patrem (Dict):
+            Python dictiōnārium genitōrem 'patrem'
+        ignarantiam_praefixum (str):
+            ignōrantiam praefīxum clāvem
 
     Returns:
         Dict: dictiōnārium filium de mātrem et patrem
 
     Exemplōrum gratiā (et Python doctest, id est, testum automata):
 
->>> matrem_I = {'a': [1, 2], 'b': {'b1': [1, 3], 'b3': 1}}
->>> patrem_I = {'b': {'b1': [1, 2], 'b2': 2}}
->>> filium_I_I = recursionem_combinandum_dictionarium(matrem_I, patrem_I)
->>> filium_I_I
-{'a': [1, 2], 'b': {'b1': [1, 2, 3], 'b3': 1, 'b2': 2}}
+>>> matrem = {'a': [1, 2], 'b': {'__b1': [1, 3], 'b3': 1}}
+>>> patrem = {'b': {'__b1': [1, 2], 'b2': 2}}
+>>> filium = recursionem_combinandum_dictionarium(matrem, patrem)
+>>> filium
+{'a': [1, 2], 'b': {'__b1': [1, 2, 3], 'b3': 1, 'b2': 2}}
+
+
+>>> matrem = {'a': [1, 2], 'b': {'__b1': [1, 3], 'b3': 1}}
+>>> patrem = {'b': {'__b1': [1, 2], 'b2': 2}}
+>>> filium_ = recursionem_combinandum_dictionarium(matrem, patrem, '__')
+>>> filium_
+{'a': [1, 2], 'b': {'b3': 1, 'b2': 2}}
 
     """
-    if matrem is None or isinstance(matrem, (str, int, float)):
-        matrem = patrem
-    elif isinstance(matrem, list):
+    # print('fiat lux')
+    # print('matrem', matrem)
+    # print('patrem', patrem)
+    # print('ignarantiam_praefixum', ignarantiam_praefixum)
 
-        # _[eng-Latn]
-        # TODO: when lists exist, try to make the end result unique
-        # [eng-Latn]_
+    if matrem is None or isinstance(matrem, (str, int, float)):
+        # matrem = patrem
+        return matrem
+
+    if isinstance(matrem, set):
+        matrem = list(matrem)
+    if isinstance(patrem, set):
+        patrem = list(patrem)
+
+    if isinstance(matrem, list):
         if isinstance(patrem, list):
             matrem.extend(patrem)
-        else:
+        # else:
+        #     matrem.append(patrem)
+        elif patrem:
             matrem.append(patrem)
 
         matrem = list(set(matrem))
@@ -6312,15 +6351,77 @@ def recursionem_combinandum_dictionarium(matrem: Dict, patrem: Dict) -> Dict:
         raise NotImplementedError('TODO: Python set')
 
     elif isinstance(matrem, dict):
+
+        if len(ignarantiam_praefixum) > 0:
+            # print('matrem 000____')
+
+            ignarantiam = []
+            for clavem in matrem.keys():
+                if clavem.startswith(ignarantiam_praefixum):
+                    ignarantiam.append(clavem)
+                    # print('poppppp ', clavem)
+                    # matrem.pop(clavem)
+            if ignarantiam:
+                for item in ignarantiam:
+                    matrem.pop(item)
+
+            # print('matrem', matrem)
+
+            # for clavem, _valorem in matrem.items():
+            #     print('clavem 0 item', clavem)
+            #     if isinstance(clavem, str) and \
+            #         clavem.startswith(ignarantiam_praefixum):
+            #         print('matrem 000 del')
+            #         del matrem[clavem]
+
         if isinstance(patrem, dict):
+
+            if len(ignarantiam_praefixum) > 0:
+                # print('matrem 000____')
+
+                ignarantiam = []
+                for clavem in patrem.keys():
+                    if clavem.startswith(ignarantiam_praefixum):
+                        ignarantiam.append(clavem)
+                        # print('poppppp ', clavem)
+                        # matrem.pop(clavem)
+                if ignarantiam:
+                    for item in ignarantiam:
+                        patrem.pop(item)
+
+            # print('patrem is dict', patrem, patrem.keys())
             for clavem, _valorem in patrem.items():
+                # print('clavem zzz', clavem)
+                # if len(ignarantiam_praefixum) > 0 and \
+                #     isinstance(clavem, str) and \
+                #     clavem.startswith(ignarantiam_praefixum):
+                #     print('oi1')
                 if clavem in matrem:
+                    # print('clavem 111', clavem)
+                    # if isinstance(clavem, str) and \
+                    #     clavem.startswith(ignarantiam_praefixum):
+                    #     # print('bye bye ', clavem)
+                    #     matrem.pop(clavem)
+                    #     continue
+                    # print('gogo', clavem)
                     matrem[clavem] = recursionem_combinandum_dictionarium(
                         matrem[clavem],
-                        patrem[clavem]
+                        patrem[clavem],
+                        ignarantiam_praefixum
                     )
                 else:
-                    matrem[clavem] = patrem[clavem]
+                    # print('clavem not in mater', clavem)
+                    if len(ignarantiam_praefixum) > 0:
+                        # print('trying filter pater')
+                        matrem[clavem] = \
+                            recursionem_combinandum_dictionarium(
+                                patrem[clavem],
+                                {},
+                                ignarantiam_praefixum)
+
+                        # print('trying filter pater, result', matrem[clavem])
+                    else:
+                        matrem[clavem] = patrem[clavem]
         else:
             raise ValueError(
                 'Errōrem combīnandum matrem {0} et patrem {1}'.format(
@@ -6329,13 +6430,7 @@ def recursionem_combinandum_dictionarium(matrem: Dict, patrem: Dict) -> Dict:
         raise NotImplementedError(
             'TODO: Python type {0}'.format(type(matrem)))
 
-    # filium = deepcopy(matrem)
-    # for clavem, valorem in patrem.items():
-    #     if isinstance(valorem, Dict):
-    #         recursionem_combinandum_dictionarium()
-    #         pass
-    #     # filium[clavem] = patrem[clavem]
-
+    # print('filium', matrem)
     return matrem
 
 
