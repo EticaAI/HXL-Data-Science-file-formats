@@ -600,8 +600,8 @@ normam:
 
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
-            <unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
-              {%- if rem.de_auxilium_linguam %}
+            <unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}">
+              {% if rem.de_auxilium_linguam -%}
               <notes>
                 {% for item in rem.de_auxilium_linguam -%}
                 <note appliesTo="source" priority="2"
@@ -612,15 +612,17 @@ normam:
                 </note>
                 {%- endfor %}
               </notes>
-              {%- else -%}
-                <!-- non rem.de_auxilium_linguam -->
-              {%- endif  %}
+              {% else -%}
+              <!--
+                non rem.de_auxilium_linguam
+              -->
+              {% endif -%}
               <segment>
                 <source>{{ rem.de_fontem_linguam.rem }}</source>
-                {%- if rem.de_objectivum_linguam %}
+                {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem != '' %}
                 <target>{{ rem.de_objectivum_linguam.rem }}</target>
-                {%- else -%}
-                  <!-- non rem.de_objectivum_linguam -->
+                {%- else %}
+                <!-- non rem.de_objectivum_linguam -->
                 {%- endif  %}
               </segment>
             </unit>
@@ -675,9 +677,9 @@ normam:
 
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
-            <trans-unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
+            <trans-unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}">
               <source>{{ rem.de_fontem_linguam.rem }}</source>
-              {%- if rem.de_objectivum_linguam %}
+              {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem %}
               <target>{{ rem.de_objectivum_linguam.rem }}</target>
               {%- else -%}
                 <!-- non rem.de_objectivum_linguam -->

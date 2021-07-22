@@ -6442,6 +6442,10 @@ def recursionem_combinandum_dictionarium(
         # matrem = patrem
         return matrem
 
+    if patrem is None:
+        # matrem = patrem
+        return matrem
+
     if isinstance(matrem, set):
         matrem = list(matrem)
     if isinstance(patrem, set):

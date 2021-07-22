@@ -1995,8 +1995,8 @@ normam:
 
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
-            &lt;unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
-              {%- if rem.de_auxilium_linguam %}
+            &lt;unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}"&gt;
+              {% if rem.de_auxilium_linguam -%}
               &lt;notes&gt;
                 {% for item in rem.de_auxilium_linguam -%}
                 &lt;note appliesTo="source" priority="2"
@@ -2007,15 +2007,17 @@ normam:
                 &lt;/note&gt;
                 {%- endfor %}
               &lt;/notes&gt;
-              {%- else -%}
-                &lt;!-- non rem.de_auxilium_linguam --&gt;
-              {%- endif  %}
+              {% else -%}
+              &lt;!--
+                non rem.de_auxilium_linguam
+              --&gt;
+              {% endif -%}
               &lt;segment&gt;
                 &lt;source&gt;{{ rem.de_fontem_linguam.rem }}&lt;/source&gt;
-                {%- if rem.de_objectivum_linguam %}
+                {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem != '' %}
                 &lt;target&gt;{{ rem.de_objectivum_linguam.rem }}&lt;/target&gt;
-                {%- else -%}
-                  &lt;!-- non rem.de_objectivum_linguam --&gt;
+                {%- else %}
+                &lt;!-- non rem.de_objectivum_linguam --&gt;
                 {%- endif  %}
               &lt;/segment&gt;
             &lt;/unit&gt;
@@ -2070,9 +2072,9 @@ normam:
 
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
-            &lt;trans-unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
+            &lt;trans-unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}"&gt;
               &lt;source&gt;{{ rem.de_fontem_linguam.rem }}&lt;/source&gt;
-              {%- if rem.de_objectivum_linguam %}
+              {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem %}
               &lt;target&gt;{{ rem.de_objectivum_linguam.rem }}&lt;/target&gt;
               {%- else -%}
                 &lt;!-- non rem.de_objectivum_linguam --&gt;
@@ -3612,7 +3614,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-22 19:11:16 UTC
+Last updated 2021-07-22 20:57:21 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

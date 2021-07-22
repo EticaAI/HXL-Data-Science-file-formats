@@ -599,4 +599,23 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # To revert only one file that keeps changing even with same input
 # git checkout -- testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
 
+### Real test usage, start -----------------------------------------------------
+
+# Download lastest schemam-un-htcds.tm.hxl from Google docs
+# hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422 schemam-un-htcds.tm.hxl.csv
+
+hxltmcli schemam-un-htcds.tm.hxl.csv \
+  resultatum/schemam-un-htcds_eng-Latn--por-Latn.xlf \
+  --fontem-linguam eng-Latn@en \
+  --objectivum-linguam por-Latn@pt \
+  --objectivum-XLIFF
+
+hxltmcli schemam-un-htcds.tm.hxl.csv \
+  resultatum/schemam-un-htcds_eng-Latn--slv-Latn.xlf \
+  --fontem-linguam eng-Latn@en \
+  --objectivum-linguam slv-Latn@sl \
+  --objectivum-XLIFF
+
+### Real test usage, end -------------------------------------------------------
+
 exit 0
