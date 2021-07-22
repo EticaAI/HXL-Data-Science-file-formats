@@ -640,14 +640,7 @@ normam:
       finale: |2
           </file>
         </xliff>
-  
-  # TODO: check XLIFF JSON 'JLIFF' 
-  #       - https://github.com/oasis-tcs/xliff-omos-jliff
-  #       - https://github.com/oasis-tcs/xliff-omos-jliff/blob/master/JLIFF-schema-draft/JLIFF-2.0/jliff-schema-2.0.json
 
-  # "TBX Mapping with XLIFF v2.0 and Higher Version 1.0"
-  # - https://tools.oasis-open.org/version-control/browse/wsvn/xliff-omos/trunk/XLIFF-TBX/xliff-tbx-v1.0.pdf
-  # - https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.863.1277&rep=rep1&type=pdf
   # end::normam_XLIFF[]
 
   #### normam_XLIFF-obsoletum: Universal Terminology eXchange v1.2 _____________
@@ -685,25 +678,36 @@ normam:
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
             <trans-unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}">
-              <source>{{ rem.de_fontem_linguam.rem }}</source>
+              <source>
+                {{- rem.de_fontem_linguam.rem -}}
+              </source>
               {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem %}
-              <target>{{ rem.de_objectivum_linguam.rem }}</target>
+              <target state="{{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}">
+                {{- rem.de_objectivum_linguam.rem -}}
+              </target>
               {%- else -%}
                 <!-- non rem.de_objectivum_linguam -->
-              {%- endif  %}
-
-              {%- if rem.de_auxilium_linguam -%}
-
+              {%- endif %}
+              {% if rem.de_auxilium_linguam or rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}
+              {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}
+              <note annotates="source" priority="1"
+                from="referens_situs_interretialis">
+                {{ item }}
+              </note>
+              {%- endfor %}
               {%- for item in rem.de_auxilium_linguam %}
+              {% if item.rem -%}
               <note annotates="source" priority="2">
                   _[{{- item.linguam -}}]
                   {{- item.rem -}}
                   [{{- item.linguam -}}]_
               </note>
+              {% endif -%}
               {%- endfor -%}
-
               {%- else -%}
-                <!-- non rem.de_auxilium_linguam -->
+              <!--
+                non rem.de_auxilium_linguam aut rem.de_nomen_breve.referens_situs_interretialis
+              -->
               {%- endif  %}
             </trans-unit>
             {%- else -%}
