@@ -199,6 +199,7 @@ from typing import (
 from dataclasses import dataclass, InitVar
 # from dataclasses import dataclass, InitVar, field
 # from copy import deepcopy
+from collections import OrderedDict
 
 import json
 import yaml
@@ -2916,6 +2917,7 @@ HXLTMASA()
                     }
 
                 if nomen_breve == 'statum_rem_textum__L__':
+                    # print('>>>> nunc_valorem', nunc_valorem)
                     statum_rem_de_textum[linguam_de_hashtag] = \
                         self.asa().ontologia.quod_aliud_de_multiplum(
                             'rem_statum',
@@ -2947,6 +2949,9 @@ HXLTMASA()
                 resultatum['de_linguam'][nunc_valorem_rem['linguam']] = \
                     nunc_valorem_rem
 
+                # TODO: implement this step at the end, with
+                #       recursionem_combinandum_dictionarium(),
+                #       for all items, not just de_linguam
                 resultatum['de_linguam'][nunc_valorem_rem['linguam']
                                          ]['statum'] = self.quod_statum({})
 
@@ -2989,22 +2994,52 @@ HXLTMASA()
         Returns:
             [type]: [description]
         """
-        for clavem in clavem_et_valorem:
-            if clavem in statum_rem_accuratuam:
-                clavem_et_valorem[clavem] = \
+        # clavem_de_linguam = ['de_linguam', 'de_fontem_linguam',
+        #                      'de_objectivum_linguam', 'de_auxilium_linguam']
+        clavem_de_linguam = ['de_linguam', 'de_auxilium_linguam']
+        for clavem_typum in clavem_de_linguam:
+            # print('clavem_typum tried', clavem_typum)
+            if clavem_typum in clavem_et_valorem:
+
+                # print('>>>>>> ANTES', clavem_et_valorem[clavem_typum])
+                clavem_et_valorem[clavem_typum] = \
                     recursionem_combinandum_dictionarium(
-                    clavem_et_valorem[clavem],
-                    statum_rem_accuratuam[clavem],
-                    True,
-                    '__'
+                    clavem_et_valorem[clavem_typum],
+                    statum_rem_accuratuam,
+                    aequivalens=False,
+                    ignarantiam_praefixum='__'
                 )
-        # print('statum_rem_accuratuam', statum_rem_accuratuam['lat-latn'])
-        # print('statum_rem_accuratuam', statum_rem_accuratuam)
 
-        # print('statum_rem_accuratuam', statum_rem_accuratuam)
-        # print('statum_rem_de_textum', statum_rem_de_textum)
+                # print('', )
+                # print('>>>>>> depois', clavem_et_valorem[clavem_typum])
+                # print(' >>>', clavem_et_valorem[clavem_typum])
 
-        # print('clavem_et_valorem', clavem_et_valorem['lat-latn'])
+        # if 'de_fontem_linguam' in clavem_et_valorem:
+        #     print(clavem_et_valorem['de_fontem_linguam'])
+
+        if 'de_fontem_linguam' in clavem_et_valorem and \
+            clavem_et_valorem['de_fontem_linguam']['linguam'] in \
+                statum_rem_accuratuam:
+
+            clavem_et_valorem['de_fontem_linguam'] = \
+                recursionem_combinandum_dictionarium(
+                    clavem_et_valorem['de_fontem_linguam'],
+                    statum_rem_accuratuam[
+                        clavem_et_valorem['de_fontem_linguam']['linguam']]
+            )
+            # print('yay', clavem_et_valorem['de_fontem_linguam'])
+
+        if 'de_objectivum_linguam' in clavem_et_valorem and \
+            clavem_et_valorem['de_objectivum_linguam']['linguam'] in \
+                statum_rem_accuratuam:
+
+            clavem_et_valorem['de_objectivum_linguam'] = \
+                recursionem_combinandum_dictionarium(
+                    clavem_et_valorem['de_objectivum_linguam'],
+                    statum_rem_accuratuam[
+                        clavem_et_valorem['de_objectivum_linguam']['linguam']]
+            )
+            # print('yay', clavem_et_valorem['de_objectivum_linguam'])
 
         return clavem_et_valorem
 
@@ -4412,13 +4447,25 @@ True
 ...    'rem_status',
 ...    ['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'])
 >>> testum_I
-{'_crudum_originale': ['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'], \
-'_conjecturum': ['TBX_preferred'], \
-'codicem_lat': 'rem_finale', \
+{'_conjecturum': ['TBX_preferred'], '_crudum_originale': \
+['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'], \
+'codicem_TBX': 'preferred', \
 'codicem_UTX': 'provisional', \
 'codicem_XLIFF': 'initial', \
-'codicem_TBX': 'preferred'\
-}
+'codicem_lat': 'rem_finale'}
+
+
+>>> testum_II = ontologia.quod_aliud_de_multiplum(
+...    'rem_status',
+...    ['lat_rem_finale'])
+
+>>> testum_II
+{'_conjecturum': ['TBX_preferred', 'UTX_approved', 'XLIFF_final'], \
+'_crudum_originale': ['lat_rem_finale'], \
+'codicem_TBX': 'preferred', \
+'codicem_UTX': 'approved', \
+'codicem_XLIFF': 'final', \
+'codicem_lat': 'rem_finale'}
 
         """
         if not aliud_valorem_multiplum or len(aliud_valorem_multiplum) == 0:
@@ -4429,11 +4476,17 @@ True
                 str.strip,
                 aliud_valorem_multiplum.split('|')))
 
+        # aliud_valorem_multiplum.sort(key=str.lower)
+
         resultatum = {
             '_crudum_originale': aliud_valorem_multiplum,
             '_conjecturum': []
         }
-        aliud_familiam = set(self.crudum['ontologia_aliud_familiam'].keys())
+        aliud_familiam = set(
+            sorted(self.crudum['ontologia_aliud_familiam'].keys(),
+                   key=str.lower)
+        )
+
         aliud_secundum = set()
         for item in aliud_valorem_multiplum:
             rem = self.quod_aliud(aliud_typum, item)
@@ -4461,6 +4514,9 @@ True
                 resultatum['_conjecturum'].append(item)
                 resultatum['codicem_' + rem['_aliud_familiam']] = \
                     rem['codicem_' + rem['_aliud_familiam']]
+                resultatum['_conjecturum'].sort(key=str.lower)
+
+        resultatum = dict(OrderedDict(sorted(resultatum.items())))
 
         return resultatum
 
@@ -6395,7 +6451,13 @@ def recursionem_combinandum_dictionarium(
         elif patrem:
             matrem.append(patrem)
 
-        matrem = list(set(matrem))
+        non_hashable = False
+        for rem in matrem:
+            if isinstance(rem, dict):
+                non_hashable = True
+
+        if not non_hashable:
+            matrem = list(set(matrem))
     elif isinstance(matrem, set):
         raise NotImplementedError('TODO: Python set')
 

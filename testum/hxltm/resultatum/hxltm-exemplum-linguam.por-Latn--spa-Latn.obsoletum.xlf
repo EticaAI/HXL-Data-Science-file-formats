@@ -12,6 +12,9 @@
       <note annotates="source" priority="2">
           _[eng-Latn]eng-Latn[eng-Latn]_
       </note>
+      <note annotates="source" priority="2">
+          _[][]_
+      </note>
     </trans-unit>
 
     <trans-unit id="L10N_ego_linguam_nomen">
@@ -19,6 +22,9 @@
       <target>Idioma español</target>
       <note annotates="source" priority="2">
           _[eng-Latn]English language[eng-Latn]_
+      </note>
+      <note annotates="source" priority="2">
+          _[][]_
       </note>
     </trans-unit>
 
@@ -28,6 +34,9 @@
       <note annotates="source" priority="2">
           _[eng-Latn]Latin script[eng-Latn]_
       </note>
+      <note annotates="source" priority="2">
+          _[][]_
+      </note>
     </trans-unit>
 
     <trans-unit id="L10N_ego_patriam_UN_M49_numerum">
@@ -35,6 +44,9 @@
       <target>001</target>
       <note annotates="source" priority="2">
           _[eng-Latn]001[eng-Latn]_
+      </note>
+      <note annotates="source" priority="2">
+          _[][]_
       </note>
     </trans-unit>
 
@@ -44,6 +56,9 @@
       <note annotates="source" priority="2">
           _[eng-Latn]∅[eng-Latn]_
       </note>
+      <note annotates="source" priority="2">
+          _[][]_
+      </note>
     </trans-unit>
 
     <trans-unit id="I18N_testum_salve_mundi_testum_I18N">
@@ -51,6 +66,9 @@
       <target>¡Hola mundo!</target>
       <note annotates="source" priority="2">
           _[eng-Latn]Hello, World![eng-Latn]_
+      </note>
+      <note annotates="source" priority="2">
+          _[][]_
       </note>
     </trans-unit>
 
@@ -60,6 +78,9 @@
       <note annotates="source" priority="2">
           _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
       </note>
+      <note annotates="source" priority="2">
+          _[][]_
+      </note>
     </trans-unit>
 
     <trans-unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
@@ -67,6 +88,9 @@
       <target>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</target>
       <note annotates="source" priority="2">
           _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
+      </note>
+      <note annotates="source" priority="2">
+          _[][]_
       </note>
     </trans-unit>
 
