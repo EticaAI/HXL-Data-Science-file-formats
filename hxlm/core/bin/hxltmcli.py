@@ -2640,7 +2640,7 @@ HXLTMASA()
 {'_typum': 'HXLTMDatumConceptumSaccum', 'conceptum_nomen': 'C2', \
 'rem': {'de_id': {}, 'de_linguam': {'lat-Latn': \
 {'rem': 'Marcus canem amat.', '_typum': 'HXLTMRemCaput', \
-'crudum': 'lat-latn@la', 'linguam': 'lat-Latn', 'bcp47': 'la', \
+'crudum': 'lat-Latn@la', 'linguam': 'lat-Latn', 'bcp47': 'la', \
 'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn', \
 'statum': {'accuratum': -1, 'crudum': [], \
 'XLIFF': 'initial', 'UTX': 'provisional'}}}, \
@@ -2908,6 +2908,8 @@ HXLTMASA()
                 linguam_de_hashtag = HXLTMUtil.linguam_de_hxlhashtag(
                     hxl_hashtag, non_obsoletum=True)
 
+                # print('linguam_de_hashtag', linguam_de_hashtag)
+
                 if nomen_breve == 'accuratum__L__':
                     statum_rem_accuratuam[linguam_de_hashtag] = {
                         'accuratum': nunc_valorem
@@ -2948,14 +2950,28 @@ HXLTMASA()
                 resultatum['de_linguam'][nunc_valorem_rem['linguam']
                                          ]['statum'] = self.quod_statum({})
 
+        # print('')
+        # print('')
+        # print('statum_rem_de_textum', statum_rem_de_textum)
+        # print('statum_rem_accuratuam', statum_rem_accuratuam)
+        # print('')
+
         supplementum_valorem = recursionem_combinandum_dictionarium(
-            statum_rem_de_textum, statum_rem_accuratuam
+            statum_rem_de_textum, statum_rem_accuratuam, False
         )
+
+        # print("resultatum['de_linguam']", resultatum['de_linguam'])
 
         # supplementum_valorem = \
         #     {**statum_rem_de_textum, **statum_rem_accuratuam}
 
+        # print('supplementum_valorem', supplementum_valorem)
         # print('supplementum_valorem', supplementum_valorem['lat-latn'])
+        # print('de_linguam', resultatum['de_linguam'])
+        # print(' >>>de_linguam type type', type(resultatum['de_linguam']))
+        # print(' >>>de_linguam keys', resultatum['de_linguam'].keys())
+        # # print('de_linguam', resultatum['de_linguam']['lat-latn'])
+        # print('de_linguam', resultatum['de_linguam'])
 
         return self._quod_clavem_et_valorem_ii(
             resultatum, supplementum_valorem)
@@ -2973,11 +2989,22 @@ HXLTMASA()
         Returns:
             [type]: [description]
         """
+        for clavem in clavem_et_valorem:
+            if clavem in statum_rem_accuratuam:
+                clavem_et_valorem[clavem] = \
+                    recursionem_combinandum_dictionarium(
+                    clavem_et_valorem[clavem],
+                    statum_rem_accuratuam[clavem],
+                    True,
+                    '__'
+                )
         # print('statum_rem_accuratuam', statum_rem_accuratuam['lat-latn'])
         # print('statum_rem_accuratuam', statum_rem_accuratuam)
 
         # print('statum_rem_accuratuam', statum_rem_accuratuam)
         # print('statum_rem_de_textum', statum_rem_de_textum)
+
+        # print('clavem_et_valorem', clavem_et_valorem['lat-latn'])
 
         return clavem_et_valorem
 
@@ -5796,11 +5823,11 @@ class HXLTMUtil:
             iso6393 = HXLTMUtil.iso6393_from_hxlattrs(k)
             iso115924 = HXLTMUtil.iso115924_from_hxlattrs(k)
             if bcp47:
-                rawstr += '+i_' + bcp47
+                rawstr += '+i_' + bcp47.lower()
             if iso6393:
-                rawstr += '+i_' + iso6393
+                rawstr += '+i_' + iso6393.lower()
             if iso115924:
-                rawstr += '+is_' + iso115924
+                rawstr += '+is_' + iso115924.lower()
             # print('   ', k, '   ', rawstr)
             result.add(rawstr)
         return result
@@ -5843,9 +5870,10 @@ class HXLTMUtil:
         writting system without require a complex table equivalence.
 
         Example:
-            >>> HXLTMUtil.iso115924_from_hxlattrs('#item+i_ar+i_arb+is_arab')
-            'arab'
-            >>> HXLTMUtil.iso115924_from_hxlattrs('#item+i_ar')
+            >>> HXLTMUtil.iso115924_from_hxlattrs('#item+i_ar+i_arb+is_ARaB')
+            'Arab'
+
+            >>> HXLTMUtil.iso115924_from_hxlattrs('#item+i_pt')
             ''
 
         Args:
@@ -5858,7 +5886,9 @@ class HXLTMUtil:
             parts = hashtag.lower().split('+')
             for k in parts:
                 if k.startswith('is_'):
-                    return k.replace('is_', '')
+                    # return k.replace('is_', '')
+                    return k.replace('is_', '').capitalize()
+                    # return k.replace('is_', '').lower()
 
         return ''
 
@@ -5917,7 +5947,7 @@ class HXLTMUtil:
         Example:
             >>> HXLTMUtil.linguam_de_hxlhashtag(
             ...    '#meta+item+i_la+i_lat+is_latn')
-            'lat-latn@la'
+            'lat-Latn@la'
         """
         rawstr = ''
         bcp47 = HXLTMUtil.bcp47_from_hxlattrs(hxl_hashtag)
@@ -6268,6 +6298,7 @@ class TerminumStatum(TerminumAbstractumRadicem):
 def recursionem_combinandum_dictionarium(
     matrem: Union[Dict, Any],
     patrem: Union[Dict, Any],
+    aequivalens: bool = False,
     ignarantiam_praefixum: str = ''
 ) -> Union[Dict, Any]:
     """Recursiōnem combīnandum dictiōnārium
@@ -6283,6 +6314,7 @@ def recursionem_combinandum_dictionarium(
         - recursiōnem, https://en.wiktionary.org/wiki/recursio#Latin
         - combīnandum, https://en.wiktionary.org/wiki/combino#Latin
         - dictiōnārium, https://en.wiktionary.org/wiki/dictionarium#Latin
+        - aequivalēns, https://en.wiktionary.org/wiki/aequivalens
         - praefīxum, https://en.wiktionary.org/wiki/praefixus#Latin
         - ignōrantiam, https://en.wiktionary.org/wiki/ignorantia
         - clāvem, https://en.wiktionary.org/wiki/clavis#Latin
@@ -6302,6 +6334,10 @@ def recursionem_combinandum_dictionarium(
             Python dictiōnārium genitōrem 'mātrem'
         patrem (Dict):
             Python dictiōnārium genitōrem 'patrem'
+        aequivalens (bool):
+            combinandum:
+                aequivalens Falsum: clavem de patrem
+                aequivalens Verum: clavem de patrem + clavem de mātrem
         ignarantiam_praefixum (str):
             ignōrantiam praefīxum clāvem
 
@@ -6319,10 +6355,23 @@ def recursionem_combinandum_dictionarium(
 
 >>> matrem = {'a': [1, 2], 'b': {'__b1': [1, 3], 'b3': 1}}
 >>> patrem = {'b': {'__b1': [1, 2], 'b2': 2}}
->>> filium_ = recursionem_combinandum_dictionarium(matrem, patrem, '__')
+>>> filium_ = recursionem_combinandum_dictionarium(matrem, patrem, False, '__')
 >>> filium_
 {'a': [1, 2], 'b': {'b3': 1, 'b2': 2}}
 
+>>> matrem = {'a': [1, 2] }
+>>> patrem = {'b': [3, 4]}
+>>> filium_eq = recursionem_combinandum_dictionarium(
+...                 matrem, patrem, aequivalens = True)
+>>> filium_eq
+{'a': [1, 2]}
+
+>>> matrem = {'a': [1, 2] }
+>>> patrem = {'b': [3, 4]}
+>>> filium_non_eq = recursionem_combinandum_dictionarium(
+...                 matrem, patrem, aequivalens = False)
+>>> filium_non_eq
+{'a': [1, 2], 'b': [3, 4]}
     """
     # print('fiat lux')
     # print('matrem', matrem)
@@ -6407,9 +6456,12 @@ def recursionem_combinandum_dictionarium(
                     matrem[clavem] = recursionem_combinandum_dictionarium(
                         matrem[clavem],
                         patrem[clavem],
+                        aequivalens,
                         ignarantiam_praefixum
                     )
                 else:
+                    if aequivalens:
+                        continue
                     # print('clavem not in mater', clavem)
                     if len(ignarantiam_praefixum) > 0:
                         # print('trying filter pater')
@@ -6417,6 +6469,7 @@ def recursionem_combinandum_dictionarium(
                             recursionem_combinandum_dictionarium(
                                 patrem[clavem],
                                 {},
+                                aequivalens,
                                 ignarantiam_praefixum)
 
                         # print('trying filter pater, result', matrem[clavem])
