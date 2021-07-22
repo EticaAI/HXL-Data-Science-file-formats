@@ -8,128 +8,140 @@
   <file id="f1">
 
     <unit id="L10N_ego_codicem">
-      <notes>
-        <note appliesTo="source" priority="2"
+      <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[eng-Latn]eng-Latn[eng-Latn]_
-        </note><note appliesTo="source" priority="2"
+        </note><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[][]_
         </note>
-      </notes>
-      <segment>
+        </notes>
+      <segment state="final">
         <source>por-Latn</source>
         <target>spa-Latn</target>
       </segment>
     </unit>
 
     <unit id="L10N_ego_linguam_nomen">
-      <notes>
-        <note appliesTo="source" priority="2"
+      <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[eng-Latn]English language[eng-Latn]_
-        </note><note appliesTo="source" priority="2"
+        </note><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[][]_
         </note>
-      </notes>
-      <segment>
+        </notes>
+      <segment state="final">
         <source>Língua portuguesa</source>
         <target>Idioma español</target>
       </segment>
     </unit>
 
     <unit id="L10N_ego_scriptum_nomen">
-      <notes>
-        <note appliesTo="source" priority="2"
+      <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[eng-Latn]Latin script[eng-Latn]_
-        </note><note appliesTo="source" priority="2"
+        </note><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[][]_
         </note>
-      </notes>
-      <segment>
+        <note appliesTo="source" priority="1"
+          category="referens_situs_interretialis">
+          https://www.unicode.org/iso15924/
+        </note>
+        </notes>
+      <segment state="final">
         <source>Alfabeto latino</source>
         <target>Alfabeto latino</target>
       </segment>
     </unit>
 
     <unit id="L10N_ego_patriam_UN_M49_numerum">
-      <notes>
-        <note appliesTo="source" priority="2"
+      <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[eng-Latn]001[eng-Latn]_
-        </note><note appliesTo="source" priority="2"
+        </note><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[][]_
         </note>
-      </notes>
-      <segment>
+        <note appliesTo="source" priority="1"
+          category="referens_situs_interretialis">
+          https://en.wikipedia.org/wiki/UN_M49
+        </note>
+        </notes>
+      <segment state="final">
         <source>001</source>
         <target>001</target>
       </segment>
     </unit>
 
     <unit id="L10N_ego_patriam_UN_P_codicem">
-      <notes>
-        <note appliesTo="source" priority="2"
+      <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[eng-Latn]∅[eng-Latn]_
-        </note><note appliesTo="source" priority="2"
+        </note><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[][]_
         </note>
-      </notes>
-      <segment>
+        <note appliesTo="source" priority="1"
+          category="referens_situs_interretialis">
+          https://en.wikipedia.org/wiki/Place_code
+        </note>
+        </notes>
+      <segment state="final">
         <source>∅</source>
         <target>∅</target>
       </segment>
     </unit>
 
     <unit id="I18N_testum_salve_mundi_testum_I18N">
-      <notes>
-        <note appliesTo="source" priority="2"
+      <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[eng-Latn]Hello, World![eng-Latn]_
-        </note><note appliesTo="source" priority="2"
+        </note><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[][]_
         </note>
-      </notes>
-      <segment>
+        </notes>
+      <segment state="final">
         <source>Olá mundo!</source>
         <target>¡Hola mundo!</target>
       </segment>
     </unit>
 
     <unit id="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
-      <notes>
-        <note appliesTo="source" priority="2"
+      <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
-        </note><note appliesTo="source" priority="2"
+        </note><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[][]_
         </note>
-      </notes>
-      <segment>
+        <note appliesTo="source" priority="1"
+          category="referens_situs_interretialis">
+          https://www.iana.org/domains/reserved
+        </note>
+        </notes>
+      <segment state="final">
         <source>Teste, 1, 2, 3</source>
         <target>Prueba, 1, 2, 3</target>
       </segment>
     </unit>
 
     <unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1234_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
-      <notes>
-        <note appliesTo="source" priority="2"
+      <notes><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
-        </note><note appliesTo="source" priority="2"
+        </note><note appliesTo="source" priority="3"
           category="de_auxilium_linguam">
           _[][]_
         </note>
-      </notes>
-      <segment>
+        <note appliesTo="source" priority="1"
+          category="referens_situs_interretialis">
+          https://en.wikipedia.org/wiki/List_of_numeral_systems
+        </note>
+        </notes>
+      <segment state="final">
         <source>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</source>
         <target>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</target>
       </segment>

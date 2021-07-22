@@ -1996,23 +1996,29 @@ normam:
       corporeum: |2
             {% if rem.de_fontem_linguam -%}
             &lt;unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}"&gt;
-              {% if rem.de_auxilium_linguam -%}
+              {% if rem.de_auxilium_linguam or rem.de_nomen_breve.referens_situs_interretialis.size &gt; 0 -%}
               &lt;notes&gt;
-                {% for item in rem.de_auxilium_linguam -%}
-                &lt;note appliesTo="source" priority="2"
+                {%- for item in rem.de_auxilium_linguam -%}
+                &lt;note appliesTo="source" priority="3"
                   category="de_auxilium_linguam"&gt;
                   _[{{- item.linguam -}}]
                   {{- item.rem -}}
                   [{{- item.linguam -}}]_
                 &lt;/note&gt;
                 {%- endfor %}
+                {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}
+                &lt;note appliesTo="source" priority="1"
+                  category="referens_situs_interretialis"&gt;
+                  {{ item }}
+                &lt;/note&gt;
+                {% endfor -%}
               &lt;/notes&gt;
               {% else -%}
               &lt;!--
-                non rem.de_auxilium_linguam
+                non rem.de_auxilium_linguam aut rem.de_nomen_breve.referens_situs_interretialis
               --&gt;
               {% endif -%}
-              &lt;segment&gt;
+              &lt;segment state="{{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'initial' }}"&gt;
                 &lt;source&gt;{{ rem.de_fontem_linguam.rem }}&lt;/source&gt;
                 {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem != '' %}
                 &lt;target&gt;{{ rem.de_objectivum_linguam.rem }}&lt;/target&gt;
@@ -2025,6 +2031,7 @@ normam:
               &lt;!-- non rem.de_fontem_linguam --&gt;
             {%- endif  %}
 
+      # &lt;!-- {{ rem }} --&gt;
       finale: |2
           &lt;/file&gt;
         &lt;/xliff&gt;
@@ -2295,6 +2302,15 @@ ontologia:
       #   #       edited by humans, but is a catch-all for metatada related
       #   #       to concept that does not have specialized field.
       #   # Recommended data type: JSON
+
+      # Trivia: referēns, https://en.wiktionary.org/wiki/referens
+      referens:
+        # Situs interretialis
+        situs_interretialis:
+          __HXL: '#meta +item +url +list'
+          __nomen_breve: 'referens_situs_interretialis' # conceptum.referens_situs_interretialis
+          __id: ontologia.commune.conceptum.referens.situs_interretialis
+          __libellam: conceptum
 
       # TODO: TBXBasic 6.17 Subject field, &lt;descrip type="subjectField"&gt;
       # Trivia: "typum", https://en.wiktionary.org/wiki/typus#Latin
@@ -3614,7 +3630,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-22 20:57:21 UTC
+Last updated 2021-07-22 22:14:36 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

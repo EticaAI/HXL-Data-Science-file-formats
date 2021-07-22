@@ -2909,6 +2909,15 @@ HXLTMASA()
 
                 # print('linguam_de_hashtag', linguam_de_hashtag)
 
+                if nomen_breve == 'referens_situs_interretialis':
+                    # conceptum.referens_situs_interretialis
+                    if nunc_valorem:
+                        # print('referens_situs_interretialis', nunc_valorem)
+                        resultatum['de_nomen_breve'][nomen_breve] = \
+                            nunc_valorem.split('|')
+                    else:
+                        resultatum['de_nomen_breve'][nomen_breve] = []
+
                 if nomen_breve == 'accuratum__L__':
                     statum_rem_accuratuam[linguam_de_hashtag] = {
                         'accuratum': nunc_valorem
@@ -4663,16 +4672,29 @@ True
         nomen_breve = ''
         if hxl_hashtag == '#item+conceptum+codicem':
             nomen_breve = 'conceptum_codicem'
+
+        if hxl_hashtag == '#meta+conceptum+codicem+alternativum':
+            nomen_breve = 'codicem_alternativum'
+
         elif hxl_hashtag == '#item+conceptum+dominium':
             nomen_breve = 'conceptum_dominium'
+
+        elif hxl_hashtag == '#meta+item+url+list':
+            # conceptum.referens_situs_interretialis
+            nomen_breve = 'referens_situs_interretialis'
+
         elif hxl_hashtag == '#item+conceptum+typum':
             nomen_breve = 'conceptum_typum'
+
         elif hxl_hashtag.startswith('#status+rem+accuratum+i_'):
             nomen_breve = 'accuratum__L__'
+
         elif hxl_hashtag.startswith('#status+rem+textum+i_'):
             nomen_breve = 'statum_rem_textum__L__'
+
         elif hxl_hashtag.startswith('#status+rem+json+i_'):
             nomen_breve = 'statum_rem_json__L__'
+
         elif hxl_hashtag.startswith('#item+rem+i_'):
             nomen_breve = 'rem__L__'
 
