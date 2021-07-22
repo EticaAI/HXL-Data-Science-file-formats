@@ -119,7 +119,7 @@
       </segment>
     </unit>
 
-    <unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
+    <unit id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1234_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
       <notes>
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
