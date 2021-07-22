@@ -1914,7 +1914,7 @@ ontologia_aliud:
   #   - statum, https://en.wiktionary.org/wiki/status#Latin
 
   # translationem_status:
-  rem_status:
+  rem_statum:
 
     ### Lingua Latina ---------------------------------------------------------
     # TODO: lingua latina

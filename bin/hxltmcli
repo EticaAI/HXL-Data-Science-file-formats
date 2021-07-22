@@ -2642,9 +2642,7 @@ HXLTMASA()
 'rem': {'de_id': {}, 'de_linguam': {'lat-Latn': \
 {'rem': 'Marcus canem amat.', '_typum': 'HXLTMRemCaput', \
 'crudum': 'lat-Latn@la', 'linguam': 'lat-Latn', 'bcp47': 'la', \
-'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn', \
-'statum': {'accuratum': -1, 'crudum': [], \
-'XLIFF': 'initial', 'UTX': 'provisional'}}}, \
+'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}}, \
 'de_nomen_breve': {'conceptum_codicem': 'C2', \
 'rem__L__': 'Marcus canem amat.'}, 'hxl': {'#item+conceptum+codicem': 'C2', \
 '#item+rem+i_la+i_lat+is_Latn': 'Marcus canem amat.', \
@@ -2952,8 +2950,8 @@ HXLTMASA()
                 # TODO: implement this step at the end, with
                 #       recursionem_combinandum_dictionarium(),
                 #       for all items, not just de_linguam
-                resultatum['de_linguam'][nunc_valorem_rem['linguam']
-                                         ]['statum'] = self.quod_statum({})
+                # resultatum['de_linguam'][nunc_valorem_rem['linguam']
+                #                          ]['statum'] = self.quod_statum({})
 
         # print('')
         # print('')
@@ -3040,6 +3038,7 @@ HXLTMASA()
                         clavem_et_valorem['de_objectivum_linguam']['linguam']]
             )
             # print('yay', clavem_et_valorem['de_objectivum_linguam'])
+            # print('yay', clavem_et_valorem['de_linguam'])
 
         return clavem_et_valorem
 
@@ -4400,7 +4399,7 @@ True
                     resultatum['codicem_' + familiam] = \
                         aliud.replace(familiam + '_', '')
 
-        # print('resultatum', resultatum)
+        # print('   > quod_aliud resultatum', resultatum)
         return resultatum
 
     def quod_aliud_de_multiplum(
@@ -4444,7 +4443,7 @@ True
 >>> ontologia = HXLTMTestumAuxilium.ontologia()
 
 >>> testum_I = ontologia.quod_aliud_de_multiplum(
-...    'rem_status',
+...    'rem_statum',
 ...    ['lat_rem_finale', 'UTX_provisional', 'XLIFF_initial'])
 >>> testum_I
 {'_conjecturum': ['TBX_preferred'], '_crudum_originale': \
@@ -4456,7 +4455,7 @@ True
 
 
 >>> testum_II = ontologia.quod_aliud_de_multiplum(
-...    'rem_status',
+...    'rem_statum',
 ...    ['lat_rem_finale'])
 
 >>> testum_II
@@ -4491,6 +4490,7 @@ True
         for item in aliud_valorem_multiplum:
             rem = self.quod_aliud(aliud_typum, item)
             if rem is None or '_aliud_familiam' not in rem:
+                # print('not in rem')
                 continue
             resultatum['codicem_' + rem['_aliud_familiam']] = \
                 rem['codicem_' + rem['_aliud_familiam']]
@@ -4517,6 +4517,10 @@ True
                 resultatum['_conjecturum'].sort(key=str.lower)
 
         resultatum = dict(OrderedDict(sorted(resultatum.items())))
+
+        # print('')
+        # print('resultatum', resultatum)
+        # print('')
 
         return resultatum
 

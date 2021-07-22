@@ -1229,7 +1229,7 @@
         "codicem_UTX": "sentence"
       }
     },
-    "rem_status": {
+    "rem_statum": {
       "lat_rem_finale": {
         "_aliud": "TBX_preferred|UTX_approved|XLIFF_final",
         "codicem_lat": "rem_finale"
