@@ -12,6 +12,9 @@
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
           _[eng-Latn]eng-Latn[eng-Latn]_
+        </note><note appliesTo="source" priority="2"
+          category="de_auxilium_linguam">
+          _[][]_
         </note>
       </notes>
       <segment>
@@ -25,6 +28,9 @@
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
           _[eng-Latn]English language[eng-Latn]_
+        </note><note appliesTo="source" priority="2"
+          category="de_auxilium_linguam">
+          _[][]_
         </note>
       </notes>
       <segment>
@@ -38,6 +44,9 @@
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
           _[eng-Latn]Latin script[eng-Latn]_
+        </note><note appliesTo="source" priority="2"
+          category="de_auxilium_linguam">
+          _[][]_
         </note>
       </notes>
       <segment>
@@ -51,6 +60,9 @@
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
           _[eng-Latn]001[eng-Latn]_
+        </note><note appliesTo="source" priority="2"
+          category="de_auxilium_linguam">
+          _[][]_
         </note>
       </notes>
       <segment>
@@ -64,6 +76,9 @@
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
           _[eng-Latn]∅[eng-Latn]_
+        </note><note appliesTo="source" priority="2"
+          category="de_auxilium_linguam">
+          _[][]_
         </note>
       </notes>
       <segment>
@@ -77,6 +92,9 @@
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
           _[eng-Latn]Hello, World![eng-Latn]_
+        </note><note appliesTo="source" priority="2"
+          category="de_auxilium_linguam">
+          _[][]_
         </note>
       </notes>
       <segment>
@@ -90,6 +108,9 @@
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
           _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
+        </note><note appliesTo="source" priority="2"
+          category="de_auxilium_linguam">
+          _[][]_
         </note>
       </notes>
       <segment>
@@ -103,6 +124,9 @@
         <note appliesTo="source" priority="2"
           category="de_auxilium_linguam">
           _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
+        </note><note appliesTo="source" priority="2"
+          category="de_auxilium_linguam">
+          _[][]_
         </note>
       </notes>
       <segment>
