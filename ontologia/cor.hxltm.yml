@@ -676,17 +676,51 @@ normam:
             <body>
 
       corporeum: |2
-            {% if rem.de_fontem_linguam -%}
-            <trans-unit id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}">
+            {% if rem.de_fontem_linguam and rem.de_fontem_linguam.rem != '' -%}
+            {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}
+              {%- comment -%}
+                _[eng-Latn]
+                  Since we're targeting XLIFF 2.1 and this is XLIFF 1.2, we will hardcode
+                  Some variables directly on this Liquid template instead of waste time
+                  doing on the Python code.
+
+                  If this template seems ugly, is uglier who, as 2021, still have shitty
+                  support for XLIFF 2.X.
+
+                  state: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state
+                  state-qualifier: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state-qualifier
+                [eng-Latn]_
+              {%- endcomment -%}
+              {% capture XLIFF_obsoletum_state -%}
+                {{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}
+              {%- endcapture -%}
+              {%- if XLIFF_obsoletum_state == 'initial' -%}
+                {%- assign XLIFF_obsoletum_state = 'new' -%}
+                {%- assign XLIFF_obsoletum_approved = 'no' -%}
+                {%- assign XLIFF_obsoletum_statequalifier_attr = '' -%}
+                {%- assign XLIFF_obsoletum_approved_attr = '' -%}
+              {%- endif -%}
+              {%- if XLIFF_obsoletum_state == 'final' -%}
+                {%- assign XLIFF_obsoletum_state = 'final' -%}
+                {%- assign XLIFF_obsoletum_approved = 'yes' -%}
+                {%- assign XLIFF_obsoletum_translatesource_attr = ' translate="no"' -%}
+                {%- assign XLIFF_obsoletum_statequalifier_attr = ' state-qualifier="id-match"' -%}
+                {%- assign XLIFF_obsoletum_approved_attr = ' approved="yes"' -%}
+              {%- endif -%}
+            {%- endif -%}
+
+            <trans-unit id="{{- conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' -}}"
+              {{- XLIFF_obsoletum_translatesource_attr -}}
+              {{- XLIFF_obsoletum_approved_attr -}}>
               <source>
                 {{- rem.de_fontem_linguam.rem -}}
               </source>
-              {%- if rem.de_objectivum_linguam and rem.de_objectivum_linguam.rem %}
-              <target state="{{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}">
+              {%- if rem.de_objectivum_linguam.rem != '' %}
+              <target state="{{ XLIFF_obsoletum_state }}"{{ XLIFF_obsoletum_statequalifier_attr }}>
                 {{- rem.de_objectivum_linguam.rem -}}
               </target>
               {%- else -%}
-                <!-- non rem.de_objectivum_linguam -->
+                <!-- non rem.de_objectivum_linguam.rem -->
               {%- endif %}
               {% if rem.de_auxilium_linguam or rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}
               {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}

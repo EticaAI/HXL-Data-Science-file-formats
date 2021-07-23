@@ -616,6 +616,18 @@ hxltmcli schemam-un-htcds.tm.hxl.csv \
   --objectivum-linguam slv-Latn@sl \
   --objectivum-XLIFF
 
+hxltmcli schemam-un-htcds.tm.hxl.csv \
+  resultatum/schemam-un-htcds_eng-Latn--por-Latn.obsoletum.xlf \
+  --fontem-linguam eng-Latn@en \
+  --objectivum-linguam por-Latn@pt \
+  --objectivum-XLIFF-obsoletum
+
+hxltmcli schemam-un-htcds.tm.hxl.csv \
+  resultatum/schemam-un-htcds_eng-Latn--slv-Latn.obsoletum.xlf \
+  --fontem-linguam eng-Latn@en \
+  --objectivum-linguam slv-Latn@sl \
+  --objectivum-XLIFF-obsoletum
+
 ### Real test usage, end -------------------------------------------------------
 
 exit 0
