@@ -110,7 +110,12 @@ class HXL2Example:
         #     hxl.io.write_hxl(output.output, source,
         #                      show_tags=not args.strip_tags)
 
-        dexml = HXLTMdeXML(args.infile)
+        if args.infile:
+            dexml = HXLTMdeXML(args.infile)
+        else:
+            # print('stdin')
+            dexml = HXLTMdeXML(stdin)
+
         dexml.testum()
 
         return self.EXIT_OK
@@ -140,6 +145,7 @@ class HXLTMdeXML:
         #     print(action, elem)
 
         tree = ET.parse(self.archivum)
+        # tree = ET.parse(self.archivum)
         root = tree.getroot()
 
         # print(root.tag)
@@ -151,15 +157,17 @@ class HXLTMdeXML:
         print('oi')
         # print(root.findall('*'))
         # print(root.findall('./file'))
-        print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file'))
-        print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/body'))
-        print('body')
-        print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/*'))
-        print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/*'))
-        print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}body'))
-        print('')
-        print('')
-        print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file'))
+        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file'))
+        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/body'))
+        # print('body')
+        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/*'))
+        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/*'))
+        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}body'))
+        # print('')
+        # print('')
+        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file'))
+        # print(root.findall('./{*}file'))
+        print(root.findall('./{*}file/{*}body/{*}trans-unit'))
         print('')
         # print(root.findall('*'))
         # print('')
