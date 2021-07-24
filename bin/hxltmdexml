@@ -168,10 +168,9 @@ from typing import (
 )
 
 from functools import reduce
+from collections import OrderedDict
 
 import yaml
-
-from collections import OrderedDict
 
 # @see https://github.com/HXLStandard/libhxl-python
 #    pip3 install libhxl --upgrade
@@ -259,34 +258,22 @@ class HXLTMDeXMLCli:
     example.
     """
 
+    EXIT_OK = 0
+    EXIT_ERROR = 1
+    EXIT_SYNTAX = 2
+
     def __init__(self):
         """
         Constructs all the necessary attributes for the HXLTMDeXMLCli object.
         """
         self.hxlhelper = None
-        # self.args = None
+        self.args = None
 
         self._ontologia: Type['HXLTMOntologia'] = None
-
-        # Posix exit codes
-        self.EXIT_OK = 0  # pylint: disable=invalid-name
-        self.EXIT_ERROR = 1  # pylint: disable=invalid-name
-        self.EXIT_SYNTAX = 2  # pylint: disable=invalid-name
 
     def _initiale(self, pyargs):
         """Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
-        # if pyargs.expertum_metadatum_est:
-        #     self.expertum_metadatum_est = pyargs.expertum_metadatum_est
-
-        # TODO: migrate all this to HXLTMASA._initiale
-
-        # pyargs.est_stdout = True
-
-        # if pyargs:
-        #     self._argumentum = HXLTMArgumentum().de_argparse(pyargs)
-        # else:
-        #     self._argumentum = HXLTMArgumentum()
 
         conf = HXLTMUtil.load_hxltm_options(
             pyargs.archivum_configurationem,
@@ -295,23 +282,45 @@ class HXLTMDeXMLCli:
 
         self._ontologia = HXLTMOntologia(conf)
 
-    def make_args_hxl2example(self):
+    def make_args(self):
 
         self.hxlhelper = HXLUtils()
         parser = self.hxlhelper.make_args(
-            description=("hxltmdexml is an example script to create other "
-                         "scripts with some bare minimum command line "
-                         "interfaces that could work to export HXL files to "
-                         "other formats."))
+            description=__DESCRIPTIONEM_BREVE__,
+            epilog=__EPILOGUM__
+        )
+
+        # https://hdp.etica.ai/ontologia/cor.hxltm.yml
+        parser.add_argument(
+            '--archivum-configurationem',
+            help='Path to custom configuration file (The cor.hxltm.yml)',
+            action='store_const',
+            const=True,
+            default=None
+        )
+
+        parser.add_argument(
+            '--venandum-insectum-est', '--debug',
+            help='Enable debug? Extra information for program debugging',
+            metavar="venandum_insectum",
+            dest="venandum_insectum",
+            action='store_const',
+            const=True,
+            default=False
+        )
 
         self.args = parser.parse_args()
+
         return self.args
 
-    def execute_cli(self, args,
-                    stdin=STDIN, stdout=sys.stdout, stderr=sys.stderr):
+    def execute_cli(
+        self, pyargs,
+        stdin=STDIN,
+        _stdout=sys.stdout,
+        _stderr=sys.stderr
+    ):
         """
-        The execute_cli is the main entrypoint of HXLTMDeXMLCli. When
-        called will convert the HXL source to example format.
+        The execute_cli is the main entrypoint of HXLTMDeXMLCli.
         """
 
         # NOTE: the next lines, in fact, only generate an csv outut. So you
@@ -321,8 +330,10 @@ class HXLTMDeXMLCli:
         #     hxl.io.write_hxl(output.output, source,
         #                      show_tags=not args.strip_tags)
 
-        if args.infile:
-            dexml = HXLTMdeXML(args.infile)
+        self._initiale(pyargs)
+
+        if pyargs.infile:
+            dexml = HXLTMdeXML(self._ontologia, pyargs.infile)
         else:
             # print('stdin')
             dexml = HXLTMdeXML(stdin)
@@ -333,31 +344,58 @@ class HXLTMDeXMLCli:
 
 
 class HXLTMdeXML:
-    """HXLTM deX ML
+    """HXLTM de  XML
 
-    [extended_summary]
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
     """
 
-    def __init__(self,
-                 fontem_archivum=sys.stdin.buffer,
-                 objectvum_archivum=sys.stdout):
+    EXIT_OK = 0
+    EXIT_ERROR = 1
+    EXIT_SYNTAX = 2
+
+    def __init__(
+        self,
+        ontologia: Type['HXLTMOntologia'],
+        fontem_archivum=sys.stdin.buffer,
+        objectvum_archivum=sys.stdout
+    ):
         """__init__
 
-        [extended_summary]
-
         Args:
+            ontologia (HXLTMOntologia): ontologia
             fontem_archivum (): fomtem archīvum
             objectvum_archivum (): objectīvum archīvum
         """
 
-        self.fontem_archivum = fontem_archivum
+        self._ontologia = ontologia
+        if fontem_archivum:
+            self.fontem_archivum = fontem_archivum
+        else:
+            self.fontem_archivum = sys.stdin.buffer
 
-        # self.logger = logging.getLogger(__name__)
+        if objectvum_archivum:
+            self.objectvum_archivum = objectvum_archivum
+        else:
+            self.objectvum_archivum = sys.stdout
 
-        # Posix exit codes
-        self.EXIT_OK = 0
-        self.EXIT_ERROR = 1
-        self.EXIT_SYNTAX = 2
+    def quod_archivum_typum(self):
+        """quod_archivum_typum [summary]
+
+        Trivia:
+        - quod, https://en.wiktionary.org/wiki/qui#Latin
+        - archīvum, https://en.wiktionary.org/wiki/archivum
+        - typum, https://en.wiktionary.org/wiki/typus#Latin
+
+        Returns:
+            [str]: archīvum typum
+        """
+        resultatum = 'xml'
+        # todo: implement other checks
+        return resultatum
 
     def testum(self):
 
@@ -1405,13 +1443,25 @@ class HXLUtils:
         self.EXIT_ERROR = 1
         self.EXIT_SYNTAX = 2
 
-    def make_args(self, description, hxl_output=True):
+    # def make_args(self, description, hxl_output=True):
+    def make_args(self, description, epilog=None, hxl_output=True):
         """Set up parser with default arguments.
+
+        NOTE:
+            2021-07-14: Change from libhxl make_args: added epilog option
+
         @param description: usage description to show
         @param hxl_output: if True (default), include options for HXL output.
         @returns: an argument parser, partly set up.
         """
-        parser = argparse.ArgumentParser(description=description)
+        if epilog is None:
+            parser = argparse.ArgumentParser(description=description)
+        else:
+            parser = argparse.ArgumentParser(
+                description=description,
+                formatter_class=argparse.RawDescriptionHelpFormatter,
+                epilog=epilog
+            )
         parser.add_argument(
             'infile',
             help='HXL file to read (if omitted, use standard input).',
@@ -1591,6 +1641,6 @@ class StreamOutput(object):
 if __name__ == "__main__":
 
     hxltmdexml = HXLTMDeXMLCli()
-    args_ = hxltmdexml.make_args_hxl2example()
+    args_ = hxltmdexml.make_args()
 
     hxltmdexml.execute_cli(args_)
