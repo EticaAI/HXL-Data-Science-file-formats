@@ -154,7 +154,8 @@ import logging
 import argparse
 from pathlib import Path
 import re
-import xml.etree.ElementTree as ET
+# import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as XMLElementTree
 
 import csv
 # import tempfile
@@ -316,7 +317,7 @@ class HXLTMDeXMLCli:
     def execute_cli(
         self, pyargs,
         stdin=STDIN,
-        _stdout=sys.stdout,
+        stdout=sys.stdout,
         _stderr=sys.stderr
     ):
         """
@@ -332,15 +333,23 @@ class HXLTMDeXMLCli:
 
         self._initiale(pyargs)
 
-        if pyargs.infile:
-            dexml = HXLTMdeXML(self._ontologia, pyargs.infile)
-        else:
-            # print('stdin')
-            dexml = HXLTMdeXML(stdin)
+        fontem_archivum = pyargs.infile if pyargs.infile else stdin
+        objectvum_archivum = pyargs.outfile if pyargs.outfile else stdout
 
-        dexml.testum()
+        # if pyargs.infile:
+        #     fontem_archivum = pyargs.infile
+        # else:
+        #     # print('stdin')
+        #     dexml = HXLTMdeXML(stdin)
 
-        return self.EXIT_OK
+        dexml = HXLTMdeXML(
+            self._ontologia, fontem_archivum, objectvum_archivum)
+
+        return dexml.in_archivum()
+
+        # dexml.testum()
+
+        # return self.EXIT_OK
 
 
 class HXLTMdeXML:
@@ -351,11 +360,51 @@ class HXLTMdeXML:
         - HXLTM, https://hdp.etica.ai/hxltm
             - HXL, https://hxlstandard.org/
             - TM, https://www.wikidata.org/wiki/Q333761
+
+    Intrōductōrium cursum de Latīnam linguam (breve glōssārium):
+        - archīvum, https://en.wiktionary.org/wiki/archivum
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+        - contextum, https://en.wiktionary.org/wiki/contextus#Latin
+        - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+        - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
+            - id est: Python List
+        - dē, https://en.wiktionary.org/wiki/de#Latin
+        - errōrem, https://en.wiktionary.org/wiki/error#Latin
+        - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
+        - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+        - fontem, https://en.wiktionary.org/wiki/fons#Latin
+        - 'id est', https://en.wiktionary.org/wiki/id_est
+        - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        - locum, https://en.wiktionary.org/wiki/locum#Latin
+        - objectīvum, https://en.wiktionary.org/wiki/objectivus#Latin
+        - resultātum, https://en.wiktionary.org/wiki/resultatum
+        - rādīcem, https://en.wiktionary.org/wiki/radix#Latin
+
+    Speciāle verbum in HXLTM:
+        - 'Exemplōrum gratiā (et Python doctest, id est, testum automata)'
+            - Exemplōrum gratiā
+              - https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)
+            - 'Python doctest' (non Latīnam)
+                -https://docs.python.org/3/library/doctest.html
     """
 
-    EXIT_OK = 0
-    EXIT_ERROR = 1
-    EXIT_SYNTAX = 2
+    # Trivia:
+    # - exitum, https://en.wiktionary.org/wiki/exitus#Latin
+    # - errōrem, https://en.wiktionary.org/wiki/error#Latin
+    # - syntaxim, https://en.wiktionary.org/wiki/syntaxis#Latin
+    # - corrēctum, https://en.wiktionary.org/wiki/correctus#Latin
+    #     - correct (de Anglicum)
+    #         - OK (de anglicum),
+    #            - https://en.wiktionary.org/wiki/OK#English
+    #            - https://en.wiktionary.org/wiki/oll_korrect#English
+    EXITUM_CORRECTUM = 0
+    EXITUM_ERROREM = 1
+    EXITUM_SYNTAXIM = 2
+
+    # import xml.etree.ElementTree as XMLElementTree
+    # arborem: Type['XMLElementTree'] = None
+    arborem = None
+    arborem_radicem = None
 
     def __init__(
         self,
@@ -382,6 +431,9 @@ class HXLTMdeXML:
         else:
             self.objectvum_archivum = sys.stdout
 
+        self.arborem = XMLElementTree.parse(self.fontem_archivum)
+        self.arborem_radicem = self.arborem.getroot()
+
     def quod_archivum_typum(self):
         """quod_archivum_typum [summary]
 
@@ -397,17 +449,41 @@ class HXLTMdeXML:
         # todo: implement other checks
         return resultatum
 
+    def quod_archivum_xml_basim(self) -> Dict:
+        resultatum = {}
+
+        print(self.arborem_radicem)
+        print(self.arborem_radicem.tag)
+        print(self.arborem_radicem.attrib)
+
+        print(self._ontologia.quod_xml_typum(
+            self.arborem_radicem.tag,
+            self.arborem_radicem.attrib
+        ))
+        return resultatum
+
+    def in_archivum(self):
+        """in_archivum archīvum fontem in archīvum objectīvum
+
+        Returns:
+            [int]: EXITUM_CORRECTUM, EXITUM_ERROREM aut EEXITUM_SYNTAXIM
+        """
+        return self.in_archivum_formatum_hxltm()
+
+    def in_archivum_formatum_hxltm(self):
+        """in_archivum archīvum fontem in archīvum objectīvum fōrmātum HXLTM
+
+        Returns:
+            [int]: EXITUM_CORRECTUM, EXITUM_ERROREM aut EEXITUM_SYNTAXIM
+        """
+        self.quod_archivum_xml_basim()
+        self.testum()
+
+        return self.EXITUM_CORRECTUM
+
     def testum(self):
 
-        # xml_root = ET.parse(self.archivum).getroot()
-        # xml_root = ET.iterparse(self.fontem_archivum)
-        # print(self.archivum)
-        # print(root)
-
-        # for action, elem in xml_root:
-        #     print(action, elem)
-
-        tree = ET.parse(self.fontem_archivum)
+        tree = XMLElementTree.parse(self.fontem_archivum)
         # tree = ET.parse(self.archivum)
         root = tree.getroot()
 
@@ -464,7 +540,7 @@ class HXLTMdeXML:
 </actors>
         """
 
-        root = ET.fromstring(crudum)
+        root = XMLElementTree.fromstring(crudum)
 
         print(root.findall("."))
 
@@ -887,6 +963,44 @@ True
         # scālam, https://en.wiktionary.org/wiki/scala#Latin
 
         # TODO: implement this check
+        return resultatum
+
+    def quod_xml_typum(self,
+                       radicem_tag: str,
+                       radicem_attributum: dict = None
+                       ) -> Dict:
+        """quod_xml_typum Quod XML typum est?
+
+        Args:
+            radicem_tag (str):
+                XML rādīcem (textum)
+            radicem_attributum (dict, optional):
+                HXL attribūtum de rādīcem. Defallo Python None
+
+        Returns:
+            Dict: typum, versiōnem, variāns
+        """
+        resultatum = {
+            'hxltm_normam': '',
+            'typum': 'xml',
+            'varians': '',
+            'versionem': -1
+            # variāns, https://en.wiktionary.org/wiki/varians#Latin
+        }
+
+        print('quod_xml_typum', radicem_tag, radicem_attributum)
+        if radicem_tag == 'tmx':
+            resultatum['hxltm_normam'] = 'TMX'
+            resultatum['typum'] = 'TMX'
+            resultatum['versionem'] = '1.4b'
+        if radicem_tag == 'martif':
+            resultatum['hxltm_normam'] = 'TBX-Basim'
+            resultatum['typum'] = 'TBX'
+            resultatum['versionem'] = 'TBX-Basic'
+        if radicem_tag == 'xliff':
+            resultatum['typum'] = 'XLIFF'
+            resultatum['versionem'] = '2'
+
         return resultatum
 
     @staticmethod
