@@ -628,6 +628,8 @@ hxltmcli schemam-un-htcds.tm.hxl.csv \
   --objectivum-linguam slk-Latn@sk \
   --objectivum-XLIFF-obsoletum
 
+# hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf
+
 ### Real test usage, end -------------------------------------------------------
 
 exit 0
