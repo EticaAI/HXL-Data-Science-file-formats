@@ -515,6 +515,76 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 
 # end::XLIFF-obsoletum[]
 
+#### hxltmdexml TBX ____________________________________________________________
+# tag::hxltmdexml-TMX[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Explanation about the format at cor.hxltm.yml:normam.TBX
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmdexml resultatum/hxltm-exemplum-linguam.tbx
+
+cat resultatum/hxltm-exemplum-linguam.tbx | hxltmdexml
+# end::hxltmdexml-TBX[]
+
+#### hxltmdexml TMX ____________________________________________________________
+# tag::hxltmdexml-TMX[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Explanation about the format at cor.hxltm.yml:normam.TMX
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmdexml resultatum/hxltm-exemplum-linguam.tmx
+
+cat resultatum/hxltm-exemplum-linguam.tmx | hxltmdexml
+# end::hxltmdexml-TMX[]
+
+#### hxltmdexml XLIFF-obsoletum ________________________________________________
+# tag::hxltmdexml-XLIFF-obsoletum[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Documentation at cor.hxltm.yml:normam.XLIFF-obsoletum
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
+
+cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml
+
+# end::hxltmdexml-XLIFF-obsoletum[]
+
+#### hxltmdexml XLIFF __________________________________________________________
+# tag::hxltmdexml-XLIFF[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Documentation at cor.hxltm.yml:normam.XLIFF
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf
+
+cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml
+
+# end::hxltmdexml-XLIFF-obsoletum[]
+
 # tag::venandum_insectum_est[]
 ### Debug
 # hxltmcli --expertum-metadatum --venandum-insectum-est
@@ -604,29 +674,29 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # Download lastest schemam-un-htcds.tm.hxl from Google docs
 # hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422 schemam-un-htcds.tm.hxl.csv
 
-hxltmcli schemam-un-htcds.tm.hxl.csv \
-  resultatum/schemam-un-htcds_eng-Latn--por-Latn.xlf \
-  --fontem-linguam eng-Latn@en \
-  --objectivum-linguam por-Latn@pt \
-  --objectivum-XLIFF
+# hxltmcli schemam-un-htcds.tm.hxl.csv \
+#   resultatum/schemam-un-htcds_eng-Latn--por-Latn.xlf \
+#   --fontem-linguam eng-Latn@en \
+#   --objectivum-linguam por-Latn@pt \
+#   --objectivum-XLIFF
 
-hxltmcli schemam-un-htcds.tm.hxl.csv \
-  resultatum/schemam-un-htcds_eng-Latn--slv-Latn.xlf \
-  --fontem-linguam eng-Latn@en \
-  --objectivum-linguam slv-Latn@sl \
-  --objectivum-XLIFF
+# hxltmcli schemam-un-htcds.tm.hxl.csv \
+#   resultatum/schemam-un-htcds_eng-Latn--slv-Latn.xlf \
+#   --fontem-linguam eng-Latn@en \
+#   --objectivum-linguam slv-Latn@sl \
+#   --objectivum-XLIFF
 
-hxltmcli schemam-un-htcds.tm.hxl.csv \
-  resultatum/schemam-un-htcds_eng-Latn--por-Latn.obsoletum.xlf \
-  --fontem-linguam eng-Latn@en \
-  --objectivum-linguam por-Latn@pt \
-  --objectivum-XLIFF-obsoletum
+# hxltmcli schemam-un-htcds.tm.hxl.csv \
+#   resultatum/schemam-un-htcds_eng-Latn--por-Latn.obsoletum.xlf \
+#   --fontem-linguam eng-Latn@en \
+#   --objectivum-linguam por-Latn@pt \
+#   --objectivum-XLIFF-obsoletum
 
-hxltmcli schemam-un-htcds.tm.hxl.csv \
-  resultatum/schemam-un-htcds_eng-Latn--slk-Latn.obsoletum.xlf \
-  --fontem-linguam eng-Latn@en \
-  --objectivum-linguam slk-Latn@sk \
-  --objectivum-XLIFF-obsoletum
+# hxltmcli schemam-un-htcds.tm.hxl.csv \
+#   resultatum/schemam-un-htcds_eng-Latn--slk-Latn.obsoletum.xlf \
+#   --fontem-linguam eng-Latn@en \
+#   --objectivum-linguam slk-Latn@sk \
+#   --objectivum-XLIFF-obsoletum
 
 # hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf
 
