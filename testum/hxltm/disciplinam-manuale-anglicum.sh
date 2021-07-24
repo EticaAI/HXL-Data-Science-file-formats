@@ -630,6 +630,12 @@ hxltmcli schemam-un-htcds.tm.hxl.csv \
 
 # hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf
 
+# hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf
+
+# cat resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf | hxltmdexml 
+
+
+
 ### Real test usage, end -------------------------------------------------------
 
 exit 0
