@@ -351,6 +351,12 @@ class HXLTMDeXMLCli:
 
         # return self.EXIT_OK
 
+# hxltmdexml resultatum/hxltm-exemplum-linguam.tmx
+# hxltmdexml resultatum/hxltm-exemplum-linguam.tmx
+# hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
+# hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.obsoletum.xlf
+# hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf
+
 
 class HXLTMdeXML:
     """HXLTM de  XML
@@ -405,6 +411,8 @@ class HXLTMdeXML:
     # arborem: Type['XMLElementTree'] = None
     arborem = None
     arborem_radicem = None
+    # arborem: Dict = None
+    xml_typum: None
 
     def __init__(
         self,
@@ -433,6 +441,41 @@ class HXLTMdeXML:
 
         self.arborem = XMLElementTree.parse(self.fontem_archivum)
         self.arborem_radicem = self.arborem.getroot()
+        self.xml_typum = self._ontologia.quod_xml_typum(
+            self.arborem_radicem.tag,
+            self.arborem_radicem.attrib
+        )
+
+    def de_tbx(self):
+        # pass
+        raise NotImplementedError('TODO de_tbx')
+        # return self.EXITUM_CORRECTUM
+
+    def de_xml(self):
+        raise NotImplementedError('XML {0}'.format(str(self.xml_typum)))
+
+    def de_tmx(self):
+        """de_tmx De Translation Memory eXchange (TMX)
+
+        Trivia:
+            - Normam: https://www.gala-global.org/tmx-14b
+
+        Returns:
+            [int]:
+        """
+
+        raise NotImplementedError('TODO de_tmx')
+        return self.EXITUM_CORRECTUM
+
+    def de_xliff(self):
+
+        raise NotImplementedError('TODO de_xliff')
+        return self.EXITUM_CORRECTUM
+
+    def de_xliff_obsoletum(self):
+
+        raise NotImplementedError('TODO de_xliff_obsoletum')
+        return self.EXITUM_CORRECTUM
 
     def quod_archivum_typum(self):
         """quod_archivum_typum [summary]
@@ -452,9 +495,9 @@ class HXLTMdeXML:
     def quod_archivum_xml_basim(self) -> Dict:
         resultatum = {}
 
-        print(self.arborem_radicem)
-        print(self.arborem_radicem.tag)
-        print(self.arborem_radicem.attrib)
+        # print(self.arborem_radicem)
+        # print(self.arborem_radicem.tag)
+        # print(self.arborem_radicem.attrib)
 
         print(self._ontologia.quod_xml_typum(
             self.arborem_radicem.tag,
@@ -477,9 +520,25 @@ class HXLTMdeXML:
             [int]: EXITUM_CORRECTUM, EXITUM_ERROREM aut EEXITUM_SYNTAXIM
         """
         self.quod_archivum_xml_basim()
-        self.testum()
+        if self.xml_typum and 'typum' in self.xml_typum:
+            if self.xml_typum['typum'] == 'TBX':
+                return self.de_tbx()
+            if self.xml_typum['typum'] == 'TMX':
+                return self.de_tmx()
+            if self.xml_typum['typum'] == 'XLIFF':
+                if 'version' in self.xml_typum:
+                    if self.xml_typum['version'].startswith('2.'):
+                        return self.de_xliff()
+                    if self.xml_typum['version'].startswith('1.'):
+                        return self.de_xliff_obsoletum()
+                return self.de_xliff()
+            if self.xml_typum['typum'] == 'XML':
+                return self.de_xml()
 
-        return self.EXITUM_CORRECTUM
+            return self.de_xml()
+        # self.testum()
+
+        return self.EXITUM_ERROREM
 
     def testum(self):
 
@@ -971,6 +1030,12 @@ True
                        ) -> Dict:
         """quod_xml_typum Quod XML typum est?
 
+        _[eng-Latn]
+        TODO: make this method actually load the references from the
+        *.hxltm.yml, so the users could have at least some freedom
+        (as they already have when exporting) but now to import.
+        [eng-Latn]_
+
         Args:
             radicem_tag (str):
                 XML rādīcem (textum)
@@ -982,24 +1047,48 @@ True
         """
         resultatum = {
             'hxltm_normam': '',
-            'typum': 'xml',
+            'typum': 'XML',
+            'radicem_attributum_crudum': {},
+            # variāns, https://en.wiktionary.org/wiki/varians#Latin
             'varians': '',
             'versionem': -1
-            # variāns, https://en.wiktionary.org/wiki/varians#Latin
         }
 
-        print('quod_xml_typum', radicem_tag, radicem_attributum)
+        # def hxl_attr(clavem):
+        #     if not clavem or clavem.find('}') == -1:
+        #         return clavem
+        #     return clavem.split('}')[-1]
+
+        attributum = radicem_attributum if radicem_attributum else {}
+        if radicem_attributum:
+            for clavem in list(radicem_attributum):
+                if not clavem.find('}') == -1:
+                    clavem_basim = clavem.split('}')[-1]
+                    attributum[clavem_basim] = radicem_attributum[clavem]
+
+            resultatum['radicem_attributum_crudum'] = \
+                radicem_attributum
+
+        # print('attributum', attributum)
+
+        # print('quod_xml_typum', radicem_tag, radicem_attributum)
         if radicem_tag == 'tmx':
             resultatum['hxltm_normam'] = 'TMX'
             resultatum['typum'] = 'TMX'
-            resultatum['versionem'] = '1.4b'
+            resultatum['versionem'] = '1.4'
         if radicem_tag == 'martif':
             resultatum['hxltm_normam'] = 'TBX-Basim'
             resultatum['typum'] = 'TBX'
             resultatum['versionem'] = 'TBX-Basic'
         if radicem_tag == 'xliff':
             resultatum['typum'] = 'XLIFF'
-            resultatum['versionem'] = '2'
+            resultatum['versionem'] = '2.0'
+
+        if 'version' in attributum:
+            resultatum['versionem'] = attributum['version']
+
+        if 'type' in attributum:
+            resultatum['varians'] = attributum['type']
 
         return resultatum
 
