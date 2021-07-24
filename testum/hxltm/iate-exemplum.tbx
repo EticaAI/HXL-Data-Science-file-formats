@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-model href="./TBX-IATE_DCA.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="./TBXcoreStructV03_TBX-IATE_integrated.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<tbx type="TBX-IATE" style="dca" xml:lang="en" xmlns="urn:iso:std:iso:30042:ed-2">
+    <tbxHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>IATE dataset</title>
+            </titleStmt>
+            <sourceDesc>
+                <p>This is a TBX file downloaded from IATE. Please address any inquiries to iate@cdt.europa.eu.</p>
+            </sourceDesc>
+        </fileDesc>
+    </tbxHeader>
+    <text>
+        <body>
+            <conceptEntry id="254003">
+                <descrip type="subjectField">linguistics</descrip>
+                <langSec xml:lang="es">
+                    <termSec>
+                        <term>acto de habla indirecto</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="en">
+                    <termSec>
+                        <term>indirect speech act</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="de">
+                    <termSec>
+                        <term>indirekter Sprechakt</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="fr">
+                    <termSec>
+                        <term>acte de parole indirect</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+            </conceptEntry>
+            <conceptEntry id="113131">
+                <descrip type="subjectField">Latin America;FINANCE</descrip>
+                <langSec xml:lang="es">
+                    <termSec>
+                        <term>Asociación de organismos públicos de promoción de exportaciones</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                    <termSec>
+                        <term>Asoexpo</term>
+                        <termNote type="termType">abbreviation</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="en">
+                    <termSec>
+                        <term>Association of Public Export Promotion Bodies</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="el">
+                    <termSec>
+                        <term>΄Ενωση δημοσίων οργανισμών προώθησης των εξαγωγών</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="it">
+                    <termSec>
+                        <term>Associazione degli organismi pubblici di promozione delle esportazioni</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="da">
+                    <termSec>
+                        <term>sammenslutning af offentlige eksportfremmende institutter</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="pt">
+                    <termSec>
+                        <term>Associação de Organismos Públicos de Promoção de Exportações</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+                <langSec xml:lang="fr">
+                    <termSec>
+                        <term>association des organismes publics de promotion des exportations</term>
+                        <termNote type="termType">fullForm</termNote>
+                        <descrip type="reliabilityCode">1</descrip>
+                    </termSec>
+                </langSec>
+            </conceptEntry>
+        </body>
+    </text>
+</tbx>
