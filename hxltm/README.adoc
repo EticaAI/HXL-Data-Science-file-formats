@@ -20,7 +20,11 @@ documented subset of https://hxlstandard.org/[HXL]) by
 https://github.com/HXL-CPLP[HXL-CPLP] with strong focus to store community
 contributed translations and glossaries while maximizing portability for
 implementers (like via use of `+hxltmcli+` to export to
-Excel, XLIFF, TMX, JSON, CSV, ...).
+Excel, +++<abbr title="XML Localization Interchange File Format">XLIFF</abbr>+++,
++++<abbr title="Translation Memory eXchange">TMX</abbr>+++,
++++<abbr title="TermBase eXchange">TBX</abbr>+++,
++++<abbr title="Universal Terminology eXchange">UTX</abbr>+++, JSON, CSV,
+https://hdp.etica.ai/hxltm/archivum/[and more!].
 
 ____
 > *Why HXLTM was created?*
