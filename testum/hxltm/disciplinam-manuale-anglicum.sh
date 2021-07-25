@@ -570,8 +570,8 @@ cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmde
 # Similar to step II, but now we save the result to a file
 # [eng-Latn]_
 
-# hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf \
-#     rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv
+hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf \
+    rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv
 
 cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml > rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv
 
@@ -590,9 +590,9 @@ cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmde
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf
+# hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf
 
-cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml
+# cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml
 
 # end::hxltmdexml-XLIFF-obsoletum[]
 
