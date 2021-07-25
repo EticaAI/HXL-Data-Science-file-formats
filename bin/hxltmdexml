@@ -361,6 +361,7 @@ class HXLTMDeXMLCli:
 # hxltmdexml /workspace/data/IATE_download/IATE_export.tbx
 # hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
 # hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.obsoletum.xlf
+# This one we need very soom (need to import back MateCat)
 # hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf
 
 
@@ -418,8 +419,14 @@ class HXLTMdeXML:
     arborem = None
     arborem_radicem = None
     # arborem: Dict = None
-    xml_typum: None
-    in_formatum: None
+    xml_typum = None
+    # referēns, https://en.wiktionary.org/wiki/referens#Latin
+    xml_referens = None
+    in_formatum = None
+
+    # iterātiōnem, https://en.wiktionary.org/wiki/iteratio#Latin
+
+    iteratianem = None
 
     def __init__(
         self,
@@ -436,6 +443,7 @@ class HXLTMdeXML:
         """
 
         self._ontologia = ontologia
+
         if fontem_archivum:
             self.fontem_archivum = fontem_archivum
         else:
@@ -446,16 +454,33 @@ class HXLTMdeXML:
         else:
             self.objectvum_archivum = sys.stdout
 
-        self.arborem = XMLElementTree.parse(self.fontem_archivum)
-        self.arborem_radicem = self.arborem.getroot()
-        self.xml_typum = self._ontologia.quod_xml_typum(
-            self.arborem_radicem.tag,
-            self.arborem_radicem.attrib
+        self.in_formatum = XMLInFormatumHXLTM(
+            self._ontologia
         )
 
-        self.xml_tag = self._ontologia.quod_xml_typum_tag(
-            self.xml_typum['hxltm_normam']
+        # TODO: test what happens if input is not XML or was compressed
+        #       them deal with message errors for non-XML already on
+        #       initialization
+        self.iteratianem = XMLElementTree.iterparse(
+            source=self.fontem_archivum,
+            events=('start', 'end')
         )
+
+        # # This load all on memory. Bad
+        # self.arborem = XMLElementTree.parse(self.fontem_archivum)
+        # self.arborem_radicem = self.arborem.getroot()
+
+        # print(self.arborem_radicem)
+
+        self._initiale()
+        # self.xml_typum = self._ontologia.quod_xml_typum(
+        #     self.arborem_radicem.tag,
+        #     self.arborem_radicem.attrib
+        # )
+
+        # self.xml_referens = self._ontologia.quod_xml_typum_tag(
+        #     self.xml_typum['hxltm_normam']
+        # )
 
         # self.in_formatum = XMLInFormatumHXLTM(
         #     self._ontologia
@@ -463,20 +488,48 @@ class HXLTMdeXML:
         #     objectvum_archivum
         # )
 
-        self.in_formatum = XMLInFormatumHXLTM(
-            self._ontologia
-            # fontem_archivum,
-            # objectvum_archivum
-        )
-        self.in_formatum.definitionem_linguam('pt')
-        self.in_formatum.definitionem_linguam('en')
-        self.in_formatum.definitionem_linguam('es')
+        # self.in_formatum = XMLInFormatumHXLTM(
+        #     self._ontologia
+        #     # fontem_archivum,
+        #     # objectvum_archivum
+        # )
+        # self.in_formatum.definitionem_linguam('pt')
+        # self.in_formatum.definitionem_linguam('en')
+        # self.in_formatum.definitionem_linguam('es')
         # self.in_formatum.definitionem_linguam('por-Latn@pt')
         # self.in_formatum.definitionem_linguam('eng-Latn@en')
         # self.in_formatum.definitionem_linguam('spa-Latn@es')
 
+    def _initiale(self):
+        """initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+
+        # print(self.iteratianem)
+        # ēventum, https://en.wiktionary.org/wiki/eventus#Latin
+        # nōdum, https://en.wiktionary.org/wiki/nodus#Latin
+        _eventum, nodum = next(self.iteratianem)
+
+        # print('_initiale {0}, {1}, {2}'.format(
+        #     _eventum, nodum, nodum.attrib))
+
+        self.xml_typum = self._ontologia.quod_xml_typum(
+            nodum.tag,
+            nodum.attrib
+        )
+
+        self.xml_referens = self._ontologia.quod_xml_typum_tag(
+            self.xml_typum['hxltm_normam']
+        )
+
+        _eventum2, nodum2 = next(self.iteratianem)
+
+        # print('_initiale2 {0}, {1}'.format(_eventum2, nodum2))
+
+        # print('zzzetas', self.xml_typum)
+
     def de_tbx(self):
         # pass
+        # https://www.tbxinfo.net/validating-a-tbx-file/
         raise NotImplementedError('TODO de_tbx')
         # return self.EXITUM_CORRECTUM
 
@@ -494,9 +547,9 @@ class HXLTMdeXML:
             [int]:
         """
 
-        tmx_body = self.arborem_radicem.find('body')
-        print('tmx_body', tmx_body)
-        print('hxltmcsv', self.in_formatum.in_caput())
+        # tmx_body = self.arborem_radicem.find('body')
+        # print('tmx_body', tmx_body)
+        # print('hxltmcsv', self.in_formatum.in_caput())
 
         raise NotImplementedError('TODO de_tmx')
         return self.EXITUM_CORRECTUM
@@ -526,18 +579,18 @@ class HXLTMdeXML:
         # todo: implement other checks
         return resultatum
 
-    def quod_archivum_xml_basim(self) -> Dict:
-        resultatum = {}
+    # def quod_archivum_xml_basim(self) -> Dict:
+    #     resultatum = {}
 
-        # print(self.arborem_radicem)
-        # print(self.arborem_radicem.tag)
-        # print(self.arborem_radicem.attrib)
+    #     # print(self.arborem_radicem)
+    #     # print(self.arborem_radicem.tag)
+    #     # print(self.arborem_radicem.attrib)
 
-        print(self._ontologia.quod_xml_typum(
-            self.arborem_radicem.tag,
-            self.arborem_radicem.attrib
-        ))
-        return resultatum
+    #     print(self._ontologia.quod_xml_typum(
+    #         self.arborem_radicem.tag,
+    #         self.arborem_radicem.attrib
+    #     ))
+    #     return resultatum
 
     def in_archivum(self):
         """in_archivum archīvum fontem in archīvum objectīvum
@@ -553,7 +606,8 @@ class HXLTMdeXML:
         Returns:
             [int]: EXITUM_CORRECTUM, EXITUM_ERROREM aut EEXITUM_SYNTAXIM
         """
-        self.quod_archivum_xml_basim()
+        # self.quod_archivum_xml_basim()
+        print('self.xml_typum', self.xml_typum)
         if self.xml_typum and 'typum' in self.xml_typum:
             if self.xml_typum['typum'] == 'TBX':
                 return self.de_tbx()
@@ -616,90 +670,6 @@ class HXLTMdeXML:
         print(root.findall("."))
 
         print(root.findall("./country/neighbor"))
-
-# import xml.etree as etree
-
-# def fast_iter(context, func, *args, **kwargs):
-#     """
-#     http://lxml.de/parsing.html#modifying-the-tree
-#     Based on Liza Daly's fast_iter
-#     http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
-#     See also http://effbot.org/zone/element-iterparse.htm
-#     """
-#     for event, elem in context:
-#         func(elem, *args, **kwargs)
-#         # It's safe to call clear() here because no descendants will be
-#         # accessed
-#         elem.clear()
-#         # Also eliminate now-empty references from the root node to elem
-#         for ancestor in elem.xpath('ancestor-or-self::*'):
-#             while ancestor.getprevious() is not None:
-#                 del ancestor.getparent()[0]
-#     del context
-
-# def process_element(elem):
-#     print(elem.xpath( 'description/text( )' ))
-
-# context = etree.iterparse( 'resultatum/hxltm-exemplum-linguam.tmx',
-#    tag='item' )
-# fast_iter(context,process_element)
-
-
-def xml_clavem_breve(clavem):
-    if not clavem or clavem.find('}') == -1:
-        return clavem
-    return clavem.split('}')[-1]
-
-# data = []
-# # path = 'resultatum/hxltm-exemplum-linguam.tmx'
-# # path = 'resultatum/hxltm-exemplum-linguam.tbx'
-# path = '/workspace/data/IATE_download/IATE_export.tbx'
-# # path = 'iate-exemplum.tbx'
-
-# # head -c 4096 /workspace/data/IATE_download/IATE_export.tbx
-# # tail -c 4096 /workspace/data/IATE_download/IATE_export.tbx
-# # get an iterable
-# # context = et.iterparse(path, events=("start", "end"))
-
-# # # turn it into an iterator
-# # context = iter(context)
-
-# # # get the root element
-# # ev, root = next(context)
-
-# # for ev, el in context:
-# #     # if ev == 'start' and el.tag == 'tu':
-# #     if ev == 'start' and el.tag == 'termEntry':
-# #         print(el.attrib)
-# #         print(el.attrib['id'])
-# #         # print(el.attrib['tuid'] == el.attrib['surname'])
-# #         # data.append([el.attrib['name'], el.attrib['surname']])
-# #         root.clear()
-# print('oi 0', path)
-# with open(path) as xml_file:
-#     for event, elem in et.iterparse(
-#             source=xml_file, events=('start', 'end')):
-#         # Must compare tag to qualified name
-#         # if elem.tag == et.QName(ixid_uri, 'Journey'):
-#         clavem_breve = xml_clavem_breve(elem.tag)
-#         print('event, tag', event, elem.tag, xml_clavem_breve(elem.tag))
-#         if clavem_breve == 'conceptEntry':
-#             print('okay', elem.attrib)
-#             # print(elem.attrib['uid'])
-#             # c.executemany('insert into foo values(?, ?, ?)',
-#             #     [
-#             #         (elem.attrib['uid'],
-#             #         extract_local_tag(child.tag),
-#             #         child.attrib.get('tpl', None))
-#             #         for child in elem
-#             #     ])
-#             # conn.commit()
-#             # Note: only clears <Journey> elements and their children.
-#             # There is a memory leak of any elements not children of
-#             # <Journey>
-#             elem.clear()
-# print('oi 1', path)
-# # print(data)
 
 
 @dataclass
@@ -1494,6 +1464,9 @@ True
         resultatum = {
             'hxltm_normam': '',
             'typum': 'XML',
+            # XLIFF 2.x may provide srcLang / trgLang on <xliff>
+            'linguam_fontem': '',
+            'linguam_objectivum': '',
             'radicem_attributum_crudum': {},
             # variāns, https://en.wiktionary.org/wiki/varians#Latin
             'varians': '',
@@ -1508,29 +1481,31 @@ True
         attributum = radicem_attributum if radicem_attributum else {}
         if radicem_attributum:
             for clavem in list(radicem_attributum):
-                if not clavem.find('}') == -1:
-                    clavem_basim = clavem.split('}')[-1]
+                clavem_basim = HXLTMUtil.xml_clavem_breve(clavem)
+                if clavem_basim != clavem:
                     attributum[clavem_basim] = radicem_attributum[clavem]
 
             resultatum['radicem_attributum_crudum'] = \
                 radicem_attributum
+        radicem_tag_basim = HXLTMUtil.xml_clavem_breve(radicem_tag)
 
         # print('attributum', attributum)
 
-        # print('quod_xml_typum', radicem_tag, radicem_attributum)
-        if radicem_tag == 'tmx':
+        # print('quod_xml_typum', radicem_tag, radicem_attributum,
+        # resultatum, radicem_tag_basim)
+        if radicem_tag_basim == 'tmx':
             resultatum['hxltm_normam'] = 'TMX'
             resultatum['typum'] = 'TMX'
             resultatum['versionem'] = '1.4'
-        if radicem_tag == 'martif':
+        if radicem_tag_basim == 'martif':
             resultatum['hxltm_normam'] = 'TBX-Basim'
             resultatum['typum'] = 'TBX'
             resultatum['versionem'] = 'TBX-Basic'
-        if radicem_tag == 'tbx':
+        if radicem_tag_basim == 'tbx':
             resultatum['hxltm_normam'] = 'TBX-IATE'
             resultatum['typum'] = 'TBX'
             resultatum['versionem'] = 'TBX-IATE'
-        if radicem_tag == 'xliff':
+        if radicem_tag_basim == 'xliff':
             resultatum['typum'] = 'XLIFF'
             resultatum['versionem'] = '2.0'
 
@@ -1539,6 +1514,12 @@ True
 
         if 'type' in attributum:
             resultatum['varians'] = attributum['type']
+
+        if 'srcLang' in attributum:
+            resultatum['linguam_fontem'] = attributum['srcLang']
+
+        if 'trgLang' in attributum:
+            resultatum['linguam_objectivum'] = attributum['trgLang']
 
         return resultatum
 
@@ -2055,6 +2036,24 @@ class HXLTMUtil:
 
         return None
 
+    @staticmethod
+    def xml_clavem_breve(clavem):
+        """xml_clavem_breve XML clāvem non-NS
+
+        Args:
+            clavem ([str]): XML clāvem
+
+        Returns:
+            [str]:
+
+            >>> HXLTMUtil.xml_clavem_breve(
+            ...    '{urn:oasis:names:tc:xliff:document:2.0}version')
+            'version'
+        """
+        if not clavem or clavem.find('}') == -1:
+            return clavem
+        return clavem.split('}')[-1]
+
 
 class HXLTMTestumAuxilium:
     """HXLTM Testum Auxilium
@@ -2543,6 +2542,38 @@ class StreamOutput(object):
 
     def write(self, s):
         self.output.write(s)
+
+# # data = []
+# # # path = 'resultatum/hxltm-exemplum-linguam.tmx'
+# # # path = 'resultatum/hxltm-exemplum-linguam.tbx'
+# path = '/workspace/data/IATE_download/IATE_export.tbx'
+
+# print('oi 0', path)
+# with open(path) as xml_file:
+#     for event, elem in XMLElementTree.iterparse(
+#             source=xml_file, events=('start', 'end')):
+#         # Must compare tag to qualified name
+#         # if elem.tag == et.QName(ixid_uri, 'Journey'):
+#         clavem_breve = HXLTMUtil.xml_clavem_breve(elem.tag)
+#         print('event, tag', event, elem.tag,
+#               HXLTMUtil.xml_clavem_breve(elem.tag))
+#         if clavem_breve == 'conceptEntry':
+#             print('okay', elem.attrib)
+#             # print(elem.attrib['uid'])
+#             # c.executemany('insert into foo values(?, ?, ?)',
+#             #     [
+#             #         (elem.attrib['uid'],
+#             #         extract_local_tag(child.tag),
+#             #         child.attrib.get('tpl', None))
+#             #         for child in elem
+#             #     ])
+#             # conn.commit()
+#             # Note: only clears <Journey> elements and their children.
+#             # There is a memory leak of any elements not children of
+#             # <Journey>
+#             elem.clear()
+# print('oi 1', path)
+# # print(data)
 
 
 if __name__ == "__main__":

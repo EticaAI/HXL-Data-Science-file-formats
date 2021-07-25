@@ -4705,12 +4705,12 @@ True
         """
         return ''
 
-    def in_rem(self, focused_datum: List) -> Type['HXLTMRem']:
-        # TODO: make a version of HXLTMRem that supports multiple values
-        #       grouped, and already initialized with lanuage tag, not
-        #       raw hashtag, since several terms would have
-        #       several hashtags
-        pass
+    # def in_rem(self, focused_datum: List) -> Type['HXLTMRem']:
+    #     # TODO: make a version of HXLTMRem that supports multiple values
+    #     #       grouped, and already initialized with lanuage tag, not
+    #     #       raw hashtag, since several terms would have
+    #     #       several hashtags
+    #     pass
 
 
 class HXLTMBCP47:
@@ -6144,6 +6144,24 @@ class HXLTMUtil:
                 return k
 
         return None
+
+    @staticmethod
+    def xml_clavem_breve(clavem):
+        """xml_clavem_breve XML clāvem non-NS
+
+        Args:
+            clavem ([str]): XML clāvem
+
+        Returns:
+            [str]:
+
+            >>> HXLTMUtil.xml_clavem_breve(
+            ...    '{urn:oasis:names:tc:xliff:document:2.0}version')
+            'version'
+        """
+        if not clavem or clavem.find('}') == -1:
+            return clavem
+        return clavem.split('}')[-1]
 
 
 class HXLNormamPatronum(hxl.model.TagPattern):
