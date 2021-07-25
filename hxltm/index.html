@@ -446,41 +446,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_quickstart">Quickstart</a>
 <ul class="sectlevel2">
 <li><a href="#_installation">Installation</a></li>
+<li><a href="#_hxltm_supported_file_types">HXLTM: supported file types</a></li>
 </ul>
 </li>
 <li><a href="#_preface">Preface</a>
 <ul class="sectlevel2">
 <li><a href="#why-HXLTM">Why HXLTM was created?</a></li>
 <li><a href="#_the_need_for_optional_different_source_language_for_translations">The need for optional different source language for translations</a></li>
-</ul>
-</li>
-<li><a href="#_hxltm_working_file_formats">HXLTM working file formats</a>
-<ul class="sectlevel2">
-<li><a href="#_hxlm_common_dialect">HXLM common dialect</a></li>
-</ul>
-</li>
-<li><a href="#_other_file_formats">Other file formats</a>
-<ul class="sectlevel2">
-<li><a href="#_tmx_translation_memory_exchange_v1_4b">TMX: Translation Memory eXchange v1.4b</a></li>
-<li><a href="#_xliff_xml_localization_interchange_file_format_v2_1">XLIFF: XML Localization Interchange File Format v2.1</a></li>
-<li><a href="#_google_sheets">Google Sheets</a></li>
-<li><a href="#_microsoft_excel">Microsoft Excel</a></li>
-<li><a href="#_csv">CSV</a></li>
-<li><a href="#_utx">UTX</a></li>
-<li><a href="#_1_5_8_po_tbx_srx">1.5.8 PO, TBX, SRX</a></li>
-</ul>
-</li>
-<li><a href="#_notable_alternatives_to_hxl_tm_and_hxltmcli">Notable alternatives to HXL TM and <code>hxltmcli</code></a>
-<ul class="sectlevel2">
-<li><a href="#_okapi_framework">Okapi Framework</a></li>
-<li><a href="#_translate_toolkit">Translate Toolkit</a></li>
-</ul>
-</li>
-<li><a href="#_faq">FAQ</a>
-<ul class="sectlevel2">
-<li><a href="#_save_entire_translations_memory_on_excel_files">Save entire Translations Memory on Excel files</a></li>
-<li><a href="#_advanced_filter_with_hxl_cli_tools">Advanced filter with HXL cli tools</a></li>
-<li><a href="#_advanced_filter_with_hxl_proxy_integration_with_google_sheets_and_csvxlsxetc_avalible_on_web">Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)</a></li>
 </ul>
 </li>
 <li><a href="#_ontologia">Ontologia</a></li>
@@ -529,9 +501,21 @@ Hackathon) you either will need to:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>As localization implementer</strong>: use existing HXLTM public datasets by
-exporting to a format your software undestand. The ones done by HXL-CPLP
-and Etica.AI are on public domain dedication.</p>
+<p><strong>As localization implementer</strong>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>use existing HXLTM public datasets by exporting to a format your
+software undestand. The ones done by HXL-CPLP and Etica.AI are on
+public domain dedication.</p>
+</li>
+<li>
+<p>To <strong>convert from HXLTM to several other data formats, like TMX, TBX,
+UTX, XLIFF, CSV, Excel, etc, etc, etc</strong> check the dedicated page
+<a href="https://hdp.etica.ai/hxltm/archivum/" class="bare">https://hdp.etica.ai/hxltm/archivum/</a></p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p><strong>As translator collaborator</strong>: be yourself a <strong>translator manager</strong> (even
@@ -601,6 +585,21 @@ pip install hdp-toolchain
 
 hxltmcli --help</code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hxltm_supported_file_types">HXLTM: supported file types</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Check the dedicated page: <a href="https://hdp.etica.ai/hxltm/archivum/" class="bare">https://hdp.etica.ai/hxltm/archivum/</a>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -687,686 +686,40 @@ or Italian, but not English.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_hxltm_working_file_formats">HXLTM working file formats</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The <code>hxltmcli</code> is an <em>(initial reference)</em> of an public domain python
-cli tool allow reuse by others interested in export HXLTM files to
-common formats used by professional translators. But software developers
-interested in promote use cases of HXL are encouraged to either
-collaborate to <code>hxltmcli</code> or create other tools.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-@TODO this section still a draft. Needs to be improved later.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_hxlm_common_dialect">HXLM common dialect</h3>
-<a id="HXLTM" href="#HXLTM">§ HXLTM</a>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Description</strong>: HXLM: Humanitarian Exchange Language Trānslātiōnem
-Memoriam common dialect</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-@TODO this section still a draft. Needs to be improved later.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_other_file_formats">Other file formats</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_tmx_translation_memory_exchange_v1_4b">TMX: Translation Memory eXchange v1.4b</h3>
-<a id="HXLTM-TMX" href="#HXLTM-TMX">§ HXLTM-TMX</a>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Wikipedia</dt>
-<dd>
-<p><a href="https://en.wikipedia.org/wiki/Translation_Memory_eXchange" class="bare">https://en.wikipedia.org/wiki/Translation_Memory_eXchange</a></p>
-</dd>
-<dt class="hdlist1">Specification</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://www.gala-global.org/tmx-14b" class="bare">https://www.gala-global.org/tmx-14b</a></p>
-</li>
-<li>
-<p><a href="https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards" class="bare">https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards</a></p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">TMX 1.4b DTD</dt>
-<dd>
-<p><a href="https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd" class="bare">https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd</a></p>
-</dd>
-<dt class="hdlist1">Relevant GitHub issues</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/20" class="bare">https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/20</a></p>
-</li>
-<li>
-<p><a href="https://github.com/HXL-CPLP/forum/issues/58" class="bare">https://github.com/HXL-CPLP/forum/issues/58</a></p>
-</li>
-<li>
-<p><a href="https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16" class="bare">https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16</a></p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">## The next 2 examples are equivalent: will print to stdout the result
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --TMX
-#    (will print out TMX result of input HXLTM file)
-
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --TMX
-#    (will print out TMX result of input HXLTM file)
-
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.tmx --TMX
-#    (Instead of print to stdout, save the contents to a single CSV file)</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_xliff_xml_localization_interchange_file_format_v2_1">XLIFF: XML Localization Interchange File Format v2.1</h3>
-<a id="HXLTM-XLIFF" href="#HXLTM-XLIFF">§ HXLTM-XLIFF</a>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Wikipedia</strong>: <a href="https://en.wikipedia.org/wiki/XLIFF" class="bare">https://en.wikipedia.org/wiki/XLIFF</a></p>
-</li>
-<li>
-<p><strong>Specification</strong>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html" class="bare">http://docs.oasis-open.org/xliff/xliff-core/v2.1/os/xliff-core-v2.1-os.html</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Relevant GitHub issues</strong>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/19" class="bare">https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/19</a></p>
-</li>
-<li>
-<p><a href="https://github.com/HXL-CPLP/forum/issues/58" class="bare">https://github.com/HXL-CPLP/forum/issues/58</a></p>
-</li>
-<li>
-<p><a href="https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16" class="bare">https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/issues/16</a></p>
-</li>
-<li>
-<p><strong>Extra links</strong></p>
-</li>
-<li>
-<p>Okapi about XLIFF: <a href="https://okapiframework.org/wiki/index.php/XLIFF" class="bare">https://okapiframework.org/wiki/index.php/XLIFF</a></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">## The next 2 examples are equivalent: will print to stdout the result
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --XLIFF
-#    (will print out TMX result of input HXLTM file)
-
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --XLIFF
-#    (will print out TMX result of input HXLTM file)
-
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv resultatum/hxltm-exemplum-linguam.xlf --XLIFF
-#    (Instead of print to stdout, save the contents to a single CSV file)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Extras: VSCode XLIFF extension</strong>
-Check also this VSCode extension
-<a href="https://marketplace.visualstudio.com/items?itemName=rvanbekkum.xliff-sync" class="bare">https://marketplace.visualstudio.com/items?itemName=rvanbekkum.xliff-sync</a>.
-While we do not checked yet, it seems to allow "merge" new translations from
-a different XLIFF file to another one.</p>
-</div>
-<div class="sect3">
-<h4 id="_hxltm_supported_features_of_xliff">HXLTM supported features of XLIFF</h4>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-@TODO improve documentation of features HXLTM support export to XLIFF
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_google_sheets">Google Sheets</h3>
-<div class="paragraph">
-<p>The <code>hxltmcli</code> supports read directly from Google Sheets (no extra plugins
-required).</p>
-</div>
-<div class="paragraph">
-<p><strong>Read HXL TM data saved on Google Sheets</strong></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422
-#    (will print out contents of Google Sheets, without exporting to other formats)
-
-hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422 | grep UN_codicem_anglicum_IOM_HTCDS_nomen
-#    UN_codicem_anglicum_IOM_HTCDS_nomen,,,,13,1,UN,UN,codicem_anglicum,IOM,HTCDS,,,nomen,,,,,,,,,,,,,,∅,∅,Padrão de Dados de Casos de Tráfico Humano,∅,Revisão de texto requerida,Human Trafficking Case Data Standard,∅,∅,,∅,∅,,∅,∅,,∅,∅,,∅,∅
-
-hxltmcli https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422 schemam-un-htcds.tm.hxl.csv
-#    (Instead of print to stdout, save the contents to a single CSV file)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Write HXL TM data on Google Sheets</strong></p>
-</div>
-<div class="paragraph">
-<p>Writting to Google Sheets is possible by using external tool to import the
-CSV versions.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-@TODO document some external cli script that allow upload CSV to Google
-     Sheets.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_microsoft_excel">Microsoft Excel</h3>
-<a id="HXLTM-XLSX" href="#HXLTM-XLSX">§ HXLTM-XLSX</a>
-<div class="sect3">
-<h4 id="_read_hxl_tm_data_saved_on_excel">Read HXL TM data saved on Excel</h4>
-<div class="paragraph">
-<p>The <code>hxltmcli</code> supports read directly from Microsoft Excel (no extra plugins
-required).</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># The HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx is a downloaded version of
-# the Google Sheets entire groups of HXL TMs on 2021-06-29. New versions are
-# likely to be a different number than --sheet 6
-hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx
-#    (will print out contents of --sheet 6, without exporting to other formats)
-
-hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx | grep UN_codicem_anglicum_IOM_HTCDS_nomen
-#    UN_codicem_anglicum_IOM_HTCDS_nomen,,,,13,1,UN,UN,codicem_anglicum,IOM,HTCDS,,,nomen,,,,,,,,,,,,,,∅,∅,Padrão de Dados de Casos de Tráfico Humano,∅,Revisão de texto requerida,Human Trafficking Case Data Standard,∅,∅,,∅,∅,,∅,∅,,∅,∅,,∅,∅
-
-hxltmcli --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx schemam-un-htcds.tm.hxl.csv
-#    (Instead of print to stdout, save the contents to a single CSV file)</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_write_hxl_tm_data_on_microsoft_excel">Write HXL TM data on Microsoft Excel</h4>
-<div class="paragraph">
-<p>Writting to Microsoft Excel is possible by using external tool to import the
-CSV versions. Here is just one example, but you are free to use alternatives.</p>
-</div>
-<div class="paragraph">
-<p>Example using [unoconv](<a href="https://github.com/unoconv/unoconv" class="bare">https://github.com/unoconv/unoconv</a>). Tested with
-Ubuntu 20.04 LTS and LibreOffice 6.4.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># One recommendedy way to install unoconv is via operational system packages
-# not with pip.
-sudo apt install unoconv
-
-# Test data at EticaAI/HXL-Data-Science-file-formats/tests/hxltm/
-unoconv --format xlsx hxltm-exemplum-linguam.tm.hxl.csv
-
-# Note: in our tests, unoconv may have exporting bugs with unicode, see
-# @see https://github.com/unoconv/unoconv/issues/271</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_csv">CSV</h3>
-<a id="HXLTM-CSV" href="#HXLTM-CSV">§ HXLTM-CSV</a>
-<div class="sect3">
-<h4 id="_1_5_6_1_csv_reference_format_hxlated_csv_multilingual">1.5.6.1 CSV reference format, HXLated CSV (multilingual)</h4>
-<div class="paragraph">
-<p>The default output of <code>hxltmcli</code> already is output an valid HXLated CSV without
-data changes changes (with notable exception of normalize HXL hashtags, like
-convert <code>#item +i_ar +i_arb +is_Arab</code> to <code>#item+i_ar+i_arb+is_arab</code>).</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">## The next 2 examples are equivalent: will print to stdout the result
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv
-#    (will print out contents of hxltm-exemplum-linguam.tm.hxl.csv)
-
-cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli
-#    (will print out contents of hxltm-exemplum-linguam.tm.hxl.csv)
-
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv output-file.tm.hxl.csv
-#    (Instead of print to stdout, save the contents to a single CSV file)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>PROTIP</strong>: You can chain several <code>hxltmcli</code> commands (ideally, the last
-command to export) or the first command to import from something that already
-is not HXL should be <code>hxltmcli</code>, but for advanced processing, see
-&lt;a href="#HXLTM-libhxl-cli-tools"&gt;HXLTM-libhxl-cli-tools&lt;/a&gt;.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_1_5_6_2_csv_source_target_format_bilingual">1.5.6.2 CSV source + target format (bilingual)</h4>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-@TODO document minimal usage
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># This is a draft.
-# Tests from ./tests/hxltm/manuale-testum.sh
-
-## CSV-3
-fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats/tests/hxltm$ hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --CSV-3 &gt; resultatum/csv-3-exemplum.csv
-
-## JSON-kv
-hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --JSON-kv
-
-hxltag -m en-GB#item+rem+i_en+i_eng+is_latn -m pt-PT#item+rem+i_pt+i_por+is_latn -m Comment#meta csv-3-exemplum.csv | hxltmcli -f eng-Latn@en-GB -o por-Latn@pt-PT --JSON-kv &gt; resultatum/json-kv/pt.json</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_utx">UTX</h3>
-<a id="HXLTM-UTX" href="#HXLTM-UTX">§ HXLTM-UTX</a>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://aamt.info/english/utx/" class="bare">https://aamt.info/english/utx/</a></p>
-</li>
-<li>
-<p>Specification: <a href="https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf" class="bare">https://aamt.info/wp-content/uploads/2019/06/utx1.20-specification-e.pdf</a></p>
-</li>
-</ul>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>TODO: maybe implement exporting to UTX (it&#8217;s not complex than already done
-with CSV)</p>
-</div>
-</blockquote>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_1_5_8_po_tbx_srx">1.5.8 PO, TBX, SRX</h3>
-<div class="quoteblock">
-<blockquote>
-<div class="ulist">
-<ul>
-<li>
-<p>About PO files: <a href="https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html" class="bare">https://www.gnu.org/software/gettext/manual/html_node/PO-Files.html</a></p>
-</li>
-<li>
-<p>TBX:</p>
-</li>
-<li>
-<p><a href="http://www.ttt.org/oscarStandards/tbx/" class="bare">http://www.ttt.org/oscarStandards/tbx/</a></p>
-</li>
-<li>
-<p>TBX-Basic <a href="http://www.ttt.org/oscarStandards/tbx/tbx-basic.html" class="bare">http://www.ttt.org/oscarStandards/tbx/tbx-basic.html</a></p>
-</li>
-</ul>
-</div>
-</blockquote>
-</div>
-<div class="paragraph">
-<p><code>hxltmcli</code> does not import or export <strong>PO</strong> files directly. Okapi Framework can be
-used to export XLIFF created by  <code>hxltmcli</code>.</p>
-</div>
-<div class="paragraph">
-<p><code>hxltmcli</code> does not import or export <strong>TBX</strong> and <strong>SRX</strong> files directly. It&#8217;s
-not clear if possible to use any external to import/export from already
-supported formats (like TMX and XLIFF) creted by <code>hxltmcli</code> without
-implementing this feature directly on <code>hxltmcli</code>.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-@TODO this section still a draft. We could consider supporting TBX
-    (see <a href="https://en.wikipedia.org/wiki/TermBase_eXchange" class="bare">https://en.wikipedia.org/wiki/TermBase_eXchange</a>) since IATE seems to
-    export glossaries on this format. See also
-    <a href="https://termcoord.eu/iate/download-iate-tbx/" class="bare">https://termcoord.eu/iate/download-iate-tbx/</a>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_notable_alternatives_to_hxl_tm_and_hxltmcli">Notable alternatives to HXL TM and <code>hxltmcli</code></h2>
-<div class="sectionbody">
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-all alternatives here tend to be very optimized <strong>but only for mono
-     or bilingual localization files</strong>.
-     Some have advanced features, like merge/compare/update two different files
-     (like 2 XLIFFs) seems to be documented for some of them. They also sometimes
-     have exporters for multilingual formats, like UTX, TBX TMX, but often they
-     still only work with maximum of 2 languages.
-     One approach with <code>hxltmcli</code> would both focus on HXL and conversion for
-     formats that existing tools don&#8217;t do well, but this also means we do not
-     waste time to create more exporters for mono or bilinguam files.
-</td>
-</tr>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_okapi_framework">Okapi Framework</h3>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-@TODO this is a draft. Improve it.
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://okapiframework.org/" class="bare">https://okapiframework.org/</a></p>
-</li>
-<li>
-<p><a href="http://okapiframework.org/wiki/index.php?title=Tikal" class="bare">http://okapiframework.org/wiki/index.php?title=Tikal</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_translate_toolkit">Translate Toolkit</h3>
-<a id="translate-toolkit" href="#translate-toolkit">§ Translate Toolkit</a>
-<div class="paragraph">
-<p><strong>Options from Translate Toolkit</strong></p>
-</div>
-<div class="paragraph">
-<p>From <a href="https://github.com/translate/translate" class="bare">https://github.com/translate/translate</a>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### Installation----------------------------------------------------------------
-# @see https://github.com/translate/translate
-pip install translate-toolkit
-# Install with XML support
-# pip install translate-toolkit[XML]
-
-# Install all optional dependencies
-pip install translate-toolkit[all]
-
-### Converters -----------------------------------------------------------------
-oo2po    - convert between OpenOffice.org GSI files and PO
-oo2xliff - convert between OpenOffice.org GSI files and XLIFF
-moz2po   - convert between Mozilla files and PO
-csv2po   - convert PO format to CSV for editing in a spreadsheet program
-php2po   - PHP localisable string arrays converter.
-ts2po    - convert Qt Linguist (.ts) files to PO
-txt2po   - convert simple text files to PO
-html2po  - convert HTML to PO (beta)
-xliff2po - XLIFF (XML Localisation Interchange File Format) converter
-prop2po  - convert Java .properties files to PO
-po2wordfast - Wordfast Translation Memory converter
-po2tmx   - TMX (Translation Memory Exchange) converter
-pot2po   - PO file initialiser
-csv2tbx  - Create TBX (TermBase eXchange) files from Comma Separated
-           Value (CSV) files
-ini2po   - convert .ini files to to PO
-ical2po  - Convert iCalendar files (*.ics) to PO
-sub2po   - Convert many subtitle files to PO
-resx2po  - convert .Net Resource (.resx) files to PO
-
-### Tools (Quality Assurance): -------------------------------------------------
-pofilter - run any of the 40+ checks on your PO files
-pomerge  - merge corrected translations from pofilter back into
-           your existing PO files.
-poconflicts - identify conflicting use of terms
-porestructure - restructures po files according to poconflict directives
-pogrep   - find words in PO files
-
-### Tools (Other): -------------------------------------------------------------
-pocompile - create a Gettext MO files from PO or XLIFF files
-pocount   - count translatable file formats (PO, XLIFF)
-podebug   - Create comment in your PO files msgstr which can
-            then be used to quickly track down mistranslations
-            as the comments appear in the application.
-posegment - Break a PO or XLIFF files into sentence segments,
-            useful for creating a segmented translation memory.
-poswap    - uses a translation of another language that you
-            would rather use than English as source language
-poterminology - analyse PO or POT files to build a list of
-                frequently occurring words and phrases</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Without need to install the packages, you can check online documentation at
-<a href="http://docs.translatehouse.org/projects/translate-toolkit/en/latest/commands/index.html" class="bare">http://docs.translatehouse.org/projects/translate-toolkit/en/latest/commands/index.html</a>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_faq">FAQ</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_save_entire_translations_memory_on_excel_files">Save entire Translations Memory on Excel files</h3>
-<div class="sect3">
-<h4 id="_example_data">Example data</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><code>HXLTM-Exemplum</code>: Generic test files:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Input files: <a href="/tests/hxltm/">tests/hxltm/</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Live spreadsheet:
-<a href="https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/edit#gid=0" class="bare">https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/edit#gid=0</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Output files: tests/hxltm/resultatum/</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Production files:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>HXL-CPLP-Vocab_Auxilium-Humanitarium-API</code>: Hapi project</p>
-<div class="ulist">
-<ul>
-<li>
-<p>GitHub:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/HXL-CPLP/Auxilium-Humanitarium-API" class="bare">https://github.com/HXL-CPLP/Auxilium-Humanitarium-API</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Live Spreadsheet:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486" class="bare">https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486</a></p>
-</li>
-<li>
-<p>Note: the project may eventually use other sources of data (and
-this link here may eventually not be up to date)</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_advanced_filter_with_hxl_cli_tools">Advanced filter with HXL cli tools</h3>
-<a id="HXLTM-libhxl-cli-tools" href="#HXLTM-libhxl-cli-tools">§ HXLTM-libhxl-cli-tools</a>
-<div class="ulist">
-<ul>
-<li>
-<p>See <strong><a href="https://github.com/HXLStandard/libhxl-python/wiki/HXL-cookbook" class="bare">https://github.com/HXLStandard/libhxl-python/wiki/HXL-cookbook</a></strong></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Since a HXLTM (before export) is a valid HXL file, advanced seleting is
-possible by, instead of <code>hxltmcli input.hxl.csv output.hxl.csv</code> use
-<code>hxlcut input.hxl.csv --exclude (&#8230;&#8203;) | hxltmclioutput.hxl.csv</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># libhxl already is installed with hdp-toolchain
-
-hxlselect --help
-#    Filter rows in a HXL dataset. (...)
-hxlcut --help
-#    Cut columns from a HXL dataset.
-
-## Examples with HXL TM (used before pass data to hxltmcli)
-hxlcut --exclude item+i_la+i_lat+is_Latn --sheet 6 HXL-CPLP-Vocab_Auxilium-Humanitarium-API.xlsx | hxltmcli
-# Excludes Latin before pass to hxltmcli, from Microsoft Excel
-
-hxlcut --exclude item+i_la+i_lat+is_Latn https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=1292720422 | hxltmcli
-# Excludes Latin before pass to hxltmcli, from Google Sheets</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_advanced_filter_with_hxl_proxy_integration_with_google_sheets_and_csvxlsxetc_avalible_on_web">Advanced filter with HXL-proxy (integration with Google Sheets and CSV/XLSX/etc avalible on web)</h3>
-<a id="HXLTM-HXL-Proxy" href="#HXLTM-HXL-Proxy">§ HXLTM-HXL-Proxy</a>
-<div class="paragraph">
-<p>In special if you are contributing for either tools for HXL, testing this tool
-or helping in production (e.g. real time disaster response) please consider
-usage of the public HXL-Proxy on <a href="https://proxy.hxlstandard.org/" class="bare">https://proxy.hxlstandard.org/</a>.</p>
-</div>
-<div class="paragraph">
-<p>Most advanced features of the libhxl cli tools are availible via HXL-proxy.</p>
-</div>
-<div class="sect3">
-<h4 id="_note_about_heavy_usage_use_cache">Note about heavy usage: use cache</h4>
-<div class="paragraph">
-<p>Both <a href="https://hapi.etica.ai/" class="bare">https://hapi.etica.ai/</a> and <a href="https://github.com/HXL-CPLP/Auxilium-Humanitarium-API" class="bare">https://github.com/HXL-CPLP/Auxilium-Humanitarium-API</a>
-(and some links used on this documentation) may use the HXL-Proxy default
-1 hour cache disabled. This is necessary because the HXL-proxy is used to build
-static content based on latest translations.</p>
-</div>
-<div class="paragraph">
-<p>It&#8217;s a good practice if you are not only testing, but deployng in production,
-to not disable HXL-Proxy cache (it&#8217;s the default option if not copy and pasting
-HXL-CPLP/Auxilium-Humanitarium-API internal build script links).</p>
-</div>
-<div class="paragraph">
-<p>Also, even if you do not use the HXL-Proxy (but is using <code>hxltm</code> directly to
-your own Google Spreadsheets) if you keep doing too much calls in short time
-eventually the Google Docs may raise 400 errors since <code>hxltm</code> are not
-authenticated requests. <strong>Our recomendations on this case is:</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>download the entire Spreadsheet as .xlsx file and process the .xlsx file locally.</strong></p>
-</li>
-<li>
-<p><strong>Download individual sheets as CSV files and save locally (this consumes less CPU than process .xlsx)</strong></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_ontologia">Ontologia</h2>
 <div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Most features feasible to not hardcode (id est, require you to hack the
+      python code) on initial reference implementations use an ontology file
+      as single source of truth.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+While the exporting features (like <code>normam.TMX.formatum.initiale</code>,
+         <code>normam.TMX.formatum.corporeum</code> and <code>normam.TMX.formatum.finale</code>)
+         allow great customization only by fine tunning your ontology file,
+         (TIP: the syntax is based on Liquid,
+         <a href="https://shopify.github.io/liquid/" class="bare">https://shopify.github.io/liquid/</a>) importing data from other formats
+         like convert TMX, TBX or XLIFF) may require change not only the
+         ontology file but also the Python code.
+</td>
+</tr>
+</table>
+</div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">Ontology, YAML</dt>
@@ -3668,7 +3021,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-25 04:03:14 UTC
+Last updated 2021-07-25 20:45:05 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
