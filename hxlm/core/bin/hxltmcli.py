@@ -2948,7 +2948,9 @@ HXLTMASA()
                     resultatum['de_objectivum_linguam'] = nunc_valorem_rem
 
                 if aux_l is not None and nunc_valorem_rem['linguam'] in aux_l:
-                    resultatum['de_auxilium_linguam'].append(nunc_valorem_rem)
+                    if nunc_valorem_rem:
+                        resultatum['de_auxilium_linguam'].\
+                            append(nunc_valorem_rem)
                 #     print('yay', aux_l, nunc_valorem_rem['linguam'])
                 # else:
                 #     print('noop', aux_l, nunc_valorem_rem['linguam'])

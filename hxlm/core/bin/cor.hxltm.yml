@@ -670,14 +670,15 @@ normam:
         <?xml version="1.0"?>
         <xliff version="1.2"
           xmlns="urn:oasis:names:tc:xliff:document:1.2">
-          <file source-language="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
+          <file
+            source-language="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
+            target-language="{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}"
             datatype="plaintext"
-            original="file.ext">
+            original="exemplum.ext">
             <body>
 
       corporeum: |2
             {% if rem.de_fontem_linguam and rem.de_fontem_linguam.rem != '' -%}
-            {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}
               {%- comment -%}
                 _[eng-Latn]
                   Since we're targeting XLIFF 2.1 and this is XLIFF 1.2, we will hardcode
@@ -691,9 +692,21 @@ normam:
                   state-qualifier: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state-qualifier
                 [eng-Latn]_
               {%- endcomment -%}
+
+            {% capture rem_fontem_linguam_attr -%}
+                xml:lang="{{ rem.de_fontem_linguam.bcp47 }}"
+            {%- endcapture -%}
+
+            {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}
+
               {% capture XLIFF_obsoletum_state -%}
                 {{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}
               {%- endcapture -%}
+
+              {% capture rem_objectivum_linguam_attr -%}
+                 xml:lang="{{ rem.de_objectivum_linguam.bcp47 }}"
+              {%- endcapture -%}
+
               {%- if XLIFF_obsoletum_state == 'initial' -%}
                 {%- assign XLIFF_obsoletum_state = 'new' -%}
                 {%- assign XLIFF_obsoletum_approved = 'no' -%}
@@ -712,35 +725,37 @@ normam:
             <trans-unit id="{{- conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' -}}"
               {{- XLIFF_obsoletum_translatesource_attr -}}
               {{- XLIFF_obsoletum_approved_attr -}}>
-              <source>
+              <source {{ rem_fontem_linguam_attr }}>
                 {{- rem.de_fontem_linguam.rem -}}
               </source>
               {%- if rem.de_objectivum_linguam.rem != '' %}
-              <target state="{{ XLIFF_obsoletum_state }}"{{ XLIFF_obsoletum_statequalifier_attr }}>
+              <target {{ rem_objectivum_linguam_attr }} state="{{ XLIFF_obsoletum_state }}"{{ XLIFF_obsoletum_statequalifier_attr }}>
                 {{- rem.de_objectivum_linguam.rem -}}
               </target>
               {%- else -%}
                 <!-- non rem.de_objectivum_linguam.rem -->
               {%- endif %}
-              {% if rem.de_auxilium_linguam or rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}
+              {% if rem.de_auxilium_linguam %}
+                {%- for item in rem.de_auxilium_linguam -%}
+              <note annotates="source" priority="2">
+                _[{{- item.linguam -}}]{{- item.rem -}}[{{- item.linguam -}}]_
+              </note>
+                {%- endfor %}
+              {%- else -%}
+              <!--
+                non rem.de_auxilium_linguam
+              -->
+              {%- endif  %}
+              {% if rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}
               {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}
               <note annotates="source" priority="1"
                 from="referens_situs_interretialis">
                 {{ item }}
               </note>
               {%- endfor %}
-              {%- for item in rem.de_auxilium_linguam %}
-              {% if item.rem -%}
-              <note annotates="source" priority="2">
-                  _[{{- item.linguam -}}]
-                  {{- item.rem -}}
-                  [{{- item.linguam -}}]_
-              </note>
-              {% endif -%}
-              {%- endfor -%}
               {%- else -%}
               <!--
-                non rem.de_auxilium_linguam aut rem.de_nomen_breve.referens_situs_interretialis
+                non rem.de_nomen_breve.referens_situs_interretialis
               -->
               {%- endif  %}
             </trans-unit>

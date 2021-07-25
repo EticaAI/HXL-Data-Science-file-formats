@@ -166,6 +166,7 @@ from typing import (
     Any,
     Dict,
     List,
+    TextIO,
     Type,
     Union,
 )
@@ -451,6 +452,10 @@ class HXLTMdeXML:
 
         if objectvum_archivum:
             self.objectvum_archivum = objectvum_archivum
+            # if isinstance(self.objectvum_archivum, TextIO):
+            if isinstance(self.objectvum_archivum, str):
+                self.objectvum_archivum = \
+                    open(self.objectvum_archivum, 'w')
         else:
             self.objectvum_archivum = sys.stdout
 
@@ -539,6 +544,8 @@ class HXLTMdeXML:
     def de_xliff_obsoletum(self):
 
         # print("\n\n\n de_xliff_obsoletum", self.xml_referens)
+
+        # print(self.objectvum_archivum)
 
         resultatum_csv = csv.writer(
             self.objectvum_archivum,

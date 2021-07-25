@@ -2551,14 +2551,15 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
         &lt;?xml version="1.0"?&gt;
         &lt;xliff version="1.2"
           xmlns="urn:oasis:names:tc:xliff:document:1.2"&gt;
-          &lt;file source-language="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
+          &lt;file
+            source-language="{{ globum.fontem_linguam.bcp47 | default: 'la' }}"
+            target-language="{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}"
             datatype="plaintext"
-            original="file.ext"&gt;
+            original="exemplum.ext"&gt;
             &lt;body&gt;
 
       corporeum: |2
             {% if rem.de_fontem_linguam and rem.de_fontem_linguam.rem != '' -%}
-            {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}
               {%- comment -%}
                 _[eng-Latn]
                   Since we're targeting XLIFF 2.1 and this is XLIFF 1.2, we will hardcode
@@ -2572,9 +2573,21 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
                   state-qualifier: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state-qualifier
                 [eng-Latn]_
               {%- endcomment -%}
+
+            {% capture rem_fontem_linguam_attr -%}
+                xml:lang="{{ rem.de_fontem_linguam.bcp47 }}"
+            {%- endcapture -%}
+
+            {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}
+
               {% capture XLIFF_obsoletum_state -%}
                 {{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}
               {%- endcapture -%}
+
+              {% capture rem_objectivum_linguam_attr -%}
+                 xml:lang="{{ rem.de_objectivum_linguam.bcp47 }}"
+              {%- endcapture -%}
+
               {%- if XLIFF_obsoletum_state == 'initial' -%}
                 {%- assign XLIFF_obsoletum_state = 'new' -%}
                 {%- assign XLIFF_obsoletum_approved = 'no' -%}
@@ -2593,35 +2606,37 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
             &lt;trans-unit id="{{- conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' -}}"
               {{- XLIFF_obsoletum_translatesource_attr -}}
               {{- XLIFF_obsoletum_approved_attr -}}&gt;
-              &lt;source&gt;
+              &lt;source {{ rem_fontem_linguam_attr }}&gt;
                 {{- rem.de_fontem_linguam.rem -}}
               &lt;/source&gt;
               {%- if rem.de_objectivum_linguam.rem != '' %}
-              &lt;target state="{{ XLIFF_obsoletum_state }}"{{ XLIFF_obsoletum_statequalifier_attr }}&gt;
+              &lt;target {{ rem_objectivum_linguam_attr }} state="{{ XLIFF_obsoletum_state }}"{{ XLIFF_obsoletum_statequalifier_attr }}&gt;
                 {{- rem.de_objectivum_linguam.rem -}}
               &lt;/target&gt;
               {%- else -%}
                 &lt;!-- non rem.de_objectivum_linguam.rem --&gt;
               {%- endif %}
-              {% if rem.de_auxilium_linguam or rem.de_nomen_breve.referens_situs_interretialis.size &gt; 0 -%}
+              {% if rem.de_auxilium_linguam %}
+                {%- for item in rem.de_auxilium_linguam -%}
+              &lt;note annotates="source" priority="2"&gt;
+                _[{{- item.linguam -}}]{{- item.rem -}}[{{- item.linguam -}}]_
+              &lt;/note&gt;
+                {%- endfor %}
+              {%- else -%}
+              &lt;!--
+                non rem.de_auxilium_linguam
+              --&gt;
+              {%- endif  %}
+              {% if rem.de_nomen_breve.referens_situs_interretialis.size &gt; 0 -%}
               {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}
               &lt;note annotates="source" priority="1"
                 from="referens_situs_interretialis"&gt;
                 {{ item }}
               &lt;/note&gt;
               {%- endfor %}
-              {%- for item in rem.de_auxilium_linguam %}
-              {% if item.rem -%}
-              &lt;note annotates="source" priority="2"&gt;
-                  _[{{- item.linguam -}}]
-                  {{- item.rem -}}
-                  [{{- item.linguam -}}]_
-              &lt;/note&gt;
-              {% endif -%}
-              {%- endfor -%}
               {%- else -%}
               &lt;!--
-                non rem.de_auxilium_linguam aut rem.de_nomen_breve.referens_situs_interretialis
+                non rem.de_nomen_breve.referens_situs_interretialis
               --&gt;
               {%- endif  %}
             &lt;/trans-unit&gt;
@@ -4598,7 +4613,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-25 21:51:00 UTC
+Last updated 2021-07-25 23:03:47 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
