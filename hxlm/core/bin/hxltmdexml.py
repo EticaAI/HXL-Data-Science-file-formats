@@ -466,39 +466,7 @@ class HXLTMdeXML:
             events=('start', 'end')
         )
 
-        # # This load all on memory. Bad
-        # self.arborem = XMLElementTree.parse(self.fontem_archivum)
-        # self.arborem_radicem = self.arborem.getroot()
-
-        # print(self.arborem_radicem)
-
         self._initiale()
-        # self.xml_typum = self._ontologia.quod_xml_typum(
-        #     self.arborem_radicem.tag,
-        #     self.arborem_radicem.attrib
-        # )
-
-        # self.xml_referens = self._ontologia.quod_xml_typum_tag(
-        #     self.xml_typum['hxltm_normam']
-        # )
-
-        # self.in_formatum = XMLInFormatumHXLTM(
-        #     self._ontologia
-        #     fontem_archivum,
-        #     objectvum_archivum
-        # )
-
-        # self.in_formatum = XMLInFormatumHXLTM(
-        #     self._ontologia
-        #     # fontem_archivum,
-        #     # objectvum_archivum
-        # )
-        # self.in_formatum.definitionem_linguam('pt')
-        # self.in_formatum.definitionem_linguam('en')
-        # self.in_formatum.definitionem_linguam('es')
-        # self.in_formatum.definitionem_linguam('por-Latn@pt')
-        # self.in_formatum.definitionem_linguam('eng-Latn@en')
-        # self.in_formatum.definitionem_linguam('spa-Latn@es')
 
     def _initiale(self):
         """initiāle, https://en.wiktionary.org/wiki/initialis#Latin
@@ -517,12 +485,21 @@ class HXLTMdeXML:
             nodum.attrib
         )
 
+        if self.xml_typum['linguam_fontem']:
+            self.in_formatum.definitionem_linguam_fontem(
+                self.xml_typum['linguam_fontem']
+            )
+
+        if self.xml_typum['linguam_objectivum']:
+            self.in_formatum.definitionem_linguam_objectivum(
+                self.xml_typum['linguam_objectivum']
+            )
+
         self.xml_referens = self._ontologia.quod_xml_typum_tag(
             self.xml_typum['hxltm_normam']
         )
 
-        _eventum2, nodum2 = next(self.iteratianem)
-
+        # _eventum2, nodum2 = next(self.iteratianem)
         # print('_initiale2 {0}, {1}'.format(_eventum2, nodum2))
 
         # print('zzzetas', self.xml_typum)
@@ -561,8 +538,96 @@ class HXLTMdeXML:
 
     def de_xliff_obsoletum(self):
 
-        raise NotImplementedError('TODO de_xliff_obsoletum')
-        return self.EXITUM_CORRECTUM
+        # print("\n\n\n de_xliff_obsoletum", self.xml_referens)
+
+        resultatum_csv = csv.writer(
+            self.objectvum_archivum,
+            delimiter=',',
+            quoting=csv.QUOTE_MINIMAL
+        )
+
+        conceptum_codicem = None
+        fontem_textum = None
+        objectivum_textum = None
+        conceptum_attributum = self.xml_referens['conceptum_attributum']
+        linguam_fontem_attributum = \
+            self.xml_typum['linguam_fontem_attributum']
+        linguam_objectivum_attributum = \
+            self.xml_typum['linguam_objectivum_attributum']
+
+        caput_okay = False
+        # resultatum_csv.writerow(self.in_formatum.in_caput())
+
+        for eventum, nodum in self.iteratianem:
+            # print("de_xliff_obsoletum", eventum, nodum)
+            conceptum_codicem = None
+
+            if eventum == 'end':
+                tag_nunc = HXLTMUtil.xml_clavem_breve(nodum.tag)
+                attributum_nunc = {}
+                if nodum.attrib:
+                    for clavem in list(nodum.attrib):
+                        clavem_basim = HXLTMUtil.xml_clavem_breve(clavem)
+                        attributum_nunc[clavem] = nodum.attrib[clavem]
+
+                        if clavem_basim != clavem and \
+                                clavem_basim not in nodum.attrib:
+                            attributum_nunc[clavem_basim] = \
+                                nodum.attrib[clavem]
+
+                # if tag_nunc ==  self.xml_referens['conceptum']:
+
+                if tag_nunc == self.xml_referens['fontem']:
+                    fontem_textum = nodum.text
+
+                    # print('linguam_fontem_attributum',
+                    #       linguam_fontem_attributum)
+
+                    if linguam_fontem_attributum in attributum_nunc and \
+                            not caput_okay:
+                        self.in_formatum.definitionem_linguam_fontem(
+                            attributum_nunc[linguam_fontem_attributum]
+                        )
+                        # raise NameError('FOi')
+
+                    # print("\t\t\t", 'fontem_textum',
+                    #       fontem_textum, nodum.attrib, attributum_nunc)
+
+                if tag_nunc == self.xml_referens['objectivum']:
+                    objectivum_textum = nodum.text
+
+                    if linguam_objectivum_attributum in attributum_nunc and \
+                            not caput_okay:
+                        self.in_formatum.definitionem_linguam_objectivum(
+                            attributum_nunc[linguam_objectivum_attributum]
+                        )
+
+                if tag_nunc == self.xml_referens['conceptum']:
+                    if conceptum_attributum in nodum.attrib:
+                        conceptum_codicem = nodum.attrib[conceptum_attributum]
+                        # print("\t\t\t", 'conceptum_codicem',
+                        #       conceptum_codicem)
+                    lineam = self.in_formatum.in_lineam(
+                        conceptum_codicem=conceptum_codicem,
+                        fontem_textum=fontem_textum,
+                        objectivum_textum=objectivum_textum,
+                    )
+
+                    if not caput_okay:
+                        resultatum_csv.writerow(
+                            self.in_formatum.in_caput())
+                        caput_okay = True
+
+                    # print("\t\t\t", 'foi', lineam)
+                    conceptum_codicem = None
+                    fontem_textum = None
+                    objectivum_textum = None
+
+                    resultatum_csv.writerow(lineam)
+                    nodum.clear()
+
+        # raise NotImplementedError('TODO de_xliff_obsoletum')
+        # return self.EXITUM_CORRECTUM
 
     def quod_archivum_typum(self):
         """quod_archivum_typum [summary]
@@ -607,21 +672,21 @@ class HXLTMdeXML:
             [int]: EXITUM_CORRECTUM, EXITUM_ERROREM aut EEXITUM_SYNTAXIM
         """
         # self.quod_archivum_xml_basim()
-        print('self.xml_typum', self.xml_typum)
-        if self.xml_typum and 'typum' in self.xml_typum:
-            if self.xml_typum['typum'] == 'TBX':
+        # print("self.xml_typum\t\t", self.xml_typum)
+        if self.xml_typum and 'hxltm_normam' in self.xml_typum:
+            if self.xml_typum['hxltm_normam'].startswith('TBX'):
                 return self.de_tbx()
-            if self.xml_typum['typum'] == 'TMX':
+            if self.xml_typum['hxltm_normam'].startswith('TMX'):
                 return self.de_tmx()
-            if self.xml_typum['typum'] == 'XLIFF':
-                if 'version' in self.xml_typum:
-                    if self.xml_typum['version'].startswith('2.'):
-                        return self.de_xliff()
-                    if self.xml_typum['version'].startswith('1.'):
-                        return self.de_xliff_obsoletum()
-                return self.de_xliff()
-            if self.xml_typum['typum'] == 'XML':
-                return self.de_xml()
+            if self.xml_typum['hxltm_normam'].startswith('XLIFF'):
+                if self.xml_typum['hxltm_normam'].startswith(
+                        'XLIFF-obsoletum'):
+                    return self.de_xliff_obsoletum()
+                else:
+                    return self.de_xliff()
+
+            # if self.xml_typum['typum'] == 'XML':
+            #     return self.de_xml()
 
             return self.de_xml()
         # self.testum()
@@ -1466,7 +1531,9 @@ True
             'typum': 'XML',
             # XLIFF 2.x may provide srcLang / trgLang on <xliff>
             'linguam_fontem': '',
+            'linguam_fontem_attributum': '',
             'linguam_objectivum': '',
+            'linguam_objectivum_attributum': '',
             'radicem_attributum_crudum': {},
             # variāns, https://en.wiktionary.org/wiki/varians#Latin
             'varians': '',
@@ -1482,7 +1549,8 @@ True
         if radicem_attributum:
             for clavem in list(radicem_attributum):
                 clavem_basim = HXLTMUtil.xml_clavem_breve(clavem)
-                if clavem_basim != clavem:
+                if clavem_basim != clavem and \
+                        clavem_basim not in radicem_attributum:
                     attributum[clavem_basim] = radicem_attributum[clavem]
 
             resultatum['radicem_attributum_crudum'] = \
@@ -1506,8 +1574,16 @@ True
             resultatum['typum'] = 'TBX'
             resultatum['versionem'] = 'TBX-IATE'
         if radicem_tag_basim == 'xliff':
+            resultatum['hxltm_normam'] = 'XLIFF'
             resultatum['typum'] = 'XLIFF'
-            resultatum['versionem'] = '2.0'
+            resultatum['linguam_fontem_attributum'] = 'srcLang'
+            resultatum['linguam_objectivum_attributum'] = 'trgLang'
+            if 'version' in attributum:
+                resultatum['versionem'] = attributum['version']
+                if str(resultatum['versionem']).startswith('1.'):
+                    resultatum['hxltm_normam'] = 'XLIFF-obsoletum'
+                    resultatum['linguam_fontem_attributum'] = 'lang'
+                    resultatum['linguam_objectivum_attributum'] = 'lang'
 
         if 'version' in attributum:
             resultatum['versionem'] = attributum['version']
@@ -1585,17 +1661,28 @@ True
             resultatum['terminum'] = 'tuv/seg'
 
         if hxltm_normam == 'XLIFF':
-            # <unit id="L10N_ego_scriptum_nomen">
-            #     <segment state="final">
-            #         <source>Alfabeto latino</source>
-            #         <target>Alfabeto latino</target>
-            #     </segment>
-            # </unit>
+            # <xliff version="2.0"
+            #   xmlns="urn:oasis:names:tc:xliff:document:2.0"
+            #   xmlns:fs="urn:oasis:names:tc:xliff:fs:2.0"
+            #   xmlns:val="urn:oasis:names:tc:xliff:validation:2.0"
+            #   srcLang="pt"
+            #   trgLang="es">
+            #
+            # (...)
+            #
+            #   <unit id="L10N_ego_scriptum_nomen">
+            #       <segment state="final">
+            #           <source>Alfabeto latino</source>
+            #           <target>Alfabeto latino</target>
+            #       </segment>
+            #   </unit>
             resultatum['conceptum'] = 'unit'
-            resultatum['fontem'] = 'segment/source'
-            resultatum['objectivum'] = 'segment/target'
+            # resultatum['fontem'] = 'segment/source'
+            resultatum['fontem'] = 'source'
+            # resultatum['objectivum'] = 'segment/target'
+            resultatum['objectivum'] = 'target'
 
-        if hxltm_normam == 'XLIFF-Obsoletum':
+        if hxltm_normam == 'XLIFF-obsoletum':
             # <trans-unit id="L10N_ego_codicem" translate="no" approved="yes">
             #     <source>por-Latn</source>
             #     <target state="final">spa-Latn</target>
@@ -2279,6 +2366,9 @@ class XMLInFormatumHXLTM():
             [XMLInFormatumHXLTM]:
         """
 
+        if len(linguam) == 5 and linguam.find('-') > -1:
+            linguam = linguam.split('-')[0]
+
         if len(linguam) == 2 and linguam in self.temporary_fix:
             linguam = self.temporary_fix[linguam]
             # if linguam
@@ -2296,6 +2386,9 @@ class XMLInFormatumHXLTM():
             [XMLInFormatumHXLTM]:
         """
 
+        if len(linguam) == 5 and linguam.find('-') > -1:
+            linguam = linguam.split('-')[0]
+
         if len(linguam) == 2 and linguam in self.temporary_fix:
             linguam = self.temporary_fix[linguam]
 
@@ -2310,6 +2403,9 @@ class XMLInFormatumHXLTM():
             [XMLInFormatumHXLTM]:
         """
 
+        if len(linguam) == 5 and linguam.find('-') > -1:
+            linguam = linguam.split('-')[0]
+
         if len(linguam) == 2 and linguam in self.temporary_fix:
             linguam = self.temporary_fix[linguam]
 
@@ -2319,13 +2415,38 @@ class XMLInFormatumHXLTM():
     def in_caput(self):
         resultatum = []
         resultatum.append('#item+conceptum+codicem')
+        if self.linguam_fontem:
+            resultatum.append('#item+rem' + self.linguam_fontem.a())
+        if self.linguam_objectivum:
+            resultatum.append('#item+rem' + self.linguam_objectivum.a())
+
         for linguam in self.linguam_collectionem:
             resultatum.append('#item+rem' + linguam.a())
             resultatum.append('#status+rem+accuratum' + linguam.a())
         return resultatum
 
-    def in_lineam(self, conceptum_codicem: str, data: Dict):
-        resultatum = [conceptum_codicem, data]
+    def in_lineam(
+        self,
+        conceptum_codicem: str = '',
+        fontem_textum: str = '',
+        objectivum_textum: str = '',
+        fontem_accuratum: str = '',
+        objectivum_accuratum: str = '',
+        terminum: list = None
+    ):
+        resultatum = [conceptum_codicem]
+        if fontem_textum:
+            resultatum.append(fontem_textum)
+        if objectivum_textum:
+            resultatum.append(objectivum_textum)
+
+        # TODO: if previously was added accuraty, make it add even
+        #       if empty
+        if fontem_accuratum:
+            resultatum.append(fontem_accuratum)
+        if objectivum_accuratum:
+            resultatum.append(objectivum_accuratum)
+
         return resultatum
 
 
