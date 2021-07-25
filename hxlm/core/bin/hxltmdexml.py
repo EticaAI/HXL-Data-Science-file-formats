@@ -161,6 +161,7 @@ import xml.etree.ElementTree as XMLElementTree
 import csv
 # import tempfile
 
+from dataclasses import dataclass, InitVar
 from typing import (
     Any,
     Dict,
@@ -181,6 +182,9 @@ import hxl.converters
 import hxl.filters
 import hxl.io
 
+# @see https://github.com/rspeer/langcodes
+# pip3 install langcodes
+# import langcodes
 
 __VERSION__ = "v0.2.0"
 
@@ -415,6 +419,7 @@ class HXLTMdeXML:
     arborem_radicem = None
     # arborem: Dict = None
     xml_typum: None
+    in_formatum: None
 
     def __init__(
         self,
@@ -448,6 +453,24 @@ class HXLTMdeXML:
             self.arborem_radicem.attrib
         )
 
+        # self.in_formatum = XMLInFormatumHXLTM(
+        #     self._ontologia
+        #     fontem_archivum,
+        #     objectvum_archivum
+        # )
+
+        self.in_formatum = XMLInFormatumHXLTM(
+            self._ontologia
+            # fontem_archivum,
+            # objectvum_archivum
+        )
+        self.in_formatum.definitionem_linguam('pt')
+        self.in_formatum.definitionem_linguam('en')
+        self.in_formatum.definitionem_linguam('es')
+        # self.in_formatum.definitionem_linguam('por-Latn@pt')
+        # self.in_formatum.definitionem_linguam('eng-Latn@en')
+        # self.in_formatum.definitionem_linguam('spa-Latn@es')
+
     def de_tbx(self):
         # pass
         raise NotImplementedError('TODO de_tbx')
@@ -469,6 +492,7 @@ class HXLTMdeXML:
 
         tmx_body = self.arborem_radicem.find('body')
         print('tmx_body', tmx_body)
+        print('hxltmcsv', self.in_formatum.in_caput())
 
         raise NotImplementedError('TODO de_tmx')
         return self.EXITUM_CORRECTUM
@@ -559,31 +583,9 @@ class HXLTMdeXML:
 
     def xliff_obsoletum(self, root):
         print('oi')
-        # print(root.findall('*'))
-        # print(root.findall('./file'))
-        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file'))
-        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/body'))
-        # print('body')
-        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/*'))
-        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file/*'))
-        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}body'))
-        # print('')
-        # print('')
-        # print(root.findall('{urn:oasis:names:tc:xliff:document:1.2}file'))
-        # print(root.findall('./{*}file'))
+
         print(root.findall('./{*}file/{*}body/{*}trans-unit'))
         print('')
-        # print(root.findall('*'))
-        # print('')
-        # print(root.findall('./'))
-        # print('')
-        # print(root.findall('./file'))
-        # print('')
-        # print(root.findall('*/[trans-unit]'))
-        # print(root.findall('*/trans-unit'))
-        # # print(root.find('file'))
-        # for transunit in root.findall('./xliff/file/trans-unit'):
-        #     print(transunit)
 
     def xliff_testum2(self):
         # @see https://docs.python.org/3/library
@@ -694,6 +696,356 @@ def xml_clavem_breve(clavem):
 #             elem.clear()
 # print('oi 1', path)
 # # print(data)
+
+
+@dataclass
+class HXLTMLinguam:  # pylint: disable=too-many-instance-attributes
+    """HXLTM linguam auxilium programmi
+
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> HXLTMLinguam('lat-Latn@la-IT@IT')
+HXLTMLinguam()
+
+>>> HXLTMLinguam('lat-Latn@la-IT@IT').v()
+{'_typum': 'HXLTMLinguam', \
+'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', \
+'bcp47': 'la-IT', 'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', \
+'iso115924': 'Latn'}
+
+>>> HXLTMLinguam('lat-Latn@la-IT@IT', meta={'testum': 123}).v()
+{'_typum': 'HXLTMLinguam', '_vanandum_insectum_meta': {'testum': 123}, \
+'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', 'bcp47': 'la-IT', \
+'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}
+
+>>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
+'+i_la+i_lat+is_latn+ii_it'
+
+        Kalo Finnish Romani, Latin script (no ISO 2 language)
+
+>>> HXLTMLinguam('rmf-Latn').v()
+{'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
+'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn'}
+
+        Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
+
+>>> HXLTMLinguam('rmf-Latn').a()
+'+i_rmf+is_latn'
+
+        Private use language tags: se use similar pattern of BCP 47.
+        (https://tools.ietf.org/search/bcp47)
+
+>>> HXLTMLinguam('lat-Latn-x-privatum').a()
+'+i_lat+is_latn+ix_privatum'
+
+>>> HXLTMLinguam('lat-Latn-x-privatum-tag8digt').a()
+'+i_lat+is_latn+ix_privatum+ix_tag8digt'
+
+        If x-private is only on BCP, we ignore it on HXL attrs.
+        Tools may still use this for other processing (like for XLIFF),
+        but not for generated Datasets.
+
+>>> HXLTMLinguam(
+... 'cmn-Latn@zh-Latn-CN-variant1-a-extend1-x-wadegile-private1').a()
+'+i_zh+i_cmn+is_latn'
+
+        To force a x-private language tag, it must be on linguam (first part)
+        even if it means repeat. Also, we create attributes shorted by
+        ASCII alphabet, as BCP47 would do
+
+>>> HXLTMLinguam(
+... 'cmn-Latn-x-wadegile-private1@zh-CN-x-wadegile-private1').a()
+'+i_zh+i_cmn+is_latn+ix_private1+ix_wadegile'
+
+
+>>> HXLTMLinguam(
+... 'lat-Latn-x-caesar12-romanum1@la-IT-x-caesar12-romanum1@IT').a()
+'+i_la+i_lat+is_latn+ii_it+ix_caesar12+ix_romanum1'
+
+    """
+
+    # Exemplum: lat-Latn@la-IT@IT, arb-Arab@ar-EG@EG
+    _typum: InitVar[str] = None  # 'HXLTMLinguam'
+    _vanandum_insectum_meta: InitVar[Dict] = None
+    crudum: InitVar[str] = None
+    linguam: InitVar[str] = None     # Exemplum: lat-Latn, arb-Arab
+    bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
+    imperium: InitVar[str] = None    # Exemplum: IT, EG
+    iso6391a2: InitVar[str] = None     # Exemlum: la, ar
+    iso6393: InitVar[str] = None     # Exemlum: lat, arb
+    iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
+    privatum: InitVar[List[str]] = None  # Exemplum: [privatum]
+    vacuum: InitVar[str] = False
+
+    # https://tools.ietf.org/search/bcp47#page-2-12
+
+    # def __init__(self, linguam: str, strictum=False, vacuum=False):
+    def __init__(self, linguam: str,
+                 strictum=False, vacuum=False, meta=None):
+        """HXLTMLinguam initiāle
+
+        Args:
+            linguam (str): Textum linguam
+            strictum (bool, optional): Strictum est?.
+                       Trivia: https://en.wiktionary.org/wiki/strictus#Latin
+                       Defallo falsum.
+            vacuum (bool, optional): vacuum	est?
+                       Trivia: https://en.wiktionary.org/wiki/vacuus#Latin.
+                       Defallo falsum.
+            meta (Dict, optional):
+                    Metadatum ad Vēnandum īnsectum.Defallo vacuum.
+        """
+        # super().__init__()
+        self._typum = 'HXLTMLinguam'  # Used only when output JSON
+        if meta is not None:
+            self._vanandum_insectum_meta = meta
+        self.crudum = linguam
+        if not vacuum:
+            self.initialle(strictum)
+        else:
+            self.vacuum = vacuum
+
+    def initialle(self, strictum: bool):
+        """
+        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+
+        term = self.crudum
+        # Hackysh way to discover if private use is the linguam
+        # tag or if is the BCP47 x-private use tag
+        # Good example '4.4.2.  Truncation of Language Tags'
+        # at https://tools.ietf.org/search/bcp47
+        if self.crudum.find('x-') > -1:
+            # print('Do exist a private-use tag')
+            if self.crudum.find('@') > -1:
+                parts = self.crudum.split('@')
+                # print('parte1', parts)
+                if parts[0].find('x-') > -1:
+                    # _, privatumtext = parts[0].split('-x-')
+                    part0, privatumtext = parts[0].split('-x-')
+                    self.privatum = privatumtext.split('-')
+                    parts.pop(0)
+                    term = part0 + "@" + '@'.join(parts)
+                    # print('term2', term)
+                    # TODO: handle private use on linguan tag when
+                    #       also BCP47 is used
+            else:
+                part0, privatumtext = self.crudum.split('-x-')
+                self.privatum = privatumtext.split('-')
+                term = part0
+
+        if term.find('@') == -1:
+            # Non @? Est linguam.
+            self.linguam = term
+
+            # self.iso6393, self.iso115924 = \
+            #     list(self.linguam.split('-'))
+        elif term.find('@@') > -1:
+            # @@? Est linguam et imperium
+            self.linguam, self.imperium = list(term.split('@@'))
+
+            # self.iso6393, self.iso115924 = \
+            #     list(self.linguam.split('-'))
+        elif term.count('@') == 1:
+            # Unum @? Est linguam et bcp47
+            self.linguam, self.bcp47 = list(term.split('@'))
+
+        elif term.count('@') == 2:
+            # rem@rem@rem ? Est linguam, bcp47, imperium
+            self.linguam, self.bcp47, self.imperium = \
+                list(term.split('@'))
+            # self.iso6393, self.iso115924 = \
+            #     list(self.linguam.split('-'))
+        elif strictum:
+            raise ValueError('HXLTMLinguam [' + term + ']')
+        else:
+            return False
+
+        if self.bcp47:
+            parts = self.bcp47.split('-')
+            if len(parts[0]) == 2:
+                self.iso6391a2 = parts[0].lower()
+
+        self.iso6393, self.iso115924 = \
+            list(self.linguam.split('-'))
+
+        self.iso6393 = self.iso6393.lower()
+        self.iso115924 = self.iso115924.capitalize()
+        self.linguam = self.iso6393 + '-' + self.iso115924
+        if self.imperium:
+            self.imperium = self.imperium.upper()
+
+        if self.privatum is not None and len(self.privatum) > 0:
+            # https://tools.ietf.org/search/bcp47#page-2-12
+            # '4.5.  Canonicalization of Language Tags'
+            # We short the keys
+            # privatum_est = sorted(self.imperium, key=str.upper)
+
+            # print('antes', self.imperium)
+            privatum_est = sorted(self.privatum)
+
+            # print('depois', self.privatum)
+            self.privatum = privatum_est
+
+        return True
+
+    def a(self):  # pylint: disable=invalid-name
+        """HXL attribūtum
+
+        Exemplum:
+            >>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
+            '+i_la+i_lat+is_latn+ii_it'
+
+        Returns:
+            [str]: textum HXL attribūtum
+        """
+        resultatum = []
+
+        if self.iso6391a2:
+            resultatum.append('+i_' + self.iso6391a2)
+        if self.iso6393:
+            resultatum.append('+i_' + self.iso6393)
+        if self.iso115924:
+            resultatum.append('+is_' + self.iso115924)
+        if self.imperium:
+            resultatum.append('+ii_' + self.imperium)
+        if self.privatum and len(self.privatum) > 0:
+            for item in self.privatum:
+                resultatum.append('+ix_' + item)
+
+        return ''.join(resultatum).lower()
+
+    def designo(self, clavem: str, rem: Any) -> Type['HXLTMLinguam']:
+        """Designo clavem rem
+
+        _[eng-Latn] The HXLTMLinguam.designo() can be useful for create empty
+                    languages with HXLTMLinguam('', vacuum=True) and then
+                    manually defining what attributes would like when search
+                    by hashtags
+        [eng-Latn]_
+
+       Args:
+            clavem (str): clāvem, https://en.wiktionary.org/wiki/clavis#Latin
+            rem (Any): rem, https://en.wiktionary.org/wiki/res#Latin
+
+        Returns:
+            [HXLTMLinguam]: HXLTMLinguam to allow method chaining
+
+        Exemplum:
+>>> rem_vacuum = HXLTMLinguam('', vacuum=True)
+>>> rem = rem_vacuum.designo('iso115924', 'Latn')
+>>> collectionem = [
+...    '#item+conceptum+codicem',
+...    '#item+rem+i_la+i_lat+is_latn',
+...    '#item+definitionem+i_la+i_lat+is_latn',
+...    '#item+rem+i_ar+i_arb+is_arab',
+...    '#item+definitionem+i_ar+i_arb+is_arab'
+... ]
+>>> rem.intra_collectionem_est(collectionem)
+['#item+rem+i_la+i_lat+is_latn', '#item+definitionem+i_la+i_lat+is_latn']
+
+
+        """
+        setattr(self, clavem, rem)
+        return self
+
+    def h(self, formatum: str):  # pylint: disable=invalid-name
+        """HXL hashtag de fōrmātum
+
+        Exemplum:
+>>> HXLTMLinguam('lat-Latn@la-IT@IT').h('#item+rem__linguam__')
+'#item+rem+i_la+i_lat+is_latn+ii_it'
+
+>>> HXLTMLinguam('lat-Latn-x-privatum').h('#item+rem__linguam__')
+'#item+rem+i_lat+is_latn+ix_privatum'
+
+        Returns:
+            [str]: textum HXL hashtag
+        """
+        linguam_attrs = self.a()
+
+        if formatum.find('__linguam__') > -1:
+            return formatum.replace('__linguam__', linguam_attrs)
+
+        if formatum.find('__linguam_de_imperium__') > -1:
+            return formatum.replace('__linguam_de_imperium__', linguam_attrs)
+
+        raise ValueError('HXLTMLinguam fōrmātum errōrem [' + formatum + ']')
+
+    def intra_collectionem_est(
+            self, collectionem: List, formatum: str = None) -> List:
+        """Intrā collēctiōnem est?
+
+        Trivia:
+        - intrā, https://en.wiktionary.org/wiki/intra#Latin
+        - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
+        - est, https://en.wiktionary.org/wiki/est#Latin
+
+
+        Args:
+            collectionem (List): List of HXL hashtags
+            formatum (str): An formatted template.
+
+        Returns:
+            [List]: List of HXL hashtags that match the search
+
+        Tests:
+
+>>> rem = HXLTMLinguam('lat-Latn@la')
+>>> collectionem = [
+...    '#item+conceptum+codicem',
+...    '#item+rem+i_la+i_lat+is_latn',
+...    '#item+definitionem+i_la+i_lat+is_latn',
+...    '#item+rem+i_ar+i_arb+is_arab',
+...    '#item+definitionem+i_ar+i_arb+is_arab'
+... ]
+
+>>> rem.intra_collectionem_est(collectionem)
+['#item+rem+i_la+i_lat+is_latn', '#item+definitionem+i_la+i_lat+is_latn']
+
+>>> rem.intra_collectionem_est(collectionem, '#item+rem__linguam__')
+['#item+rem+i_la+i_lat+is_latn']
+>>> rem.intra_collectionem_est(collectionem,'#status+rem+accuratum__linguam__')
+[]
+
+>>> rem_vacuum = HXLTMLinguam('', vacuum=True)
+>>> rem_vacuum.intra_collectionem_est(collectionem)
+['#item+conceptum+codicem', \
+'#item+rem+i_la+i_lat+is_latn', \
+'#item+definitionem+i_la+i_lat+is_latn', \
+'#item+rem+i_ar+i_arb+is_arab', \
+'#item+definitionem+i_ar+i_arb+is_arab']
+
+>>> rem_vacuum.intra_collectionem_est(collectionem, '#item+rem__linguam__')
+['#item+rem+i_la+i_lat+is_latn', '#item+rem+i_ar+i_arb+is_arab']
+
+        """
+        resultatum = []
+        if formatum:
+            indaginem = self.h(formatum)
+        else:
+            indaginem = self.a()
+
+        for rem in collectionem:
+            if rem.find(indaginem) > -1:
+                resultatum.append(rem)
+
+        return resultatum
+
+    def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            _verbosum (bool): Verbosum est? Defallo falsum.
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        return self.__dict__
 
 
 class HXLTMOntologia:
@@ -1718,6 +2070,142 @@ class HXLTMTestumAuxilium:
         # print(HXLTMUtil.load_hxltm_options()['normam'])
         # return HXLTMUtil.load_hxltm_options()
         return HXLTMOntologia(conf)
+
+
+class XMLInFormatumHXLTM():
+    """HXLTM In Fōrmātum; abstractum Python classem
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - in, https://en.wiktionary.org/wiki/in-#Latin
+        - fōrmātum, https://en.wiktionary.org/wiki/formatus#Latin
+        - abstractum Python classem
+            - abstractum, https://en.wiktionary.org/wiki/abstractus#Latin
+            - Python, https://docs.python.org/
+            - classem, https://en.wiktionary.org/wiki/classis#Latin
+        - disciplīnam manuāle
+            - https://docs.python.org/3/library/abc.html
+
+    Intrōductōrium cursum de Latīnam linguam (breve glōssārium):
+        - archīvum, https://en.wiktionary.org/wiki/archivum
+        - datum, https://en.wiktionary.org/wiki/datum#Latin
+        - contextum, https://en.wiktionary.org/wiki/contextus#Latin
+        - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+        - collēctiōnem, https://en.wiktionary.org/wiki/collectio#Latin
+            - id est: Python List
+        - dē, https://en.wiktionary.org/wiki/de#Latin
+        - errōrem, https://en.wiktionary.org/wiki/error#Latin
+        - fīnāle, https://en.wiktionary.org/wiki/finalis#Latin
+        - 'id est', https://en.wiktionary.org/wiki/id_est
+        - initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        - locum, https://en.wiktionary.org/wiki/locum#Latin
+        - resultātum, https://en.wiktionary.org/wiki/resultatum
+
+    Speciāle verbum in HXLTM:
+        - 'Exemplōrum gratiā (et Python doctest, id est, testum automata)'
+            - Exemplōrum gratiā
+              - https://en.wikipedia.org/wiki/List_of_Latin_phrases_(full)
+            - 'Python doctest' (non Latīnam)
+                -https://docs.python.org/3/library/doctest.html
+
+    Author:
+        Multis Clanculum Civibus
+
+    Collaborators:
+        Emerson Rocha <rocha[at]ieee.org>
+
+    Creation Date:
+        2021-07-24
+
+    Revisions:
+
+    License:
+        Public Domain
+
+    Args:
+        ontologia (HXLTMOntologia):
+            HXLTMASA objectīvum
+        fontem_archivum (str):
+        objectvum_archivum (str):
+    """
+
+    # # # ontologia/cor.hxltm.yml clāvem nomen
+    # # ONTOLOGIA_FORMATUM = ''
+
+    # # ontologia/cor.hxltm.yml basim extēnsiōnem
+    # ONTOLOGIA_NORMAM: str = ''
+
+    # # Trivia: speciāle, https://en.wiktionary.org/wiki/specialis#Latin
+    # ontologia_normam_speciale = ''
+
+    # hxltm_asa
+    # ontologia
+
+    linguam_collectionem = []
+
+    # speciāle
+
+    # __commune_asa: InitVar[Type['HXLTMASA']] = None
+
+    # @see https://docs.python.org/3/library/logging.html
+    # @see https://docs.python.org/pt-br/dev/howto/logging.html
+
+    def __init__(
+        self,
+        ontologia: Type['HXLTMOntologia']
+    ):
+        """__init__
+
+        Args:
+            ontologia (HXLTMOntologia): ontologia
+        """
+
+    def definitionem_linguam(self, linguam: str):
+        """dēfīnītiōnem linguam
+
+        _[eng-Latn]
+        NOTE: all the languages need to be know upfront (even it if means)
+        peak part of the XML file) to be able to generate output.
+
+        Add new languages that were not defined will not work.
+
+        Add a new language after the heading files was created, will also
+        generate a CSV-like file with more columns (id est, invalid).
+        [eng-Latn]_
+
+        Returns:
+            [type]: [description]
+        """
+        # if linguam
+        temporary_fix = {
+            'pt': 'por-Latn@pt',
+            'en': 'eng-Latn@en',
+            'es': 'spa-Latn@es'
+        }
+
+        if len(linguam) == 2 and linguam in temporary_fix:
+            linguam = temporary_fix[linguam]
+            # if linguam
+
+        self.linguam_collectionem.append(
+            HXLTMLinguam(linguam)
+        )
+        return self
+
+    def in_caput(self):
+        resultatum = []
+        resultatum.append('#item+conceptum+codicem')
+        for linguam in self.linguam_collectionem:
+            resultatum.append('#item+rem' + linguam.a())
+            resultatum.append('#status+rem+accuratum' + linguam.a())
+        return resultatum
+
+    def in_lineam(self, conceptum_codicem: str, data: Dict):
+        resultatum = [conceptum_codicem, data]
+        return resultatum
 
 
 class HXLUtils:
