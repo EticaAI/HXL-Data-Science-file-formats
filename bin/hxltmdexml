@@ -453,6 +453,10 @@ class HXLTMdeXML:
             self.arborem_radicem.attrib
         )
 
+        self.xml_tag = self._ontologia.quod_xml_typum_tag(
+            self.xml_typum['hxltm_normam']
+        )
+
         # self.in_formatum = XMLInFormatumHXLTM(
         #     self._ontologia
         #     fontem_archivum,
@@ -1538,6 +1542,92 @@ True
 
         return resultatum
 
+    def quod_xml_typum_tag(
+        self,
+        hxltm_normam: str
+    ) -> Dict:
+        """quod_xml_typum Quod XML typum est?
+
+        _[eng-Latn]
+        TODO: make this method actually load the references from the
+        *.hxltm.yml, so the users could have at least some freedom
+        (as they already have when exporting) but now to import.
+        [eng-Latn]_
+
+        Args:
+            hxltm_normam (str):
+                HXLTM normam (textum)
+
+        Returns:
+            Dict: typum, versiōnem, variāns
+        """
+        resultatum = {
+            'conceptum': '',
+            'conceptum_attributum': 'id',
+            'fontem': '',
+            'terminum': '',
+            'objectivum': ''
+        }
+
+        if hxltm_normam == 'TBX-Basim':
+            # <termEntry id="L10N_ego_codicem">
+            #     <langSet xml:lang="la">
+            #         <tig>
+            #           <term>lat-Latn</term>
+            #         </tig>
+            #     </langSet>
+            # </termEntry>
+            resultatum['conceptum'] = 'termEntry'
+            resultatum['terminum'] = 'langSet/tig/term'
+
+        if hxltm_normam == 'TBX-IATE':
+            # <conceptEntry id="254003">
+            #     <descrip type="subjectField">linguistics</descrip>
+            #     <langSec xml:lang="es">
+            #         <termSec>
+            #             <term>acto de habla indirecto</term>
+            #             <termNote type="termType">fullForm</termNote>
+            #             <descrip type="reliabilityCode">1</descrip>
+            #         </termSec>
+            #     </langSec>
+            # </conceptEntry>
+            resultatum['conceptum'] = 'conceptEntry'
+            resultatum['terminum'] = 'langSec/termSec/term'
+        if hxltm_normam == 'TMX':
+            # <tu tuid="L10N_ego_codicem">
+            #   <tuv xml:lang="la">
+            #     <seg>lat-Latn</seg>
+            #   </tuv>
+            # </tu>
+            resultatum['conceptum'] = 'tu'
+            resultatum['conceptum_attributum'] = 'tuid'  # Non 'id'
+            resultatum['terminum'] = 'tuv/seg'
+
+        if hxltm_normam == 'XLIFF':
+            # <unit id="L10N_ego_scriptum_nomen">
+            #     <segment state="final">
+            #         <source>Alfabeto latino</source>
+            #         <target>Alfabeto latino</target>
+            #     </segment>
+            # </unit>
+            resultatum['conceptum'] = 'unit'
+            resultatum['fontem'] = 'segment/source'
+            resultatum['objectivum'] = 'segment/target'
+
+        if hxltm_normam == 'XLIFF-Obsoletum':
+            # <trans-unit id="L10N_ego_codicem" translate="no" approved="yes">
+            #     <source>por-Latn</source>
+            #     <target state="final">spa-Latn</target>
+            #     <note annotates="source" priority="2">
+            #     _    [eng-Latn]eng-Latn[eng-Latn]_
+            #     </note>
+            # </trans-unit>
+            resultatum['conceptum'] = 'trans-unit'
+            resultatum['fontem'] = 'source'
+            resultatum['objectivum'] = 'target'
+
+        return resultatum
+
     @staticmethod
     def quid_est_hashtag_circa_conceptum(
             hxl_hashtag: str) -> Union[bool, None]:
@@ -2145,8 +2235,17 @@ class XMLInFormatumHXLTM():
     # ontologia
 
     linguam_collectionem = []
+    linguam_fontem = None
+    linguam_objectivum = None
 
-    # speciāle
+    # TODO: remove this gambiarra
+    temporary_fix = {
+        'pt': 'por-Latn@pt',
+        'en': 'eng-Latn@en',
+        'es': 'spa-Latn@es',
+        'eo': 'epo-Latn@eo',
+        'sk': 'slk-Latn@sk',
+    }
 
     # __commune_asa: InitVar[Type['HXLTMASA']] = None
 
@@ -2163,7 +2262,8 @@ class XMLInFormatumHXLTM():
             ontologia (HXLTMOntologia): ontologia
         """
 
-    def definitionem_linguam(self, linguam: str):
+    def definitionem_linguam(
+            self, linguam: str) -> Type['XMLInFormatumHXLTM']:
         """dēfīnītiōnem linguam
 
         _[eng-Latn]
@@ -2177,22 +2277,44 @@ class XMLInFormatumHXLTM():
         [eng-Latn]_
 
         Returns:
-            [type]: [description]
+            [XMLInFormatumHXLTM]:
         """
-        # if linguam
-        temporary_fix = {
-            'pt': 'por-Latn@pt',
-            'en': 'eng-Latn@en',
-            'es': 'spa-Latn@es'
-        }
 
-        if len(linguam) == 2 and linguam in temporary_fix:
-            linguam = temporary_fix[linguam]
+        if len(linguam) == 2 and linguam in self.temporary_fix:
+            linguam = self.temporary_fix[linguam]
             # if linguam
 
         self.linguam_collectionem.append(
             HXLTMLinguam(linguam)
         )
+        return self
+
+    def definitionem_linguam_fontem(
+            self, linguam: str) -> Type['XMLInFormatumHXLTM']:
+        """dēfīnītiōnem linguam fontem
+
+        Returns:
+            [XMLInFormatumHXLTM]:
+        """
+
+        if len(linguam) == 2 and linguam in self.temporary_fix:
+            linguam = self.temporary_fix[linguam]
+
+        self.linguam_fontem = HXLTMLinguam(linguam)
+        return self
+
+    def definitionem_linguam_objectivum(
+            self, linguam: str) -> Type['XMLInFormatumHXLTM']:
+        """dēfīnītiōnem linguam objectivum
+
+        Returns:
+            [XMLInFormatumHXLTM]:
+        """
+
+        if len(linguam) == 2 and linguam in self.temporary_fix:
+            linguam = self.temporary_fix[linguam]
+
+        self.linguam_objectivum = HXLTMLinguam(linguam)
         return self
 
     def in_caput(self):
