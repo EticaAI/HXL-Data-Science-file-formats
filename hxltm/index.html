@@ -1489,9 +1489,11 @@ normam:
               {%- endif %}
               {% if rem.de_auxilium_linguam %}
                 {%- for item in rem.de_auxilium_linguam -%}
+                  {%- if item.rem -%}
               &lt;note annotates="source" priority="2"&gt;
                 _[{{- item.linguam -}}]{{- item.rem -}}[{{- item.linguam -}}]_
               &lt;/note&gt;
+                  {%- endif -%}
                 {%- endfor %}
               {%- else -%}
               &lt;!--
@@ -3040,7 +3042,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-25 23:03:47 UTC
+Last updated 2021-07-26 00:10:26 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

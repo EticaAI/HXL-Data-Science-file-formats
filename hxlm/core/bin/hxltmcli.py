@@ -2951,9 +2951,6 @@ HXLTMASA()
                     if nunc_valorem_rem:
                         resultatum['de_auxilium_linguam'].\
                             append(nunc_valorem_rem)
-                #     print('yay', aux_l, nunc_valorem_rem['linguam'])
-                # else:
-                #     print('noop', aux_l, nunc_valorem_rem['linguam'])
 
                 resultatum['de_linguam'][nunc_valorem_rem['linguam']] = \
                     nunc_valorem_rem

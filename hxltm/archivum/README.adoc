@@ -352,6 +352,22 @@ hxltmcli --help
 ----
 include::../../testum/hxltm/hxltmcli--help_eng-Latn.txt[]
 ----
+[#hxltmdexml--help]
+== `+hxltmdexml --help+`
+
+[source,bash]
+----
+# hxltmdexml can be installed with hdp-toolchain
+# @see https://pypi.org/project/hdp-toolchain/
+pip install hdp-toolchain
+
+hxltmdexml --help
+----
+
+[source]
+----
+include::../../testum/hxltm/hxltmdexml--help_eng-Latn.txt[]
+----
 
 == License
 

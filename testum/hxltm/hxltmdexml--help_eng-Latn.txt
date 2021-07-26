@@ -1,0 +1,32 @@
+usage: hxltmdexml [-h] [--archivum-configurationem] [--venandum-insectum-est]
+                  [infile] [outfile]
+
+_[eng-Latn]
+hxltmdexml v0.5.0 is an (not feature-by-feature) conversor from some
+XML formats to HXLTM tabular working file.
+[eng-Latn]_"
+
+positional arguments:
+  infile                HXL file to read (if omitted, use standard input).
+  outfile               HXL file to write (if omitted, use standard output).
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --archivum-configurationem
+                        Path to custom configuration file (The cor.hxltm.yml)
+  --venandum-insectum-est, --debug
+                        Enable debug? Extra information for program debugging
+
+Exemplōrum gratiā:
+
+XML Localization Interchange File Format (XLIFF) v2.1+: -> HXLTM (bilinguam):
+    hxltmdexml fontem.xlf objectivum.tm.hxl.csv
+
+XML Localization Interchange File Format (XLIFF) v1.2: -> HXLTM (bilinguam):
+    hxltmdexml fontem.xlf objectivum.tm.hxl.csv
+
+Translation Memory eXchange format (TMX): -> HXLTM:
+    hxltmdexml fontem.tmx objectivum.tm.hxl.csv
+
+TBX-Basic: TermBase eXchange (TBX) Basic: -> HXLTM:
+    hxltmdexml fontem.tbx objectivum.tm.hxl.csv

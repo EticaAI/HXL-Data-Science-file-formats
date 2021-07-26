@@ -737,9 +737,11 @@ normam:
               {%- endif %}
               {% if rem.de_auxilium_linguam %}
                 {%- for item in rem.de_auxilium_linguam -%}
+                  {%- if item.rem -%}
               <note annotates="source" priority="2">
                 _[{{- item.linguam -}}]{{- item.rem -}}[{{- item.linguam -}}]_
               </note>
+                  {%- endif -%}
                 {%- endfor %}
               {%- else -%}
               <!--
