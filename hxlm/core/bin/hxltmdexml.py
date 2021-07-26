@@ -453,6 +453,18 @@ class HXLTMdeXML:
     EXITUM_ERROREM = 1
     EXITUM_SYNTAXIM = 2
 
+    # modus_operandi values
+    # https://en.wiktionary.org/wiki/multilingual#English
+    MULTIPLUM_LINGUAM = 0
+    # mono, https://en.wiktionary.org/wiki/mono#English
+    # ūnum, https://en.wiktionary.org/wiki/mono#English
+    UNUM_LINGUAM = 1
+    # bīnum, https://en.wiktionary.org/wiki/binus#Latin
+    BINUM_LINGUAM = 2
+
+    # TODO: use modus_operandi to define how to parse the XML
+    modus_operandi: List[int] = [0]  # MULTIPLUM_LINGUAM
+
     # import xml.etree.ElementTree as XMLElementTree
     # arborem: Type['XMLElementTree'] = None
     arborem = None
@@ -666,7 +678,8 @@ class HXLTMdeXML:
 
         return self.EXITUM_CORRECTUM
 
-    def _de_commune_xml_nodum_attributum(self, nodum) -> Dict:
+    def _de_commune_xml_nodum_attributum(
+            self, nodum) -> Dict:  # pylint: disable=no-self-use
         """_de_commune_xml_nodum_attributum
 
         Args:
@@ -2144,6 +2157,98 @@ class HXLTMUtil:
             return bcp47
 
         return ''
+
+    @staticmethod
+    def conceptum_saccum(
+        valorem: str,
+        libellam_et_typum: str = 'terminum.valorem',  # ... conceptum.codicem
+        linguam_crudum: str = None,
+        saccum: Dict = None,
+        unicum: bool = True
+    ) -> Dict:  # pylint: disable=no-self-use
+        """conceptum_saccum
+
+        _[eng-Latn]
+        conceptum_saccum is a simple helper (uses plain Python Dict) to
+        abstract a concept bag.
+
+        This is mostly used on hxltmdexml (for importing data from XML)
+        [eng-Latn]_
+
+        Args:
+            valorem (str):
+                Rem valōrem
+            libellam_et_typum (str):
+                typum de Rem valōrem. Exemplum:
+                    - conceptum.codicem
+                    - linguam.partem_orationis / terminum.partem_orationis
+                    - terminum.valorem
+                    - terminum.accuratum
+            linguam_crudum (str):
+                Linguam clāvem textum crudum
+            saccum (Dict):
+                conceptum saccum, de Python Dict
+            valorem_multiplum (bool):
+                Valōrem est ūnicum? Devallo verum.
+
+        Returns:
+            Dict:
+
+>>> HXLTMUtil.conceptum_saccum(
+...    'test', 'terminum.terminum', 'por-Latn')
+{'terminum': {'por-Latn': {'terminum': 'test'}}}
+
+>>> HXLTMUtil.conceptum_saccum(
+...    'C1', 'conceptum.codicem')
+{'conceptum': {'codicem': 'C1'}}
+
+>>> HXLTMUtil.conceptum_saccum(
+...    'C1', 'conceptum.codicem_alternativum', unicum=False)
+{'conceptum': {'codicem_alternativum': ['C1']}}
+        """
+        # @see https://terminator.readthedocs.io/en/latest
+        #      /_images/TBX_termEntry_structure.png
+        # id est, terminum de terminum.valorem
+        # print(libellam_et_typum)
+        # return ''
+        # libellam, typum, *rest = libellam_et_typum.split('.')
+        libellam, typum = libellam_et_typum.split('.')
+
+        if saccum is None:
+            saccum = {}
+
+        if libellam not in saccum:
+            saccum[libellam] = {}
+
+        if libellam in ['linguam', 'terminum']:
+            if linguam_crudum not in saccum[libellam]:
+                saccum[libellam][linguam_crudum] = {}
+
+            if unicum:
+                saccum[libellam][linguam_crudum][typum] = valorem
+            else:
+                if typum not in saccum[libellam][linguam_crudum]:
+                    saccum[libellam][linguam_crudum][typum] = []
+                saccum[libellam][linguam_crudum][typum].append(
+                    valorem
+                )
+            # if libellam == 'terminum':
+                # if typum not in saccum[libellam][linguam_crudum]:
+
+        else:
+            if unicum:
+                saccum[libellam][typum] = valorem
+            else:
+                if typum not in saccum[libellam]:
+                    saccum[libellam][typum] = []
+                saccum[libellam][typum].append(
+                    valorem
+                )
+            # saccum[libellam][typum] = valorem
+            # conceptum est
+            # pass
+
+        return saccum
 
     @staticmethod
     def hxllangattrs_list_from_item(item):
