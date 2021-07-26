@@ -537,9 +537,63 @@ class HXLTMdeXML:
         # print('zzzetas', self.xml_typum)
 
     def de_tbx(self):
-        # pass
         # https://www.tbxinfo.net/validating-a-tbx-file/
-        raise NotImplementedError('TODO de_tbx')
+
+        resultatum_csv = csv.writer(
+            self.objectvum_archivum,
+            delimiter=',',
+            quoting=csv.QUOTE_MINIMAL
+        )
+
+        conceptum_codicem = None
+        # fontem_textum = None
+        # objectivum_textum = None
+        conceptum_attributum = self.xml_referens['conceptum_attributum']
+        caput_okay = False
+        # resultatum_csv.writerow(self.in_formatum.in_caput())
+
+        for eventum, nodum in self.iteratianem:
+            # print("de_xliff_obsoletum", eventum, nodum)
+            conceptum_codicem = None
+
+            if eventum == 'end':
+                tag_nunc = HXLTMUtil.xml_clavem_breve(nodum.tag)
+                attributum_nunc = {}
+                if nodum.attrib:
+                    for clavem in list(nodum.attrib):
+                        clavem_basim = HXLTMUtil.xml_clavem_breve(clavem)
+                        attributum_nunc[clavem] = nodum.attrib[clavem]
+
+                        if clavem_basim != clavem and \
+                                clavem_basim not in nodum.attrib:
+                            attributum_nunc[clavem_basim] = \
+                                nodum.attrib[clavem]
+
+                if tag_nunc == self.xml_referens['conceptum_signum']:
+                    if conceptum_attributum in nodum.attrib:
+                        conceptum_codicem = nodum.attrib[conceptum_attributum]
+                        # print("\t\t\t", 'conceptum_codicem',
+                        #       conceptum_codicem)
+                    if not caput_okay:
+                        resultatum_csv.writerow(
+                            self.in_formatum.in_caput())
+                        caput_okay = True
+
+                    lineam = self.in_formatum.in_lineam(
+                        conceptum_codicem=conceptum_codicem,
+                        # fontem_textum=fontem_textum,
+                        # objectivum_textum=objectivum_textum,
+                    )
+
+                    # print("\t\t\t", 'foi', lineam)
+                    conceptum_codicem = None
+                    fontem_textum = None
+                    objectivum_textum = None
+
+                    resultatum_csv.writerow(lineam)
+                    nodum.clear()
+
+        # raise NotImplementedError('TODO de_tbx')
         # return self.EXITUM_CORRECTUM
 
     def de_xml(self):
@@ -635,7 +689,7 @@ class HXLTMdeXML:
                             attributum_nunc[linguam_objectivum_attributum]
                         )
 
-                if tag_nunc == self.xml_referens['conceptum']:
+                if tag_nunc == self.xml_referens['conceptum_signum']:
                     if conceptum_attributum in nodum.attrib:
                         conceptum_codicem = nodum.attrib[conceptum_attributum]
                         # print("\t\t\t", 'conceptum_codicem',
@@ -733,7 +787,7 @@ class HXLTMdeXML:
                             attributum_nunc[linguam_objectivum_attributum]
                         )
 
-                if tag_nunc == self.xml_referens['conceptum']:
+                if tag_nunc == self.xml_referens['conceptum_signum']:
                     if conceptum_attributum in nodum.attrib:
                         conceptum_codicem = nodum.attrib[conceptum_attributum]
                         # print("\t\t\t", 'conceptum_codicem',
@@ -1749,7 +1803,7 @@ True
             Dict: typum, versiōnem, variāns
         """
         resultatum = {
-            'conceptum': '',
+            'conceptum_signum': '',
             'conceptum_attributum': 'id',
             'fontem': '',
             'terminum': '',
@@ -1764,7 +1818,7 @@ True
             #         </tig>
             #     </langSet>
             # </termEntry>
-            resultatum['conceptum'] = 'termEntry'
+            resultatum['conceptum_signum'] = 'termEntry'
             resultatum['terminum'] = 'langSet/tig/term'
 
         if hxltm_normam == 'TBX-IATE':
@@ -1778,7 +1832,7 @@ True
             #         </termSec>
             #     </langSec>
             # </conceptEntry>
-            resultatum['conceptum'] = 'conceptEntry'
+            resultatum['conceptum_signum'] = 'conceptEntry'
             resultatum['terminum'] = 'langSec/termSec/term'
         if hxltm_normam == 'TMX':
             # <tu tuid="L10N_ego_codicem">
@@ -1786,7 +1840,7 @@ True
             #     <seg>lat-Latn</seg>
             #   </tuv>
             # </tu>
-            resultatum['conceptum'] = 'tu'
+            resultatum['conceptum_signum'] = 'tu'
             resultatum['conceptum_attributum'] = 'tuid'  # Non 'id'
             resultatum['terminum'] = 'tuv/seg'
 
@@ -1806,7 +1860,7 @@ True
             #           <target>Alfabeto latino</target>
             #       </segment>
             #   </unit>
-            resultatum['conceptum'] = 'unit'
+            resultatum['conceptum_signum'] = 'unit'
             # resultatum['fontem'] = 'segment/source'
             resultatum['fontem'] = 'source'
             # resultatum['objectivum'] = 'segment/target'
@@ -1820,7 +1874,7 @@ True
             #     _    [eng-Latn]eng-Latn[eng-Latn]_
             #     </note>
             # </trans-unit>
-            resultatum['conceptum'] = 'trans-unit'
+            resultatum['conceptum_signum'] = 'trans-unit'
             resultatum['fontem'] = 'source'
             resultatum['objectivum'] = 'target'
 

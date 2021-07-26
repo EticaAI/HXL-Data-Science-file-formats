@@ -233,9 +233,46 @@
           "multiplum_linguam"
         ]
       },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "martif"
+        },
+        "glossarium_titulum": {
+          "signum": "title",
+          "de_attributum": false,
+          "de_textum": true,
+          "trivium": [
+            "martifHeader",
+            "fileDesc"
+          ]
+        },
+        "conceptum_codicem": {
+          "signum": "termEntry",
+          "de_attributum": "id",
+          "de_textum": false,
+          "trivium": [
+            "text",
+            "body"
+          ]
+        },
+        "linguam_linguam": {
+          "signum": "langSet",
+          "de_attributum": "lang",
+          "de_textum": false,
+          "trivium": []
+        },
+        "terminum_valorem": {
+          "signum": "term",
+          "de_attributum": false,
+          "de_textum": true,
+          "trivium": [
+            "tig"
+          ]
+        }
+      },
       "formatum": {
         "initiale": "<?xml version='1.0'?>\n<!DOCTYPE martif SYSTEM \"TBXBasiccoreStructV02.dtd\">\n<martif type=\"TBX-Basic\"\n  xml:lang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\">\n  <martifHeader>\n    <fileDesc>\n      <titleStmt>\n        <title>TBX-Basic Sample File</title>\n        <note>\n          Lorem ipsum dolor semet\n        </note>\n      </titleStmt>\n      <sourceDesc>\n        <p>Lorem ipsum dolor semet</p>\n      </sourceDesc>\n    </fileDesc>\n  </martifHeader>\n  <text>\n    <body>\n",
-        "corporeum": "    <termEntry id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <langSet xml:lang=\"{{ item[1].bcp47 }}\">\n        <tig>\n          <term>\n            {{ item[1].rem }}\n          </term>\n        </tig>\n      </langSet>\n      {%- endif -%}\n      {%- endfor %}\n    </termEntry>\n",
+        "corporeum": "    <termEntry id=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}\">\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <langSet xml:lang=\"{{ item[1].bcp47 }}\">\n        <tig>\n          <term>\n            {{ item[1].rem }}\n          </term>\n        </tig>\n      </langSet>\n      {%- endif -%}\n      {%- endfor %}\n    </termEntry>\n",
         "finale": "    </body>\n  </text>\n</martif>\n"
       }
     },
@@ -385,8 +422,8 @@
         ]
       },
       "formatum": {
-        "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"1.2\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:1.2\">\n  <file source-language=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n    datatype=\"plaintext\"\n    original=\"file.ext\">\n    <body>\n",
-        "corporeum": "    {% if rem.de_fontem_linguam and rem.de_fontem_linguam.rem != '' -%}\n    {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}\n      {%- comment -%}\n        _[eng-Latn]\n          Since we're targeting XLIFF 2.1 and this is XLIFF 1.2, we will hardcode\n          Some variables directly on this Liquid template instead of waste time\n          doing on the Python code.\n\n          If this template seems ugly, is uglier who, as 2021, still have shitty\n          support for XLIFF 2.X.\n\n          state: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state\n          state-qualifier: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state-qualifier\n        [eng-Latn]_\n      {%- endcomment -%}\n      {% capture XLIFF_obsoletum_state -%}\n        {{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}\n      {%- endcapture -%}\n      {%- if XLIFF_obsoletum_state == 'initial' -%}\n        {%- assign XLIFF_obsoletum_state = 'new' -%}\n        {%- assign XLIFF_obsoletum_approved = 'no' -%}\n        {%- assign XLIFF_obsoletum_statequalifier_attr = '' -%}\n        {%- assign XLIFF_obsoletum_approved_attr = '' -%}\n      {%- endif -%}\n      {%- if XLIFF_obsoletum_state == 'final' -%}\n        {%- assign XLIFF_obsoletum_state = 'final' -%}\n        {%- assign XLIFF_obsoletum_approved = 'yes' -%}\n        {%- assign XLIFF_obsoletum_translatesource_attr = ' translate=\"no\"' -%}\n        {%- assign XLIFF_obsoletum_statequalifier_attr = ' state-qualifier=\"id-match\"' -%}\n        {%- assign XLIFF_obsoletum_approved_attr = ' approved=\"yes\"' -%}\n      {%- endif -%}\n    {%- endif -%}\n\n    <trans-unit id=\"{{- conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' -}}\"\n      {{- XLIFF_obsoletum_translatesource_attr -}}\n      {{- XLIFF_obsoletum_approved_attr -}}>\n      <source>\n        {{- rem.de_fontem_linguam.rem -}}\n      </source>\n      {%- if rem.de_objectivum_linguam.rem != '' %}\n      <target state=\"{{ XLIFF_obsoletum_state }}\"{{ XLIFF_obsoletum_statequalifier_attr }}>\n        {{- rem.de_objectivum_linguam.rem -}}\n      </target>\n      {%- else -%}\n        <!-- non rem.de_objectivum_linguam.rem -->\n      {%- endif %}\n      {% if rem.de_auxilium_linguam or rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}\n      {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}\n      <note annotates=\"source\" priority=\"1\"\n        from=\"referens_situs_interretialis\">\n        {{ item }}\n      </note>\n      {%- endfor %}\n      {%- for item in rem.de_auxilium_linguam %}\n      {% if item.rem -%}\n      <note annotates=\"source\" priority=\"2\">\n          _[{{- item.linguam -}}]\n          {{- item.rem -}}\n          [{{- item.linguam -}}]_\n      </note>\n      {% endif -%}\n      {%- endfor -%}\n      {%- else -%}\n      <!--\n        non rem.de_auxilium_linguam aut rem.de_nomen_breve.referens_situs_interretialis\n      -->\n      {%- endif  %}\n    </trans-unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
+        "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"1.2\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:1.2\">\n  <file\n    source-language=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n    target-language=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\"\n    datatype=\"plaintext\"\n    original=\"exemplum.ext\">\n    <body>\n",
+        "corporeum": "    {% if rem.de_fontem_linguam and rem.de_fontem_linguam.rem != '' -%}\n      {%- comment -%}\n        _[eng-Latn]\n          Since we're targeting XLIFF 2.1 and this is XLIFF 1.2, we will hardcode\n          Some variables directly on this Liquid template instead of waste time\n          doing on the Python code.\n\n          If this template seems ugly, is uglier who, as 2021, still have shitty\n          support for XLIFF 2.X.\n\n          state: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state\n          state-qualifier: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state-qualifier\n        [eng-Latn]_\n      {%- endcomment -%}\n\n    {% capture rem_fontem_linguam_attr -%}\n        xml:lang=\"{{ rem.de_fontem_linguam.bcp47 }}\"\n    {%- endcapture -%}\n\n    {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}\n\n      {% capture XLIFF_obsoletum_state -%}\n        {{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}\n      {%- endcapture -%}\n\n      {% capture rem_objectivum_linguam_attr -%}\n         xml:lang=\"{{ rem.de_objectivum_linguam.bcp47 }}\"\n      {%- endcapture -%}\n\n      {%- if XLIFF_obsoletum_state == 'initial' -%}\n        {%- assign XLIFF_obsoletum_state = 'new' -%}\n        {%- assign XLIFF_obsoletum_approved = 'no' -%}\n        {%- assign XLIFF_obsoletum_statequalifier_attr = '' -%}\n        {%- assign XLIFF_obsoletum_approved_attr = '' -%}\n      {%- endif -%}\n      {%- if XLIFF_obsoletum_state == 'final' -%}\n        {%- assign XLIFF_obsoletum_state = 'final' -%}\n        {%- assign XLIFF_obsoletum_approved = 'yes' -%}\n        {%- assign XLIFF_obsoletum_translatesource_attr = ' translate=\"no\"' -%}\n        {%- assign XLIFF_obsoletum_statequalifier_attr = ' state-qualifier=\"id-match\"' -%}\n        {%- assign XLIFF_obsoletum_approved_attr = ' approved=\"yes\"' -%}\n      {%- endif -%}\n    {%- endif -%}\n\n    <trans-unit id=\"{{- conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' -}}\"\n      {{- XLIFF_obsoletum_translatesource_attr -}}\n      {{- XLIFF_obsoletum_approved_attr -}}>\n      <source {{ rem_fontem_linguam_attr }}>\n        {{- rem.de_fontem_linguam.rem -}}\n      </source>\n      {%- if rem.de_objectivum_linguam.rem != '' %}\n      <target {{ rem_objectivum_linguam_attr }} state=\"{{ XLIFF_obsoletum_state }}\"{{ XLIFF_obsoletum_statequalifier_attr }}>\n        {{- rem.de_objectivum_linguam.rem -}}\n      </target>\n      {%- else -%}\n        <!-- non rem.de_objectivum_linguam.rem -->\n      {%- endif %}\n      {% if rem.de_auxilium_linguam %}\n        {%- for item in rem.de_auxilium_linguam -%}\n          {%- if item.rem -%}\n      <note annotates=\"source\" priority=\"2\">\n        _[{{- item.linguam -}}]{{- item.rem -}}[{{- item.linguam -}}]_\n      </note>\n          {%- endif -%}\n        {%- endfor %}\n      {%- else -%}\n      <!--\n        non rem.de_auxilium_linguam\n      -->\n      {%- endif  %}\n      {% if rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}\n      {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}\n      <note annotates=\"source\" priority=\"1\"\n        from=\"referens_situs_interretialis\">\n        {{ item }}\n      </note>\n      {%- endfor %}\n      {%- else -%}\n      <!--\n        non rem.de_nomen_breve.referens_situs_interretialis\n      -->\n      {%- endif  %}\n    </trans-unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
         "finale": "    </body>\n  </file>\n</xliff>\n"
       }
     },
@@ -439,7 +476,7 @@
     "linguam": {
       "_TBX": "language-level"
     },
-    "rem": {
+    "terminum": {
       "_TBX": "term-level"
     }
   },

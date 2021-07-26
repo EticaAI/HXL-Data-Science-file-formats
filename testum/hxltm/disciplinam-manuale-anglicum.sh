@@ -536,7 +536,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 #   spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
 # [eng-Latn]_
 
-# hxltmdexml resultatum/hxltm-exemplum-linguam.tbx --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en
+hxltmdexml resultatum/hxltm-exemplum-linguam.tbx --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en
 
 # cat resultatum/hxltm-exemplum-linguam.tbx | hxltmdexml
 # end::hxltmdexml-TBX[]

@@ -59,10 +59,10 @@ optional arguments:
                         639-3}-{ISO 15924}. Example: arb-Arab. Requires: mono
                         or bilingual operation. Accept a single value.
   --agendum-linguam agendum_linguam, -AL agendum_linguam
-                        (Planned, but not implemented yet) Restrict working
-                        languages to a list. Useful for HXLTM to HXLTM or
-                        multilingual formats like TMX. Requires: multilingual
-                        operation. Accepts multiple values.
+                        (Planned, but not fully implemented yet) Restrict
+                        working languages to a list. Useful for HXLTM to HXLTM
+                        or multilingual formats like TBX and TMX. Requires:
+                        multilingual operation. Accepts multiple values.
   --non-agendum-linguam non_agendum_linguam, -non-AL non_agendum_linguam
                         (Planned, but not implemented yet) Inverse of
                         --agendum-linguam. Document one or more languages that
