@@ -391,7 +391,7 @@ normam:
           - body
 
       # III linguam
-      linguam_linguam:
+      linguam_codicem:
         signum: langSet  # 'la' ad <langSet xml:lang="la">
         de_attributum: lang
         de_textum: False
