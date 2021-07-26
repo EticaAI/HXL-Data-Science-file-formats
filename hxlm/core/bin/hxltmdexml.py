@@ -372,8 +372,19 @@ class HXLTMDeXMLCli:
         #     # print('stdin')
         #     dexml = HXLTMdeXML(stdin)
 
+        # agendum_linguam = []
+        # if pyargs.agendum_linguam:
+        #     for item in pyargs.agendum_linguam:
+        #         agendum_linguam.append(HXLTMLinguam(item))
+
+        # print(pyargs.agendum_linguam, agendum_linguam)
+
         dexml = HXLTMdeXML(
-            self._ontologia, fontem_archivum, objectvum_archivum)
+            self._ontologia,
+            fontem_archivum,
+            objectvum_archivum,
+            agendum_linguam=pyargs.agendum_linguam
+        )
 
         return dexml.in_archivum()
 
@@ -456,11 +467,18 @@ class HXLTMdeXML:
 
     iteratianem = None
 
+    objectvum_archivum = sys.stdout,
+    _agendum_linguam: Type[List['HXLTMLinguam']] = []
+
+    # _agendum_linguam [] []
+
     def __init__(
         self,
         ontologia: Type['HXLTMOntologia'],
         fontem_archivum=sys.stdin.buffer,
-        objectvum_archivum=sys.stdout
+        objectvum_archivum=sys.stdout,
+        # agendum_linguam: Type[List['HXLTMLinguam']] = None
+        agendum_linguam: Type[List[str]] = None
     ):
         """__init__
 
@@ -468,6 +486,7 @@ class HXLTMdeXML:
             ontologia (HXLTMOntologia): ontologia
             fontem_archivum (): fomtem archīvum
             objectvum_archivum (): objectīvum archīvum
+            agendum_linguam (List): objectīvum archīvum
         """
 
         self._ontologia = ontologia
@@ -486,8 +505,14 @@ class HXLTMdeXML:
         else:
             self.objectvum_archivum = sys.stdout
 
+        agendum_linguam = []
+        if agendum_linguam:
+            for item in agendum_linguam:
+                self._agendum_linguam.append(HXLTMLinguam(item))
+
         self.in_formatum = XMLInFormatumHXLTM(
-            self._ontologia
+            self._ontologia,
+            self._agendum_linguam
         )
 
         # TODO: test what happens if input is not XML or was compressed
@@ -536,8 +561,20 @@ class HXLTMdeXML:
 
         # print('zzzetas', self.xml_typum)
 
-    def de_tbx(self):
-        # https://www.tbxinfo.net/validating-a-tbx-file/
+    def _de_commune_xml(self, ontologia_de_xml: Dict):
+        """HXLTM de commūne HXL
+
+        Trivia:
+            - XML, https://www.w3.org/XML/
+            - commūne, https://en.wiktionary.org/wiki/communis#Latin
+
+        Args:
+            ontologia_de_xml (Dict):
+                *.hxltm.yml:ontologia.normam.[formatum].de_xml
+
+        Returns:
+            [type]: [description]
+        """
 
         resultatum_csv = csv.writer(
             self.objectvum_archivum,
@@ -545,56 +582,122 @@ class HXLTMdeXML:
             quoting=csv.QUOTE_MINIMAL
         )
 
-        conceptum_codicem = None
+        # ontologia libellam:
+        # - I glossarium
+        #   - II conceptum
+        #     - III linguam
+        #       - IV terminum
+
+        codicem_signum = \
+            ontologia_de_xml['conceptum_codicem']['signum']
+        codicem_de_textum = \
+            bool(ontologia_de_xml['conceptum_codicem']['de_textum'])
+
+        if not codicem_de_textum:
+            codicem_de_attributum = \
+                ontologia_de_xml['conceptum_codicem']['de_attributum']
+        else:
+            codicem_de_attributum = False
+
         # fontem_textum = None
         # objectivum_textum = None
-        conceptum_attributum = self.xml_referens['conceptum_attributum']
-        caput_okay = False
+        # conceptum_attributum = self.xml_referens['conceptum_attributum']
+        hxltm_caput_okay = False
         # resultatum_csv.writerow(self.in_formatum.in_caput())
+
+        # Defallo (id est: non conceptum_codicem de XML)
+        conceptum_numerum = 1
 
         for eventum, nodum in self.iteratianem:
             # print("de_xliff_obsoletum", eventum, nodum)
             conceptum_codicem = None
 
-            if eventum == 'end':
-                tag_nunc = HXLTMUtil.xml_clavem_breve(nodum.tag)
-                attributum_nunc = {}
-                if nodum.attrib:
-                    for clavem in list(nodum.attrib):
-                        clavem_basim = HXLTMUtil.xml_clavem_breve(clavem)
-                        attributum_nunc[clavem] = nodum.attrib[clavem]
+            # _[eng-Latn]
+            # TODO: maybe implement also here the checks about if file is
+            #       really the XML format specified? (or put in another
+            #       method).
+            # [eng-Latn]_
 
-                        if clavem_basim != clavem and \
-                                clavem_basim not in nodum.attrib:
-                            attributum_nunc[clavem_basim] = \
-                                nodum.attrib[clavem]
+            if eventum != 'end':
+                continue
 
-                if tag_nunc == self.xml_referens['conceptum_signum']:
-                    if conceptum_attributum in nodum.attrib:
-                        conceptum_codicem = nodum.attrib[conceptum_attributum]
-                        # print("\t\t\t", 'conceptum_codicem',
-                        #       conceptum_codicem)
-                    if not caput_okay:
-                        resultatum_csv.writerow(
-                            self.in_formatum.in_caput())
-                        caput_okay = True
+            xml_nunc_signum = HXLTMUtil.xml_clavem_breve(nodum.tag)
+            xml_nunc_attributum = self._de_commune_xml_nodum_attributum(nodum)
 
-                    lineam = self.in_formatum.in_lineam(
-                        conceptum_codicem=conceptum_codicem,
-                        # fontem_textum=fontem_textum,
-                        # objectivum_textum=objectivum_textum,
-                    )
+            # _[eng-Latn]
+            # TODO: implement source and target language, so this method
+            #       can be reused by XLIFF-like files (bilingual XMLs)
+            # [eng-Latn]_
 
-                    # print("\t\t\t", 'foi', lineam)
-                    conceptum_codicem = None
-                    fontem_textum = None
-                    objectivum_textum = None
+            if xml_nunc_signum == codicem_signum:
 
-                    resultatum_csv.writerow(lineam)
-                    nodum.clear()
+                if codicem_de_textum:
+                    # codicem_de_attributum okay; TODO codicem_de_textum
+                    raise NotImplementedError('codicem_de_textum')
 
-        # raise NotImplementedError('TODO de_tbx')
-        # return self.EXITUM_CORRECTUM
+                conceptum_codicem = xml_nunc_attributum.get(
+                    codicem_de_attributum, conceptum_numerum)
+
+                # if conceptum_attributum in xml_nunc_attributum:
+                #     conceptum_codicem = \
+                #         xml_nunc_attributum[conceptum_attributum]
+
+                if not hxltm_caput_okay:
+                    resultatum_csv.writerow(
+                        self.in_formatum.in_caput())
+                    hxltm_caput_okay = True
+
+                lineam = self.in_formatum.in_lineam(
+                    conceptum_codicem=conceptum_codicem,
+                    # fontem_textum=fontem_textum,
+                    # objectivum_textum=objectivum_textum,
+                )
+
+                # print("\t\t\t", 'foi', lineam)
+                conceptum_codicem = None
+                # fontem_textum = None
+                # objectivum_textum = None
+
+                resultatum_csv.writerow(lineam)
+                conceptum_numerum += 1
+                nodum.clear()
+
+        print('TODO: this is a draft. Do it.')
+
+        return self.EXITUM_CORRECTUM
+
+    def _de_commune_xml_nodum_attributum(self, nodum) -> Dict:
+        """_de_commune_xml_nodum_attributum
+
+        Args:
+            nodum ([xml.etree.ElementTree ]):
+
+        Returns:
+            Dict:
+        """
+        xml_attributum_nunc = {}
+
+        if hasattr(nodum, 'attrib'):
+            for clavem in list(nodum.attrib):
+                clavem_basim = HXLTMUtil.xml_clavem_breve(clavem)
+                xml_attributum_nunc[clavem] = nodum.attrib[clavem]
+
+                if clavem_basim != clavem and \
+                        clavem_basim not in nodum.attrib:
+                    xml_attributum_nunc[clavem_basim] = \
+                        nodum.attrib[clavem]
+
+        return xml_attributum_nunc
+
+    def de_tbx(self):
+        # https://www.tbxinfo.net/validating-a-tbx-file/
+
+        ontologia_de_xml = \
+            self._ontologia.crudum['normam']['TBX-Basim']['de_xml']
+
+        # print( self._ontologia.crudum.keys())
+
+        return self._de_commune_xml(ontologia_de_xml)
 
     def de_xml(self):
         raise NotImplementedError('XML {0}'.format(str(self.xml_typum)))
@@ -2503,8 +2606,11 @@ class XMLInFormatumHXLTM():
 
     # hxltm_asa
     # ontologia
+    _ontologia: Type['HXLTMOntologia'] = None
 
     linguam_collectionem = []
+    # linguam_agendum: Type[List['HXLTMLinguam']] = None
+    linguam_agendum = None
     linguam_fontem = None
     linguam_objectivum = None
 
@@ -2524,13 +2630,16 @@ class XMLInFormatumHXLTM():
 
     def __init__(
         self,
-        ontologia: Type['HXLTMOntologia']
+        ontologia: Type['HXLTMOntologia'],
+        agendum_linguam: Type[List['HXLTMLinguam']] = None
     ):
         """__init__
 
         Args:
             ontologia (HXLTMOntologia): ontologia
         """
+        self._ontologia = ontologia
+        self.linguam_agendum = agendum_linguam
 
     def definitionem_linguam(
             self, linguam: str) -> Type['XMLInFormatumHXLTM']:
