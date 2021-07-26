@@ -17,7 +17,6 @@
 #       OPTIONS:  ---
 #
 #  REQUIREMENTS:  - python3
-#                     - libhxl (@see https://pypi.org/project/libhxl/)
 #                     - defusedxml (https://github.com/tiran/defusedxml)
 #                       - pip3 install pyyaml
 #          BUGS:  ---
@@ -29,9 +28,10 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.2.0
+#       VERSION:  v0.5.0
 #       CREATED:  2021-07-24 00:04 UTC v0.1.0 de hxl2example
 #      REVISION:  2021-07-24 17:49 UTC v0.2.0 hxltmdexml at least read XML
+#                 2021-07-25 23:28 UTC v0.5.0 XLIFF 1.2 and XLIFF 2.1 (MVP)
 # ==============================================================================
 """hxltmdexml.py: Humanitarian Exchange Language Trānslātiōnem Memoriam de XML
 
@@ -166,7 +166,7 @@ from typing import (
     Any,
     Dict,
     List,
-    TextIO,
+    # TextIO,
     Type,
     Union,
 )
@@ -176,18 +176,18 @@ from collections import OrderedDict
 
 import yaml
 
-# @see https://github.com/HXLStandard/libhxl-python
-#    pip3 install libhxl --upgrade
-# Do not import hxl, to avoid circular imports
-import hxl.converters
-import hxl.filters
-import hxl.io
+# # @see https://github.com/HXLStandard/libhxl-python
+# #    pip3 install libhxl --upgrade
+# # Do not import hxl, to avoid circular imports
+# import hxl.converters
+# import hxl.filters
+# import hxl.io
 
 # @see https://github.com/rspeer/langcodes
 # pip3 install langcodes
 # import langcodes
 
-__VERSION__ = "v0.2.0"
+__VERSION__ = "v0.5.0"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -211,6 +211,12 @@ XML formats to HXLTM tabular working file.
 # tag::epilogum[]
 __EPILOGUM__ = """
 Exemplōrum gratiā:
+
+XML Localization Interchange File Format (XLIFF) v2.1+: -> HXLTM (bilinguam):
+    hxltmdexml fontem.xlf objectivum.tm.hxl.csv
+
+XML Localization Interchange File Format (XLIFF) v1.2: -> HXLTM (bilinguam):
+    hxltmdexml fontem.xlf objectivum.tm.hxl.csv
 
 Translation Memory eXchange format (TMX): -> HXLTM:
     hxltmdexml fontem.tmx objectivum.tm.hxl.csv
@@ -291,7 +297,8 @@ class HXLTMDeXMLCli:
 
     def make_args(self):
 
-        self.hxlhelper = HXLUtils()
+        # self.hxlhelper = HXLUtils()
+        self.hxlhelper = HXLUtilsDeXML()
         parser = self.hxlhelper.make_args(
             description=__DESCRIPTIONEM_BREVE__,
             epilog=__EPILOGUM__
@@ -537,15 +544,14 @@ class HXLTMdeXML:
         return self.EXITUM_CORRECTUM
 
     def de_xliff(self):
-
-        raise NotImplementedError('TODO de_xliff')
-        return self.EXITUM_CORRECTUM
-
-    def de_xliff_obsoletum(self):
-
-        # print("\n\n\n de_xliff_obsoletum", self.xml_referens)
-
-        # print(self.objectvum_archivum)
+        """de_xliff
+        _[eng-Latn]
+        @TODO both de_xliff_obsoletum and de_xliff share ALL code,
+              except that some metadata is from Ontologia, and somewhat still
+              work. Strange. Good but strange. We need to do some checks
+              (Emerson Rocha, 2021-07-25 23:31 uTC)
+        [eng-Latn]_
+        """
 
         resultatum_csv = csv.writer(
             self.objectvum_archivum,
@@ -633,8 +639,105 @@ class HXLTMdeXML:
                     resultatum_csv.writerow(lineam)
                     nodum.clear()
 
-        # raise NotImplementedError('TODO de_xliff_obsoletum')
-        # return self.EXITUM_CORRECTUM
+        return self.EXITUM_CORRECTUM
+
+    def de_xliff_obsoletum(self):
+        """de_xliff_obsoletum
+        _[eng-Latn]
+        As 2021-07-25, the de_xliff_obsoletum still on early tests.
+        Even if it can produce okay result, the way is likely to be not
+        the most optimized, in special because still not using the
+        *.hxltm.yml
+        [eng-Latn]_
+        """
+
+        resultatum_csv = csv.writer(
+            self.objectvum_archivum,
+            delimiter=',',
+            quoting=csv.QUOTE_MINIMAL
+        )
+
+        conceptum_codicem = None
+        fontem_textum = None
+        objectivum_textum = None
+        conceptum_attributum = self.xml_referens['conceptum_attributum']
+        linguam_fontem_attributum = \
+            self.xml_typum['linguam_fontem_attributum']
+        linguam_objectivum_attributum = \
+            self.xml_typum['linguam_objectivum_attributum']
+
+        caput_okay = False
+        # resultatum_csv.writerow(self.in_formatum.in_caput())
+
+        for eventum, nodum in self.iteratianem:
+            # print("de_xliff_obsoletum", eventum, nodum)
+            conceptum_codicem = None
+
+            if eventum == 'end':
+                tag_nunc = HXLTMUtil.xml_clavem_breve(nodum.tag)
+                attributum_nunc = {}
+                if nodum.attrib:
+                    for clavem in list(nodum.attrib):
+                        clavem_basim = HXLTMUtil.xml_clavem_breve(clavem)
+                        attributum_nunc[clavem] = nodum.attrib[clavem]
+
+                        if clavem_basim != clavem and \
+                                clavem_basim not in nodum.attrib:
+                            attributum_nunc[clavem_basim] = \
+                                nodum.attrib[clavem]
+
+                # if tag_nunc ==  self.xml_referens['conceptum']:
+
+                if tag_nunc == self.xml_referens['fontem']:
+                    fontem_textum = nodum.text
+
+                    # print('linguam_fontem_attributum',
+                    #       linguam_fontem_attributum)
+
+                    if linguam_fontem_attributum in attributum_nunc and \
+                            not caput_okay:
+                        self.in_formatum.definitionem_linguam_fontem(
+                            attributum_nunc[linguam_fontem_attributum]
+                        )
+                        # raise NameError('FOi')
+
+                    # print("\t\t\t", 'fontem_textum',
+                    #       fontem_textum, nodum.attrib, attributum_nunc)
+
+                if tag_nunc == self.xml_referens['objectivum']:
+                    objectivum_textum = nodum.text
+
+                    if linguam_objectivum_attributum in attributum_nunc and \
+                            not caput_okay:
+                        self.in_formatum.definitionem_linguam_objectivum(
+                            attributum_nunc[linguam_objectivum_attributum]
+                        )
+
+                if tag_nunc == self.xml_referens['conceptum']:
+                    if conceptum_attributum in nodum.attrib:
+                        conceptum_codicem = nodum.attrib[conceptum_attributum]
+                        # print("\t\t\t", 'conceptum_codicem',
+                        #       conceptum_codicem)
+                    lineam = self.in_formatum.in_lineam(
+                        conceptum_codicem=conceptum_codicem,
+                        fontem_textum=fontem_textum,
+                        objectivum_textum=objectivum_textum,
+                    )
+
+                    if not caput_okay:
+                        resultatum_csv.writerow(
+                            self.in_formatum.in_caput())
+                        caput_okay = True
+
+                    # print("\t\t\t", 'foi', lineam)
+                    conceptum_codicem = None
+                    fontem_textum = None
+                    objectivum_textum = None
+
+                    resultatum_csv.writerow(lineam)
+                    nodum.clear()
+
+        return self.EXITUM_CORRECTUM
 
     def quod_archivum_typum(self):
         """quod_archivum_typum [summary]
@@ -2457,7 +2560,7 @@ class XMLInFormatumHXLTM():
         return resultatum
 
 
-class HXLUtils:
+class HXLUtilsDeXML:
     """
     HXLUtils contains functions from the Console scripts of libhxl-python
     (HXLStandard/libhxl-python/blob/master/hxl/scripts.py) with few changes
@@ -2507,201 +2610,8 @@ class HXLUtils:
                 help='HXL file to write (if omitted, use standard output).',
                 nargs='?'
             )
-        parser.add_argument(
-            '--sheet',
-            help='Select sheet from a workbook (1 is first sheet)',
-            metavar='number',
-            type=int,
-            nargs='?'
-        )
-        parser.add_argument(
-            '--selector',
-            help='JSONPath expression for starting point in JSON input',
-            metavar='path',
-            nargs='?'
-        )
-        parser.add_argument(
-            '--http-header',
-            help='Custom HTTP header to send with request',
-            metavar='header',
-            action='append'
-        )
-        if hxl_output:
-            parser.add_argument(
-                '--remove-headers',
-                help='Strip text headers from the CSV output',
-                action='store_const',
-                const=True,
-                default=False
-            )
-            parser.add_argument(
-                '--strip-tags',
-                help='Strip HXL tags from the CSV output',
-                action='store_const',
-                const=True,
-                default=False
-            )
-        parser.add_argument(
-            "--ignore-certs",
-            help="Don't verify SSL connections (useful for self-signed)",
-            action='store_const',
-            const=True,
-            default=False
-        )
-        parser.add_argument(
-            '--log',
-            help='Set minimum logging level',
-            metavar='debug|info|warning|error|critical|none',
-            choices=['debug', 'info', 'warning', 'error', 'critical'],
-            default='error'
-        )
+
         return parser
-
-    def add_queries_arg(
-        self,
-        parser,
-        help='Apply only to rows matching at least one query.'
-    ):
-        parser.add_argument(
-            '-q',
-            '--query',
-            help=help,
-            metavar='<tagspec><op><value>',
-            action='append'
-        )
-        return parser
-
-    def do_common_args(self, args):
-        """Process standard args"""
-        logging.basicConfig(
-            format='%(levelname)s (%(name)s): %(message)s',
-            level=args.log.upper())
-
-    def make_source(self, args, stdin=STDIN):
-        """Create a HXL input source."""
-
-        # construct the input object
-        input = self.make_input(args, stdin)
-        return hxl.io.data(input)
-
-    def make_input(self, args, stdin=sys.stdin, url_or_filename=None):
-        """Create an input object"""
-
-        if url_or_filename is None:
-            url_or_filename = args.infile
-
-        # sheet index
-        sheet_index = args.sheet
-        if sheet_index is not None:
-            sheet_index -= 1
-
-        # JSONPath selector
-        selector = args.selector
-
-        http_headers = self.make_headers(args)
-
-        return hxl.io.make_input(
-            url_or_filename or stdin,
-            sheet_index=sheet_index,
-            selector=selector,
-            allow_local=True,  # TODO: consider change this for execute_web
-            http_headers=http_headers,
-            verify_ssl=(not args.ignore_certs)
-        )
-
-    def make_output(self, args, stdout=sys.stdout):
-        """Create an output stream."""
-        if args.outfile:
-            return FileOutput(args.outfile)
-        else:
-            return StreamOutput(stdout)
-
-    def make_headers(self, args):
-        # get custom headers
-        header_strings = []
-        header = os.environ.get("HXL_HTTP_HEADER")
-        if header is not None:
-            header_strings.append(header)
-        if args.http_header is not None:
-            header_strings += args.http_header
-        http_headers = {}
-        for header in header_strings:
-            parts = header.partition(':')
-            http_headers[parts[0].strip()] = parts[2].strip()
-        return http_headers
-
-
-class FileOutput(object):
-    """
-    FileOutput contains is based on libhxl-python with no changes..
-    Last update on this class was 2021-01-25.
-
-    Author: David Megginson
-    License: Public Domain
-    """
-
-    def __init__(self, filename):
-        self.output = open(filename, 'w')
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, value, type, traceback):
-        self.output.close()
-
-
-class StreamOutput(object):
-    """
-    StreamOutput contains is based on libhxl-python with no changes..
-    Last update on this class was 2021-01-25.
-
-    Author: David Megginson
-    License: Public Domain
-    """
-
-    def __init__(self, output):
-        self.output = output
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, value, type, traceback):
-        pass
-
-    def write(self, s):
-        self.output.write(s)
-
-# # data = []
-# # # path = 'resultatum/hxltm-exemplum-linguam.tmx'
-# # # path = 'resultatum/hxltm-exemplum-linguam.tbx'
-# path = '/workspace/data/IATE_download/IATE_export.tbx'
-
-# print('oi 0', path)
-# with open(path) as xml_file:
-#     for event, elem in XMLElementTree.iterparse(
-#             source=xml_file, events=('start', 'end')):
-#         # Must compare tag to qualified name
-#         # if elem.tag == et.QName(ixid_uri, 'Journey'):
-#         clavem_breve = HXLTMUtil.xml_clavem_breve(elem.tag)
-#         print('event, tag', event, elem.tag,
-#               HXLTMUtil.xml_clavem_breve(elem.tag))
-#         if clavem_breve == 'conceptEntry':
-#             print('okay', elem.attrib)
-#             # print(elem.attrib['uid'])
-#             # c.executemany('insert into foo values(?, ?, ?)',
-#             #     [
-#             #         (elem.attrib['uid'],
-#             #         extract_local_tag(child.tag),
-#             #         child.attrib.get('tpl', None))
-#             #         for child in elem
-#             #     ])
-#             # conn.commit()
-#             # Note: only clears <Journey> elements and their children.
-#             # There is a memory leak of any elements not children of
-#             # <Journey>
-#             elem.clear()
-# print('oi 1', path)
-# # print(data)
 
 
 if __name__ == "__main__":

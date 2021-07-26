@@ -12,9 +12,7 @@
       <source xml:lang="pt">por-Latn</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">spa-Latn</target>
       <note annotates="source" priority="2">
-          _[eng-Latn]eng-Latn[eng-Latn]_
-      </note><note annotates="source" priority="2">
-          _[][]_
+        _[eng-Latn]eng-Latn[eng-Latn]_
       </note>
       <!--
         non rem.de_nomen_breve.referens_situs_interretialis
@@ -25,9 +23,7 @@
       <source xml:lang="pt">Língua portuguesa</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">Idioma español</target>
       <note annotates="source" priority="2">
-          _[eng-Latn]English language[eng-Latn]_
-      </note><note annotates="source" priority="2">
-          _[][]_
+        _[eng-Latn]English language[eng-Latn]_
       </note>
       <!--
         non rem.de_nomen_breve.referens_situs_interretialis
@@ -38,9 +34,7 @@
       <source xml:lang="pt">Alfabeto latino</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">Alfabeto latino</target>
       <note annotates="source" priority="2">
-          _[eng-Latn]Latin script[eng-Latn]_
-      </note><note annotates="source" priority="2">
-          _[][]_
+        _[eng-Latn]Latin script[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
         from="referens_situs_interretialis">
@@ -52,9 +46,7 @@
       <source xml:lang="pt">001</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">001</target>
       <note annotates="source" priority="2">
-          _[eng-Latn]001[eng-Latn]_
-      </note><note annotates="source" priority="2">
-          _[][]_
+        _[eng-Latn]001[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
         from="referens_situs_interretialis">
@@ -66,9 +58,7 @@
       <source xml:lang="pt">∅</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">∅</target>
       <note annotates="source" priority="2">
-          _[eng-Latn]∅[eng-Latn]_
-      </note><note annotates="source" priority="2">
-          _[][]_
+        _[eng-Latn]∅[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
         from="referens_situs_interretialis">
@@ -80,9 +70,7 @@
       <source xml:lang="pt">Olá mundo!</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">¡Hola mundo!</target>
       <note annotates="source" priority="2">
-          _[eng-Latn]Hello, World![eng-Latn]_
-      </note><note annotates="source" priority="2">
-          _[][]_
+        _[eng-Latn]Hello, World![eng-Latn]_
       </note>
       <!--
         non rem.de_nomen_breve.referens_situs_interretialis
@@ -93,9 +81,7 @@
       <source xml:lang="pt">Teste, 1, 2, 3</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">Prueba, 1, 2, 3</target>
       <note annotates="source" priority="2">
-          _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
-      </note><note annotates="source" priority="2">
-          _[][]_
+        _[eng-Latn]Test, 1, 2, 3[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
         from="referens_situs_interretialis">
@@ -107,9 +93,7 @@
       <source xml:lang="pt">1, 2, 3, 4, 5, 6, 7, 8, 9, 10</source>
       <target xml:lang="es" state="final" state-qualifier="id-match">1, 2, 3, 4, 5, 6, 7, 8, 9, 10</target>
       <note annotates="source" priority="2">
-          _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
-      </note><note annotates="source" priority="2">
-          _[][]_
+        _[eng-Latn]1, 2, 3, 4, 5, 6, 7, 8, 9, 10[eng-Latn]_
       </note>
       <note annotates="source" priority="1"
         from="referens_situs_interretialis">
