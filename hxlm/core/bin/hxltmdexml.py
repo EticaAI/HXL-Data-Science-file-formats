@@ -600,6 +600,8 @@ class HXLTMdeXML:
         #     - III linguam
         #       - IV terminum
 
+        # Codicem
+
         codicem_signum = \
             ontologia_de_xml['conceptum_codicem']['signum']
         codicem_de_textum = \
@@ -611,6 +613,19 @@ class HXLTMdeXML:
         else:
             codicem_de_attributum = False
 
+        # Terminum (non bilinguam)
+
+        linguam_codicem_signum = \
+            ontologia_de_xml['linguam_codicem']['signum']
+        linguam_codicem_de_textum = \
+            bool(ontologia_de_xml['linguam_codicem']['de_textum'])
+
+        if not linguam_codicem_de_textum:
+            linguam_codicem_de_attributum = \
+                ontologia_de_xml['linguam_codicem']['de_attributum']
+        else:
+            linguam_codicem_de_attributum = False
+
         # fontem_textum = None
         # objectivum_textum = None
         # conceptum_attributum = self.xml_referens['conceptum_attributum']
@@ -619,10 +634,11 @@ class HXLTMdeXML:
 
         # Defallo (id est: non conceptum_codicem de XML)
         conceptum_numerum = 1
+        conceptum_sacuum = None
 
         for eventum, nodum in self.iteratianem:
             # print("de_xliff_obsoletum", eventum, nodum)
-            conceptum_codicem = None
+            # conceptum_codicem = None
 
             # _[eng-Latn]
             # TODO: maybe implement also here the checks about if file is
@@ -641,14 +657,41 @@ class HXLTMdeXML:
             #       can be reused by XLIFF-like files (bilingual XMLs)
             # [eng-Latn]_
 
+            if xml_nunc_signum == linguam_codicem_signum:
+
+                if linguam_codicem_de_textum:
+                    raise NotImplementedError('linguam_codicem_de_textum')
+
+                linguam_codicem = xml_nunc_attributum.get(
+                    linguam_codicem_de_attributum, conceptum_numerum)
+
+                conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+                    valorem=xml_nunc_attributum.get(
+                        linguam_codicem_de_attributum,
+                        conceptum_numerum
+                    ),
+                    libellam_et_typum='linguam.codicem',
+                    linguam_crudum=linguam_codicem,
+                    saccum=conceptum_sacuum
+                )
+
             if xml_nunc_signum == codicem_signum:
 
                 if codicem_de_textum:
                     # codicem_de_attributum okay; TODO codicem_de_textum
                     raise NotImplementedError('codicem_de_textum')
 
-                conceptum_codicem = xml_nunc_attributum.get(
-                    codicem_de_attributum, conceptum_numerum)
+                # conceptum_codicem = xml_nunc_attributum.get(
+                #     codicem_de_attributum, conceptum_numerum)
+
+                conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+                    valorem=xml_nunc_attributum.get(
+                        codicem_de_attributum,
+                        conceptum_numerum
+                    ),
+                    libellam_et_typum='conceptum.codicem',
+                    saccum=conceptum_sacuum
+                )
 
                 # if conceptum_attributum in xml_nunc_attributum:
                 #     conceptum_codicem = \
@@ -659,19 +702,28 @@ class HXLTMdeXML:
                         self.in_formatum.in_caput())
                     hxltm_caput_okay = True
 
-                lineam = self.in_formatum.in_lineam(
-                    conceptum_codicem=conceptum_codicem,
-                    # fontem_textum=fontem_textum,
-                    # objectivum_textum=objectivum_textum,
-                )
+                lineam = self.in_formatum.in_lineam_de_conceptum_sacuum(
+                    conceptum_sacuum)
+
+                # lineam = self.in_formatum.in_lineam(
+                #     conceptum_codicem=conceptum_codicem,
+                #     # fontem_textum=fontem_textum,
+                #     # objectivum_textum=objectivum_textum,
+                # )
+
+                # print("conceptum_sacuum", conceptum_sacuum)
 
                 # print("\t\t\t", 'foi', lineam)
-                conceptum_codicem = None
+                # conceptum_codicem = None
                 # fontem_textum = None
                 # objectivum_textum = None
 
-                resultatum_csv.writerow(lineam)
+                for crudum_lineam in lineam:
+                    resultatum_csv.writerow(crudum_lineam)
+
                 conceptum_numerum += 1
+
+                conceptum_sacuum = None
                 nodum.clear()
 
         print('TODO: this is a draft. Do it.')
@@ -2161,7 +2213,7 @@ class HXLTMUtil:
     @staticmethod
     def conceptum_saccum(
         valorem: str,
-        libellam_et_typum: str = 'terminum.valorem',  # ... conceptum.codicem
+        libellam_et_typum: str = 'terminum.valorem',
         linguam_crudum: str = None,
         saccum: Dict = None,
         unicum: bool = True
@@ -2221,6 +2273,10 @@ class HXLTMUtil:
             saccum[libellam] = {}
 
         if libellam in ['linguam', 'terminum']:
+            if not linguam_crudum:
+                raise ValueError(
+                    'non linguam_crudum de {0}'.format(valorem))
+
             if linguam_crudum not in saccum[libellam]:
                 saccum[libellam][linguam_crudum] = {}
 
@@ -2844,6 +2900,41 @@ class XMLInFormatumHXLTM():
             resultatum.append(fontem_accuratum)
         if objectivum_accuratum:
             resultatum.append(objectivum_accuratum)
+
+        return resultatum
+
+    def in_lineam_de_conceptum_sacuum(
+        self,
+        conceptum_sacuum: Dict
+    ) -> List[List]:
+        """in_lineam_de_conceptum_sacuum
+
+        Args:
+            conceptum_sacuum (Dict):
+                Python Dict. @see HXLTMUtil.conceptum_saccum()
+
+        Returns:
+            List[List]: [description]
+        """
+        resultatum = []
+
+        if not conceptum_sacuum or \
+                'conceptum' not in conceptum_sacuum or \
+                'codicem' not in conceptum_sacuum['conceptum']:
+            raise ValueError(
+                'non conceptum.codicem ad {0}'.format(str(conceptum_sacuum)))
+
+        lineam_1 = []
+
+        lineam_1.append(
+            conceptum_sacuum['conceptum']['codicem']
+        )
+        # TODO: the rest of lineam_1
+
+        # TODO: when eventually HXLTM handle better multiline concepts
+        #       change here to allow these outputs. For now we're only
+        #       already returning List[List] with single line
+        resultatum.append(lineam_1)
 
         return resultatum
 
