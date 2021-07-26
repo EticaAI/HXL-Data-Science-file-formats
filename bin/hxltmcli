@@ -466,9 +466,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         # --agendum-linguam is a draft. Not 100% implemented
         parser.add_argument(
             '--agendum-linguam', '-AL',
-            help='(Planned, but not implemented yet) ' +
+            help='(Planned, but not fully implemented yet) ' +
             'Restrict working languages to a list. Useful for ' +
-            'HXLTM to HXLTM or multilingual formats like TMX. ' +
+            'HXLTM to HXLTM or multilingual formats like TBX and TMX. ' +
             'Requires: multilingual operation. ' +
             'Accepts multiple values.',
             metavar='agendum_linguam',

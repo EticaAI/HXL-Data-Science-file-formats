@@ -304,6 +304,23 @@ class HXLTMDeXMLCli:
             epilog=__EPILOGUM__
         )
 
+        # --agendum-linguam is a draft. Not 100% implemented
+        parser.add_argument(
+            '--agendum-linguam', '-AL',
+            help='List of working languages. Required for '
+            'multilinguam formats (like TBX and TBX) both to '
+            'avoid scan the source file and to be sure about HXL attributes '
+            'of the output format. '
+            'Example I (Latin and Arabic): lat-Latn@la,arb-Arab@ar . '
+            'Example II (TBX IATE, es,en,fr,la,pt,mul): '
+            'spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,'
+            'mul-Zyyy',
+            metavar='agendum_linguam',
+            type=lambda x: x.split(',')
+            # action='append',
+            # nargs='?'
+        )
+
         # https://hdp.etica.ai/ontologia/cor.hxltm.yml
         parser.add_argument(
             '--archivum-configurationem',
@@ -369,8 +386,11 @@ class HXLTMDeXMLCli:
 # hxltmdexml /workspace/data/IATE_download/IATE_export.tbx
 # hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
 # hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.obsoletum.xlf
-# This one we need very soom (need to import back MateCat)
+#     This one we need very soom (need to import back MateCat)
 # hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf
+#
+# cd /workspace/data/IATE_download
+# hxltmdexml IATE_export.tbx
 
 
 class HXLTMdeXML:
