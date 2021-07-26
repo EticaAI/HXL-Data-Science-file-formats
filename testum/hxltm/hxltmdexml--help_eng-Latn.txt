@@ -1,4 +1,5 @@
-usage: hxltmdexml [-h] [--archivum-configurationem] [--venandum-insectum-est]
+usage: hxltmdexml [-h] [--agendum-linguam agendum_linguam]
+                  [--archivum-configurationem] [--venandum-insectum-est]
                   [infile] [outfile]
 
 _[eng-Latn]
@@ -12,6 +13,14 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --agendum-linguam agendum_linguam, -AL agendum_linguam
+                        List of working languages. Required for multilinguam
+                        formats (like TBX and TBX) both to avoid scan the
+                        source file and to be sure about HXL attributes of the
+                        output format. Example I (Latin and Arabic): lat-
+                        Latn@la,arb-Arab@ar . Example II (TBX IATE,
+                        es,en,fr,la,pt,mul): spa-Latn@es,eng-Latn@en,fra-
+                        Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
   --archivum-configurationem
                         Path to custom configuration file (The cor.hxltm.yml)
   --venandum-insectum-est, --debug

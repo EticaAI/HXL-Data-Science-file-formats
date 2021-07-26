@@ -1026,7 +1026,48 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
         - multiplum_linguam
         # - bilingue
 
+    de_xml:
+      # This is a working draft
+      # @see https://terminator.readthedocs.io/en/latest/tbx_conformance.html
+      # ontologia libellam: I glossarium &gt; II conceptum &gt; III linguam &gt; IV terminum
+      glossarium_radicem:
+        signum: martif
+      glossarium_titulum:
+        signum: title
+        de_attributum: False
+        de_textum: True
+        trivium:
+          # de &lt;martif&gt; ad &lt;title&gt;
+          - martifHeader
+          - fileDesc
+
+      # II conceptum
+      conceptum_codicem:
+        signum: termEntry
+        de_attributum: id
+        de_textum: False
+        trivium:
+          # de &lt;martif&gt; ad &lt;termEntry&gt;
+          - text
+          - body
+
+      # III linguam
+      linguam_linguam:
+        signum: langSet  # 'la' ad &lt;langSet xml:lang="la"&gt;
+        de_attributum: lang
+        de_textum: False
+        trivium: []
+
+      # IV terminum
+      terminum_valorem:
+        signum: term  # 'lat-Latn' ad &lt;langSet xml:lang="la"&gt;&lt;tig&gt;&lt;term&gt;lat-Latn&lt;/term&gt;&lt;/tig&gt;&lt;/langSet&gt;
+        de_attributum: False
+        de_textum: True
+        trivium:
+          - tig  # de &lt;langSet&gt; ad &lt;term&gt;
+
     formatum:
+
       initiale: |2
         &lt;?xml version='1.0'?&gt;
         &lt;!DOCTYPE martif SYSTEM "TBXBasiccoreStructV02.dtd"&gt;
@@ -1058,7 +1099,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       #       {{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: "*", "%2A" | replace: "+", "%2B"  | replace: "/", "%2F" }}
       # [eng-Latn]_
       corporeum: |2
-            &lt;termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}"&gt;
+            &lt;termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}"&gt;
               {% for item in rem.de_linguam %}
               {% if item[1].rem != '' -%}
               &lt;langSet xml:lang="{{ item[1].bcp47 }}"&gt;
@@ -1503,7 +1544,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; res
       &lt;/langSet&gt;
     &lt;/termEntry&gt;
 
-    &lt;termEntry id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+    &lt;termEntry id="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1234_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
       
       &lt;langSet xml:lang="la"&gt;
         &lt;tig&gt;
@@ -2938,8 +2979,10 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
     _TBX: entry-level
   linguam:
     _TBX: language-level
-  rem:
+  terminum:
     _TBX: term-level
+  # rem:
+  #   _TBX: term-level
 
 # Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
 ontologia:
@@ -4439,10 +4482,10 @@ optional arguments:
                         639-3}-{ISO 15924}. Example: arb-Arab. Requires: mono
                         or bilingual operation. Accept a single value.
   --agendum-linguam agendum_linguam, -AL agendum_linguam
-                        (Planned, but not implemented yet) Restrict working
-                        languages to a list. Useful for HXLTM to HXLTM or
-                        multilingual formats like TMX. Requires: multilingual
-                        operation. Accepts multiple values.
+                        (Planned, but not fully implemented yet) Restrict
+                        working languages to a list. Useful for HXLTM to HXLTM
+                        or multilingual formats like TBX and TMX. Requires:
+                        multilingual operation. Accepts multiple values.
   --non-agendum-linguam non_agendum_linguam, -non-AL non_agendum_linguam
                         (Planned, but not implemented yet) Inverse of
                         --agendum-linguam. Document one or more languages that
@@ -4611,7 +4654,8 @@ hxltmdexml --help</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">usage: hxltmdexml [-h] [--archivum-configurationem] [--venandum-insectum-est]
+<pre class="highlightjs highlight"><code class="language-none hljs">usage: hxltmdexml [-h] [--agendum-linguam agendum_linguam]
+                  [--archivum-configurationem] [--venandum-insectum-est]
                   [infile] [outfile]
 
 _[eng-Latn]
@@ -4625,6 +4669,14 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --agendum-linguam agendum_linguam, -AL agendum_linguam
+                        List of working languages. Required for multilinguam
+                        formats (like TBX and TBX) both to avoid scan the
+                        source file and to be sure about HXL attributes of the
+                        output format. Example I (Latin and Arabic): lat-
+                        Latn@la,arb-Arab@ar . Example II (TBX IATE,
+                        es,en,fr,la,pt,mul): spa-Latn@es,eng-Latn@en,fra-
+                        Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
   --archivum-configurationem
                         Path to custom configuration file (The cor.hxltm.yml)
   --venandum-insectum-est, --debug
@@ -4666,7 +4718,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-26 00:56:23 UTC
+Last updated 2021-07-26 02:18:02 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

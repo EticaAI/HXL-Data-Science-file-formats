@@ -365,7 +365,48 @@ normam:
         - multiplum_linguam
         # - bilingue
 
+    de_xml:
+      # This is a working draft
+      # @see https://terminator.readthedocs.io/en/latest/tbx_conformance.html
+      # ontologia libellam: I glossarium > II conceptum > III linguam > IV terminum
+      glossarium_radicem:
+        signum: martif
+      glossarium_titulum:
+        signum: title
+        de_attributum: False
+        de_textum: True
+        trivium:
+          # de <martif> ad <title>
+          - martifHeader
+          - fileDesc
+
+      # II conceptum
+      conceptum_codicem:
+        signum: termEntry
+        de_attributum: id
+        de_textum: False
+        trivium:
+          # de <martif> ad <termEntry>
+          - text
+          - body
+
+      # III linguam
+      linguam_linguam:
+        signum: langSet  # 'la' ad <langSet xml:lang="la">
+        de_attributum: lang
+        de_textum: False
+        trivium: []
+
+      # IV terminum
+      terminum_valorem:
+        signum: term  # 'lat-Latn' ad <langSet xml:lang="la"><tig><term>lat-Latn</term></tig></langSet>
+        de_attributum: False
+        de_textum: True
+        trivium:
+          - tig  # de <langSet> ad <term>
+
     formatum:
+
       initiale: |2
         <?xml version='1.0'?>
         <!DOCTYPE martif SYSTEM "TBXBasiccoreStructV02.dtd">
@@ -397,7 +438,7 @@ normam:
       #       {{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: "*", "%2A" | replace: "+", "%2B"  | replace: "/", "%2F" }}
       # [eng-Latn]_
       corporeum: |2
-            <termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
+            <termEntry id="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' }}">
               {% for item in rem.de_linguam %}
               {% if item[1].rem != '' -%}
               <langSet xml:lang="{{ item[1].bcp47 }}">
@@ -835,8 +876,10 @@ libellam:
     _TBX: entry-level
   linguam:
     _TBX: language-level
-  rem:
+  terminum:
     _TBX: term-level
+  # rem:
+  #   _TBX: term-level
 
 # Trivia: ontologia, https://la.wikipedia.org/wiki/Ontologia
 ontologia:

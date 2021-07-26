@@ -7,6 +7,11 @@
 
 ////
 asciidoctor --backend=html5 -o hxltm/archivum/index.htm -a toc2 hxltm/archivum/README.adoc
+
+TODO:
+  - https://docs.weblate.org/en/latest/formats.html
+      - This site have several examples of export files.
+        Since HXLTM already is flexible, we could export also for them.
 ////
 
 https://hdp.etica.ai/hxltm[image:https://img.shields.io/badge/Site-hdp.etica.ai%2Fhxltm-blue[Site]]
