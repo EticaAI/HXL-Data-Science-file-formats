@@ -373,8 +373,7 @@ normam:
         signum: martif
       glossarium_titulum:
         signum: title
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium:
           # de <martif> ad <title>
           - martifHeader
@@ -384,7 +383,6 @@ normam:
       conceptum_codicem:
         signum: termEntry
         de_attributum: id
-        de_textum: False
         trivium:
           # de <martif> ad <termEntry>
           - text
@@ -394,14 +392,12 @@ normam:
       linguam_codicem:
         signum: langSet  # 'la' ad <langSet xml:lang="la">
         de_attributum: lang
-        de_textum: False
         trivium: []
 
       # IV terminum
       terminum_valorem:
         signum: term  # 'lat-Latn' ad <langSet xml:lang="la"><tig><term>lat-Latn</term></tig></langSet>
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium:
           - tig  # de <langSet> ad <term>
 
@@ -512,8 +508,7 @@ normam:
         # <tbx type="TBX-IATE" style="dca" xml:lang="en" xmlns="urn:iso:std:iso:30042:ed-2">
       glossarium_titulum:
         signum: title
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium:
           # de <tbx> ad <title>
           - tbxHeader
@@ -523,7 +518,6 @@ normam:
       conceptum_codicem:
         signum: conceptEntry # TBX-Basic: termEntry
         de_attributum: id
-        de_textum: False
         trivium:
           # de <martif> ad <termEntry>
           - text
@@ -533,15 +527,13 @@ normam:
       linguam_codicem:
         signum: langSec # TBX-Basic: langSet
         de_attributum: lang
-        de_textum: False
         trivium:
           - termSec
 
       # IV terminum
       terminum_valorem:
         signum: term  # 'lat-Latn' ad <langSet xml:lang="la"><tig><term>lat-Latn</term></tig></langSet>
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium:
           - tig  # de <langSet> ad <term>
 
@@ -582,7 +574,6 @@ normam:
       conceptum_codicem:
         signum: tu # <tu tuid="L10N_ego_codicem">
         de_attributum: tuid
-        de_textum: False
         trivium:
           # de <tmx> ad <tu>
           - body
@@ -591,14 +582,12 @@ normam:
       linguam_codicem:
         signum: tuv
         de_attributum: lang
-        de_textum: False
         trivium: []
 
       # IV terminum
       terminum_valorem:
         signum: seg  # 'lat-Latn' ad <tu tuid="L10N_ego_codicem"><tuv xml:lang="la"><seg>lat-Latn</seg>
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium: []
 
     formatum:
@@ -816,7 +805,6 @@ normam:
       conceptum_codicem:
         signum: trans-unit
         de_attributum: id
-        de_textum: False
         trivium:
           # de <xliff> ad <trans-unit>
           - file
@@ -828,14 +816,12 @@ normam:
         # Exemplum: 'pt' ad '<source xml:lang="pt">por-Latn</source>''
         signum: source
         de_attributum: lang
-        de_textum: False
         trivium: []
 
       linguam_objectivum_codicem:
         # Exemplum: 'es' ad '<target xml:lang="es">spa-Latn</target>''
         signum: target
         de_attributum: lang
-        de_textum: False
         trivium: []
 
       # IV terminum
@@ -844,15 +830,13 @@ normam:
       terminum_fontem_valorem:
         # Exemplum: 'por-Latn ad <source xml:lang="pt">por-Latn</source>
         signum: source
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium: []
 
       terminum_objectivum_valorem:
         # Exemplum: 'spa-Latn' ad <target xml:lang="es">spa-Latn</target>
         signum: target
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium: []
 
     formatum:
