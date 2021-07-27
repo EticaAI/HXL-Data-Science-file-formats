@@ -600,6 +600,7 @@ class HXLTMdeXML:
         #     - III linguam
         #       - IV terminum
 
+        # II conceptum -------------------------------------------------------
         # Codicem
 
         codicem_signum = \
@@ -613,6 +614,7 @@ class HXLTMdeXML:
         else:
             codicem_de_attributum = False
 
+        # III linguam --------------------------------------------------------
         # Terminum (non bilinguam)
 
         linguam_codicem_signum = \
@@ -625,6 +627,20 @@ class HXLTMdeXML:
                 ontologia_de_xml['linguam_codicem']['de_attributum']
         else:
             linguam_codicem_de_attributum = False
+
+        # IV terminum --------------------------------------------------------
+        # Terminum (non bilinguam)
+
+        terminum_valorem_signum = \
+            ontologia_de_xml['terminum_valorem']['signum']
+        terminum_valorem_de_textum = \
+            bool(ontologia_de_xml['terminum_valorem']['de_textum'])
+
+        if not terminum_valorem_de_textum:
+            terminum_valorem_de_attributum = \
+                ontologia_de_xml['terminum_valorem']['de_attributum']
+        else:
+            terminum_valorem_de_attributum = False
 
         # fontem_textum = None
         # objectivum_textum = None
@@ -646,8 +662,12 @@ class HXLTMdeXML:
             #       method).
             # [eng-Latn]_
 
-            if eventum != 'end':
-                continue
+            # Trivia:
+            #   - *_valorem_de_attributum: eventum == 'start'
+            #   - *_valorem_de_textum: eventum == 'end'
+
+            # if eventum != 'end':
+            #     continue
 
             xml_nunc_signum = HXLTMUtil.xml_clavem_breve(nodum.tag)
             xml_nunc_attributum = self._de_commune_xml_nodum_attributum(nodum)
@@ -662,6 +682,9 @@ class HXLTMdeXML:
                 if linguam_codicem_de_textum:
                     raise NotImplementedError('linguam_codicem_de_textum')
 
+                if eventum != 'start':
+                    continue
+
                 linguam_codicem = xml_nunc_attributum.get(
                     linguam_codicem_de_attributum, conceptum_numerum)
 
@@ -675,7 +698,27 @@ class HXLTMdeXML:
                     saccum=conceptum_sacuum
                 )
 
+            if xml_nunc_signum == terminum_valorem_signum:
+
+                if terminum_valorem_de_attributum:
+                    raise NotImplementedError('terminum_valorem_de_attributum')
+
+                if eventum != 'end':
+                    continue
+
+                # linguam_codicem
+
+                conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+                    valorem=nodum.text,
+                    libellam_et_typum='terminum.valorem',
+                    linguam_crudum=linguam_codicem,
+                    saccum=conceptum_sacuum
+                )
+
             if xml_nunc_signum == codicem_signum:
+
+                if eventum != 'end':
+                    continue
 
                 if codicem_de_textum:
                     # codicem_de_attributum okay; TODO codicem_de_textum
@@ -686,9 +729,7 @@ class HXLTMdeXML:
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=xml_nunc_attributum.get(
-                        codicem_de_attributum,
-                        conceptum_numerum
-                    ),
+                        codicem_de_attributum, conceptum_numerum),
                     libellam_et_typum='conceptum.codicem',
                     saccum=conceptum_sacuum
                 )
@@ -715,6 +756,7 @@ class HXLTMdeXML:
 
                 # print("\t\t\t", 'foi', lineam)
                 # conceptum_codicem = None
+                conceptum_sacuum = None
                 # fontem_textum = None
                 # objectivum_textum = None
 
