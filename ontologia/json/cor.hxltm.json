@@ -299,6 +299,72 @@
         ]
       }
     },
+    "TBX-2019": {
+      "__meta": {
+        "archivum_extensionem": ".tbx",
+        "descriptionem": "- <https://www.tbxinfo.net/about/>\n- <https://www.iso.org/standard/62510.html>\n",
+        "normam": [
+          "¯\\_(ツ)_/¯"
+        ],
+        "nomen": {
+          "eng-Latn": "TermBase eXchange (TBX) ISO 30042:2019 proprietary format"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "¯\\_(ツ)_/¯"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "tbx"
+        },
+        "glossarium_titulum": {
+          "signum": "title",
+          "de_attributum": false,
+          "de_textum": true,
+          "trivium": [
+            "tbxHeader",
+            "fileDesc"
+          ]
+        },
+        "conceptum_codicem": {
+          "signum": "conceptEntry",
+          "de_attributum": "id",
+          "de_textum": false,
+          "trivium": [
+            "text",
+            "body"
+          ]
+        },
+        "linguam_codicem": {
+          "signum": "langSec",
+          "de_attributum": "lang",
+          "de_textum": false,
+          "trivium": [
+            "termSec"
+          ]
+        },
+        "terminum_valorem": {
+          "signum": "term",
+          "de_attributum": false,
+          "de_textum": true,
+          "trivium": [
+            "tig"
+          ]
+        }
+      },
+      "formatum": {
+        "initiale": false,
+        "corporeum": false,
+        "finale": false
+      }
+    },
     "TMX": {
       "__meta": {
         "archivum_extensionem": ".tmx",
