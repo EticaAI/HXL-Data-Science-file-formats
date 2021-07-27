@@ -692,23 +692,26 @@ class HXLTMdeXML:
         IV_terminum_valorem_signum = self._ontologia.de(
             'terminum_valorem.signum', False, fontem=ontologia_de_xml
         )
+        IV_terminum_valorem_de_attributum = self._ontologia.de(
+            'terminum_valorem.de_attributum', False, fontem=ontologia_de_xml
+        )
         # terminum_valorem_signum = \
         #     ontologia_de_xml['terminum_valorem']['signum']
 
-        IV_terminum_valorem_de_textum = self._ontologia.de(
-            'terminum_valorem.de_textum', False, fontem=ontologia_de_xml
-        )
+        # IV_terminum_valorem_de_textum = self._ontologia.de(
+        #     'terminum_valorem.de_textum', False, fontem=ontologia_de_xml
+        # )
         # terminum_valorem_de_textum = self._ontologia.de(
         #     'terminum_valorem.de_textum', fontem=ontologia_de_xml
         # )
         # terminum_valorem_de_textum = \
         #     bool(ontologia_de_xml['terminum_valorem']['de_textum'])
 
-        if not IV_terminum_valorem_de_textum:
-            IV_terminum_valorem_de_attributum = \
-                ontologia_de_xml['terminum_valorem']['de_attributum']
-        else:
-            IV_terminum_valorem_de_attributum = False
+        # if not IV_terminum_valorem_de_textum:
+        #     IV_terminum_valorem_de_attributum = \
+        #         ontologia_de_xml['terminum_valorem']['de_attributum']
+        # else:
+        #     IV_terminum_valorem_de_attributum = False
 
         # fontem_textum = None
         # objectivum_textum = None

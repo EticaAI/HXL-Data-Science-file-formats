@@ -1034,8 +1034,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
         signum: martif
       glossarium_titulum:
         signum: title
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium:
           # de &lt;martif&gt; ad &lt;title&gt;
           - martifHeader
@@ -1045,7 +1044,6 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       conceptum_codicem:
         signum: termEntry
         de_attributum: id
-        de_textum: False
         trivium:
           # de &lt;martif&gt; ad &lt;termEntry&gt;
           - text
@@ -1055,14 +1053,12 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       linguam_codicem:
         signum: langSet  # 'la' ad &lt;langSet xml:lang="la"&gt;
         de_attributum: lang
-        de_textum: False
         trivium: []
 
       # IV terminum
       terminum_valorem:
         signum: term  # 'lat-Latn' ad &lt;langSet xml:lang="la"&gt;&lt;tig&gt;&lt;term&gt;lat-Latn&lt;/term&gt;&lt;/tig&gt;&lt;/langSet&gt;
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium:
           - tig  # de &lt;langSet&gt; ad &lt;term&gt;
 
@@ -1173,8 +1169,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
         # &lt;tbx type="TBX-IATE" style="dca" xml:lang="en" xmlns="urn:iso:std:iso:30042:ed-2"&gt;
       glossarium_titulum:
         signum: title
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium:
           # de &lt;tbx&gt; ad &lt;title&gt;
           - tbxHeader
@@ -1184,7 +1179,6 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       conceptum_codicem:
         signum: conceptEntry # TBX-Basic: termEntry
         de_attributum: id
-        de_textum: False
         trivium:
           # de &lt;martif&gt; ad &lt;termEntry&gt;
           - text
@@ -1194,15 +1188,13 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       linguam_codicem:
         signum: langSec # TBX-Basic: langSet
         de_attributum: lang
-        de_textum: False
         trivium:
           - termSec
 
       # IV terminum
       terminum_valorem:
         signum: term  # 'lat-Latn' ad &lt;langSet xml:lang="la"&gt;&lt;tig&gt;&lt;term&gt;lat-Latn&lt;/term&gt;&lt;/tig&gt;&lt;/langSet&gt;
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium:
           - tig  # de &lt;langSet&gt; ad &lt;term&gt;
 
@@ -1829,7 +1821,6 @@ Teste, 1, 2, 3	Prueba, 1, 2, 3
       conceptum_codicem:
         signum: tu # &lt;tu tuid="L10N_ego_codicem"&gt;
         de_attributum: tuid
-        de_textum: False
         trivium:
           # de &lt;tmx&gt; ad &lt;tu&gt;
           - body
@@ -1838,14 +1829,12 @@ Teste, 1, 2, 3	Prueba, 1, 2, 3
       linguam_codicem:
         signum: tuv
         de_attributum: lang
-        de_textum: False
         trivium: []
 
       # IV terminum
       terminum_valorem:
         signum: seg  # 'lat-Latn' ad &lt;tu tuid="L10N_ego_codicem"&gt;&lt;tuv xml:lang="la"&gt;&lt;seg&gt;lat-Latn&lt;/seg&gt;
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium: []
 
     formatum:
@@ -2697,7 +2686,6 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
       conceptum_codicem:
         signum: trans-unit
         de_attributum: id
-        de_textum: False
         trivium:
           # de &lt;xliff&gt; ad &lt;trans-unit&gt;
           - file
@@ -2709,14 +2697,12 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
         # Exemplum: 'pt' ad '&lt;source xml:lang="pt"&gt;por-Latn&lt;/source&gt;''
         signum: source
         de_attributum: lang
-        de_textum: False
         trivium: []
 
       linguam_objectivum_codicem:
         # Exemplum: 'es' ad '&lt;target xml:lang="es"&gt;spa-Latn&lt;/target&gt;''
         signum: target
         de_attributum: lang
-        de_textum: False
         trivium: []
 
       # IV terminum
@@ -2725,15 +2711,13 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
       terminum_fontem_valorem:
         # Exemplum: 'por-Latn ad &lt;source xml:lang="pt"&gt;por-Latn&lt;/source&gt;
         signum: source
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium: []
 
       terminum_objectivum_valorem:
         # Exemplum: 'spa-Latn' ad &lt;target xml:lang="es"&gt;spa-Latn&lt;/target&gt;
         signum: target
-        de_attributum: False
-        de_textum: True
+        # de_attributum: False
         trivium: []
 
     formatum:
@@ -4866,7 +4850,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 19:25:57 UTC
+Last updated 2021-07-27 23:28:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
