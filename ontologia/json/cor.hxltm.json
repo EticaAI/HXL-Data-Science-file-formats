@@ -513,6 +513,46 @@
           "bilingue"
         ]
       },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "xliff"
+        },
+        "glossarium_titulum": false,
+        "conceptum_codicem": {
+          "signum": "trans-unit",
+          "de_attributum": "id",
+          "de_textum": false,
+          "trivium": [
+            "file"
+          ]
+        },
+        "linguam_codicem": false,
+        "linguam_fontem_codicem": {
+          "signum": "source",
+          "de_attributum": "lang",
+          "de_textum": false,
+          "trivium": []
+        },
+        "linguam_objectivum_codicem": {
+          "signum": "target",
+          "de_attributum": "lang",
+          "de_textum": false,
+          "trivium": []
+        },
+        "terminum_valorem": false,
+        "terminum_fontem_valorem": {
+          "signum": "source",
+          "de_attributum": false,
+          "de_textum": true,
+          "trivium": []
+        },
+        "terminum_objectivum_valorem": {
+          "signum": "target",
+          "de_attributum": false,
+          "de_textum": true,
+          "trivium": []
+        }
+      },
       "formatum": {
         "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"1.2\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:1.2\">\n  <file\n    source-language=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n    target-language=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\"\n    datatype=\"plaintext\"\n    original=\"exemplum.ext\">\n    <body>\n",
         "corporeum": "    {% if rem.de_fontem_linguam and rem.de_fontem_linguam.rem != '' -%}\n      {%- comment -%}\n        _[eng-Latn]\n          Since we're targeting XLIFF 2.1 and this is XLIFF 1.2, we will hardcode\n          Some variables directly on this Liquid template instead of waste time\n          doing on the Python code.\n\n          If this template seems ugly, is uglier who, as 2021, still have shitty\n          support for XLIFF 2.X.\n\n          state: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state\n          state-qualifier: http://docs.oasis-open.org/xliff/v1.2/os/xliff-core.html#state-qualifier\n        [eng-Latn]_\n      {%- endcomment -%}\n\n    {% capture rem_fontem_linguam_attr -%}\n        xml:lang=\"{{ rem.de_fontem_linguam.bcp47 }}\"\n    {%- endcapture -%}\n\n    {% if rem.de_objectivum_linguam.rem and if rem.de_objectivum_linguam.rem != '' %}\n\n      {% capture XLIFF_obsoletum_state -%}\n        {{ rem.de_objectivum_linguam.codicem_XLIFF | default: 'new' }}\n      {%- endcapture -%}\n\n      {% capture rem_objectivum_linguam_attr -%}\n         xml:lang=\"{{ rem.de_objectivum_linguam.bcp47 }}\"\n      {%- endcapture -%}\n\n      {%- if XLIFF_obsoletum_state == 'initial' -%}\n        {%- assign XLIFF_obsoletum_state = 'new' -%}\n        {%- assign XLIFF_obsoletum_approved = 'no' -%}\n        {%- assign XLIFF_obsoletum_statequalifier_attr = '' -%}\n        {%- assign XLIFF_obsoletum_approved_attr = '' -%}\n      {%- endif -%}\n      {%- if XLIFF_obsoletum_state == 'final' -%}\n        {%- assign XLIFF_obsoletum_state = 'final' -%}\n        {%- assign XLIFF_obsoletum_approved = 'yes' -%}\n        {%- assign XLIFF_obsoletum_translatesource_attr = ' translate=\"no\"' -%}\n        {%- assign XLIFF_obsoletum_statequalifier_attr = ' state-qualifier=\"id-match\"' -%}\n        {%- assign XLIFF_obsoletum_approved_attr = ' approved=\"yes\"' -%}\n      {%- endif -%}\n    {%- endif -%}\n\n    <trans-unit id=\"{{- conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' | replace: '*', '' | replace: '+', '' | replace: '/', '' -}}\"\n      {{- XLIFF_obsoletum_translatesource_attr -}}\n      {{- XLIFF_obsoletum_approved_attr -}}>\n      <source {{ rem_fontem_linguam_attr }}>\n        {{- rem.de_fontem_linguam.rem -}}\n      </source>\n      {%- if rem.de_objectivum_linguam.rem != '' %}\n      <target {{ rem_objectivum_linguam_attr }} state=\"{{ XLIFF_obsoletum_state }}\"{{ XLIFF_obsoletum_statequalifier_attr }}>\n        {{- rem.de_objectivum_linguam.rem -}}\n      </target>\n      {%- else -%}\n        <!-- non rem.de_objectivum_linguam.rem -->\n      {%- endif %}\n      {% if rem.de_auxilium_linguam %}\n        {%- for item in rem.de_auxilium_linguam -%}\n          {%- if item.rem -%}\n      <note annotates=\"source\" priority=\"2\">\n        _[{{- item.linguam -}}]{{- item.rem -}}[{{- item.linguam -}}]_\n      </note>\n          {%- endif -%}\n        {%- endfor %}\n      {%- else -%}\n      <!--\n        non rem.de_auxilium_linguam\n      -->\n      {%- endif  %}\n      {% if rem.de_nomen_breve.referens_situs_interretialis.size > 0 -%}\n      {% for item in rem.de_nomen_breve.referens_situs_interretialis -%}\n      <note annotates=\"source\" priority=\"1\"\n        from=\"referens_situs_interretialis\">\n        {{ item }}\n      </note>\n      {%- endfor %}\n      {%- else -%}\n      <!--\n        non rem.de_nomen_breve.referens_situs_interretialis\n      -->\n      {%- endif  %}\n    </trans-unit>\n    {%- else -%}\n      <!-- non rem.de_fontem_linguam -->\n    {%- endif  %}\n",
