@@ -571,6 +571,36 @@ normam:
         - multiplum_linguam
         # - bilingue
 
+    de_xml:
+      # ontologia libellam: I glossarium > II conceptum > III linguam > IV terminum
+      glossarium_radicem:
+        signum: tmx
+        # <!DOCTYPE tmx SYSTEM "tmx14.dtd"><tmx version="1.4">...
+      glossarium_titulum: False
+
+      # II conceptum
+      conceptum_codicem:
+        signum: tu # <tu tuid="L10N_ego_codicem">
+        de_attributum: tuid
+        de_textum: False
+        trivium:
+          # de <tmx> ad <tu>
+          - body
+
+      # III linguam
+      linguam_codicem:
+        signum: tuv
+        de_attributum: lang
+        de_textum: False
+        trivium: []
+
+      # IV terminum
+      terminum_valorem:
+        signum: seg  # 'lat-Latn' ad <tu tuid="L10N_ego_codicem"><tuv xml:lang="la"><seg>lat-Latn</seg>
+        de_attributum: False
+        de_textum: True
+        trivium: []
+
     formatum:
       initiale: |2
         <?xml version='1.0' encoding='utf-8'?>

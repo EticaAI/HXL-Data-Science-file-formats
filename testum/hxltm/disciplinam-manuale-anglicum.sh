@@ -534,6 +534,8 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # The next 2 examples are equivalent: will print to stdout the result
 # TBX-IATE:
 #   spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
+#   bg,cs,da,de,el,en,es,et,fi,fr,ga,hr,hu,it,lt,lv,mt,nl,pl,pt,ro,sk,sl,sv
+#
 # [eng-Latn]_
 
 hxltmdexml resultatum/hxltm-exemplum-linguam.tbx --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en
@@ -554,6 +556,8 @@ hxltmdexml resultatum/hxltm-exemplum-linguam.tbx --agendum-linguam lat-Latn@la,p
 # [eng-Latn]_
 
 # hxltmdexml resultatum/hxltm-exemplum-linguam.tmx
+hxltmdexml resultatum/hxltm-exemplum-linguam.tmx --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en
+
 
 # cat resultatum/hxltm-exemplum-linguam.tmx | hxltmdexml
 # end::hxltmdexml-TMX[]
