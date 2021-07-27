@@ -326,6 +326,25 @@ class HXLTMDeXMLCli:
             # nargs='?'
         )
 
+        parser.add_argument(
+            '--fontem-linguam', '-FL',
+            help='',
+            # dest='fontem_linguam',
+            metavar='fontem_linguam',
+            action='store',
+            default='lat-Latn@la',
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--objectivum-linguam', '-OL',
+            help='',
+            metavar='objectivum_linguam',
+            action='store',
+            default='arb-Arab@ar',
+            nargs='?'
+        )
+
         # https://hdp.etica.ai/ontologia/cor.hxltm.yml
         parser.add_argument(
             '--archivum-configurationem',

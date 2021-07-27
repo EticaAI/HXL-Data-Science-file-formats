@@ -2683,6 +2683,59 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
         # - multiplum_linguam
         - bilingue
 
+    de_xml:
+      # This is a working draft
+      # @see https://terminator.readthedocs.io/en/latest/tbx_conformance.html
+      # ontologia libellam: I glossarium &gt; II conceptum &gt; III linguam &gt; IV terminum
+      glossarium_radicem:
+        signum: xliff
+        # Exemplum I: &lt;xliff version="1.2"&gt;
+        # Exemplum II: &lt;xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2"&gt;
+      glossarium_titulum: False
+
+      # II conceptum
+      conceptum_codicem:
+        signum: trans-unit
+        de_attributum: id
+        de_textum: False
+        trivium:
+          # de &lt;xliff&gt; ad &lt;trans-unit&gt;
+          - file
+
+      # III linguam
+      linguam_codicem: False # XLIFF-obsoletum est bilingue
+
+      linguam_fontem_codicem:
+        # Exemplum: 'pt' ad '&lt;source xml:lang="pt"&gt;por-Latn&lt;/source&gt;''
+        signum: source
+        de_attributum: lang
+        de_textum: False
+        trivium: []
+
+      linguam_objectivum_codicem:
+        # Exemplum: 'es' ad '&lt;target xml:lang="es"&gt;spa-Latn&lt;/target&gt;''
+        signum: target
+        de_attributum: lang
+        de_textum: False
+        trivium: []
+
+      # IV terminum
+      terminum_valorem: False # XLIFF-obsoletum est bilingue
+
+      terminum_fontem_valorem:
+        # Exemplum: 'por-Latn ad &lt;source xml:lang="pt"&gt;por-Latn&lt;/source&gt;
+        signum: source
+        de_attributum: False
+        de_textum: True
+        trivium: []
+
+      terminum_objectivum_valorem:
+        # Exemplum: 'spa-Latn' ad &lt;target xml:lang="es"&gt;spa-Latn&lt;/target&gt;
+        signum: target
+        de_attributum: False
+        de_textum: True
+        trivium: []
+
     formatum:
       initiale: |2
         &lt;?xml version="1.0"?&gt;
@@ -4813,7 +4866,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 02:50:19 UTC
+Last updated 2021-07-27 18:08:10 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
