@@ -616,69 +616,107 @@ class HXLTMdeXML:
             [type]: [description]
         """
 
+        # pylint: disable=too-many-locals,too-many-branches,invalid-name
+
+        # ___________________________________________________________________ #
+        #                                                                     #
+        #   (\                         Ontologia libellam                     #
+        #   \'\                        - I glossarium                         #
+        #    \'\     __________        - II conceptum                         #
+        #    / '|   ()_________)       - III linguam                          #
+        #    \ '/    \ ~~~~~~~~ \      - IV terminum                          #
+        #      \       \ ~~~~~~   \                                           #
+        #      ==).      \__________\  Contextum de valōrem                   #
+        #     (__)       ()__________) - commūne                              #
+        #                              - multum linguam                       #
+        #                              - linguam fontem et linguam objectīvum #
+        #  - signum                                                           #
+        #    - XML tag                                                        #
+        #  - de_attributum                                                    #
+        #    - (of) XML attribute                                             #
+        # ___________________________________________________________________ #
+
+        # I glossarium ------------------------------------------------------ #
+        # Contextum: commūne ..................................................
+
         resultatum_csv = csv.writer(
             self.objectvum_archivum,
             delimiter=',',
             quoting=csv.QUOTE_MINIMAL
         )
 
-        # ontologia libellam:
-        # - I glossarium
-        #   - II conceptum
-        #     - III linguam
-        #       - IV terminum
-
-        # II conceptum -------------------------------------------------------
-        # Codicem
-
-        codicem_signum = \
-            ontologia_de_xml['conceptum_codicem']['signum']
-        codicem_de_textum = \
-            bool(ontologia_de_xml['conceptum_codicem']['de_textum'])
-
-        if not codicem_de_textum:
-            codicem_de_attributum = \
-                ontologia_de_xml['conceptum_codicem']['de_attributum']
-        else:
-            codicem_de_attributum = False
-
-        # III linguam --------------------------------------------------------
-        # Terminum (non bilinguam)
-
-        linguam_codicem_signum = \
-            ontologia_de_xml['linguam_codicem']['signum']
-        linguam_codicem_de_textum = \
-            bool(ontologia_de_xml['linguam_codicem']['de_textum'])
-
-        if not linguam_codicem_de_textum:
-            linguam_codicem_de_attributum = \
-                ontologia_de_xml['linguam_codicem']['de_attributum']
-        else:
-            linguam_codicem_de_attributum = False
-
-        # IV terminum --------------------------------------------------------
-        # Terminum (non bilinguam)
-
-        terminum_valorem_signum = \
-            ontologia_de_xml['terminum_valorem']['signum']
-        terminum_valorem_de_textum = \
-            bool(ontologia_de_xml['terminum_valorem']['de_textum'])
-
-        if not terminum_valorem_de_textum:
-            terminum_valorem_de_attributum = \
-                ontologia_de_xml['terminum_valorem']['de_attributum']
-        else:
-            terminum_valorem_de_attributum = False
-
-        # fontem_textum = None
-        # objectivum_textum = None
-        # conceptum_attributum = self.xml_referens['conceptum_attributum']
         hxltm_caput_okay = False
-        # resultatum_csv.writerow(self.in_formatum.in_caput())
 
         # Defallo (id est: non conceptum_codicem de XML)
         conceptum_numerum = 1
         conceptum_sacuum = None
+
+        # contextum: multum linguam  . . . . . . . . . . . . . . . . . . . . .
+        # > Vacuum
+
+        # contextum: linguam fontem et linguam objectīvum . . . . . . . . . .
+        # > Vacuum
+
+        # I glossarium > II conceptum --------------------------------------- #
+        # Contextum: commūne ..................................................
+
+        II_conceptum_signum = self._ontologia.de(
+            'conceptum_codicem.signum', fontem=ontologia_de_xml
+        )
+        II_conceptum_de_attributum = self._ontologia.de(
+            'conceptum_codicem.de_attributum', False, fontem=ontologia_de_xml
+        )
+
+        # I glossarium > II conceptum > III linguam ------------------------- #
+        # contextum: commūne . . . . . . . . . . . . . . . . . . . . . . . . .
+        # > Vacuum
+
+        # contextum: multum linguam  . . . . . . . . . . . . . . . . . . . . .
+
+        III_linguam_signum = self._ontologia.de(
+            'linguam_codicem.signum', fontem=ontologia_de_xml
+        )
+        III_linguam_de_attributum = self._ontologia.de(
+            'linguam_codicem.de_attributum', False, fontem=ontologia_de_xml
+        )
+
+        # contextum: linguam fontem et linguam objectīvum . . . . . . . . . . .
+        # > Vacuum
+
+        # I glossarium > II conceptum > III linguam > IV terminum ----------- #
+        # contextum: commūne . . . . . . . . . . . . . . . . . . . . . . . . .
+        # > Vacuum
+
+        # contextum: multum linguam  . . . . . . . . . . . . . . . . . . . . .
+
+        IV_terminum_valorem_signum = self._ontologia.de(
+            'terminum_valorem.signum', False, fontem=ontologia_de_xml
+        )
+        # terminum_valorem_signum = \
+        #     ontologia_de_xml['terminum_valorem']['signum']
+
+        IV_terminum_valorem_de_textum = self._ontologia.de(
+            'terminum_valorem.de_textum', False, fontem=ontologia_de_xml
+        )
+        # terminum_valorem_de_textum = self._ontologia.de(
+        #     'terminum_valorem.de_textum', fontem=ontologia_de_xml
+        # )
+        # terminum_valorem_de_textum = \
+        #     bool(ontologia_de_xml['terminum_valorem']['de_textum'])
+
+        if not IV_terminum_valorem_de_textum:
+            IV_terminum_valorem_de_attributum = \
+                ontologia_de_xml['terminum_valorem']['de_attributum']
+        else:
+            IV_terminum_valorem_de_attributum = False
+
+        # fontem_textum = None
+        # objectivum_textum = None
+        # conceptum_attributum = self.xml_referens['conceptum_attributum']
+        # resultatum_csv.writerow(self.in_formatum.in_caput())
+
+        # contextum: linguam fontem et linguam objectīvum . . . . . . . . . . .
+        # > Vacuum
 
         for eventum, nodum in self.iteratianem:
             # print("de_xliff_obsoletum", eventum, nodum)
@@ -705,20 +743,22 @@ class HXLTMdeXML:
             #       can be reused by XLIFF-like files (bilingual XMLs)
             # [eng-Latn]_
 
-            if xml_nunc_signum == linguam_codicem_signum:
+            if xml_nunc_signum == III_linguam_signum:
 
-                if linguam_codicem_de_textum:
-                    raise NotImplementedError('linguam_codicem_de_textum')
+                if not III_linguam_de_attributum:
+                    raise NotImplementedError(
+                        'linguam_codicem_de_textum [{0}]'.format(
+                            ontologia_de_xml))
 
                 if eventum != 'start':
                     continue
 
                 linguam_codicem = xml_nunc_attributum.get(
-                    linguam_codicem_de_attributum, conceptum_numerum)
+                    III_linguam_de_attributum, conceptum_numerum)
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(xml_nunc_attributum.get(
-                        linguam_codicem_de_attributum,
+                        III_linguam_de_attributum,
                         conceptum_numerum
                     )).strip(),
                     libellam_et_typum='linguam.codicem',
@@ -726,9 +766,9 @@ class HXLTMdeXML:
                     saccum=conceptum_sacuum
                 )
 
-            if xml_nunc_signum == terminum_valorem_signum:
+            if xml_nunc_signum == IV_terminum_valorem_signum:
 
-                if terminum_valorem_de_attributum:
+                if IV_terminum_valorem_de_attributum:
                     raise NotImplementedError('terminum_valorem_de_attributum')
 
                 if eventum != 'end':
@@ -743,21 +783,22 @@ class HXLTMdeXML:
                     saccum=conceptum_sacuum
                 )
 
-            if xml_nunc_signum == codicem_signum:
+            if xml_nunc_signum == II_conceptum_signum:
 
                 if eventum != 'end':
                     continue
 
-                if codicem_de_textum:
+                if not II_conceptum_de_attributum:
                     # codicem_de_attributum okay; TODO codicem_de_textum
-                    raise NotImplementedError('codicem_de_textum')
+                    raise NotImplementedError('codicem de textum')
 
                 # conceptum_codicem = xml_nunc_attributum.get(
                 #     codicem_de_attributum, conceptum_numerum)
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(xml_nunc_attributum.get(
-                        codicem_de_attributum, conceptum_numerum)).strip(),
+                        II_conceptum_de_attributum,
+                        conceptum_numerum)).strip(),
                     libellam_et_typum='conceptum.codicem',
                     saccum=conceptum_sacuum
                 )
