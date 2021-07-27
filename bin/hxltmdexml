@@ -517,7 +517,6 @@ class HXLTMdeXML:
         else:
             self.objectvum_archivum = sys.stdout
 
-        agendum_linguam = []
         if agendum_linguam:
             for item in agendum_linguam:
                 self._agendum_linguam.append(HXLTMLinguam(item))
@@ -689,10 +688,10 @@ class HXLTMdeXML:
                     linguam_codicem_de_attributum, conceptum_numerum)
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
-                    valorem=xml_nunc_attributum.get(
+                    valorem=str(xml_nunc_attributum.get(
                         linguam_codicem_de_attributum,
                         conceptum_numerum
-                    ),
+                    )).strip(),
                     libellam_et_typum='linguam.codicem',
                     linguam_crudum=linguam_codicem,
                     saccum=conceptum_sacuum
@@ -709,7 +708,7 @@ class HXLTMdeXML:
                 # linguam_codicem
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
-                    valorem=nodum.text,
+                    valorem=str(nodum.text).strip(),
                     libellam_et_typum='terminum.valorem',
                     linguam_crudum=linguam_codicem,
                     saccum=conceptum_sacuum
@@ -728,8 +727,8 @@ class HXLTMdeXML:
                 #     codicem_de_attributum, conceptum_numerum)
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
-                    valorem=xml_nunc_attributum.get(
-                        codicem_de_attributum, conceptum_numerum),
+                    valorem=str(xml_nunc_attributum.get(
+                        codicem_de_attributum, conceptum_numerum)).strip(),
                     libellam_et_typum='conceptum.codicem',
                     saccum=conceptum_sacuum
                 )
@@ -768,7 +767,7 @@ class HXLTMdeXML:
                 conceptum_sacuum = None
                 nodum.clear()
 
-        print('TODO: this is a draft. Do it.')
+        # print('TODO: this is a draft. Do it.')
 
         return self.EXITUM_CORRECTUM
 
@@ -2811,11 +2810,14 @@ class XMLInFormatumHXLTM():
     # ontologia
     _ontologia: Type['HXLTMOntologia'] = None
 
-    linguam_collectionem = []
+    # linguam_collectionem = []
     # linguam_agendum: Type[List['HXLTMLinguam']] = None
-    linguam_agendum = None
+    linguam_agendum = []
     linguam_fontem = None
     linguam_objectivum = None
+
+    # de_rem_accuratum: bool = True
+    de_rem_accuratum: bool = False
 
     # TODO: remove this gambiarra
     temporary_fix = {
@@ -2842,7 +2844,10 @@ class XMLInFormatumHXLTM():
             ontologia (HXLTMOntologia): ontologia
         """
         self._ontologia = ontologia
-        self.linguam_agendum = agendum_linguam
+        if agendum_linguam:
+            self.linguam_agendum = agendum_linguam
+        # print(self.linguam_agendum)
+        # print(self.linguam_agendum[0].v())
 
     def definitionem_linguam(
             self, linguam: str) -> Type['XMLInFormatumHXLTM']:
@@ -2869,7 +2874,7 @@ class XMLInFormatumHXLTM():
             linguam = self.temporary_fix[linguam]
             # if linguam
 
-        self.linguam_collectionem.append(
+        self.linguam_agendum.append(
             HXLTMLinguam(linguam)
         )
         return self
@@ -2916,7 +2921,7 @@ class XMLInFormatumHXLTM():
         if self.linguam_objectivum:
             resultatum.append('#item+rem' + self.linguam_objectivum.a())
 
-        for linguam in self.linguam_collectionem:
+        for linguam in self.linguam_agendum:
             resultatum.append('#item+rem' + linguam.a())
             resultatum.append('#status+rem+accuratum' + linguam.a())
         return resultatum
@@ -2968,9 +2973,35 @@ class XMLInFormatumHXLTM():
 
         lineam_1 = []
 
+        # print(self.linguam_fontem)
+
         lineam_1.append(
             conceptum_sacuum['conceptum']['codicem']
         )
+
+        if self.linguam_fontem:
+            # lineam_1.append('#item+rem' + self.linguam_fontem.a())
+            lineam_1.append('TODO fontem')
+        if self.linguam_objectivum:
+            lineam_1.append('#item+rem' + self.linguam_objectivum.a())
+            lineam_1.append('TODO objectivum')
+
+        for linguam in self.linguam_agendum:
+            # lineam_1.append('#item+rem' + linguam.a())
+
+            valuem = self._ontologia.de(
+                'terminum.' + linguam.bcp47 + '.valorem',
+                fontem=conceptum_sacuum
+            )
+            lineam_1.append(valuem)
+            if self.de_rem_accuratum:
+                # lineam_1.append('#status+rem+accuratum' + linguam.a())
+                lineam_1.append('')
+        # for item in self.linguam_agendum:
+        #     lineam_1.append('')
+
+        # print('conceptum_sacuum', conceptum_sacuum)
+
         # TODO: the rest of lineam_1
 
         # TODO: when eventually HXLTM handle better multiline concepts
