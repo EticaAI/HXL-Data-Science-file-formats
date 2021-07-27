@@ -1818,6 +1818,36 @@ Teste, 1, 2, 3	Prueba, 1, 2, 3
         - multiplum_linguam
         # - bilingue
 
+    de_xml:
+      # ontologia libellam: I glossarium &gt; II conceptum &gt; III linguam &gt; IV terminum
+      glossarium_radicem:
+        signum: tmx
+        # &lt;!DOCTYPE tmx SYSTEM "tmx14.dtd"&gt;&lt;tmx version="1.4"&gt;...
+      glossarium_titulum: False
+
+      # II conceptum
+      conceptum_codicem:
+        signum: tu # &lt;tu tuid="L10N_ego_codicem"&gt;
+        de_attributum: tuid
+        de_textum: False
+        trivium:
+          # de &lt;tmx&gt; ad &lt;tu&gt;
+          - body
+
+      # III linguam
+      linguam_codicem:
+        signum: tuv
+        de_attributum: lang
+        de_textum: False
+        trivium: []
+
+      # IV terminum
+      terminum_valorem:
+        signum: seg  # 'lat-Latn' ad &lt;tu tuid="L10N_ego_codicem"&gt;&lt;tuv xml:lang="la"&gt;&lt;seg&gt;lat-Latn&lt;/seg&gt;
+        de_attributum: False
+        de_textum: True
+        trivium: []
+
     formatum:
       initiale: |2
         &lt;?xml version='1.0' encoding='utf-8'?&gt;
@@ -4783,7 +4813,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 02:16:18 UTC
+Last updated 2021-07-27 02:50:19 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

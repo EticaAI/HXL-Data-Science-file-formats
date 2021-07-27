@@ -386,6 +386,32 @@
           "multiplum_linguam"
         ]
       },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "tmx"
+        },
+        "glossarium_titulum": false,
+        "conceptum_codicem": {
+          "signum": "tu",
+          "de_attributum": "tuid",
+          "de_textum": false,
+          "trivium": [
+            "body"
+          ]
+        },
+        "linguam_codicem": {
+          "signum": "tuv",
+          "de_attributum": "lang",
+          "de_textum": false,
+          "trivium": []
+        },
+        "terminum_valorem": {
+          "signum": "seg",
+          "de_attributum": false,
+          "de_textum": true,
+          "trivium": []
+        }
+      },
       "formatum": {
         "initiale": "<?xml version='1.0' encoding='utf-8'?>\n<!DOCTYPE tmx SYSTEM \"tmx14.dtd\">\n<tmx version=\"1.4\">\n  <header\n    creationtool=\"hxltmcli.py\"\n    creationtoolversion=\"{{ globum.instrumentum_versionem }}\"\n    segtype=\"sentence\"\n    o-tmf=\"UTF-8\"\n    adminlang=\"{{ globum.instrumentum_versionem }}\"\n    srclang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\"\n    datatype=\"PlainText\"\n  />\n  <body>\n",
         "corporeum": "    <tu tuid=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {%- if conceptum.conceptum_codicem_wikidata %}\n      <prop type=\"wikidata\">{{ conceptum.conceptum_codicem_wikidata }}</prop>\n      {% endif -%}\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <tuv xml:lang=\"{{ item[1].bcp47 }}\">\n        <seg>\n          {{ item[1].rem }}\n        </seg>\n      </tuv>\n      {%- endif -%}\n      {%- endfor %}\n    </tu>\n",

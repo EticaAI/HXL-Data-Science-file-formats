@@ -223,6 +223,11 @@ Translation Memory eXchange format (TMX): -> HXLTM:
 
 TBX-Basic: TermBase eXchange (TBX) Basic: -> HXLTM:
     hxltmdexml fontem.tbx objectivum.tm.hxl.csv
+
+TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (por-Latn@pt)
+
+    zcat IATE_download.zip | hxltmdexml --agendum-linguam por-Latn@pt
+    cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt
 """
 # end::epilogum[]
 
@@ -830,12 +835,13 @@ class HXLTMdeXML:
             [int]:
         """
 
-        # tmx_body = self.arborem_radicem.find('body')
-        # print('tmx_body', tmx_body)
-        # print('hxltmcsv', self.in_formatum.in_caput())
+        ontologia_de_xml = \
+            self._ontologia.crudum['normam']['TMX']['de_xml']
 
-        raise NotImplementedError('TODO de_tmx')
-        return self.EXITUM_CORRECTUM
+        return self._de_commune_xml(ontologia_de_xml)
+
+        # raise NotImplementedError('TODO de_tmx')
+        # return self.EXITUM_CORRECTUM
 
     def de_xliff(self):
         """de_xliff
