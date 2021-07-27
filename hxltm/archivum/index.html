@@ -998,7 +998,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
 <h4 id="_termbase_exchange_tbx_basic_2_1">TermBase eXchange (TBX) Basic 2.1</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  #### TBX-Basic: TermBase eXchange (TBX) Basic ________________________________
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  #### TBX-Basic: TermBase eXchange (TBX) Basic _______________________________
   TBX-Basim:
     __meta:
       archivum_extensionem: .tbx
@@ -1144,7 +1144,72 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
     asa:
       modus_operandi:
         - multiplum_linguam
-        # - bilingue</code></pre>
+        # - bilingue
+
+  #### TermBase eXchange (TBX) ISO 30042:2019 proprietary forma ________________
+  TBX-2019:
+    __meta:
+      archivum_extensionem: .tbx
+      descriptionem: |
+        - &lt;https://www.tbxinfo.net/about/&gt;
+        - &lt;https://www.iso.org/standard/62510.html&gt;
+      normam:
+        - ¯\_(ツ)_/¯
+      nomen:
+        eng-Latn: 'TermBase eXchange (TBX) ISO 30042:2019 proprietary format'
+      situs_interretialis:
+        referens_officinale:
+          - ¯\_(ツ)_/¯
+
+    asa:
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue
+
+    de_xml:
+      # ontologia libellam: I glossarium &gt; II conceptum &gt; III linguam &gt; IV terminum
+      glossarium_radicem:
+        signum: tbx  # TBX-Basic: termEntry
+        # &lt;tbx type="TBX-IATE" style="dca" xml:lang="en" xmlns="urn:iso:std:iso:30042:ed-2"&gt;
+      glossarium_titulum:
+        signum: title
+        de_attributum: False
+        de_textum: True
+        trivium:
+          # de &lt;tbx&gt; ad &lt;title&gt;
+          - tbxHeader
+          - fileDesc
+
+      # II conceptum
+      conceptum_codicem:
+        signum: conceptEntry # TBX-Basic: termEntry
+        de_attributum: id
+        de_textum: False
+        trivium:
+          # de &lt;martif&gt; ad &lt;termEntry&gt;
+          - text
+          - body
+
+      # III linguam
+      linguam_codicem:
+        signum: langSec # TBX-Basic: langSet
+        de_attributum: lang
+        de_textum: False
+        trivium:
+          - termSec
+
+      # IV terminum
+      terminum_valorem:
+        signum: term  # 'lat-Latn' ad &lt;langSet xml:lang="la"&gt;&lt;tig&gt;&lt;term&gt;lat-Latn&lt;/term&gt;&lt;/tig&gt;&lt;/langSet&gt;
+        de_attributum: False
+        de_textum: True
+        trivium:
+          - tig  # de &lt;langSet&gt; ad &lt;term&gt;
+
+    formatum:
+      initiale: False
+      corporeum: False
+      finale: False</code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -4718,7 +4783,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 01:23:59 UTC
+Last updated 2021-07-27 02:16:18 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

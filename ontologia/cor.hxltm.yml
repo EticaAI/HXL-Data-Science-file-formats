@@ -337,7 +337,7 @@ normam:
   # end::normam_TSV-3[]
 
   # tag::normam_TBX-Basim[]
-  #### TBX-Basic: TermBase eXchange (TBX) Basic ________________________________
+  #### TBX-Basic: TermBase eXchange (TBX) Basic _______________________________
   TBX-Basim:
     __meta:
       archivum_extensionem: .tbx
@@ -484,6 +484,72 @@ normam:
       modus_operandi:
         - multiplum_linguam
         # - bilingue
+
+  #### TermBase eXchange (TBX) ISO 30042:2019 proprietary forma ________________
+  TBX-2019:
+    __meta:
+      archivum_extensionem: .tbx
+      descriptionem: |
+        - <https://www.tbxinfo.net/about/>
+        - <https://www.iso.org/standard/62510.html>
+      normam:
+        - ¯\_(ツ)_/¯
+      nomen:
+        eng-Latn: 'TermBase eXchange (TBX) ISO 30042:2019 proprietary format'
+      situs_interretialis:
+        referens_officinale:
+          - ¯\_(ツ)_/¯
+
+    asa:
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue
+
+    de_xml:
+      # ontologia libellam: I glossarium > II conceptum > III linguam > IV terminum
+      glossarium_radicem:
+        signum: tbx  # TBX-Basic: termEntry
+        # <tbx type="TBX-IATE" style="dca" xml:lang="en" xmlns="urn:iso:std:iso:30042:ed-2">
+      glossarium_titulum:
+        signum: title
+        de_attributum: False
+        de_textum: True
+        trivium:
+          # de <tbx> ad <title>
+          - tbxHeader
+          - fileDesc
+
+      # II conceptum
+      conceptum_codicem:
+        signum: conceptEntry # TBX-Basic: termEntry
+        de_attributum: id
+        de_textum: False
+        trivium:
+          # de <martif> ad <termEntry>
+          - text
+          - body
+
+      # III linguam
+      linguam_codicem:
+        signum: langSec # TBX-Basic: langSet
+        de_attributum: lang
+        de_textum: False
+        trivium:
+          - termSec
+
+      # IV terminum
+      terminum_valorem:
+        signum: term  # 'lat-Latn' ad <langSet xml:lang="la"><tig><term>lat-Latn</term></tig></langSet>
+        de_attributum: False
+        de_textum: True
+        trivium:
+          - tig  # de <langSet> ad <term>
+
+    formatum:
+      initiale: False
+      corporeum: False
+      finale: False
+
   # end::normam_TBX-Basim[]
 
   #### TMX: Translation Memory eXchange format (TMX) ___________________________

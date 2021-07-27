@@ -470,6 +470,7 @@ class HXLTMdeXML:
     arborem = None
     arborem_radicem = None
     # arborem: Dict = None
+    radicem_signum: str = ''  # tmx, xliff, martif, tbx
     xml_typum = None
     # referēns, https://en.wiktionary.org/wiki/referens#Latin
     xml_referens = None
@@ -548,8 +549,12 @@ class HXLTMdeXML:
         # print('_initiale {0}, {1}, {2}'.format(
         #     _eventum, nodum, nodum.attrib))
 
+        # {urn:iso:std:iso:30042:ed-2}tbx -> tbx
+        self.radicem_signum = HXLTMUtil.xml_clavem_breve(nodum.tag)
+        # TODO: implement at least type and version from root tag
+
         self.xml_typum = self._ontologia.quod_xml_typum(
-            nodum.tag,
+            self.radicem_signum,
             nodum.attrib
         )
 
@@ -798,8 +803,14 @@ class HXLTMdeXML:
     def de_tbx(self):
         # https://www.tbxinfo.net/validating-a-tbx-file/
 
-        ontologia_de_xml = \
-            self._ontologia.crudum['normam']['TBX-Basim']['de_xml']
+        # print(self.radicem_signum)
+
+        if self.radicem_signum == 'martif':
+            ontologia_de_xml = \
+                self._ontologia.crudum['normam']['TBX-Basim']['de_xml']
+        if self.radicem_signum == 'tbx':
+            ontologia_de_xml = \
+                self._ontologia.crudum['normam']['TBX-2019']['de_xml']
 
         # print( self._ontologia.crudum.keys())
 
@@ -2989,11 +3000,20 @@ class XMLInFormatumHXLTM():
         for linguam in self.linguam_agendum:
             # lineam_1.append('#item+rem' + linguam.a())
 
-            valuem = self._ontologia.de(
-                'terminum.' + linguam.bcp47 + '.valorem',
-                fontem=conceptum_sacuum
-            )
+            if linguam.bcp47:
+                valuem = self._ontologia.de(
+                    'terminum.' + linguam.bcp47 + '.valorem',
+                    fontem=conceptum_sacuum
+                )
+
+            elif linguam.iso6393:
+                valuem = self._ontologia.de(
+                    'terminum.' + linguam.iso6393 + '.valorem',
+                    fontem=conceptum_sacuum
+                )
+
             lineam_1.append(valuem)
+
             if self.de_rem_accuratum:
                 # lineam_1.append('#status+rem+accuratum' + linguam.a())
                 lineam_1.append('')
