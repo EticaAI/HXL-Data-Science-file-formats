@@ -574,7 +574,8 @@ hxltmdexml resultatum/hxltm-exemplum-linguam.tmx --agendum-linguam lat-Latn@la,p
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
+# hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
+hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml
 

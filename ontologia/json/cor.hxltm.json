@@ -340,6 +340,18 @@
             "termSec"
           ]
         },
+        "terminum_accuratum": {
+          "signum": "descrip",
+          "attributum": {
+            "type": "reliabilityCode"
+          },
+          "de_attributum": false,
+          "trivium": [
+            "termSec"
+          ]
+        },
+        "terminum_fontem": false,
+        "terminum_objectivum": false,
         "terminum_valorem": {
           "signum": "term",
           "trivium": [
@@ -391,6 +403,9 @@
           "de_attributum": "lang",
           "trivium": []
         },
+        "terminum_accuratum": false,
+        "terminum_fontem": false,
+        "terminum_objectivum": false,
         "terminum_valorem": {
           "signum": "seg",
           "trivium": []
@@ -521,6 +536,7 @@
           "trivium": []
         },
         "terminum_valorem": false,
+        "terminum_accuratum": false,
         "terminum_fontem_valorem": {
           "signum": "source",
           "trivium": []
