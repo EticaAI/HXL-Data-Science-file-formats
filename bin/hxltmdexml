@@ -671,15 +671,9 @@ class HXLTMdeXML:
         conceptum_numerum = 1
         conceptum_sacuum = None
 
-        # self.in_formatum
-
         if self._ontologia.de('terminum_habendum_multum',
                               fontem=ontologia_de_xml) is False:
             self.in_formatum.definitionem_linguam(False)
-
-        if bool(self._ontologia.de('terminum_habendum_accuratum',
-                                   fontem=ontologia_de_xml)):
-            self.in_formatum.definitionem_habendum_accuratum(True)
 
         if self._ontologia.de('terminum_habendum_fontem',
                               fontem=ontologia_de_xml) is False:
@@ -688,6 +682,13 @@ class HXLTMdeXML:
         if self._ontologia.de('terminum_habendum_objectivum',
                               fontem=ontologia_de_xml) is False:
             self.in_formatum.definitionem_linguam_objectivum(False)
+
+        III_terminum_habendum_accuratum = \
+            bool(self._ontologia.de(
+                'terminum_habendum_accuratum', False, fontem=ontologia_de_xml))
+
+        if III_terminum_habendum_accuratum:
+            self.in_formatum.definitionem_habendum_accuratum(True)
 
         # contextum: multum linguam  . . . . . . . . . . . . . . . . . . . . .
         # > Vacuum
@@ -737,7 +738,13 @@ class HXLTMdeXML:
 
         # I glossarium > II conceptum > III linguam > IV terminum ----------- #
         # contextum: commūne . . . . . . . . . . . . . . . . . . . . . . . . .
-        # > Vacuum
+        # Vacuum
+
+        # IV_terminum_accuratum = self._ontologia.de(
+        #     'terminum_accuratum', False, fontem=ontologia_de_xml
+        # )
+
+        # print(IV_terminum_accuratum)
 
         # contextum: multum linguam  . . . . . . . . . . . . . . . . . . . . .
 
@@ -768,32 +775,13 @@ class HXLTMdeXML:
         # print(IV_terminum_objectivum_valorem_signum)
 
         for eventum, nodum in self.iteratianem:
-            # print("de_xliff_obsoletum", eventum, nodum)
-            # conceptum_codicem = None
-
-            # _[eng-Latn]
-            # TODO: maybe implement also here the checks about if file is
-            #       really the XML format specified? (or put in another
-            #       method).
-            # [eng-Latn]_
-
-            # Trivia:
-            #   - *_valorem_de_attributum: eventum == 'start'
-            #   - *_valorem_de_textum: eventum == 'end'
-
-            # if eventum != 'end':
-            #     continue
 
             xml_nunc_signum = HXLTMUtil.xml_clavem_breve(nodum.tag)
             xml_nunc_attributum = self._de_commune_xml_nodum_attributum(nodum)
 
-            # _[eng-Latn]
-            # TODO: implement source and target language, so this method
-            #       can be reused by XLIFF-like files (bilingual XMLs)
-            # [eng-Latn]_
-
             # contextum: multum linguam  . . . . . . . . . . . . . . . . . . .
 
+            # Linguam codicem?
             if xml_nunc_signum == III_linguam_signum:
 
                 if not III_linguam_de_attributum:
@@ -817,6 +805,7 @@ class HXLTMdeXML:
                     saccum=conceptum_sacuum
                 )
 
+            # Linguam codicem!! terminum valōrem!?
             if xml_nunc_signum == IV_terminum_valorem_signum:
 
                 if IV_terminum_valorem_de_attributum:
@@ -827,8 +816,6 @@ class HXLTMdeXML:
                 if eventum != 'end':
                     continue
 
-                # linguam_codicem
-
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(nodum.text).strip(),
                     libellam_et_typum='terminum.valorem',
@@ -838,6 +825,11 @@ class HXLTMdeXML:
 
             # contextum: linguam fontem et linguam objectīvum . . . . . . . . .
             if xml_nunc_signum == III_linguam_fontem_signum:
+
+                if III_terminum_habendum_accuratum:
+                    raise NotImplementedError(
+                        'non III_terminum_habendum_accuratum [{0}]'.format(
+                            ontologia_de_xml))
 
                 if not III_linguam_fontem_de_attributum:
                     raise NotImplementedError(
@@ -885,6 +877,11 @@ class HXLTMdeXML:
                 )
 
             if xml_nunc_signum == III_linguam_objectivum_signum:
+
+                if III_terminum_habendum_accuratum:
+                    raise NotImplementedError(
+                        'non III_terminum_habendum_accuratum [{0}]'.format(
+                            ontologia_de_xml))
 
                 if not III_linguam_objectivum_de_attributum:
                     raise NotImplementedError(

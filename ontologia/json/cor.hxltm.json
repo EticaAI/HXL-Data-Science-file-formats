@@ -261,6 +261,14 @@
         "terminum_habendum_multum": true,
         "terminum_habendum_fontem": false,
         "terminum_habendum_objectivum": false,
+        "terminum_accuratum": {
+          "signum": "descrip",
+          "attributum": {
+            "type": "reliabilityCode"
+          },
+          "de_attributum": false,
+          "trivium": []
+        },
         "terminum_valorem": {
           "signum": "term",
           "trivium": [
@@ -344,6 +352,7 @@
             "termSec"
           ]
         },
+        "terminum_habendum_accuratum": true,
         "terminum_habendum_multum": true,
         "terminum_habendum_fontem": false,
         "terminum_habendum_objectivum": false,

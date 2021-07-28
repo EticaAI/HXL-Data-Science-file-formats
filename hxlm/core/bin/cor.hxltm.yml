@@ -400,6 +400,16 @@ normam:
       terminum_habendum_fontem: False # TBX terminum habendum fontem? Falsum
       terminum_habendum_objectivum: False # TBX terminum habendum objectivum? Falsum
 
+      # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+      terminum_accuratum:
+        # Exemplum: <descrip type="reliabilityCode">1</descrip>
+        signum: descrip
+        attributum:
+          type: reliabilityCode
+        de_attributum: False
+        trivium: []
+        #   - termSec # de <langSec> ad <term>
+
       terminum_valorem:
         signum: term  # 'lat-Latn' ad <langSet xml:lang="la"><tig><term>lat-Latn</term></tig></langSet>
         # de_attributum: False
@@ -536,6 +546,7 @@ normam:
           - termSec
 
       # IV terminum
+      terminum_habendum_accuratum: True
       terminum_habendum_multum: True
       terminum_habendum_fontem: False # TBX terminum habendum fontem? Falsum
       terminum_habendum_objectivum: False # TBX terminum habendum objectivum? Falsum

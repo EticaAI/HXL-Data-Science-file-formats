@@ -1061,6 +1061,16 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       terminum_habendum_fontem: False # TBX terminum habendum fontem? Falsum
       terminum_habendum_objectivum: False # TBX terminum habendum objectivum? Falsum
 
+      # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+      terminum_accuratum:
+        # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
+        signum: descrip
+        attributum:
+          type: reliabilityCode
+        de_attributum: False
+        trivium: []
+        #   - termSec # de &lt;langSec&gt; ad &lt;term&gt;
+
       terminum_valorem:
         signum: term  # 'lat-Latn' ad &lt;langSet xml:lang="la"&gt;&lt;tig&gt;&lt;term&gt;lat-Latn&lt;/term&gt;&lt;/tig&gt;&lt;/langSet&gt;
         # de_attributum: False
@@ -1197,6 +1207,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
           - termSec
 
       # IV terminum
+      terminum_habendum_accuratum: True
       terminum_habendum_multum: True
       terminum_habendum_fontem: False # TBX terminum habendum fontem? Falsum
       terminum_habendum_objectivum: False # TBX terminum habendum objectivum? Falsum
@@ -4819,6 +4830,8 @@ hxltmdexml --help</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-none hljs">usage: hxltmdexml [-h] [--agendum-linguam agendum_linguam]
+                  [--fontem-linguam [fontem_linguam]]
+                  [--objectivum-linguam [objectivum_linguam]]
                   [--archivum-configurationem] [--venandum-insectum-est]
                   [infile] [outfile]
 
@@ -4841,6 +4854,8 @@ optional arguments:
                         Latn@la,arb-Arab@ar . Example II (TBX IATE,
                         es,en,fr,la,pt,mul): spa-Latn@es,eng-Latn@en,fra-
                         Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
+  --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
+  --objectivum-linguam [objectivum_linguam], -OL [objectivum_linguam]
   --archivum-configurationem
                         Path to custom configuration file (The cor.hxltm.yml)
   --venandum-insectum-est, --debug
@@ -4858,7 +4873,12 @@ Translation Memory eXchange format (TMX): -&gt; HXLTM:
     hxltmdexml fontem.tmx objectivum.tm.hxl.csv
 
 TBX-Basic: TermBase eXchange (TBX) Basic: -&gt; HXLTM:
-    hxltmdexml fontem.tbx objectivum.tm.hxl.csv</code></pre>
+    hxltmdexml fontem.tbx objectivum.tm.hxl.csv
+
+TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (por-Latn@pt)
+
+    zcat IATE_download.zip | hxltmdexml --agendum-linguam por-Latn@pt
+    cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt</code></pre>
 </div>
 </div>
 </div>
@@ -4882,7 +4902,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 01:30:48 UTC
+Last updated 2021-07-28 02:24:49 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

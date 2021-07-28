@@ -540,6 +540,16 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 
 hxltmdexml resultatum/hxltm-exemplum-linguam.tbx --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en
 
+# ... | column -s, -t
+# hxltmdexml resultatum/hxltm-exemplum-linguam.tbx --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en | column -s, -t
+
+# https://github.com/saulpw/visidata
+# pip3 install visidata
+# ... | visidata -f csv
+# hxltmdexml resultatum/hxltm-exemplum-linguam.tbx --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en | visidata -f csv
+
+# hxltmdexml iate-exemplum.tbx --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en | visidata -f csv
+
 # cat resultatum/hxltm-exemplum-linguam.tbx | hxltmdexml
 # end::hxltmdexml-TBX[]
 
