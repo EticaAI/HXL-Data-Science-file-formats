@@ -473,14 +473,15 @@
         "archivum_extensionem": ".hxltm.xml",
         "descriptionem": "_[eng-Latn]\nThe .hxltm.xml named 'XML Glōssārium' is an example of multilingual\nglossary exported to XML format.\n[eng-Latn]_\n",
         "normam": [
-          "https://hdp.etica.ai/hxltm/archivum/#XML"
+          "<https://hdp.etica.ai/hxltm/archivum/#XML>",
+          "<https://terminator.readthedocs.io/en/latest/_images/TBX_termEntry_structure.png>"
         ],
         "nomen": {
           "eng-Latn": "XML Glōssārium (generic multilingual XML)"
         },
         "situs_interretialis": {
           "referens_officinale": [
-            "https://hdp.etica.ai/hxltm/archivum/#XML"
+            "<https://hdp.etica.ai/hxltm/archivum/#XML>"
           ]
         }
       },
@@ -495,29 +496,45 @@
         },
         "glossarium_titulum": false,
         "conceptum_codicem": {
-          "signum": "tu",
-          "de_attributum": "tuid",
+          "signum": "conceptum",
+          "de_attributum": "_",
           "trivium": [
-            "body"
+            "datum"
           ]
         },
         "linguam_codicem": {
-          "signum": "tuv",
-          "de_attributum": "lang",
+          "signum": "linguam",
+          "de_attributum": "_",
           "trivium": []
         },
         "terminum_habendum_multum": true,
         "terminum_habendum_fontem": false,
         "terminum_habendum_objectivum": false,
         "terminum_valorem": {
-          "signum": "seg",
-          "trivium": []
+          "signum": "de-textum",
+          "trivium": [
+            "terminum"
+          ]
         }
       },
       "formatum": {
-        "initiale": "<?xml version='1.0' encoding='utf-8'?>\n<!DOCTYPE tmx SYSTEM \"tmx14.dtd\">\n<tmx version=\"1.4\">\n  <header\n    creationtool=\"hxltmcli.py\"\n    creationtoolversion=\"{{ globum.instrumentum_versionem }}\"\n    segtype=\"sentence\"\n    o-tmf=\"UTF-8\"\n    adminlang=\"{{ globum.instrumentum_versionem }}\"\n    srclang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\"\n    datatype=\"PlainText\"\n  />\n  <body>\n",
-        "corporeum": "    <tu tuid=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {%- if conceptum.conceptum_codicem_wikidata %}\n      <prop type=\"wikidata\">{{ conceptum.conceptum_codicem_wikidata }}</prop>\n      {% endif -%}\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <tuv xml:lang=\"{{ item[1].bcp47 }}\">\n        <seg>\n          {{ item[1].rem }}\n        </seg>\n      </tuv>\n      {%- endif -%}\n      {%- endfor %}\n    </tu>\n",
-        "finale": "  </body>\n</tmx>\n"
+        "__": {
+          "___": "Latium",
+          "glossarium": "glossarium",
+          "datum": "datum",
+          "caput": "caput",
+          "conceptum": "conceptum",
+          "definitionem": "definitionem",
+          "contextum": "contextum",
+          "titulum": "titulum",
+          "linguam": "linguam",
+          "partem-orationis": "partem-orationis",
+          "terminum": "terminum",
+          "de-textum": "de-textum"
+        },
+        "initiale": "<glossarium _=\"Latium\" __=\"hxltmcli.py\" ___=\"{{ globum.instrumentum_versionem }}\">\n  <caput>\n    <titulum>{{ globum.glossarium_titulum }}</titulum>\n  </caput>\n  <datum>\n",
+        "corporeum": "    <conceptum _=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}\">\n      {%- for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <linguam _=\"{{ item[1].linguam }}\">\n          <terminum>\n            <accuratum></accuratum>\n            <de-textum>{{ item[1].rem }}</de-textum>\n          </terminum>\n      </linguam>\n      {%- endif -%}\n      {%- endfor %}\n    </conceptum>\n",
+        "finale": "  </datum>\n</glossarium>\n"
       }
     },
     "XLIFF": {

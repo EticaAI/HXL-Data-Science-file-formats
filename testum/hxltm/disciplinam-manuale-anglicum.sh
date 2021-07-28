@@ -428,7 +428,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML
 # [eng-Latn]_
 
 hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.tmx \
+  resultatum/hxltm-exemplum-linguam.hxltm.xml \
   --objectivum-XML
 
 cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML > resultatum/hxltm-exemplum-linguam.hxltm.xml
@@ -549,8 +549,28 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 
 # end::XLIFF-obsoletum[]
 
+#### hxltmdexml XML ____________________________________________________________
+# tag::hxltmdexml-XML[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Explanation about the format at cor.hxltm.yml:normam.XML
+# [eng-Latn]_
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# TBX-IATE:
+#   spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
+#   bg,cs,da,de,el,en,es,et,fi,fr,ga,hr,hu,it,lt,lv,mt,nl,pl,pt,ro,sk,sl,sv
+#
+# [eng-Latn]_
+
+hxltmdexml resultatum/hxltm-exemplum-linguam.hxltm.xml
+hxltmdexml resultatum/hxltm-exemplum-linguam.hxltm.xml --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en
+
+# end::hxltmdexml-XML[]
+
 #### hxltmdexml TBX ____________________________________________________________
-# tag::hxltmdexml-TMX[]
+# tag::hxltmdexml-TBX[]
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
 # Explanation about the format at cor.hxltm.yml:normam.TBX

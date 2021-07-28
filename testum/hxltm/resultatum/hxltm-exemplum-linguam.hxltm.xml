@@ -1,291 +1,283 @@
-<?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE tmx SYSTEM "tmx14.dtd">
-<tmx version="1.4">
-  <header
-    creationtool="hxltmcli.py"
-    creationtoolversion=""
-    segtype="sentence"
-    o-tmf="UTF-8"
-    adminlang=""
-    srclang="la"
-    datatype="PlainText"
-  />
-  <body>
+<glossarium _="Latium" __="hxltmcli.py" ___="">
+  <caput>
+    <titulum></titulum>
+  </caput>
+  <datum>
 
-    <tu tuid="L10N_ego_codicem">
-      <tuv xml:lang="la">
-        <seg>
-          lat-Latn
-        </seg>
-      </tuv>
-      <tuv xml:lang="pt">
-        <seg>
-          por-Latn
-        </seg>
-      </tuv>
-      <tuv xml:lang="en">
-        <seg>
-          eng-Latn
-        </seg>
-      </tuv>
-      <tuv xml:lang="es">
-        <seg>
-          spa-Latn
-        </seg>
-      </tuv>
-      <tuv xml:lang="ar">
-        <seg>
-          arb-Arab
-        </seg>
-      </tuv>
-      <tuv xml:lang="hi">
-        <seg>
-          hin-Deva
-        </seg>
-      </tuv>
-      <tuv xml:lang="sl">
-        <seg>
-          slv-Latn
-        </seg>
-      </tuv>
-    </tu>
+    <conceptum _="L10N_ego_codicem">
+      <linguam _="lat-Latn">
+          <terminum>
+            <de-textum>lat-Latn</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="por-Latn">
+          <terminum>
+            <de-textum>por-Latn</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="eng-Latn">
+          <terminum>
+            <de-textum>eng-Latn</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="spa-Latn">
+          <terminum>
+            <de-textum>spa-Latn</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="arb-Arab">
+          <terminum>
+            <de-textum>arb-Arab</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="hin-Deva">
+          <terminum>
+            <de-textum>hin-Deva</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="slv-Latn">
+          <terminum>
+            <de-textum>slv-Latn</de-textum>
+          </terminum>
+      </linguam>
+    </conceptum>
 
-    <tu tuid="L10N_ego_linguam_nomen">
-      <tuv xml:lang="la">
-        <seg>
-          Lingua Latina
-        </seg>
-      </tuv>
-      <tuv xml:lang="pt">
-        <seg>
-          Língua portuguesa
-        </seg>
-      </tuv>
-      <tuv xml:lang="en">
-        <seg>
-          English language
-        </seg>
-      </tuv>
-      <tuv xml:lang="es">
-        <seg>
-          Idioma español
-        </seg>
-      </tuv>
-      <tuv xml:lang="ar">
-        <seg>
-          اللغة العربية
-        </seg>
-      </tuv>
-      <tuv xml:lang="hi">
-        <seg>
-          हिन्दी भाषा
-        </seg>
-      </tuv>
-      <tuv xml:lang="sl">
-        <seg>
-          Slovenščina
-        </seg>
-      </tuv>
-    </tu>
+    <conceptum _="L10N_ego_linguam_nomen">
+      <linguam _="lat-Latn">
+          <terminum>
+            <de-textum>Lingua Latina</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="por-Latn">
+          <terminum>
+            <de-textum>Língua portuguesa</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="eng-Latn">
+          <terminum>
+            <de-textum>English language</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="spa-Latn">
+          <terminum>
+            <de-textum>Idioma español</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="arb-Arab">
+          <terminum>
+            <de-textum>اللغة العربية</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="hin-Deva">
+          <terminum>
+            <de-textum>हिन्दी भाषा</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="slv-Latn">
+          <terminum>
+            <de-textum>Slovenščina</de-textum>
+          </terminum>
+      </linguam>
+    </conceptum>
 
-    <tu tuid="L10N_ego_scriptum_nomen">
-      <tuv xml:lang="la">
-        <seg>
-          Abecedarium Latinum
-        </seg>
-      </tuv>
-      <tuv xml:lang="pt">
-        <seg>
-          Alfabeto latino
-        </seg>
-      </tuv>
-      <tuv xml:lang="en">
-        <seg>
-          Latin script
-        </seg>
-      </tuv>
-      <tuv xml:lang="es">
-        <seg>
-          Alfabeto latino
-        </seg>
-      </tuv>
-      <tuv xml:lang="hi">
-        <seg>
-          देवनागरी लिपि
-        </seg>
-      </tuv>
-      <tuv xml:lang="sl">
-        <seg>
-          Latinska abeceda
-        </seg>
-      </tuv>
-    </tu>
+    <conceptum _="L10N_ego_scriptum_nomen">
+      <linguam _="lat-Latn">
+          <terminum>
+            <de-textum>Abecedarium Latinum</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="por-Latn">
+          <terminum>
+            <de-textum>Alfabeto latino</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="eng-Latn">
+          <terminum>
+            <de-textum>Latin script</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="spa-Latn">
+          <terminum>
+            <de-textum>Alfabeto latino</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="hin-Deva">
+          <terminum>
+            <de-textum>देवनागरी लिपि</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="slv-Latn">
+          <terminum>
+            <de-textum>Latinska abeceda</de-textum>
+          </terminum>
+      </linguam>
+    </conceptum>
 
-    <tu tuid="L10N_ego_patriam_UN_M49_numerum">
-      <tuv xml:lang="la">
-        <seg>
-          001
-        </seg>
-      </tuv>
-      <tuv xml:lang="pt">
-        <seg>
-          001
-        </seg>
-      </tuv>
-      <tuv xml:lang="en">
-        <seg>
-          001
-        </seg>
-      </tuv>
-      <tuv xml:lang="es">
-        <seg>
-          001
-        </seg>
-      </tuv>
-      <tuv xml:lang="ar">
-        <seg>
-          001
-        </seg>
-      </tuv>
-      <tuv xml:lang="hi">
-        <seg>
-          001
-        </seg>
-      </tuv>
-      <tuv xml:lang="sl">
-        <seg>
-          001
-        </seg>
-      </tuv>
-    </tu>
+    <conceptum _="L10N_ego_patriam_UN_M49_numerum">
+      <linguam _="lat-Latn">
+          <terminum>
+            <de-textum>001</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="por-Latn">
+          <terminum>
+            <de-textum>001</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="eng-Latn">
+          <terminum>
+            <de-textum>001</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="spa-Latn">
+          <terminum>
+            <de-textum>001</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="arb-Arab">
+          <terminum>
+            <de-textum>001</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="hin-Deva">
+          <terminum>
+            <de-textum>001</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="slv-Latn">
+          <terminum>
+            <de-textum>001</de-textum>
+          </terminum>
+      </linguam>
+    </conceptum>
 
-    <tu tuid="L10N_ego_patriam_UN_P_codicem">
-      <tuv xml:lang="la">
-        <seg>
-          ∅
-        </seg>
-      </tuv>
-      <tuv xml:lang="pt">
-        <seg>
-          ∅
-        </seg>
-      </tuv>
-      <tuv xml:lang="en">
-        <seg>
-          ∅
-        </seg>
-      </tuv>
-      <tuv xml:lang="es">
-        <seg>
-          ∅
-        </seg>
-      </tuv>
-      <tuv xml:lang="ar">
-        <seg>
-          ∅
-        </seg>
-      </tuv>
-      <tuv xml:lang="hi">
-        <seg>
-          ∅
-        </seg>
-      </tuv>
-      <tuv xml:lang="sl">
-        <seg>
-          ∅
-        </seg>
-      </tuv>
-    </tu>
+    <conceptum _="L10N_ego_patriam_UN_P_codicem">
+      <linguam _="lat-Latn">
+          <terminum>
+            <de-textum>∅</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="por-Latn">
+          <terminum>
+            <de-textum>∅</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="eng-Latn">
+          <terminum>
+            <de-textum>∅</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="spa-Latn">
+          <terminum>
+            <de-textum>∅</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="arb-Arab">
+          <terminum>
+            <de-textum>∅</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="hin-Deva">
+          <terminum>
+            <de-textum>∅</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="slv-Latn">
+          <terminum>
+            <de-textum>∅</de-textum>
+          </terminum>
+      </linguam>
+    </conceptum>
 
-    <tu tuid="I18N_testum_salve_mundi_testum_I18N">
-      <tuv xml:lang="la">
-        <seg>
-          Salvi mundi!
-        </seg>
-      </tuv>
-      <tuv xml:lang="pt">
-        <seg>
-          Olá mundo!
-        </seg>
-      </tuv>
-      <tuv xml:lang="en">
-        <seg>
-          Hello, World!
-        </seg>
-      </tuv>
-      <tuv xml:lang="es">
-        <seg>
-          ¡Hola mundo!
-        </seg>
-      </tuv>
-      <tuv xml:lang="hi">
-        <seg>
-          नमस्ते दुनिया
-        </seg>
-      </tuv>
-    </tu>
+    <conceptum _="I18N_testum_salve_mundi_testum_I18N">
+      <linguam _="lat-Latn">
+          <terminum>
+            <de-textum>Salvi mundi!</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="por-Latn">
+          <terminum>
+            <de-textum>Olá mundo!</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="eng-Latn">
+          <terminum>
+            <de-textum>Hello, World!</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="spa-Latn">
+          <terminum>
+            <de-textum>¡Hola mundo!</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="hin-Deva">
+          <terminum>
+            <de-textum>नमस्ते दुनिया</de-textum>
+          </terminum>
+      </linguam>
+    </conceptum>
 
-    <tu tuid="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
-      <tuv xml:lang="la">
-        <seg>
-          Testum, I, II, III
-        </seg>
-      </tuv>
-      <tuv xml:lang="pt">
-        <seg>
-          Teste, 1, 2, 3
-        </seg>
-      </tuv>
-      <tuv xml:lang="en">
-        <seg>
-          Test, 1, 2, 3
-        </seg>
-      </tuv>
-      <tuv xml:lang="es">
-        <seg>
-          Prueba, 1, 2, 3
-        </seg>
-      </tuv>
-      <tuv xml:lang="hi">
-        <seg>
-          परीक्षा, १, २, ३
-        </seg>
-      </tuv>
-    </tu>
+    <conceptum _="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
+      <linguam _="lat-Latn">
+          <terminum>
+            <de-textum>Testum, I, II, III</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="por-Latn">
+          <terminum>
+            <de-textum>Teste, 1, 2, 3</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="eng-Latn">
+          <terminum>
+            <de-textum>Test, 1, 2, 3</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="spa-Latn">
+          <terminum>
+            <de-textum>Prueba, 1, 2, 3</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="hin-Deva">
+          <terminum>
+            <de-textum>परीक्षा, १, २, ३</de-textum>
+          </terminum>
+      </linguam>
+    </conceptum>
 
-    <tu tuid="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
-      <tuv xml:lang="la">
-        <seg>
-          I,V, X, L, C, D, M
-        </seg>
-      </tuv>
-      <tuv xml:lang="pt">
-        <seg>
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        </seg>
-      </tuv>
-      <tuv xml:lang="en">
-        <seg>
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        </seg>
-      </tuv>
-      <tuv xml:lang="es">
-        <seg>
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        </seg>
-      </tuv>
-      <tuv xml:lang="hi">
-        <seg>
-          ०, १, २, ३, ४, ५, ६, ७, ८, ९
-        </seg>
-      </tuv>
-      <tuv xml:lang="sl">
-        <seg>
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        </seg>
-      </tuv>
-    </tu>
+    <conceptum _="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
+      <linguam _="lat-Latn">
+          <terminum>
+            <de-textum>I,V, X, L, C, D, M</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="por-Latn">
+          <terminum>
+            <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="eng-Latn">
+          <terminum>
+            <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="spa-Latn">
+          <terminum>
+            <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="hin-Deva">
+          <terminum>
+            <de-textum>०, १, २, ३, ४, ५, ६, ७, ८, ९</de-textum>
+          </terminum>
+      </linguam>
+      <linguam _="slv-Latn">
+          <terminum>
+            <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
+          </terminum>
+      </linguam>
+    </conceptum>
 
-  </body>
-</tmx>
+  </datum>
+</glossarium>
 

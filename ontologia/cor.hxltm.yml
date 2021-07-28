@@ -744,12 +744,13 @@ normam:
         glossary exported to XML format.
         [eng-Latn]_
       normam:
-        - https://hdp.etica.ai/hxltm/archivum/#XML
+        - <https://hdp.etica.ai/hxltm/archivum/#XML>
+        - <https://terminator.readthedocs.io/en/latest/_images/TBX_termEntry_structure.png>
       nomen:
         eng-Latn: 'XML Glōssārium (generic multilingual XML)'
       situs_interretialis:
         referens_officinale:
-          - https://hdp.etica.ai/hxltm/archivum/#XML
+          - <https://hdp.etica.ai/hxltm/archivum/#XML>
 
     asa:
       modus_operandi:
@@ -764,16 +765,16 @@ normam:
 
       # II conceptum
       conceptum_codicem:
-        signum: tu # <tu tuid="L10N_ego_codicem">
-        de_attributum: tuid
+        signum: conceptum
+        de_attributum: _
         trivium:
-          # de <tmx> ad <tu>
-          - body
+          # de <glossarium> ad <conceptum>
+          - datum
 
       # III linguam
       linguam_codicem:
-        signum: tuv
-        de_attributum: lang
+        signum: linguam
+        de_attributum: _
         trivium: []
 
       # IV terminum
@@ -787,45 +788,73 @@ normam:
       # terminum_objectivum: False # TMX terminum habendum objectivum? Falsum
 
       terminum_valorem:
-        signum: seg  # 'lat-Latn' ad <tu tuid="L10N_ego_codicem"><tuv xml:lang="la"><seg>lat-Latn</seg>
+        signum: de-textum  # 'lat-Latn' ad <tu tuid="L10N_ego_codicem"><tuv xml:lang="la"><seg>lat-Latn</seg>
         # de_attributum: False
-        trivium: []
+        trivium:
+         - terminum
+
+    # @TODO: make the latin terms, like <glossarium>, <caput> and <datum>
+    #        be configurable, users could use to bootstrap versions even in
+    #        non-Latin scripts.
+    #        Why allow this? The anwser would be: why not?
 
     formatum:
+      # I glossarium > II conceptum > III linguam > IV terminum
+      __:
+        ___: Latium
+        # glōssārium, https://en.wiktionary.org/wiki/glossarium#Latin
+        glossarium: glossarium
+        # datum, https://en.wiktionary.org/wiki/datum#Latin
+        datum: datum
+
+        # caput, https://en.wiktionary.org/wiki/caput#Latin
+        caput: caput
+        # conceptum, https://en.wiktionary.org/wiki/conceptus#Latin
+        conceptum: conceptum
+        # dēfīnītiōnem, https://en.wiktionary.org/wiki/definitio#Latin
+        definitionem: definitionem
+
+        # contextum, https://en.wiktionary.org/wiki/contextus#Latin
+        contextum: contextum
+
+        # titulum, https://en.wiktionary.org/wiki/titulus#Latin
+        titulum: titulum
+  
+        # linguam, https://en.wiktionary.org/wiki/lingua#Latin
+        linguam: linguam
+
+        # partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
+        partem-orationis: partem-orationis
+
+        # terminum, https://en.wiktionary.org/wiki/terminus#Latin
+        terminum: terminum
+
+        de-textum: de-textum
+
       initiale: |2
-        <?xml version='1.0' encoding='utf-8'?>
-        <!DOCTYPE tmx SYSTEM "tmx14.dtd">
-        <tmx version="1.4">
-          <header
-            creationtool="hxltmcli.py"
-            creationtoolversion="{{ globum.instrumentum_versionem }}"
-            segtype="sentence"
-            o-tmf="UTF-8"
-            adminlang="{{ globum.instrumentum_versionem }}"
-            srclang="{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}"
-            datatype="PlainText"
-          />
-          <body>
+        <glossarium _="Latium" __="hxltmcli.py" ___="{{ globum.instrumentum_versionem }}">
+          <caput>
+            <titulum>{{ globum.glossarium_titulum }}</titulum>
+          </caput>
+          <datum>
 
       corporeum: |2
-            <tu tuid="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}">
-              {%- if conceptum.conceptum_codicem_wikidata %}
-              <prop type="wikidata">{{ conceptum.conceptum_codicem_wikidata }}</prop>
-              {% endif -%}
-              {% for item in rem.de_linguam %}
+            <conceptum _="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}">
+              {%- for item in rem.de_linguam %}
               {% if item[1].rem != '' -%}
-              <tuv xml:lang="{{ item[1].bcp47 }}">
-                <seg>
-                  {{ item[1].rem }}
-                </seg>
-              </tuv>
+              <linguam _="{{ item[1].linguam }}">
+                  <terminum>
+                    <accuratum></accuratum>
+                    <de-textum>{{ item[1].rem }}</de-textum>
+                  </terminum>
+              </linguam>
               {%- endif -%}
               {%- endfor %}
-            </tu>
+            </conceptum>
 
       finale: |2
-          </body>
-        </tmx>
+          </datum>
+        </glossarium>
 
 
   # end::normam_XML[]

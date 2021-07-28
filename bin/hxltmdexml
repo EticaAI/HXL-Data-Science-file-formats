@@ -1094,7 +1094,12 @@ class HXLTMdeXML:
         return self._de_commune_xml(ontologia_de_xml)
 
     def de_xml(self):
-        raise NotImplementedError('XML {0}'.format(str(self.xml_typum)))
+
+        ontologia_de_xml = \
+            self._ontologia.crudum['normam']['XML']['de_xml']
+
+        return self._de_commune_xml(ontologia_de_xml)
+        # raise NotImplementedError('XML {0}'.format(str(self.xml_typum)))
 
     def de_tmx(self):
         """de_tmx De Translation Memory eXchange (TMX)
