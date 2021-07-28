@@ -28,10 +28,11 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.5.0
+#       VERSION:  v0.7.0
 #       CREATED:  2021-07-24 00:04 UTC v0.1.0 de hxl2example
 #      REVISION:  2021-07-24 17:49 UTC v0.2.0 hxltmdexml at least read XML
 #                 2021-07-25 23:28 UTC v0.5.0 XLIFF 1.2 and XLIFF 2.1 (MVP)
+#                 2021-07-28 22:01 UTC v0.7.0 TBX-IATE (MVP), TMX (MVP)
 # ==============================================================================
 """hxltmdexml.py: Humanitarian Exchange Language Trānslātiōnem Memoriam de XML
 
@@ -187,7 +188,7 @@ import yaml
 # pip3 install langcodes
 # import langcodes
 
-__VERSION__ = "v0.5.0"
+__VERSION__ = "v0.7.0"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -228,6 +229,36 @@ TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (por-Latn@pt)
 
     zcat IATE_download.zip | hxltmdexml --agendum-linguam por-Latn@pt
     cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt
+
+TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (...)
+
+hxltmdexml IATE_export.tbx IATE_export.hxltm.csv \
+    --agendum-linguam bul-Latn@bg \
+    --agendum-linguam ces-Latn@cs \
+    --agendum-linguam dan-Latn@da \
+    --agendum-linguam dut-Latn@nl \
+    --agendum-linguam ell-Latn@el \
+    --agendum-linguam eng-Latn@en \
+    --agendum-linguam est-Latn@et \
+    --agendum-linguam fin-Latn@fi \
+    --agendum-linguam fra-Latn@fr \
+    --agendum-linguam ger-Latn@de \
+    --agendum-linguam ger-Latn@de \
+    --agendum-linguam gle-Latn@ga \
+    --agendum-linguam hun-Latn@hu \
+    --agendum-linguam ita-Latn@it \
+    --agendum-linguam lav-Latn@lv \
+    --agendum-linguam lit-Latn@lt \
+    --agendum-linguam mlt-Latn@mt \
+    --agendum-linguam pol-Latn@pl \
+    --agendum-linguam por-Latn@pt \
+    --agendum-linguam ron-Latn@ro \
+    --agendum-linguam slk-Latn@sk \
+    --agendum-linguam slv-Latn@sl \
+    --agendum-linguam spa-Latn@es \
+    --agendum-linguam swe-Latn@sv
+
+
 """
 # end::epilogum[]
 
@@ -313,6 +344,8 @@ class HXLTMDeXMLCli:
         self._ontologia = HXLTMOntologia(conf)
 
     def make_args(self):
+        """make_args
+        """
 
         # self.hxlhelper = HXLUtils()
         self.hxlhelper = HXLUtilsDeXML()
@@ -321,7 +354,6 @@ class HXLTMDeXMLCli:
             epilog=__EPILOGUM__
         )
 
-        # --agendum-linguam is a draft. Not 100% implemented
         parser.add_argument(
             '--agendum-linguam', '-AL',
             help='List of working languages. Required for '
@@ -333,7 +365,6 @@ class HXLTMDeXMLCli:
             'spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,'
             'mul-Zyyy',
             metavar='agendum_linguam',
-            # type=lambda x: x.split(',')
             action='append',
             nargs='?'
         )
@@ -390,23 +421,10 @@ class HXLTMDeXMLCli:
         The execute_cli is the main entrypoint of HXLTMDeXMLCli.
         """
 
-        # NOTE: the next lines, in fact, only generate an csv outut. So you
-        #       can use as starting point.
-        # with self.hxlhelper.make_source(args, stdin) as source, \
-        #         self.hxlhelper.make_output(args, stdout) as output:
-        #     hxl.io.write_hxl(output.output, source,
-        #                      show_tags=not args.strip_tags)
-
         self._initiale(pyargs)
 
         fontem_archivum = pyargs.infile if pyargs.infile else stdin
         objectvum_archivum = pyargs.outfile if pyargs.outfile else stdout
-
-        # if pyargs.infile:
-        #     fontem_archivum = pyargs.infile
-        # else:
-        #     # print('stdin')
-        #     dexml = HXLTMdeXML(stdin)
 
         agendum_linguam = []
         agendum_linguam_set = set()
@@ -414,16 +432,11 @@ class HXLTMDeXMLCli:
             for item in pyargs.agendum_linguam:
                 # print('item', item)
                 rem = item.split(',')
-                # agendum_linguam_set.add(rem[0])
                 for resultatum in rem:
-                    # print('resultatum', resultatum)
                     agendum_linguam_set.add(resultatum)
-                    # agendum_linguam.append(HXLTMLinguam(resultatum))
+
         if len(agendum_linguam_set) > 0:
             agendum_linguam = list(agendum_linguam_set)
-
-        # print(pyargs.agendum_linguam, agendum_linguam)
-        # print('...', agendum_linguam_set, pyargs.agendum_linguam)
 
         dexml = HXLTMdeXML(
             self._ontologia,
@@ -436,21 +449,6 @@ class HXLTMDeXMLCli:
         )
 
         return dexml.in_archivum()
-
-        # dexml.testum()
-
-        # return self.EXIT_OK
-
-# hxltmdexml resultatum/hxltm-exemplum-linguam.tmx
-# hxltmdexml resultatum/hxltm-exemplum-linguam.tbx
-# hxltmdexml /workspace/data/IATE_download/IATE_export.tbx
-# hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
-# hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.obsoletum.xlf
-#     This one we need very soom (need to import back MateCat)
-# hxltmdexml resultatum/schemam-un-htcds_eng-Latn--por-Latn.DONE.obsoletum.xlf
-#
-# cd /workspace/data/IATE_download
-# hxltmdexml IATE_export.tbx
 
 
 class HXLTMdeXML:

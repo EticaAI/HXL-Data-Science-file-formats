@@ -5,7 +5,7 @@ usage: hxltmdexml [-h] [--agendum-linguam [agendum_linguam]]
                   [infile] [outfile]
 
 _[eng-Latn]
-hxltmdexml v0.5.0 is an (not feature-by-feature) conversor from some
+hxltmdexml v0.7.0 is an (not feature-by-feature) conversor from some
 XML formats to HXLTM tabular working file.
 [eng-Latn]_"
 
@@ -48,3 +48,7 @@ TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (por-Latn@pt)
 
     zcat IATE_download.zip | hxltmdexml --agendum-linguam por-Latn@pt
     cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt
+
+TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (...)
+
+hxltmdexml IATE_export.tbx IATE_export.hxltm.csv     --agendum-linguam bul-Latn@bg     --agendum-linguam ces-Latn@cs     --agendum-linguam dan-Latn@da     --agendum-linguam dut-Latn@nl     --agendum-linguam ell-Latn@el     --agendum-linguam eng-Latn@en     --agendum-linguam est-Latn@et     --agendum-linguam fin-Latn@fi     --agendum-linguam fra-Latn@fr     --agendum-linguam ger-Latn@de     --agendum-linguam ger-Latn@de     --agendum-linguam gle-Latn@ga     --agendum-linguam hun-Latn@hu     --agendum-linguam ita-Latn@it     --agendum-linguam lav-Latn@lv     --agendum-linguam lit-Latn@lt     --agendum-linguam mlt-Latn@mt     --agendum-linguam pol-Latn@pl     --agendum-linguam por-Latn@pt     --agendum-linguam ron-Latn@ro     --agendum-linguam slk-Latn@sk     --agendum-linguam slv-Latn@sl     --agendum-linguam spa-Latn@es     --agendum-linguam swe-Latn@sv

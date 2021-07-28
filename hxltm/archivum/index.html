@@ -1170,12 +1170,69 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       descriptionem: |
         - &lt;https://www.tbxinfo.net/about/&gt;
         - &lt;https://www.iso.org/standard/62510.html&gt;
+
+        ## TBX-IATE
+        Trivia: &lt;https://iate.europa.eu/fields-explained&gt;
+
+        ### `hxltmdexml` --agendum-linguam
+        - bul-Latn@bg
+          - Bulgarian: bg; https://iso639-3.sil.org/code/bul
+        - ces-Latn@cs
+          - Czech: cs; https://iso639-3.sil.org/code/ces
+        - dan-Latn@da
+          - Danish: da; https://iso639-3.sil.org/code/dan
+        - dut-Latn@nl
+          - Dutch: nl; https://iso639-3.sil.org/code/dut
+        - ell-Latn@el
+          - Greek: el; https://iso639-3.sil.org/code/ell
+        - eng-Latn@en
+          - English: en; https://iso639-3.sil.org/code/eng
+        - est-Latn@et
+          - Estonian: et; https://iso639-3.sil.org/code/est
+        - fin-Latn@fi
+          - Finnish: fi; https://iso639-3.sil.org/code/fin
+        - fra-Latn@fr
+          - French: fr; https://iso639-3.sil.org/code/fra
+        - ger-Latn@de
+          - German: de; https://iso639-3.sil.org/code/ger
+        - gle-Latn@ga
+          - Irish: ga; https://iso639-3.sil.org/code/gle
+        - hun-Latn@hu
+          - Hungarian: hu; https://iso639-3.sil.org/code/hun
+        - ita-Latn@it
+          - Italian: it; https://iso639-3.sil.org/code/ita
+        - lav-Latn@lv
+          - Latvian: lv; https://iso639-3.sil.org/code/lav
+        - lit-Latn@lt
+          - Lithuanian: lt; https://iso639-3.sil.org/code/lit
+        - mlt-Latn@mt
+          - Maltese: mt; https://iso639-3.sil.org/code/mlt
+        - pol-Latn@pl
+          - Polish: pl; https://iso639-3.sil.org/code/pol
+        - por-Latn@pt
+          - Portuguese: pt; https://iso639-3.sil.org/code/por
+        - ron-Latn@ro
+          - Romanian: ro; https://iso639-3.sil.org/code/ron
+        - scr-Latn@hr
+          - Croatian: hr; https://iso639-3.sil.org/code/scr
+        - slk-Latn@sk
+          - Slovak: sk; https://iso639-3.sil.org/code/slk
+        - slv-Latn@sl
+          - Slovene: sl; https://iso639-3.sil.org/code/slv
+        - spa-Latn@es
+          - Spanish: es; https://iso639-3.sil.org/code/spa
+        - swe-Latn@sv
+          - Swedish: sv; https://iso639-3.sil.org/code/swe
+
       normam:
+        - proprietary format
         - ¯\_(ツ)_/¯
+
       nomen:
         eng-Latn: 'TermBase eXchange (TBX) ISO 30042:2019 proprietary format'
       situs_interretialis:
         referens_officinale:
+          - proprietary format
           - ¯\_(ツ)_/¯
 
     asa:
@@ -5591,7 +5648,7 @@ hxltmdexml --help</code></pre>
                   [infile] [outfile]
 
 _[eng-Latn]
-hxltmdexml v0.5.0 is an (not feature-by-feature) conversor from some
+hxltmdexml v0.7.0 is an (not feature-by-feature) conversor from some
 XML formats to HXLTM tabular working file.
 [eng-Latn]_"
 
@@ -5633,7 +5690,11 @@ TBX-Basic: TermBase eXchange (TBX) Basic: -&gt; HXLTM:
 TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (por-Latn@pt)
 
     zcat IATE_download.zip | hxltmdexml --agendum-linguam por-Latn@pt
-    cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt</code></pre>
+    cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt
+
+TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (...)
+
+hxltmdexml IATE_export.tbx IATE_export.hxltm.csv     --agendum-linguam bul-Latn@bg     --agendum-linguam ces-Latn@cs     --agendum-linguam dan-Latn@da     --agendum-linguam dut-Latn@nl     --agendum-linguam ell-Latn@el     --agendum-linguam eng-Latn@en     --agendum-linguam est-Latn@et     --agendum-linguam fin-Latn@fi     --agendum-linguam fra-Latn@fr     --agendum-linguam ger-Latn@de     --agendum-linguam ger-Latn@de     --agendum-linguam gle-Latn@ga     --agendum-linguam hun-Latn@hu     --agendum-linguam ita-Latn@it     --agendum-linguam lav-Latn@lv     --agendum-linguam lit-Latn@lt     --agendum-linguam mlt-Latn@mt     --agendum-linguam pol-Latn@pl     --agendum-linguam por-Latn@pt     --agendum-linguam ron-Latn@ro     --agendum-linguam slk-Latn@sk     --agendum-linguam slv-Latn@sl     --agendum-linguam spa-Latn@es     --agendum-linguam swe-Latn@sv</code></pre>
 </div>
 </div>
 </div>
@@ -5657,7 +5718,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 20:43:36 UTC
+Last updated 2021-07-28 22:08:24 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
