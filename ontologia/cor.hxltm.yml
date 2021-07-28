@@ -403,11 +403,12 @@ normam:
       # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
       terminum_accuratum:
         # Exemplum: <descrip type="reliabilityCode">1</descrip>
-        signum: descrip
-        attributum:
+        ad: XML-nodum-textum
+        de_signum: descrip
+        de_attributum:
           type: reliabilityCode
-        de_attributum: False
-        trivium: []
+        # de_attributum: False
+        viam_trivium: []
         #   - termSec # de <langSec> ad <term>
 
       terminum_valorem:
@@ -553,12 +554,22 @@ normam:
 
       terminum_accuratum:
         # Exemplum: <descrip type="reliabilityCode">1</descrip>
+        ad: XML-nodum-textum
         signum: descrip
-        attributum:
+        de_attributum:
           type: reliabilityCode
-        de_attributum: False
         trivium:
           - termSec # de <langSec> ad <term>
+
+      # terminum_accuratum:
+      #   # Exemplum: <descrip type="reliabilityCode">1</descrip>
+      #   ad: XML-nodum-textum
+      #   de_signum: descrip
+      #   de_attributum:
+      #     type: reliabilityCode
+      #   # de_attributum: False
+      #   viam_trivium: []
+      #   #   - termSec # de <langSec> ad <term>
 
       terminum_fontem: False # TBX terminum habendum fontem? Falsum
       terminum_objectivum: False # TBX terminum habendum objectivum? Falsum

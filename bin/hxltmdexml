@@ -740,9 +740,9 @@ class HXLTMdeXML:
         # contextum: commūne . . . . . . . . . . . . . . . . . . . . . . . . .
         # Vacuum
 
-        # IV_terminum_accuratum = self._ontologia.de(
-        #     'terminum_accuratum', False, fontem=ontologia_de_xml
-        # )
+        IV_terminum_accuratum = self._ontologia.de(
+            'terminum_accuratum', False, fontem=ontologia_de_xml
+        )
 
         # print(IV_terminum_accuratum)
 
@@ -823,6 +823,17 @@ class HXLTMdeXML:
                     saccum=conceptum_sacuum
                 )
 
+            if self._de_commune_xml_nodum_est(
+                    nodum, eventum, IV_terminum_accuratum):
+
+                conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+                    valorem=self._de_commune_xml_nodum_quod_valorem(
+                        nodum, eventum, IV_terminum_accuratum),
+                    libellam_et_typum='terminum.accuratum',
+                    linguam_crudum=linguam_codicem,
+                    saccum=conceptum_sacuum
+                )
+
             # contextum: linguam fontem et linguam objectīvum . . . . . . . . .
             if xml_nunc_signum == III_linguam_fontem_signum:
 
@@ -860,14 +871,6 @@ class HXLTMdeXML:
                     raise NotImplementedError(
                         'non IV_terminum_fontem_valorem_de_attributum [{0}]'.
                         format(ontologia_de_xml))
-
-                # print('oooooi antes ')
-                # # if eventum != 'end':
-                # #     continue
-
-                # print('oooooi')
-
-                # linguam_fontem_codicem
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(nodum.text).strip(),
@@ -1012,6 +1015,73 @@ class HXLTMdeXML:
                         nodum.attrib[clavem]
 
         return xml_attributum_nunc
+
+    def _de_commune_xml_nodum_est(
+            self,
+            nodum,
+            eventum,
+            referens: Dict = None
+    ) -> Dict:  # pylint: disable=no-self-use
+        """_de_commune_xml_nodum_attributum
+
+        Args:
+            nodum ([xml.etree.ElementTree ]):
+
+        Returns:
+            Dict:
+        """
+        if not referens or not isinstance(referens, dict):
+            return False
+
+        if 'de_signum' in referens and nodum.tag != referens['de_signum']:
+            return False
+
+        nodum_attbs = self._de_commune_xml_nodum_attributum(nodum)
+
+        if 'de_attributum' in referens:
+            # print('TODO de_attributum', referens)
+            clavem = referens['de_attributum'].keys()
+            clavem = referens['de_attributum'].keys()
+            for item in clavem:
+                if item not in nodum_attbs or \
+                        referens['de_attributum'][item] != nodum_attbs[item]:
+                    return False
+
+        if referens['ad'] == 'XML-nodum-textum' and eventum != 'end':
+            return False
+
+        if referens['ad'] == 'XML-nodum-attributum' and eventum != 'start':
+            return False
+
+        return True
+
+    def _de_commune_xml_nodum_quod_valorem(
+            self,
+            nodum,
+            _eventum,
+            referens: Dict = None
+    ) -> Dict:  # pylint: disable=no-self-use
+        """_de_commune_xml_nodum_attributum
+
+        Args:
+            nodum ([xml.etree.ElementTree ]):
+
+        Returns:
+            Dict:
+        """
+        if not referens or not isinstance(referens, dict):
+            return False
+
+        nodum_attbs = self._de_commune_xml_nodum_attributum(nodum)
+
+        if referens['ad'] == 'XML-nodum-textum':
+            return str(nodum.text).strip()
+
+        if referens['ad'].startswith('XML-nodum-attributum'):
+            _, xml_attr = referens['ad'].split(':')
+            return str(nodum_attbs[xml_attr]).strip()
+
+        raise ValueError('Nodum {0} referens {1}'.format(nodum, referens))
 
     def de_tbx(self):
         # https://www.tbxinfo.net/validating-a-tbx-file/
