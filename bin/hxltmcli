@@ -549,6 +549,16 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         )
 
         parser.add_argument(
+            '--objectivum-XML',
+            help='Export to XML format. ' +
+            'Multilingual output format',
+            # metavar='objectivum_formatum',
+            dest='objectivum_formatum',
+            action='append_const',
+            const='XML'
+        )
+
+        parser.add_argument(
             '--objectivum-XLIFF', '--XLIFF', '--XLIFF2',
             help='Export to XLIFF (XML Localization Interchange File Format)' +
             ' v2.1. ' +
@@ -967,6 +977,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         elif objectivum_formatum == 'XLIFF':
             formatum = HXLTMInFormatumXLIFF(self.hxltm_asa)
+
+        elif objectivum_formatum == 'XML':
+            formatum = HXLTMInFormatumXML(self.hxltm_asa)
 
         elif objectivum_formatum == 'XLIFF-obsoletum':
             formatum = HXLTMInFormatumXLIFFObsoletum(self.hxltm_asa)
@@ -4092,6 +4105,12 @@ class HXLTMInFormatumUTX(HXLTMInFormatumTabulamRadicem):
     """See cor.hxltm.yml:normam.UTX"""
 
     ONTOLOGIA_NORMAM = 'UTX'
+
+
+class HXLTMInFormatumXML(HXLTMInFormatum):
+    """See cor.hxltm.yml:normam.XML"""
+
+    ONTOLOGIA_NORMAM = 'XML'
 
 
 class HXLTMInFormatumXLIFF(HXLTMInFormatum):

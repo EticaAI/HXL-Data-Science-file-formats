@@ -249,6 +249,30 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=UTX]
 include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.utx[]
 ----
 
+[#XML]
+=== `+XML+`:
+==== XML Glōssārium (generic multilingual XML)'
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_XML]
+----
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=XML]
+----
+===== Result example
+
+- https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
+
+[source,xml]
+----
+include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.hxltm.xml[]
+----
+
 
 [#XLIFF]
 === `+XLIFF+`:

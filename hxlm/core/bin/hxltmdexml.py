@@ -823,6 +823,7 @@ class HXLTMdeXML:
                     saccum=conceptum_sacuum
                 )
 
+            # IV_terminum_accuratum
             if self._de_commune_xml_nodum_est(
                     nodum, eventum, IV_terminum_accuratum):
 
@@ -916,14 +917,6 @@ class HXLTMdeXML:
                         'non IV_terminum_objectivum_valorem_de_attributum'
                         ' [{0}]'.format(ontologia_de_xml))
 
-                # print('oooooi antes ')
-                # # if eventum != 'end':
-                # #     continue
-
-                # print('oooooi', linguam_objectivum_codicem)
-
-                # linguam_objectivum_codicem
-
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(nodum.text).strip(),
                     libellam_et_typum='terminum.objectivum_valorem',
@@ -966,19 +959,7 @@ class HXLTMdeXML:
                 lineam = self.in_formatum.in_lineam_de_conceptum_sacuum(
                     conceptum_sacuum)
 
-                # lineam = self.in_formatum.in_lineam(
-                #     conceptum_codicem=conceptum_codicem,
-                #     # fontem_textum=fontem_textum,
-                #     # objectivum_textum=objectivum_textum,
-                # )
-
-                # print("conceptum_sacuum", conceptum_sacuum)
-
-                # print("\t\t\t", 'foi', lineam)
-                # conceptum_codicem = None
                 conceptum_sacuum = None
-                # fontem_textum = None
-                # objectivum_textum = None
 
                 for crudum_lineam in lineam:
                     resultatum_csv.writerow(crudum_lineam)
@@ -987,8 +968,6 @@ class HXLTMdeXML:
 
                 conceptum_sacuum = None
                 nodum.clear()
-
-        # print('TODO: this is a draft. Do it.')
 
         return self.EXITUM_CORRECTUM
 
@@ -1021,11 +1000,19 @@ class HXLTMdeXML:
             nodum,
             eventum,
             referens: Dict = None
-    ) -> Dict:  # pylint: disable=no-self-use
-        """_de_commune_xml_nodum_attributum
+    ) -> Dict:
+        """_de_commune_xml_nodum_est
+
+        _[eng-Latn]
+        Compare the XML node with the *.hxltm.yml option. Return true
+        if this node at this very own event could return the expected
+        value
+        [eng-Latn]_
 
         Args:
-            nodum ([xml.etree.ElementTree ]):
+            nodum ([xml.etree.ElementTree]):
+            nodum (str): Nodum XML eventum
+            referens (Dict): *.hxltm.yml optionem
 
         Returns:
             Dict:
@@ -1039,7 +1026,6 @@ class HXLTMdeXML:
         nodum_attbs = self._de_commune_xml_nodum_attributum(nodum)
 
         if 'de_attributum' in referens:
-            # print('TODO de_attributum', referens)
             clavem = referens['de_attributum'].keys()
             clavem = referens['de_attributum'].keys()
             for item in clavem:
@@ -1060,11 +1046,17 @@ class HXLTMdeXML:
             nodum,
             _eventum,
             referens: Dict = None
-    ) -> Dict:  # pylint: disable=no-self-use
-        """_de_commune_xml_nodum_attributum
+    ) -> Dict:
+        """_de_commune_xml_nodum_quod_valorem
+
+        _[eng-Latn]
+        Return the value.
+        [eng-Latn]_
 
         Args:
-            nodum ([xml.etree.ElementTree ]):
+            nodum ([xml.etree.ElementTree]):
+            _eventum (str): Nodum XML eventum
+            referens (Dict): *.hxltm.yml optionem
 
         Returns:
             Dict:
@@ -1084,9 +1076,13 @@ class HXLTMdeXML:
         raise ValueError('Nodum {0} referens {1}'.format(nodum, referens))
 
     def de_tbx(self):
-        # https://www.tbxinfo.net/validating-a-tbx-file/
+        """de_tbx [summary]
 
-        # print(self.radicem_signum)
+        [extended_summary]
+
+        Returns:
+            [type]: [description]
+        """
 
         if self.radicem_signum == 'martif':
             ontologia_de_xml = \
@@ -1094,8 +1090,6 @@ class HXLTMdeXML:
         if self.radicem_signum == 'tbx':
             ontologia_de_xml = \
                 self._ontologia.crudum['normam']['TBX-2019']['de_xml']
-
-        # print( self._ontologia.crudum.keys())
 
         return self._de_commune_xml(ontologia_de_xml)
 
@@ -1118,9 +1112,6 @@ class HXLTMdeXML:
 
         return self._de_commune_xml(ontologia_de_xml)
 
-        # raise NotImplementedError('TODO de_tmx')
-        # return self.EXITUM_CORRECTUM
-
     def de_xliff(self):
         """de_xliff
         _[eng-Latn]
@@ -1130,6 +1121,16 @@ class HXLTMdeXML:
               (Emerson Rocha, 2021-07-25 23:31 uTC)
         [eng-Latn]_
         """
+
+        # TODO: convert to use _de_commune_xml as others.
+        #       the only feature that was not implemented was the fact
+        #       that XLIFF 2.x can have the souce and target language
+        #       defined already at <xliff> element
+
+        # ontologia_de_xml = \
+        #     self._ontologia.crudum['normam']['XLIFF']['de_xml']
+
+        # return self._de_commune_xml(ontologia_de_xml)
 
         resultatum_csv = csv.writer(
             self.objectvum_archivum,
@@ -1233,94 +1234,6 @@ class HXLTMdeXML:
             self._ontologia.crudum['normam']['XLIFF-obsoletum']['de_xml']
 
         return self._de_commune_xml(ontologia_de_xml)
-
-        resultatum_csv = csv.writer(
-            self.objectvum_archivum,
-            delimiter=',',
-            quoting=csv.QUOTE_MINIMAL
-        )
-
-        conceptum_codicem = None
-        fontem_textum = None
-        objectivum_textum = None
-        conceptum_attributum = self.xml_referens['conceptum_attributum']
-        linguam_fontem_attributum = \
-            self.xml_typum['linguam_fontem_attributum']
-        linguam_objectivum_attributum = \
-            self.xml_typum['linguam_objectivum_attributum']
-
-        caput_okay = False
-        # resultatum_csv.writerow(self.in_formatum.in_caput())
-
-        for eventum, nodum in self.iteratianem:
-            # print("de_xliff_obsoletum", eventum, nodum)
-            conceptum_codicem = None
-
-            if eventum == 'end':
-                tag_nunc = HXLTMUtil.xml_clavem_breve(nodum.tag)
-                attributum_nunc = {}
-                if nodum.attrib:
-                    for clavem in list(nodum.attrib):
-                        clavem_basim = HXLTMUtil.xml_clavem_breve(clavem)
-                        attributum_nunc[clavem] = nodum.attrib[clavem]
-
-                        if clavem_basim != clavem and \
-                                clavem_basim not in nodum.attrib:
-                            attributum_nunc[clavem_basim] = \
-                                nodum.attrib[clavem]
-
-                # if tag_nunc ==  self.xml_referens['conceptum']:
-
-                if tag_nunc == self.xml_referens['fontem']:
-                    fontem_textum = nodum.text
-
-                    # print('linguam_fontem_attributum',
-                    #       linguam_fontem_attributum)
-
-                    if linguam_fontem_attributum in attributum_nunc and \
-                            not caput_okay:
-                        self.in_formatum.definitionem_linguam_fontem(
-                            attributum_nunc[linguam_fontem_attributum]
-                        )
-                        # raise NameError('FOi')
-
-                    # print("\t\t\t", 'fontem_textum',
-                    #       fontem_textum, nodum.attrib, attributum_nunc)
-
-                if tag_nunc == self.xml_referens['objectivum']:
-                    objectivum_textum = nodum.text
-
-                    if linguam_objectivum_attributum in attributum_nunc and \
-                            not caput_okay:
-                        self.in_formatum.definitionem_linguam_objectivum(
-                            attributum_nunc[linguam_objectivum_attributum]
-                        )
-
-                if tag_nunc == self.xml_referens['conceptum_signum']:
-                    if conceptum_attributum in nodum.attrib:
-                        conceptum_codicem = nodum.attrib[conceptum_attributum]
-                        # print("\t\t\t", 'conceptum_codicem',
-                        #       conceptum_codicem)
-                    lineam = self.in_formatum.in_lineam(
-                        conceptum_codicem=conceptum_codicem,
-                        fontem_textum=fontem_textum,
-                        objectivum_textum=objectivum_textum,
-                    )
-
-                    if not caput_okay:
-                        resultatum_csv.writerow(
-                            self.in_formatum.in_caput())
-                        caput_okay = True
-
-                    # print("\t\t\t", 'foi', lineam)
-                    conceptum_codicem = None
-                    fontem_textum = None
-                    objectivum_textum = None
-
-                    resultatum_csv.writerow(lineam)
-                    nodum.clear()
-
-        return self.EXITUM_CORRECTUM
 
     def quod_archivum_typum(self):
         """quod_archivum_typum [summary]
