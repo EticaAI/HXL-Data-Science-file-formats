@@ -1064,11 +1064,12 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
       terminum_accuratum:
         # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
-        signum: descrip
-        attributum:
+        ad: XML-nodum-textum
+        de_signum: descrip
+        de_attributum:
           type: reliabilityCode
-        de_attributum: False
-        trivium: []
+        # de_attributum: False
+        viam_trivium: []
         #   - termSec # de &lt;langSec&gt; ad &lt;term&gt;
 
       terminum_valorem:
@@ -1214,12 +1215,22 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
 
       terminum_accuratum:
         # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
+        ad: XML-nodum-textum
         signum: descrip
-        attributum:
+        de_attributum:
           type: reliabilityCode
-        de_attributum: False
         trivium:
           - termSec # de &lt;langSec&gt; ad &lt;term&gt;
+
+      # terminum_accuratum:
+      #   # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
+      #   ad: XML-nodum-textum
+      #   de_signum: descrip
+      #   de_attributum:
+      #     type: reliabilityCode
+      #   # de_attributum: False
+      #   viam_trivium: []
+      #   #   - termSec # de &lt;langSec&gt; ad &lt;term&gt;
 
       terminum_fontem: False # TBX terminum habendum fontem? Falsum
       terminum_objectivum: False # TBX terminum habendum objectivum? Falsum
@@ -4902,7 +4913,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 02:24:49 UTC
+Last updated 2021-07-28 03:18:57 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

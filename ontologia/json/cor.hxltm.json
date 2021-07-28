@@ -262,12 +262,12 @@
         "terminum_habendum_fontem": false,
         "terminum_habendum_objectivum": false,
         "terminum_accuratum": {
-          "signum": "descrip",
-          "attributum": {
+          "ad": "XML-nodum-textum",
+          "de_signum": "descrip",
+          "de_attributum": {
             "type": "reliabilityCode"
           },
-          "de_attributum": false,
-          "trivium": []
+          "viam_trivium": []
         },
         "terminum_valorem": {
           "signum": "term",
@@ -357,11 +357,11 @@
         "terminum_habendum_fontem": false,
         "terminum_habendum_objectivum": false,
         "terminum_accuratum": {
+          "ad": "XML-nodum-textum",
           "signum": "descrip",
-          "attributum": {
+          "de_attributum": {
             "type": "reliabilityCode"
           },
-          "de_attributum": false,
           "trivium": [
             "termSec"
           ]
