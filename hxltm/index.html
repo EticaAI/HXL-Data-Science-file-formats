@@ -1283,6 +1283,18 @@ normam:
           - termSec
 
       # IV terminum
+      terminum_accuratum:
+        # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
+        signum: descrip
+        attributum:
+          type: reliabilityCode
+        de_attributum: False
+        trivium:
+          - termSec # de &lt;langSec&gt; ad &lt;term&gt;
+
+      terminum_fontem: False # TBX terminum habendum fontem? Falsum
+      terminum_objectivum: False # TBX terminum habendum objectivum? Falsum
+
       terminum_valorem:
         signum: term  # 'lat-Latn' ad &lt;langSet xml:lang="la"&gt;&lt;tig&gt;&lt;term&gt;lat-Latn&lt;/term&gt;&lt;/tig&gt;&lt;/langSet&gt;
         # de_attributum: False
@@ -1337,6 +1349,10 @@ normam:
         trivium: []
 
       # IV terminum
+      terminum_accuratum: False # TMX terminum habendum accuratum? Falsum
+      terminum_fontem: False # TMX terminum habendum fontem? Falsum
+      terminum_objectivum: False # TMX terminum habendum objectivum? Falsum
+
       terminum_valorem:
         signum: seg  # 'lat-Latn' ad &lt;tu tuid="L10N_ego_codicem"&gt;&lt;tuv xml:lang="la"&gt;&lt;seg&gt;lat-Latn&lt;/seg&gt;
         # de_attributum: False
@@ -1578,6 +1594,8 @@ normam:
 
       # IV terminum
       terminum_valorem: False # XLIFF-obsoletum est bilingue
+
+      terminum_accuratum: False # XLIFF terminum habendum accuratum? Falsum
 
       terminum_fontem_valorem:
         # Exemplum: 'por-Latn ad &lt;source xml:lang="pt"&gt;por-Latn&lt;/source&gt;
@@ -3218,7 +3236,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-27 23:28:06 UTC
+Last updated 2021-07-28 00:37:18 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
