@@ -333,9 +333,9 @@ class HXLTMDeXMLCli:
             'spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,'
             'mul-Zyyy',
             metavar='agendum_linguam',
-            type=lambda x: x.split(',')
-            # action='append',
-            # nargs='?'
+            # type=lambda x: x.split(',')
+            action='append',
+            nargs='?'
         )
 
         parser.add_argument(
@@ -408,18 +408,29 @@ class HXLTMDeXMLCli:
         #     # print('stdin')
         #     dexml = HXLTMdeXML(stdin)
 
-        # agendum_linguam = []
-        # if pyargs.agendum_linguam:
-        #     for item in pyargs.agendum_linguam:
-        #         agendum_linguam.append(HXLTMLinguam(item))
+        agendum_linguam = []
+        agendum_linguam_set = set()
+        if pyargs.agendum_linguam:
+            for item in pyargs.agendum_linguam:
+                # print('item', item)
+                rem = item.split(',')
+                # agendum_linguam_set.add(rem[0])
+                for resultatum in rem:
+                    # print('resultatum', resultatum)
+                    agendum_linguam_set.add(resultatum)
+                    # agendum_linguam.append(HXLTMLinguam(resultatum))
+        if len(agendum_linguam_set) > 0:
+            agendum_linguam = list(agendum_linguam_set)
 
         # print(pyargs.agendum_linguam, agendum_linguam)
+        # print('...', agendum_linguam_set, pyargs.agendum_linguam)
 
         dexml = HXLTMdeXML(
             self._ontologia,
             fontem_archivum,
             objectvum_archivum,
-            agendum_linguam=pyargs.agendum_linguam,
+            # agendum_linguam=pyargs.agendum_linguam,
+            agendum_linguam=agendum_linguam,
             fontem_linguam=pyargs.fontem_linguam,
             objectivum_linguam=pyargs.objectivum_linguam,
         )
@@ -744,6 +755,10 @@ class HXLTMdeXML:
             'terminum_accuratum', False, fontem=ontologia_de_xml
         )
 
+        IV_terminum_linguam_HOTFIX = self._ontologia.de(
+            'linguam_linguam', False, fontem=ontologia_de_xml
+        )
+
         # print(IV_terminum_accuratum)
 
         # contextum: multum linguam  . . . . . . . . . . . . . . . . . . . . .
@@ -778,7 +793,7 @@ class HXLTMdeXML:
 
             xml_nunc_signum = HXLTMUtil.xml_clavem_breve(nodum.tag)
             xml_nunc_attributum = self._de_commune_xml_nodum_attributum(nodum)
-
+            # print("\tnodum.tag {0} eventum {1}".format(nodum.tag, eventum))
             # contextum: multum linguam  . . . . . . . . . . . . . . . . . . .
 
             # Linguam codicem?
@@ -805,6 +820,29 @@ class HXLTMdeXML:
                     saccum=conceptum_sacuum
                 )
 
+            # print('ooi', IV_terminum_linguam_HOTFIX, nodum)
+            # IV_terminum_linguam_HOTFIX
+            if self._de_commune_xml_nodum_est(
+                    nodum, eventum, IV_terminum_linguam_HOTFIX):
+                # print('trying now...')
+
+                linguam_codicem = self._de_commune_xml_nodum_quod_valorem(
+                    nodum, eventum, IV_terminum_linguam_HOTFIX)
+
+                # conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+                #     valorem=self._de_commune_xml_nodum_quod_valorem(
+                #         nodum, eventum, IV_terminum_linguam_HOTFIX),
+                #     libellam_et_typum='terminum.accuratum',
+                #     linguam_crudum=linguam_codicem,
+                #     saccum=conceptum_sacuum
+                # )
+                conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+                    valorem=linguam_codicem,
+                    libellam_et_typum='linguam.codicem',
+                    linguam_crudum=linguam_codicem,
+                    saccum=conceptum_sacuum
+                )
+
             # Linguam codicem!! terminum valōrem!?
             if xml_nunc_signum == IV_terminum_valorem_signum:
 
@@ -826,7 +864,6 @@ class HXLTMdeXML:
             # IV_terminum_accuratum
             if self._de_commune_xml_nodum_est(
                     nodum, eventum, IV_terminum_accuratum):
-
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=self._de_commune_xml_nodum_quod_valorem(
                         nodum, eventum, IV_terminum_accuratum),
@@ -834,6 +871,8 @@ class HXLTMdeXML:
                     linguam_crudum=linguam_codicem,
                     saccum=conceptum_sacuum
                 )
+
+                # print('oooi', conceptum_sacuum)
 
             # contextum: linguam fontem et linguam objectīvum . . . . . . . . .
             if xml_nunc_signum == III_linguam_fontem_signum:
@@ -1017,6 +1056,7 @@ class HXLTMdeXML:
         Returns:
             Dict:
         """
+        # print('_de_commune_xml_nodum_est', nodum, referens)
         if not referens or not isinstance(referens, dict):
             return False
 
@@ -1025,8 +1065,7 @@ class HXLTMdeXML:
 
         nodum_attbs = self._de_commune_xml_nodum_attributum(nodum)
 
-        if 'de_attributum' in referens:
-            clavem = referens['de_attributum'].keys()
+        if 'de_attributum' in referens and bool(referens['de_attributum']):
             clavem = referens['de_attributum'].keys()
             for item in clavem:
                 if item not in nodum_attbs or \
@@ -1037,7 +1076,10 @@ class HXLTMdeXML:
             return False
 
         if referens['ad'] == 'XML-nodum-attributum' and eventum != 'start':
+            # print('yay')
             return False
+
+        # print('>foi <')
 
         return True
 
@@ -1071,6 +1113,7 @@ class HXLTMdeXML:
 
         if referens['ad'].startswith('XML-nodum-attributum'):
             _, xml_attr = referens['ad'].split(':')
+            # print(xml_attr, nodum_attbs, nodum, referens)
             return str(nodum_attbs[xml_attr]).strip()
 
         raise ValueError('Nodum {0} referens {1}'.format(nodum, referens))
@@ -3231,6 +3274,8 @@ class XMLInFormatumHXLTM():
         """
         resultatum = []
 
+        # TODO: remove a lot of redundancy from this method.
+
         if not conceptum_sacuum or \
                 'conceptum' not in conceptum_sacuum or \
                 'codicem' not in conceptum_sacuum['conceptum']:
@@ -3311,6 +3356,13 @@ class XMLInFormatumHXLTM():
                 elif linguam.iso6393:
                     valuem = self._ontologia.de(
                         'terminum.' + linguam.iso6393 +
+                        '.accuratum',
+                        fontem=conceptum_sacuum
+                    )
+
+                if not valuem:
+                    valuem = self._ontologia.de(
+                        'terminum.' + linguam.linguam +
                         '.accuratum',
                         fontem=conceptum_sacuum
                     )

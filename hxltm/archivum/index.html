@@ -2441,15 +2441,25 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX &gt; resultatu
         de_attributum: _
         trivium: []
 
-      # IV terminum
-      # terminum_habendum_accuratum: True
-      terminum_habendum_multum: True
-      terminum_habendum_fontem: False # TMX terminum habendum fontem? Falsum
-      terminum_habendum_objectivum: False # TMX terminum habendum objectivum? Falsum
+      linguam_linguam:
+        ad: 'XML-nodum-attributum:_'
+        de_signum: linguam
+        # signum: linguam
+        # de_attributum:
+        #   type: reliabilityCode
+        trivium: []
 
-      # terminum_accuratum: False # TMX terminum habendum accuratum? Falsum
-      # terminum_fontem: False # TMX terminum habendum fontem? Falsum
-      # terminum_objectivum: False # TMX terminum habendum objectivum? Falsum
+      # IV terminum
+      terminum_habendum_accuratum: True
+      terminum_habendum_multum: True
+      terminum_habendum_fontem: True
+      terminum_habendum_objectivum: True
+
+      terminum_accuratum:
+        ad: XML-nodum-textum
+        de_signum: accuratum
+        # de_attributum: False
+        trivium: []
 
       terminum_valorem:
         signum: de-textum  # 'lat-Latn' ad &lt;tu tuid="L10N_ego_codicem"&gt;&lt;tuv xml:lang="la"&gt;&lt;seg&gt;lat-Latn&lt;/seg&gt;
@@ -2487,36 +2497,53 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX &gt; resultatu
         # linguam, https://en.wiktionary.org/wiki/lingua#Latin
         linguam: linguam
 
+        # librārium, https://en.wiktionary.org/wiki/librarium#Latin
+        librarium: librarium
+
         # partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
         partem-orationis: partem-orationis
 
         # terminum, https://en.wiktionary.org/wiki/terminus#Latin
         terminum: terminum
 
+        # fontem, https://en.wiktionary.org/wiki/fons#Latin
+        fontem: fontem
+
+        # objectīvum, https://en.wiktionary.org/wiki/objectivus#Latin
+        objectivum: objectivum
+
         de-textum: de-textum
 
-      initiale: |2
+      initiale: |2-
         &lt;glossarium _="Latium" __="hxltmcli.py" ___="{{ globum.instrumentum_versionem }}"&gt;
           &lt;caput&gt;
             &lt;titulum&gt;{{ globum.glossarium_titulum }}&lt;/titulum&gt;
           &lt;/caput&gt;
           &lt;datum&gt;
+            &lt;!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The "_" is (an non-Latin) script neutral default ID [eng-Latn]_ --&gt;
+            &lt;librarium _="_"&gt;
 
       corporeum: |2
-            &lt;conceptum _="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}"&gt;
-              {%- for item in rem.de_linguam %}
-              {% if item[1].rem != '' -%}
-              &lt;linguam _="{{ item[1].linguam }}"&gt;
+              &lt;conceptum _="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}"&gt;
+                {%- for item in rem.de_linguam %}
+                {% if item[1].rem != '' -%}
+                &lt;linguam _="{{ item[1].linguam }}"&gt;
+                  &lt;definitionem&gt;&lt;/definitionem&gt;
                   &lt;terminum&gt;
-                    &lt;accuratum&gt;&lt;/accuratum&gt;
+                    {% if item[1].accuratum -%}
+                    &lt;accuratum&gt;{{ item[1].accuratum }}&lt;/accuratum&gt;
+                    {%- endif %}
                     &lt;de-textum&gt;{{ item[1].rem }}&lt;/de-textum&gt;
                   &lt;/terminum&gt;
-              &lt;/linguam&gt;
-              {%- endif -%}
-              {%- endfor %}
-            &lt;/conceptum&gt;
+                  &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+                  &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+                &lt;/linguam&gt;
+                {%- endif -%}
+                {%- endfor %}
+              &lt;/conceptum&gt;
 
       finale: |2
+            &lt;/librarium&gt;
           &lt;/datum&gt;
         &lt;/glossarium&gt;</code></pre>
 </div>
@@ -2569,281 +2596,483 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
     &lt;titulum&gt;&lt;/titulum&gt;
   &lt;/caput&gt;
   &lt;datum&gt;
-
-    &lt;conceptum _="L10N_ego_codicem"&gt;
-      &lt;linguam _="lat-Latn"&gt;
+    &lt;!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The "_" is (an non-Latin) script neutral default ID [eng-Latn]_ --&gt;
+    &lt;librarium _="_"&gt;
+      &lt;conceptum _="L10N_ego_codicem"&gt;
+        &lt;linguam _="lat-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;lat-Latn&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="por-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="por-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;por-Latn&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="eng-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="eng-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;eng-Latn&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="spa-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="spa-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;spa-Latn&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="arb-Arab"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="arb-Arab"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;arb-Arab&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="hin-Deva"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="hin-Deva"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;hin-Deva&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="slv-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="slv-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;slv-Latn&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-    &lt;/conceptum&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+      &lt;/conceptum&gt;
 
-    &lt;conceptum _="L10N_ego_linguam_nomen"&gt;
-      &lt;linguam _="lat-Latn"&gt;
+      &lt;conceptum _="L10N_ego_linguam_nomen"&gt;
+        &lt;linguam _="lat-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Lingua Latina&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="por-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="por-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Língua portuguesa&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="eng-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="eng-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;English language&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="spa-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="spa-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Idioma español&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="arb-Arab"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="arb-Arab"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;اللغة العربية&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="hin-Deva"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="hin-Deva"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;हिन्दी भाषा&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="slv-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="slv-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;Slovenščina&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-    &lt;/conceptum&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+      &lt;/conceptum&gt;
 
-    &lt;conceptum _="L10N_ego_scriptum_nomen"&gt;
-      &lt;linguam _="lat-Latn"&gt;
+      &lt;conceptum _="L10N_ego_scriptum_nomen"&gt;
+        &lt;linguam _="lat-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Abecedarium Latinum&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="por-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="por-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Alfabeto latino&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="eng-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="eng-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Latin script&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="spa-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="spa-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Alfabeto latino&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="hin-Deva"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="hin-Deva"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;देवनागरी लिपि&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="slv-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="slv-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;Latinska abeceda&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-    &lt;/conceptum&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+      &lt;/conceptum&gt;
 
-    &lt;conceptum _="L10N_ego_patriam_UN_M49_numerum"&gt;
-      &lt;linguam _="lat-Latn"&gt;
+      &lt;conceptum _="L10N_ego_patriam_UN_M49_numerum"&gt;
+        &lt;linguam _="lat-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;001&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="por-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="por-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;001&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="eng-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="eng-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;001&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="spa-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="spa-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;001&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="arb-Arab"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="arb-Arab"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;001&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="hin-Deva"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="hin-Deva"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;001&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="slv-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="slv-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;001&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-    &lt;/conceptum&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+      &lt;/conceptum&gt;
 
-    &lt;conceptum _="L10N_ego_patriam_UN_P_codicem"&gt;
-      &lt;linguam _="lat-Latn"&gt;
+      &lt;conceptum _="L10N_ego_patriam_UN_P_codicem"&gt;
+        &lt;linguam _="lat-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;∅&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="por-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="por-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;∅&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="eng-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="eng-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;∅&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="spa-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="spa-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;∅&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="arb-Arab"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="arb-Arab"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;∅&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="hin-Deva"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="hin-Deva"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;∅&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="slv-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="slv-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;∅&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-    &lt;/conceptum&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+      &lt;/conceptum&gt;
 
-    &lt;conceptum _="I18N_testum_salve_mundi_testum_I18N"&gt;
-      &lt;linguam _="lat-Latn"&gt;
+      &lt;conceptum _="I18N_testum_salve_mundi_testum_I18N"&gt;
+        &lt;linguam _="lat-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Salvi mundi!&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="por-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="por-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Olá mundo!&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="eng-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="eng-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Hello, World!&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="spa-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="spa-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;¡Hola mundo!&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="hin-Deva"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="hin-Deva"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;नमस्ते दुनिया&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-    &lt;/conceptum&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+      &lt;/conceptum&gt;
 
-    &lt;conceptum _="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
-      &lt;linguam _="lat-Latn"&gt;
+      &lt;conceptum _="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
+        &lt;linguam _="lat-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Testum, I, II, III&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="por-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="por-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Teste, 1, 2, 3&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="eng-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="eng-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Test, 1, 2, 3&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="spa-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="spa-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;Prueba, 1, 2, 3&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="hin-Deva"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="hin-Deva"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;परीक्षा, १, २, ३&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-    &lt;/conceptum&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+      &lt;/conceptum&gt;
 
-    &lt;conceptum _="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
-      &lt;linguam _="lat-Latn"&gt;
+      &lt;conceptum _="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
+        &lt;linguam _="lat-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;I,V, X, L, C, D, M&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="por-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="por-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="eng-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="eng-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="spa-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="spa-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;10&lt;/accuratum&gt;
             &lt;de-textum&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="hin-Deva"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="hin-Deva"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;०, १, २, ३, ४, ५, ६, ७, ८, ९&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-      &lt;linguam _="slv-Latn"&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+        &lt;linguam _="slv-Latn"&gt;
+          &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
+            &lt;accuratum&gt;1&lt;/accuratum&gt;
             &lt;de-textum&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/de-textum&gt;
           &lt;/terminum&gt;
-      &lt;/linguam&gt;
-    &lt;/conceptum&gt;
+          &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+          &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+        &lt;/linguam&gt;
+      &lt;/conceptum&gt;
 
+    &lt;/librarium&gt;
   &lt;/datum&gt;
 &lt;/glossarium&gt;</code></pre>
 </div>
@@ -5355,7 +5584,7 @@ hxltmdexml --help</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">usage: hxltmdexml [-h] [--agendum-linguam agendum_linguam]
+<pre class="highlightjs highlight"><code class="language-none hljs">usage: hxltmdexml [-h] [--agendum-linguam [agendum_linguam]]
                   [--fontem-linguam [fontem_linguam]]
                   [--objectivum-linguam [objectivum_linguam]]
                   [--archivum-configurationem] [--venandum-insectum-est]
@@ -5372,7 +5601,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --agendum-linguam agendum_linguam, -AL agendum_linguam
+  --agendum-linguam [agendum_linguam], -AL [agendum_linguam]
                         List of working languages. Required for multilinguam
                         formats (like TBX and TBX) both to avoid scan the
                         source file and to be sure about HXL attributes of the
@@ -5428,7 +5657,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 06:17:02 UTC
+Last updated 2021-07-28 20:43:36 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

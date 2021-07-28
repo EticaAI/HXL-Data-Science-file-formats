@@ -507,9 +507,20 @@
           "de_attributum": "_",
           "trivium": []
         },
+        "linguam_linguam": {
+          "ad": "XML-nodum-attributum:_",
+          "de_signum": "linguam",
+          "trivium": []
+        },
+        "terminum_habendum_accuratum": true,
         "terminum_habendum_multum": true,
-        "terminum_habendum_fontem": false,
-        "terminum_habendum_objectivum": false,
+        "terminum_habendum_fontem": true,
+        "terminum_habendum_objectivum": true,
+        "terminum_accuratum": {
+          "ad": "XML-nodum-textum",
+          "de_signum": "accuratum",
+          "trivium": []
+        },
         "terminum_valorem": {
           "signum": "de-textum",
           "trivium": [
@@ -528,13 +539,16 @@
           "contextum": "contextum",
           "titulum": "titulum",
           "linguam": "linguam",
+          "librarium": "librarium",
           "partem-orationis": "partem-orationis",
           "terminum": "terminum",
+          "fontem": "fontem",
+          "objectivum": "objectivum",
           "de-textum": "de-textum"
         },
-        "initiale": "<glossarium _=\"Latium\" __=\"hxltmcli.py\" ___=\"{{ globum.instrumentum_versionem }}\">\n  <caput>\n    <titulum>{{ globum.glossarium_titulum }}</titulum>\n  </caput>\n  <datum>\n",
-        "corporeum": "    <conceptum _=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}\">\n      {%- for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <linguam _=\"{{ item[1].linguam }}\">\n          <terminum>\n            <accuratum></accuratum>\n            <de-textum>{{ item[1].rem }}</de-textum>\n          </terminum>\n      </linguam>\n      {%- endif -%}\n      {%- endfor %}\n    </conceptum>\n",
-        "finale": "  </datum>\n</glossarium>\n"
+        "initiale": "<glossarium _=\"Latium\" __=\"hxltmcli.py\" ___=\"{{ globum.instrumentum_versionem }}\">\n  <caput>\n    <titulum>{{ globum.glossarium_titulum }}</titulum>\n  </caput>\n  <datum>\n    <!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The \"_\" is (an non-Latin) script neutral default ID [eng-Latn]_ -->\n    <librarium _=\"_\">",
+        "corporeum": "      <conceptum _=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}\">\n        {%- for item in rem.de_linguam %}\n        {% if item[1].rem != '' -%}\n        <linguam _=\"{{ item[1].linguam }}\">\n          <definitionem></definitionem>\n          <terminum>\n            {% if item[1].accuratum -%}\n            <accuratum>{{ item[1].accuratum }}</accuratum>\n            {%- endif %}\n            <de-textum>{{ item[1].rem }}</de-textum>\n          </terminum>\n          <!-- <terminum-fontem></terminum-fontem> -->\n          <!-- <terminum-objectivum></terminum-objectivum> -->\n        </linguam>\n        {%- endif -%}\n        {%- endfor %}\n      </conceptum>\n",
+        "finale": "    </librarium>\n  </datum>\n</glossarium>\n"
       }
     },
     "XLIFF": {

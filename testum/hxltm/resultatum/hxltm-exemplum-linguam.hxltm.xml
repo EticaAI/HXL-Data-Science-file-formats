@@ -3,281 +3,483 @@
     <titulum></titulum>
   </caput>
   <datum>
-
-    <conceptum _="L10N_ego_codicem">
-      <linguam _="lat-Latn">
+    <!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The "_" is (an non-Latin) script neutral default ID [eng-Latn]_ -->
+    <librarium _="_">
+      <conceptum _="L10N_ego_codicem">
+        <linguam _="lat-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>lat-Latn</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="por-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="por-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>por-Latn</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="eng-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="eng-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>eng-Latn</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="spa-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="spa-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>spa-Latn</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="arb-Arab">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="arb-Arab">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>arb-Arab</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="hin-Deva">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="hin-Deva">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>hin-Deva</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="slv-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="slv-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>slv-Latn</de-textum>
           </terminum>
-      </linguam>
-    </conceptum>
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+      </conceptum>
 
-    <conceptum _="L10N_ego_linguam_nomen">
-      <linguam _="lat-Latn">
+      <conceptum _="L10N_ego_linguam_nomen">
+        <linguam _="lat-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Lingua Latina</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="por-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="por-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Língua portuguesa</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="eng-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="eng-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>English language</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="spa-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="spa-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Idioma español</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="arb-Arab">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="arb-Arab">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>اللغة العربية</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="hin-Deva">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="hin-Deva">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>हिन्दी भाषा</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="slv-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="slv-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>Slovenščina</de-textum>
           </terminum>
-      </linguam>
-    </conceptum>
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+      </conceptum>
 
-    <conceptum _="L10N_ego_scriptum_nomen">
-      <linguam _="lat-Latn">
+      <conceptum _="L10N_ego_scriptum_nomen">
+        <linguam _="lat-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Abecedarium Latinum</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="por-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="por-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Alfabeto latino</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="eng-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="eng-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Latin script</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="spa-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="spa-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Alfabeto latino</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="hin-Deva">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="hin-Deva">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>देवनागरी लिपि</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="slv-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="slv-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>Latinska abeceda</de-textum>
           </terminum>
-      </linguam>
-    </conceptum>
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+      </conceptum>
 
-    <conceptum _="L10N_ego_patriam_UN_M49_numerum">
-      <linguam _="lat-Latn">
+      <conceptum _="L10N_ego_patriam_UN_M49_numerum">
+        <linguam _="lat-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>001</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="por-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="por-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>001</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="eng-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="eng-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>001</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="spa-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="spa-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>001</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="arb-Arab">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="arb-Arab">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>001</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="hin-Deva">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="hin-Deva">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>001</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="slv-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="slv-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>001</de-textum>
           </terminum>
-      </linguam>
-    </conceptum>
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+      </conceptum>
 
-    <conceptum _="L10N_ego_patriam_UN_P_codicem">
-      <linguam _="lat-Latn">
+      <conceptum _="L10N_ego_patriam_UN_P_codicem">
+        <linguam _="lat-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>∅</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="por-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="por-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>∅</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="eng-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="eng-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>∅</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="spa-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="spa-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>∅</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="arb-Arab">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="arb-Arab">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>∅</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="hin-Deva">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="hin-Deva">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>∅</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="slv-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="slv-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>∅</de-textum>
           </terminum>
-      </linguam>
-    </conceptum>
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+      </conceptum>
 
-    <conceptum _="I18N_testum_salve_mundi_testum_I18N">
-      <linguam _="lat-Latn">
+      <conceptum _="I18N_testum_salve_mundi_testum_I18N">
+        <linguam _="lat-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Salvi mundi!</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="por-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="por-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Olá mundo!</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="eng-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="eng-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Hello, World!</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="spa-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="spa-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>¡Hola mundo!</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="hin-Deva">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="hin-Deva">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>नमस्ते दुनिया</de-textum>
           </terminum>
-      </linguam>
-    </conceptum>
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+      </conceptum>
 
-    <conceptum _="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
-      <linguam _="lat-Latn">
+      <conceptum _="I18N_إختبار_טעסט_测试_테스트_испытание_I18N">
+        <linguam _="lat-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Testum, I, II, III</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="por-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="por-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Teste, 1, 2, 3</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="eng-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="eng-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Test, 1, 2, 3</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="spa-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="spa-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>Prueba, 1, 2, 3</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="hin-Deva">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="hin-Deva">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>परीक्षा, १, २, ३</de-textum>
           </terminum>
-      </linguam>
-    </conceptum>
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+      </conceptum>
 
-    <conceptum _="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
-      <linguam _="lat-Latn">
+      <conceptum _="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N">
+        <linguam _="lat-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>I,V, X, L, C, D, M</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="por-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="por-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="eng-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="eng-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="spa-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="spa-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>10</accuratum>
             <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="hin-Deva">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="hin-Deva">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>०, १, २, ३, ४, ५, ६, ७, ८, ९</de-textum>
           </terminum>
-      </linguam>
-      <linguam _="slv-Latn">
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+        <linguam _="slv-Latn">
+          <definitionem></definitionem>
           <terminum>
+            <accuratum>1</accuratum>
             <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
           </terminum>
-      </linguam>
-    </conceptum>
+          <!-- <terminum-fontem></terminum-fontem> -->
+          <!-- <terminum-objectivum></terminum-objectivum> -->
+        </linguam>
+      </conceptum>
 
+    </librarium>
   </datum>
 </glossarium>
 

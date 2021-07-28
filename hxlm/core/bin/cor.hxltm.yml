@@ -777,15 +777,25 @@ normam:
         de_attributum: _
         trivium: []
 
-      # IV terminum
-      # terminum_habendum_accuratum: True
-      terminum_habendum_multum: True
-      terminum_habendum_fontem: False # TMX terminum habendum fontem? Falsum
-      terminum_habendum_objectivum: False # TMX terminum habendum objectivum? Falsum
+      linguam_linguam:
+        ad: 'XML-nodum-attributum:_'
+        de_signum: linguam
+        # signum: linguam
+        # de_attributum:
+        #   type: reliabilityCode
+        trivium: []
 
-      # terminum_accuratum: False # TMX terminum habendum accuratum? Falsum
-      # terminum_fontem: False # TMX terminum habendum fontem? Falsum
-      # terminum_objectivum: False # TMX terminum habendum objectivum? Falsum
+      # IV terminum
+      terminum_habendum_accuratum: True
+      terminum_habendum_multum: True
+      terminum_habendum_fontem: True
+      terminum_habendum_objectivum: True
+
+      terminum_accuratum:
+        ad: XML-nodum-textum
+        de_signum: accuratum
+        # de_attributum: False
+        trivium: []
 
       terminum_valorem:
         signum: de-textum  # 'lat-Latn' ad <tu tuid="L10N_ego_codicem"><tuv xml:lang="la"><seg>lat-Latn</seg>
@@ -823,36 +833,53 @@ normam:
         # linguam, https://en.wiktionary.org/wiki/lingua#Latin
         linguam: linguam
 
+        # librārium, https://en.wiktionary.org/wiki/librarium#Latin
+        librarium: librarium
+
         # partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
         partem-orationis: partem-orationis
 
         # terminum, https://en.wiktionary.org/wiki/terminus#Latin
         terminum: terminum
 
+        # fontem, https://en.wiktionary.org/wiki/fons#Latin
+        fontem: fontem
+
+        # objectīvum, https://en.wiktionary.org/wiki/objectivus#Latin
+        objectivum: objectivum
+
         de-textum: de-textum
 
-      initiale: |2
+      initiale: |2-
         <glossarium _="Latium" __="hxltmcli.py" ___="{{ globum.instrumentum_versionem }}">
           <caput>
             <titulum>{{ globum.glossarium_titulum }}</titulum>
           </caput>
           <datum>
+            <!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The "_" is (an non-Latin) script neutral default ID [eng-Latn]_ -->
+            <librarium _="_">
 
       corporeum: |2
-            <conceptum _="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}">
-              {%- for item in rem.de_linguam %}
-              {% if item[1].rem != '' -%}
-              <linguam _="{{ item[1].linguam }}">
+              <conceptum _="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}">
+                {%- for item in rem.de_linguam %}
+                {% if item[1].rem != '' -%}
+                <linguam _="{{ item[1].linguam }}">
+                  <definitionem></definitionem>
                   <terminum>
-                    <accuratum></accuratum>
+                    {% if item[1].accuratum -%}
+                    <accuratum>{{ item[1].accuratum }}</accuratum>
+                    {%- endif %}
                     <de-textum>{{ item[1].rem }}</de-textum>
                   </terminum>
-              </linguam>
-              {%- endif -%}
-              {%- endfor %}
-            </conceptum>
+                  <!-- <terminum-fontem></terminum-fontem> -->
+                  <!-- <terminum-objectivum></terminum-objectivum> -->
+                </linguam>
+                {%- endif -%}
+                {%- endfor %}
+              </conceptum>
 
       finale: |2
+            </librarium>
           </datum>
         </glossarium>
 

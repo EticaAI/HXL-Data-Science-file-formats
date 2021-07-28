@@ -1529,15 +1529,25 @@ normam:
         de_attributum: _
         trivium: []
 
-      # IV terminum
-      # terminum_habendum_accuratum: True
-      terminum_habendum_multum: True
-      terminum_habendum_fontem: False # TMX terminum habendum fontem? Falsum
-      terminum_habendum_objectivum: False # TMX terminum habendum objectivum? Falsum
+      linguam_linguam:
+        ad: 'XML-nodum-attributum:_'
+        de_signum: linguam
+        # signum: linguam
+        # de_attributum:
+        #   type: reliabilityCode
+        trivium: []
 
-      # terminum_accuratum: False # TMX terminum habendum accuratum? Falsum
-      # terminum_fontem: False # TMX terminum habendum fontem? Falsum
-      # terminum_objectivum: False # TMX terminum habendum objectivum? Falsum
+      # IV terminum
+      terminum_habendum_accuratum: True
+      terminum_habendum_multum: True
+      terminum_habendum_fontem: True
+      terminum_habendum_objectivum: True
+
+      terminum_accuratum:
+        ad: XML-nodum-textum
+        de_signum: accuratum
+        # de_attributum: False
+        trivium: []
 
       terminum_valorem:
         signum: de-textum  # 'lat-Latn' ad &lt;tu tuid="L10N_ego_codicem"&gt;&lt;tuv xml:lang="la"&gt;&lt;seg&gt;lat-Latn&lt;/seg&gt;
@@ -1575,36 +1585,53 @@ normam:
         # linguam, https://en.wiktionary.org/wiki/lingua#Latin
         linguam: linguam
 
+        # librārium, https://en.wiktionary.org/wiki/librarium#Latin
+        librarium: librarium
+
         # partem ōrātiōnis, https://en.wiktionary.org/wiki/pars_orationis#Latin
         partem-orationis: partem-orationis
 
         # terminum, https://en.wiktionary.org/wiki/terminus#Latin
         terminum: terminum
 
+        # fontem, https://en.wiktionary.org/wiki/fons#Latin
+        fontem: fontem
+
+        # objectīvum, https://en.wiktionary.org/wiki/objectivus#Latin
+        objectivum: objectivum
+
         de-textum: de-textum
 
-      initiale: |2
+      initiale: |2-
         &lt;glossarium _="Latium" __="hxltmcli.py" ___="{{ globum.instrumentum_versionem }}"&gt;
           &lt;caput&gt;
             &lt;titulum&gt;{{ globum.glossarium_titulum }}&lt;/titulum&gt;
           &lt;/caput&gt;
           &lt;datum&gt;
+            &lt;!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The "_" is (an non-Latin) script neutral default ID [eng-Latn]_ --&gt;
+            &lt;librarium _="_"&gt;
 
       corporeum: |2
-            &lt;conceptum _="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}"&gt;
-              {%- for item in rem.de_linguam %}
-              {% if item[1].rem != '' -%}
-              &lt;linguam _="{{ item[1].linguam }}"&gt;
+              &lt;conceptum _="{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}"&gt;
+                {%- for item in rem.de_linguam %}
+                {% if item[1].rem != '' -%}
+                &lt;linguam _="{{ item[1].linguam }}"&gt;
+                  &lt;definitionem&gt;&lt;/definitionem&gt;
                   &lt;terminum&gt;
-                    &lt;accuratum&gt;&lt;/accuratum&gt;
+                    {% if item[1].accuratum -%}
+                    &lt;accuratum&gt;{{ item[1].accuratum }}&lt;/accuratum&gt;
+                    {%- endif %}
                     &lt;de-textum&gt;{{ item[1].rem }}&lt;/de-textum&gt;
                   &lt;/terminum&gt;
-              &lt;/linguam&gt;
-              {%- endif -%}
-              {%- endfor %}
-            &lt;/conceptum&gt;
+                  &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
+                  &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
+                &lt;/linguam&gt;
+                {%- endif -%}
+                {%- endfor %}
+              &lt;/conceptum&gt;
 
       finale: |2
+            &lt;/librarium&gt;
           &lt;/datum&gt;
         &lt;/glossarium&gt;
 
@@ -3449,7 +3476,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 06:17:02 UTC
+Last updated 2021-07-28 20:43:36 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

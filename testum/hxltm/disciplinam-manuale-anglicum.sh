@@ -554,14 +554,13 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 ### I -------------------------------------------------------------------------
 # _[eng-Latn]
 # Explanation about the format at cor.hxltm.yml:normam.XML
+#
+#     cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML > resultatum/hxltm-exemplum-linguam.hxltm.xml
 # [eng-Latn]_
+# To generate:
 ### II -------------------------------------------------------------------------
 # _[eng-Latn]
 # The next 2 examples are equivalent: will print to stdout the result
-# TBX-IATE:
-#   spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
-#   bg,cs,da,de,el,en,es,et,fi,fr,ga,hr,hu,it,lt,lv,mt,nl,pl,pt,ro,sk,sl,sv
-#
 # [eng-Latn]_
 
 hxltmdexml resultatum/hxltm-exemplum-linguam.hxltm.xml
@@ -578,6 +577,9 @@ hxltmdexml resultatum/hxltm-exemplum-linguam.hxltm.xml --agendum-linguam lat-Lat
 
 # To export all languages from TBX generated from IATE
 # hxltmdexml IATE_export.tbx --agendum-linguam spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
+# cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt,spa-Latn@es --agendum-linguam por-Latn@pt
+
+
 
 ### II -------------------------------------------------------------------------
 # _[eng-Latn]
