@@ -1,4 +1,4 @@
-usage: hxltmdexml [-h] [--agendum-linguam agendum_linguam]
+usage: hxltmdexml [-h] [--agendum-linguam [agendum_linguam]]
                   [--fontem-linguam [fontem_linguam]]
                   [--objectivum-linguam [objectivum_linguam]]
                   [--archivum-configurationem] [--venandum-insectum-est]
@@ -15,7 +15,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --agendum-linguam agendum_linguam, -AL agendum_linguam
+  --agendum-linguam [agendum_linguam], -AL [agendum_linguam]
                         List of working languages. Required for multilinguam
                         formats (like TBX and TBX) both to avoid scan the
                         source file and to be sure about HXL attributes of the
