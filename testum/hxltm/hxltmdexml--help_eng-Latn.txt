@@ -1,4 +1,6 @@
 usage: hxltmdexml [-h] [--agendum-linguam agendum_linguam]
+                  [--fontem-linguam [fontem_linguam]]
+                  [--objectivum-linguam [objectivum_linguam]]
                   [--archivum-configurationem] [--venandum-insectum-est]
                   [infile] [outfile]
 
@@ -21,6 +23,8 @@ optional arguments:
                         Latn@la,arb-Arab@ar . Example II (TBX IATE,
                         es,en,fr,la,pt,mul): spa-Latn@es,eng-Latn@en,fra-
                         Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
+  --fontem-linguam [fontem_linguam], -FL [fontem_linguam]
+  --objectivum-linguam [objectivum_linguam], -OL [objectivum_linguam]
   --archivum-configurationem
                         Path to custom configuration file (The cor.hxltm.yml)
   --venandum-insectum-est, --debug
@@ -39,3 +43,8 @@ Translation Memory eXchange format (TMX): -> HXLTM:
 
 TBX-Basic: TermBase eXchange (TBX) Basic: -> HXLTM:
     hxltmdexml fontem.tbx objectivum.tm.hxl.csv
+
+TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (por-Latn@pt)
+
+    zcat IATE_download.zip | hxltmdexml --agendum-linguam por-Latn@pt
+    cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt
