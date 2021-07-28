@@ -468,6 +468,58 @@
         "finale": false
       }
     },
+    "XML": {
+      "__meta": {
+        "archivum_extensionem": ".hxltm.xml",
+        "descriptionem": "_[eng-Latn]\nThe .hxltm.xml named 'XML Glōssārium' is an example of multilingual\nglossary exported to XML format.\n[eng-Latn]_\n",
+        "normam": [
+          "https://hdp.etica.ai/hxltm/archivum/#XML"
+        ],
+        "nomen": {
+          "eng-Latn": "XML Glōssārium (generic multilingual XML)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "https://hdp.etica.ai/hxltm/archivum/#XML"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "glossarium"
+        },
+        "glossarium_titulum": false,
+        "conceptum_codicem": {
+          "signum": "tu",
+          "de_attributum": "tuid",
+          "trivium": [
+            "body"
+          ]
+        },
+        "linguam_codicem": {
+          "signum": "tuv",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "terminum_habendum_multum": true,
+        "terminum_habendum_fontem": false,
+        "terminum_habendum_objectivum": false,
+        "terminum_valorem": {
+          "signum": "seg",
+          "trivium": []
+        }
+      },
+      "formatum": {
+        "initiale": "<?xml version='1.0' encoding='utf-8'?>\n<!DOCTYPE tmx SYSTEM \"tmx14.dtd\">\n<tmx version=\"1.4\">\n  <header\n    creationtool=\"hxltmcli.py\"\n    creationtoolversion=\"{{ globum.instrumentum_versionem }}\"\n    segtype=\"sentence\"\n    o-tmf=\"UTF-8\"\n    adminlang=\"{{ globum.instrumentum_versionem }}\"\n    srclang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\"\n    datatype=\"PlainText\"\n  />\n  <body>\n",
+        "corporeum": "    <tu tuid=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {%- if conceptum.conceptum_codicem_wikidata %}\n      <prop type=\"wikidata\">{{ conceptum.conceptum_codicem_wikidata }}</prop>\n      {% endif -%}\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <tuv xml:lang=\"{{ item[1].bcp47 }}\">\n        <seg>\n          {{ item[1].rem }}\n        </seg>\n      </tuv>\n      {%- endif -%}\n      {%- endfor %}\n    </tu>\n",
+        "finale": "  </body>\n</tmx>\n"
+      }
+    },
     "XLIFF": {
       "__meta": {
         "archivum_extensionem": ".xlf",
@@ -496,6 +548,40 @@
         "modus_operandi": [
           "bilingue"
         ]
+      },
+      "de_xml": {
+        "glossarium_radicem": {
+          "signum": "xliff"
+        },
+        "glossarium_titulum": false,
+        "conceptum_codicem": {
+          "signum": "unit",
+          "de_attributum": "id",
+          "trivium": [
+            "file"
+          ]
+        },
+        "linguam_codicem": false,
+        "linguam_fontem_codicem": {
+          "signum": "source",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "linguam_objectivum_codicem": {
+          "signum": "target",
+          "de_attributum": "lang",
+          "trivium": []
+        },
+        "terminum_accuratum": false,
+        "terminum_multum": false,
+        "terminum_fontem_valorem": {
+          "signum": "source",
+          "trivium": []
+        },
+        "terminum_objectivum_valorem": {
+          "signum": "target",
+          "trivium": []
+        }
       },
       "formatum": {
         "initiale": "<?xml version=\"1.0\"?>\n<xliff version=\"2.0\"\n  xmlns=\"urn:oasis:names:tc:xliff:document:2.0\"\n  xmlns:fs=\"urn:oasis:names:tc:xliff:fs:2.0\"\n  xmlns:val=\"urn:oasis:names:tc:xliff:validation:2.0\"\n  srcLang=\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\"\n  trgLang=\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\">\n  <file id=\"f1\">\n",

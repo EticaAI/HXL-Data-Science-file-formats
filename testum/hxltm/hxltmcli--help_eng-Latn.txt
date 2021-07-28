@@ -8,9 +8,10 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--non-agendum-linguam non_agendum_linguam]
                 [--auxilium-linguam auxilium_linguam] [--objectivum-HXLTM]
                 [--objectivum-TMX] [--objectivum-TBX-Basim] [--objectivum-UTX]
-                [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
-                [--objectivum-CSV-3] [--objectivum-TSV-3]
-                [--objectivum-CSV-HXL-XLIFF] [--objectivum-JSON-kv]
+                [--objectivum-XML] [--objectivum-XLIFF]
+                [--objectivum-XLIFF-obsoletum] [--objectivum-CSV-3]
+                [--objectivum-TSV-3] [--objectivum-CSV-HXL-XLIFF]
+                [--objectivum-JSON-kv]
                 [--objectivum-formatum-speciale [objectivum_formatum_speciale]]
                 [--limitem-quantitatem [limitem_quantitatem]]
                 [--limitem-initiale-lineam [limitem_initiale_lineam]]
@@ -85,6 +86,7 @@ optional arguments:
   --objectivum-UTX, --UTX
                         (Planned, but not implemented yet) Export to Universal
                         Terminology eXchange (UTX). Multilingual output format
+  --objectivum-XML      Export to XML format. Multilingual output format
   --objectivum-XLIFF, --XLIFF, --XLIFF2
                         Export to XLIFF (XML Localization Interchange File
                         Format) v2.1. (mono or bi-lingual support only as per

@@ -405,6 +405,36 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX > resultatum/h
 
 # end::UTX[]
 
+#### XML _______________________________________________________________________
+# tag::XML[]
+### I -------------------------------------------------------------------------
+# _[eng-Latn]
+# Explanation about the format at cor.hxltm.yml:normam.XML
+# [eng-Latn]_
+
+### II -------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: will print to stdout the result
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --objectivum-XML
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML
+
+### III ------------------------------------------------------------------------
+# _[eng-Latn]
+# The next 2 examples are equivalent: they save the input data on a file on
+# disk.
+# [eng-Latn]_
+
+hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
+  resultatum/hxltm-exemplum-linguam.tmx \
+  --objectivum-XML
+
+cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML > resultatum/hxltm-exemplum-linguam.hxltm.xml
+
+# end::XML[]
+
 #### XLIFF _____________________________________________________________________
 # tag::XLIFF[]
 ### I -------------------------------------------------------------------------
@@ -613,9 +643,9 @@ cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmde
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf
+hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
-cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml
+cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
