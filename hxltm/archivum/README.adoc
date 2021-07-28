@@ -45,9 +45,22 @@ TIP: For advanced hackers or (people helping others in middle of urgency and
 [#HXLTM-TLDR]
 == TL;DR: Too Long; Didn't read
 
+=== hxltmcli
+
+"To convert from HXLTM to something else"
+
 [source,yaml]
 ----
 include::../../bin/hxltmcli[tag=epilogum]
+----
+
+=== hxltmdexml
+
+"To convert from something else in XML to HXLTM"
+
+[source,yaml]
+----
+include::../../bin/hxltmdexml[tag=epilogum]
 ----
 
 [#HXLTM-archivum-dialecton]

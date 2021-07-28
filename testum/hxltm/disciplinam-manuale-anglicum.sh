@@ -585,8 +585,8 @@ hxltmdexml resultatum/hxltm-exemplum-linguam.hxltm.xml --agendum-linguam lat-Lat
 # _[eng-Latn]
 # The next 2 examples are equivalent: will print to stdout the result
 # TBX-IATE:
-#   spa-Latn@es,eng-Latn@en,fra-Latn@fr,lat-Latn@la,por-Latn@pt,mul-Zyyy
-#   bg,cs,da,de,el,en,es,et,fi,fr,ga,hr,hu,it,lt,lv,mt,nl,pl,pt,ro,sk,sl,sv
+# cat hxltmdexml IATE_export.tbx | (...)
+#     hxltmdexml --agendum-linguam bul-Latn@bg --agendum-linguam ces-Latn@cs --agendum-linguam dan-Latn@da --agendum-linguam dut-Latn@nl --agendum-linguam ell-Latn@el --agendum-linguam eng-Latn@en --agendum-linguam est-Latn@et --agendum-linguam fin-Latn@fi --agendum-linguam fra-Latn@fr --agendum-linguam ger-Latn@de --agendum-linguam ger-Latn@de --agendum-linguam gle-Latn@ga --agendum-linguam hun-Latn@hu --agendum-linguam ita-Latn@it --agendum-linguam lav-Latn@lv --agendum-linguam lit-Latn@lt --agendum-linguam mlt-Latn@mt --agendum-linguam pol-Latn@pl --agendum-linguam por-Latn@pt --agendum-linguam ron-Latn@ro --agendum-linguam slk-Latn@sk --agendum-linguam slv-Latn@sl --agendum-linguam spa-Latn@es --agendum-linguam swe-Latn@sv
 #
 # [eng-Latn]_
 

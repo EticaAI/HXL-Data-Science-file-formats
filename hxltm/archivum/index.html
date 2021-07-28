@@ -443,7 +443,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#HXLTM-TLDR">TL;DR: Too Long; Didn&#8217;t read</a></li>
+<li><a href="#HXLTM-TLDR">TL;DR: Too Long; Didn&#8217;t read</a>
+<ul class="sectlevel2">
+<li><a href="#_hxltmcli">hxltmcli</a></li>
+<li><a href="#_hxltmdexml">hxltmdexml</a></li>
+</ul>
+</li>
 <li><a href="#HXLTM-archivum-dialecton">HXLM core file dialects</a>
 <ul class="sectlevel2">
 <li><a href="#HXLTM"><code>HXLTM</code></a>
@@ -598,6 +603,11 @@ For advanced hackers or (people helping others in middle of urgency and
 <div class="sect1">
 <h2 id="HXLTM-TLDR">TL;DR: Too Long; Didn&#8217;t read</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_hxltmcli">hxltmcli</h3>
+<div class="paragraph">
+<p>"To convert from HXLTM to something else"</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">__EPILOGUM__ = """
@@ -619,6 +629,66 @@ HXLTM (Google Docs) -&gt; Translation Memory eXchange format (TMX):
     hxltmcli https://docs.google.com/spreadsheets/(...) objectivum.tmx \
 --objectivum-TMX
 """</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hxltmdexml">hxltmdexml</h3>
+<div class="paragraph">
+<p>"To convert from something else in XML to HXLTM"</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">__EPILOGUM__ = """
+Exemplōrum gratiā:
+
+XML Localization Interchange File Format (XLIFF) v2.1+: -&gt; HXLTM (bilinguam):
+    hxltmdexml fontem.xlf objectivum.tm.hxl.csv
+
+XML Localization Interchange File Format (XLIFF) v1.2: -&gt; HXLTM (bilinguam):
+    hxltmdexml fontem.xlf objectivum.tm.hxl.csv
+
+Translation Memory eXchange format (TMX): -&gt; HXLTM:
+    hxltmdexml fontem.tmx objectivum.tm.hxl.csv
+
+TBX-Basic: TermBase eXchange (TBX) Basic: -&gt; HXLTM:
+    hxltmdexml fontem.tbx objectivum.tm.hxl.csv
+
+TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (por-Latn@pt)
+
+    zcat IATE_download.zip | hxltmdexml --agendum-linguam por-Latn@pt
+    cat IATE_export.tbx | hxltmdexml --agendum-linguam por-Latn@pt
+
+TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (...)
+
+    hxltmdexml IATE_export.tbx IATE_export.hxltm.csv \\
+        --agendum-linguam bul-Latn@bg \\
+        --agendum-linguam ces-Latn@cs \\
+        --agendum-linguam dan-Latn@da \\
+        --agendum-linguam dut-Latn@nl \\
+        --agendum-linguam ell-Latn@el \\
+        --agendum-linguam eng-Latn@en \\
+        --agendum-linguam est-Latn@et \\
+        --agendum-linguam fin-Latn@fi \\
+        --agendum-linguam fra-Latn@fr \\
+        --agendum-linguam ger-Latn@de \\
+        --agendum-linguam ger-Latn@de \\
+        --agendum-linguam gle-Latn@ga \\
+        --agendum-linguam hun-Latn@hu \\
+        --agendum-linguam ita-Latn@it \\
+        --agendum-linguam lav-Latn@lv \\
+        --agendum-linguam lit-Latn@lt \\
+        --agendum-linguam mlt-Latn@mt \\
+        --agendum-linguam pol-Latn@pl \\
+        --agendum-linguam por-Latn@pt \\
+        --agendum-linguam ron-Latn@ro \\
+        --agendum-linguam slk-Latn@sk \\
+        --agendum-linguam slv-Latn@sl \\
+        --agendum-linguam spa-Latn@es \\
+        --agendum-linguam swe-Latn@sv
+
+"""</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1272,8 +1342,9 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
       # IV terminum
       terminum_habendum_accuratum: True
       terminum_habendum_multum: True
-      terminum_habendum_fontem: False # TBX terminum habendum fontem? Falsum
-      terminum_habendum_objectivum: False # TBX terminum habendum objectivum? Falsum
+      terminum_habendum_fontem: False
+      terminum_habendum_objectivum: False
+      terminum_habendum_typum: True
 
       terminum_accuratum:
         # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
@@ -1302,6 +1373,16 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
         # de_attributum: False
         trivium:
           - tig  # de &lt;langSet&gt; ad &lt;term&gt;
+
+      terminum_typum:
+        # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
+        ad: XML-nodum-textum
+        signum: termNote
+        de_attributum:
+          type: termType
+        in_praefixum: 'TBX_'
+        in_suffixum: ''
+        trivium: []
 
     formatum:
       initiale: False
@@ -2508,6 +2589,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX &gt; resultatu
 
       # IV terminum
       terminum_habendum_accuratum: True
+      terminum_habendum_type: True
       terminum_habendum_multum: True
       terminum_habendum_fontem: True
       terminum_habendum_objectivum: True
@@ -5268,11 +5350,15 @@ ontologia_aliud:
       codicem_XLIFF: final
 
   # Trivia:
-  # - rem, https://en.wiktionary.org/wiki/res#Latin
+  # - terminum, https://en.wiktionary.org/wiki/terminus#Latin
   # - typum, https://en.wiktionary.org/wiki/typus#Latin
-  rem_typum:
+  terminum_typum: &amp;ontologia_aliud_terminum_typum
 
-    ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
+    ### TermBase eXchange (TBX) "TBX-Basic" 3.1 + IATE ------------------------
+    # @see http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+    # @see https://iate.europa.eu/fields-explained
+    # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+    # @TODO: maybe add the ones from tbx_oscar_0
     TBX_fullForm:
       _codicem: DC-321
       codicem_TBX: fullForm
@@ -5282,6 +5368,8 @@ ontologia_aliud:
     TBX_abbreviation:
       _codicem: DC-331
       codicem_TBX: abbreviation
+    TBX_formula: # Used on IATE
+      codicem_TBX: formula
     TBX_shortForm:
       _codicem: DC-332
       codicem_TBX: shortForm
@@ -5302,6 +5390,9 @@ ontologia_aliud:
     #   memory format (such as TMX) rather than a glossary. When a UTX glossary is
     #   exported for an MT system that does not treat sentence as a type of
     #   part of speech, sentence entries can be treated as nouns.
+
+  #  @deprecated rem_typum. Use terminum_typum
+  rem_typum: *ontologia_aliud_terminum_typum
 
 ontologia_aliud_familiam:
   lat:
@@ -5694,7 +5785,31 @@ TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (por-Latn@pt
 
 TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (...)
 
-hxltmdexml IATE_export.tbx IATE_export.hxltm.csv     --agendum-linguam bul-Latn@bg     --agendum-linguam ces-Latn@cs     --agendum-linguam dan-Latn@da     --agendum-linguam dut-Latn@nl     --agendum-linguam ell-Latn@el     --agendum-linguam eng-Latn@en     --agendum-linguam est-Latn@et     --agendum-linguam fin-Latn@fi     --agendum-linguam fra-Latn@fr     --agendum-linguam ger-Latn@de     --agendum-linguam ger-Latn@de     --agendum-linguam gle-Latn@ga     --agendum-linguam hun-Latn@hu     --agendum-linguam ita-Latn@it     --agendum-linguam lav-Latn@lv     --agendum-linguam lit-Latn@lt     --agendum-linguam mlt-Latn@mt     --agendum-linguam pol-Latn@pl     --agendum-linguam por-Latn@pt     --agendum-linguam ron-Latn@ro     --agendum-linguam slk-Latn@sk     --agendum-linguam slv-Latn@sl     --agendum-linguam spa-Latn@es     --agendum-linguam swe-Latn@sv</code></pre>
+    hxltmdexml IATE_export.tbx IATE_export.hxltm.csv \
+        --agendum-linguam bul-Latn@bg \
+        --agendum-linguam ces-Latn@cs \
+        --agendum-linguam dan-Latn@da \
+        --agendum-linguam dut-Latn@nl \
+        --agendum-linguam ell-Latn@el \
+        --agendum-linguam eng-Latn@en \
+        --agendum-linguam est-Latn@et \
+        --agendum-linguam fin-Latn@fi \
+        --agendum-linguam fra-Latn@fr \
+        --agendum-linguam ger-Latn@de \
+        --agendum-linguam ger-Latn@de \
+        --agendum-linguam gle-Latn@ga \
+        --agendum-linguam hun-Latn@hu \
+        --agendum-linguam ita-Latn@it \
+        --agendum-linguam lav-Latn@lv \
+        --agendum-linguam lit-Latn@lt \
+        --agendum-linguam mlt-Latn@mt \
+        --agendum-linguam pol-Latn@pl \
+        --agendum-linguam por-Latn@pt \
+        --agendum-linguam ron-Latn@ro \
+        --agendum-linguam slk-Latn@sk \
+        --agendum-linguam slv-Latn@sl \
+        --agendum-linguam spa-Latn@es \
+        --agendum-linguam swe-Latn@sv</code></pre>
 </div>
 </div>
 </div>
@@ -5718,7 +5833,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 22:08:24 UTC
+Last updated 2021-07-28 23:53:03 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

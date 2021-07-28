@@ -358,6 +358,7 @@
         "terminum_habendum_multum": true,
         "terminum_habendum_fontem": false,
         "terminum_habendum_objectivum": false,
+        "terminum_habendum_typum": true,
         "terminum_accuratum": {
           "ad": "XML-nodum-textum",
           "signum": "descrip",
@@ -375,6 +376,16 @@
           "trivium": [
             "tig"
           ]
+        },
+        "terminum_typum": {
+          "ad": "XML-nodum-textum",
+          "signum": "termNote",
+          "de_attributum": {
+            "type": "termType"
+          },
+          "in_praefixum": "TBX_",
+          "in_suffixum": "",
+          "trivium": []
         }
       },
       "formatum": {
@@ -515,6 +526,7 @@
           "trivium": []
         },
         "terminum_habendum_accuratum": true,
+        "terminum_habendum_type": true,
         "terminum_habendum_multum": true,
         "terminum_habendum_fontem": true,
         "terminum_habendum_objectivum": true,
@@ -1620,6 +1632,35 @@
         "codicem_XLIFF": "final"
       }
     },
+    "terminum_typum": {
+      "TBX_fullForm": {
+        "_codicem": "DC-321",
+        "codicem_TBX": "fullForm"
+      },
+      "TBX_acronym": {
+        "_codicem": "DC-334",
+        "codicem_TBX": "acronym"
+      },
+      "TBX_abbreviation": {
+        "_codicem": "DC-331",
+        "codicem_TBX": "abbreviation"
+      },
+      "TBX_formula": {
+        "codicem_TBX": "formula"
+      },
+      "TBX_shortForm": {
+        "_codicem": "DC-332",
+        "codicem_TBX": "shortForm"
+      },
+      "TBX_variant": {
+        "_codicem": "DC-330",
+        "codicem_TBX": "variant"
+      },
+      "TBX_phrase": {
+        "_codicem": "DC-339",
+        "codicem_TBX": "phrase"
+      }
+    },
     "rem_typum": {
       "TBX_fullForm": {
         "_codicem": "DC-321",
@@ -1632,6 +1673,9 @@
       "TBX_abbreviation": {
         "_codicem": "DC-331",
         "codicem_TBX": "abbreviation"
+      },
+      "TBX_formula": {
+        "codicem_TBX": "formula"
       },
       "TBX_shortForm": {
         "_codicem": "DC-332",

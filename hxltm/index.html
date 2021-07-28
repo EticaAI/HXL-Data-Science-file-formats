@@ -1358,8 +1358,9 @@ normam:
       # IV terminum
       terminum_habendum_accuratum: True
       terminum_habendum_multum: True
-      terminum_habendum_fontem: False # TBX terminum habendum fontem? Falsum
-      terminum_habendum_objectivum: False # TBX terminum habendum objectivum? Falsum
+      terminum_habendum_fontem: False
+      terminum_habendum_objectivum: False
+      terminum_habendum_typum: True
 
       terminum_accuratum:
         # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
@@ -1388,6 +1389,16 @@ normam:
         # de_attributum: False
         trivium:
           - tig  # de &lt;langSet&gt; ad &lt;term&gt;
+
+      terminum_typum:
+        # Exemplum: &lt;descrip type="reliabilityCode"&gt;1&lt;/descrip&gt;
+        ad: XML-nodum-textum
+        signum: termNote
+        de_attributum:
+          type: termType
+        in_praefixum: 'TBX_'
+        in_suffixum: ''
+        trivium: []
 
     formatum:
       initiale: False
@@ -1596,6 +1607,7 @@ normam:
 
       # IV terminum
       terminum_habendum_accuratum: True
+      terminum_habendum_type: True
       terminum_habendum_multum: True
       terminum_habendum_fontem: True
       terminum_habendum_objectivum: True
@@ -3452,11 +3464,15 @@ ontologia_aliud:
       codicem_XLIFF: final
 
   # Trivia:
-  # - rem, https://en.wiktionary.org/wiki/res#Latin
+  # - terminum, https://en.wiktionary.org/wiki/terminus#Latin
   # - typum, https://en.wiktionary.org/wiki/typus#Latin
-  rem_typum:
+  terminum_typum: &amp;ontologia_aliud_terminum_typum
 
-    ### TermBase eXchange (TBX) "TBX-Basic" 3.1 --------------------------------
+    ### TermBase eXchange (TBX) "TBX-Basic" 3.1 + IATE ------------------------
+    # @see http://www.terminorgs.net/downloads/TBX_Basic_Version_3.1.pdf
+    # @see https://iate.europa.eu/fields-explained
+    # @see https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+    # @TODO: maybe add the ones from tbx_oscar_0
     TBX_fullForm:
       _codicem: DC-321
       codicem_TBX: fullForm
@@ -3466,6 +3482,8 @@ ontologia_aliud:
     TBX_abbreviation:
       _codicem: DC-331
       codicem_TBX: abbreviation
+    TBX_formula: # Used on IATE
+      codicem_TBX: formula
     TBX_shortForm:
       _codicem: DC-332
       codicem_TBX: shortForm
@@ -3486,6 +3504,9 @@ ontologia_aliud:
     #   memory format (such as TMX) rather than a glossary. When a UTX glossary is
     #   exported for an MT system that does not treat sentence as a type of
     #   part of speech, sentence entries can be treated as nouns.
+
+  #  @deprecated rem_typum. Use terminum_typum
+  rem_typum: *ontologia_aliud_terminum_typum
 
 ontologia_aliud_familiam:
   lat:
@@ -3533,7 +3554,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 22:08:24 UTC
+Last updated 2021-07-28 23:53:03 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
