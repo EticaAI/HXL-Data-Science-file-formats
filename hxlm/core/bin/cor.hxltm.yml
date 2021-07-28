@@ -395,6 +395,11 @@ normam:
         trivium: []
 
       # IV terminum
+      terminum_habendum_accuratum: True # TBX terminum habendum accuratum? Verum
+      terminum_habendum_multum: True
+      terminum_habendum_fontem: False # TBX terminum habendum fontem? Falsum
+      terminum_habendum_objectivum: False # TBX terminum habendum objectivum? Falsum
+
       terminum_valorem:
         signum: term  # 'lat-Latn' ad <langSet xml:lang="la"><tig><term>lat-Latn</term></tig></langSet>
         # de_attributum: False
@@ -531,6 +536,10 @@ normam:
           - termSec
 
       # IV terminum
+      terminum_habendum_multum: True
+      terminum_habendum_fontem: False # TBX terminum habendum fontem? Falsum
+      terminum_habendum_objectivum: False # TBX terminum habendum objectivum? Falsum
+
       terminum_accuratum:
         # Exemplum: <descrip type="reliabilityCode">1</descrip>
         signum: descrip
@@ -597,9 +606,14 @@ normam:
         trivium: []
 
       # IV terminum
-      terminum_accuratum: False # TMX terminum habendum accuratum? Falsum
-      terminum_fontem: False # TMX terminum habendum fontem? Falsum
-      terminum_objectivum: False # TMX terminum habendum objectivum? Falsum
+      # terminum_habendum_accuratum: True
+      terminum_habendum_multum: True
+      terminum_habendum_fontem: False # TMX terminum habendum fontem? Falsum
+      terminum_habendum_objectivum: False # TMX terminum habendum objectivum? Falsum
+
+      # terminum_accuratum: False # TMX terminum habendum accuratum? Falsum
+      # terminum_fontem: False # TMX terminum habendum fontem? Falsum
+      # terminum_objectivum: False # TMX terminum habendum objectivum? Falsum
 
       terminum_valorem:
         signum: seg  # 'lat-Latn' ad <tu tuid="L10N_ego_codicem"><tuv xml:lang="la"><seg>lat-Latn</seg>
@@ -841,9 +855,9 @@ normam:
         trivium: []
 
       # IV terminum
-      terminum_valorem: False # XLIFF-obsoletum est bilingue
 
       terminum_accuratum: False # XLIFF terminum habendum accuratum? Falsum
+      terminum_multum: False # XLIFF-obsoletum est bilingue
 
       terminum_fontem_valorem:
         # Exemplum: 'por-Latn ad <source xml:lang="pt">por-Latn</source>
