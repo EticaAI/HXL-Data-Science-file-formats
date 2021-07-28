@@ -232,32 +232,31 @@ TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (por-Latn@pt)
 
 TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (...)
 
-hxltmdexml IATE_export.tbx IATE_export.hxltm.csv \
-    --agendum-linguam bul-Latn@bg \
-    --agendum-linguam ces-Latn@cs \
-    --agendum-linguam dan-Latn@da \
-    --agendum-linguam dut-Latn@nl \
-    --agendum-linguam ell-Latn@el \
-    --agendum-linguam eng-Latn@en \
-    --agendum-linguam est-Latn@et \
-    --agendum-linguam fin-Latn@fi \
-    --agendum-linguam fra-Latn@fr \
-    --agendum-linguam ger-Latn@de \
-    --agendum-linguam ger-Latn@de \
-    --agendum-linguam gle-Latn@ga \
-    --agendum-linguam hun-Latn@hu \
-    --agendum-linguam ita-Latn@it \
-    --agendum-linguam lav-Latn@lv \
-    --agendum-linguam lit-Latn@lt \
-    --agendum-linguam mlt-Latn@mt \
-    --agendum-linguam pol-Latn@pl \
-    --agendum-linguam por-Latn@pt \
-    --agendum-linguam ron-Latn@ro \
-    --agendum-linguam slk-Latn@sk \
-    --agendum-linguam slv-Latn@sl \
-    --agendum-linguam spa-Latn@es \
-    --agendum-linguam swe-Latn@sv
-
+    hxltmdexml IATE_export.tbx IATE_export.hxltm.csv \\
+        --agendum-linguam bul-Latn@bg \\
+        --agendum-linguam ces-Latn@cs \\
+        --agendum-linguam dan-Latn@da \\
+        --agendum-linguam dut-Latn@nl \\
+        --agendum-linguam ell-Latn@el \\
+        --agendum-linguam eng-Latn@en \\
+        --agendum-linguam est-Latn@et \\
+        --agendum-linguam fin-Latn@fi \\
+        --agendum-linguam fra-Latn@fr \\
+        --agendum-linguam ger-Latn@de \\
+        --agendum-linguam ger-Latn@de \\
+        --agendum-linguam gle-Latn@ga \\
+        --agendum-linguam hun-Latn@hu \\
+        --agendum-linguam ita-Latn@it \\
+        --agendum-linguam lav-Latn@lv \\
+        --agendum-linguam lit-Latn@lt \\
+        --agendum-linguam mlt-Latn@mt \\
+        --agendum-linguam pol-Latn@pl \\
+        --agendum-linguam por-Latn@pt \\
+        --agendum-linguam ron-Latn@ro \\
+        --agendum-linguam slk-Latn@sk \\
+        --agendum-linguam slv-Latn@sl \\
+        --agendum-linguam spa-Latn@es \\
+        --agendum-linguam swe-Latn@sv
 
 """
 # end::epilogum[]
@@ -699,6 +698,14 @@ class HXLTMdeXML:
         if III_terminum_habendum_accuratum:
             self.in_formatum.definitionem_habendum_accuratum(True)
 
+        III_terminum_habendum_typum = \
+            bool(self._ontologia.de(
+                'terminum_habendum_typum', False, fontem=ontologia_de_xml))
+
+        if III_terminum_habendum_typum:
+            # print('tem')
+            self.in_formatum.definitionem_habendum_typum(True)
+
         # contextum: multum linguam  . . . . . . . . . . . . . . . . . . . . .
         # > Vacuum
 
@@ -751,6 +758,10 @@ class HXLTMdeXML:
 
         IV_terminum_accuratum = self._ontologia.de(
             'terminum_accuratum', False, fontem=ontologia_de_xml
+        )
+
+        IV_terminum_typum = self._ontologia.de(
+            'terminum_typum', False, fontem=ontologia_de_xml
         )
 
         IV_terminum_linguam_HOTFIX = self._ontologia.de(
@@ -866,6 +877,19 @@ class HXLTMdeXML:
                     valorem=self._de_commune_xml_nodum_quod_valorem(
                         nodum, eventum, IV_terminum_accuratum),
                     libellam_et_typum='terminum.accuratum',
+                    linguam_crudum=linguam_codicem,
+                    saccum=conceptum_sacuum
+                )
+
+                # print('oooi', conceptum_sacuum)
+
+            # IV_terminum_typum
+            if self._de_commune_xml_nodum_est(
+                    nodum, eventum, IV_terminum_typum):
+                conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+                    valorem=self._de_commune_xml_nodum_quod_valorem(
+                        nodum, eventum, IV_terminum_typum),
+                    libellam_et_typum='terminum.typum',
                     linguam_crudum=linguam_codicem,
                     saccum=conceptum_sacuum
                 )
@@ -1102,17 +1126,24 @@ class HXLTMdeXML:
             Dict:
         """
         if not referens or not isinstance(referens, dict):
-            return False
+            # return False
+            raise SyntaxError('referens?')
+
+        in_praefixum = referens['in_praefixum'] \
+            if 'in_praefixum' in referens else ''
+        in_suffixum = referens['in_suffixum'] \
+            if 'in_suffixum' in referens else ''
 
         nodum_attbs = self._de_commune_xml_nodum_attributum(nodum)
 
         if referens['ad'] == 'XML-nodum-textum':
-            return str(nodum.text).strip()
+            return in_praefixum + str(nodum.text).strip() + in_suffixum
 
         if referens['ad'].startswith('XML-nodum-attributum'):
             _, xml_attr = referens['ad'].split(':')
             # print(xml_attr, nodum_attbs, nodum, referens)
-            return str(nodum_attbs[xml_attr]).strip()
+            return (in_praefixum + str(nodum_attbs[xml_attr]).strip()
+                    + in_suffixum)
 
         raise ValueError('Nodum {0} referens {1}'.format(nodum, referens))
 
@@ -3077,6 +3108,7 @@ class XMLInFormatumHXLTM():
 
     # de_rem_accuratum: bool = True
     _habendum_accuratum: bool = False
+    _habendum_typum: bool = False
 
     # TODO: remove this gambiarra
     temporary_fix = {
@@ -3132,6 +3164,24 @@ class XMLInFormatumHXLTM():
         """
 
         self._habendum_accuratum = bool(habendum_accuratum)
+
+        return self
+
+    def definitionem_habendum_typum(
+            self,
+            habendum_typum: bool = True) -> Type['XMLInFormatumHXLTM']:
+        """dēfīnītiōnem habendum typum?
+
+        _[eng-Latn]
+        Use this to give a hint that the XML do have option to parse
+        type of the term
+        [eng-Latn]_
+
+        Returns:
+            [XMLInFormatumHXLTM]:
+        """
+
+        self._habendum_typum = bool(habendum_typum)
 
         return self
 
@@ -3231,6 +3281,8 @@ class XMLInFormatumHXLTM():
             resultatum.append('#item+rem' + linguam.a())
             if self._habendum_accuratum:
                 resultatum.append('#status+rem+accuratum' + linguam.a())
+            if self._habendum_typum:
+                resultatum.append('#status+terminum+typum' + linguam.a())
         return resultatum
 
     def in_lineam(
@@ -3242,6 +3294,22 @@ class XMLInFormatumHXLTM():
         objectivum_accuratum: str = '',
         terminum: list = None
     ):
+        """in_lineam
+
+        @deprecated eventually convert last uses to
+        in_lineam_de_conceptum_sacuum()
+
+        Args:
+            conceptum_codicem (str, optional): [description]. Defaults to ''.
+            fontem_textum (str, optional): [description]. Defaults to ''.
+            objectivum_textum (str, optional): [description]. Defaults to ''.
+            fontem_accuratum (str, optional): [description]. Defaults to ''.
+            objectivum_accuratum (str, optional): [description].Defaults to ''.
+            terminum (list, optional): [description]. Defaults to None.
+
+        Returns:
+            [list]:
+        """
         resultatum = [conceptum_codicem]
         if fontem_textum:
             resultatum.append(fontem_textum)
@@ -3293,6 +3361,7 @@ class XMLInFormatumHXLTM():
 
         if self.fontem_linguam:
             # lineam_1.append('#item+rem' + self.linguam_fontem.a())
+            valuem = ''
             if self.fontem_linguam.bcp47:
                 valuem = self._ontologia.de(
                     'terminum.' + self.fontem_linguam.bcp47 +
@@ -3310,6 +3379,7 @@ class XMLInFormatumHXLTM():
             # lineam_1.append('TODO fontem')
             lineam_1.append(valuem)
         if self.objectivum_linguam:
+            valuem = ''
             if self.objectivum_linguam.bcp47:
                 valuem = self._ontologia.de(
                     'terminum.' + self.objectivum_linguam.bcp47 +
@@ -3328,6 +3398,7 @@ class XMLInFormatumHXLTM():
 
         for linguam in self.agendum_linguam:
             # lineam_1.append('#item+rem' + linguam.a())
+            valuem = ''
 
             if linguam.bcp47:
                 valuem = self._ontologia.de(
@@ -3344,6 +3415,7 @@ class XMLInFormatumHXLTM():
             lineam_1.append(valuem)
 
             if self._habendum_accuratum:
+                valuem = ''
                 if linguam.bcp47:
                     valuem = self._ontologia.de(
                         'terminum.' + linguam.bcp47 +
@@ -3362,6 +3434,31 @@ class XMLInFormatumHXLTM():
                     valuem = self._ontologia.de(
                         'terminum.' + linguam.linguam +
                         '.accuratum',
+                        fontem=conceptum_sacuum
+                    )
+
+                lineam_1.append(valuem)
+
+            if self._habendum_typum:
+                valuem = ''
+                if linguam.bcp47:
+                    valuem = self._ontologia.de(
+                        'terminum.' + linguam.bcp47 +
+                        '.typum',
+                        fontem=conceptum_sacuum
+                    )
+
+                elif linguam.iso6393:
+                    valuem = self._ontologia.de(
+                        'terminum.' + linguam.iso6393 +
+                        '.typum',
+                        fontem=conceptum_sacuum
+                    )
+
+                if not valuem:
+                    valuem = self._ontologia.de(
+                        'terminum.' + linguam.linguam +
+                        '.typum',
                         fontem=conceptum_sacuum
                     )
 

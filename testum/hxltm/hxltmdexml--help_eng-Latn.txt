@@ -51,4 +51,28 @@ TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (por-Latn@pt)
 
 TBX-IATE (id est, https://iate.europa.eu/download-iate) -> HXLTM (...)
 
-hxltmdexml IATE_export.tbx IATE_export.hxltm.csv     --agendum-linguam bul-Latn@bg     --agendum-linguam ces-Latn@cs     --agendum-linguam dan-Latn@da     --agendum-linguam dut-Latn@nl     --agendum-linguam ell-Latn@el     --agendum-linguam eng-Latn@en     --agendum-linguam est-Latn@et     --agendum-linguam fin-Latn@fi     --agendum-linguam fra-Latn@fr     --agendum-linguam ger-Latn@de     --agendum-linguam ger-Latn@de     --agendum-linguam gle-Latn@ga     --agendum-linguam hun-Latn@hu     --agendum-linguam ita-Latn@it     --agendum-linguam lav-Latn@lv     --agendum-linguam lit-Latn@lt     --agendum-linguam mlt-Latn@mt     --agendum-linguam pol-Latn@pl     --agendum-linguam por-Latn@pt     --agendum-linguam ron-Latn@ro     --agendum-linguam slk-Latn@sk     --agendum-linguam slv-Latn@sl     --agendum-linguam spa-Latn@es     --agendum-linguam swe-Latn@sv
+    hxltmdexml IATE_export.tbx IATE_export.hxltm.csv \
+        --agendum-linguam bul-Latn@bg \
+        --agendum-linguam ces-Latn@cs \
+        --agendum-linguam dan-Latn@da \
+        --agendum-linguam dut-Latn@nl \
+        --agendum-linguam ell-Latn@el \
+        --agendum-linguam eng-Latn@en \
+        --agendum-linguam est-Latn@et \
+        --agendum-linguam fin-Latn@fi \
+        --agendum-linguam fra-Latn@fr \
+        --agendum-linguam ger-Latn@de \
+        --agendum-linguam ger-Latn@de \
+        --agendum-linguam gle-Latn@ga \
+        --agendum-linguam hun-Latn@hu \
+        --agendum-linguam ita-Latn@it \
+        --agendum-linguam lav-Latn@lv \
+        --agendum-linguam lit-Latn@lt \
+        --agendum-linguam mlt-Latn@mt \
+        --agendum-linguam pol-Latn@pl \
+        --agendum-linguam por-Latn@pt \
+        --agendum-linguam ron-Latn@ro \
+        --agendum-linguam slk-Latn@sk \
+        --agendum-linguam slv-Latn@sl \
+        --agendum-linguam spa-Latn@es \
+        --agendum-linguam swe-Latn@sv
