@@ -3708,6 +3708,8 @@ Salvi, {{ i }}! \
             globals=globum_valorem,
             loader=formatum_excerptum
         )
+        env.add_filter("csv_quotum", liquid_csv_quotum)
+
         liquid_template = env.from_string(liquid_formatum)
         contextum = liquid_contextum if liquid_contextum else {}
 
@@ -3888,11 +3890,35 @@ Salvi, {{ i }}! \
 
         return globum
 
-    # def rem(self) -> Type['HXLTMRemIterandum']:
 
-    #     # @see https://gist.github.com/drmalex07/6e040310ab9ac12b4dfd
-    #     # @see https://dzone.com/articles/python-look-ahead-multiple
-    #     return self.hxltm_asa.datum.rem_iterandum()
+def liquid_csv_quotum(valorem: str, _etc=None) -> str:
+    """liquid_csv_quotum
+
+    Trivia:
+      - csv, https://datatracker.ietf.org/doc/html/rfc4180
+      - quotum, https://en.wiktionary.org/wiki/quotus#Latin
+      - valōrem, https://en.wiktionary.org/wiki/valor#Latin
+
+    Args:
+        valorem ([str]):
+
+    Returns:
+        [str]:
+    """
+    if valorem is None or not valorem:
+        return ''
+
+    # print('antes', valorem)
+
+    resultatum = valorem
+
+    if '"' in resultatum:
+        resultatum = '"{}"'.format(str(valorem).replace('"', '""'))
+
+    if ',' in resultatum:
+        resultatum = '"' + resultatum + '"'
+
+    return resultatum
 
 
 class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):

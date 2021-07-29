@@ -47,18 +47,18 @@ TIP: For advanced hackers or (people helping others in middle of urgency and
 
 === hxltmcli
 
-"To convert from HXLTM to something else"
+Use case: _"I need convert from HXLTM to something else"_
 
-[source,yaml]
+[source,txt]
 ----
 include::../../bin/hxltmcli[tag=epilogum]
 ----
 
 === hxltmdexml
 
-"To convert from something else in XML to HXLTM"
+Use case: _"I need convert from something else (in XML) to HXLTM"_
 
-[source,yaml]
+[source,txt]
 ----
 include::../../bin/hxltmdexml[tag=epilogum]
 ----
@@ -351,11 +351,12 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_XLSX]
 include::../../ontologia/cor.hxltm.yml[tag=normam_YAML]
 ----
 
-
 == HXLTM ontologies
 
 [#ontologia]
 === Ontologia
+
+Full file at https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml.
 
 [source,yaml]
 ----
