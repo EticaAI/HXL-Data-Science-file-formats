@@ -606,11 +606,11 @@ For advanced hackers or (people helping others in middle of urgency and
 <div class="sect2">
 <h3 id="_hxltmcli">hxltmcli</h3>
 <div class="paragraph">
-<p>"To convert from HXLTM to something else"</p>
+<p>Use case: <em>"I need convert from HXLTM to something else"</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">__EPILOGUM__ = """
+<pre class="highlightjs highlight"><code class="language-txt hljs" data-lang="txt">__EPILOGUM__ = """
 Exemplōrum gratiā:
 
 HXLTM (csv) -&gt; Translation Memory eXchange format (TMX):
@@ -635,11 +635,11 @@ HXLTM (Google Docs) -&gt; Translation Memory eXchange format (TMX):
 <div class="sect2">
 <h3 id="_hxltmdexml">hxltmdexml</h3>
 <div class="paragraph">
-<p>"To convert from something else in XML to HXLTM"</p>
+<p>Use case: <em>"I need convert from something else (in XML) to HXLTM"</em></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">__EPILOGUM__ = """
+<pre class="highlightjs highlight"><code class="language-txt hljs" data-lang="txt">__EPILOGUM__ = """
 Exemplōrum gratiā:
 
 XML Localization Interchange File Format (XLIFF) v2.1+: -&gt; HXLTM (bilinguam):
@@ -902,16 +902,12 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
         # - multiplum_linguam
         - bilingue
 
-    # @TODO: this is a draft. Needs to deal with , and " on data
-    #        (maybe at Python Class level), See also
-    #        https://stackoverflow.com/questions/17808511
-    #        /properly-escape-a-double-quote-in-csv
     formatum:
       initiale: |-
-        "{{ globum.fontem_linguam.bcp47 | default: 'la' }}","{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}","commentarium"
+        {{ globum.fontem_linguam.bcp47 | default: 'la' | csv_quotum }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | csv_quotum }},commentarium
 
       corporeum: |-
-        "{{ rem.de_fontem_linguam.rem }}","{{ rem.de_objectivum_linguam.rem }}",""
+        {{ rem.de_fontem_linguam.rem | csv_quotum }},{{ rem.de_objectivum_linguam.rem | csv_quotum }},""
 
       finale: False</code></pre>
 </div>
@@ -996,13 +992,13 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-CSV-3 --fontem-lin
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-csv hljs" data-lang="csv">"pt","es","commentarium"
-"por-Latn","spa-Latn",""
-"Língua portuguesa","Idioma español",""
-"Alfabeto latino","Alfabeto latino",""
-"001","001",""
-"∅","∅",""
-"Olá mundo!","¡Hola mundo!",""
+<pre class="highlightjs highlight"><code class="language-csv hljs" data-lang="csv">pt,es,commentarium
+por-Latn,spa-Latn,""
+Língua portuguesa,Idioma español,""
+Alfabeto latino,Alfabeto latino,""
+001,001,""
+∅,∅,""
+Olá mundo!,¡Hola mundo!,""
 "Teste, 1, 2, 3","Prueba, 1, 2, 3",""
 "1, 2, 3, 4, 5, 6, 7, 8, 9, 10","1, 2, 3, 4, 5, 6, 7, 8, 9, 10",""</code></pre>
 </div>
@@ -2056,9 +2052,7 @@ Teste, 1, 2, 3	Prueba, 1, 2, 3
               {% for item in rem.de_linguam %}
               {% if item[1].rem != '' -%}
               &lt;tuv xml:lang="{{ item[1].bcp47 }}"&gt;
-                &lt;seg&gt;
-                  {{ item[1].rem }}
-                &lt;/seg&gt;
+                &lt;seg&gt;{{ item[1].rem }}&lt;/seg&gt;
               &lt;/tuv&gt;
               {%- endif -%}
               {%- endfor %}
@@ -2134,275 +2128,175 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 
     &lt;tu tuid="L10N_ego_codicem"&gt;
       &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          lat-Latn
-        &lt;/seg&gt;
+        &lt;seg&gt;lat-Latn&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          por-Latn
-        &lt;/seg&gt;
+        &lt;seg&gt;por-Latn&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          eng-Latn
-        &lt;/seg&gt;
+        &lt;seg&gt;eng-Latn&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          spa-Latn
-        &lt;/seg&gt;
+        &lt;seg&gt;spa-Latn&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;
-          arb-Arab
-        &lt;/seg&gt;
+        &lt;seg&gt;arb-Arab&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          hin-Deva
-        &lt;/seg&gt;
+        &lt;seg&gt;hin-Deva&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          slv-Latn
-        &lt;/seg&gt;
+        &lt;seg&gt;slv-Latn&lt;/seg&gt;
       &lt;/tuv&gt;
     &lt;/tu&gt;
 
     &lt;tu tuid="L10N_ego_linguam_nomen"&gt;
       &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          Lingua Latina
-        &lt;/seg&gt;
+        &lt;seg&gt;Lingua Latina&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          Língua portuguesa
-        &lt;/seg&gt;
+        &lt;seg&gt;Língua portuguesa&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          English language
-        &lt;/seg&gt;
+        &lt;seg&gt;English language&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          Idioma español
-        &lt;/seg&gt;
+        &lt;seg&gt;Idioma español&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;
-          اللغة العربية
-        &lt;/seg&gt;
+        &lt;seg&gt;اللغة العربية&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          हिन्दी भाषा
-        &lt;/seg&gt;
+        &lt;seg&gt;हिन्दी भाषा&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          Slovenščina
-        &lt;/seg&gt;
+        &lt;seg&gt;Slovenščina&lt;/seg&gt;
       &lt;/tuv&gt;
     &lt;/tu&gt;
 
     &lt;tu tuid="L10N_ego_scriptum_nomen"&gt;
       &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          Abecedarium Latinum
-        &lt;/seg&gt;
+        &lt;seg&gt;Abecedarium Latinum&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          Alfabeto latino
-        &lt;/seg&gt;
+        &lt;seg&gt;Alfabeto latino&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          Latin script
-        &lt;/seg&gt;
+        &lt;seg&gt;Latin script&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          Alfabeto latino
-        &lt;/seg&gt;
+        &lt;seg&gt;Alfabeto latino&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          देवनागरी लिपि
-        &lt;/seg&gt;
+        &lt;seg&gt;देवनागरी लिपि&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          Latinska abeceda
-        &lt;/seg&gt;
+        &lt;seg&gt;Latinska abeceda&lt;/seg&gt;
       &lt;/tuv&gt;
     &lt;/tu&gt;
 
     &lt;tu tuid="L10N_ego_patriam_UN_M49_numerum"&gt;
       &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
+        &lt;seg&gt;001&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
+        &lt;seg&gt;001&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
+        &lt;seg&gt;001&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
+        &lt;seg&gt;001&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
+        &lt;seg&gt;001&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
+        &lt;seg&gt;001&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          001
-        &lt;/seg&gt;
+        &lt;seg&gt;001&lt;/seg&gt;
       &lt;/tuv&gt;
     &lt;/tu&gt;
 
     &lt;tu tuid="L10N_ego_patriam_UN_P_codicem"&gt;
       &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
+        &lt;seg&gt;∅&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
+        &lt;seg&gt;∅&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
+        &lt;seg&gt;∅&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
+        &lt;seg&gt;∅&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="ar"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
+        &lt;seg&gt;∅&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
+        &lt;seg&gt;∅&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          ∅
-        &lt;/seg&gt;
+        &lt;seg&gt;∅&lt;/seg&gt;
       &lt;/tuv&gt;
     &lt;/tu&gt;
 
     &lt;tu tuid="I18N_testum_salve_mundi_testum_I18N"&gt;
       &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          Salvi mundi!
-        &lt;/seg&gt;
+        &lt;seg&gt;Salvi mundi!&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          Olá mundo!
-        &lt;/seg&gt;
+        &lt;seg&gt;Olá mundo!&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          Hello, World!
-        &lt;/seg&gt;
+        &lt;seg&gt;Hello, World!&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          ¡Hola mundo!
-        &lt;/seg&gt;
+        &lt;seg&gt;¡Hola mundo!&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          नमस्ते दुनिया
-        &lt;/seg&gt;
+        &lt;seg&gt;नमस्ते दुनिया&lt;/seg&gt;
       &lt;/tuv&gt;
     &lt;/tu&gt;
 
     &lt;tu tuid="I18N_إختبار_טעסט_测试_테스트_испытание_I18N"&gt;
       &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          Testum, I, II, III
-        &lt;/seg&gt;
+        &lt;seg&gt;Testum, I, II, III&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          Teste, 1, 2, 3
-        &lt;/seg&gt;
+        &lt;seg&gt;Teste, 1, 2, 3&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          Test, 1, 2, 3
-        &lt;/seg&gt;
+        &lt;seg&gt;Test, 1, 2, 3&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          Prueba, 1, 2, 3
-        &lt;/seg&gt;
+        &lt;seg&gt;Prueba, 1, 2, 3&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          परीक्षा, १, २, ३
-        &lt;/seg&gt;
+        &lt;seg&gt;परीक्षा, १, २, ३&lt;/seg&gt;
       &lt;/tuv&gt;
     &lt;/tu&gt;
 
     &lt;tu tuid="I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N"&gt;
       &lt;tuv xml:lang="la"&gt;
-        &lt;seg&gt;
-          I,V, X, L, C, D, M
-        &lt;/seg&gt;
+        &lt;seg&gt;I,V, X, L, C, D, M&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="pt"&gt;
-        &lt;seg&gt;
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        &lt;/seg&gt;
+        &lt;seg&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="en"&gt;
-        &lt;seg&gt;
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        &lt;/seg&gt;
+        &lt;seg&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="es"&gt;
-        &lt;seg&gt;
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        &lt;/seg&gt;
+        &lt;seg&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="hi"&gt;
-        &lt;seg&gt;
-          ०, १, २, ३, ४, ५, ६, ७, ८, ९
-        &lt;/seg&gt;
+        &lt;seg&gt;०, १, २, ३, ४, ५, ६, ७, ८, ९&lt;/seg&gt;
       &lt;/tuv&gt;
       &lt;tuv xml:lang="sl"&gt;
-        &lt;seg&gt;
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        &lt;/seg&gt;
+        &lt;seg&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/seg&gt;
       &lt;/tuv&gt;
     &lt;/tu&gt;
 
@@ -2455,12 +2349,12 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
       corporeum: |-
         {%- if tabulam.lineam_indicem contains 1 -%}
           #{%- for item in rem.de_linguam -%}
-            term:{{ item[1].bcp47 }},
+            term:{{ item[1].bcp47 | csv_quotum }},
           {%- endfor %}
         {% endif -%}
         {%- for item in rem.de_linguam -%}
           {% if item[1].rem != '' -%}
-            "{{- item[1].rem -}}",
+            {{- item[1].rem | csv_quotum -}},
           {%- endif -%}
         {%- endfor -%}
 
@@ -2518,12 +2412,12 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX &gt; resultatu
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">#UTX 1.20; directionality: multi;
 #term:la,term:pt,term:en,term:es,term:ar,term:hi,term:sl,
-"lat-Latn","por-Latn","eng-Latn","spa-Latn","arb-Arab","hin-Deva","slv-Latn",
-"Lingua Latina","Língua portuguesa","English language","Idioma español","اللغة العربية","हिन्दी भाषा","Slovenščina",
-"Abecedarium Latinum","Alfabeto latino","Latin script","Alfabeto latino","देवनागरी लिपि","Latinska abeceda",
-"001","001","001","001","001","001","001",
-"∅","∅","∅","∅","∅","∅","∅",
-"Salvi mundi!","Olá mundo!","Hello, World!","¡Hola mundo!","नमस्ते दुनिया",
+lat-Latn,por-Latn,eng-Latn,spa-Latn,arb-Arab,hin-Deva,slv-Latn,
+Lingua Latina,Língua portuguesa,English language,Idioma español,اللغة العربية,हिन्दी भाषा,Slovenščina,
+Abecedarium Latinum,Alfabeto latino,Latin script,Alfabeto latino,देवनागरी लिपि,Latinska abeceda,
+001,001,001,001,001,001,001,
+∅,∅,∅,∅,∅,∅,∅,
+Salvi mundi!,Olá mundo!,"Hello, World!",¡Hola mundo!,नमस्ते दुनिया,
 "Testum, I, II, III","Teste, 1, 2, 3","Test, 1, 2, 3","Prueba, 1, 2, 3","परीक्षा, १, २, ३",
 "I,V, X, L, C, D, M","1, 2, 3, 4, 5, 6, 7, 8, 9, 10","1, 2, 3, 4, 5, 6, 7, 8, 9, 10","1, 2, 3, 4, 5, 6, 7, 8, 9, 10","०, १, २, ३, ४, ५, ६, ७, ८, ९","1, 2, 3, 4, 5, 6, 7, 8, 9, 10",</code></pre>
 </div>
@@ -2651,7 +2545,8 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX &gt; resultatu
         # objectīvum, https://en.wiktionary.org/wiki/objectivus#Latin
         objectivum: objectivum
 
-        de-textum: de-textum
+        rem: rem
+        # de-textum: de-textum
 
       initiale: |2-
         &lt;glossarium _="Latium" __="hxltmcli.py" ___="{{ globum.instrumentum_versionem }}"&gt;
@@ -2672,7 +2567,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-UTX &gt; resultatu
                     {% if item[1].accuratum -%}
                     &lt;accuratum&gt;{{ item[1].accuratum }}&lt;/accuratum&gt;
                     {%- endif %}
-                    &lt;de-textum&gt;{{ item[1].rem }}&lt;/de-textum&gt;
+                    &lt;rem&gt;{{ item[1].rem }}&lt;/rem&gt;
                   &lt;/terminum&gt;
                   &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
                   &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2742,7 +2637,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;lat-Latn&lt;/de-textum&gt;
+            &lt;rem&gt;lat-Latn&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2751,7 +2646,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;por-Latn&lt;/de-textum&gt;
+            &lt;rem&gt;por-Latn&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2760,7 +2655,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;eng-Latn&lt;/de-textum&gt;
+            &lt;rem&gt;eng-Latn&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2769,7 +2664,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;spa-Latn&lt;/de-textum&gt;
+            &lt;rem&gt;spa-Latn&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2778,7 +2673,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;arb-Arab&lt;/de-textum&gt;
+            &lt;rem&gt;arb-Arab&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2787,7 +2682,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;hin-Deva&lt;/de-textum&gt;
+            &lt;rem&gt;hin-Deva&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2796,7 +2691,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;slv-Latn&lt;/de-textum&gt;
+            &lt;rem&gt;slv-Latn&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2808,7 +2703,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Lingua Latina&lt;/de-textum&gt;
+            &lt;rem&gt;Lingua Latina&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2817,7 +2712,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Língua portuguesa&lt;/de-textum&gt;
+            &lt;rem&gt;Língua portuguesa&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2826,7 +2721,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;English language&lt;/de-textum&gt;
+            &lt;rem&gt;English language&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2835,7 +2730,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Idioma español&lt;/de-textum&gt;
+            &lt;rem&gt;Idioma español&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2844,7 +2739,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;اللغة العربية&lt;/de-textum&gt;
+            &lt;rem&gt;اللغة العربية&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2853,7 +2748,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;हिन्दी भाषा&lt;/de-textum&gt;
+            &lt;rem&gt;हिन्दी भाषा&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2862,7 +2757,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;Slovenščina&lt;/de-textum&gt;
+            &lt;rem&gt;Slovenščina&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2874,7 +2769,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Abecedarium Latinum&lt;/de-textum&gt;
+            &lt;rem&gt;Abecedarium Latinum&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2883,7 +2778,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Alfabeto latino&lt;/de-textum&gt;
+            &lt;rem&gt;Alfabeto latino&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2892,7 +2787,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Latin script&lt;/de-textum&gt;
+            &lt;rem&gt;Latin script&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2901,7 +2796,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Alfabeto latino&lt;/de-textum&gt;
+            &lt;rem&gt;Alfabeto latino&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2910,7 +2805,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;देवनागरी लिपि&lt;/de-textum&gt;
+            &lt;rem&gt;देवनागरी लिपि&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2919,7 +2814,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;Latinska abeceda&lt;/de-textum&gt;
+            &lt;rem&gt;Latinska abeceda&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2931,7 +2826,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;001&lt;/de-textum&gt;
+            &lt;rem&gt;001&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2940,7 +2835,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;001&lt;/de-textum&gt;
+            &lt;rem&gt;001&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2949,7 +2844,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;001&lt;/de-textum&gt;
+            &lt;rem&gt;001&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2958,7 +2853,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;001&lt;/de-textum&gt;
+            &lt;rem&gt;001&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2967,7 +2862,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;001&lt;/de-textum&gt;
+            &lt;rem&gt;001&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2976,7 +2871,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;001&lt;/de-textum&gt;
+            &lt;rem&gt;001&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2985,7 +2880,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;001&lt;/de-textum&gt;
+            &lt;rem&gt;001&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -2997,7 +2892,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;∅&lt;/de-textum&gt;
+            &lt;rem&gt;∅&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3006,7 +2901,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;∅&lt;/de-textum&gt;
+            &lt;rem&gt;∅&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3015,7 +2910,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;∅&lt;/de-textum&gt;
+            &lt;rem&gt;∅&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3024,7 +2919,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;∅&lt;/de-textum&gt;
+            &lt;rem&gt;∅&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3033,7 +2928,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;∅&lt;/de-textum&gt;
+            &lt;rem&gt;∅&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3042,7 +2937,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;∅&lt;/de-textum&gt;
+            &lt;rem&gt;∅&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3051,7 +2946,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;∅&lt;/de-textum&gt;
+            &lt;rem&gt;∅&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3063,7 +2958,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Salvi mundi!&lt;/de-textum&gt;
+            &lt;rem&gt;Salvi mundi!&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3072,7 +2967,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Olá mundo!&lt;/de-textum&gt;
+            &lt;rem&gt;Olá mundo!&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3081,7 +2976,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Hello, World!&lt;/de-textum&gt;
+            &lt;rem&gt;Hello, World!&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3090,7 +2985,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;¡Hola mundo!&lt;/de-textum&gt;
+            &lt;rem&gt;¡Hola mundo!&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3099,7 +2994,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;नमस्ते दुनिया&lt;/de-textum&gt;
+            &lt;rem&gt;नमस्ते दुनिया&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3111,7 +3006,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Testum, I, II, III&lt;/de-textum&gt;
+            &lt;rem&gt;Testum, I, II, III&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3120,7 +3015,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Teste, 1, 2, 3&lt;/de-textum&gt;
+            &lt;rem&gt;Teste, 1, 2, 3&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3129,7 +3024,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Test, 1, 2, 3&lt;/de-textum&gt;
+            &lt;rem&gt;Test, 1, 2, 3&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3138,7 +3033,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;Prueba, 1, 2, 3&lt;/de-textum&gt;
+            &lt;rem&gt;Prueba, 1, 2, 3&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3147,7 +3042,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;परीक्षा, १, २, ३&lt;/de-textum&gt;
+            &lt;rem&gt;परीक्षा, १, २, ३&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3159,7 +3054,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;I,V, X, L, C, D, M&lt;/de-textum&gt;
+            &lt;rem&gt;I,V, X, L, C, D, M&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3168,7 +3063,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/de-textum&gt;
+            &lt;rem&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3177,7 +3072,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/de-textum&gt;
+            &lt;rem&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3186,7 +3081,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;10&lt;/accuratum&gt;
-            &lt;de-textum&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/de-textum&gt;
+            &lt;rem&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3195,7 +3090,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;०, १, २, ३, ४, ५, ६, ७, ८, ९&lt;/de-textum&gt;
+            &lt;rem&gt;०, १, २, ३, ४, ५, ६, ७, ८, ९&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3204,7 +3099,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
           &lt;definitionem&gt;&lt;/definitionem&gt;
           &lt;terminum&gt;
             &lt;accuratum&gt;1&lt;/accuratum&gt;
-            &lt;de-textum&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/de-textum&gt;
+            &lt;rem&gt;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/rem&gt;
           &lt;/terminum&gt;
           &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
           &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -4038,6 +3933,9 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="ontologia">Ontologia</h3>
+<div class="paragraph">
+<p>Full file at <a href="https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml" class="bare">https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml</a>.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">libellam:
@@ -5833,7 +5731,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 23:53:03 UTC
+Last updated 2021-07-29 01:11:26 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

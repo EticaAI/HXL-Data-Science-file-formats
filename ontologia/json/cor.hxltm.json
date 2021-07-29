@@ -46,8 +46,8 @@
         ]
       },
       "formatum": {
-        "initiale": "\"{{ globum.fontem_linguam.bcp47 | default: 'la' }}\",\"{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\",\"commentarium\"",
-        "corporeum": "\"{{ rem.de_fontem_linguam.rem }}\",\"{{ rem.de_objectivum_linguam.rem }}\",\"\"",
+        "initiale": "{{ globum.fontem_linguam.bcp47 | default: 'la' | csv_quotum }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | csv_quotum }},commentarium",
+        "corporeum": "{{ rem.de_fontem_linguam.rem | csv_quotum }},{{ rem.de_objectivum_linguam.rem | csv_quotum }},\"\"",
         "finale": false
       }
     },
@@ -442,7 +442,7 @@
       },
       "formatum": {
         "initiale": "<?xml version='1.0' encoding='utf-8'?>\n<!DOCTYPE tmx SYSTEM \"tmx14.dtd\">\n<tmx version=\"1.4\">\n  <header\n    creationtool=\"hxltmcli.py\"\n    creationtoolversion=\"{{ globum.instrumentum_versionem }}\"\n    segtype=\"sentence\"\n    o-tmf=\"UTF-8\"\n    adminlang=\"{{ globum.instrumentum_versionem }}\"\n    srclang=\"{{ globum.fontem_linguam.iso6391a2 | default: globum.fontem_linguam.iso6391a2 | default: 'la' }}\"\n    datatype=\"PlainText\"\n  />\n  <body>\n",
-        "corporeum": "    <tu tuid=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {%- if conceptum.conceptum_codicem_wikidata %}\n      <prop type=\"wikidata\">{{ conceptum.conceptum_codicem_wikidata }}</prop>\n      {% endif -%}\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <tuv xml:lang=\"{{ item[1].bcp47 }}\">\n        <seg>\n          {{ item[1].rem }}\n        </seg>\n      </tuv>\n      {%- endif -%}\n      {%- endfor %}\n    </tu>\n",
+        "corporeum": "    <tu tuid=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem | default: 'errorem' }}\">\n      {%- if conceptum.conceptum_codicem_wikidata %}\n      <prop type=\"wikidata\">{{ conceptum.conceptum_codicem_wikidata }}</prop>\n      {% endif -%}\n      {% for item in rem.de_linguam %}\n      {% if item[1].rem != '' -%}\n      <tuv xml:lang=\"{{ item[1].bcp47 }}\">\n        <seg>{{ item[1].rem }}</seg>\n      </tuv>\n      {%- endif -%}\n      {%- endfor %}\n    </tu>\n",
         "finale": "  </body>\n</tmx>\n"
       }
     },
@@ -477,7 +477,7 @@
       },
       "formatum": {
         "initiale": "#UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};",
-        "corporeum": "{%- if tabulam.lineam_indicem contains 1 -%}\n  #{%- for item in rem.de_linguam -%}\n    term:{{ item[1].bcp47 }},\n  {%- endfor %}\n{% endif -%}\n{%- for item in rem.de_linguam -%}\n  {% if item[1].rem != '' -%}\n    \"{{- item[1].rem -}}\",\n  {%- endif -%}\n{%- endfor -%}",
+        "corporeum": "{%- if tabulam.lineam_indicem contains 1 -%}\n  #{%- for item in rem.de_linguam -%}\n    term:{{ item[1].bcp47 | csv_quotum }},\n  {%- endfor %}\n{% endif -%}\n{%- for item in rem.de_linguam -%}\n  {% if item[1].rem != '' -%}\n    {{- item[1].rem | csv_quotum -}},\n  {%- endif -%}\n{%- endfor -%}",
         "finale": false
       }
     },
@@ -558,10 +558,10 @@
           "terminum": "terminum",
           "fontem": "fontem",
           "objectivum": "objectivum",
-          "de-textum": "de-textum"
+          "rem": "rem"
         },
         "initiale": "<glossarium _=\"Latium\" __=\"hxltmcli.py\" ___=\"{{ globum.instrumentum_versionem }}\">\n  <caput>\n    <titulum>{{ globum.glossarium_titulum }}</titulum>\n  </caput>\n  <datum>\n    <!-- _[eng-Latn]@TODO Use librarium as XLIFF file / Excel worksheets. The \"_\" is (an non-Latin) script neutral default ID [eng-Latn]_ -->\n    <librarium _=\"_\">",
-        "corporeum": "      <conceptum _=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}\">\n        {%- for item in rem.de_linguam %}\n        {% if item[1].rem != '' -%}\n        <linguam _=\"{{ item[1].linguam }}\">\n          <definitionem></definitionem>\n          <terminum>\n            {% if item[1].accuratum -%}\n            <accuratum>{{ item[1].accuratum }}</accuratum>\n            {%- endif %}\n            <de-textum>{{ item[1].rem }}</de-textum>\n          </terminum>\n          <!-- <terminum-fontem></terminum-fontem> -->\n          <!-- <terminum-objectivum></terminum-objectivum> -->\n        </linguam>\n        {%- endif -%}\n        {%- endfor %}\n      </conceptum>\n",
+        "corporeum": "      <conceptum _=\"{{ conceptum.codicem | default: rem.de_nomen_breve.conceptum_codicem }}\">\n        {%- for item in rem.de_linguam %}\n        {% if item[1].rem != '' -%}\n        <linguam _=\"{{ item[1].linguam }}\">\n          <definitionem></definitionem>\n          <terminum>\n            {% if item[1].accuratum -%}\n            <accuratum>{{ item[1].accuratum }}</accuratum>\n            {%- endif %}\n            <rem>{{ item[1].rem }}</rem>\n          </terminum>\n          <!-- <terminum-fontem></terminum-fontem> -->\n          <!-- <terminum-objectivum></terminum-objectivum> -->\n        </linguam>\n        {%- endif -%}\n        {%- endfor %}\n      </conceptum>\n",
         "finale": "    </librarium>\n  </datum>\n</glossarium>\n"
       }
     },

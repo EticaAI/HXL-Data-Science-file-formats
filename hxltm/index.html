@@ -867,16 +867,12 @@ normam:
         # - multiplum_linguam
         - bilingue
 
-    # @TODO: this is a draft. Needs to deal with , and " on data
-    #        (maybe at Python Class level), See also
-    #        https://stackoverflow.com/questions/17808511
-    #        /properly-escape-a-double-quote-in-csv
     formatum:
       initiale: |-
-        "{{ globum.fontem_linguam.bcp47 | default: 'la' }}","{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}","commentarium"
+        {{ globum.fontem_linguam.bcp47 | default: 'la' | csv_quotum }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | csv_quotum }},commentarium
 
       corporeum: |-
-        "{{ rem.de_fontem_linguam.rem }}","{{ rem.de_objectivum_linguam.rem }}",""
+        {{ rem.de_fontem_linguam.rem | csv_quotum }},{{ rem.de_objectivum_linguam.rem | csv_quotum }},""
 
       finale: False
 
@@ -1486,9 +1482,7 @@ normam:
               {% for item in rem.de_linguam %}
               {% if item[1].rem != '' -%}
               &lt;tuv xml:lang="{{ item[1].bcp47 }}"&gt;
-                &lt;seg&gt;
-                  {{ item[1].rem }}
-                &lt;/seg&gt;
+                &lt;seg&gt;{{ item[1].rem }}&lt;/seg&gt;
               &lt;/tuv&gt;
               {%- endif -%}
               {%- endfor %}
@@ -1539,12 +1533,12 @@ normam:
       corporeum: |-
         {%- if tabulam.lineam_indicem contains 1 -%}
           #{%- for item in rem.de_linguam -%}
-            term:{{ item[1].bcp47 }},
+            term:{{ item[1].bcp47 | csv_quotum }},
           {%- endfor %}
         {% endif -%}
         {%- for item in rem.de_linguam -%}
           {% if item[1].rem != '' -%}
-            "{{- item[1].rem -}}",
+            {{- item[1].rem | csv_quotum -}},
           {%- endif -%}
         {%- endfor -%}
 
@@ -1669,7 +1663,8 @@ normam:
         # objectīvum, https://en.wiktionary.org/wiki/objectivus#Latin
         objectivum: objectivum
 
-        de-textum: de-textum
+        rem: rem
+        # de-textum: de-textum
 
       initiale: |2-
         &lt;glossarium _="Latium" __="hxltmcli.py" ___="{{ globum.instrumentum_versionem }}"&gt;
@@ -1690,7 +1685,7 @@ normam:
                     {% if item[1].accuratum -%}
                     &lt;accuratum&gt;{{ item[1].accuratum }}&lt;/accuratum&gt;
                     {%- endif %}
-                    &lt;de-textum&gt;{{ item[1].rem }}&lt;/de-textum&gt;
+                    &lt;rem&gt;{{ item[1].rem }}&lt;/rem&gt;
                   &lt;/terminum&gt;
                   &lt;!-- &lt;terminum-fontem&gt;&lt;/terminum-fontem&gt; --&gt;
                   &lt;!-- &lt;terminum-objectivum&gt;&lt;/terminum-objectivum&gt; --&gt;
@@ -3554,7 +3549,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-28 23:53:03 UTC
+Last updated 2021-07-29 01:11:26 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

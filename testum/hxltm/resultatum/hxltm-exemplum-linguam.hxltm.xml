@@ -10,7 +10,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>lat-Latn</de-textum>
+            <rem>lat-Latn</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -19,7 +19,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>por-Latn</de-textum>
+            <rem>por-Latn</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -28,7 +28,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>eng-Latn</de-textum>
+            <rem>eng-Latn</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -37,7 +37,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>spa-Latn</de-textum>
+            <rem>spa-Latn</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -46,7 +46,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>arb-Arab</de-textum>
+            <rem>arb-Arab</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -55,7 +55,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>hin-Deva</de-textum>
+            <rem>hin-Deva</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -64,7 +64,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>slv-Latn</de-textum>
+            <rem>slv-Latn</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -76,7 +76,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Lingua Latina</de-textum>
+            <rem>Lingua Latina</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -85,7 +85,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Língua portuguesa</de-textum>
+            <rem>Língua portuguesa</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -94,7 +94,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>English language</de-textum>
+            <rem>English language</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -103,7 +103,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Idioma español</de-textum>
+            <rem>Idioma español</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -112,7 +112,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>اللغة العربية</de-textum>
+            <rem>اللغة العربية</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -121,7 +121,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>हिन्दी भाषा</de-textum>
+            <rem>हिन्दी भाषा</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -130,7 +130,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>Slovenščina</de-textum>
+            <rem>Slovenščina</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -142,7 +142,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Abecedarium Latinum</de-textum>
+            <rem>Abecedarium Latinum</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -151,7 +151,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Alfabeto latino</de-textum>
+            <rem>Alfabeto latino</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -160,7 +160,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Latin script</de-textum>
+            <rem>Latin script</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -169,7 +169,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Alfabeto latino</de-textum>
+            <rem>Alfabeto latino</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -178,7 +178,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>देवनागरी लिपि</de-textum>
+            <rem>देवनागरी लिपि</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -187,7 +187,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>Latinska abeceda</de-textum>
+            <rem>Latinska abeceda</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -199,7 +199,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>001</de-textum>
+            <rem>001</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -208,7 +208,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>001</de-textum>
+            <rem>001</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -217,7 +217,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>001</de-textum>
+            <rem>001</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -226,7 +226,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>001</de-textum>
+            <rem>001</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -235,7 +235,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>001</de-textum>
+            <rem>001</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -244,7 +244,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>001</de-textum>
+            <rem>001</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -253,7 +253,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>001</de-textum>
+            <rem>001</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -265,7 +265,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>∅</de-textum>
+            <rem>∅</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -274,7 +274,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>∅</de-textum>
+            <rem>∅</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -283,7 +283,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>∅</de-textum>
+            <rem>∅</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -292,7 +292,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>∅</de-textum>
+            <rem>∅</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -301,7 +301,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>∅</de-textum>
+            <rem>∅</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -310,7 +310,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>∅</de-textum>
+            <rem>∅</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -319,7 +319,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>∅</de-textum>
+            <rem>∅</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -331,7 +331,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Salvi mundi!</de-textum>
+            <rem>Salvi mundi!</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -340,7 +340,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Olá mundo!</de-textum>
+            <rem>Olá mundo!</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -349,7 +349,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Hello, World!</de-textum>
+            <rem>Hello, World!</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -358,7 +358,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>¡Hola mundo!</de-textum>
+            <rem>¡Hola mundo!</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -367,7 +367,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>नमस्ते दुनिया</de-textum>
+            <rem>नमस्ते दुनिया</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -379,7 +379,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Testum, I, II, III</de-textum>
+            <rem>Testum, I, II, III</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -388,7 +388,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Teste, 1, 2, 3</de-textum>
+            <rem>Teste, 1, 2, 3</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -397,7 +397,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Test, 1, 2, 3</de-textum>
+            <rem>Test, 1, 2, 3</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -406,7 +406,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>Prueba, 1, 2, 3</de-textum>
+            <rem>Prueba, 1, 2, 3</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -415,7 +415,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>परीक्षा, १, २, ३</de-textum>
+            <rem>परीक्षा, १, २, ३</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -427,7 +427,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>I,V, X, L, C, D, M</de-textum>
+            <rem>I,V, X, L, C, D, M</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -436,7 +436,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
+            <rem>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -445,7 +445,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
+            <rem>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -454,7 +454,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>10</accuratum>
-            <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
+            <rem>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -463,7 +463,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>०, १, २, ३, ४, ५, ६, ७, ८, ९</de-textum>
+            <rem>०, १, २, ३, ४, ५, ६, ७, ८, ९</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->
@@ -472,7 +472,7 @@
           <definitionem></definitionem>
           <terminum>
             <accuratum>1</accuratum>
-            <de-textum>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</de-textum>
+            <rem>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</rem>
           </terminum>
           <!-- <terminum-fontem></terminum-fontem> -->
           <!-- <terminum-objectivum></terminum-objectivum> -->

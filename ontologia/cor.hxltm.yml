@@ -115,16 +115,12 @@ normam:
         # - multiplum_linguam
         - bilingue
 
-    # @TODO: this is a draft. Needs to deal with , and " on data
-    #        (maybe at Python Class level), See also
-    #        https://stackoverflow.com/questions/17808511
-    #        /properly-escape-a-double-quote-in-csv
     formatum:
       initiale: |-
-        "{{ globum.fontem_linguam.bcp47 | default: 'la' }}","{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}","commentarium"
+        {{ globum.fontem_linguam.bcp47 | default: 'la' | csv_quotum }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | csv_quotum }},commentarium
 
       corporeum: |-
-        "{{ rem.de_fontem_linguam.rem }}","{{ rem.de_objectivum_linguam.rem }}",""
+        {{ rem.de_fontem_linguam.rem | csv_quotum }},{{ rem.de_objectivum_linguam.rem | csv_quotum }},""
 
       finale: False
 
@@ -734,9 +730,7 @@ normam:
               {% for item in rem.de_linguam %}
               {% if item[1].rem != '' -%}
               <tuv xml:lang="{{ item[1].bcp47 }}">
-                <seg>
-                  {{ item[1].rem }}
-                </seg>
+                <seg>{{ item[1].rem }}</seg>
               </tuv>
               {%- endif -%}
               {%- endfor %}
@@ -787,12 +781,12 @@ normam:
       corporeum: |-
         {%- if tabulam.lineam_indicem contains 1 -%}
           #{%- for item in rem.de_linguam -%}
-            term:{{ item[1].bcp47 }},
+            term:{{ item[1].bcp47 | csv_quotum }},
           {%- endfor %}
         {% endif -%}
         {%- for item in rem.de_linguam -%}
           {% if item[1].rem != '' -%}
-            "{{- item[1].rem -}}",
+            {{- item[1].rem | csv_quotum -}},
           {%- endif -%}
         {%- endfor -%}
 
@@ -917,7 +911,8 @@ normam:
         # objectīvum, https://en.wiktionary.org/wiki/objectivus#Latin
         objectivum: objectivum
 
-        de-textum: de-textum
+        rem: rem
+        # de-textum: de-textum
 
       initiale: |2-
         <glossarium _="Latium" __="hxltmcli.py" ___="{{ globum.instrumentum_versionem }}">
@@ -938,7 +933,7 @@ normam:
                     {% if item[1].accuratum -%}
                     <accuratum>{{ item[1].accuratum }}</accuratum>
                     {%- endif %}
-                    <de-textum>{{ item[1].rem }}</de-textum>
+                    <rem>{{ item[1].rem }}</rem>
                   </terminum>
                   <!-- <terminum-fontem></terminum-fontem> -->
                   <!-- <terminum-objectivum></terminum-objectivum> -->
