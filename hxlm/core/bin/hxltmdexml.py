@@ -374,7 +374,8 @@ class HXLTMDeXMLCli:
             # dest='fontem_linguam',
             metavar='fontem_linguam',
             action='store',
-            default='lat-Latn@la',
+            # default='lat-Latn@la',
+            default=None,
             nargs='?'
         )
 
@@ -383,7 +384,8 @@ class HXLTMDeXMLCli:
             help='',
             metavar='objectivum_linguam',
             action='store',
-            default='arb-Arab@ar',
+            # default='arb-Arab@ar',
+            default=None,
             nargs='?'
         )
 
@@ -566,17 +568,19 @@ class HXLTMdeXML:
             for item in agendum_linguam:
                 self._agendum_linguam.append(HXLTMLinguam(item))
 
-        if fontem_linguam:
-            self._fontem_linguam = HXLTMLinguam(fontem_linguam)
+        self._fontem_linguam = fontem_linguam
+        # if fontem_linguam:
+        #     self._fontem_linguam = HXLTMLinguam(fontem_linguam)
 
-        if objectivum_linguam:
-            self._objectivum_linguam = HXLTMLinguam(objectivum_linguam)
+        self._objectivum_linguam = objectivum_linguam
+        # if objectivum_linguam:
+        #     self._objectivum_linguam = HXLTMLinguam(objectivum_linguam)
 
         self.in_formatum = XMLInFormatumHXLTM(
             self._ontologia,
             self._agendum_linguam,
-            self._fontem_linguam,
-            self._objectivum_linguam
+            # self._fontem_linguam,
+            # self._objectivum_linguam
         )
 
         # TODO: test what happens if input is not XML or was compressed
@@ -682,13 +686,47 @@ class HXLTMdeXML:
         # print(self._fontem_linguam.linguam)
         # print(self._objectivum_linguam.linguam)
 
-        if self._ontologia.de('terminum_habendum_multum',
-                              fontem=ontologia_de_xml) is False:
-            self.in_formatum.definitionem_linguam(False)
+        # if self._ontologia.de('terminum_habendum_multum',
+        #                       fontem=ontologia_de_xml) is False:
+        #     self.in_formatum.definitionem_linguam(False)
 
-        if self._ontologia.de('terminum_habendum_fontem',
-                              fontem=ontologia_de_xml) is False:
-            self.in_formatum.definitionem_linguam_fontem(False)
+        terminum_habendum_multum = self._ontologia.de(
+            'terminum_habendum_multum', fontem=ontologia_de_xml)
+
+        if terminum_habendum_multum:
+            if not self._agendum_linguam:
+                print("ERRŌREM: --agendum-linguam?")
+                sys.exit(self.EXITUM_SYNTAXIM)
+
+        terminum_habendum_fontem = self._ontologia.de(
+            'terminum_habendum_fontem',  False, fontem=ontologia_de_xml)
+
+        if terminum_habendum_fontem:
+            if self._fontem_linguam:
+                self.in_formatum.definitionem_linguam_fontem(
+                    self._fontem_linguam
+                )
+                # HOTFIX; do code refactoring later
+                # opus_fontem_linguam = self.in_formatum.fontem_linguam
+            else:
+                print("ERRŌREM: --fontem-linguam ?")
+                sys.exit(self.EXITUM_SYNTAXIM)
+                # return self.EXITUM_SYNTAXIM
+
+        terminum_habendum_objectivum = self._ontologia.de(
+            'terminum_habendum_objectivum',  False, fontem=ontologia_de_xml)
+
+        if terminum_habendum_objectivum:
+            if self._objectivum_linguam:
+                self.in_formatum.definitionem_linguam_objectivum(
+                    self._objectivum_linguam
+                )
+                # HOTFIX; do code refactoring later
+                # opus_objectivum_linguam = self.in_formatum.objectivum_linguam
+            else:
+                print("ERRŌREM: --objectivum-linguam ?")
+                sys.exit(self.EXITUM_SYNTAXIM)
+                # return self.EXITUM_SYNTAXIM
 
         if self._ontologia.de('terminum_habendum_objectivum',
                               fontem=ontologia_de_xml) is False:
@@ -739,21 +777,21 @@ class HXLTMdeXML:
         )
 
         # contextum: linguam fontem et linguam objectīvum . . . . . . . . . . .
-        III_linguam_fontem_signum = self._ontologia.de(
-            'linguam_fontem_codicem.signum', fontem=ontologia_de_xml
-        )
-        III_linguam_fontem_de_attributum = self._ontologia.de(
-            'linguam_fontem_codicem.de_attributum',
-            False, fontem=ontologia_de_xml
-        )
+        # III_linguam_fontem_signum = self._ontologia.de(
+        #     'linguam_fontem_codicem.signum', fontem=ontologia_de_xml
+        # )
+        # III_linguam_fontem_de_attributum = self._ontologia.de(
+        #     'linguam_fontem_codicem.de_attributum',
+        #     False, fontem=ontologia_de_xml
+        # )
 
-        III_linguam_objectivum_signum = self._ontologia.de(
-            'linguam_objectivum_codicem.signum', fontem=ontologia_de_xml
-        )
-        III_linguam_objectivum_de_attributum = self._ontologia.de(
-            'linguam_objectivum_codicem.de_attributum',
-            False, fontem=ontologia_de_xml
-        )
+        # III_linguam_objectivum_signum = self._ontologia.de(
+        #     'linguam_objectivum_codicem.signum', fontem=ontologia_de_xml
+        # )
+        # III_linguam_objectivum_de_attributum = self._ontologia.de(
+        #     'linguam_objectivum_codicem.de_attributum',
+        #     False, fontem=ontologia_de_xml
+        # )
 
         # I glossarium > II conceptum > III linguam > IV terminum ----------- #
         # contextum: commūne . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -830,7 +868,7 @@ class HXLTMdeXML:
                         conceptum_numerum
                     )).strip(),
                     libellam_et_typum='linguam.codicem',
-                    linguam_crudum=linguam_codicem,
+                    linguam_crudum_aut_typum=linguam_codicem,
                     saccum=conceptum_sacuum
                 )
 
@@ -853,7 +891,7 @@ class HXLTMdeXML:
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=linguam_codicem,
                     libellam_et_typum='linguam.codicem',
-                    linguam_crudum=linguam_codicem,
+                    linguam_crudum_aut_typum=linguam_codicem,
                     saccum=conceptum_sacuum
                 )
 
@@ -871,7 +909,7 @@ class HXLTMdeXML:
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(nodum.text).strip(),
                     libellam_et_typum='terminum.valorem',
-                    linguam_crudum=linguam_codicem,
+                    linguam_crudum_aut_typum=linguam_codicem,
                     saccum=conceptum_sacuum
                 )
 
@@ -882,7 +920,7 @@ class HXLTMdeXML:
                     valorem=self._de_commune_xml_nodum_quod_valorem(
                         nodum, eventum, IV_terminum_accuratum),
                     libellam_et_typum='terminum.accuratum',
-                    linguam_crudum=linguam_codicem,
+                    linguam_crudum_aut_typum=linguam_codicem,
                     saccum=conceptum_sacuum
                 )
 
@@ -895,54 +933,54 @@ class HXLTMdeXML:
                     valorem=self._de_commune_xml_nodum_quod_valorem(
                         nodum, eventum, IV_terminum_typum),
                     libellam_et_typum='terminum.typum',
-                    linguam_crudum=linguam_codicem,
+                    linguam_crudum_aut_typum=linguam_codicem,
                     saccum=conceptum_sacuum
                 )
 
                 # print('oooi', conceptum_sacuum)
 
             # contextum: linguam fontem et linguam objectīvum . . . . . . . . .
-            if xml_nunc_signum == III_linguam_fontem_signum:
+            # if xml_nunc_signum == III_linguam_fontem_signum:
 
-                if III_terminum_habendum_accuratum:
-                    raise NotImplementedError(
-                        'non III_terminum_habendum_accuratum [{0}]'.format(
-                            ontologia_de_xml))
+            #     if III_terminum_habendum_accuratum:
+            #         raise NotImplementedError(
+            #             'non III_terminum_habendum_accuratum [{0}]'.format(
+            #                 ontologia_de_xml))
 
-                if not III_linguam_fontem_de_attributum:
-                    raise NotImplementedError(
-                        'non III_linguam_fontem_de_attributum [{0}]'.format(
-                            ontologia_de_xml))
+            #     if not III_linguam_fontem_de_attributum:
+            #         raise NotImplementedError(
+            #             'non III_linguam_fontem_de_attributum [{0}]'.format(
+            #                 ontologia_de_xml))
 
-                if eventum != 'start':
-                    continue
+            #     if eventum != 'start':
+            #         continue
 
-                linguam_fontem_codicem = xml_nunc_attributum.get(
-                    III_linguam_fontem_de_attributum,
-                    self._fontem_linguam.linguam)
-                # linguam_fontem_codicem = self._fontem_linguam.linguam
+            #     linguam_fontem_codicem = xml_nunc_attributum.get(
+            #         III_linguam_fontem_de_attributum,
+            #         self._fontem_linguam.linguam)
+            #     # linguam_fontem_codicem = self._fontem_linguam.linguam
 
-                # if not linguam_fontem_codicem:
-                #     linguam_fontem_codicem = self._fontem_linguam.linguam
+            #     # if not linguam_fontem_codicem:
+            #     #     linguam_fontem_codicem = self._fontem_linguam.linguam
 
-                # Hotfix XLIFF with country codes
-                # TODO: generalize it later
-                if isinstance(linguam_fontem_codicem, str) and \
-                        len(linguam_fontem_codicem) == 5 and \
-                        linguam_fontem_codicem.find('-') == 2:
-                    linguam_fontem_codicem = \
-                        linguam_fontem_codicem.split('-')[0]
+            #     # Hotfix XLIFF with country codes
+            #     # TODO: generalize it later
+            #     if isinstance(linguam_fontem_codicem, str) and \
+            #             len(linguam_fontem_codicem) == 5 and \
+            #             linguam_fontem_codicem.find('-') == 2:
+            #         linguam_fontem_codicem = \
+            #             linguam_fontem_codicem.split('-')[0]
 
-                conceptum_sacuum = HXLTMUtil.conceptum_saccum(
-                    valorem=str(xml_nunc_attributum.get(
-                        III_linguam_fontem_de_attributum,
-                        # conceptum_numerum
-                        linguam_fontem_codicem
-                    )).strip(),
-                    libellam_et_typum='linguam.fontem_codicem',
-                    linguam_crudum=linguam_fontem_codicem,
-                    saccum=conceptum_sacuum
-                )
+            #     conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+            #         valorem=str(xml_nunc_attributum.get(
+            #             III_linguam_fontem_de_attributum,
+            #             # conceptum_numerum
+            #             linguam_fontem_codicem
+            #         )).strip(),
+            #         libellam_et_typum='linguam.fontem_codicem',
+            #         linguam_crudum=linguam_fontem_codicem,
+            #         saccum=conceptum_sacuum
+            #     )
 
             if xml_nunc_signum == IV_terminum_fontem_valorem_signum:
 
@@ -953,53 +991,56 @@ class HXLTMdeXML:
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(nodum.text).strip(),
-                    libellam_et_typum='terminum.fontem_valorem',
-                    linguam_crudum=linguam_fontem_codicem,
+                    libellam_et_typum='terminum.valorem',
+                    linguam_crudum_aut_typum='fontem',
+                    # linguam_crudum_aut_typum=opus_fontem_linguam.linguam,
                     saccum=conceptum_sacuum
                 )
 
-            if xml_nunc_signum == III_linguam_objectivum_signum:
+            # if xml_nunc_signum == III_linguam_objectivum_signum:
 
-                if III_terminum_habendum_accuratum:
-                    raise NotImplementedError(
-                        'non III_terminum_habendum_accuratum [{0}]'.format(
-                            ontologia_de_xml))
+            #     if III_terminum_habendum_accuratum:
+            #         raise NotImplementedError(
+            #             'non III_terminum_habendum_accuratum [{0}]'.format(
+            #                 ontologia_de_xml))
 
-                if not III_linguam_objectivum_de_attributum:
-                    raise NotImplementedError(
-                        'non III_linguam_objectivum_de_attributum [{0}]'.
-                        format(ontologia_de_xml))
+            #     if not III_linguam_objectivum_de_attributum:
+            #         raise NotImplementedError(
+            #             'non III_linguam_objectivum_de_attributum [{0}]'.
+            #             format(ontologia_de_xml))
 
-                if eventum != 'start':
-                    continue
+            #     if eventum != 'start':
+            #         continue
 
-                # linguam_objectivum_codicem = xml_nunc_attributum.get(
-                #     III_linguam_objectivum_de_attributum, conceptum_numerum)
-                linguam_objectivum_codicem = xml_nunc_attributum.get(
-                    III_linguam_objectivum_de_attributum,
-                    self._objectivum_linguam.linguam)
+            #     # linguam_objectivum_codicem = xml_nunc_attributum.get(
+            #     #     III_linguam_objectivum_de_attributum,
+            #           conceptum_numerum)
+            #     linguam_objectivum_codicem = xml_nunc_attributum.get(
+            #         III_linguam_objectivum_de_attributum,
+            #         self._objectivum_linguam.linguam)
 
-                # linguam_objectivum_codicem = self._objectivum_linguam.linguam
+            #     # linguam_objectivum_codicem = \
+            #     #     self._objectivum_linguam.linguam
 
-                # Hotfix XLIFF with country codes
-                # TODO: generalize it later
-                if isinstance(linguam_objectivum_codicem, str) and \
-                        len(linguam_objectivum_codicem) == 5 and \
-                        linguam_objectivum_codicem.find('-') == 2:
-                    linguam_objectivum_codicem = \
-                        linguam_objectivum_codicem.split('-')[0]
+            #     # Hotfix XLIFF with country codes
+            #     # TODO: generalize it later
+            #     if isinstance(linguam_objectivum_codicem, str) and \
+            #             len(linguam_objectivum_codicem) == 5 and \
+            #             linguam_objectivum_codicem.find('-') == 2:
+            #         linguam_objectivum_codicem = \
+            #             linguam_objectivum_codicem.split('-')[0]
 
-                # print(linguam_objectivum_codicem)
+            #     # print(linguam_objectivum_codicem)
 
-                conceptum_sacuum = HXLTMUtil.conceptum_saccum(
-                    valorem=str(xml_nunc_attributum.get(
-                        III_linguam_objectivum_de_attributum,
-                        linguam_objectivum_codicem
-                    )).strip(),
-                    libellam_et_typum='linguam.objectivum_codicem',
-                    linguam_crudum=linguam_objectivum_codicem,
-                    saccum=conceptum_sacuum
-                )
+            #     conceptum_sacuum = HXLTMUtil.conceptum_saccum(
+            #         valorem=str(xml_nunc_attributum.get(
+            #             III_linguam_objectivum_de_attributum,
+            #             linguam_objectivum_codicem
+            #         )).strip(),
+            #         libellam_et_typum='linguam.objectivum_codicem',
+            #         linguam_crudum=linguam_objectivum_codicem,
+            #         saccum=conceptum_sacuum
+            #     )
 
             if xml_nunc_signum == IV_terminum_objectivum_valorem_signum:
 
@@ -1010,8 +1051,9 @@ class HXLTMdeXML:
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(nodum.text).strip(),
-                    libellam_et_typum='terminum.objectivum_valorem',
-                    linguam_crudum=linguam_objectivum_codicem,
+                    libellam_et_typum='terminum.valorem',
+                    linguam_crudum_aut_typum='objectivum',
+                    # linguam_crudum_aut_typum=opus_objectivum_linguam.linguam,
                     saccum=conceptum_sacuum
                 )
 
@@ -2581,7 +2623,7 @@ class HXLTMUtil:
     def conceptum_saccum(
         valorem: str,
         libellam_et_typum: str = 'terminum.valorem',
-        linguam_crudum: str = None,
+        linguam_crudum_aut_typum: str = None,
         saccum: Dict = None,
         unicum: bool = True
     ) -> Dict:  # pylint: disable=no-self-use
@@ -2603,8 +2645,9 @@ class HXLTMUtil:
                     - linguam.partem_orationis / terminum.partem_orationis
                     - terminum.valorem
                     - terminum.accuratum
-            linguam_crudum (str):
-                Linguam clāvem textum crudum
+            linguam_crudum_aut_typum (str):
+                Linguam clāvem textum crudum (exemplum: por-Latn, spa-Latn)
+                aut typum (exemplum: fontem, objectivum)
             saccum (Dict):
                 conceptum saccum, de Python Dict
             valorem_multiplum (bool):
@@ -2640,23 +2683,23 @@ class HXLTMUtil:
             saccum[libellam] = {}
 
         if libellam in ['linguam', 'terminum']:
-            if not linguam_crudum:
+            if not linguam_crudum_aut_typum:
                 raise ValueError(
                     'non linguam_crudum de {0}'.format(valorem))
 
-            if linguam_crudum not in saccum[libellam]:
-                saccum[libellam][linguam_crudum] = {}
+            if linguam_crudum_aut_typum not in saccum[libellam]:
+                saccum[libellam][linguam_crudum_aut_typum] = {}
 
             if unicum:
-                saccum[libellam][linguam_crudum][typum] = valorem
+                saccum[libellam][linguam_crudum_aut_typum][typum] = valorem
             else:
-                if typum not in saccum[libellam][linguam_crudum]:
-                    saccum[libellam][linguam_crudum][typum] = []
-                saccum[libellam][linguam_crudum][typum].append(
+                if typum not in saccum[libellam][linguam_crudum_aut_typum]:
+                    saccum[libellam][linguam_crudum_aut_typum][typum] = []
+                saccum[libellam][linguam_crudum_aut_typum][typum].append(
                     valorem
                 )
             # if libellam == 'terminum':
-                # if typum not in saccum[libellam][linguam_crudum]:
+                # if typum not in saccum[libellam][linguam_crudum_aut_typum]:
 
         else:
             if unicum:
@@ -3396,41 +3439,12 @@ class XMLInFormatumHXLTM():
         # TODO: fix TBX/TMX that now may output fontem
 
         if self.fontem_linguam:
-            # lineam_1.append('#item+rem' + self.linguam_fontem.a())
-            valuem = ''
-            if self.fontem_linguam.bcp47:
-                valuem = self._ontologia.de(
-                    'terminum.' + self.fontem_linguam.bcp47 +
-                    '.fontem_valorem',
-                    fontem=conceptum_sacuum
-                )
+            lineam_1.append(self._ontologia.de(
+                'terminum.fontem.valorem', fontem=conceptum_sacuum))
 
-            elif self.fontem_linguam.iso6393:
-                valuem = self._ontologia.de(
-                    'terminum.' + self.fontem_linguam.iso6393 +
-                    '.fontem_valorem',
-                    fontem=conceptum_sacuum
-                )
-
-            # lineam_1.append('TODO fontem')
-            lineam_1.append(valuem)
         if self.objectivum_linguam:
-            valuem = ''
-            if self.objectivum_linguam.bcp47:
-                valuem = self._ontologia.de(
-                    'terminum.' + self.objectivum_linguam.bcp47 +
-                    '.objectivum_valorem',
-                    fontem=conceptum_sacuum
-                )
-
-            elif self.objectivum_linguam.iso6393:
-                valuem = self._ontologia.de(
-                    'terminum.' + self.objectivum_linguam.iso6393 +
-                    '.objectivum_valorem',
-                    fontem=conceptum_sacuum
-                )
-            # lineam_1.append('TODO objectivum')
-            lineam_1.append(valuem)
+            lineam_1.append(self._ontologia.de(
+                'terminum.objectivum.valorem', fontem=conceptum_sacuum))
 
         for linguam in self.agendum_linguam:
             # lineam_1.append('#item+rem' + linguam.a())
