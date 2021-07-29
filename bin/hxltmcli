@@ -191,6 +191,7 @@ from functools import reduce
 from typing import (
     Any,
     Dict,
+    Iterable,
     List,
     Type,
     Union,
@@ -221,11 +222,9 @@ import langcodes
 # from liquid import Template as LiquidTemplate
 from liquid import Environment as LiquidEnvironment
 from liquid.loaders import DictLoader as LiquiDictLoader
-# TODO: implement a JSON filter
-#       @see https://github.com/jg-rp/liquid-extra/blob/main/liquid_extra
-#            /filters/additional.py
-# template = LiquidTemplate("Hello, {{ you }}!")
-# print(template.render(you="World"))  # "Hello, World!"
+from liquid.filter import string_filter as liquid_string_filter
+from liquid.filter import array_filter as liquid_array_filter
+
 
 __VERSION__ = "v0.8.6"
 
@@ -3708,7 +3707,8 @@ Salvi, {{ i }}! \
             globals=globum_valorem,
             loader=formatum_excerptum
         )
-        env.add_filter("csv_quotum", liquid_csv_quotum)
+        env.add_filter("quotum_rem", liquid_quotum_rem)
+        env.add_filter("quotum_lineam", liquid_quotum_lineam)
 
         liquid_template = env.from_string(liquid_formatum)
         contextum = liquid_contextum if liquid_contextum else {}
@@ -3891,36 +3891,6 @@ Salvi, {{ i }}! \
         return globum
 
 
-def liquid_csv_quotum(valorem: str, _etc=None) -> str:
-    """liquid_csv_quotum
-
-    Trivia:
-      - csv, https://datatracker.ietf.org/doc/html/rfc4180
-      - quotum, https://en.wiktionary.org/wiki/quotus#Latin
-      - valōrem, https://en.wiktionary.org/wiki/valor#Latin
-
-    Args:
-        valorem ([str]):
-
-    Returns:
-        [str]:
-    """
-    if valorem is None or not valorem:
-        return ''
-
-    # print('antes', valorem)
-
-    resultatum = valorem
-
-    if '"' in resultatum:
-        resultatum = '"{}"'.format(str(valorem).replace('"', '""'))
-
-    if ',' in resultatum:
-        resultatum = '"' + resultatum + '"'
-
-    return resultatum
-
-
 class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
     """HXLTM In Fōrmātum Tabulam (rādīcem Fōrmātum)
 
@@ -4035,28 +4005,6 @@ class HXLTMInFormatumTBX(HXLTMInFormatum):
 
     ONTOLOGIA_NORMAM = 'TBX'  # ontologia/cor.hxltm.yml clāvem nomen
 
-    # def datum_corporeum(self) -> List:
-    #     """Datum corporeum de fōrmātum TermBase eXchange (TBX)
-
-    #     Trivia:
-    #         - datum, https://en.wiktionary.org/wiki/datum#Latin
-    #         - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
-
-    #     Returns:
-    #         List: Python List, id est: rem collēctiōnem
-    #     """
-    #     resultatum = []
-
-    #     liquid_template = self.normam['formatum']['corporeum']
-
-    #     for rem in self.de_rem():
-    #         liquid_context = {'rem': str(rem)}
-    #         liquid_context = rem.contextum()
-    #         resultatum.append(
-    #             self.de_liquid(liquid_template, liquid_context)
-    #         )
-    #     return resultatum
-
 
 class HXLTMInFormatumTBXBasim(HXLTMInFormatumTBX):
     """See cor.hxltm.yml:normam.TBX-Basim"""
@@ -4097,34 +4045,6 @@ class HXLTMInFormatumTMX(HXLTMInFormatum):
     # ONTOLOGIA_FORMATUM = ''
 
     ONTOLOGIA_NORMAM = 'TMX'  # ontologia/cor.hxltm.yml clāvem nomen
-
-    # def datum_corporeum(self) -> List:
-    #     """Datum corporeum de fōrmātum Translation Memory eXchange format
-    #     (TMX) v1.4
-
-    #     Trivia:
-    #         - datum, https://en.wiktionary.org/wiki/datum#Latin
-    #         - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
-
-    #     Returns:
-    #         List: Python List, id est: rem collēctiōnem
-    #     """
-    #     resultatum = []
-
-    #     liquid_template = self.normam['formatum']['corporeum']
-
-    #     # for numerum, rem in self.rem():
-    #     # for rem, rem2 in self.rem():
-    #     for rem in self.de_rem():
-    #         # resultatum.append(rem.v())
-    #         # print(rem)
-    #         liquid_context = {'rem': str(rem)}
-    #         liquid_context = rem.contextum()
-    #         # resultatum.append(str(rem))
-    #         resultatum.append(
-    #             self.de_liquid(liquid_template, liquid_context)
-    #         )
-    #     return resultatum
 
 
 class HXLTMInFormatumUTX(HXLTMInFormatumTabulamRadicem):
@@ -4174,29 +4094,6 @@ class HXLTMInFormatumXLIFF(HXLTMInFormatum):
     # ONTOLOGIA_FORMATUM = ''
 
     ONTOLOGIA_NORMAM = 'XLIFF'  # ontologia/cor.hxltm.yml clāvem nomen
-
-    # def datum_corporeum(self) -> List:
-    #     """Datum corporeum de fōrmātum XML Localization Interchange File
-    #     Format (XLIFF)
-
-    #     Trivia:
-    #         - datum, https://en.wiktionary.org/wiki/datum#Latin
-    #         - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
-
-    #     Returns:
-    #         List: Python List, id est: rem collēctiōnem
-    #     """
-    #     resultatum = []
-
-    #     liquid_template = self.normam['formatum']['corporeum']
-
-    #     for rem in self.de_rem():
-    #         liquid_context = {'rem': str(rem)}
-    #         liquid_context = rem.contextum()
-    #         resultatum.append(
-    #             self.de_liquid(liquid_template, liquid_context)
-    #         )
-    #     return resultatum
 
 
 class HXLTMInFormatumXLIFFObsoletum(HXLTMInFormatumXLIFF):
@@ -6814,6 +6711,56 @@ class HXLUtils:
             parts = header.partition(':')
             http_headers[parts[0].strip()] = parts[2].strip()
         return http_headers
+
+
+@liquid_string_filter
+def liquid_quotum_rem(valorem: str, separator: object = ",") -> str:
+    """liquid_quotum_rem
+
+    Trivia:
+      - csv, https://datatracker.ietf.org/doc/html/rfc4180
+      - quotum, https://en.wiktionary.org/wiki/quotus#Latin
+      - valōrem, https://en.wiktionary.org/wiki/valor#Latin
+
+    Args:
+        valorem ([str]):
+
+    Returns:
+        [str]:
+    """
+    if valorem is None or not valorem:
+        return ''
+
+    # print('antes', valorem, separator)
+
+    resultatum = valorem
+
+    if '"' in resultatum:
+        resultatum = '"{}"'.format(str(valorem).replace('"', '""'))
+
+    if separator in resultatum:
+        resultatum = '"' + resultatum + '"'
+
+    return resultatum
+
+
+def _liquid_str_if_not(val: object) -> str:
+    if not isinstance(val, str):
+        return str(val)
+    return val
+
+
+@liquid_array_filter
+def liquid_quotum_lineam(
+        iterable: Iterable[object],
+        separator: object = ",") -> str:
+    """Concatenate an array of strings."""
+    if not isinstance(separator, str):
+        separator = str(separator)
+
+    # return separator.join(_liquid_str_if_not(item) for item in iterable)
+    return separator.join(
+        liquid_quotum_rem(item, separator) for item in iterable)
 
 
 class FileOutput(object):
