@@ -563,7 +563,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 # The next 2 examples are equivalent: will print to stdout the result
 # [eng-Latn]_
 
-hxltmdexml resultatum/hxltm-exemplum-linguam.hxltm.xml
+# hxltmdexml resultatum/hxltm-exemplum-linguam.hxltm.xml
 hxltmdexml resultatum/hxltm-exemplum-linguam.hxltm.xml --agendum-linguam lat-Latn@la,por-Latn@pt,spa-Latn@es,eng-Latn@en
 
 # end::hxltmdexml-XML[]
@@ -676,9 +676,10 @@ cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml --font
 # [eng-Latn]_
 
 hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf \
-    rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv
+    rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv \
+    --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
-cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml > rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv
+cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.xlf | hxltmdexml > rursum/XLIFF/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 
 # end::hxltmdexml-XLIFF-obsoletum[]

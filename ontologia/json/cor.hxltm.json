@@ -528,8 +528,8 @@
         "terminum_habendum_accuratum": true,
         "terminum_habendum_type": true,
         "terminum_habendum_multum": true,
-        "terminum_habendum_fontem": true,
-        "terminum_habendum_objectivum": true,
+        "terminum_habendum_fontem": false,
+        "terminum_habendum_objectivum": false,
         "terminum_accuratum": {
           "ad": "XML-nodum-textum",
           "de_signum": "accuratum",
