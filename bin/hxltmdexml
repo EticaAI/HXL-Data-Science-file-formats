@@ -679,6 +679,9 @@ class HXLTMdeXML:
         conceptum_numerum = 1
         conceptum_sacuum = None
 
+        # print(self._fontem_linguam.linguam)
+        # print(self._objectivum_linguam.linguam)
+
         if self._ontologia.de('terminum_habendum_multum',
                               fontem=ontologia_de_xml) is False:
             self.in_formatum.definitionem_linguam(False)
@@ -819,6 +822,8 @@ class HXLTMdeXML:
                 linguam_codicem = xml_nunc_attributum.get(
                     III_linguam_de_attributum, conceptum_numerum)
 
+                # print('linguam_codicem', linguam_codicem)
+
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(xml_nunc_attributum.get(
                         III_linguam_de_attributum,
@@ -913,14 +918,26 @@ class HXLTMdeXML:
                     continue
 
                 linguam_fontem_codicem = xml_nunc_attributum.get(
-                    III_linguam_fontem_de_attributum, conceptum_numerum)
+                    III_linguam_fontem_de_attributum,
+                    self._fontem_linguam.linguam)
+                # linguam_fontem_codicem = self._fontem_linguam.linguam
 
-                # print(linguam_fontem_codicem)
+                # if not linguam_fontem_codicem:
+                #     linguam_fontem_codicem = self._fontem_linguam.linguam
+
+                # Hotfix XLIFF with country codes
+                # TODO: generalize it later
+                if isinstance(linguam_fontem_codicem, str) and \
+                        len(linguam_fontem_codicem) == 5 and \
+                        linguam_fontem_codicem.find('-') == 2:
+                    linguam_fontem_codicem = \
+                        linguam_fontem_codicem.split('-')[0]
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(xml_nunc_attributum.get(
                         III_linguam_fontem_de_attributum,
-                        conceptum_numerum
+                        # conceptum_numerum
+                        linguam_fontem_codicem
                     )).strip(),
                     libellam_et_typum='linguam.fontem_codicem',
                     linguam_crudum=linguam_fontem_codicem,
@@ -956,15 +973,28 @@ class HXLTMdeXML:
                 if eventum != 'start':
                     continue
 
+                # linguam_objectivum_codicem = xml_nunc_attributum.get(
+                #     III_linguam_objectivum_de_attributum, conceptum_numerum)
                 linguam_objectivum_codicem = xml_nunc_attributum.get(
-                    III_linguam_objectivum_de_attributum, conceptum_numerum)
+                    III_linguam_objectivum_de_attributum,
+                    self._objectivum_linguam.linguam)
+
+                # linguam_objectivum_codicem = self._objectivum_linguam.linguam
+
+                # Hotfix XLIFF with country codes
+                # TODO: generalize it later
+                if isinstance(linguam_objectivum_codicem, str) and \
+                        len(linguam_objectivum_codicem) == 5 and \
+                        linguam_objectivum_codicem.find('-') == 2:
+                    linguam_objectivum_codicem = \
+                        linguam_objectivum_codicem.split('-')[0]
 
                 # print(linguam_objectivum_codicem)
 
                 conceptum_sacuum = HXLTMUtil.conceptum_saccum(
                     valorem=str(xml_nunc_attributum.get(
                         III_linguam_objectivum_de_attributum,
-                        conceptum_numerum
+                        linguam_objectivum_codicem
                     )).strip(),
                     libellam_et_typum='linguam.objectivum_codicem',
                     linguam_crudum=linguam_objectivum_codicem,
@@ -1019,6 +1049,12 @@ class HXLTMdeXML:
 
                 lineam = self.in_formatum.in_lineam_de_conceptum_sacuum(
                     conceptum_sacuum)
+
+                # print('')
+                # print('')
+                # print('conceptum_sacuum', conceptum_sacuum)
+                # print('')
+                # print('')
 
                 conceptum_sacuum = None
 

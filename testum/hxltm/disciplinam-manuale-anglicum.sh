@@ -639,7 +639,7 @@ hxltmdexml resultatum/hxltm-exemplum-linguam.tmx --agendum-linguam lat-Latn@la,p
 # hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf
 hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
-cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml
+cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 ### III ------------------------------------------------------------------------
 # _[eng-Latn]
@@ -647,9 +647,10 @@ cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmde
 # [eng-Latn]_
 
 hxltmdexml resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf \
-    rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv
+    rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv \
+     --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
-cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml > rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv
+cat resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn.obsoletum.xlf | hxltmdexml > rursum/XLIFF-obsoletum/hxltm-exemplum-linguam.por-Latn--spa-Latn.tm.hxl.csv  --fontem-linguam por-Latn@pt --objectivum-linguam spa-Latn@es
 
 # end::hxltmdexml-XLIFF-obsoletum[]
 

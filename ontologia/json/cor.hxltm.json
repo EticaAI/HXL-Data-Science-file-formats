@@ -46,8 +46,8 @@
         ]
       },
       "formatum": {
-        "initiale": "{{ globum.fontem_linguam.bcp47 | default: 'la' | csv_quotum }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | csv_quotum }},commentarium",
-        "corporeum": "{{ rem.de_fontem_linguam.rem | csv_quotum }},{{ rem.de_objectivum_linguam.rem | csv_quotum }},\"\"",
+        "initiale": "{{ globum.fontem_linguam.bcp47 | default: 'la' | quotum_rem }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | quotum_rem }},commentarium",
+        "corporeum": "{{ rem.de_fontem_linguam.rem | quotum_rem }},{{ rem.de_objectivum_linguam.rem | quotum_rem }},\"\"",
         "finale": false
       }
     },
@@ -203,7 +203,7 @@
       },
       "formatum": {
         "initiale": "{{ globum.fontem_linguam.bcp47 | default: 'la' }}\t{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}\tcommentarium",
-        "corporeum": "{{ rem.de_fontem_linguam.rem }}\t{{ rem.de_objectivum_linguam.rem }}\t",
+        "corporeum": "{{ rem.de_fontem_linguam.rem | quotum_rem: '\t' }}\t{{ rem.de_objectivum_linguam.rem | quotum_rem: '\t' }}\t",
         "finale": false
       }
     },
@@ -285,18 +285,18 @@
     "TBX-2008": {
       "archivum_extensionem": ".tbx",
       "normam": [
-        "https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf"
+        "<https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf>"
       ],
       "situs_interretialis": {
         "referens_officinale": [
-          "https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards"
+          "<https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards>"
         ],
         "_temporarium": [
-          "https://www.termbases.eu/",
-          "http://www.tbxinfo.net/",
-          "https://byutrg.github.io/TBX-Implementor/",
-          "https://github.com/byutrg/baseterm",
-          "https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide"
+          "<https://www.termbases.eu/>",
+          "<http://www.tbxinfo.net/>",
+          "<https://byutrg.github.io/TBX-Implementor/>",
+          "<https://github.com/byutrg/baseterm>",
+          "<https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide>"
         ]
       },
       "asa": {
@@ -308,7 +308,7 @@
     "TBX-2019": {
       "__meta": {
         "archivum_extensionem": ".tbx",
-        "descriptionem": "- <https://www.tbxinfo.net/about/>\n- <https://www.iso.org/standard/62510.html>\n\n## TBX-IATE\nTrivia: <https://iate.europa.eu/fields-explained>\n\n### `hxltmdexml` --agendum-linguam\n- bul-Latn@bg\n  - Bulgarian: bg; https://iso639-3.sil.org/code/bul\n- ces-Latn@cs\n  - Czech: cs; https://iso639-3.sil.org/code/ces\n- dan-Latn@da\n  - Danish: da; https://iso639-3.sil.org/code/dan\n- dut-Latn@nl\n  - Dutch: nl; https://iso639-3.sil.org/code/dut\n- ell-Latn@el\n  - Greek: el; https://iso639-3.sil.org/code/ell\n- eng-Latn@en\n  - English: en; https://iso639-3.sil.org/code/eng\n- est-Latn@et\n  - Estonian: et; https://iso639-3.sil.org/code/est\n- fin-Latn@fi\n  - Finnish: fi; https://iso639-3.sil.org/code/fin\n- fra-Latn@fr\n  - French: fr; https://iso639-3.sil.org/code/fra\n- ger-Latn@de\n  - German: de; https://iso639-3.sil.org/code/ger\n- gle-Latn@ga\n  - Irish: ga; https://iso639-3.sil.org/code/gle\n- hun-Latn@hu\n  - Hungarian: hu; https://iso639-3.sil.org/code/hun\n- ita-Latn@it\n  - Italian: it; https://iso639-3.sil.org/code/ita\n- lav-Latn@lv\n  - Latvian: lv; https://iso639-3.sil.org/code/lav\n- lit-Latn@lt\n  - Lithuanian: lt; https://iso639-3.sil.org/code/lit\n- mlt-Latn@mt\n  - Maltese: mt; https://iso639-3.sil.org/code/mlt\n- pol-Latn@pl\n  - Polish: pl; https://iso639-3.sil.org/code/pol\n- por-Latn@pt\n  - Portuguese: pt; https://iso639-3.sil.org/code/por\n- ron-Latn@ro\n  - Romanian: ro; https://iso639-3.sil.org/code/ron\n- scr-Latn@hr\n  - Croatian: hr; https://iso639-3.sil.org/code/scr\n- slk-Latn@sk\n  - Slovak: sk; https://iso639-3.sil.org/code/slk\n- slv-Latn@sl\n  - Slovene: sl; https://iso639-3.sil.org/code/slv\n- spa-Latn@es\n  - Spanish: es; https://iso639-3.sil.org/code/spa\n- swe-Latn@sv\n  - Swedish: sv; https://iso639-3.sil.org/code/swe\n",
+        "descriptionem": "- <https://www.tbxinfo.net/about/>\n- <https://www.iso.org/standard/62510.html>\n\n## TBX-IATE\nTrivia: <https://iate.europa.eu/fields-explained>\n\n### `hxltmdexml` --agendum-linguam\n- bul-Latn@bg\n  - Bulgarian: bg; <https://iso639-3.sil.org/code/bul>\n- ces-Latn@cs\n  - Czech: cs; <https://iso639-3.sil.org/code/ces>\n- dan-Latn@da\n  - Danish: da; <https://iso639-3.sil.org/code/dan>\n- dut-Latn@nl\n  - Dutch: nl; <https://iso639-3.sil.org/code/dut>\n- ell-Latn@el\n  - Greek: el; <https://iso639-3.sil.org/code/ell>\n- eng-Latn@en\n  - English: en; <https://iso639-3.sil.org/code/eng>\n- est-Latn@et\n  - Estonian: et; <https://iso639-3.sil.org/code/est>\n- fin-Latn@fi\n  - Finnish: fi; <https://iso639-3.sil.org/code/fin>\n- fra-Latn@fr\n  - French: fr; <https://iso639-3.sil.org/code/fra>\n- ger-Latn@de\n  - German: de; <https://iso639-3.sil.org/code/ger>\n- gle-Latn@ga\n  - Irish: ga; <https://iso639-3.sil.org/code/gle>\n- hun-Latn@hu\n  - Hungarian: hu; <https://iso639-3.sil.org/code/hun>\n- ita-Latn@it\n  - Italian: it; <https://iso639-3.sil.org/code/ita>\n- lav-Latn@lv\n  - Latvian: lv; <https://iso639-3.sil.org/code/lav>\n- lit-Latn@lt\n  - Lithuanian: lt; <https://iso639-3.sil.org/code/lit>\n- mlt-Latn@mt\n  - Maltese: mt; <https://iso639-3.sil.org/code/mlt>\n- pol-Latn@pl\n  - Polish: pl; <https://iso639-3.sil.org/code/pol>\n- por-Latn@pt\n  - Portuguese: pt; <https://iso639-3.sil.org/code/por>\n- ron-Latn@ro\n  - Romanian: ro; <https://iso639-3.sil.org/code/ron>\n- scr-Latn@hr\n  - Croatian: hr; <https://iso639-3.sil.org/code/scr>\n- slk-Latn@sk\n  - Slovak: sk; <https://iso639-3.sil.org/code/slk>\n- slv-Latn@sl\n  - Slovene: sl; <https://iso639-3.sil.org/code/slv>\n- spa-Latn@es\n  - Spanish: es; <https://iso639-3.sil.org/code/spa>\n- swe-Latn@sv\n  - Swedish: sv; <https://iso639-3.sil.org/code/swe>\n",
         "normam": [
           "proprietary format",
           "¯\\_(ツ)_/¯"
@@ -477,7 +477,7 @@
       },
       "formatum": {
         "initiale": "#UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};",
-        "corporeum": "{%- if tabulam.lineam_indicem contains 1 -%}\n  #{%- for item in rem.de_linguam -%}\n    term:{{ item[1].bcp47 | csv_quotum }},\n  {%- endfor %}\n{% endif -%}\n{%- for item in rem.de_linguam -%}\n  {% if item[1].rem != '' -%}\n    {{- item[1].rem | csv_quotum -}},\n  {%- endif -%}\n{%- endfor -%}",
+        "corporeum": "{%- if tabulam.lineam_indicem contains 1 -%}\n  #{%- for item in rem.de_linguam -%}\n    term:{{ item[1].bcp47 | quotum_rem }},\n  {%- endfor %}\n{% endif -%}\n{%- for item in rem.de_linguam -%}\n  {% if item[1].rem != '' -%}\n    {{- item[1].rem | quotum_rem -}},\n  {%- endif -%}\n{%- endfor -%}",
         "finale": false
       }
     },
@@ -619,6 +619,8 @@
         },
         "terminum_accuratum": false,
         "terminum_multum": false,
+        "terminum_habendum_fontem": true,
+        "terminum_habendum_objectivum": true,
         "terminum_fontem_valorem": {
           "signum": "source",
           "trivium": []
@@ -682,8 +684,10 @@
           "de_attributum": "lang",
           "trivium": []
         },
-        "terminum_accuratum": false,
-        "terminum_multum": false,
+        "terminum_habendum_accuratum": false,
+        "terminum_habendum_multum": false,
+        "terminum_habendum_fontem": true,
+        "terminum_habendum_objectivum": true,
         "terminum_fontem_valorem": {
           "signum": "source",
           "trivium": []

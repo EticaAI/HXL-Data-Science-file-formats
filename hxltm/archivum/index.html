@@ -904,10 +904,10 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 
     formatum:
       initiale: |-
-        {{ globum.fontem_linguam.bcp47 | default: 'la' | csv_quotum }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | csv_quotum }},commentarium
+        {{ globum.fontem_linguam.bcp47 | default: 'la' | quotum_rem }},{{ globum.objectivum_linguam.bcp47 | default: 'ar' | quotum_rem }},commentarium
 
       corporeum: |-
-        {{ rem.de_fontem_linguam.rem | csv_quotum }},{{ rem.de_objectivum_linguam.rem | csv_quotum }},""
+        {{ rem.de_fontem_linguam.rem | quotum_rem }},{{ rem.de_objectivum_linguam.rem | quotum_rem }},""
 
       finale: False</code></pre>
 </div>
@@ -1206,17 +1206,17 @@ Olá mundo!,¡Hola mundo!,""
   TBX-2008:
     archivum_extensionem: .tbx
     normam:
-      - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf
+      - &lt;https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf&gt;
     situs_interretialis:
       referens_officinale:
-        - https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards
+        - &lt;https://www.gala-global.org/knowledge-center/industry-development/standards/lisa-oscar-standards&gt;
       _temporarium:
-        - https://www.termbases.eu/
-        - http://www.tbxinfo.net/
-        # - https://github.com/byutrg/TBX-Spec
-        - https://byutrg.github.io/TBX-Implementor/
-        - https://github.com/byutrg/baseterm
-        - https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide
+        - &lt;https://www.termbases.eu/&gt;
+        - &lt;http://www.tbxinfo.net/&gt;
+        # - &lt;https://github.com/byutrg/TBX-Spec&gt;
+        - &lt;https://byutrg.github.io/TBX-Implementor/&gt;
+        - &lt;https://github.com/byutrg/baseterm&gt;
+        - &lt;https://github.com/LTAC-Global/TBX-Basic_ImplementationGuide&gt;
     # - https://www.tbxinfo.net/tbx-dialects/
     #    - Convert existing spreadsheet based glossaries into TBX format
     #      (see our tutorial and sample spreadsheets).
@@ -1242,53 +1242,53 @@ Olá mundo!,¡Hola mundo!,""
 
         ### `hxltmdexml` --agendum-linguam
         - bul-Latn@bg
-          - Bulgarian: bg; https://iso639-3.sil.org/code/bul
+          - Bulgarian: bg; &lt;https://iso639-3.sil.org/code/bul&gt;
         - ces-Latn@cs
-          - Czech: cs; https://iso639-3.sil.org/code/ces
+          - Czech: cs; &lt;https://iso639-3.sil.org/code/ces&gt;
         - dan-Latn@da
-          - Danish: da; https://iso639-3.sil.org/code/dan
+          - Danish: da; &lt;https://iso639-3.sil.org/code/dan&gt;
         - dut-Latn@nl
-          - Dutch: nl; https://iso639-3.sil.org/code/dut
+          - Dutch: nl; &lt;https://iso639-3.sil.org/code/dut&gt;
         - ell-Latn@el
-          - Greek: el; https://iso639-3.sil.org/code/ell
+          - Greek: el; &lt;https://iso639-3.sil.org/code/ell&gt;
         - eng-Latn@en
-          - English: en; https://iso639-3.sil.org/code/eng
+          - English: en; &lt;https://iso639-3.sil.org/code/eng&gt;
         - est-Latn@et
-          - Estonian: et; https://iso639-3.sil.org/code/est
+          - Estonian: et; &lt;https://iso639-3.sil.org/code/est&gt;
         - fin-Latn@fi
-          - Finnish: fi; https://iso639-3.sil.org/code/fin
+          - Finnish: fi; &lt;https://iso639-3.sil.org/code/fin&gt;
         - fra-Latn@fr
-          - French: fr; https://iso639-3.sil.org/code/fra
+          - French: fr; &lt;https://iso639-3.sil.org/code/fra&gt;
         - ger-Latn@de
-          - German: de; https://iso639-3.sil.org/code/ger
+          - German: de; &lt;https://iso639-3.sil.org/code/ger&gt;
         - gle-Latn@ga
-          - Irish: ga; https://iso639-3.sil.org/code/gle
+          - Irish: ga; &lt;https://iso639-3.sil.org/code/gle&gt;
         - hun-Latn@hu
-          - Hungarian: hu; https://iso639-3.sil.org/code/hun
+          - Hungarian: hu; &lt;https://iso639-3.sil.org/code/hun&gt;
         - ita-Latn@it
-          - Italian: it; https://iso639-3.sil.org/code/ita
+          - Italian: it; &lt;https://iso639-3.sil.org/code/ita&gt;
         - lav-Latn@lv
-          - Latvian: lv; https://iso639-3.sil.org/code/lav
+          - Latvian: lv; &lt;https://iso639-3.sil.org/code/lav&gt;
         - lit-Latn@lt
-          - Lithuanian: lt; https://iso639-3.sil.org/code/lit
+          - Lithuanian: lt; &lt;https://iso639-3.sil.org/code/lit&gt;
         - mlt-Latn@mt
-          - Maltese: mt; https://iso639-3.sil.org/code/mlt
+          - Maltese: mt; &lt;https://iso639-3.sil.org/code/mlt&gt;
         - pol-Latn@pl
-          - Polish: pl; https://iso639-3.sil.org/code/pol
+          - Polish: pl; &lt;https://iso639-3.sil.org/code/pol&gt;
         - por-Latn@pt
-          - Portuguese: pt; https://iso639-3.sil.org/code/por
+          - Portuguese: pt; &lt;https://iso639-3.sil.org/code/por&gt;
         - ron-Latn@ro
-          - Romanian: ro; https://iso639-3.sil.org/code/ron
+          - Romanian: ro; &lt;https://iso639-3.sil.org/code/ron&gt;
         - scr-Latn@hr
-          - Croatian: hr; https://iso639-3.sil.org/code/scr
+          - Croatian: hr; &lt;https://iso639-3.sil.org/code/scr&gt;
         - slk-Latn@sk
-          - Slovak: sk; https://iso639-3.sil.org/code/slk
+          - Slovak: sk; &lt;https://iso639-3.sil.org/code/slk&gt;
         - slv-Latn@sl
-          - Slovene: sl; https://iso639-3.sil.org/code/slv
+          - Slovene: sl; &lt;https://iso639-3.sil.org/code/slv&gt;
         - spa-Latn@es
-          - Spanish: es; https://iso639-3.sil.org/code/spa
+          - Spanish: es; &lt;https://iso639-3.sil.org/code/spa&gt;
         - swe-Latn@sv
-          - Swedish: sv; https://iso639-3.sil.org/code/swe
+          - Swedish: sv; &lt;https://iso639-3.sil.org/code/swe&gt;
 
       normam:
         - proprietary format
@@ -1879,7 +1879,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; res
         {{ globum.fontem_linguam.bcp47 | default: 'la' }}	{{ globum.objectivum_linguam.bcp47 | default: 'ar' }}	commentarium
 
       corporeum: |-
-        {{ rem.de_fontem_linguam.rem }}	{{ rem.de_objectivum_linguam.rem }}	
+        {{ rem.de_fontem_linguam.rem | quotum_rem: '	' }}	{{ rem.de_objectivum_linguam.rem | quotum_rem: '	' }}	
 
       finale: False</code></pre>
 </div>
@@ -2344,17 +2344,18 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
       initiale: |-
         #UTX 1.20; directionality: {{ glossarium.translationem_directionem | default: 'multi' }};
 
-      # TODO: handle " better (maybe create a liquid special filter?)
+      # @TODO: implement the quotum_lineam filter. At the moment we have
+      #        blank line at the end
       # [{{ item[1].statum }}]
       corporeum: |-
         {%- if tabulam.lineam_indicem contains 1 -%}
           #{%- for item in rem.de_linguam -%}
-            term:{{ item[1].bcp47 | csv_quotum }},
+            term:{{ item[1].bcp47 | quotum_rem }},
           {%- endfor %}
         {% endif -%}
         {%- for item in rem.de_linguam -%}
           {% if item[1].rem != '' -%}
-            {{- item[1].rem | csv_quotum -}},
+            {{- item[1].rem | quotum_rem -}},
           {%- endif -%}
         {%- endfor -%}
 
@@ -3184,6 +3185,8 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
 
       terminum_accuratum: False # XLIFF terminum habendum accuratum? Falsum
       terminum_multum: False # XLIFF-obsoletum est bilingue
+      terminum_habendum_fontem: True
+      terminum_habendum_objectivum: True
 
       terminum_fontem_valorem:
         # Exemplum: 'por-Latn ad &lt;source xml:lang="pt"&gt;por-Latn&lt;/source&gt;
@@ -3535,8 +3538,10 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 
       # IV terminum
 
-      terminum_accuratum: False # XLIFF terminum habendum accuratum? Falsum
-      terminum_multum: False # XLIFF-obsoletum est bilingue
+      terminum_habendum_accuratum: False # XLIFF terminum habendum accuratum? Falsum
+      terminum_habendum_multum: False # XLIFF-obsoletum est bilingue
+      terminum_habendum_fontem: True
+      terminum_habendum_objectivum: True
 
       terminum_fontem_valorem:
         # Exemplum: 'por-Latn ad &lt;source xml:lang="pt"&gt;por-Latn&lt;/source&gt;
@@ -5731,7 +5736,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-29 01:11:26 UTC
+Last updated 2021-07-29 04:01:04 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
