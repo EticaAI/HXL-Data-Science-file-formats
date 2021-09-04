@@ -282,6 +282,16 @@ authenticated requests. **Our recomendations on this case is:**
 
 ////
 
+== Presentations
+
+[#bootstrapping-hxltm]
+=== Bootstrapping-HXLTM
+==== eng-Latn: Bootstrapping technical translations and multilingual controlled vocabularies with HXLTM
+https://docs.google.com/presentation/d/11t8EMTtT8mV9NM0Dy7kCHDZEYkmSeyh7OA5CX50_OEQ/edit?usp=sharing[eng-Latn: Bootstrapping technical translations and multilingual controlled vocabularies with HXLTM]
+
+==== por-Latn: Como criar do zero traduções técnicas e vocabulários controlados multilíngues com HXLTM
+https://docs.google.com/presentation/d/1wEw9MmEAQypn20XLSDETbV3q2Nlf9ICwn3q970Du1es/edit?usp=sharing[por-Latn: Como criar do zero traduções técnicas e vocabulários controlados multilíngues com HXLTM]
+
 == Ontologia
 
 NOTE: Most features feasible to not hardcode (id est, require you to hack the

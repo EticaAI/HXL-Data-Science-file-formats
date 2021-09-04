@@ -33,6 +33,12 @@ NOTE: The https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ont
     that comes with hxltmcli can be customized with
     `hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml`.
 
+TIP: Bootstrapping-HXLTM (very, VERY long presentation):
+    +++<br>+++
+    1. https://docs.google.com/presentation/d/11t8EMTtT8mV9NM0Dy7kCHDZEYkmSeyh7OA5CX50_OEQ/edit?usp=sharing[eng-Latn: Bootstrapping technical translations and multilingual controlled vocabularies with HXLTM]
+    +++<br>+++
+    2. https://docs.google.com/presentation/d/1wEw9MmEAQypn20XLSDETbV3q2Nlf9ICwn3q970Du1es/edit?usp=sharing[por-Latn: Como criar do zero traduções técnicas e vocabulários controlados multilíngues com HXLTM]
+
 TIP: For advanced hackers or (people helping others in middle of urgency and
      with basic knowledge of python),
      *is possible copy only the single file
