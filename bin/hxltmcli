@@ -3045,7 +3045,12 @@ HXLTMASA()
                     statum_rem_accuratuam[
                         clavem_et_valorem['de_fontem_linguam']['linguam']]
             )
-            # print('yay', clavem_et_valorem['de_fontem_linguam'])
+            # print('yay', clavem_et_valorem['de_objectivum_linguam'])
+
+        # TODO: know bug: trying to enforce an objetive language (like
+        #       when preparing to export an XLIFF at this moment will
+        #       return error. The expected effect would be allow create
+        #       the export.
 
         if 'de_objectivum_linguam' in clavem_et_valorem and \
             clavem_et_valorem['de_objectivum_linguam']['linguam'] in \
