@@ -1,0 +1,51 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "{{ site.url }}{{ page.url }}",
+    "title": "{% _🗣️ ISO_15924_nomen 🗣️_ %}",
+    "description": "{% _🗣️ ISO_15924_summarius 🗣️_ %}",
+    "$comment": "https://www.unicode.org/iso15924/codelists.html, https://www.unicode.org/iso15924/iso15924.txt",
+    "type": "object",
+    "properties": {
+        "Code": {
+            "description": "{% _🗣️ ISO_15924_optionem_Code_summarius 🗣️_ %}",
+            "type": "string",
+            "length": 4,
+            "example": "{% _🗣️ ISO_15924_optionem_Code_exemplum 🗣️_ %}"
+        },
+        "Nº": {
+            "description": "{% _🗣️ ISO_15924_optionem_numerum_summarius 🗣️_ %}",
+            "type": "string",
+            "length": 3,
+            "example": "160"
+        },
+        "English Name": {
+            "description": "{% _🗣️ ISO_15924_optionem_nomen_anglicum_summarius 🗣️_ %}",
+            "type": "string",
+            "example": "{% _🗣️ ISO_15924_optionem_nomen_anglicum_exemplum 🗣️_ %}",
+            "$comment": "_[eng-Latn]TODO: investigate maximum length[eng-Latn]_"
+        },
+        "Nom français": {
+            "description": "{% _🗣️ ISO_15924_optionem_nomen_francogallicum_summarius 🗣️_ %}",
+            "type": "string",
+            "example": "{% _🗣️ ISO_15924_optionem_nomen_francogallicum_exemplum 🗣️_ %}",
+            "$comment": "_[eng-Latn]TODO: investigate maximum length[eng-Latn]_"
+        },
+        "PVA": {
+            "description": "{% _🗣️ ISO_15924_optionem_PVA_summarius 🗣️_ %}",
+            "type": "string",
+            "example": "{% _🗣️ ISO_15924_optionem_PVA_exemplum 🗣️_ %}",
+            "$comment": "_[eng-Latn]TODO: investigate maximum length[eng-Latn]_"
+        },
+        "Unicode Version": {
+            "description": "{% _🗣️ ISO_15924_optionem_Unicode_versionem_summarius 🗣️_ %}",
+            "example": "{% _🗣️ ISO_15924_optionem_Unicode_versionem_exemplum 🗣️_ %}",
+            "type": "number"
+        },
+        "Date": {
+            "description": "{% _🗣️ ISO_15924_optionem_dactylum_summarius 🗣️_ %}",
+            "type": "string",
+            "format": "date",
+            "example": "{% _🗣️ ISO_15924_optionem_dactylum_exemplum 🗣️_ %}"
+        }
+    }
+}
