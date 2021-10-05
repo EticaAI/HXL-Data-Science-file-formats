@@ -507,6 +507,17 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         )
 
         parser.add_argument(
+            '--objectivum-formulam',
+            help='(Draft, not implemented) ' +
+            'Template file to use as reference to generate an output. ' +
+            'Less powerful than custom file but can be used for ' +
+            'simple cases.',
+            # metavar='objectivum_formatum',
+            dest='objectivum_formulam',
+            action='store'
+        )
+
+        parser.add_argument(
             '--objectivum-HXLTM', '--HXLTM',
             help='Save output as HXLTM (default). Multilingual output format.',
             # metavar='objectivum_formatum',
@@ -600,14 +611,14 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             const='TSV-3'
         )
 
-        parser.add_argument(
-            '--objectivum-CSV-HXL-XLIFF', '--CSV-HXL-XLIFF',
-            help='(experimental) ' +
-            'HXLated bilingual CSV (feature compatible with XLIFF)',
-            dest='objectivum_formatum',
-            action='append_const',
-            const='CSV-HXL-XLIFF'
-        )
+        # parser.add_argument(
+        #     '--objectivum-CSV-HXL-XLIFF', '--CSV-HXL-XLIFF',
+        #     help='(experimental) ' +
+        #     'HXLated bilingual CSV (feature compatible with XLIFF)',
+        #     dest='objectivum_formatum',
+        #     action='append_const',
+        #     const='CSV-HXL-XLIFF'
+        # )
 
         parser.add_argument(
             '--objectivum-JSON-kv', '--JSON-kv',
@@ -953,7 +964,10 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         """
         formatum = None
 
-        if objectivum_formatum == 'CSV-3':
+        if objectivum_formatum == 'formatum-speciale':
+            formatum = HXLTMInFormatumEpeciale(self.hxltm_asa)
+
+        elif objectivum_formatum == 'CSV-3':
             formatum = HXLTMInFormatumTabulamCSV3(self.hxltm_asa)
 
         # elif objectivum_formatum == 'CSV-HXL-XLIFF':
@@ -1399,6 +1413,7 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_formatum: InitVar[str] = 'HXLTM'
+    objectivum_formulam: InitVar[str] = None
     objectivum_formatum_speciale: InitVar[str] = None
     objectivum_archivum_nomen: InitVar[str] = None
     columnam_numerum: InitVar[List] = []
@@ -1447,6 +1462,10 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
                 self.est_fontem_linguam(args_rem.fontem_linguam)
             if hasattr(args_rem, 'objectivum_linguam'):
                 self.est_objectivum_linguam(args_rem.objectivum_linguam)
+
+            if hasattr(args_rem, 'objectivum_formulam'):
+                self.objectivum_formulam = args_rem.objectivum_formulam
+                self.objectivum_formatum = 'formatum-speciale'
 
             if hasattr(args_rem, 'objectivum_formatum'):
                 if isinstance(args_rem.objectivum_formatum, list):
@@ -3643,6 +3662,28 @@ class HXLTMInFormatum(ABC):
 
         return resultatum
 
+    def datum_especiale(self) -> List:
+        """(WORKING DRAFT) Datum corporeum de fōrmātum Lorem Ipsum vI.II
+
+        Trivia:
+            - datum, https://en.wiktionary.org/wiki/datum#Latin
+            - corporeum, https://en.wiktionary.org/wiki/corporeus#Latin
+
+        Returns:
+            List: Python List, id est: rem collēctiōnem
+        """
+        resultatum = []
+
+        liquid_template = self.normam['formatum']['corporeum']
+
+        for rem in self.de_rem():
+            liquid_context = {'rem': str(rem)}
+            liquid_context = rem.contextum()
+            resultatum.append(
+                self.de_liquid(liquid_template, liquid_context)
+            )
+        return resultatum
+
     def de_lineam(self) -> Type['HXLTMRemIterandum']:
         """Generandum līneam de datum
 
@@ -3894,6 +3935,16 @@ Salvi, {{ i }}! \
             globum = {**globum, **summam}
 
         return globum
+
+
+class HXLTMInFormatumEpeciale(HXLTMInFormatum):
+    """(working draft)
+    _[eng-Latn]
+    Uses external file to generate an output
+    [eng-Latn]_
+    """
+
+    ONTOLOGIA_NORMAM = ''
 
 
 class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
