@@ -4,52 +4,53 @@
     "type": "object",
     "properties": {
         "L10N_ego_summarius": {
-            "description": "{% _🗣️ L10N_ego_summarius 🗣️_ %}",
+            "description": "L10N_ego_summarius",
             "type": "string",
             "example": ""
         },
         "L10N_ego_codicem": {
-            "description": "{% _🗣️ L10N_ego_codicem 🗣️_ %}",
+            "description": "L10N_ego_codicem",
             "type": "string",
             "example": ""
         },
         "L10N_ego_linguam_nomen": {
-            "description": "{% _🗣️ L10N_ego_linguam_nomen 🗣️_ %}",
+            "description": "L10N_ego_linguam_nomen",
             "type": "string",
             "example": ""
         },
         "L10N_ego_scriptum_nomen": {
-            "description": "{% _🗣️ L10N_ego_scriptum_nomen 🗣️_ %}",
+            "description": "L10N_ego_scriptum_nomen",
             "type": "string",
             "example": ""
         },
         "L10N_ego_patriam_UN_M49_numerum": {
-            "description": "{% _🗣️ L10N_ego_patriam_UN_M49_numerum 🗣️_ %}",
+            "description": "L10N_ego_patriam_UN_M49_numerum",
             "type": "string",
             "example": ""
         },
         "L10N_ego_patriam_UN_P_codicem": {
-            "description": "{% _🗣️ L10N_ego_patriam_UN_P_codicem 🗣️_ %}",
+            "description": "L10N_ego_patriam_UN_P_codicem",
             "type": "string",
             "example": ""
         },
         "I18N_testum_salve_mundi_testum_I18N": {
-            "description": "{% _🗣️ I18N_testum_salve_mundi_testum_I18N 🗣️_ %}",
+            "description": "I18N_testum_salve_mundi_testum_I18N",
             "type": "string",
             "example": ""
         },
         "I18N_إختبار_טעסט_测试_테스트_испытание_I18N": {
-            "description": "{% _🗣️ I18N_إختبار_טעסט_测试_테스트_испытание_I18N 🗣️_ %}",
+            "description": "I18N_إختبار_טעסט_测试_테스트_испытание_I18N",
             "type": "string",
             "example": ""
         },
         "I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N": {
-            "//description": " _🗣️ I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N 🗣️_  ",
+            "//description": " _ I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N   ",
             "//comment": "jg-rp/liquid complaints about: + - * /",
-            "description": "{% _🗣️ I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_1234_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N 🗣️_ %}",
+            "description": "I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_1234_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N",
             "type": "string",
             "example": "",
-            "//test2": "{% _🗣️ 👁️lat-Latn👁️ 👂Dominium publicum👂 👁️lat-Latn👁️ 🗣️_ %}"
+            "//test2": "👁️lat-Latn👁️ 👂Dominium publicum👂 👁️lat-Latn👁️"
         }
     }
 }
+

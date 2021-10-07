@@ -228,19 +228,15 @@ from liquid.loaders import DictLoader as LiquiDictLoader
 from liquid.filter import string_filter as liquid_string_filter
 from liquid.filter import array_filter as liquid_array_filter
 # ...
-# TEMPORARY. START (This part may be renamed later)
-from liquid.ast import Node
-from liquid.builtin.statement import StatementNode
+from liquid.ast import Node as LiquidNode
+from liquid.builtin.statement import StatementNode as LiquidStatementNode
 from liquid.lex import tokenize_filtered_expression
 from liquid.parse import parse_filtered_expression
-from liquid.parse import expect
-from liquid.stream import TokenStream
-from liquid.tag import Tag
-from liquid.token import TOKEN_TAG
-from liquid.token import TOKEN_EXPRESSION
-TAG_ECHO = sys.intern("echo")
-# TEMPORARY. START (This part may be renamed later)
-
+from liquid.parse import expect as liquid_expect
+from liquid.stream import TokenStream as LiquidTokenStream
+from liquid.tag import Tag as LiquidTag
+from liquid.token import TOKEN_TAG as LIQUID_TOKEN_TAG
+# from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
 __VERSION__ = "v0.8.6"
 
@@ -3816,7 +3812,7 @@ Salvi, {{ i }}! \
         # liquid_formatum = liquid_formatum.replace('_🗣️', '_U1F5E3')
         # liquid_formatum = liquid_formatum.replace('🗣️_', 'U1F5E3_')
         liquid_formatum = liquid_formatum.replace('_🗣️', '_')
-        liquid_formatum = liquid_formatum.replace('🗣️_', '_')
+        liquid_formatum = liquid_formatum.replace('🗣️_', '')
         # liquid_formatum = liquid_formatum.replace('_🗣️', 'l10n')
         # liquid_formatum = liquid_formatum.replace('🗣️_', 'l10n')
 
@@ -3829,7 +3825,7 @@ Salvi, {{ i }}! \
         # env.add_filter("🗣️", liquid_l10n)
         # env.add_filter("_", liquid_l10n)
         # env.add_filter("l10n", liquid_l10n)
-        env.add_tag(EchoTag)
+        env.add_tag(LiquidL10nTag)
 
         # U+1F5E3
 
@@ -6852,98 +6848,36 @@ class HXLUtils:
         return http_headers
 
 
-# class UnlessTag(LiquidTag):
-
-#     name = 'unless'
-#     end = 'endunless'
-
-#     def parse(self, stream: TokenStream) -> Node:
-#         parser = liquid_get_parser(self.env)
-
-#         liquid_expect(stream, TOKEN_TAG, value=TAG_UNLESS)
-#         tok = stream.current
-#         stream.next_token()
-
-#         liquid_expect(stream, TOKEN_EXPRESSION)
-#         expr_iter = tokenize_boolean_expression(stream.current.value)
-#         expr = parse_boolean_expression(TokenStream(expr_iter))
-
-#         stream.next_token()
-#         consequence = parser.parse_block(stream, ENDUNLESSBLOCK)
-
-#         liquid_expect(stream, TOKEN_TAG, value=TAG_ENDUNLESS)
-
-#         return UnlessNode(
-#             tok=tok,
-#             condition=expr,
-#             consequence=consequence
-#         )
-
-class EchoNode(StatementNode):
+class LiquidL10nNode(LiquidStatementNode):
     """Parse tree node for the built-in "echo" tag."""
 
     __slots__ = ("tok", "expression")
 
     def __repr__(self) -> str:  # pragma: no cover
-        return f"EchoNode(tok={self.tok}, expression={self.expression!r})"
+        return f"LiquidL10nNode(tok={self.tok}, expression={self.expression!r})"
 
 
-class EchoTag(Tag):
+class LiquidL10nTag(LiquidTag):
     """The built-in "echo" tag."""
 
     # name = TAG_ECHO
     name = '_'
     block = False
 
-    def parse(self, stream: TokenStream) -> Node:
-        # expect(stream, TOKEN_TAG, value=TAG_ECHO)
-        expect(stream, TOKEN_TAG, value='_')
+    def parse(self, stream: LiquidTokenStream) -> LiquidNode:
+        # liquid_expect(stream, LIQUID_TOKEN_TAG, value=TAG_ECHO)
+        liquid_expect(stream, LIQUID_TOKEN_TAG, value='_')
         tok = stream.current
-        print('stream.current.value', stream.current.value)
-        stream.next_token()
-        print('stream.current.value', stream.current.value)
-        # stream.next_token()
         # print('stream.current.value', stream.current.value)
         # stream.next_token()
         # print('stream.current.value', stream.current.value)
-        # stream.next_token()
-        # print('stream.current.value', stream.current.value)
-        # stream.next_token()
-        # print('stream.current.value', stream.current.value)
-        # print('name', self.name)
 
-        # expect(stream, TOKEN_EXPRESSION)
-        # expr_iter = tokenize_filtered_expression(stream.current.value)
+        # liquid_expect(stream, LIQUID_TOKEN_EXPRESSION)
+        expr_iter = tokenize_filtered_expression(stream.current.value)
 
-        expr = parse_filtered_expression(TokenStream(expr_iter))
-        # return EchoNode(tok, expression=expr)
-        return EchoNode("oi", expression='oi3')
-
-@liquid_string_filter
-def liquid_l10n(valorem: str, separator: object = ",") -> str:
-    """liquid_quotum_rem
-
-    Args:
-        valorem ([str]):
-
-    Returns:
-        [str]:
-    """
-    print('oi')
-    if valorem is None or not valorem:
-        return ''
-
-    print('antes', valorem, separator)
-
-    resultatum = valorem
-
-    if '"' in resultatum:
-        resultatum = '"{}"'.format(str(valorem).replace('"', '""'))
-
-    if separator in resultatum:
-        resultatum = '"' + resultatum + '"'
-
-    return resultatum
+        expr = parse_filtered_expression(LiquidTokenStream(expr_iter))
+        return LiquidL10nNode(tok, expression=expr)
+        # return LiquidL10nNode("oi", expression='oi3')
 
 
 @liquid_string_filter
