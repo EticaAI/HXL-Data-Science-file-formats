@@ -36,6 +36,7 @@
 #                       - pip3 install pyyaml
 #                     - langcodes (@see https://github.com/jg-rp/liquid)
 #                       - pip3 install python-liquid
+#                         - Know to work with at least python-liquid v0.8.1
 #          BUGS:  ---
 #         NOTES:  ---
 #       AUTHORS:  Emerson Rocha <rocha[at]ieee.org>
@@ -192,7 +193,9 @@ from typing import (
     Any,
     Dict,
     Iterable,
+    Optional,
     List,
+    TextIO,
     Type,
     Union,
 )
@@ -236,6 +239,9 @@ from liquid.parse import expect as liquid_expect
 from liquid.stream import TokenStream as LiquidTokenStream
 from liquid.tag import Tag as LiquidTag
 from liquid.token import TOKEN_TAG as LIQUID_TOKEN_TAG
+from liquid.token import Token as LiquidToken
+from liquid.expression import Expression as LiquidExpression
+from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
 __VERSION__ = "v0.8.6"
@@ -3715,25 +3721,13 @@ class HXLTMInFormatum(ABC):
                 self.hxltm_asa.argumentum.objectivum_formulam:
 
             liquid_template = self.hxltm_asa.argumentum.objectivum_formulam
-            liquid_context = {}
+            liquid_context = {
+                'hxltm_asa': self.hxltm_asa
+            }
             resultatum.append(
-                self.de_liquid(liquid_template, liquid_context)
+                self.de_liquid(liquid_template, liquid_context, True)
             )
-            # print('oi3')
-            # print('oi3')
 
-        # if 'formatum' in self.normam and \
-        #     'corporeum' in self.normam['formatum'] and \
-        #         self.normam['formatum']['corporeum']:
-
-        #     liquid_template = self.normam['formatum']['corporeum']
-
-        #     for rem in self.de_rem():
-        #         liquid_context = {'rem': str(rem)}
-        #         liquid_context = rem.contextum()
-        #         resultatum.append(
-        #             self.de_liquid(liquid_template, liquid_context)
-        #         )
         return resultatum
 
     def de_lineam(self) -> Type['HXLTMRemIterandum']:
@@ -3759,7 +3753,10 @@ class HXLTMInFormatum(ABC):
         return self.hxltm_asa.rem_iterandum()
 
     def de_liquid(self,
-                  liquid_formatum: str, liquid_contextum: Dict = None) -> str:
+                  liquid_formatum: str,
+                  liquid_contextum: Dict = None,
+                  ad_hoc: bool = False,
+                  ) -> str:
         """De liquid
 
         _[eng-Latn]
@@ -3779,6 +3776,8 @@ class HXLTMInFormatum(ABC):
                 Liquid template est
             liquid_contextum (Dict, optional):
                 Contextum notitia
+            ad_hoc (bool, optional):
+                Est ad hoc formulam? Quid 🗣️ tag?
 
         Returns:
             str: [description]
@@ -3811,23 +3810,11 @@ Salvi, {{ i }}! \
         env.add_filter("quotum_lineam", liquid_quotum_lineam)
         # liquid_formatum = liquid_formatum.replace('_🗣️', '_U1F5E3')
         # liquid_formatum = liquid_formatum.replace('🗣️_', 'U1F5E3_')
-        liquid_formatum = liquid_formatum.replace('_🗣️', '_')
-        liquid_formatum = liquid_formatum.replace('🗣️_', '')
-        # liquid_formatum = liquid_formatum.replace('_🗣️', 'l10n')
-        # liquid_formatum = liquid_formatum.replace('🗣️_', 'l10n')
+        if ad_hoc:
+            liquid_formatum = liquid_formatum.replace('_🗣️', '_')
+            liquid_formatum = liquid_formatum.replace('🗣️_', '')
 
-        # # print(liquid_formatum)
-
-        # env.add_filter("_U1F5E3", liquid_l10n)
-        # env.add_filter("_l10n", liquid_l10n)
-        # env.add_filter("_l", liquid_l10n)
-        # env.add_filter("l10n", liquid_l10n)
-        # env.add_filter("🗣️", liquid_l10n)
-        # env.add_filter("_", liquid_l10n)
-        # env.add_filter("l10n", liquid_l10n)
-        env.add_tag(LiquidL10nTag)
-
-        # U+1F5E3
+            env.add_tag(LiquidL10nTag)
 
         liquid_template = env.from_string(liquid_formatum)
         contextum = liquid_contextum if liquid_contextum else {}
@@ -6851,10 +6838,45 @@ class HXLUtils:
 class LiquidL10nNode(LiquidStatementNode):
     """Parse tree node for the built-in "echo" tag."""
 
-    __slots__ = ("tok", "expression")
+    __slots__ = ("tok", "expression", "crudum")
+
+    def __init__(
+            self,
+            tok: LiquidToken,
+            expression: LiquidExpression,
+            crudum: str
+        ):
+        self.tok = tok
+        self.expression = expression
+        self.crudum = crudum
 
     def __repr__(self) -> str:  # pragma: no cover
         return f"LiquidL10nNode(tok={self.tok}, expression={self.expression!r})"
+
+    def render_to_output(
+        self,
+        context: LiquidContext,
+        buffer: TextIO,
+    ) -> Optional[bool]:
+        """Render this node to the output buffer."""
+        # print('self.tok', self.tok)
+        # print('self.expression', self.expression)
+        # print('self.crudum', self.crudum)
+        # print('context', context)
+        # print('context.env', context.env)
+        # print('context.globals', context.globals)
+        # print('context.globals.hxltm_asa', context.globals['hxltm_asa'])
+        # print('context.globals.hxltm_asa', context.globals['hxltm_asa'].limitem_quantitatem)
+        # print('context.globals.hxltm_asa', context.globals['hxltm_asa'].argumentum)
+        # print('context.globals.hxltm_asa', context.globals.keys())
+
+        # sys.exit()
+        return None
+
+    # def render_to_output(self, context: Context, buffer: TextIO) -> Optional[bool]:
+    #     if not self.condition.evaluate(context):
+    #         self.consequence.render(context, buffer)
+    #     return None
 
 
 class LiquidL10nTag(LiquidTag):
@@ -6869,14 +6891,17 @@ class LiquidL10nTag(LiquidTag):
         liquid_expect(stream, LIQUID_TOKEN_TAG, value='_')
         tok = stream.current
         # print('stream.current.value', stream.current.value)
+        # print('stream.peek', stream.peek)
+        # stream.peek
         # stream.next_token()
         # print('stream.current.value', stream.current.value)
+        crudum = stream.peek.value
 
         # liquid_expect(stream, LIQUID_TOKEN_EXPRESSION)
         expr_iter = tokenize_filtered_expression(stream.current.value)
 
         expr = parse_filtered_expression(LiquidTokenStream(expr_iter))
-        return LiquidL10nNode(tok, expression=expr)
+        return LiquidL10nNode(tok, expression=expr, crudum=crudum)
         # return LiquidL10nNode("oi", expression='oi3')
 
 
