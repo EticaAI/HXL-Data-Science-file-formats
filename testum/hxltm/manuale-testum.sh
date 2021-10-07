@@ -109,9 +109,9 @@ printf "\n\n\n\tTESTUM 012 Hapi_schemam_un_htcds\n\n"
 echo hxltmcli "$Hapi_schemam_un_htcds" "$Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF --fontem-linguam eng-Latn@en --objectivum-linguam por-Latn@pt
 hxltmcli "$Hapi_schemam_un_htcds" "$Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF --fontem-linguam eng-Latn@en --objectivum-linguam por-Latn@pt
 
-# fititnt@bravo:/workspace/git/EticaAI/HXL-Data-Science-file-formats/testum/hxltm$ hxltmcli schemam-un-htcds.tm.hxl.csv resultatum/schemam-un-htcds.xlf --objectivum-XLIFF --fontem-linguam eng-Latn@en
+# hxltmcli schemam-un-htcds.tm.hxl.csv resultatum/schemam-un-htcds.xlf --objectivum-XLIFF --fontem-linguam eng-Latn@en
 
-# hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam testum/hxltm/formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt
+# hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt
 
 # To revert only one file that keeps changing even with same input
 # git checkout -- testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx

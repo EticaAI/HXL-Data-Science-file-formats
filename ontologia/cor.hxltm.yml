@@ -76,6 +76,33 @@ fontem_archivum_extensionem_regex:
 # tag::normam[]
 # Trivia: normam, https://en.wiktionary.org/wiki/norma#Latin
 normam:
+
+  #### Ad Hoc template ________________________________________________________
+  # tag::normam_Ad-Hoc[]
+  Ad-Hoc:
+    __meta:
+      archivum_extensionem:
+      descriptionem: |
+        _[eng-Latn]
+        Ad Hoc template
+        [eng-Latn]_
+      normam:
+        - <https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/wiki/Index>
+      nomen:
+        eng-Latn: 'Ad Hoc template'
+      situs_interretialis:
+        referens_officinale:
+          - <https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/wiki/Index>
+
+    asa:
+      modus_operandi: []
+
+    formatum:
+      initiale: false
+      corporeum: false
+      finale: False
+  # end::normam_Ad-Hoc[]
+
   #### CSV-3: Source + Target + Comment (draft) _______________________________
   # tag::normam_CSV-3[]
   CSV-3:
