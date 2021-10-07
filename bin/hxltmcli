@@ -3699,7 +3699,7 @@ class HXLTMInFormatum(ABC):
 
         # print('oi')
 
-        if hasattr(self.hxltm_asa.argumentum , 'objectivum_formulam') and \
+        if hasattr(self.hxltm_asa.argumentum, 'objectivum_formulam') and \
                 self.hxltm_asa.argumentum.objectivum_formulam:
 
             liquid_template = self.hxltm_asa.argumentum.objectivum_formulam
@@ -3788,13 +3788,33 @@ Salvi, {{ i }}! \
         formatum_excerptum = LiquiDictLoader(
             self.ontologia.quod_formatum_excerptum())
         globum_valorem = self.quod_globum_valorem()
+        # from liquid import Mode
 
         env = LiquidEnvironment(
             globals=globum_valorem,
+            # tolerance=Mode.LAX,
             loader=formatum_excerptum
         )
         env.add_filter("quotum_rem", liquid_quotum_rem)
         env.add_filter("quotum_lineam", liquid_quotum_lineam)
+        # liquid_formatum = liquid_formatum.replace('_🗣️', '_U1F5E3')
+        # liquid_formatum = liquid_formatum.replace('🗣️_', 'U1F5E3_')
+        # liquid_formatum = liquid_formatum.replace('_🗣️', '_')
+        # liquid_formatum = liquid_formatum.replace('🗣️_', '_')
+        # liquid_formatum = liquid_formatum.replace('_🗣️', 'l10n')
+        # liquid_formatum = liquid_formatum.replace('🗣️_', 'l10n')
+
+        # # print(liquid_formatum)
+
+        # env.add_filter("_U1F5E3", liquid_l10n)
+        # env.add_filter("_l10n", liquid_l10n)
+        # env.add_filter("_l", liquid_l10n)
+        # env.add_filter("l10n", liquid_l10n)
+        # env.add_filter("🗣️", liquid_l10n)
+        # env.add_filter("_", liquid_l10n)
+        # env.add_filter("l10n", liquid_l10n)
+
+        # U+1F5E3
 
         liquid_template = env.from_string(liquid_formatum)
         contextum = liquid_contextum if liquid_contextum else {}
@@ -6813,6 +6833,33 @@ class HXLUtils:
             parts = header.partition(':')
             http_headers[parts[0].strip()] = parts[2].strip()
         return http_headers
+
+
+@liquid_string_filter
+def liquid_l10n(valorem: str, separator: object = ",") -> str:
+    """liquid_quotum_rem
+
+    Args:
+        valorem ([str]):
+
+    Returns:
+        [str]:
+    """
+    print('oi')
+    if valorem is None or not valorem:
+        return ''
+
+    print('antes', valorem, separator)
+
+    resultatum = valorem
+
+    if '"' in resultatum:
+        resultatum = '"{}"'.format(str(valorem).replace('"', '""'))
+
+    if separator in resultatum:
+        resultatum = '"' + resultatum + '"'
+
+    return resultatum
 
 
 @liquid_string_filter
