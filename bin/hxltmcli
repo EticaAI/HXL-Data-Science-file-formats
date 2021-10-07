@@ -1476,7 +1476,14 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
 
             if hasattr(args_rem, 'objectivum_formulam') and \
                     args_rem.objectivum_formulam:
-                self.objectivum_formulam = args_rem.objectivum_formulam
+                # self.objectivum_formulam_archivum = args_rem.objectivum_formulam
+                # Open a file: file
+                file_ = open(args_rem.objectivum_formulam, mode='r')
+                # self.objectivum_formulam_crudum = file_.read()
+                self.objectivum_formulam = file_.read()
+                file_.close()
+                # self.objectivum_formulam_crudum = args_rem.objectivum_formulam
+                # print(self.objectivum_formulam)
                 self.objectivum_formatum = 'formatum-speciale'
 
             elif hasattr(args_rem, 'objectivum_formatum'):
@@ -3641,14 +3648,18 @@ class HXLTMInFormatum(ABC):
         """
         resultatum = []
 
-        liquid_template = self.normam['formatum']['corporeum']
+        if 'formatum' in self.normam and \
+            'corporeum' in self.normam['formatum'] and \
+                self.normam['formatum']['corporeum']:
 
-        for rem in self.de_rem():
-            liquid_context = {'rem': str(rem)}
-            liquid_context = rem.contextum()
-            resultatum.append(
-                self.de_liquid(liquid_template, liquid_context)
-            )
+            liquid_template = self.normam['formatum']['corporeum']
+
+            for rem in self.de_rem():
+                liquid_context = {'rem': str(rem)}
+                liquid_context = rem.contextum()
+                resultatum.append(
+                    self.de_liquid(liquid_template, liquid_context)
+                )
         return resultatum
 
     def datum_finale(self) -> List:
@@ -3686,14 +3697,31 @@ class HXLTMInFormatum(ABC):
         """
         resultatum = []
 
-        liquid_template = self.normam['formatum']['corporeum']
+        # print('oi')
 
-        for rem in self.de_rem():
-            liquid_context = {'rem': str(rem)}
-            liquid_context = rem.contextum()
+        if hasattr(self.hxltm_asa.argumentum , 'objectivum_formulam') and \
+                self.hxltm_asa.argumentum.objectivum_formulam:
+
+            liquid_template = self.hxltm_asa.argumentum.objectivum_formulam
+            liquid_context = {}
             resultatum.append(
                 self.de_liquid(liquid_template, liquid_context)
             )
+            # print('oi3')
+            # print('oi3')
+
+        # if 'formatum' in self.normam and \
+        #     'corporeum' in self.normam['formatum'] and \
+        #         self.normam['formatum']['corporeum']:
+
+        #     liquid_template = self.normam['formatum']['corporeum']
+
+        #     for rem in self.de_rem():
+        #         liquid_context = {'rem': str(rem)}
+        #         liquid_context = rem.contextum()
+        #         resultatum.append(
+        #             self.de_liquid(liquid_template, liquid_context)
+        #         )
         return resultatum
 
     def de_lineam(self) -> Type['HXLTMRemIterandum']:
@@ -3899,6 +3927,12 @@ Salvi, {{ i }}! \
             for rem in finale:
                 print(rem)
 
+        especiale = self.datum_especiale()
+
+        if len(especiale) > 0:
+            for rem in especiale:
+                print(rem)
+
     def quod_globum_valorem(self) -> Dict:
         """Quod globum valorem?
 
@@ -3956,7 +3990,7 @@ class HXLTMInFormatumEpeciale(HXLTMInFormatum):
     [eng-Latn]_
     """
 
-    ONTOLOGIA_NORMAM = '-1'
+    ONTOLOGIA_NORMAM = 'Ad-Hoc'
 
 
 class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
