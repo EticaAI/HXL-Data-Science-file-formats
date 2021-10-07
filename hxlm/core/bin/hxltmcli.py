@@ -921,7 +921,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                 self.in_asa(pyargs.hxltm_asa)
 
             if self.original_outfile_is_stdout is True and \
-                    self.hxltm_asa.argumentum.objectivum_formatum is None:
+                    self.hxltm_asa.argumentum.objectivum_formatum is None and \
+                    self.hxltm_asa.argumentum.objectivum_formulam is None:
                 self.hxltm_asa.argumentum.objectivum_formatum = 'HXLTM'
 
             if self.hxltm_asa.argumentum.objectivum_formatum == 'HXLTM':
@@ -934,6 +935,9 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
                     objectivum_farchivum = False
                 else:
                     objectivum_farchivum = self.original_outfile
+
+                # print(self.hxltm_asa.argumentum)
+                # print(self.hxltm_asa.argumentum.objectivum_formulam)
 
                 self.in_archivum_formatum(
                     objectivum_farchivum,
@@ -964,7 +968,12 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         """
         formatum = None
 
+        # print('objectivum_formulam', objectivum_formulam)
+        # print('objectivum_formatum', objectivum_formatum)
+        # return sys.exit
+
         if objectivum_formatum == 'formatum-speciale':
+            # print('ooooi')
             formatum = HXLTMInFormatumEpeciale(self.hxltm_asa)
 
         elif objectivum_formatum == 'CSV-3':
@@ -1006,6 +1015,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         if formatum:
             return formatum.in_archivum_aut_normam_exitum(objectivum_archivum)
+
+        # print('self._argumentum', self._argumentum)
 
         raise ValueError(
             'INCOGNITUM2 (objetive file output based on extension) '
@@ -1463,11 +1474,12 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
             if hasattr(args_rem, 'objectivum_linguam'):
                 self.est_objectivum_linguam(args_rem.objectivum_linguam)
 
-            if hasattr(args_rem, 'objectivum_formulam'):
+            if hasattr(args_rem, 'objectivum_formulam') and \
+                    args_rem.objectivum_formulam:
                 self.objectivum_formulam = args_rem.objectivum_formulam
                 self.objectivum_formatum = 'formatum-speciale'
 
-            if hasattr(args_rem, 'objectivum_formatum'):
+            elif hasattr(args_rem, 'objectivum_formatum'):
                 if isinstance(args_rem.objectivum_formatum, list):
                     # TODO: deal with multiple outputs
                     self.objectivum_formatum = args_rem.objectivum_formatum[0]
@@ -3944,7 +3956,7 @@ class HXLTMInFormatumEpeciale(HXLTMInFormatum):
     [eng-Latn]_
     """
 
-    ONTOLOGIA_NORMAM = ''
+    ONTOLOGIA_NORMAM = '-1'
 
 
 class HXLTMInFormatumTabulamRadicem(HXLTMInFormatum):
