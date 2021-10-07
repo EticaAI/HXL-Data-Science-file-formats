@@ -109,6 +109,13 @@ printf "\n\n\n\tTESTUM 012 Hapi_schemam_un_htcds\n\n"
 echo hxltmcli "$Hapi_schemam_un_htcds" "$Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF --fontem-linguam eng-Latn@en --objectivum-linguam por-Latn@pt
 hxltmcli "$Hapi_schemam_un_htcds" "$Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF --fontem-linguam eng-Latn@en --objectivum-linguam por-Latn@pt
 
+
+printf "\n\n\n\tTESTUM 013 --objectivum-formulam exemplum-linguam\n\n"
+hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt > resultatum/formulam/exemplum-linguam.por-Latn.json
+
+
+# hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt
+
 # hxltmcli schemam-un-htcds.tm.hxl.csv resultatum/schemam-un-htcds.xlf --objectivum-XLIFF --fontem-linguam eng-Latn@en
 
 # hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt
