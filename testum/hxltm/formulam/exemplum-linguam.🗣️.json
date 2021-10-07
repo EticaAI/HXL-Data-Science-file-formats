@@ -4,12 +4,9 @@
     "type": "object",
     "properties": {
         "L10N_ego_summarius": {
+            "//description0": "{% _🗣️ á L10N_ego_summarius 🗣️_ %}",
             "description": "{% _🗣️ L10N_ego_summarius 🗣️_ %}",
-            "//description": "{% L10N_ego_summarius | _🗣️ %}",
             "//description2": "{% _🗣️ L10N_ego_summarius %}",
-            "//description3": "{% _l10n L10N_ego_summarius l10n_ %}",
-            "//description4": "{% L10N_ego_summarius | l10n %}",
-            "//description5": "{% L10N_ego_summarius %}",
             "type": "string",
             "example": ""
         },
