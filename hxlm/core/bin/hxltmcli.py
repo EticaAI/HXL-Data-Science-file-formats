@@ -1412,9 +1412,19 @@ class HXLTMAdHoc:
         if saccum:
             if self.hxltm_asa.argumentum.venandum_insectum:
                 return str(saccum.v())
+
+            # print(self.hxltm_asa.argumentum.objectivum_linguam)
+            if self.hxltm_asa.argumentum.objectivum_linguam:
+                rem = saccum.quod_rem_de_linguam(
+                    self.hxltm_asa.argumentum.objectivum_linguam
+                )
+                if rem:
+                    return rem['rem']
+                # print(rem)
+
             # print(saccum.v())
             # print(saccum.v()['rem']['de_linguam']['por-Latn']['rem'])
-            return saccum.v()['rem']['de_linguam']['por-Latn']['rem']
+            # return saccum.v()['rem']['de_linguam']['por-Latn']['rem']
 
         return "!!!" + self.ad_hoc_crudum + "!!!"
 
@@ -3219,6 +3229,45 @@ HXLTMASA()
             # print('yay', clavem_et_valorem['de_linguam'])
 
         return clavem_et_valorem
+
+    def quod_rem_de_linguam(self, linguam: Type['HXLTMLinguam']) -> Dict:
+        """Quod rem de lingua
+
+        Args:
+            linguam ([HXLTMLinguam]): [description]
+
+        Returns:
+            Dict: [description]
+        """
+        # print(self.v())
+        rem = self.quod_clavem_et_valorem()
+        resultatum = {
+            'exactum': 0,
+            'rem_de_linguam': None
+        }
+
+        if 'de_linguam' in rem:
+            for k in rem['de_linguam']:
+                aequale_val = linguam.aequale(rem['de_linguam'][k]['crudum'])
+                if aequale_val > resultatum['exactum'] and \
+                    rem['de_linguam'][k]['rem']:
+                    resultatum['exactum'] = aequale_val
+                    resultatum['rem_de_linguam'] = rem['de_linguam'][k]
+                    # _talvez.append(rem['de_linguam'][k])
+
+            #     print(rem['de_linguam'][k])
+            # for k, v in enumerate(rem['de_linguam']):
+            #     print(k)
+            #     print(v)
+            #     print(k.v())
+            #     if linguam.aequale(v['crudum']):
+            #         return v
+        # rem_de_linguam = rem['de_linguam']
+        if resultatum['exactum'] > 0:
+            return resultatum['rem_de_linguam']
+
+        # print(self.quod_clavem_et_valorem())
+        return None
 
     def quod_statum(self, _option) -> Dict:
         # @deprecated use HXLTMOntologia.quod_aliud_de_multiplum()
@@ -5165,6 +5214,39 @@ HXLTMLinguam()
                 resultatum.append('+ix_' + item)
 
         return ''.join(resultatum).lower()
+
+    def aequale(self, clavem: str) -> int:
+        """aequāle crudum clavem?
+
+        Args:
+            clavem (str): Textum
+
+        Returns:
+            int: aequāle numerum
+        """
+        # @TODO: the numeric results on this function are still an usable
+        #        draft. They can be used later to assert the closest
+        #        option to return a viable result
+
+        clavem_ = clavem.lower()
+        # print(clavem_, self.crudum)
+        # print(clavem_ == self.crudum.lower())
+        # print(clavem_, self.iso6393.lower() + '-' + self.iso115924.lower())
+        if self.crudum and clavem_ == self.crudum.lower():
+            return 100
+        if self.linguam and clavem_ == self.linguam.lower():
+            return 100
+        if self.iso6393 and self.iso115924 and \
+            clavem_ == self.iso6393.lower() + '-' + self.iso115924.lower():
+            return 90
+        if self.iso6393 and clavem_ == self.iso6393.lower():
+            return 80
+        if self.iso6391a2 and clavem_ == self.iso6391a2.lower():
+            return 75
+
+        # print('fail')
+
+        return -100
 
     def designo(self, clavem: str, rem: Any) -> Type['HXLTMLinguam']:
         """Designo clavem rem
