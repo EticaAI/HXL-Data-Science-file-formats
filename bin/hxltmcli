@@ -1212,6 +1212,21 @@ True
         self.datum.asa(hxltm_asa=self)
         self.datum.datum_parandum_statim()
 
+    def ad_hoc(self, expressionem: str) -> str:
+        """ad_hoc expressiōnem
+
+        [extended_summary]
+
+        Args:
+            expressionem (str): [description]
+
+        Returns:
+            str: [description]
+        """
+        # TODO: implement it
+        return expressionem
+        # return '[[[[' + expressionem + ']]]]'
+
     def quod_globum_valorem(self) -> Dict:
         """Quod globum valōrem?
 
@@ -6838,20 +6853,24 @@ class HXLUtils:
 class LiquidL10nNode(LiquidStatementNode):
     """Parse tree node for the built-in "echo" tag."""
 
-    __slots__ = ("tok", "expression", "crudum")
+    # __slots__ = ("tok", "expression", "crudum")
+    __slots__ = ("tok",  "crudum")
 
     def __init__(
-            self,
-            tok: LiquidToken,
-            expression: LiquidExpression,
-            crudum: str
-        ):
+        self,
+        tok: LiquidToken,
+        # expression: LiquidExpression,
+        crudum: str
+    ):
         self.tok = tok
-        self.expression = expression
+        # self.expression = expression
         self.crudum = crudum
 
     def __repr__(self) -> str:  # pragma: no cover
-        return f"LiquidL10nNode(tok={self.tok}, expression={self.expression!r})"
+        return f"LiquidL10nNode(tok={self.tok}, crudum={self.crudum!r})"
+
+    # def __str__(self) -> str:
+    #     return self.crudum
 
     def render_to_output(
         self,
@@ -6865,10 +6884,11 @@ class LiquidL10nNode(LiquidStatementNode):
         # print('context', context)
         # print('context.env', context.env)
         # print('context.globals', context.globals)
-        # print('context.globals.hxltm_asa', context.globals['hxltm_asa'])
-        # print('context.globals.hxltm_asa', context.globals['hxltm_asa'].limitem_quantitatem)
-        # print('context.globals.hxltm_asa', context.globals['hxltm_asa'].argumentum)
         # print('context.globals.hxltm_asa', context.globals.keys())
+
+        # Since this is a complex job, we let HXLTM ASA deal with it
+        # BUG: Liquid is double printing the result, needs fix.
+        buffer.write(str(context.globals['hxltm_asa'].ad_hoc(self.crudum)))
 
         # sys.exit()
         return None
@@ -6890,18 +6910,20 @@ class LiquidL10nTag(LiquidTag):
         # liquid_expect(stream, LIQUID_TOKEN_TAG, value=TAG_ECHO)
         liquid_expect(stream, LIQUID_TOKEN_TAG, value='_')
         tok = stream.current
-        # print('stream.current.value', stream.current.value)
-        # print('stream.peek', stream.peek)
-        # stream.peek
-        # stream.next_token()
-        # print('stream.current.value', stream.current.value)
+
+        # We get the next item, without evaluate it. This is a workaround
+        # for characteres that are not valid tokens, like the emojis
         crudum = stream.peek.value
 
-        # liquid_expect(stream, LIQUID_TOKEN_EXPRESSION)
-        expr_iter = tokenize_filtered_expression(stream.current.value)
+        # We push stream to next item (value was on crudum)
+        stream.next_token()
 
-        expr = parse_filtered_expression(LiquidTokenStream(expr_iter))
-        return LiquidL10nNode(tok, expression=expr, crudum=crudum)
+        # liquid_expect(stream, LIQUID_TOKEN_EXPRESSION)
+        # expr_iter = tokenize_filtered_expression(stream.current.value)
+
+        # expr = parse_filtered_expression(LiquidTokenStream(expr_iter))
+        # return LiquidL10nNode(tok, expression=expr, crudum=crudum)
+        return LiquidL10nNode(tok, crudum=crudum)
         # return LiquidL10nNode("oi", expression='oi3')
 
 
