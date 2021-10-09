@@ -109,10 +109,15 @@ printf "\n\n\n\tTESTUM 012 Hapi_schemam_un_htcds\n\n"
 echo hxltmcli "$Hapi_schemam_un_htcds" "$Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF --fontem-linguam eng-Latn@en --objectivum-linguam por-Latn@pt
 hxltmcli "$Hapi_schemam_un_htcds" "$Hapi_schemam_un_htcds_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF --fontem-linguam eng-Latn@en --objectivum-linguam por-Latn@pt
 
-
-printf "\n\n\n\tTESTUM 013 --objectivum-formulam exemplum-linguam\n\n"
+printf "\n\n\n\tTESTUM 013 --objectivum-formulam exemplum-linguam --objectivum-linguam por-Latn@pt \n\n"
+echo 'hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt > resultatum/formulam/exemplum-linguam.por-Latn.json'
 hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt > resultatum/formulam/exemplum-linguam.por-Latn.json
 
+# https://en.wikipedia.org/wiki/Tocharian_languages
+# https://www.reddit.com/r/linguisticshumor/comments/oynlth/not_sure_who_here_has_been_following_the/
+printf "\n\n\n\tTESTUM 014 (Tocharian B) --objectivum-formulam exemplum-linguam --objectivum-linguam xto-Brah --agendum-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi \n\n"
+echo 'hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam xto-Brah --agendum-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi > resultatum/formulam/exemplum-linguam.xto-Brah~xtb-Brah,lat-Latn,por-Latn,iir-Armi.json'
+hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam xto-Brah --agendum-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi > resultatum/formulam/exemplum-linguam.xto-Brah~xtb-Brah,lat-Latn,por-Latn,iir-Armi.json
 
 # hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt
 

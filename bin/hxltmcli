@@ -1403,7 +1403,6 @@ class HXLTMAdHoc:
         Returns:
             [str]: Resultatum
         """
-        # TODO: do it
         self.hxltm_asa.datum.datum_parandum_statim()
 
         # print(self.hxltm_asa.datum.conceptum_de_indicem(0).v())
@@ -1414,17 +1413,20 @@ class HXLTMAdHoc:
                 return str(saccum.v())
 
             # print(self.hxltm_asa.argumentum.objectivum_linguam)
+
+            # objectivum_linguam exactum?
             if self.hxltm_asa.argumentum.objectivum_linguam:
                 rem = saccum.quod_rem_de_linguam(
                     self.hxltm_asa.argumentum.objectivum_linguam
                 )
                 if rem:
                     return rem['rem']
-                # print(rem)
 
-            # print(saccum.v())
-            # print(saccum.v()['rem']['de_linguam']['por-Latn']['rem'])
-            # return saccum.v()['rem']['de_linguam']['por-Latn']['rem']
+            if self.hxltm_asa.argumentum.agendum_linguam:
+                for al in self.hxltm_asa.argumentum.agendum_linguam:
+                    rem = saccum.quod_rem_de_linguam(al)
+                    if rem:
+                        return rem['rem']
 
         return "!!!" + self.ad_hoc_crudum + "!!!"
 
@@ -3199,6 +3201,8 @@ HXLTMASA()
         #     print(clavem_et_valorem['de_fontem_linguam'])
 
         if 'de_fontem_linguam' in clavem_et_valorem and \
+            clavem_et_valorem['de_fontem_linguam'] and \
+            'linguam' in clavem_et_valorem['de_fontem_linguam'] and \
             clavem_et_valorem['de_fontem_linguam']['linguam'] in \
                 statum_rem_accuratuam:
 
@@ -3216,6 +3220,8 @@ HXLTMASA()
         #       the export.
 
         if 'de_objectivum_linguam' in clavem_et_valorem and \
+            clavem_et_valorem['de_objectivum_linguam'] and \
+            'linguam' in clavem_et_valorem['de_objectivum_linguam'] and \
             clavem_et_valorem['de_objectivum_linguam']['linguam'] in \
                 statum_rem_accuratuam:
 
@@ -3250,19 +3256,10 @@ HXLTMASA()
             for k in rem['de_linguam']:
                 aequale_val = linguam.aequale(rem['de_linguam'][k]['crudum'])
                 if aequale_val > resultatum['exactum'] and \
-                    rem['de_linguam'][k]['rem']:
+                        rem['de_linguam'][k]['rem']:
                     resultatum['exactum'] = aequale_val
                     resultatum['rem_de_linguam'] = rem['de_linguam'][k]
-                    # _talvez.append(rem['de_linguam'][k])
 
-            #     print(rem['de_linguam'][k])
-            # for k, v in enumerate(rem['de_linguam']):
-            #     print(k)
-            #     print(v)
-            #     print(k.v())
-            #     if linguam.aequale(v['crudum']):
-            #         return v
-        # rem_de_linguam = rem['de_linguam']
         if resultatum['exactum'] > 0:
             return resultatum['rem_de_linguam']
 
@@ -5228,23 +5225,41 @@ HXLTMLinguam()
         #        draft. They can be used later to assert the closest
         #        option to return a viable result
 
-        clavem_ = clavem.lower()
-        # print(clavem_, self.crudum)
-        # print(clavem_ == self.crudum.lower())
-        # print(clavem_, self.iso6393.lower() + '-' + self.iso115924.lower())
-        if self.crudum and clavem_ == self.crudum.lower():
-            return 100
-        if self.linguam and clavem_ == self.linguam.lower():
-            return 100
-        if self.iso6393 and self.iso115924 and \
-            clavem_ == self.iso6393.lower() + '-' + self.iso115924.lower():
-            return 90
-        if self.iso6393 and clavem_ == self.iso6393.lower():
-            return 80
-        if self.iso6391a2 and clavem_ == self.iso6391a2.lower():
-            return 75
+        neo = HXLTMLinguam(clavem)
 
-        # print('fail')
+        # print(neo.a(), self.a())
+
+        if neo.a() == self.a():
+            return 100
+
+        if neo.iso6391a2 == self.iso6391a2 and \
+                neo.iso6393 == self.iso6393 and \
+                neo.iso115924 == self.iso115924 and \
+                neo.imperium == self.imperium:
+            # non privatum
+            return 95
+
+        if neo.iso6391a2 == self.iso6391a2 and \
+                neo.iso6393 == self.iso6393 and \
+                neo.iso115924 == self.iso115924 and \
+                neo.privatum == self.privatum:
+            # non imperium
+            return 95
+
+        if neo.iso6393 == self.iso6393 and \
+                neo.iso115924 == self.iso115924 and \
+                (neo.privatum == self.privatum or
+                    neo.privatum == self.privatum):
+            # non iso6391a2
+            # non imperium || non privatum
+            return 95
+
+        if neo.iso6393 == self.iso6393 and \
+                neo.iso115924 == self.iso115924:
+            # non iso6391a2
+            # non privatum
+            # non imperium
+            return 90
 
         return -100
 
