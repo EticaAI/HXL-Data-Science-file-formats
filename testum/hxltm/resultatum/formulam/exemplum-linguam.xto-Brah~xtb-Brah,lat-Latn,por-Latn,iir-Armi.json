@@ -1,0 +1,56 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "Testum",
+    "type": "object",
+    "properties": {
+        "L10N_ego_summarius": {
+            "description": "Lingua Latina (Abecedarium Latinum)",
+            "type": "string",
+            "example": ""
+        },
+        "L10N_ego_codicem": {
+            "description": "lat-Latn",
+            "type": "string",
+            "example": ""
+        },
+        "L10N_ego_linguam_nomen": {
+            "description": "Lingua Latina",
+            "type": "string",
+            "example": ""
+        },
+        "L10N_ego_scriptum_nomen": {
+            "description": "Abecedarium Latinum",
+            "type": "string",
+            "example": ""
+        },
+        "L10N_ego_patriam_UN_M49_numerum": {
+            "description": "001",
+            "type": "string",
+            "example": ""
+        },
+        "L10N_ego_patriam_UN_P_codicem": {
+            "description": "∅",
+            "type": "string",
+            "example": ""
+        },
+        "I18N_testum_salve_mundi_testum_I18N": {
+            "description": "Salvi mundi!",
+            "type": "string",
+            "example": ""
+        },
+        "I18N_إختبار_טעסט_测试_테스트_испытание_I18N": {
+            "description": "Testum, I, II, III",
+            "type": "string",
+            "example": ""
+        },
+        "I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N": {
+            "//description": " _ I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_-1+2/3*4_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N   ",
+            "//comment": "jg-rp/liquid complaints about: + - * /",
+            "description": "!!!I18N_०१२३४५६७८९_〇一二三四五六七八九十百千万亿_1234_٩٨٧٦٥٤٣٢١٠_零壹贰叁肆伍陆柒捌玖拾佰仟萬億_I18N!!!",
+            "type": "string",
+            "example": "",
+            "//test2": "!!!👁️lat-Latn👁️ 👂Dominium publicum👂 👁️lat-Latn👁️!!!"
+        }
+    }
+}
+
