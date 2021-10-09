@@ -1404,7 +1404,19 @@ class HXLTMAdHoc:
             [str]: Resultatum
         """
         # TODO: do it
-        return self.ad_hoc_crudum
+        self.hxltm_asa.datum.datum_parandum_statim()
+
+        # print(self.hxltm_asa.datum.conceptum_de_indicem(0).v())
+
+        saccum = self.hxltm_asa.datum.conceptum_de_codicem(self.ad_hoc_crudum)
+        if saccum:
+            if self.hxltm_asa.argumentum.venandum_insectum:
+                return str(saccum.v())
+            # print(saccum.v())
+            # print(saccum.v()['rem']['de_linguam']['por-Latn']['rem'])
+            return saccum.v()['rem']['de_linguam']['por-Latn']['rem']
+
+        return "!!!" + self.ad_hoc_crudum + "!!!"
 
 
 @dataclass
@@ -2100,6 +2112,28 @@ class HXLTMDatum:
 
         self.__commune_asa = hxltm_asa
         return self.__commune_asa
+
+    def conceptum_de_codicem(
+            self, codicem: str) -> Type['HXLTMDatumConceptumSaccum']:
+        """Conceptum de indicem
+
+        Args:
+            indicem (HXLTMDatumConceptumSaccum): Conceptum
+
+        Returns:
+            [List]: valorem collēctiōnem, id est, crudum Python List
+        """
+        for saccum in self.conceptum:
+
+            # if saccum.v().conceptum_nomen == codicem:
+            if saccum.v()['conceptum_nomen'] == codicem:
+                return saccum
+            # saccum.v()
+            # # sys.exit()
+            # print(saccum)
+            # pass
+
+        return None
 
     def conceptum_de_indicem(
             self, indicem: int) -> Type['HXLTMDatumConceptumSaccum']:
