@@ -1224,7 +1224,7 @@ True
             str: [description]
         """
         # TODO: implement it
-        return expressionem
+        return HXLTMAdHoc(self, expressionem).v()
         # return '[[[[' + expressionem + ']]]]'
 
     def quod_globum_valorem(self) -> Dict:
@@ -1357,6 +1357,54 @@ True
         #         )
 
         return asa
+
+
+@dataclass
+class HXLTMAdHoc:
+    """HXLTM Ad Hoc
+
+    Trivia:
+        - HXLTM:
+        - HXLTM, https://hdp.etica.ai/hxltm
+            - HXL, https://hxlstandard.org/
+            - TM, https://www.wikidata.org/wiki/Q333761
+        - ad hoc, https://en.wiktionary.org/wiki/ad_hoc
+    """
+    hxltm_asa: InitVar[Type['HXLTMASA']] = None
+    ad_hoc_crudum: InitVar[str] = None
+
+    def __init__(self, hxltm_asa: Type['HXLTMASA'], ad_hoc_crudum: str):
+        """
+
+        Args:
+            hxltm_asa (HXLTMASA):
+                _[lat-Latn]
+                HXLTM Abstractum Syntaxim Arborem
+                [lat-Latn]_
+            ad_hoc_crudum (str):
+                _[lat-Latn]
+                Crudum Ad Hoc
+                [lat-Latn]_
+        """
+
+        self.hxltm_asa = hxltm_asa
+        self.ad_hoc_crudum = ad_hoc_crudum
+
+    def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
+        """Valōrem Resultatum
+
+        Trivia:
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            _verbosum (bool): Verbosum est? Defallo falsum.
+
+        Returns:
+            [str]: Resultatum
+        """
+        # TODO: do it
+        return self.ad_hoc_crudum
 
 
 @dataclass
