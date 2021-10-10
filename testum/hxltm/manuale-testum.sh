@@ -115,9 +115,9 @@ hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-lin
 
 # https://en.wikipedia.org/wiki/Tocharian_languages
 # https://www.reddit.com/r/linguisticshumor/comments/oynlth/not_sure_who_here_has_been_following_the/
-printf "\n\n\n\tTESTUM 014 (Tocharian B) --objectivum-formulam exemplum-linguam --objectivum-linguam xto-Brah --agendum-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi \n\n"
-echo 'hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam xto-Brah --agendum-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi > resultatum/formulam/exemplum-linguam.xto-Brah~xtb-Brah,lat-Latn,por-Latn,iir-Armi.json'
-hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam xto-Brah --agendum-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi > resultatum/formulam/exemplum-linguam.xto-Brah~xtb-Brah,lat-Latn,por-Latn,iir-Armi.json
+printf "\n\n\n\tTESTUM 014 (Tocharian B) --objectivum-formulam exemplum-linguam --objectivum-linguam xto-Brah --auxilium-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi \n\n"
+echo 'hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam xto-Brah --auxilium-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi > resultatum/formulam/exemplum-linguam.xto-Brah~xtb-Brah,lat-Latn,por-Latn,iir-Armi.json'
+hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam xto-Brah --auxilium-linguam xtb-Brah,lat-Latn,por-Latn,iir-Armi > resultatum/formulam/exemplum-linguam.xto-Brah~xtb-Brah,lat-Latn,por-Latn,iir-Armi.json
 
 # hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-linguam.🗣️.json --objectivum-linguam por-Latn@pt
 

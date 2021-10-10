@@ -1405,8 +1405,6 @@ class HXLTMAdHoc:
         """
         self.hxltm_asa.datum.datum_parandum_statim()
 
-        # print(self.hxltm_asa.datum.conceptum_de_indicem(0).v())
-
         saccum = self.hxltm_asa.datum.conceptum_de_codicem(self.ad_hoc_crudum)
         if saccum:
             if self.hxltm_asa.argumentum.venandum_insectum:
@@ -1422,9 +1420,9 @@ class HXLTMAdHoc:
                 if rem:
                     return rem['rem']
 
-            if self.hxltm_asa.argumentum.agendum_linguam:
-                for al in self.hxltm_asa.argumentum.agendum_linguam:
-                    rem = saccum.quod_rem_de_linguam(al)
+            if self.hxltm_asa.argumentum.auxilium_linguam:
+                for aux_lin in self.hxltm_asa.argumentum.auxilium_linguam:
+                    rem = saccum.quod_rem_de_linguam(aux_lin)
                     if rem:
                         return rem['rem']
 
@@ -1652,17 +1650,19 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
             [HXLTMArgumentum]: Ego HXLTMArgumentum
         """
         if isinstance(rem, list):
-            unicum = set(rem)
-            for item in unicum:
-                if isinstance(rem, HXLTMLinguam):
-                    self.agendum_linguam.append(item)
-                else:
-                    self.agendum_linguam.append(HXLTMLinguam(item))
+            unicum = []
+            for item in rem:
+                if item not in unicum:
+                    if isinstance(rem, HXLTMLinguam):
+                        self.agendum_linguam.append(item)
+                    else:
+                        self.agendum_linguam.append(HXLTMLinguam(item))
         elif isinstance(rem, str):
             collectionem = rem.split(',')
-            unicum = set(collectionem)
+            unicum = []
             for item in collectionem:
-                self.agendum_linguam.append(HXLTMLinguam(item.trim()))
+                if item not in unicum:
+                    self.agendum_linguam.append(HXLTMLinguam(item.trim()))
         elif rem is None:
             # self.agendum_linguam.append(HXLTMLinguam())
             self.agendum_linguam = []
@@ -1684,21 +1684,22 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
         """
         # print(rem)
         if isinstance(rem, list):
-            unicum = set(rem)
-            for item in unicum:
-                if isinstance(rem, HXLTMLinguam):
-                    self.auxilium_linguam.append(item)
-                else:
-                    self.auxilium_linguam.append(
-                        HXLTMLinguam(item, meta=meta))
+            unicum = []
+            for item in rem:
+                if item not in unicum:
+                    if isinstance(rem, HXLTMLinguam):
+                        self.auxilium_linguam.append(item)
+                    else:
+                        self.auxilium_linguam.append(
+                            HXLTMLinguam(item, meta=meta))
 
         elif isinstance(rem, str):
             collectionem = rem.split(',')
-            # print(collectionem)
-            unicum = set(collectionem)
+            unicum = []
             for item in collectionem:
-                self.auxilium_linguam.append(
-                    HXLTMLinguam(item.trim(), meta=meta))
+                if item not in unicum:
+                    self.auxilium_linguam.append(
+                        HXLTMLinguam(item.trim(), meta=meta))
         elif rem is None:
             # self.agendum_linguam.append(HXLTMLinguam())
             self.auxilium_linguam = []
