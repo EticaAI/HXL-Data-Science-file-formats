@@ -537,7 +537,7 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             # dest='fontem_linguam',
             metavar='fontem_normam',
             action='store',
-            default='lat-Latn',
+            # default='',
             nargs='?'
         )
 
@@ -550,14 +550,13 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             'Example: org_hxlstandard ',
             metavar='objectivum_normam',
             action='store',
-            # default='arb-Arab',
+            # default=',
             nargs='?'
         )
 
         parser.add_argument(
             '--objectivum-formulam',
-            help='(Draft, not implemented) ' +
-            'Template file to use as reference to generate an output. ' +
+            help='Template file to use as reference to generate an output. ' +
             'Less powerful than custom file but can be used for ' +
             'simple cases.',
             # metavar='objectivum_formatum',
@@ -1557,6 +1556,8 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_linguam: InitVar[Type['HXLTMLinguam']] = None
     objectivum_formatum: InitVar[str] = 'HXLTM'
+    fontem_normam: InitVar[str] = None
+    objectivum_normam: InitVar[str] = None
     objectivum_formulam: InitVar[str] = None
     objectivum_formatum_speciale: InitVar[str] = None
     objectivum_archivum_nomen: InitVar[str] = None
@@ -1607,15 +1608,24 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
             if hasattr(args_rem, 'objectivum_linguam'):
                 self.est_objectivum_linguam(args_rem.objectivum_linguam)
 
+            if hasattr(args_rem, 'fontem_normam') and \
+                    args_rem.fontem_normam:
+                self.fontem_normam = args_rem.fontem_normam
+            if hasattr(args_rem, 'objectivum_normam') and \
+                    args_rem.objectivum_normam:
+                self.objectivum_normam = args_rem.objectivum_normam
+
             if hasattr(args_rem, 'objectivum_formulam') and \
                     args_rem.objectivum_formulam:
-                # self.objectivum_formulam_archivum = args_rem.objectivum_formulam
+                # self.objectivum_formulam_archivum = \
+                #     args_rem.objectivum_formulam
                 # Open a file: file
                 file_ = open(args_rem.objectivum_formulam, mode='r')
                 # self.objectivum_formulam_crudum = file_.read()
                 self.objectivum_formulam = file_.read()
                 file_.close()
-                # self.objectivum_formulam_crudum = args_rem.objectivum_formulam
+                # self.objectivum_formulam_crudum = \
+                #     args_rem.objectivum_formulam
                 # print(self.objectivum_formulam)
                 self.objectivum_formatum = 'formatum-speciale'
 
@@ -1862,6 +1872,22 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
                 len(self.agendum_linguam) > 0:
             resultatum['agendum_linguam'] = \
                 [item.v() for item in self.agendum_linguam]
+
+        if self.fontem_normam is not None and \
+                len(self.fontem_normam) > 0:
+            resultatum['fontem_normam'] = self.fontem_normam
+
+        if self.objectivum_normam is not None and \
+                len(self.objectivum_normam) > 0:
+            resultatum['objectivum_normam'] = self.objectivum_normam
+
+        if self.objectivum_formatum is not None and \
+                len(self.objectivum_formatum) > 0:
+            resultatum['objectivum_formatum'] = self.objectivum_formatum
+
+        if self.objectivum_formulam is not None and \
+                len(self.objectivum_formulam) > 0:
+            resultatum['objectivum_formulam'] = self.objectivum_formulam
 
         # resultatum['teste'] = self.auxilium_linguam
 
@@ -2301,6 +2327,151 @@ class HXLTMDatum:
 
         return resultatum
 
+
+@dataclass
+class HXLTMDatumNormam:  # pylint: disable=too-many-instance-attributes
+    """HXLTM Datum Normam auxilium programmi
+
+    Exemplōrum gratiā (et Python doctest, id est, testum automata):
+
+>>> HXLTMDatumNormam('076_BR33')
+HXLTMDatumNormam()
+
+>>> HXLTMDatumNormam('076_BR33').v()
+{'_typum': 'HXLTMDatumNormam', 'crudum': '076_BR33'}
+
+>>> HXLTMLinguam('lat-Latn@la-IT@IT', meta={'testum': 123}).v()
+{'_typum': 'HXLTMLinguam', '_vanandum_insectum_meta': {'testum': 123}, \
+'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', 'bcp47': 'la-IT', \
+'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}
+
+>>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
+'+i_la+i_lat+is_latn+ii_it'
+
+        Kalo Finnish Romani, Latin script (no ISO 2 language)
+
+>>> HXLTMLinguam('rmf-Latn').v()
+{'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
+'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn'}
+
+        Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
+
+>>> HXLTMLinguam('rmf-Latn').a()
+'+i_rmf+is_latn'
+
+        Private use language tags: se use similar pattern of BCP 47.
+        (https://tools.ietf.org/search/bcp47)
+
+>>> HXLTMLinguam('lat-Latn-x-privatum').a()
+'+i_lat+is_latn+ix_privatum'
+
+>>> HXLTMLinguam('lat-Latn-x-privatum-tag8digt').a()
+'+i_lat+is_latn+ix_privatum+ix_tag8digt'
+
+        If x-private is only on BCP, we ignore it on HXL attrs.
+        Tools may still use this for other processing (like for XLIFF),
+        but not for generated Datasets.
+
+>>> HXLTMLinguam(
+... 'cmn-Latn@zh-Latn-CN-variant1-a-extend1-x-wadegile-private1').a()
+'+i_zh+i_cmn+is_latn'
+
+        To force a x-private language tag, it must be on linguam (first part)
+        even if it means repeat. Also, we create attributes shorted by
+        ASCII alphabet, as BCP47 would do
+
+>>> HXLTMLinguam(
+... 'cmn-Latn-x-wadegile-private1@zh-CN-x-wadegile-private1').a()
+'+i_zh+i_cmn+is_latn+ix_private1+ix_wadegile'
+
+
+>>> HXLTMLinguam(
+... 'lat-Latn-x-caesar12-romanum1@la-IT-x-caesar12-romanum1@IT').a()
+'+i_la+i_lat+is_latn+ii_it+ix_caesar12+ix_romanum1'
+
+    """
+
+    # Exemplum: lat-Latn@la-IT@IT, arb-Arab@ar-EG@EG
+    _typum: InitVar[str] = None  # 'HXLTMLinguam'
+    _vanandum_insectum_meta: InitVar[Dict] = None
+    crudum: InitVar[str] = None
+    nomam: InitVar[str] = None     # Exemplum: 076_BR33, org_hxlstandard
+    bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
+    imperium: InitVar[str] = None    # Exemplum: IT, EG
+    iso6391a2: InitVar[str] = None     # Exemlum: la, ar
+    iso6393: InitVar[str] = None     # Exemlum: lat, arb
+    iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
+    privatum: InitVar[List[str]] = None  # Exemplum: [privatum]
+    vacuum: InitVar[str] = False
+
+    # https://tools.ietf.org/search/bcp47#page-2-12
+
+    # def __init__(self, linguam: str, strictum=False, vacuum=False):
+    def __init__(self, nomam: str,
+                 strictum=False, vacuum=False, meta=None):
+        """HXLTMLinguam initiāle
+
+        Args:
+            nomam (str): Textum nomam
+            strictum (bool, optional): Strictum est?.
+                       Trivia: https://en.wiktionary.org/wiki/strictus#Latin
+                       Defallo falsum.
+            vacuum (bool, optional): vacuum	est?
+                       Trivia: https://en.wiktionary.org/wiki/vacuus#Latin.
+                       Defallo falsum.
+            meta (Dict, optional):
+                    Metadatum ad Vēnandum īnsectum.Defallo vacuum.
+        """
+        # super().__init__()
+        self._typum = 'HXLTMDatumNormam'  # Used only when output JSON
+        if meta is not None:
+            self._vanandum_insectum_meta = meta
+        self.crudum = nomam
+        # if not vacuum:
+        #     self.initialle(strictum)
+        # else:
+        #     self.vacuum = vacuum
+
+    def a(self):  # pylint: disable=invalid-name
+        """HXL attribūtum
+
+        Exemplum:
+            >>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
+            '+i_la+i_lat+is_latn+ii_it'
+
+        Returns:
+            [str]: textum HXL attribūtum
+        """
+        resultatum = []
+
+        if self.iso6391a2:
+            resultatum.append('+i_' + self.iso6391a2)
+        if self.iso6393:
+            resultatum.append('+i_' + self.iso6393)
+        if self.iso115924:
+            resultatum.append('+is_' + self.iso115924)
+        if self.imperium:
+            resultatum.append('+ii_' + self.imperium)
+        if self.privatum and len(self.privatum) > 0:
+            for item in self.privatum:
+                resultatum.append('+ix_' + item)
+
+        return ''.join(resultatum).lower()
+
+    def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
+        """Ego python Dict
+
+        Trivia:
+         - valōrem, https://en.wiktionary.org/wiki/valor#Latin
+         - verbosum, https://en.wiktionary.org/wiki/verbosus#Latin
+
+        Args:
+            _verbosum (bool): Verbosum est? Defallo falsum.
+
+        Returns:
+            [Dict]: Python objectīvum
+        """
+        return self.__dict__
 
 @dataclass
 class HXLTMDatumCaput:  # pylint: disable=too-many-instance-attributes
@@ -7103,7 +7274,8 @@ class LiquidL10nNode(LiquidStatementNode):
         # sys.exit()
         return None
 
-    # def render_to_output(self, context: Context, buffer: TextIO) -> Optional[bool]:
+    # def render_to_output(self, context: Context, buffer: TextIO)
+    #     -> Optional[bool]:
     #     if not self.condition.evaluate(context):
     #         self.consequence.render(context, buffer)
     #     return None
