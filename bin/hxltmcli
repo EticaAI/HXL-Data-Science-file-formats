@@ -2341,80 +2341,61 @@ HXLTMDatumNormam()
 {'_typum': 'HXLTMDatumNormam', 'crudum': '076_BR33', \
 'normam': '076_BR33', 'unm49': '076', 'imperium': 'BR33'}
 
->>> HXLTMDatumNormam('076_BR33_x_wadegile_private1').v()
-{'_typum': 'HXLTMDatumNormam', 'crudum': '076_BR33_x_wadegile_private1', \
-'privatum': ['private1', 'wadegile'], 'normam': '076_BR33', 'unm49': '076', \
-'imperium': 'BR33'}
+        Private use language tags: se use similar pattern of BCP 47.
+        (https://tools.ietf.org/search/bcp47)
+
+>>> HXLTMDatumNormam('076_BR33_x_wadegile_private1_tag8digt').v()
+{'_typum': 'HXLTMDatumNormam', \
+'crudum': '076_BR33_x_wadegile_private1_tag8digt', \
+'privatum': ['private1', 'tag8digt', 'wadegile'], 'normam': '076_BR33', \
+'unm49': '076', 'imperium': 'BR33'}
 
 >>> HXLTMDatumNormam('001_XZ@org.hxlstandard').v()
 {'_typum': 'HXLTMDatumNormam', 'crudum': '001_XZ@org.hxlstandard', \
 'normam': '001_XZ@org.hxlstandard', \'rdns': 'org.hxlstandard', \
 'unm49': '001', 'imperium': 'XZ'}
 
->>> HXLTMLinguam('lat-Latn@la-IT@IT', meta={'testum': 123}).v()
-{'_typum': 'HXLTMLinguam', '_vanandum_insectum_meta': {'testum': 123}, \
-'crudum': 'lat-Latn@la-IT@IT', 'linguam': 'lat-Latn', 'bcp47': 'la-IT', \
-'imperium': 'IT', 'iso6391a2': 'la', 'iso6393': 'lat', 'iso115924': 'Latn'}
+# Note: there are some randon URLs from meant to be used
+# just to see if the library dont break on non-ASCII. Source of the tests:
+#  - http://www.i18nguy.com/markup/idna-examples.html
+#  - http://www.i18nguy.com/markup
+#    /Internationalizing%20Web%20Addresses-iuc27.pdf)
 
->>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
-'+i_la+i_lat+is_latn+ii_it'
+>>> HXLTMDatumNormam('356_XZ@museum.icom.भारत').v()
+{'_typum': 'HXLTMDatumNormam', 'crudum': '356_XZ@museum.icom.भारत', \
+'normam': '356_XZ@museum.icom.भारत', 'rdns': 'museum.icom.भारत', \
+'unm49': '356', 'imperium': 'XZ'}
 
-        Kalo Finnish Romani, Latin script (no ISO 2 language)
+>>> HXLTMDatumNormam('076_BR33', meta={'testum': 123}).v()
+{'_typum': 'HXLTMDatumNormam', '_vanandum_insectum_meta': {'testum': 123}, \
+'crudum': '076_BR33', 'normam': '076_BR33', 'unm49': '076', \
+'imperium': 'BR33'}
+
+>>> HXLTMDatumNormam('076_BR33').a()
+'+normam_076_br33'
+
+>>> HXLTMDatumNormam('076_BR33_x_wadegile_private1').a()
+'+normam_076_br33_x_private1_wadegile'
+
+>>> HXLTMDatumNormam('356_XZ@museum.icom.भारत').a()
+'+normam_356_xz_museum_icom_भारत'
+
+>>> HXLTMDatumNormam('356_XZ_X_wadegile_private1@museum.icom.भारत').a()
+'+normam_356_xz_museum_icom_भारत_x_private1_wadegile'
 
 >>> HXLTMLinguam('rmf-Latn').v()
 {'_typum': 'HXLTMLinguam', 'crudum': 'rmf-Latn', \
 'linguam': 'rmf-Latn', 'iso6393': 'rmf', 'iso115924': 'Latn'}
-
-        Kalo Finnish Romani, Latin script (no ISO 2 language, so no attr)
-
->>> HXLTMLinguam('rmf-Latn').a()
-'+i_rmf+is_latn'
-
-        Private use language tags: se use similar pattern of BCP 47.
-        (https://tools.ietf.org/search/bcp47)
-
->>> HXLTMLinguam('lat-Latn-x-privatum').a()
-'+i_lat+is_latn+ix_privatum'
-
->>> HXLTMLinguam('lat-Latn-x-privatum-tag8digt').a()
-'+i_lat+is_latn+ix_privatum+ix_tag8digt'
-
-        If x-private is only on BCP, we ignore it on HXL attrs.
-        Tools may still use this for other processing (like for XLIFF),
-        but not for generated Datasets.
-
->>> HXLTMLinguam(
-... 'cmn-Latn@zh-Latn-CN-variant1-a-extend1-x-wadegile-private1').a()
-'+i_zh+i_cmn+is_latn'
-
-        To force a x-private language tag, it must be on linguam (first part)
-        even if it means repeat. Also, we create attributes shorted by
-        ASCII alphabet, as BCP47 would do
-
->>> HXLTMLinguam(
-... 'cmn-Latn-x-wadegile-private1@zh-CN-x-wadegile-private1').a()
-'+i_zh+i_cmn+is_latn+ix_private1+ix_wadegile'
-
-
->>> HXLTMLinguam(
-... 'lat-Latn-x-caesar12-romanum1@la-IT-x-caesar12-romanum1@IT').a()
-'+i_la+i_lat+is_latn+ii_it+ix_caesar12+ix_romanum1'
-
     """
 
-    # Exemplum: 076_br33, arb-Arab@ar-EG@EG
-    _typum: InitVar[str] = None  # 'HXLTMDatumNormam'
+    _typum: InitVar[str] = None
     _vanandum_insectum_meta: InitVar[Dict] = None
-    crudum: InitVar[str] = None        # Exemplum: 076_br77, OrG_HXLtandard
-    nomam: InitVar[str] = None         # Exemplum: 076_BR33, org_hxlstandard
-    # bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
-    imperium: InitVar[str] = None      # Exemplum: BR, XZ
-    rdns: InitVar[str] = None          # Exemplum: None, org.hxlstandard
-    # iso6391a2: InitVar[str] = None   # Exemlum: la, ar
-    # iso6393: InitVar[str] = None     # Exemlum: lat, arb
-    # iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
-    unm49: InitVar[str] = None         # Exemplum: 076, 000
-    privatum: InitVar[List[str]] = None  # Exemplum: [privatum]
+    crudum: InitVar[str] = None
+    nomam: InitVar[str] = None
+    imperium: InitVar[str] = None
+    rdns: InitVar[str] = None
+    unm49: InitVar[str] = None
+    privatum: InitVar[List[str]] = None
     vacuum: InitVar[str] = False
 
     # https://tools.ietf.org/search/bcp47#page-2-12
@@ -2445,7 +2426,7 @@ HXLTMDatumNormam()
         else:
             self.vacuum = vacuum
 
-    def initialle(self, strictum: bool): # pylint: disable=too-many-branches
+    def initialle(self, _strictum: bool):  # pylint: disable=too-many-branches
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
@@ -2456,10 +2437,14 @@ HXLTMDatumNormam()
         # tag or if is the BCP47 x-private use tag
         # Good example '4.4.2.  Truncation of Language Tags'
         # at https://tools.ietf.org/search/bcp47
-        if self.crudum.find('x_') > -1:
+        if self.crudum.find('x_') > -1 or self.crudum.find('_X_') > -1:
             # print('Do exist a private-use tag')
-            if self.crudum.find('@') > -1:
-                parts = self.crudum.split('@')
+            crudum_ = self.crudum
+            if crudum_.find('_X_') > -1:
+                crudum_ = crudum_.replace('_X_', '_x_')
+
+            if crudum_.find('@') > -1:
+                parts = crudum_.split('@')
                 # print('parte1', parts)
                 if parts[0].find('x_') > -1:
                     # _, privatumtext = parts[0].split('-x-')
@@ -2471,24 +2456,19 @@ HXLTMDatumNormam()
                     # TODO: handle private use on linguan tag when
                     #       also BCP47 is used
             else:
-                part0, privatumtext = self.crudum.split('_x_')
+                part0, privatumtext = crudum_.split('_x_')
                 self.privatum = privatumtext.split('_')
                 term = part0
-        # print('parts', parts)
+
         self.normam = term.upper()
 
         if term.find('@') == -1:
-            # Non @? Est linguam.
+
             self.normam = term
 
             self.unm49, self.imperium = \
                 list(self.normam.split('_'))
-        # elif term.find('@@') > -1:
-        #     # @@? Est linguam et imperium
-        #     self.linguam, self.imperium = list(term.split('@@'))
 
-        #     # self.iso6393, self.iso115924 = \
-        #     #     list(self.linguam.split('-'))
         elif term.count('@') == 1:
             # Unum @? Est linguam et bcp47
             temp1, temp2 = list(term.split('@'))
@@ -2498,31 +2478,6 @@ HXLTMDatumNormam()
                 list(self.normam.split('_'))
 
             self.imperium = temp3.split('@')[0]
-
-        # elif term.count('@') == 2:
-        #     # rem@rem@rem ? Est linguam, bcp47, imperium
-        #     self.linguam, self.bcp47, self.imperium = \
-        #         list(term.split('@'))
-        #     # self.iso6393, self.iso115924 = \
-        #     #     list(self.linguam.split('-'))
-        # elif strictum:
-        #     raise ValueError('HXLTMLinguam [' + term + ']')
-        # else:
-        #     return False
-
-        # if self.bcp47:
-        #     parts = self.bcp47.split('-')
-        #     if len(parts[0]) == 2:
-        #         self.iso6391a2 = parts[0].lower()
-
-        # self.iso6393, self.iso115924 = \
-        #     list(self.linguam.split('-'))
-
-        # self.iso6393 = self.iso6393.lower()
-        # self.iso115924 = self.iso115924.capitalize()
-        # self.linguam = self.iso6393 + '-' + self.iso115924
-        # if self.imperium:
-        #     self.imperium = self.imperium.upper()
 
         if self.privatum is not None and len(self.privatum) > 0:
             # https://tools.ietf.org/search/bcp47#page-2-12
@@ -2542,27 +2497,48 @@ HXLTMDatumNormam()
         """HXL attribūtum
 
         Exemplum:
-            >>> HXLTMLinguam('lat-Latn@la-IT@IT').a()
-            '+i_la+i_lat+is_latn+ii_it'
+            >>> HXLTMDatumNormam('076_BR33_x_wadegile_private1_tag8digt').a()
+            '+normam_076_br33_x_private1_tag8digt_wadegile'
 
         Returns:
             [str]: textum HXL attribūtum
         """
         resultatum = []
 
-        # if self.iso6391a2:
-        #     resultatum.append('+i_' + self.iso6391a2)
-        # if self.iso6393:
-        #     resultatum.append('+i_' + self.iso6393)
-        # if self.iso115924:
-        #     resultatum.append('+is_' + self.iso115924)
-        # if self.imperium:
-        #     resultatum.append('+ii_' + self.imperium)
-        # if self.privatum and len(self.privatum) > 0:
-        #     for item in self.privatum:
-        #         resultatum.append('+ix_' + item)
+        if self.unm49 and self.imperium:
+            resultatum.append(self.unm49 + '_' + self.imperium)
+
+        if self.rdns and len(self.rdns) > 0:
+            resultatum.append('_' + self.rdns.replace('.', '_'))
+
+        if self.privatum and len(self.privatum) > 0:
+            resultatum.append('_x')
+            for item in self.privatum:
+                resultatum.append('_' + item)
+
+        if len(resultatum) > 0:
+            resultatum = ['+normam_'] + resultatum
 
         return ''.join(resultatum).lower()
+
+    def h(self, formatum: str):  # pylint: disable=invalid-name
+        """HXL hashtag de fōrmātum
+
+        Exemplum:
+>>> HXLTMDatumNormam(
+...    '076_BR33_x_wadegile_private1_tag8digt').h(
+...    '#item+conceptum+normam__normam__')
+'#item+conceptum+normam+normam_076_br33_x_private1_tag8digt_wadegile'
+
+        Returns:
+            [str]: textum HXL hashtag
+        """
+        linguam_attrs = self.a()
+
+        if formatum.find('__normam__') > -1:
+            return formatum.replace('__normam__', linguam_attrs)
+
+        raise ValueError('HXLTMLinguam fōrmātum errōrem [' + formatum + ']')
 
     def v(self, _verbosum: bool = None):  # pylint: disable=invalid-name
         """Ego python Dict
@@ -2578,6 +2554,7 @@ HXLTMDatumNormam()
             [Dict]: Python objectīvum
         """
         return self.__dict__
+
 
 @dataclass
 class HXLTMDatumCaput:  # pylint: disable=too-many-instance-attributes
@@ -5410,7 +5387,7 @@ HXLTMLinguam()
         else:
             self.vacuum = vacuum
 
-    def initialle(self, strictum: bool): # pylint: disable=too-many-branches
+    def initialle(self, strictum: bool):  # pylint: disable=too-many-branches
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
