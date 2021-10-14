@@ -21,6 +21,31 @@
     "[a-z]{2}.csv": "CSV-3"
   },
   "normam": {
+    "Ad-Hoc": {
+      "__meta": {
+        "archivum_extensionem": null,
+        "descriptionem": "_[eng-Latn]\nAd Hoc template\n[eng-Latn]_\n",
+        "normam": [
+          "<https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/wiki/Index>"
+        ],
+        "nomen": {
+          "eng-Latn": "Ad Hoc template"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/wiki/Index>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": []
+      },
+      "formatum": {
+        "initiale": false,
+        "corporeum": false,
+        "finale": false
+      }
+    },
     "CSV-3": {
       "__meta": {
         "archivum_extensionem": ".csv",
@@ -1239,6 +1264,26 @@
               "__HXL_bilingue": "#x_xliff +unit +note +note_category__wikidata"
             }
           }
+        }
+      },
+      "normam": {
+        "hxlstandard": {
+          "__HXL": "#meta +conceptum +normam +normam_hxlstandard",
+          "__nomen_breve": "normam_hxlstandard",
+          "__id": "ontologia.extensionem.conceptum.normam.hxlstandard",
+          "__libellam": "conceptum",
+          "_url": "https://hxlstandard.org/",
+          "_compactum_json": [
+            {
+              "_id": "ontologia.commune.conceptum.compactum_json",
+              "_JSONPath": "normam.hxlstandard",
+              "_exemplum": {
+                "normam": {
+                  "hxlstandard": "#meta+id"
+                }
+              }
+            }
+          ]
         }
       }
     },

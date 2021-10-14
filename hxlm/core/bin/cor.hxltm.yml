@@ -1972,6 +1972,30 @@ ontologia:
               _exemplum: Q1065
           _XLIFF:
             __HXL_bilingue: '#x_xliff +unit +note +note_category__wikidata'
+
+    # @see https://docs.google.com/spreadsheets/d/1couRYFuVLnr6CfIMEiXKBamJtmcHinSAy1K1e69rNqw/edit#gid=141644151
+    normam:
+        hxlstandard:
+          __HXL: '#meta +conceptum +normam +normam_hxlstandard'
+          __nomen_breve: 'normam_hxlstandard'  # conceptum.codicem_iate
+          __id: ontologia.extensionem.conceptum.normam.hxlstandard
+          __libellam: conceptum
+          _url: https://hxlstandard.org/
+          _compactum_json:
+            - #meta +json +conceptum
+              _id: ontologia.commune.conceptum.compactum_json
+              _JSONPath: normam.hxlstandard
+              _exemplum:
+                {"normam": {"hxlstandard": '#meta+id'}}
+          # _compactum_textum:
+          #   - #meta +conceptum +normam +alternativum
+          #     _id: ontologia.commune.conceptum.normam.alternativum
+          #     _praefixum: ""
+          #     _suffixum: ""
+          #     _exemplum:
+          #       -
+          # _XLIFF:
+          #   __HXL_bilingue: '#x_xliff +unit +note +note_category__iate'
   
   # Trivia: https://www.wikidata.org/wiki/Q333761
   tm:
