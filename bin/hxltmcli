@@ -233,14 +233,14 @@ from liquid.filter import array_filter as liquid_array_filter
 # ...
 from liquid.ast import Node as LiquidNode
 from liquid.builtin.statement import StatementNode as LiquidStatementNode
-from liquid.lex import tokenize_filtered_expression
-from liquid.parse import parse_filtered_expression
+# from liquid.lex import tokenize_filtered_expression
+# from liquid.parse import parse_filtered_expression
 from liquid.parse import expect as liquid_expect
 from liquid.stream import TokenStream as LiquidTokenStream
 from liquid.tag import Tag as LiquidTag
 from liquid.token import TOKEN_TAG as LIQUID_TOKEN_TAG
 from liquid.token import Token as LiquidToken
-from liquid.expression import Expression as LiquidExpression
+# from liquid.expression import Expression as LiquidExpression
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
@@ -469,7 +469,8 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
 
         parser.add_argument(
             '--objectivum-linguam', '-OL',
-            help='(For bilingual operations) Target natural language ' +
+            help='(For bilingual and monolingual operations) ' +
+            'Target natural language ' +
             '(use if not auto-detected). ' +
             'Must be like {ISO 639-3}-{ISO 15924}. Example: arb-Arab. ' +
             'Requires: mono or bilingual operation. ' +
@@ -522,6 +523,35 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
             # action='append',
             type=lambda x: x.split(',')
             # nargs='?'
+        )
+
+        parser.add_argument(
+            '--fontem-normam',
+            help='(For data exchange) Source of data convention ' +
+            'Recommended convention: use "{UN M49}_{P-Code}" ' +
+            'when endorsed by regional government, ' +
+            'and reverse domain name notation with "_" for other cases. ' +
+            'Examples: 076_BR (Brazil, adm0, Federal level); ' +
+            '076_BR33 (Brazil, adm1, Minas Gerais State, uses PCode); ' +
+            '076_BR3106200 (Brazil, adm2, Belo Horizonte city, uses PCode).',
+            # dest='fontem_linguam',
+            metavar='fontem_normam',
+            action='store',
+            default='lat-Latn',
+            nargs='?'
+        )
+
+        parser.add_argument(
+            '--objectivum-normam',
+            help='(For data exchange) Target of data convention ' +
+            'Recommended convention: use "{UN M49}_{P-Code}" ' +
+            'when endorsed by regional government, ' +
+            'and reverse domain name notation with "_" for other cases. ' +
+            'Example: org_hxlstandard ',
+            metavar='objectivum_normam',
+            action='store',
+            # default='arb-Arab',
+            nargs='?'
         )
 
         parser.add_argument(
