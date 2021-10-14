@@ -1267,10 +1267,10 @@
         }
       },
       "normam": {
-        "hxlstandard": {
-          "__HXL": "#meta +conceptum +normam +normam_hxlstandard",
-          "__nomen_breve": "normam_hxlstandard",
-          "__id": "ontologia.extensionem.conceptum.normam.hxlstandard",
+        "org_hxlstandard": {
+          "__HXL": "#meta +conceptum +normam +normam_org_hxlstandard",
+          "__nomen_breve": "normam_org_hxlstandard",
+          "__id": "ontologia.extensionem.conceptum.normam.org_hxlstandard",
           "__libellam": "conceptum",
           "_url": "https://hxlstandard.org/",
           "_compactum_json": [
@@ -1279,7 +1279,7 @@
               "_JSONPath": "normam.hxlstandard",
               "_exemplum": {
                 "normam": {
-                  "hxlstandard": "#meta+id"
+                  "org_hxlstandard": "#meta+id"
                 }
               }
             }

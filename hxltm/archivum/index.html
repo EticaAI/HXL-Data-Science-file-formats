@@ -4579,10 +4579,10 @@ ontologia:
 
     # @see https://docs.google.com/spreadsheets/d/1couRYFuVLnr6CfIMEiXKBamJtmcHinSAy1K1e69rNqw/edit#gid=141644151
     normam:
-        hxlstandard:
-          __HXL: '#meta +conceptum +normam +normam_hxlstandard'
-          __nomen_breve: 'normam_hxlstandard'  # conceptum.codicem_iate
-          __id: ontologia.extensionem.conceptum.normam.hxlstandard
+        org_hxlstandard:
+          __HXL: '#meta +conceptum +normam +normam_org_hxlstandard'
+          __nomen_breve: 'normam_org_hxlstandard'
+          __id: ontologia.extensionem.conceptum.normam.org_hxlstandard
           __libellam: conceptum
           _url: https://hxlstandard.org/
           _compactum_json:
@@ -4590,7 +4590,7 @@ ontologia:
               _id: ontologia.commune.conceptum.compactum_json
               _JSONPath: normam.hxlstandard
               _exemplum:
-                {"normam": {"hxlstandard": '#meta+id'}}
+                {"normam": {"org_hxlstandard": '#meta+id'}}
           # _compactum_textum:
           #   - #meta +conceptum +normam +alternativum
           #     _id: ontologia.commune.conceptum.normam.alternativum
@@ -5450,11 +5450,14 @@ hxltmcli --help</code></pre>
                 [--objectivum-linguam [objectivum_linguam]]
                 [--agendum-linguam agendum_linguam]
                 [--non-agendum-linguam non_agendum_linguam]
-                [--auxilium-linguam auxilium_linguam] [--objectivum-HXLTM]
-                [--objectivum-TMX] [--objectivum-TBX-Basim] [--objectivum-UTX]
-                [--objectivum-XML] [--objectivum-XLIFF]
-                [--objectivum-XLIFF-obsoletum] [--objectivum-CSV-3]
-                [--objectivum-TSV-3] [--objectivum-CSV-HXL-XLIFF]
+                [--auxilium-linguam auxilium_linguam]
+                [--fontem-normam [fontem_normam]]
+                [--objectivum-normam [objectivum_normam]]
+                [--objectivum-formulam OBJECTIVUM_FORMULAM]
+                [--objectivum-HXLTM] [--objectivum-TMX]
+                [--objectivum-TBX-Basim] [--objectivum-UTX] [--objectivum-XML]
+                [--objectivum-XLIFF] [--objectivum-XLIFF-obsoletum]
+                [--objectivum-CSV-3] [--objectivum-TSV-3]
                 [--objectivum-JSON-kv]
                 [--objectivum-formatum-speciale [objectivum_formatum_speciale]]
                 [--limitem-quantitatem [limitem_quantitatem]]
@@ -5499,10 +5502,11 @@ optional arguments:
                         639-3}-{ISO 15924}. Example: lat-Latn. Accept a single
                         value.
   --objectivum-linguam [objectivum_linguam], -OL [objectivum_linguam]
-                        (For bilingual operations) Target natural language
-                        (use if not auto-detected). Must be like {ISO
-                        639-3}-{ISO 15924}. Example: arb-Arab. Requires: mono
-                        or bilingual operation. Accept a single value.
+                        (For bilingual and monolingual operations) Target
+                        natural language (use if not auto-detected). Must be
+                        like {ISO 639-3}-{ISO 15924}. Example: arb-Arab.
+                        Requires: mono or bilingual operation. Accept a single
+                        value.
   --agendum-linguam agendum_linguam, -AL agendum_linguam
                         (Planned, but not fully implemented yet) Restrict
                         working languages to a list. Useful for HXLTM to HXLTM
@@ -5518,6 +5522,25 @@ optional arguments:
                         language. Requires: bilingual operation (and file
                         format allow metadata). Default: Esperanto and
                         Interlingua Accepts multiple values.
+  --fontem-normam [fontem_normam]
+                        (For data exchange) Source of data convention
+                        Recommended convention: use "{UN M49}_{P-Code}" when
+                        endorsed by regional government, and reverse domain
+                        name notation with "_" for other cases. Examples:
+                        076_BR (Brazil, adm0, Federal level); 076_BR33
+                        (Brazil, adm1, Minas Gerais State, uses PCode);
+                        076_BR3106200 (Brazil, adm2, Belo Horizonte city, uses
+                        PCode).
+  --objectivum-normam [objectivum_normam]
+                        (For data exchange) Target of data convention
+                        Recommended convention: use "{UN M49}_{P-Code}" when
+                        endorsed by regional government, and reverse domain
+                        name notation with "_" for other cases. Example:
+                        org_hxlstandard
+  --objectivum-formulam OBJECTIVUM_FORMULAM
+                        (Draft, not implemented) Template file to use as
+                        reference to generate an output. Less powerful than
+                        custom file but can be used for simple cases.
   --objectivum-HXLTM, --HXLTM
                         Save output as HXLTM (default). Multilingual output
                         format.
@@ -5548,9 +5571,6 @@ optional arguments:
                         (Not implemented yet) Export to Bilingual TAB with
                         BCP47 headers (source to target) plus comments on last
                         column Bilingual operation.
-  --objectivum-CSV-HXL-XLIFF, --CSV-HXL-XLIFF
-                        (experimental) HXLated bilingual CSV (feature
-                        compatible with XLIFF)
   --objectivum-JSON-kv, --JSON-kv
                         (Not implemented yet) Export to Bilingual JSON. Keys
                         are ID (if available) or source natural language.
@@ -5778,7 +5798,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-14 09:38:36 UTC
+Last updated 2021-10-14 10:44:05 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
