@@ -2338,7 +2338,18 @@ class HXLTMDatumNormam:  # pylint: disable=too-many-instance-attributes
 HXLTMDatumNormam()
 
 >>> HXLTMDatumNormam('076_BR33').v()
-{'_typum': 'HXLTMDatumNormam', 'crudum': '076_BR33'}
+{'_typum': 'HXLTMDatumNormam', 'crudum': '076_BR33', \
+'normam': '076_BR33', 'unm49': '076', 'imperium': 'BR33'}
+
+>>> HXLTMDatumNormam('076_BR33_x_wadegile_private1').v()
+{'_typum': 'HXLTMDatumNormam', 'crudum': '076_BR33_x_wadegile_private1', \
+'privatum': ['private1', 'wadegile'], 'normam': '076_BR33', 'unm49': '076', \
+'imperium': 'BR33'}
+
+>>> HXLTMDatumNormam('001_XZ@org.hxlstandard').v()
+{'_typum': 'HXLTMDatumNormam', 'crudum': '001_XZ@org.hxlstandard', \
+'normam': '001_XZ@org.hxlstandard', \'rdns': 'org.hxlstandard', \
+'unm49': '001', 'imperium': 'XZ'}
 
 >>> HXLTMLinguam('lat-Latn@la-IT@IT', meta={'testum': 123}).v()
 {'_typum': 'HXLTMLinguam', '_vanandum_insectum_meta': {'testum': 123}, \
@@ -2391,16 +2402,18 @@ HXLTMDatumNormam()
 
     """
 
-    # Exemplum: lat-Latn@la-IT@IT, arb-Arab@ar-EG@EG
-    _typum: InitVar[str] = None  # 'HXLTMLinguam'
+    # Exemplum: 076_br33, arb-Arab@ar-EG@EG
+    _typum: InitVar[str] = None  # 'HXLTMDatumNormam'
     _vanandum_insectum_meta: InitVar[Dict] = None
-    crudum: InitVar[str] = None
-    nomam: InitVar[str] = None     # Exemplum: 076_BR33, org_hxlstandard
-    bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
-    imperium: InitVar[str] = None    # Exemplum: IT, EG
-    iso6391a2: InitVar[str] = None     # Exemlum: la, ar
-    iso6393: InitVar[str] = None     # Exemlum: lat, arb
-    iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
+    crudum: InitVar[str] = None        # Exemplum: 076_br77, OrG_HXLtandard
+    nomam: InitVar[str] = None         # Exemplum: 076_BR33, org_hxlstandard
+    # bcp47: InitVar[str] = None       # Exemplum: la-IT, ar-EG
+    imperium: InitVar[str] = None      # Exemplum: BR, XZ
+    rdns: InitVar[str] = None          # Exemplum: None, org.hxlstandard
+    # iso6391a2: InitVar[str] = None   # Exemlum: la, ar
+    # iso6393: InitVar[str] = None     # Exemlum: lat, arb
+    # iso115924: InitVar[str] = None   # Exemplum: Latn, Arab
+    unm49: InitVar[str] = None         # Exemplum: 076, 000
     privatum: InitVar[List[str]] = None  # Exemplum: [privatum]
     vacuum: InitVar[str] = False
 
@@ -2427,10 +2440,103 @@ HXLTMDatumNormam()
         if meta is not None:
             self._vanandum_insectum_meta = meta
         self.crudum = nomam
-        # if not vacuum:
-        #     self.initialle(strictum)
+        if not vacuum:
+            self.initialle(strictum)
+        else:
+            self.vacuum = vacuum
+
+    def initialle(self, strictum: bool): # pylint: disable=too-many-branches
+        """
+        Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
+        """
+
+        term = self.crudum
+        # print('oi')
+        # Hackysh way to discover if private use is the linguam
+        # tag or if is the BCP47 x-private use tag
+        # Good example '4.4.2.  Truncation of Language Tags'
+        # at https://tools.ietf.org/search/bcp47
+        if self.crudum.find('x_') > -1:
+            # print('Do exist a private-use tag')
+            if self.crudum.find('@') > -1:
+                parts = self.crudum.split('@')
+                # print('parte1', parts)
+                if parts[0].find('x_') > -1:
+                    # _, privatumtext = parts[0].split('-x-')
+                    part0, privatumtext = parts[0].split('_x_')
+                    self.privatum = privatumtext.split('_')
+                    parts.pop(0)
+                    term = part0 + "@" + '@'.join(parts)
+                    # print('term2', term)
+                    # TODO: handle private use on linguan tag when
+                    #       also BCP47 is used
+            else:
+                part0, privatumtext = self.crudum.split('_x_')
+                self.privatum = privatumtext.split('_')
+                term = part0
+        # print('parts', parts)
+        self.normam = term.upper()
+
+        if term.find('@') == -1:
+            # Non @? Est linguam.
+            self.normam = term
+
+            self.unm49, self.imperium = \
+                list(self.normam.split('_'))
+        # elif term.find('@@') > -1:
+        #     # @@? Est linguam et imperium
+        #     self.linguam, self.imperium = list(term.split('@@'))
+
+        #     # self.iso6393, self.iso115924 = \
+        #     #     list(self.linguam.split('-'))
+        elif term.count('@') == 1:
+            # Unum @? Est linguam et bcp47
+            temp1, temp2 = list(term.split('@'))
+            self.rdns = temp2.lower()
+            self.normam = temp1.upper() + "@" + self.rdns
+            self.unm49, temp3 = \
+                list(self.normam.split('_'))
+
+            self.imperium = temp3.split('@')[0]
+
+        # elif term.count('@') == 2:
+        #     # rem@rem@rem ? Est linguam, bcp47, imperium
+        #     self.linguam, self.bcp47, self.imperium = \
+        #         list(term.split('@'))
+        #     # self.iso6393, self.iso115924 = \
+        #     #     list(self.linguam.split('-'))
+        # elif strictum:
+        #     raise ValueError('HXLTMLinguam [' + term + ']')
         # else:
-        #     self.vacuum = vacuum
+        #     return False
+
+        # if self.bcp47:
+        #     parts = self.bcp47.split('-')
+        #     if len(parts[0]) == 2:
+        #         self.iso6391a2 = parts[0].lower()
+
+        # self.iso6393, self.iso115924 = \
+        #     list(self.linguam.split('-'))
+
+        # self.iso6393 = self.iso6393.lower()
+        # self.iso115924 = self.iso115924.capitalize()
+        # self.linguam = self.iso6393 + '-' + self.iso115924
+        # if self.imperium:
+        #     self.imperium = self.imperium.upper()
+
+        if self.privatum is not None and len(self.privatum) > 0:
+            # https://tools.ietf.org/search/bcp47#page-2-12
+            # '4.5.  Canonicalization of Language Tags'
+            # We short the keys
+            # privatum_est = sorted(self.imperium, key=str.upper)
+
+            # print('antes', self.imperium)
+            privatum_est = sorted(self.privatum)
+
+            # print('depois', self.privatum)
+            self.privatum = privatum_est
+
+        return True
 
     def a(self):  # pylint: disable=invalid-name
         """HXL attribūtum
@@ -2444,17 +2550,17 @@ HXLTMDatumNormam()
         """
         resultatum = []
 
-        if self.iso6391a2:
-            resultatum.append('+i_' + self.iso6391a2)
-        if self.iso6393:
-            resultatum.append('+i_' + self.iso6393)
-        if self.iso115924:
-            resultatum.append('+is_' + self.iso115924)
-        if self.imperium:
-            resultatum.append('+ii_' + self.imperium)
-        if self.privatum and len(self.privatum) > 0:
-            for item in self.privatum:
-                resultatum.append('+ix_' + item)
+        # if self.iso6391a2:
+        #     resultatum.append('+i_' + self.iso6391a2)
+        # if self.iso6393:
+        #     resultatum.append('+i_' + self.iso6393)
+        # if self.iso115924:
+        #     resultatum.append('+is_' + self.iso115924)
+        # if self.imperium:
+        #     resultatum.append('+ii_' + self.imperium)
+        # if self.privatum and len(self.privatum) > 0:
+        #     for item in self.privatum:
+        #         resultatum.append('+ix_' + item)
 
         return ''.join(resultatum).lower()
 
@@ -5304,7 +5410,7 @@ HXLTMLinguam()
         else:
             self.vacuum = vacuum
 
-    def initialle(self, strictum: bool):
+    def initialle(self, strictum: bool): # pylint: disable=too-many-branches
         """
         Trivia: initiāle, https://en.wiktionary.org/wiki/initialis#Latin
         """
