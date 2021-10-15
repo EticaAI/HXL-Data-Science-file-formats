@@ -2521,6 +2521,100 @@ HXLTMDatumNormam()
 
         return ''.join(resultatum).lower()
 
+    def aequale(
+            self,
+            clavem_et_normam: Union[str, Type['HXLTMDatumNormam']]) -> int:
+        """aequāle crudum clavem?
+
+        Exemplum:
+            >>> normam_PT = HXLTMDatumNormam('620_PT')
+            >>> normam_BR = HXLTMDatumNormam('076_BR')
+            >>> normam_br = HXLTMDatumNormam('076_br')
+
+            >>> normam_BR33 = HXLTMDatumNormam('076_BR33')
+            >>> normam_latin_BR33 = HXLTMDatumNormam('419_BR33')
+            >>> normam_BR33 = HXLTMDatumNormam('076_BR33')
+            >>> normam_BR33_x1 = HXLTMDatumNormam('076_BR33_x_tag8digt')
+            >>> normam_BR33_x3 = HXLTMDatumNormam(
+            ...    '076_BR33_x_wadegile_private1_tag8digt')
+            >>> normam_XZ_etica = HXLTMDatumNormam('001_XZ@ai.etica')
+            >>> normam_XZ_hxl = HXLTMDatumNormam('001_XZ@org.hxlstandard')
+            >>> normam_XZ_etica_x1 = HXLTMDatumNormam(
+            ...    '001_XZ_x_tag8digt@ai.etica')
+            >>> normam_XZ_hxl_x1 = HXLTMDatumNormam(
+            ...    '001_XZ_x_tag8digt@org.hxlstandard')
+
+
+            >>> normam_BR.aequale(normam_PT)
+            -100
+            >>> normam_BR.aequale(normam_br)
+            100
+            >>> normam_BR33.aequale(normam_BR33_x3)
+            90
+            >>> normam_BR33.aequale(normam_latin_BR33)
+            60
+            >>> normam_XZ_etica.aequale(normam_XZ_hxl)
+            -100
+            >>> normam_XZ_etica_x1.aequale(normam_XZ_hxl_x1)
+            -80
+
+        Args:
+            clavem_et_normam (str, HXLTMDatumNormam): Textum crudum et Normam
+
+        Returns:
+            int: aequāle numerum
+        """
+        # @TODO: the numeric results on this function are still an usable
+        #        draft. They can be used later to assert the closest
+        #        option to return a viable result
+
+        if clavem_et_normam and isinstance(clavem_et_normam, str):
+            neo = HXLTMLinguam(clavem_et_normam)
+        else:
+            neo = clavem_et_normam
+
+        # neo = HXLTMDatumNormam(clavem)
+
+        # print(neo.a(), self.a())
+
+        if neo.a() == self.a():
+            return 100
+
+        # TODO: for comparisons with privatum, make distinction if there
+        #       is more than one private tag, but only partially match
+        if neo.unm49 == self.unm49 and \
+                neo.imperium == self.imperium and \
+                neo.rdns == self.rdns:
+            # non privatum
+            return 90
+
+        if neo.unm49 == self.unm49 and \
+                neo.rdns == self.rdns and \
+                neo.privatum == self.privatum:
+            # non imperium
+            return 70
+
+        if neo.imperium == self.imperium and \
+                neo.rdns == self.rdns and \
+                neo.privatum == self.privatum:
+            # non unm49
+            return 60
+
+        if neo.privatum and self.privatum and \
+                neo.privatum == self.privatum:
+            # non iso6391a2
+            # non imperium || non privatum
+            return -80
+
+        # if neo.iso6393 == self.iso6393 and \
+        #         neo.iso115924 == self.iso115924:
+        #     # non iso6391a2
+        #     # non privatum
+        #     # non imperium
+        #     return 90
+
+        return -100
+
     def h(self, formatum: str):  # pylint: disable=invalid-name
         """HXL hashtag de fōrmātum
 
@@ -5497,11 +5591,13 @@ HXLTMLinguam()
 
         return ''.join(resultatum).lower()
 
-    def aequale(self, clavem: str) -> int:
+    def aequale(
+            self,
+            clavem_et_linguam: Union[str, Type['HXLTMLinguam']]) -> int:
         """aequāle crudum clavem?
 
         Args:
-            clavem (str): Textum
+            clavem_et_linguam (str, HXLTMLinguam): Textum crudum et linguam
 
         Returns:
             int: aequāle numerum
@@ -5510,7 +5606,10 @@ HXLTMLinguam()
         #        draft. They can be used later to assert the closest
         #        option to return a viable result
 
-        neo = HXLTMLinguam(clavem)
+        if clavem_et_linguam and isinstance(clavem_et_linguam, str):
+            neo = HXLTMLinguam(clavem_et_linguam)
+        else:
+            neo = clavem_et_linguam
 
         # print(neo.a(), self.a())
 
