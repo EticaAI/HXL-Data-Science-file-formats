@@ -1,4 +1,4 @@
-= `+HXLTM+` HXL Trānslātiōnem Memoriam: archīvum fōrmātum normam
+= `+HXLTM+` Terminologium Multilinguam: archīvum fōrmātum normam
 :toc: preamble
 :toclevels: 3
 :icons: font
@@ -121,6 +121,24 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 ----
 ////
 
+[#HXLTM-TMETA]
+=== `+HXLTM-TMETA+`:
+==== HXLTM Terminologium Multilinguam Meta
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-TMETA]
+----
+
+////
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+----
+////
+
 [#HXLTM-ASA]
 === `+HXLTM-ASA+`:
 ==== HXLTM Abstractum Syntaxim Arborem
@@ -138,25 +156,20 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-ASA]
 include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
 ----
 
-[#HXLTM-TMETA]
-=== `+HXLTM-TMETA+`:
-==== HXLTM Terminologiam
-
-[source,yaml]
-----
-include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-ASA]
-----
-
-
-===== Command line examples
-
-[source,bash]
-----
-include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
-----
-
 [#HXLTM-archivum-exportandum]
-== HXLTM exported formats
+== HXLTM Normam (HXLTM interoperability with conventions/standards)
+
+TIP: The `hxltmcli` and (for importing XML, as long as you map the
+     tags and attributes, as this page already do for TMX, TBX, XLIFFs, ...)
+     `+hxltmdexml+` *are designed to work with gigabyte size datasets*.
+     The ontology file can be customized with `--archivum-configurationem`
+     which means both edit or create new exporters/importers are possible.
+
+////
+TIP: Consider the formats here as example of how to export HXLTM.
+     `hxltmcli --archivum-configurationem path/to/mycopy.hxltm.yml`.
+////
+
 
 [#CSV-3]
 === `+CSV-3+`:
@@ -388,6 +401,17 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_XLSX]
 ----
 include::../../ontologia/cor.hxltm.yml[tag=normam_YAML]
 ----
+
+[#HXLTM-ad-hoc]
+== HXLTM Ad Hoc Fōrmulam (HXLTM templated export)
+
+TIP: *About create new HXLTM Ad Hoc*: different from customizable
+     link:++#HXLTM-archivum-exportandum++[HXLTM Normam]
+     (support for gigabyte size data manipulation) the use of this strategy
+     is more optimized for end user who is unlikely o care about load data
+     in chunks and try to explain how to import back to HXLTM working file.
+
+NOTE: TODO: this is a draft. Document already implemented functionality
 
 == HXLTM ontologies
 
