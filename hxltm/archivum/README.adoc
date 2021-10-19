@@ -199,7 +199,7 @@ include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.
 
 [#GSheets]
 === `+GSheets+`:
-==== Google Sheets (via CSV import)
+==== Google Sheets, HXLTM container (read-only; native support as data source)
 
 [source,yaml]
 ----
@@ -218,6 +218,9 @@ include::../../ontologia/cor.hxltm.yml[tag=normam_JSON-kv]
 [#TBX-Basim]
 === `+TBX-Basim+`:
 ==== TermBase eXchange (TBX) Basic 2.1
+////
+==== TermBase eXchange (TBX) Basic 2.1
+////
 
 [source,yaml]
 ----
@@ -315,7 +318,7 @@ include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.utx[]
 
 [#XML]
 === `+XML+`:
-==== XML Glōssārium (generic multilingual XML)'
+==== XML Glōssārium, HXLTM container (generic multilingual XML)'
 
 [source,yaml]
 ----
@@ -363,7 +366,7 @@ include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn
 
 [#XLIFF-obsoletum]
 === `+XLIFF-obsoletum+`:
-==== XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)
+==== XML Localization Interchange File Format (XLIFF) v1.2
 
 [source,yaml]
 ----
@@ -386,7 +389,7 @@ include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn--spa-Latn
 
 [#XLSX]
 === `+XLSX+`:
-==== Microsoft Excel (no plugins to read data directly from .XSLX)
+==== Microsoft Excel, HXLTM container (read-only; native support as data source)
 
 [source,yaml]
 ----
