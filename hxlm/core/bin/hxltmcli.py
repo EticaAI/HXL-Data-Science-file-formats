@@ -543,6 +543,17 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         )
 
         parser.add_argument(
+            '--meta',
+            help='(Draft, not fully implemented) ' +
+            'Optional YAML metadata for advanced processing operations.',
+            # dest='fontem_linguam',
+            metavar='meta',
+            action='store',
+            # default='lat-Latn',
+            nargs='?'
+        )
+
+        parser.add_argument(
             '--objectivum-normam',
             help='(For data exchange) Target of data convention ' +
             'Recommended convention: use "{UN M49}_{P-Code}" ' +
