@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>HXLTM HXL Trānslātiōnem Memoriam: archīvum fōrmātum normam</title>
+<title>HXLTM Terminologium Multilinguam: archīvum fōrmātum normam</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -441,7 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1><code>HXLTM</code> HXL Trānslātiōnem Memoriam: archīvum fōrmātum normam</h1>
+<h1><code>HXLTM</code> Terminologium Multilinguam: archīvum fōrmātum normam</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -458,19 +458,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_terminologium_multilinguam_priore_hxl_trānslātiōnem_memoriam">Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam)</a></li>
 </ul>
 </li>
+<li><a href="#HXLTM-TMETA"><code>HXLTM-TMETA</code>:</a>
+<ul class="sectlevel3">
+<li><a href="#_hxltm_terminologium_multilinguam_meta">HXLTM Terminologium Multilinguam Meta</a></li>
+</ul>
+</li>
 <li><a href="#HXLTM-ASA"><code>HXLTM-ASA</code>:</a>
 <ul class="sectlevel3">
 <li><a href="#_hxltm_abstractum_syntaxim_arborem">HXLTM Abstractum Syntaxim Arborem</a></li>
 </ul>
 </li>
-<li><a href="#HXLTM-TMETA"><code>HXLTM-TMETA</code>:</a>
-<ul class="sectlevel3">
-<li><a href="#_hxltm_terminologiam">HXLTM Terminologiam</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#HXLTM-archivum-exportandum">HXLTM exported formats</a>
+<li><a href="#HXLTM-archivum-exportandum">HXLTM Normam (HXLTM interoperability with conventions/standards)</a>
 <ul class="sectlevel2">
 <li><a href="#CSV-3"><code>CSV-3</code>:</a>
 <ul class="sectlevel3">
@@ -534,6 +534,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#HXLTM-ad-hoc">HXLTM Ad Hoc Fōrmulam (HXLTM templated export)</a></li>
 <li><a href="#_hxltm_ontologies">HXLTM ontologies</a>
 <ul class="sectlevel2">
 <li><a href="#ontologia">Ontologia</a></li>
@@ -727,7 +728,7 @@ TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (...)
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  HXLTM:
     __meta:
-      archivum_extensionem: .tm.hxl.csv
+      archivum_extensionem: .tm.hxl.csv # .tm.hxl.xlsx, xlsx, ...
       normam:
         - &lt;https://github.com/HXL-CPLP/forum/issues/58&gt;
       nomen:
@@ -788,6 +789,34 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
 #   - https://github.com/HXLStandard/libhxl-python/wiki
 # [eng-Latn]_</code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="HXLTM-TMETA"><code>HXLTM-TMETA</code>:</h3>
+<div class="sect3">
+<h4 id="_hxltm_terminologium_multilinguam_meta">HXLTM Terminologium Multilinguam Meta</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  HXLTM-TMETA:
+    __meta:
+      archivum_extensionem: 
+        - .tmeta.json
+        - .tmeta.yml
+      normam:
+        - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA&gt;
+      descriptionem: |
+        _[eng-Latn]
+        To be documented.
+        [eng-Latn]_
+      nomen:
+        eng-Latn: 'HXLTM Terminologium Multilinguam Meta'
+      situs_interretialis:
+        referens_officinale:
+          - &lt;https://hdp.etica.ai/hxltm&gt;
+          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM&gt;
+          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/24&gt;</code></pre>
 </div>
 </div>
 </div>
@@ -877,96 +906,27 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="HXLTM-TMETA"><code>HXLTM-TMETA</code>:</h3>
-<div class="sect3">
-<h4 id="_hxltm_terminologiam">HXLTM Terminologiam</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  HXLTM-ASA:
-    __meta:
-      archivum_extensionem: 
-        - .asa.hxltm.json
-        - .asa.hxltm.yml
-      normam:
-        - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA&gt;
-      descriptionem: |
-        _[eng-Latn]
-        The HXLTM-ASA is an not strictly documented Abstract Syntax Tree
-        of an data conversion operation.
-
-        This format, different from the HXLTM permanent storage, is not
-        meant to be used by end users. And, in fact, either JSON (or other
-        formats, like YAML) are more a tool for users debugging the initial
-        reference implementation hxltmcli OR developers using JSON
-        as more advanced input than the end user permanent storage.
-
-        Warning: The HXLTM-ASA is not meant to be an stricly documented format
-        even if HXLTM eventually get used by large public. If necessary,
-        some special format could be created, but this would require feedback
-        from community or some work already done by implementers.
-        [eng-Latn]_
-
-        Trivia:
-          - abstractum, &lt;https://en.wiktionary.org/wiki/abstractus#Latin&gt;
-          - syntaxim, &lt;https://en.wiktionary.org/wiki/syntaxis#Latin&gt;
-          - arborem, &lt;https://en.wiktionary.org/wiki/arbor#Latin&gt;
-          - conceptum de Abstractum Syntaxim Arborem
-            - &lt;https://www.wikidata.org/wiki/Q127380&gt;
-      nomen:
-        eng-Latn: 'HXLTM Abstractum Syntaxim Arborem'
-      situs_interretialis:
-        referens_officinale:
-          - &lt;https://hdp.etica.ai/hxltm&gt;
-          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM&gt;
-          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22&gt;</code></pre>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_command_line_examples_3">Command line examples</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
-# _[eng-Latn]
-# The HXLTM-ASA is an not strictly documented Abstract Syntax Tree
-# of an data conversion operation.
-#
-# These are quick examples. They reuse other examples on this guide, but also
-# save data on a separate file.
-# [eng-Latn]_
-
-### II -------------------------------------------------------------------------
-# _[eng-Latn]
-# The next example will generate an XLIFF, but we also will save the HXLTM-ASA.
-#
-# The '--expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.json'
-# will generate an JSON output of the operation.
-#
-# The '--expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml'
-# will generate an YAML output of the operation.
-# [eng-Latn]_
-
-# TODO: replace HXLTM ASA example from XLIFF to TBX or TMX
-
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.xlf \
-  --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.json \
-  --objectivum-XLIFF
-
-hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
-  resultatum/hxltm-exemplum-linguam.xlf \
-  --expertum-HXLTM-ASA hxltm-asa/hxltm-exemplum-linguam.asa.hxltm.yml \
-  --objectivum-XLIFF</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="HXLTM-archivum-exportandum">HXLTM exported formats</h2>
+<h2 id="HXLTM-archivum-exportandum">HXLTM Normam (HXLTM interoperability with conventions/standards)</h2>
 <div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>hxltmcli</code> and (for importing XML, as long as you map the
+     tags and attributes, as this page already do for TMX, TBX, XLIFFs, &#8230;&#8203;)
+     <code>hxltmdexml</code> <strong>are designed to work with gigabyte size datasets</strong>.
+     The ontology file can be customized with <code>--archivum-configurationem</code>
+     which means both edit or create new exporters/importers are possible.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="CSV-3"><code>CSV-3</code>:</h3>
 <div class="sect3">
@@ -1021,7 +981,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_4">Command line examples</h5>
+<h5 id="_command_line_examples_3">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -1495,7 +1455,7 @@ Olá mundo!,¡Hola mundo!,""
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_5">Command line examples</h5>
+<h5 id="_command_line_examples_4">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -1993,7 +1953,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; res
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_6">Command line examples</h5>
+<h5 id="_command_line_examples_5">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -2172,7 +2132,7 @@ Teste, 1, 2, 3	Prueba, 1, 2, 3
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_7">Command line examples</h5>
+<h5 id="_command_line_examples_6">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -2471,7 +2431,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_8">Command line examples</h5>
+<h5 id="_command_line_examples_7">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -2692,7 +2652,7 @@ Salvi mundi!,Olá mundo!,"Hello, World!",¡Hola mundo!,नमस्ते दु
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_9">Command line examples</h5>
+<h5 id="_command_line_examples_8">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -3367,7 +3327,7 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_10">Command line examples</h5>
+<h5 id="_command_line_examples_9">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -3770,7 +3730,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 <div class="sect4">
-<h5 id="_command_line_examples_11">Command line examples</h5>
+<h5 id="_command_line_examples_10">Command line examples</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">### I -------------------------------------------------------------------------
@@ -4038,6 +3998,39 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="HXLTM-ad-hoc">HXLTM Ad Hoc Fōrmulam (HXLTM templated export)</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<strong>About create new HXLTM Ad Hoc</strong>: different from customizable
+     <a href="#HXLTM-archivum-exportandum">HXLTM Normam</a>
+     (support for gigabyte size data manipulation) the use of this strategy
+     is more optimized for end user who is unlikely o care about load data
+     in chunks and try to explain how to import back to HXLTM working file.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+TODO: this is a draft. Document already implemented functionality
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -5892,7 +5885,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-19 21:09:08 UTC
+Last updated 2021-10-19 21:55:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

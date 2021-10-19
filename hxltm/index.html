@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>HXLM: Humanitarian Exchange Language Trānslātiōnem Memoriam</title>
+<title>HXLM: Humanitarian Exchange Language Terminologium Multilinguam</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -441,7 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>HXLM: Humanitarian Exchange Language Trānslātiōnem Memoriam</h1>
+<h1>HXLM: Humanitarian Exchange Language Terminologium Multilinguam</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -791,7 +791,9 @@ __ontologia_cor_versionem__:  v0.8.6+EticaAI+voluntārium-commūne
 #   - https://hxlstandard.org/
 # - "Trānslātiōnem Memoriam"
 #   - https://www.wikidata.org/wiki/Q333761
-# - "HXL Trānslātiōnem Memoriam"
+# - "Terminologium Multilinguam"
+#   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
+# - "HXL Trānslātiōnem Memoriam" (priore)
 #   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
 # - "cor"
 #   - https://en.wiktionary.org/wiki/cor#Latin
@@ -1020,7 +1022,7 @@ normam:
   # tag::normam_HXLTM[]
   HXLTM:
     __meta:
-      archivum_extensionem: .tm.hxl.csv
+      archivum_extensionem: .tm.hxl.csv # .tm.hxl.xlsx, xlsx, ...
       normam:
         - &lt;https://github.com/HXL-CPLP/forum/issues/58&gt;
       nomen:
@@ -1071,6 +1073,29 @@ normam:
           - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22&gt;
 
   # end::normam_HXLTM-ASA[]
+
+  #### HXLTM: Terminologium Multilinguam Meta __________________________________
+  # tag::normam_HXLTM-TMETA[]
+  HXLTM-TMETA:
+    __meta:
+      archivum_extensionem: 
+        - .tmeta.json
+        - .tmeta.yml
+      normam:
+        - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA&gt;
+      descriptionem: |
+        _[eng-Latn]
+        To be documented.
+        [eng-Latn]_
+      nomen:
+        eng-Latn: 'HXLTM Terminologium Multilinguam Meta'
+      situs_interretialis:
+        referens_officinale:
+          - &lt;https://hdp.etica.ai/hxltm&gt;
+          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM&gt;
+          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/24&gt;
+
+  # end::normam_HXLTM-TMETA[]
 
   #### JSON-kv: JSON key: val; id/source -&gt; target _____________________________
   # tag::normam_JSON-kv[]
@@ -3632,7 +3657,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-19 21:09:08 UTC
+Last updated 2021-10-19 21:55:06 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

@@ -1,4 +1,4 @@
-= HXLM: Humanitarian Exchange Language Trānslātiōnem Memoriam
+= HXLM: Humanitarian Exchange Language Terminologium Multilinguam
 :toc: preamble
 :icons: font
 :source-highlighter: highlight.js

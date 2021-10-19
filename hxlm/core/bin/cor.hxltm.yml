@@ -12,7 +12,9 @@ __ontologia_cor_versionem__:  v0.8.6+EticaAI+voluntārium-commūne
 #   - https://hxlstandard.org/
 # - "Trānslātiōnem Memoriam"
 #   - https://www.wikidata.org/wiki/Q333761
-# - "HXL Trānslātiōnem Memoriam"
+# - "Terminologium Multilinguam"
+#   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
+# - "HXL Trānslātiōnem Memoriam" (priore)
 #   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
 # - "cor"
 #   - https://en.wiktionary.org/wiki/cor#Latin
@@ -241,7 +243,7 @@ normam:
   # tag::normam_HXLTM[]
   HXLTM:
     __meta:
-      archivum_extensionem: .tm.hxl.csv
+      archivum_extensionem: .tm.hxl.csv # .tm.hxl.xlsx, xlsx, ...
       normam:
         - <https://github.com/HXL-CPLP/forum/issues/58>
       nomen:
@@ -292,6 +294,29 @@ normam:
           - <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22>
 
   # end::normam_HXLTM-ASA[]
+
+  #### HXLTM: Terminologium Multilinguam Meta __________________________________
+  # tag::normam_HXLTM-TMETA[]
+  HXLTM-TMETA:
+    __meta:
+      archivum_extensionem: 
+        - .tmeta.json
+        - .tmeta.yml
+      normam:
+        - <https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA>
+      descriptionem: |
+        _[eng-Latn]
+        To be documented.
+        [eng-Latn]_
+      nomen:
+        eng-Latn: 'HXLTM Terminologium Multilinguam Meta'
+      situs_interretialis:
+        referens_officinale:
+          - <https://hdp.etica.ai/hxltm>
+          - <https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM>
+          - <https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/24>
+
+  # end::normam_HXLTM-TMETA[]
 
   #### JSON-kv: JSON key: val; id/source -> target _____________________________
   # tag::normam_JSON-kv[]
