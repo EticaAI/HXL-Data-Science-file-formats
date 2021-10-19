@@ -8,6 +8,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--non-agendum-linguam non_agendum_linguam]
                 [--auxilium-linguam auxilium_linguam]
                 [--fontem-normam [fontem_normam]]
+                [--tmeta-archivum [tmeta_archivum]]
                 [--objectivum-normam [objectivum_normam]]
                 [--objectivum-formulam OBJECTIVUM_FORMULAM]
                 [--objectivum-HXLTM] [--objectivum-TMX]
@@ -33,7 +34,7 @@ usage: hxltmcli [-h] [--sheet [number]] [--selector [path]]
                 [--venandum-insectum-est]
                 [infile] [outfile]
 
-_[eng-Latn] hxltmcli v0.8.6 is an implementation of HXLTM tagging conventions
+_[eng-Latn] hxltmcli v0.8.7 is an implementation of HXLTM tagging conventions
 on HXL to manage and export tabular data to popular translation memories
 and glossaries file formats with non-close standards.
 [eng-Latn]_"
@@ -87,6 +88,9 @@ optional arguments:
                         (Brazil, adm1, Minas Gerais State, uses PCode);
                         076_BR3106200 (Brazil, adm2, Belo Horizonte city, uses
                         PCode).
+  --tmeta-archivum [tmeta_archivum]
+                        (Draft, not fully implemented) Optional YAML metadata
+                        for advanced processing operations.
   --objectivum-normam [objectivum_normam]
                         (For data exchange) Target of data convention
                         Recommended convention: use "{UN M49}_{P-Code}" when
@@ -94,9 +98,9 @@ optional arguments:
                         name notation with "_" for other cases. Example:
                         org_hxlstandard
   --objectivum-formulam OBJECTIVUM_FORMULAM
-                        (Draft, not implemented) Template file to use as
-                        reference to generate an output. Less powerful than
-                        custom file but can be used for simple cases.
+                        Template file to use as reference to generate an
+                        output. Less powerful than custom file but can be used
+                        for simple cases.
   --objectivum-HXLTM, --HXLTM
                         Save output as HXLTM (default). Multilingual output
                         format.

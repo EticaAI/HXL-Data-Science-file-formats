@@ -1,6 +1,6 @@
 {
     "__tmeta__": "{{ 'aaaa' }}",
-    "argumentum": {{ argumentum }},
-    "globum": {{ globum }},
-    "tmeta": {{ tmeta }},
+    "argumentum": "{{ argumentum }}",
+    "globum": "{{ globum }}",
+    "tmeta": "{{ tmeta }}"
 }
