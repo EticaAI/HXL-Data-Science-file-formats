@@ -8,6 +8,8 @@
 #   DESCRIPTION:  Manual testum for hxltmcli.
 #                 This file can also be used to undestand how the output
 #                 of testum/hxltm/resultatum was created
+#                 DEPRECATED. Use the disciplinam-manuale-anglicum.sh
+#                 (both used for testing and generate documentation)
 #
 #       OPTIONS:  ---
 #
@@ -36,9 +38,11 @@ HXLTM_EXEMPLUM_XLSX_GSHEETS="https://docs.google.com/spreadsheets/d/1isOgjeRJw__
 
 # HXLTM_EXEMPLUM_LINGUAM_LOCAL="${ROOTDIR}/hxltm-linguam.tm.hxl.csv"
 HXLTM_EXEMPLUM_LINGUAM_LOCAL="hxltm-exemplum-linguam.tm.hxl.csv"
+HXLTM_EXEMPLUM_LINGUAM_LOCAL_TMETA="hxltm-exemplum-linguam.tmeta.yml"
 HXLTM_EXEMPLUM_LINGUAM_GSHEETS="https://docs.google.com/spreadsheets/d/1isOgjeRJw__nky-YY-IR_EAZqLI6xQ96DKbD4tf0ZO8/edit#gid=1241276648"
 
 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL="resultatum/hxltm-exemplum-linguam.tmx"
+HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TBX_LOCAL="resultatum/hxltm-exemplum-linguam.tbx"
 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL="resultatum/hxltm-exemplum-linguam.xlf"
 
 # .gitignore: Do not save production test files to save space outside hapi.etica.ai
@@ -73,11 +77,15 @@ printf "\n\n\n\tTESTUM 003 HXLTM_EXEMPLUM_XLSX_LOCAL\n\n"
 echo "hxltmcli --sheet 2 $HXLTM_EXEMPLUM_XLSX_LOCAL | grep L10N_ego_codicem" 
 hxltmcli --sheet 2 "$HXLTM_EXEMPLUM_XLSX_LOCAL" | grep L10N_ego_codicem
 
-# printf "\n\n\n\tTESTUM 004 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL\n\n"
-# echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --objectivum-TMX
-# hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --objectivum-TMX
+printf "\n\n\n\tTESTUM 004 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL\n\n"
+echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --objectivum-TMX
+hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL" --objectivum-TMX
 
-printf "\n\n\n\tTESTUM 005 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL\n\n"
+printf "\n\n\n\tTESTUM 004 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TMX_LOCAL\n\n"
+echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TBX_LOCAL" --objectivum-TBX-Basim --tmeta-archivum "$HXLTM_EXEMPLUM_LINGUAM_LOCAL_TMETA"
+hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_TBX_LOCAL" --objectivum-TBX-Basim
+
+printf "\n\n\n\tTESTUM 006 HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL\n\n"
 echo hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF
 hxltmcli "$HXLTM_EXEMPLUM_LINGUAM_LOCAL" "$HXLTM_EXEMPLUM_LINGUAM_RESULTATUM_XLIFF_LOCAL" --objectivum-XLIFF
 
@@ -131,5 +139,6 @@ hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-lin
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --meta-archivum hxltm-exemplum-linguam.tmeta.yml
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --meta-archivum hxltm-exemplum-linguam.tmeta.yml --objectivum-formulam formulam/exemplum-linguam.🗣️.json
 # hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --meta-archivum hxltm-exemplum-linguam.tmeta.yml --objectivum-formulam formulam/exemplum-linguam-tmeta-testum.🗣️.json
+# hxltm-exemplum-linguam.tm.hxl.csv --tmeta-archivum hxltm-exemplum-linguam.tmeta.yml --objectivum-formulam formulam/exemplum-linguam-tmeta-testum.🗣️.json
 
 exit 0

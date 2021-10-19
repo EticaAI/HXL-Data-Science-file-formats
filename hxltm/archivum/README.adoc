@@ -74,7 +74,22 @@ include::../../bin/hxltmdexml[tag=epilogum]
 
 [#HXLTM]
 === `+HXLTM+`
-==== HXL Trānslātiōnem Memoriam
+==== Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam)
+
+////
+Naming the HXL TM
+
+Terminologium Multilinguam
+
+- https://en.wiktionary.org/wiki/terminus#Latin
+- https://en.wiktionary.org/wiki/logium#Latin
+- https://en.wiktionary.org/wiki/multi-#English
+- https://en.wiktionary.org/wiki/lingua#Latin
+- https://en.wiktionary.org/wiki/multilingual
+lingua
+////
+
+
 
 [source,yaml]
 ----
@@ -109,6 +124,23 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 [#HXLTM-ASA]
 === `+HXLTM-ASA+`:
 ==== HXLTM Abstractum Syntaxim Arborem
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXLTM-ASA]
+----
+
+
+===== Command line examples
+
+[source,bash]
+----
+include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=HXLTM-ASA]
+----
+
+[#HXLTM-TMETA]
+=== `+HXLTM-TMETA+`:
+==== HXLTM Terminologiam
 
 [source,yaml]
 ----
