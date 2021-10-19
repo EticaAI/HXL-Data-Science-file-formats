@@ -1,0 +1,11 @@
+# hxltm-exemplum-linguam.tmeta.yml
+# HXLTM Datum: hxltm-exemplum-linguam.tm.hxl.csv
+
+tmeta:
+  # _[eng-Latn]
+  #  Global Vars for templating. This will add tho the ones from
+  # cor.hxltm.yml:normam:YourDataConventionHere
+  #  [eng-Latn]_
+  globum:
+    tbx:
+      titulum: TBX-Basic Sample File
