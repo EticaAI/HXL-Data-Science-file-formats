@@ -479,7 +479,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#GSheets"><code>GSheets</code>:</a>
 <ul class="sectlevel3">
-<li><a href="#_google_sheets_via_csv_import">Google Sheets (via CSV import)</a></li>
+<li><a href="#_google_sheets_hxltm_container_read_only_native_support_as_data_source">Google Sheets, HXLTM container (read-only; native support as data source)</a></li>
 </ul>
 </li>
 <li><a href="#JSON-kv"><code>JSON-kv</code>:</a>
@@ -509,7 +509,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#XML"><code>XML</code>:</a>
 <ul class="sectlevel3">
-<li><a href="#_xml_glōssārium_generic_multilingual_xml">XML Glōssārium (generic multilingual XML)'</a></li>
+<li><a href="#_xml_glōssārium_hxltm_container_generic_multilingual_xml">XML Glōssārium, HXLTM container (generic multilingual XML)'</a></li>
 </ul>
 </li>
 <li><a href="#XLIFF"><code>XLIFF</code>:</a>
@@ -519,12 +519,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#XLIFF-obsoletum"><code>XLIFF-obsoletum</code>:</a>
 <ul class="sectlevel3">
-<li><a href="#_xml_localization_interchange_file_format_xliff_v1_2_too_old_no_draft">XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)</a></li>
+<li><a href="#_xml_localization_interchange_file_format_xliff_v1_2">XML Localization Interchange File Format (XLIFF) v1.2</a></li>
 </ul>
 </li>
 <li><a href="#XLSX"><code>XLSX</code>:</a>
 <ul class="sectlevel3">
-<li><a href="#_microsoft_excel_no_plugins_to_read_data_directly_from_xslx">Microsoft Excel (no plugins to read data directly from .XSLX)</a></li>
+<li><a href="#_microsoft_excel_hxltm_container_read_only_native_support_as_data_source">Microsoft Excel, HXLTM container (read-only; native support as data source)</a></li>
 </ul>
 </li>
 <li><a href="#YAML"><code>YAML</code>:</a>
@@ -804,12 +804,12 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
       archivum_extensionem: 
         - .tmeta.json
         - .tmeta.yml
-      normam:
-        - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA&gt;
       descriptionem: |
         _[eng-Latn]
         To be documented.
         [eng-Latn]_
+      normam:
+        - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA&gt;
       nomen:
         eng-Latn: 'HXLTM Terminologium Multilinguam Meta'
       situs_interretialis:
@@ -1077,7 +1077,7 @@ Olá mundo!,¡Hola mundo!,""
 <div class="sect2">
 <h3 id="GSheets"><code>GSheets</code>:</h3>
 <div class="sect3">
-<h4 id="_google_sheets_via_csv_import">Google Sheets (via CSV import)</h4>
+<h4 id="_google_sheets_hxltm_container_read_only_native_support_as_data_source">Google Sheets, HXLTM container (read-only; native support as data source)</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  #### XLSX, Google Sheets ____________________________________________________
@@ -1086,10 +1086,23 @@ Olá mundo!,¡Hola mundo!,""
   GSheets:
     __meta:
       # archivum_extensionem: None
+      descriptionem: |
+        _[eng-Latn]
+        Both URL GSheets and local/remote file of Microsoft Excel have built
+        read-only access in support for reference cli implementation
+        as container for data source without intermediate file transformation
+        to CSV container of HXLTM. This means humans don't need to edit CSV
+        files directly.
+
+        The support on `hxltmcli` to write directly to GSheets and
+        Microsoft Excel is unlikely to be implemented.
+        [eng-Latn]_
       normam:
         - &lt;https://developers.google.com/sheets/api&gt;
       nomen:
-        eng-Latn: 'Google Sheets (via CSV import)'
+        # eng-Latn: 'Google Sheets (via CSV import)'
+        # eng-Latn: 'Google Sheet (native support to read, but not write, data directly from GSheets)'
+        eng-Latn: 'Google Sheets, HXLTM container (read-only; native support as data source)'
       situs_interretialis:
         referens_officinale:
           - &lt;https://www.google.com/sheets/about/&gt;
@@ -1108,9 +1121,19 @@ Olá mundo!,¡Hola mundo!,""
 <h4 id="_json_key_val_idsource_target_draft">JSON key: val; id/source &#8594; target (draft)</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  JSON-kv:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  # TODO: create at least one different exporter, JSON-2, since JSON-kv
+  #       would be harder to explain how to document on HXLTM sheets than
+  #       create the exporter
+  JSON-kv:
     __meta:
       archivum_extensionem: .json
+      descriptionem: |
+        _[eng-Latn]
+        This export/importer needs to be created. One level is trivial, but 2
+        or more nested levels would be simpler for end user just use
+        **HXLTM Ad Hoc Fōrmulam (HXLTM templated export)** to have full
+        control.
+        [eng-Latn]_
       normam:
         # Not sure where to find some place to 'explain' this format
         - &lt;https://angular.io/guide/i18n#change-the-source-language-file-location&gt;
@@ -2497,7 +2520,7 @@ Salvi mundi!,Olá mundo!,"Hello, World!",¡Hola mundo!,नमस्ते दु
 <div class="sect2">
 <h3 id="XML"><code>XML</code>:</h3>
 <div class="sect3">
-<h4 id="_xml_glōssārium_generic_multilingual_xml">XML Glōssārium (generic multilingual XML)'</h4>
+<h4 id="_xml_glōssārium_hxltm_container_generic_multilingual_xml">XML Glōssārium, HXLTM container (generic multilingual XML)'</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  XML:
@@ -3548,7 +3571,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 <div class="sect2">
 <h3 id="XLIFF-obsoletum"><code>XLIFF-obsoletum</code>:</h3>
 <div class="sect3">
-<h4 id="_xml_localization_interchange_file_format_xliff_v1_2_too_old_no_draft">XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)</h4>
+<h4 id="_xml_localization_interchange_file_format_xliff_v1_2">XML Localization Interchange File Format (XLIFF) v1.2</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  XLIFF-obsoletum:
@@ -3564,7 +3587,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
         - &lt;https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd&gt;
         - &lt;http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd&gt;
       nomen:
-        eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)'
+        eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2'
 
     asa:
       modus_operandi:
@@ -3951,7 +3974,7 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 <div class="sect2">
 <h3 id="XLSX"><code>XLSX</code>:</h3>
 <div class="sect3">
-<h4 id="_microsoft_excel_no_plugins_to_read_data_directly_from_xslx">Microsoft Excel (no plugins to read data directly from .XSLX)</h4>
+<h4 id="_microsoft_excel_hxltm_container_read_only_native_support_as_data_source">Microsoft Excel, HXLTM container (read-only; native support as data source)</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  #### XLSX, Google Sheets ____________________________________________________
@@ -3960,8 +3983,20 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
   XLSX:
     __meta:
       archivum_extensionem: .xlsx
+      descriptionem: |
+        _[eng-Latn]
+        Both URL GSheets and local/remote file of Microsoft Excel have built
+        read-only access in support for reference cli implementation
+        as container for data source without intermediate file transformation
+        to CSV container of HXLTM. This means humans don't need to edit CSV
+        files directly.
+
+        The support on `hxltmcli` to write directly to GSheets and
+        Microsoft Excel is unlikely to be implemented.
+        [eng-Latn]_
       nomen:
-        eng-Latn: 'Microsoft Excel (native support to read, but not write, data directly with .XSLX)'
+        eng-Latn: 'Microsoft Excel, HXLTM container (read-only; native support as data source)'
+        # eng-Latn: 'Microsoft Excel (native support to read, but not write, data directly with .XSLX)'
 
     asa:
       modus_operandi:
@@ -5885,7 +5920,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-19 21:55:06 UTC
+Last updated 2021-10-19 22:54:03 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

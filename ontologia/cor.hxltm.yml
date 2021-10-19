@@ -224,10 +224,23 @@ normam:
   GSheets:
     __meta:
       # archivum_extensionem: None
+      descriptionem: |
+        _[eng-Latn]
+        Both URL GSheets and local/remote file of Microsoft Excel have built
+        read-only access in support for reference cli implementation
+        as container for data source without intermediate file transformation
+        to CSV container of HXLTM. This means humans don't need to edit CSV
+        files directly.
+
+        The support on `hxltmcli` to write directly to GSheets and
+        Microsoft Excel is unlikely to be implemented.
+        [eng-Latn]_
       normam:
         - <https://developers.google.com/sheets/api>
       nomen:
-        eng-Latn: 'Google Sheets (via CSV import)'
+        # eng-Latn: 'Google Sheets (via CSV import)'
+        # eng-Latn: 'Google Sheet (native support to read, but not write, data directly from GSheets)'
+        eng-Latn: 'Google Sheets, HXLTM container (read-only; native support as data source)'
       situs_interretialis:
         referens_officinale:
           - <https://www.google.com/sheets/about/>
@@ -302,12 +315,12 @@ normam:
       archivum_extensionem: 
         - .tmeta.json
         - .tmeta.yml
-      normam:
-        - <https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA>
       descriptionem: |
         _[eng-Latn]
         To be documented.
         [eng-Latn]_
+      normam:
+        - <https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA>
       nomen:
         eng-Latn: 'HXLTM Terminologium Multilinguam Meta'
       situs_interretialis:
@@ -320,9 +333,20 @@ normam:
 
   #### JSON-kv: JSON key: val; id/source -> target _____________________________
   # tag::normam_JSON-kv[]
+
+  # TODO: create at least one different exporter, JSON-2, since JSON-kv
+  #       would be harder to explain how to document on HXLTM sheets than
+  #       create the exporter
   JSON-kv:
     __meta:
       archivum_extensionem: .json
+      descriptionem: |
+        _[eng-Latn]
+        This export/importer needs to be created. One level is trivial, but 2
+        or more nested levels would be simpler for end user just use
+        **HXLTM Ad Hoc Fōrmulam (HXLTM templated export)** to have full
+        control.
+        [eng-Latn]_
       normam:
         # Not sure where to find some place to 'explain' this format
         - <https://angular.io/guide/i18n#change-the-source-language-file-location>
@@ -1159,7 +1183,7 @@ normam:
         - <https://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd>
         - <http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd>
       nomen:
-        eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)'
+        eng-Latn: 'XML Localization Interchange File Format (XLIFF) v1.2'
 
     asa:
       modus_operandi:
@@ -1332,8 +1356,20 @@ normam:
   XLSX:
     __meta:
       archivum_extensionem: .xlsx
+      descriptionem: |
+        _[eng-Latn]
+        Both URL GSheets and local/remote file of Microsoft Excel have built
+        read-only access in support for reference cli implementation
+        as container for data source without intermediate file transformation
+        to CSV container of HXLTM. This means humans don't need to edit CSV
+        files directly.
+
+        The support on `hxltmcli` to write directly to GSheets and
+        Microsoft Excel is unlikely to be implemented.
+        [eng-Latn]_
       nomen:
-        eng-Latn: 'Microsoft Excel (native support to read, but not write, data directly with .XSLX)'
+        eng-Latn: 'Microsoft Excel, HXLTM container (read-only; native support as data source)'
+        # eng-Latn: 'Microsoft Excel (native support to read, but not write, data directly with .XSLX)'
 
     asa:
       modus_operandi:

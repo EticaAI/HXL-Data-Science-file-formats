@@ -124,11 +124,12 @@
     },
     "GSheets": {
       "__meta": {
+        "descriptionem": "_[eng-Latn]\nBoth URL GSheets and local/remote file of Microsoft Excel have built\nread-only access in support for reference cli implementation\nas container for data source without intermediate file transformation\nto CSV container of HXLTM. This means humans don't need to edit CSV\nfiles directly.\n\nThe support on `hxltmcli` to write directly to GSheets and\nMicrosoft Excel is unlikely to be implemented.\n[eng-Latn]_\n",
         "normam": [
           "<https://developers.google.com/sheets/api>"
         ],
         "nomen": {
-          "eng-Latn": "Google Sheets (via CSV import)"
+          "eng-Latn": "Google Sheets, HXLTM container (read-only; native support as data source)"
         },
         "situs_interretialis": {
           "referens_officinale": [
@@ -180,9 +181,32 @@
         }
       }
     },
+    "HXLTM-TMETA": {
+      "__meta": {
+        "archivum_extensionem": [
+          ".tmeta.json",
+          ".tmeta.yml"
+        ],
+        "descriptionem": "_[eng-Latn]\nTo be documented.\n[eng-Latn]_\n",
+        "normam": [
+          "<https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA>"
+        ],
+        "nomen": {
+          "eng-Latn": "HXLTM Terminologium Multilinguam Meta"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://hdp.etica.ai/hxltm>",
+            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM>",
+            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/24>"
+          ]
+        }
+      }
+    },
     "JSON-kv": {
       "__meta": {
         "archivum_extensionem": ".json",
+        "descriptionem": "_[eng-Latn]\nThis export/importer needs to be created. One level is trivial, but 2\nor more nested levels would be simpler for end user just use\n**HXLTM Ad Hoc Fōrmulam (HXLTM templated export)** to have full\ncontrol.\n[eng-Latn]_\n",
         "normam": [
           "<https://angular.io/guide/i18n#change-the-source-language-file-location>",
           "<https://www.i18next.com/misc/json-format>",
@@ -678,7 +702,7 @@
           "<http://docs.oasis-open.org/xliff/v1.2/cs02/xliff-core-1.2-transitional.xsd>"
         ],
         "nomen": {
-          "eng-Latn": "XML Localization Interchange File Format (XLIFF) v1.2 (too old, no draft)"
+          "eng-Latn": "XML Localization Interchange File Format (XLIFF) v1.2"
         }
       },
       "asa": {
@@ -731,8 +755,9 @@
     "XLSX": {
       "__meta": {
         "archivum_extensionem": ".xlsx",
+        "descriptionem": "_[eng-Latn]\nBoth URL GSheets and local/remote file of Microsoft Excel have built\nread-only access in support for reference cli implementation\nas container for data source without intermediate file transformation\nto CSV container of HXLTM. This means humans don't need to edit CSV\nfiles directly.\n\nThe support on `hxltmcli` to write directly to GSheets and\nMicrosoft Excel is unlikely to be implemented.\n[eng-Latn]_\n",
         "nomen": {
-          "eng-Latn": "Microsoft Excel (native support to read, but not write, data directly with .XSLX)"
+          "eng-Latn": "Microsoft Excel, HXLTM container (read-only; native support as data source)"
         }
       },
       "asa": {
