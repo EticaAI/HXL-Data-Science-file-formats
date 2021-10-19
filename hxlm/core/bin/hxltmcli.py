@@ -543,11 +543,11 @@ class HXLTMCLI:  # pylint: disable=too-many-instance-attributes
         )
 
         parser.add_argument(
-            '--meta',
+            '--meta-archivum',
             help='(Draft, not fully implemented) ' +
             'Optional YAML metadata for advanced processing operations.',
             # dest='fontem_linguam',
-            metavar='meta',
+            metavar='meta_archivum',
             action='store',
             # default='lat-Latn',
             nargs='?'
@@ -1563,6 +1563,8 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
             Argūmentum dēfīnītiōnem ad Vēnandum īnsectum
             [lat-Latn]_
     """
+    meta_archivum: InitVar[str] = None
+    tmeta: InitVar[dict] = None
     agendum_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
     auxilium_linguam: InitVar[List[Type['HXLTMLinguam']]] = []
     fontem_linguam: InitVar[Type['HXLTMLinguam']] = None
@@ -1627,8 +1629,19 @@ class HXLTMArgumentum:  # pylint: disable=too-many-instance-attributes
                     args_rem.objectivum_normam:
                 self.objectivum_normam = args_rem.objectivum_normam
 
+            if hasattr(args_rem, 'meta_archivum') and \
+                    args_rem.meta_archivum:
+                # TODO: make a bit more structured this file load
+
+                file_ = open(args_rem.meta_archivum, mode='r')
+                # self.objectivum_formulam_crudum = file_.read()
+                self.tmeta = yaml.safe_load(file_)
+                file_.close()
+
             if hasattr(args_rem, 'objectivum_formulam') and \
                     args_rem.objectivum_formulam:
+                # TODO: make a bit more structured this file load
+
                 # self.objectivum_formulam_archivum = \
                 #     args_rem.objectivum_formulam
                 # Open a file: file
@@ -4503,8 +4516,19 @@ Salvi, {{ i }}! \
         """
         globum = self.hxltm_asa.quod_globum_valorem()
         summam = {}
+        argumentum = self.hxltm_asa.argumentum.v()
+        summam_tmeta = {}
+        summam_tmeta = {}
 
         # print(globum.keys())
+
+        if hasattr(self.hxltm_asa.argumentum, 'tmeta') and \
+            self.hxltm_asa.argumentum.tmeta:
+            summam_tmeta['tmeta'] = self.hxltm_asa.argumentum.tmeta
+
+        # summam_tmeta = {
+        #     'argumentum': self.hxltm_asa.argumentum.v()
+        # }
 
         if 'normam' in globum:
             basim = self.ONTOLOGIA_NORMAM
@@ -4532,7 +4556,7 @@ Salvi, {{ i }}! \
                         )
                     )
 
-            globum = {**globum, **summam}
+            globum = {**globum, **summam, **summam_tmeta, **argumentum}
 
         return globum
 

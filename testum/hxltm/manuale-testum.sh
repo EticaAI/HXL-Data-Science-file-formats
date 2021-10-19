@@ -128,4 +128,8 @@ hxltmcli schemam-un-htcds.tm.hxl.csv --objectivum-formulam formulam/exemplum-lin
 # To revert only one file that keeps changing even with same input
 # git checkout -- testum/hxltm/resultatum/hxltm-exemplum-linguam.tmx
 
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --meta-archivum hxltm-exemplum-linguam.tmeta.yml
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --meta-archivum hxltm-exemplum-linguam.tmeta.yml --objectivum-formulam formulam/exemplum-linguam.🗣️.json
+# hxltmcli hxltm-exemplum-linguam.tm.hxl.csv --meta-archivum hxltm-exemplum-linguam.tmeta.yml --objectivum-formulam formulam/exemplum-linguam-tmeta-testum.🗣️.json
+
 exit 0
