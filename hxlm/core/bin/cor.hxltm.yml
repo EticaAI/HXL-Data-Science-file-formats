@@ -333,12 +333,39 @@ normam:
       descriptionem: |
         _[eng-Latn]
         `ontologia:normam.HXLTM` is an abstraction to several data containers
-        of HXLTM implementation.
+        of HXLTM implementation able to store multilingual data without loss.
+
+        Some general notes:
+
+          - The most feature-complete are the HXLTM implementation using
+            tabular storage (plain HXLTM in CSV, or Google Sheets, or Excel,
+            or HXL-proxy, or...), which is able to preserve valid HXL HXLated
+            columns, but unknown to documented HXLTM implementation.
+          - The `ontologia:normam.XML`, while not tabular implementation,
+            contains information that allow data be exportable with
+            `hxltmcli --objectivum-XML` and importable with
+            `hxltmdexml` with more features than would be possible with other
+            data standards that could be close to what HXLTM is, TBX, TMX and
+            the tabular UTX.
+            - Valid HXLated HXL columns (but unknown HXLTM), even if the
+              templating engine know the undocumented HXL tags, are not
+              intended to be exported. The idea is the generic XML format still
+              designed to only export what could be imported back using the
+              same ontologia.
+            - If you plan to do VERY long-term data storage consider save
+              together with the data the ontologia that generated it.
+              - A cor.hxltm.yml with 3000 lines exported to PDF (which could be
+                printed if you data already is printed) takes around 48 pages
+                (A4 format).
+              - Is it possible to also change the tags from latin to your natural
+                language. While still have better ways to save more compact
+                export, if you plan to save a backup on some library on a
+                physical book, then at least customize it.
         [eng-Latn]_
       normam:
         - <https://github.com/HXL-CPLP/forum/issues/58>
       nomen:
-        eng-Latn: 'HXL Trānslātiōnem Memoriam'
+        eng-Latn: 'HXLTM: Terminologium Multilinguam (Datum ideam)'
       situs_interretialis:
         referens_officinale:
           - <https://hdp.etica.ai/hxltm>
