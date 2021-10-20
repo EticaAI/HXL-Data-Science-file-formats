@@ -23,7 +23,9 @@
   "normam": {
     "Ad-Hoc": {
       "__meta": {
-        "archivum_extensionem": null,
+        "archivum": {
+          "extensionem": null
+        },
         "descriptionem": "_[eng-Latn]\nAd Hoc template\n[eng-Latn]_\n",
         "normam": [
           "<https://github.com/HXL-CPLP/Auxilium-Humanitarium-API/wiki/Index>"
@@ -48,7 +50,9 @@
     },
     "CSV-3": {
       "__meta": {
-        "archivum_extensionem": ".csv",
+        "archivum": {
+          "extensionem": ".csv"
+        },
         "descriptionem": "_[eng-Latn]\nThe hxltm \"CSV-3\" export format is a somewhat basic (but at worst case\naccpted by several tools) with the following column order:\n\n>    \"source-language\",\"target-language\",comment\n>    \"verbum\", \"كلمة\",\"Arabic translationem de latin verbum\"\n\nSome references of tools that allow conversions using this format:\n\n- Okapi Framework\n  - <https://okapiframework.org/wiki/index.php/Table_Filter>\n- MateCat\n  - <https://site.matecat.com/support/managing-language-resources/add-glossary/>\n[eng-Latn]_\n",
         "normam": [
           "<https://datatracker.ietf.org/doc/html/rfc4180>"
@@ -124,6 +128,9 @@
     },
     "GSheets": {
       "__meta": {
+        "archivum": {
+          "extensionem": null
+        },
         "descriptionem": "_[eng-Latn]\nBoth URL GSheets and local/remote file of Microsoft Excel have built\nread-only access in support for reference cli implementation\nas container for data source without intermediate file transformation\nto CSV container of HXLTM. This means humans don't need to edit CSV\nfiles directly.\n\nThe support on `hxltmcli` to write directly to GSheets and\nMicrosoft Excel is unlikely to be implemented.\n[eng-Latn]_\n",
         "normam": [
           "<https://developers.google.com/sheets/api>"
@@ -143,9 +150,42 @@
         ]
       }
     },
+    "HXL-Proxy": {
+      "__meta": {
+        "archivum": {
+          "extensionem": null
+        },
+        "descriptionem": "_[eng-Latn]\nHXL Proxy, a tool for cleaning, transforming, merging, and\nvalidating data tagged using the Humanitarian Exchange Language (HXL)\nstandard.\n\nIn the context of HXLTM, HXL-Proxy is recommended to use for:\n\n  - HXLate (e.g. add HXL hashtags, like the ones required by HXLTM) to\n    any supported data input by HXL-Proxy (which is a lot)\n  - Do more advanced filter (like removing columns) or merging\n    different datasets by HXLTM concept value with friendly user\n    interface\n\nWhen use HXL cli tools (including hxltmcli) and when use HXL-Proxy?\n\n  While hxl cli tools (see\n  <https://github.com/HXLStandard/libhxl-python/wiki/Command-line-tools>\n  and <https://pypi.org/project/libhxl/>) have almost all features\n  of HXL-proxy (in special with use of JSON spec) in real world, under\n  urgency, still faster to set up a private Docker instance than use\n  teach everyone to use the cli tools.\n\n  The HXLTM reference tooling will intentionally NOT implement features\n  that would be possible do with HXL-Proxy. Some viable using HXL\n  Standard cli tools (that would be too complex to explain) may\n  be added either as hxltmcli / hxltmdexml CLI options or via\n  `ontologia:normam.​HXLTM-TMETA`.\n[eng-Latn]_\n",
+        "normam": [
+          "<https://github.com/HXLStandard/hxl-proxy/wiki>"
+        ],
+        "nomen": {
+          "eng-Latn": "HXL-Proxy (read-only; native support as data source)"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://github.com/HXLStandard/hxl-proxy>",
+            "<https://proxy.hxlstandard.org/>",
+            "<https://hub.docker.com/r/unocha/hxl-proxy>"
+          ]
+        }
+      },
+      "asa": {
+        "modus_operandi": [
+          "multiplum_linguam"
+        ]
+      }
+    },
     "HXLTM": {
       "__meta": {
-        "archivum_extensionem": ".tm.hxl.csv",
+        "archivum": {
+          "extensionem": [
+            ".tm.hxl.csv",
+            ".tm.hxl.xlsx",
+            ".hxltm.xml"
+          ]
+        },
+        "descriptionem": "_[eng-Latn]\n`ontologia:normam.HXLTM` is an abstraction to several data containers\nof HXLTM implementation.\n[eng-Latn]_\n",
         "normam": [
           "<https://github.com/HXL-CPLP/forum/issues/58>"
         ],
@@ -159,34 +199,14 @@
         }
       }
     },
-    "HXLTM-ASA": {
-      "__meta": {
-        "archivum_extensionem": [
-          ".asa.hxltm.json",
-          ".asa.hxltm.yml"
-        ],
-        "normam": [
-          "<https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA>"
-        ],
-        "descriptionem": "_[eng-Latn]\nThe HXLTM-ASA is an not strictly documented Abstract Syntax Tree\nof an data conversion operation.\n\nThis format, different from the HXLTM permanent storage, is not\nmeant to be used by end users. And, in fact, either JSON (or other\nformats, like YAML) are more a tool for users debugging the initial\nreference implementation hxltmcli OR developers using JSON\nas more advanced input than the end user permanent storage.\n\nWarning: The HXLTM-ASA is not meant to be an stricly documented format\neven if HXLTM eventually get used by large public. If necessary,\nsome special format could be created, but this would require feedback\nfrom community or some work already done by implementers.\n[eng-Latn]_\n\nTrivia:\n  - abstractum, <https://en.wiktionary.org/wiki/abstractus#Latin>\n  - syntaxim, <https://en.wiktionary.org/wiki/syntaxis#Latin>\n  - arborem, <https://en.wiktionary.org/wiki/arbor#Latin>\n  - conceptum de Abstractum Syntaxim Arborem\n    - <https://www.wikidata.org/wiki/Q127380>\n",
-        "nomen": {
-          "eng-Latn": "HXLTM Abstractum Syntaxim Arborem"
-        },
-        "situs_interretialis": {
-          "referens_officinale": [
-            "<https://hdp.etica.ai/hxltm>",
-            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM>",
-            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22>"
-          ]
-        }
-      }
-    },
     "HXLTM-TMETA": {
       "__meta": {
-        "archivum_extensionem": [
-          ".tmeta.json",
-          ".tmeta.yml"
-        ],
+        "archivum": {
+          "extensionem": [
+            ".tmeta.json",
+            ".tmeta.yml"
+          ]
+        },
         "descriptionem": "_[eng-Latn]\nTo be documented.\n[eng-Latn]_\n",
         "normam": [
           "<https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA>"
@@ -203,9 +223,35 @@
         }
       }
     },
+    "HXLTM-ASA": {
+      "__meta": {
+        "archivum": {
+          "extensionem": [
+            ".asa.hxltm.json",
+            ".asa.hxltm.yml"
+          ]
+        },
+        "normam": [
+          "<https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA>"
+        ],
+        "descriptionem": "_[eng-Latn]\nThe HXLTM-ASA is an not strictly documented Abstract Syntax Tree\nof an data conversion operation.\n\nThis format, different from the HXLTM permanent storage, is not\nmeant to be used by end users. And, in fact, either JSON (or other\nformats, like YAML) are more a tool for users debugging the initial\nreference implementation hxltmcli OR developers using JSON\nas more advanced input than the end user permanent storage.\n\nWarning: The HXLTM-ASA is not meant to be an stricly documented format\neven if HXLTM eventually get used by large public. If necessary,\nsome special format could be created, but this would require feedback\nfrom community or some work already done by implementers.\n[eng-Latn]_\n\nTrivia:\n  - abstractum, <https://en.wiktionary.org/wiki/abstractus#Latin>\n  - syntaxim, <https://en.wiktionary.org/wiki/syntaxis#Latin>\n  - arborem, <https://en.wiktionary.org/wiki/arbor#Latin>\n  - conceptum de Abstractum Syntaxim Arborem\n    - <https://www.wikidata.org/wiki/Q127380>\n",
+        "nomen": {
+          "eng-Latn": "HXLTM Abstractum Syntaxim Arborem"
+        },
+        "situs_interretialis": {
+          "referens_officinale": [
+            "<https://hdp.etica.ai/hxltm>",
+            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM>",
+            "<https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/22>"
+          ]
+        }
+      }
+    },
     "JSON-kv": {
       "__meta": {
-        "archivum_extensionem": ".json",
+        "archivum": {
+          "extensionem": ".json"
+        },
         "descriptionem": "_[eng-Latn]\nThis export/importer needs to be created. One level is trivial, but 2\nor more nested levels would be simpler for end user just use\n**HXLTM Ad Hoc Fōrmulam (HXLTM templated export)** to have full\ncontrol.\n[eng-Latn]_\n",
         "normam": [
           "<https://angular.io/guide/i18n#change-the-source-language-file-location>",
@@ -230,7 +276,9 @@
     },
     "TSV-3": {
       "__meta": {
-        "archivum_extensionem": ".tab",
+        "archivum": {
+          "extensionem": ".tab"
+        },
         "descriptionem": "_[eng-Latn]\nThe hxltm \"TSV-3\" is que version of the \"CSV-3\" with tabs.\n\nIt will exportl tools) with the following column order:\n\n>    source-language\ttarget-language\tcomment\n>    verbum\tكلمة\tArabic translationem de latin verbum\n\nThis format is less common than CSV-3, but may be useful when tab\nis never used inside the fields.\n\n[eng-Latn]_\n",
         "normam": [
           "<https://datatracker.ietf.org/doc/html/rfc4180>",
@@ -258,7 +306,9 @@
     },
     "TBX-Basim": {
       "__meta": {
-        "archivum_extensionem": ".tbx",
+        "archivum": {
+          "extensionem": ".tbx"
+        },
         "descriptionem": "_[eng-Latn]\nSee the links\n[eng-Latn]_\n- <http://www.terminorgs.net/Terminology-Starter-Guide.html>\n- <https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf>\n- <http://www.ttt.org/oscarStandards/tbx/tbx-basic.html>\n",
         "exemplum": [
           "<http://www.ttt.org/oscarStandards/tbx/TBXBasic.zip>"
@@ -332,7 +382,9 @@
       }
     },
     "TBX-2008": {
-      "archivum_extensionem": ".tbx",
+      "archivum": {
+        "extensionem": ".tbx"
+      },
       "normam": [
         "<https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf>"
       ],
@@ -356,7 +408,9 @@
     },
     "TBX-2019": {
       "__meta": {
-        "archivum_extensionem": ".tbx",
+        "archivum": {
+          "extensionem": ".tbx"
+        },
         "descriptionem": "- <https://www.tbxinfo.net/about/>\n- <https://www.iso.org/standard/62510.html>\n\n## TBX-IATE\nTrivia: <https://iate.europa.eu/fields-explained>\n\n### `hxltmdexml` --agendum-linguam\n- bul-Latn@bg\n  - Bulgarian: bg; <https://iso639-3.sil.org/code/bul>\n- ces-Latn@cs\n  - Czech: cs; <https://iso639-3.sil.org/code/ces>\n- dan-Latn@da\n  - Danish: da; <https://iso639-3.sil.org/code/dan>\n- dut-Latn@nl\n  - Dutch: nl; <https://iso639-3.sil.org/code/dut>\n- ell-Latn@el\n  - Greek: el; <https://iso639-3.sil.org/code/ell>\n- eng-Latn@en\n  - English: en; <https://iso639-3.sil.org/code/eng>\n- est-Latn@et\n  - Estonian: et; <https://iso639-3.sil.org/code/est>\n- fin-Latn@fi\n  - Finnish: fi; <https://iso639-3.sil.org/code/fin>\n- fra-Latn@fr\n  - French: fr; <https://iso639-3.sil.org/code/fra>\n- ger-Latn@de\n  - German: de; <https://iso639-3.sil.org/code/ger>\n- gle-Latn@ga\n  - Irish: ga; <https://iso639-3.sil.org/code/gle>\n- hun-Latn@hu\n  - Hungarian: hu; <https://iso639-3.sil.org/code/hun>\n- ita-Latn@it\n  - Italian: it; <https://iso639-3.sil.org/code/ita>\n- lav-Latn@lv\n  - Latvian: lv; <https://iso639-3.sil.org/code/lav>\n- lit-Latn@lt\n  - Lithuanian: lt; <https://iso639-3.sil.org/code/lit>\n- mlt-Latn@mt\n  - Maltese: mt; <https://iso639-3.sil.org/code/mlt>\n- pol-Latn@pl\n  - Polish: pl; <https://iso639-3.sil.org/code/pol>\n- por-Latn@pt\n  - Portuguese: pt; <https://iso639-3.sil.org/code/por>\n- ron-Latn@ro\n  - Romanian: ro; <https://iso639-3.sil.org/code/ron>\n- scr-Latn@hr\n  - Croatian: hr; <https://iso639-3.sil.org/code/scr>\n- slk-Latn@sk\n  - Slovak: sk; <https://iso639-3.sil.org/code/slk>\n- slv-Latn@sl\n  - Slovene: sl; <https://iso639-3.sil.org/code/slv>\n- spa-Latn@es\n  - Spanish: es; <https://iso639-3.sil.org/code/spa>\n- swe-Latn@sv\n  - Swedish: sv; <https://iso639-3.sil.org/code/swe>\n",
         "normam": [
           "proprietary format",
@@ -445,7 +499,9 @@
     },
     "TMX": {
       "__meta": {
-        "archivum_extensionem": ".tmx",
+        "archivum": {
+          "extensionem": ".tmx"
+        },
         "normam": [
           "https://www.gala-global.org/tmx-14b",
           "https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd"
@@ -497,7 +553,9 @@
     },
     "UTX": {
       "__meta": {
-        "archivum_extensionem": ".utx",
+        "archivum": {
+          "extensionem": ".utx"
+        },
         "situs_interretialis": {
           "referens_officinale": [
             "<http://www.aamt.info/english/utx/>"
@@ -532,8 +590,10 @@
     },
     "XML": {
       "__meta": {
-        "archivum_extensionem": ".hxltm.xml",
-        "descriptionem": "_[eng-Latn]\nThe .hxltm.xml named 'XML Glōssārium' is an example of multilingual\nglossary exported to XML format.\n[eng-Latn]_\n",
+        "archivum": {
+          "extensionem": ".hxltm.xml"
+        },
+        "descriptionem": "_[eng-Latn]\nThe .hxltm.xml named 'XML Glōssārium' is an example of multilingual\nglossary exported to XML format that can be imported back.\n\nWith help of the reference cli tool, hxltmdexml, the\nontologia:normam.XML.de_xml explains how to convert back from the\nXML file to an HXLTM CSV working file to be able to work with reference\ncli tool hxltmcli.\n[eng-Latn]_\n",
         "normam": [
           "<https://hdp.etica.ai/hxltm/archivum/#XML>",
           "<https://terminator.readthedocs.io/en/latest/_images/TBX_termEntry_structure.png>"
@@ -616,7 +676,9 @@
     },
     "XLIFF": {
       "__meta": {
-        "archivum_extensionem": ".xlf",
+        "archivum": {
+          "extensionem": ".xlf"
+        },
         "situs_interretialis": {
           "referens_officinale": [
             "<https://www.oasis-open.org/committees/xliff/>"
@@ -687,7 +749,9 @@
     },
     "XLIFF-obsoletum": {
       "__meta": {
-        "archivum_extensionem": ".xlf",
+        "archivum": {
+          "extensionem": ".xlf"
+        },
         "situs_interretialis": {
           "referens_officinale": [
             "<https://www.oasis-open.org/committees/xliff/>"
@@ -754,7 +818,9 @@
     },
     "XLSX": {
       "__meta": {
-        "archivum_extensionem": ".xlsx",
+        "archivum": {
+          "extensionem": ".xlsx"
+        },
         "descriptionem": "_[eng-Latn]\nBoth URL GSheets and local/remote file of Microsoft Excel have built\nread-only access in support for reference cli implementation\nas container for data source without intermediate file transformation\nto CSV container of HXLTM. This means humans don't need to edit CSV\nfiles directly.\n\nThe support on `hxltmcli` to write directly to GSheets and\nMicrosoft Excel is unlikely to be implemented.\n[eng-Latn]_\n",
         "nomen": {
           "eng-Latn": "Microsoft Excel, HXLTM container (read-only; native support as data source)"
@@ -768,7 +834,9 @@
     },
     "YAML": {
       "__meta": {
-        "archivum_extensionem": ".yml",
+        "archivum": {
+          "extensionem": ".yml"
+        },
         "normam": [
           "<https://guides.rubyonrails.org/i18n.html>"
         ],
