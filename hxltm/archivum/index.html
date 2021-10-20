@@ -455,7 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#HXLTM"><code>HXLTM</code></a>
 <ul class="sectlevel3">
-<li><a href="#_terminologium_multilinguam_priore_hxl_trānslātiōnem_memoriam">Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam)</a></li>
+<li><a href="#_terminologium_multilinguam_priore_hxl_trānslātiōnem_memoriam_datum_ideam">Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam), Datum ideam</a></li>
 </ul>
 </li>
 <li><a href="#HXLTM-TMETA"><code>HXLTM-TMETA</code>:</a>
@@ -480,6 +480,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#GSheets"><code>GSheets</code>:</a>
 <ul class="sectlevel3">
 <li><a href="#_google_sheets_hxltm_container_read_only_native_support_as_data_source">Google Sheets, HXLTM container (read-only; native support as data source)</a></li>
+</ul>
+</li>
+<li><a href="#HXL-Proxy"><code>HXL-Proxy</code>:</a>
+<ul class="sectlevel3">
+<li><a href="#_hxl_proxy_read_only_native_support_as_data_source">HXL-Proxy (read-only; native support as data source)</a></li>
 </ul>
 </li>
 <li><a href="#JSON-kv"><code>JSON-kv</code>:</a>
@@ -723,12 +728,26 @@ TBX-IATE (id est, https://iate.europa.eu/download-iate) -&gt; HXLTM (...)
 <div class="sect2">
 <h3 id="HXLTM"><code>HXLTM</code></h3>
 <div class="sect3">
-<h4 id="_terminologium_multilinguam_priore_hxl_trānslātiōnem_memoriam">Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam)</h4>
+<h4 id="_terminologium_multilinguam_priore_hxl_trānslātiōnem_memoriam_datum_ideam">Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam), Datum ideam</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  HXLTM:
     __meta:
-      archivum_extensionem: .tm.hxl.csv # .tm.hxl.xlsx, xlsx, ...
+      # archivum_extensionem: .tm.hxl.csv # .tm.hxl.xlsx, xlsx, ...
+      archivum:
+        extensionem:
+          - .tm.hxl.csv
+          - .tm.hxl.xlsx
+          - .hxltm.xml
+          # - .hxltm.tmx
+          # - .hxltm.tbx
+          # - HXL-proxy
+          # - (...)
+      descriptionem: |
+        _[eng-Latn]
+        `ontologia:normam.HXLTM` is an abstraction to several data containers
+        of HXLTM implementation.
+        [eng-Latn]_
       normam:
         - &lt;https://github.com/HXL-CPLP/forum/issues/58&gt;
       nomen:
@@ -801,9 +820,10 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  HXLTM-TMETA:
     __meta:
-      archivum_extensionem: 
-        - .tmeta.json
-        - .tmeta.yml
+      archivum:
+        extensionem:
+          - .tmeta.json
+          - .tmeta.yml
       descriptionem: |
         _[eng-Latn]
         To be documented.
@@ -829,9 +849,10 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli &gt; output-file.tm.hxl.csv
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  HXLTM-ASA:
     __meta:
-      archivum_extensionem: 
-        - .asa.hxltm.json
-        - .asa.hxltm.yml
+      archivum:
+        extensionem:
+          - .asa.hxltm.json
+          - .asa.hxltm.yml
       normam:
         - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA&gt;
       descriptionem: |
@@ -935,7 +956,9 @@ The <code>hxltmcli</code> and (for importing XML, as long as you map the
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  CSV-3:
     __meta:
-      archivum_extensionem: .csv
+      # archivum_extensionem: .csv
+      archivum:
+        extensionem: .csv
       descriptionem: |
         _[eng-Latn]
         The hxltm "CSV-3" export format is a somewhat basic (but at worst case
@@ -1085,7 +1108,8 @@ Olá mundo!,¡Hola mundo!,""
   # @see https://support.google.com/drive/answer/37603
   GSheets:
     __meta:
-      # archivum_extensionem: None
+      archivum:
+        extensionem: # https://docs.google.com/spreadsheets/ (...)
       descriptionem: |
         _[eng-Latn]
         Both URL GSheets and local/remote file of Microsoft Excel have built
@@ -1116,6 +1140,69 @@ Olá mundo!,¡Hola mundo!,""
 </div>
 </div>
 <div class="sect2">
+<h3 id="HXL-Proxy"><code>HXL-Proxy</code>:</h3>
+<div class="sect3">
+<h4 id="_hxl_proxy_read_only_native_support_as_data_source">HXL-Proxy (read-only; native support as data source)</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  #### HXL-Proxy _______________________________________________________________
+  HXL-Proxy:
+    __meta:
+      archivum:
+        extensionem:
+      descriptionem: |
+        _[eng-Latn]
+        HXL Proxy, a tool for cleaning, transforming, merging, and
+        validating data tagged using the Humanitarian Exchange Language (HXL)
+        standard.
+
+        In the context of HXLTM, HXL-Proxy is recommended to use for:
+
+          - HXLate (e.g. add HXL hashtags, like the ones required by HXLTM) to
+            any supported data input by HXL-Proxy (which is a lot)
+          - Do more advanced filter (like removing columns) or merging
+            different datasets by HXLTM concept value with friendly user
+            interface
+
+        When use HXL cli tools (including hxltmcli) and when use HXL-Proxy?
+
+          While hxl cli tools (see
+          &lt;https://github.com/HXLStandard/libhxl-python/wiki/Command-line-tools&gt;
+          and &lt;https://pypi.org/project/libhxl/&gt;) have almost all features
+          of HXL-proxy (in special with use of JSON spec) in real world, under
+          urgency, still faster to set up a private Docker instance than use
+          teach everyone to use the cli tools.
+
+          The HXLTM reference tooling will intentionally NOT implement features
+          that would be possible do with HXL-Proxy. Some viable using HXL
+          Standard cli tools (that would be too complex to explain) may
+          be added either as hxltmcli / hxltmdexml CLI options or via
+          `ontologia:normam.​HXLTM-TMETA`.
+        [eng-Latn]_
+      normam:
+        - &lt;https://github.com/HXLStandard/hxl-proxy/wiki&gt;
+      nomen:
+        eng-Latn: 'HXL-Proxy (read-only; native support as data source)'
+      situs_interretialis:
+        referens_officinale:
+          - &lt;https://github.com/HXLStandard/hxl-proxy&gt;
+
+          # For humanitarian-use only (or to lean HXL), the UN OCHA proxy:
+          - &lt;https://proxy.hxlstandard.org/&gt;
+
+          # For intranets, or for large (500.000 rows) or non-humanitarian use,
+          # please set up your own HXL-proxy using Docker.
+          - &lt;https://hub.docker.com/r/unocha/hxl-proxy&gt;
+
+    asa:
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="JSON-kv"><code>JSON-kv</code>:</h3>
 <div class="sect3">
 <h4 id="_json_key_val_idsource_target_draft">JSON key: val; id/source &#8594; target (draft)</h4>
@@ -1126,7 +1213,8 @@ Olá mundo!,¡Hola mundo!,""
   #       create the exporter
   JSON-kv:
     __meta:
-      archivum_extensionem: .json
+      archivum:
+        extensionem: .json
       descriptionem: |
         _[eng-Latn]
         This export/importer needs to be created. One level is trivial, but 2
@@ -1163,7 +1251,8 @@ Olá mundo!,¡Hola mundo!,""
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  #### TBX-Basic: TermBase eXchange (TBX) Basic _______________________________
   TBX-Basim:
     __meta:
-      archivum_extensionem: .tbx
+      archivum:
+        extensionem: .tbx
       descriptionem: |
         _[eng-Latn]
         See the links
@@ -1295,7 +1384,8 @@ Olá mundo!,¡Hola mundo!,""
   #### Term Base eXchange (TBX) 2008 CC-BY License _____________________________
   # Term Base eXchange (TBX) (identical to ISO 30042:2008)
   TBX-2008:
-    archivum_extensionem: .tbx
+    archivum:
+      extensionem: .tbx
     normam:
       - &lt;https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf&gt;
     situs_interretialis:
@@ -1323,7 +1413,8 @@ Olá mundo!,¡Hola mundo!,""
   #### TermBase eXchange (TBX) ISO 30042:2019 proprietary forma ________________
   TBX-2019:
     __meta:
-      archivum_extensionem: .tbx
+      archivum:
+        extensionem: .tbx
       descriptionem: |
         - &lt;https://www.tbxinfo.net/about/&gt;
         - &lt;https://www.iso.org/standard/62510.html&gt;
@@ -1936,7 +2027,8 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TBX-Basim &gt; res
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  TSV-3:
     __meta:
-      archivum_extensionem: .tab
+      archivum:
+        extensionem: .tab
       descriptionem: |
         _[eng-Latn]
         The hxltm "TSV-3" is que version of the "CSV-3" with tabs.
@@ -2068,7 +2160,8 @@ Teste, 1, 2, 3	Prueba, 1, 2, 3
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  TMX:
     __meta:
-      archivum_extensionem: .tmx
+      archivum:
+        extensionem: .tmx
       normam:
         - https://www.gala-global.org/tmx-14b
         - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd
@@ -2406,7 +2499,8 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-TMX &gt; resultatu
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  UTX:
     __meta:
-      archivum_extensionem: .utx
+      archivum:
+        extensionem: .utx
       situs_interretialis:
         referens_officinale:
           - &lt;http://www.aamt.info/english/utx/&gt;
@@ -2525,11 +2619,17 @@ Salvi mundi!,Olá mundo!,"Hello, World!",¡Hola mundo!,नमस्ते दु
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  XML:
     __meta:
-      archivum_extensionem: .hxltm.xml
+      archivum:
+        extensionem: .hxltm.xml
       descriptionem: |
         _[eng-Latn]
         The .hxltm.xml named 'XML Glōssārium' is an example of multilingual
-        glossary exported to XML format.
+        glossary exported to XML format that can be imported back.
+
+        With help of the reference cli tool, hxltmdexml, the
+        ontologia:normam.XML.de_xml explains how to convert back from the
+        XML file to an HXLTM CSV working file to be able to work with reference
+        cli tool hxltmcli.
         [eng-Latn]_
       normam:
         - &lt;https://hdp.etica.ai/hxltm/archivum/#XML&gt;
@@ -3215,7 +3315,8 @@ cat hxltm-exemplum-linguam.tm.hxl.csv | hxltmcli --objectivum-XML &gt; resultatu
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  # @TODO: JLIFF (XLIFF on JSON) &lt;https://github.com/oasis-tcs/xliff-omos-jliff&gt;
   XLIFF:
     __meta:
-      archivum_extensionem: .xlf
+      archivum:
+        extensionem: .xlf
       situs_interretialis:
         referens_officinale:
           - &lt;https://www.oasis-open.org/committees/xliff/&gt;
@@ -3576,7 +3677,8 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  XLIFF-obsoletum:
     __meta:
-      archivum_extensionem: .xlf
+      archivum:
+        extensionem: .xlf
       situs_interretialis:
         referens_officinale:
           - &lt;https://www.oasis-open.org/committees/xliff/&gt;
@@ -3982,7 +4084,8 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
   # @see https://support.google.com/drive/answer/37603
   XLSX:
     __meta:
-      archivum_extensionem: .xlsx
+      archivum:
+        extensionem: .xlsx
       descriptionem: |
         _[eng-Latn]
         Both URL GSheets and local/remote file of Microsoft Excel have built
@@ -4014,7 +4117,8 @@ hxltmcli hxltm-exemplum-linguam.tm.hxl.csv \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  YAML:
     __meta:
-      archivum_extensionem: .yml
+      archivum:
+        extensionem: .yml
       normam:
         # Not sure where to find some place to 'explain' this format
         - &lt;https://guides.rubyonrails.org/i18n.html&gt;
@@ -5920,7 +6024,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-19 22:54:03 UTC
+Last updated 2021-10-20 00:20:51 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

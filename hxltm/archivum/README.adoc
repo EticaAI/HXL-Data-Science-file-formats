@@ -74,7 +74,7 @@ include::../../bin/hxltmdexml[tag=epilogum]
 
 [#HXLTM]
 === `+HXLTM+`
-==== Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam)
+==== Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam), Datum ideam
 
 ////
 Naming the HXL TM
@@ -204,6 +204,15 @@ include::../../testum/hxltm/resultatum/hxltm-exemplum-linguam.por-Latn_spa-Latn.
 [source,yaml]
 ----
 include::../../ontologia/cor.hxltm.yml[tag=normam_GSheets]
+----
+
+[#HXL-Proxy]
+=== `+HXL-Proxy+`:
+==== HXL-Proxy (read-only; native support as data source)
+
+[source,yaml]
+----
+include::../../ontologia/cor.hxltm.yml[tag=normam_HXL-Proxy]
 ----
 
 [#JSON-kv]

@@ -862,7 +862,9 @@ normam:
   # tag::normam_Ad-Hoc[]
   Ad-Hoc:
     __meta:
-      archivum_extensionem:
+      # archivum_extensionem:
+      archivum:
+        extensionem:
       descriptionem: |
         _[eng-Latn]
         Ad Hoc template
@@ -888,7 +890,9 @@ normam:
   # tag::normam_CSV-3[]
   CSV-3:
     __meta:
-      archivum_extensionem: .csv
+      # archivum_extensionem: .csv
+      archivum:
+        extensionem: .csv
       descriptionem: |
         _[eng-Latn]
         The hxltm "CSV-3" export format is a somewhat basic (but at worst case
@@ -936,6 +940,8 @@ normam:
 
   #### HXLated bilingual CSV (+ up to 5 source alt) for XLIFF___________________
   # tag::normam_CSV-HXL-XLIFF[]
+  # @DEPRECATED: maybe eventually remove this file format. It may still work,
+  #              but already is not fully documented.
   CSV-HXL-XLIFF:
     __meta:
       archivum_extensionem: .xliff.hxl.csv
@@ -1002,7 +1008,8 @@ normam:
   # @see https://support.google.com/drive/answer/37603
   GSheets:
     __meta:
-      # archivum_extensionem: None
+      archivum:
+        extensionem: # https://docs.google.com/spreadsheets/ (...)
       descriptionem: |
         _[eng-Latn]
         Both URL GSheets and local/remote file of Microsoft Excel have built
@@ -1031,11 +1038,82 @@ normam:
 
   # end::normam_GSheets[]
 
-  #### HXLTM: HXL Trānslātiōnem Memoriam ______________________________________
+  # tag::normam_HXL-Proxy[]
+  #### HXL-Proxy _______________________________________________________________
+  HXL-Proxy:
+    __meta:
+      archivum:
+        extensionem:
+      descriptionem: |
+        _[eng-Latn]
+        HXL Proxy, a tool for cleaning, transforming, merging, and
+        validating data tagged using the Humanitarian Exchange Language (HXL)
+        standard.
+
+        In the context of HXLTM, HXL-Proxy is recommended to use for:
+
+          - HXLate (e.g. add HXL hashtags, like the ones required by HXLTM) to
+            any supported data input by HXL-Proxy (which is a lot)
+          - Do more advanced filter (like removing columns) or merging
+            different datasets by HXLTM concept value with friendly user
+            interface
+
+        When use HXL cli tools (including hxltmcli) and when use HXL-Proxy?
+
+          While hxl cli tools (see
+          &lt;https://github.com/HXLStandard/libhxl-python/wiki/Command-line-tools&gt;
+          and &lt;https://pypi.org/project/libhxl/&gt;) have almost all features
+          of HXL-proxy (in special with use of JSON spec) in real world, under
+          urgency, still faster to set up a private Docker instance than use
+          teach everyone to use the cli tools.
+
+          The HXLTM reference tooling will intentionally NOT implement features
+          that would be possible do with HXL-Proxy. Some viable using HXL
+          Standard cli tools (that would be too complex to explain) may
+          be added either as hxltmcli / hxltmdexml CLI options or via
+          `ontologia:normam.​HXLTM-TMETA`.
+        [eng-Latn]_
+      normam:
+        - &lt;https://github.com/HXLStandard/hxl-proxy/wiki&gt;
+      nomen:
+        eng-Latn: 'HXL-Proxy (read-only; native support as data source)'
+      situs_interretialis:
+        referens_officinale:
+          - &lt;https://github.com/HXLStandard/hxl-proxy&gt;
+
+          # For humanitarian-use only (or to lean HXL), the UN OCHA proxy:
+          - &lt;https://proxy.hxlstandard.org/&gt;
+
+          # For intranets, or for large (500.000 rows) or non-humanitarian use,
+          # please set up your own HXL-proxy using Docker.
+          - &lt;https://hub.docker.com/r/unocha/hxl-proxy&gt;
+
+    asa:
+      modus_operandi:
+        - multiplum_linguam
+        # - bilingue
+
+  # end::normam_HXL-Proxy[]
+
+  #### HXLTM: Terminologium Multilinguam (Datum ideam) ________________________
   # tag::normam_HXLTM[]
   HXLTM:
     __meta:
-      archivum_extensionem: .tm.hxl.csv # .tm.hxl.xlsx, xlsx, ...
+      # archivum_extensionem: .tm.hxl.csv # .tm.hxl.xlsx, xlsx, ...
+      archivum:
+        extensionem:
+          - .tm.hxl.csv
+          - .tm.hxl.xlsx
+          - .hxltm.xml
+          # - .hxltm.tmx
+          # - .hxltm.tbx
+          # - HXL-proxy
+          # - (...)
+      descriptionem: |
+        _[eng-Latn]
+        `ontologia:normam.HXLTM` is an abstraction to several data containers
+        of HXLTM implementation.
+        [eng-Latn]_
       normam:
         - &lt;https://github.com/HXL-CPLP/forum/issues/58&gt;
       nomen:
@@ -1045,13 +1123,38 @@ normam:
           - &lt;https://hdp.etica.ai/hxltm&gt;
   # end::normam_HXLTM[]
 
+  #### HXLTM: Terminologium Multilinguam Meta __________________________________
+  # tag::normam_HXLTM-TMETA[]
+  HXLTM-TMETA:
+    __meta:
+      archivum:
+        extensionem:
+          - .tmeta.json
+          - .tmeta.yml
+      descriptionem: |
+        _[eng-Latn]
+        To be documented.
+        [eng-Latn]_
+      normam:
+        - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA&gt;
+      nomen:
+        eng-Latn: 'HXLTM Terminologium Multilinguam Meta'
+      situs_interretialis:
+        referens_officinale:
+          - &lt;https://hdp.etica.ai/hxltm&gt;
+          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM&gt;
+          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/24&gt;
+
+  # end::normam_HXLTM-TMETA[]
+
   #### HXLTM: Terminologium Multilinguam Abstractum Syntaxim Arborem ___________
   # tag::normam_HXLTM-ASA[]
   HXLTM-ASA:
     __meta:
-      archivum_extensionem: 
-        - .asa.hxltm.json
-        - .asa.hxltm.yml
+      archivum:
+        extensionem:
+          - .asa.hxltm.json
+          - .asa.hxltm.yml
       normam:
         - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-ASA&gt;
       descriptionem: |
@@ -1087,29 +1190,6 @@ normam:
 
   # end::normam_HXLTM-ASA[]
 
-  #### HXLTM: Terminologium Multilinguam Meta __________________________________
-  # tag::normam_HXLTM-TMETA[]
-  HXLTM-TMETA:
-    __meta:
-      archivum_extensionem: 
-        - .tmeta.json
-        - .tmeta.yml
-      descriptionem: |
-        _[eng-Latn]
-        To be documented.
-        [eng-Latn]_
-      normam:
-        - &lt;https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA&gt;
-      nomen:
-        eng-Latn: 'HXLTM Terminologium Multilinguam Meta'
-      situs_interretialis:
-        referens_officinale:
-          - &lt;https://hdp.etica.ai/hxltm&gt;
-          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/labels/HXLTM&gt;
-          - &lt;https://github.com/EticaAI/HXL-Data-Science-file-formats/issues/24&gt;
-
-  # end::normam_HXLTM-TMETA[]
-
   #### JSON-kv: JSON key: val; id/source -&gt; target _____________________________
   # tag::normam_JSON-kv[]
 
@@ -1118,7 +1198,8 @@ normam:
   #       create the exporter
   JSON-kv:
     __meta:
-      archivum_extensionem: .json
+      archivum:
+        extensionem: .json
       descriptionem: |
         _[eng-Latn]
         This export/importer needs to be created. One level is trivial, but 2
@@ -1148,7 +1229,8 @@ normam:
   # tag::normam_TSV-3[]
   TSV-3:
     __meta:
-      archivum_extensionem: .tab
+      archivum:
+        extensionem: .tab
       descriptionem: |
         _[eng-Latn]
         The hxltm "TSV-3" is que version of the "CSV-3" with tabs.
@@ -1191,7 +1273,8 @@ normam:
   #### TBX-Basic: TermBase eXchange (TBX) Basic _______________________________
   TBX-Basim:
     __meta:
-      archivum_extensionem: .tbx
+      archivum:
+        extensionem: .tbx
       descriptionem: |
         _[eng-Latn]
         See the links
@@ -1323,7 +1406,8 @@ normam:
   #### Term Base eXchange (TBX) 2008 CC-BY License _____________________________
   # Term Base eXchange (TBX) (identical to ISO 30042:2008)
   TBX-2008:
-    archivum_extensionem: .tbx
+    archivum:
+      extensionem: .tbx
     normam:
       - &lt;https://www.gala-global.org/sites/default/files/migrated-pages/docs/tbx_oscar_0.pdf&gt;
     situs_interretialis:
@@ -1351,7 +1435,8 @@ normam:
   #### TermBase eXchange (TBX) ISO 30042:2019 proprietary forma ________________
   TBX-2019:
     __meta:
-      archivum_extensionem: .tbx
+      archivum:
+        extensionem: .tbx
       descriptionem: |
         - &lt;https://www.tbxinfo.net/about/&gt;
         - &lt;https://www.iso.org/standard/62510.html&gt;
@@ -1510,7 +1595,8 @@ normam:
   # tag::normam_TMX[]
   TMX:
     __meta:
-      archivum_extensionem: .tmx
+      archivum:
+        extensionem: .tmx
       normam:
         - https://www.gala-global.org/tmx-14b
         - https://www.gala-global.org/sites/default/files/migrated-pages/docs/tmx14%20%281%29.dtd
@@ -1602,7 +1688,8 @@ normam:
   # tag::normam_UTX[]
   UTX:
     __meta:
-      archivum_extensionem: .utx
+      archivum:
+        extensionem: .utx
       situs_interretialis:
         referens_officinale:
           - &lt;http://www.aamt.info/english/utx/&gt;
@@ -1655,11 +1742,17 @@ normam:
   # tag::normam_XML[]
   XML:
     __meta:
-      archivum_extensionem: .hxltm.xml
+      archivum:
+        extensionem: .hxltm.xml
       descriptionem: |
         _[eng-Latn]
         The .hxltm.xml named 'XML Glōssārium' is an example of multilingual
-        glossary exported to XML format.
+        glossary exported to XML format that can be imported back.
+
+        With help of the reference cli tool, hxltmdexml, the
+        ontologia:normam.XML.de_xml explains how to convert back from the
+        XML file to an HXLTM CSV working file to be able to work with reference
+        cli tool hxltmcli.
         [eng-Latn]_
       normam:
         - &lt;https://hdp.etica.ai/hxltm/archivum/#XML&gt;
@@ -1812,7 +1905,8 @@ normam:
   # @TODO: JLIFF (XLIFF on JSON) &lt;https://github.com/oasis-tcs/xliff-omos-jliff&gt;
   XLIFF:
     __meta:
-      archivum_extensionem: .xlf
+      archivum:
+        extensionem: .xlf
       situs_interretialis:
         referens_officinale:
           - &lt;https://www.oasis-open.org/committees/xliff/&gt;
@@ -1951,7 +2045,8 @@ normam:
   # tag::normam_XLIFF-obsoletum[]
   XLIFF-obsoletum:
     __meta:
-      archivum_extensionem: .xlf
+      archivum:
+        extensionem: .xlf
       situs_interretialis:
         referens_officinale:
           - &lt;https://www.oasis-open.org/committees/xliff/&gt;
@@ -2134,7 +2229,8 @@ normam:
   # @see https://support.google.com/drive/answer/37603
   XLSX:
     __meta:
-      archivum_extensionem: .xlsx
+      archivum:
+        extensionem: .xlsx
       descriptionem: |
         _[eng-Latn]
         Both URL GSheets and local/remote file of Microsoft Excel have built
@@ -2161,7 +2257,8 @@ normam:
   # tag::normam_YAML[]
   YAML:
     __meta:
-      archivum_extensionem: .yml
+      archivum:
+        extensionem: .yml
       normam:
         # Not sure where to find some place to 'explain' this format
         - &lt;https://guides.rubyonrails.org/i18n.html&gt;
@@ -3693,7 +3790,7 @@ without asking permission.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-19 22:54:03 UTC
+Last updated 2021-10-20 00:20:51 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
