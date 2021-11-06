@@ -33,6 +33,7 @@
 #      REVISION:  2021-07-24 17:49 UTC v0.2.0 hxltmdexml at least read XML
 #                 2021-07-25 23:28 UTC v0.5.0 XLIFF 1.2 and XLIFF 2.1 (MVP)
 #                 2021-07-28 22:01 UTC v0.7.0 TBX-IATE (MVP), TMX (MVP)
+#                 2021-11-06 21:19 UTC v0.8.0 Fix cli importing; more stable
 # ==============================================================================
 """hxltmdexml.py: Humanitarian Exchange Language Trānslātiōnem Memoriam de XML
 
@@ -188,7 +189,7 @@ import yaml
 # pip3 install langcodes
 # import langcodes
 
-__VERSION__ = "v0.7.0"
+__VERSION__ = "v0.7.1"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -3588,3 +3589,10 @@ if __name__ == "__main__":
     args_ = hxltmdexml.make_args()
 
     hxltmdexml.execute_cli(args_)
+
+
+def exec_from_console_scripts():
+    hxltmdexml_ = HXLTMDeXMLCli()
+    args2_ = hxltmdexml_.make_args()
+
+    hxltmdexml_.execute_cli(args2_)

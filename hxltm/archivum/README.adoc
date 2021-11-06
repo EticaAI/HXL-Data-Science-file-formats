@@ -1,4 +1,4 @@
-= `+HXLTM+` Terminologius Multilinguam: archīvum fōrmātum normam
+= `+HXLTM+` Terminologia Multilinguae: archīvum fōrmātum normam
 :toc: preamble
 :toclevels: 3
 :icons: font
@@ -26,7 +26,7 @@ Drive]]
 
 NOTE: `+hxltmcli+` uses Python 3 and the reference version can be installed
      with https://pypi.org/project/hdp-toolchain/[hdp-toolchain].
-     TL;DR: `pip install hdp-toolchain`. *The result of the lastest
+     TL;DR: `pip install hdp-toolchain[hxltm]`. *The result of the lastest
      link:++#hxltmcli--help++[hxltmcli --help. is on the bottom of this page].*
 
 NOTE: The https://github.com/EticaAI/HXL-Data-Science-file-formats/blob/main/ontologia/cor.hxltm.yml[HXLTM core ontology cor.hxltm.yml]
@@ -74,12 +74,12 @@ include::../../bin/hxltmdexml[tag=epilogum]
 
 [#HXLTM]
 === `+HXLTM+`
-==== Terminologius Multilinguam (priore HXL Trānslātiōnem Memoriam), Datum ideam
+==== Terminologia Multilinguae (priore HXL Trānslātiōnem Memoriam), Datum ideam
 
 ////
 Naming the HXL TM
 
-Terminologius Multilinguam
+Terminologia Multilinguae
 
 - https://en.wiktionary.org/wiki/terminus#Latin
 - https://en.wiktionary.org/wiki/logium#Latin
@@ -123,7 +123,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 
 [#HXLTM-TMETA]
 === `+HXLTM-TMETA+`:
-==== HXLTM Terminologius Multilinguam Meta
+==== HXLTM Terminologia Multilinguae Meta
 
 [source,yaml]
 ----
@@ -460,7 +460,7 @@ include::../../ontologia/cor.hxltm.yml[tag=ontologia_datum_typum]
 ----
 # hxltmcli can be installed with hdp-toolchain
 # @see https://pypi.org/project/hdp-toolchain/
-pip install hdp-toolchain
+pip install hdp-toolchain[hxltm]
 
 hxltmcli --help
 ----
@@ -476,7 +476,7 @@ include::../../testum/hxltm/hxltmcli--help_eng-Latn.txt[]
 ----
 # hxltmdexml can be installed with hdp-toolchain
 # @see https://pypi.org/project/hdp-toolchain/
-pip install hdp-toolchain
+pip install hdp-toolchain[hxltm]
 
 hxltmdexml --help
 ----
