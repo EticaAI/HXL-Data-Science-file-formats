@@ -1,4 +1,4 @@
-= HXLM: Humanitarian Exchange Language Terminologium Multilinguam
+= HXLM: Multilingual Terminology in Humanitarian Language Exchange
 :toc: preamble
 :icons: font
 :source-highlighter: highlight.js
@@ -14,7 +14,7 @@ image:https://img.shields.io/github/license/EticaAI/HXL-Data-Science-file-format
 https://docs.google.com/spreadsheets/d/1ih3ouvx_n8W5ntNcYBqoyZ2NRMdaA0LRg5F9mGriZm4/edit#gid=470146486[image:https://img.shields.io/badge/Google%20Drive-HXL--CPLP--Vocab_Auxilium--Humanitarium--API-yellowgreen[Google
 Drive]]
 
-The _Humanitarian Exchange Language Trānslātiōnem Memoriam_
+The _Multilingual Terminology in Humanitarian Language Exchange_
 (abbreviation: "`HXLTM`") is an HXLated valid tabular format (stricly, a
 documented subset of https://hxlstandard.org/[HXL]) by
 https://github.com/HXL-CPLP[HXL-CPLP] with strong focus to store community
@@ -282,6 +282,7 @@ authenticated requests. **Our recomendations on this case is:**
 
 ////
 
+[#presentations]
 == Presentations
 
 [#bootstrapping-hxltm]
@@ -292,6 +293,7 @@ https://docs.google.com/presentation/d/11t8EMTtT8mV9NM0Dy7kCHDZEYkmSeyh7OA5CX50_
 ==== por-Latn: Como criar do zero traduções técnicas e vocabulários controlados multilíngues com HXLTM
 https://docs.google.com/presentation/d/1wEw9MmEAQypn20XLSDETbV3q2Nlf9ICwn3q970Du1es/edit?usp=sharing[por-Latn: Como criar do zero traduções técnicas e vocabulários controlados multilíngues com HXLTM]
 
+[#ontologia]
 == Ontologia
 
 NOTE: Most features feasible to not hardcode (id est, require you to hack the
