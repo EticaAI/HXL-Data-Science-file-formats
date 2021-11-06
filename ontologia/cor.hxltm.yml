@@ -12,7 +12,7 @@ __ontologia_cor_versionem__:  v0.8.6+EticaAI+voluntārium-commūne
 #   - https://hxlstandard.org/
 # - "Trānslātiōnem Memoriam"
 #   - https://www.wikidata.org/wiki/Q333761
-# - "Terminologium Multilinguam"
+# - "Terminologius Multilinguam"
 #   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
 # - "HXL Trānslātiōnem Memoriam" (priore)
 #   - https://github.com/EticaAI/HXL-Data-Science-file-formats#HXLTM
@@ -316,7 +316,7 @@ normam:
 
   # end::normam_HXL-Proxy[]
 
-  #### HXLTM: Terminologium Multilinguam (Datum ideam) ________________________
+  #### HXLTM: Terminologius Multilinguam (Datum ideam) ________________________
   # tag::normam_HXLTM[]
   HXLTM:
     __meta:
@@ -365,13 +365,13 @@ normam:
       normam:
         - <https://github.com/HXL-CPLP/forum/issues/58>
       nomen:
-        eng-Latn: 'HXLTM: Terminologium Multilinguam (Datum ideam)'
+        eng-Latn: 'HXLTM: Terminologius Multilinguam (Datum ideam)'
       situs_interretialis:
         referens_officinale:
           - <https://hdp.etica.ai/hxltm>
   # end::normam_HXLTM[]
 
-  #### HXLTM: Terminologium Multilinguam Meta __________________________________
+  #### HXLTM: Terminologius Multilinguam Meta __________________________________
   # tag::normam_HXLTM-TMETA[]
   HXLTM-TMETA:
     __meta:
@@ -386,7 +386,7 @@ normam:
       normam:
         - <https://hdp.etica.ai/hxltm/archivum/#HXLTM-TMETA>
       nomen:
-        eng-Latn: 'HXLTM Terminologium Multilinguam Meta'
+        eng-Latn: 'HXLTM Terminologius Multilinguam Meta'
       situs_interretialis:
         referens_officinale:
           - <https://hdp.etica.ai/hxltm>
@@ -395,7 +395,7 @@ normam:
 
   # end::normam_HXLTM-TMETA[]
 
-  #### HXLTM: Terminologium Multilinguam Abstractum Syntaxim Arborem ___________
+  #### HXLTM: Terminologius Multilinguam Abstractum Syntaxim Arborem ___________
   # tag::normam_HXLTM-ASA[]
   HXLTM-ASA:
     __meta:

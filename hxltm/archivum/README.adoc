@@ -1,4 +1,4 @@
-= `+HXLTM+` Terminologium Multilinguam: archīvum fōrmātum normam
+= `+HXLTM+` Terminologius Multilinguam: archīvum fōrmātum normam
 :toc: preamble
 :toclevels: 3
 :icons: font
@@ -74,12 +74,12 @@ include::../../bin/hxltmdexml[tag=epilogum]
 
 [#HXLTM]
 === `+HXLTM+`
-==== Terminologium Multilinguam (priore HXL Trānslātiōnem Memoriam), Datum ideam
+==== Terminologius Multilinguam (priore HXL Trānslātiōnem Memoriam), Datum ideam
 
 ////
 Naming the HXL TM
 
-Terminologium Multilinguam
+Terminologius Multilinguam
 
 - https://en.wiktionary.org/wiki/terminus#Latin
 - https://en.wiktionary.org/wiki/logium#Latin
@@ -123,7 +123,7 @@ include::../../testum/hxltm/disciplinam-manuale-anglicum.sh[tag=CSV-HXL-XLIFF]
 
 [#HXLTM-TMETA]
 === `+HXLTM-TMETA+`:
-==== HXLTM Terminologium Multilinguam Meta
+==== HXLTM Terminologius Multilinguam Meta
 
 [source,yaml]
 ----
