@@ -46,7 +46,7 @@
 #       COMPANY:  EticaAI
 #       LICENSE:  Public Domain dedication
 #                 SPDX-License-Identifier: Unlicense
-#       VERSION:  v0.8.7
+#       VERSION:  v0.8.8
 #       CREATED:  2021-06-27 19:50 UTC v0.5, de github.com/EticaAI
 #                     /HXL-Data-Science-file-formats/blob/main/bin/hxl2example
 #      REVISION:  2021-06-27 21:16 UTC v0.6 de hxl2tab
@@ -62,6 +62,8 @@
 #                 2021-07-19 17:50 UTC v0.8.5 HXLTM ASA MVP XLIFF 1, TBX-Basic
 #                 2021-07-20 00:32 UTC v0.8.6 HXLTM ASA MVP CSV-3, TSV-3
 #                 2021-10-15 17:08 UTC v0.8.7 MVP of --objectivum-formulam
+#                 2021-10-15 17:08 UTC v0.8.8 --objectivum-formulam, allow
+#                      save result to file (was working for stdout)
 # ==============================================================================
 """hxltmcli.py: Humanitarian Exchange Language Trānslātiōnem Memoriam CLI
 
@@ -245,7 +247,7 @@ from liquid.token import Token as LiquidToken
 from liquid.context import Context as LiquidContext
 # from liquid.token import TOKEN_EXPRESSION as LIQUID_TOKEN_EXPRESSION
 
-__VERSION__ = "v0.8.7"
+__VERSION__ = "v0.8.8"
 
 # _[eng-Latn]
 # Note: If you are doing a fork and making it public, please customize
@@ -4430,9 +4432,11 @@ Salvi, {{ i }}! \
         resultatum = self.datum_initiale()
         corporeum = self.datum_corporeum()
         finale = self.datum_finale()
+        especiale = self.datum_especiale()
 
         resultatum += corporeum
         resultatum += finale
+        resultatum += especiale
 
         return resultatum
 
